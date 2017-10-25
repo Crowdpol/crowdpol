@@ -19,5 +19,9 @@
 	"logged-in-title": "Du är redan inloggad.",
 	"verify-account-message": "Kontrollera din e-postadress innan du fortsätter.",
 	"verify-resend-link": "Skicka om verifieringslänk igen",
-	"verify-success-message": "Bekräftad! Du kan göra saker!"
+	"verify-success-message": "Bekräftad! Du kan göra saker!",
+	"new-password": "Nytt Lösenord",
+	"recovery-email": "Återställningsmail",
+	"submit": "Lämna",
+	"reset-password-message": "Ange din e-post för att få instruktioner för att återställa ditt lösenord."
 }

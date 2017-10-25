@@ -38,6 +38,16 @@ FlowRouter.route('/verify-email/:token',{
 	}
 }); 
 
+//Password recovery
+FlowRouter.route('/forgot-password', {
+  name: 'App.password-recovery',
+  action() {
+   /* if (Accounts._resetPasswordToken) {
+    Session.set('resetPassword', Accounts._resetPasswordToken);
+  } */
+    BlazeLayout.render('App_body', { main: 'passwordRecovery' });
+  },
+});
 
 FlowRouter.route('/login', {
   name: 'App.login',
