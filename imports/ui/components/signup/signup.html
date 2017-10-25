@@ -1,17 +1,22 @@
 <template name="signup">
-
-<form id="signup" class="signup">
-  <div class="mdl-textfield mdl-js-textfield">
-    <label class="mdl-textfield__label" for="emailAddress">Email Address</label>
-    <input type="email" name="emailAddress" class="mdl-textfield__input" placeholder="Email Address">
-  </div>
-  <div class="mdl-textfield mdl-js-textfield">
-    <label class="mdl-textfield__label" for="password">Password</label>
-    <input type="password" name="password" class="mdl-textfield__input" placeholder="Password">
-  </div>
-  <div class="form-group">
-    <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value="Sign Up">
-  </div>
-</form>
-
-</template> 
+    <form class="signup" id="signup">
+        <div class="mdl-textfield mdl-js-textfield">
+            <label class="mdl-textfield__label" for="emailAddress">
+                Email Address
+            </label>
+            <input class="mdl-textfield__input" name="emailAddress" placeholder="Email Address" type="email">
+            </input>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            <label class="mdl-textfield__label" for="password">
+                Password
+            </label>
+            <input class="mdl-textfield__input" name="password" placeholder="Password" type="password">
+            </input>
+        </div>
+        <div class="form-group">
+            <input class="mdl-button mdl-js-button mdl-button--raised" type="submit" value="Sign Up">
+            </input>
+        </div>
+    </form>
+</template>
