@@ -1,7 +1,12 @@
 <template name="Login">
   <div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--12-col">
-			Login
+			{{#if currentUser}}
+				{{> index}}
+			{{else}}
+				<p>Please sign up below to start doing things:</p>
+				{{> signup}}
+			{{/if}}
 		</div>
 	</div>
 </template>
