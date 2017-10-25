@@ -24,5 +24,7 @@
 	"new-password": "New password",
 	"recovery-email": "Recovery email",
 	"submit": "Submit",
-	"reset-password-message": "Enter your email to receive instructions for resetting your password." 
+	"reset-password-message": "Enter your email to receive instructions for resetting your password." ,
+	"reset-password-sent-message": "An email with password recovery instructions has been sent.",
+	"password-changed": "Your password has been changed successfully."
 }

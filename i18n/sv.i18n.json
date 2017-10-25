@@ -23,5 +23,7 @@
 	"new-password": "Nytt Lösenord",
 	"recovery-email": "Återställningsmail",
 	"submit": "Lämna",
-	"reset-password-message": "Ange din e-post för att få instruktioner för att återställa ditt lösenord."
+	"reset-password-message": "Ange din e-post för att få instruktioner för att återställa ditt lösenord.",
+	"reset-password-sent-message": "Ett e-mail med instruktioner för återställning av lösenord har skickats.",
+	"password-changed": "Ditt lösenord har ändrats framgångsrikt."
 }
