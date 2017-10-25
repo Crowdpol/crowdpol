@@ -1,0 +1,24 @@
+<template name="Dash">
+	<div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--12-col">
+			<h1>{{_ "dash-title"}}</h1>
+			<!-- NOTE: This will have to be updated later on the permissions tickets. FlowRouter groups can manage this -->
+			{{#if currentUser}}
+				{{#unless currentUser.emails.[0].verified}}
+					<p>{{_ "verify-account-message"}}</p>
+					<p><a href="#" class="resend-verification-link">{{_ "verify-resend-link"}}</a></p>
+				{{else}}
+					<p>{{_ "verify-success-message"}}</p>
+				{{/unless}}
+				<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
+					{{_ "logout"}}
+				</button>
+			{{else}}
+				<p>{{_ "authentication-required-message"}}</p>
+				<button id="log-in" class="mdl-button mdl-js-button mdl-button--raised">
+					{{_ "login"}}
+				</button>
+			{{/if}}
+		</div>
+	</div>
+</template>

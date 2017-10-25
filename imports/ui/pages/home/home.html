@@ -2,11 +2,7 @@
 <template name="Home">
   <div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--12-col">
-			{{#if currentUser}}
-				{{> index}}
-			{{else}}
-				Please sign up or log in to continue.
-			{{/if}}	
+			<h1>{{_ "home-title"}}</h1>
 		</div>
 	</div>
 </template>

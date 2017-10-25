@@ -1,6 +1,6 @@
-import './index.html';
+import './dash.html';
 
-Template.index.events({
+Template.Dash.events({
 	'click .resend-verification-link' (event, template){
 		Meteor.call('sendVerificationLink', (error, response) => {
 			if (error){
@@ -15,5 +15,8 @@ Template.index.events({
 	'click #log-out' (event, template){
 		event.preventDefault();
 		Meteor.logout();
+	},
+	'click #log-in' (event, template){
+		FlowRouter.go('/login');
 	}
 });

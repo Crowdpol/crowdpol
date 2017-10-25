@@ -15,4 +15,8 @@ Template.Header.events({
     Session.set("i18n_lang",lang)
     TAPi18n.setLanguage(lang);
   },
+  'click #nav-logout' : function(e){
+    event.preventDefault();
+	Meteor.logout();
+  },
 });

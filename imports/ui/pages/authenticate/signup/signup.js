@@ -1,6 +1,6 @@
 import './signup.html';
 
-Template.signup.events({
+Template.Signup.events({
 	'submit form' (event, template){
 		event.preventDefault();
 

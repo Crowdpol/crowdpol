@@ -1,6 +1,6 @@
 import './login.html';
 
-Template.login.events({
+Template.Login.events({
 	'submit form' (event, template){
 		event.preventDefault();
 
@@ -11,7 +11,7 @@ Template.login.events({
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				FlowRouter.go('/');
+				FlowRouter.go('/dash');
 			}
 		});
 	}

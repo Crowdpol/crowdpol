@@ -4,6 +4,10 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 // Import needed templates
 import '../../ui/main.js';
 
+Accounts.onLogout(function() {
+	FlowRouter.go('App.home');
+});
+
 // Set up all routes in the app
 FlowRouter.route('/', {
   name: 'App.home',
@@ -27,7 +31,7 @@ FlowRouter.route('/verify-email/:token',{
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				FlowRouter.go('/');
+				FlowRouter.go('App.dash');
 				Bert.alert('Email verified!', 'success');
 			}
 		});
@@ -38,7 +42,14 @@ FlowRouter.route('/verify-email/:token',{
 FlowRouter.route('/login', {
   name: 'App.login',
   action() {
-    BlazeLayout.render('App_body', { main: 'Login' });
+    BlazeLayout.render('App_body', { main: 'Authenticate' });
+  },
+});
+
+FlowRouter.route('/dash', {
+  name: 'App.dash',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Dash' });
   },
 });
 

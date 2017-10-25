@@ -1,0 +1,19 @@
+<template name="Authenticate">
+  <div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--12-col">
+			{{#if currentUser}}
+				<p>{{_ "logged-in-title"}}</p>
+				<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
+					{{_ "logout"}}
+				</button>
+			{{else}}
+				<p>{{_ "login-title"}}</p>
+				{{> Login}}
+				<hr>
+				<p>{{_ "signup-title"}}</p>
+				{{> Signup}}
+			{{/if}}
+		</div>
+	</div>
+</template>
+

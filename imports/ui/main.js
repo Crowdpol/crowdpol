@@ -1,5 +1,5 @@
 /*
-                           welcome to                                                                                   
+                             welcome to                                                                                   
 		  	___    ___     ___ ___     ___ ___     ___     ___    
 		 	 /'___\ / __`\ /' __` __`\ /' __` __`\  / __`\ /' _ `\  
 			/\ \__//\ \L\ \/\ \/\ \/\ \/\ \/\ \/\ \/\ \L\ \/\ \/\ \ 
@@ -12,7 +12,7 @@
  \/__,_ /\/____/\/_/\/_/\/_/\/___/  \/____/ \/_/ \/__/\/_/\/____/ `/___/> \
                                                                      /\___/
                                                                      \/__/ 
-
+										(this only looks pretty at tab size: 2)
 */
 
 import { Meteor } from 'meteor/meteor';
@@ -23,7 +23,8 @@ import { Session } from 'meteor/session';
 import './layouts/body/body.js';
 import './pages/home/home.js';
 import './pages/not-found/not-found.js';
-import './pages/login/login.js';
+import './pages/authenticate/authenticate.js';
+import './pages/dash/dash.js';
 
 Meteor.startup(function () {
 	// setup language
