@@ -1,7 +1,12 @@
-<template name="App_home">
-	{{#if currentUser}}
-		{{> index}}
-	{{else}}
-		{{> signup}}
-	{{/if}}	
+
+<template name="Home">
+  <div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--12-col">
+			{{#if currentUser}}
+				{{> index}}
+			{{else}}
+				{{> signup}}
+			{{/if}}	
+		</div>
+	</div>
 </template>

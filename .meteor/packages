@@ -4,6 +4,7 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
+#-- default meteor packes --
 meteor-base@1.1.0             # Packages every Meteor app needs to have
 mobile-experience@1.0.5       # Packages for a great mobile UX
 mongo@1.2.2                   # The database Meteor supports right now
@@ -19,12 +20,20 @@ shell-server@0.2.4            # Server-side component of the `meteor shell` comm
 
 kadira:flow-router      # FlowRouter is a very simple router for Meteor
 kadira:blaze-layout     # Layout manager for blaze (works well with FlowRouter)
-less@2.7.9                    # Leaner CSS language
-
 
 practicalmeteor:mocha             # A package for writing and running your meteor app and package tests with mocha
 johanbrook:publication-collector  # Test a Meteor publication by collecting its output
 
+#-- user acounts --
 accounts-password
+accounts-facebook
+accounts-google
+service-configuration
+alanning:roles
+
+#-- material design --
+zodiase:mdl
+
+#-- tools --
 themeteorchef:bert
 email
