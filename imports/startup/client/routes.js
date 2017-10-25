@@ -19,3 +19,18 @@ FlowRouter.notFound = {
     BlazeLayout.render('App_body', { main: 'App_notFound' });
   },
 };
+
+// Email Verification
+FlowRouter.route('/verify-email/:token',{
+	name: 'verify-email',
+	action(params) {
+		Accounts.verifyEmail(params.token, (error) => {
+			if (error) {
+				Bert.alert(error.reason, 'danger');
+			} else {
+				FlowRouter.go('/');
+				Bert.alert('Email verified!', 'success');
+			}
+		});
+	}
+}); 

@@ -1,4 +1,7 @@
 <template name="App_home">
-  {{> hello}}
-  {{> info}}
+	{{#if currentUser}}
+		{{> index}}
+	{{else}}
+		{{> signup}}
+	{{/if}}	
 </template>
