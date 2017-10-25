@@ -1,0 +1,11 @@
+{ 
+	"app_title": "Gemensam Demokrati",
+	"nav_home": "Hem",
+	"nav_login": "Logga in",
+	"hello": "Hej världen!",
+	"login" : "Logga in",
+	"not-found_message": "Tyvärr, den sidan finns inte",
+	"not-found_home-link": "Gå till hemmet",
+	"lang_en": "Engelsk",
+	"lang_sv": "Svenska"
+}

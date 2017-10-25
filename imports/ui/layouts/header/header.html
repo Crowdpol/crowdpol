@@ -5,14 +5,25 @@
       <!-- Header Content Here -->
 
       <!-- Title -->
-      <span class="mdl-layout-title">Common Democracy</span>
+      <span class="mdl-layout-title">{{_ "app_title"}}</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link" href="/">Home</a>
-        <a class="mdl-navigation__link" href="/login">Login</a>
-        <!--<i class="material-icons mdl-list__item-icon">person</i>-->
+        <a class="mdl-navigation__link" href="/">{{_ "nav_home"}}</a>
+        <a class="mdl-navigation__link" href="/login">{{_ "nav_login"}}</a>
+        
+        <!-- Right aligned menu below button -->
+        <button id="demo-menu-lower-right"
+                class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">language</i>
+        </button>
+        {{ lang }}
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+            for="demo-menu-lower-right">
+          <li class="mdl-menu__item lang-sel" id="en">{{_ "lang_en"}}</li>
+          <li class="mdl-menu__item lang-sel" id="sv">{{_ "lang_sv"}}</li>
+        </ul>
       </nav>
     </div>
   </header>
