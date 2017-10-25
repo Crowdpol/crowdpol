@@ -9,11 +9,10 @@ Template.signup.events({
 			password: template.find('[name="password"]').value
 		};
 
-		Accounts.createUser(user, ( error ) => {
+		Accounts.createUser(user, (error) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				console.log('everything is ok');
 				Meteor.call('sendVerificationLink', (error, response) => {
 					if (error){
 						Bert.alert(error.reason, 'danger');

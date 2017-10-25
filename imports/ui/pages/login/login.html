@@ -4,7 +4,9 @@
 			{{#if currentUser}}
 				{{> index}}
 			{{else}}
-				<p>Please sign up below to start doing things:</p>
+				<p>Login to get started:</p>
+				{{> login}}
+				<p>No account yet? Sign up below:</p>
 				{{> signup}}
 			{{/if}}
 		</div>

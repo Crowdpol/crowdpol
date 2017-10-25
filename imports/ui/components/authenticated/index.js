@@ -10,5 +10,10 @@ Template.index.events({
 				Bert.alert('Verification sent to ${email}', 'success');
 			}
 		});
+	},
+
+	'click #log-out' (event, template){
+		event.preventDefault();
+		Meteor.logout();
 	}
 });
