@@ -1,2 +1,4 @@
 import './body.html';
-import './../../dash/dash.js'
+import '../header/header.js'
+import '../drawer/drawer.js'
+import '../footer/footer.js'
