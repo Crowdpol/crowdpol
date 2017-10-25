@@ -1,0 +1,11 @@
+{ 
+	"app_title": "Common Democracy",
+	"nav_home": "Home",
+	"nav_login": "Login",
+	"hello": "Hello World!",
+	"login" : "Login",
+	"not-found_message": "Sorry, that page doesn't exist",
+	"not-found_home-link": "Go to home",
+	"lang_en": "English",
+	"lang_sv": "Swedish"
+}

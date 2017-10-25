@@ -24,6 +24,9 @@ kadira:blaze-layout     # Layout manager for blaze (works well with FlowRouter)
 practicalmeteor:mocha             # A package for writing and running your meteor app and package tests with mocha
 johanbrook:publication-collector  # Test a Meteor publication by collecting its output
 
+#-- internationalization --
+tap:i18n
+
 #-- user acounts --
 accounts-password
 accounts-facebook
