@@ -19,5 +19,6 @@
 	"logged-in-title": "Du är redan inloggad.",
 	"verify-account-message": "Kontrollera din e-postadress innan du fortsätter.",
 	"verify-resend-link": "Skicka om verifieringslänk igen",
-	"verify-success-message": "Bekräftad! Du kan göra saker!"
+	"verify-success-message": "Bekräftad! Du kan göra saker!",
+	"login-social": "Logga in med sociala medier"
 }
