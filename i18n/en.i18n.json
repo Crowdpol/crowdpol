@@ -1,6 +1,7 @@
 { 
 	"app_title": "Common Democracy",
 	"nav_home": "Home",
+	"nav_contact": "Contact",
 	"nav_login": "Login",
 	"nav_logout": "Logout",
 	"home-title": "Home Page",
@@ -20,5 +21,8 @@
 	"verify-account-message": "Please verify your email address before continuing.",
 	"verify-resend-link": "Resend Verification Link",
 	"verify-success-message": "Verified! You can do things!",
-	"authentication-required-message": "You do not have access to this page. Please login or signup for an account."
+	"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",
+	"name": "Name",
+	"subject": "Subject",
+	"contact-message": "Your message:"
 }

@@ -1,6 +1,7 @@
 { 
 	"app_title": "Gemensam Demokrati",
 	"nav_home": "Hem",
+	"nav_contact": "Kontakta",
 	"nav_login": "Logga in",
 	"nav_logout": "Logga ut",
 	"home-title": "hemsida",
@@ -19,5 +20,8 @@
 	"logged-in-title": "Du är redan inloggad.",
 	"verify-account-message": "Kontrollera din e-postadress innan du fortsätter.",
 	"verify-resend-link": "Skicka om verifieringslänk igen",
-	"verify-success-message": "Bekräftad! Du kan göra saker!"
+	"verify-success-message": "Bekräftad! Du kan göra saker!",
+	"name": "Namn",
+	"subject": "Ämne",
+	"contact-message": "Ditt meddelande:"
 }
