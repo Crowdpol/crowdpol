@@ -1,7 +1,5 @@
 Meteor.methods({
   sendContactMessage(message) {
-    check(message, Object);
-
     Meteor.defer(() => {
       Email.send({
         to: 'Common Democracy <tspangenberg1@gmail.com>',
@@ -10,5 +8,5 @@ Meteor.methods({
         text: message.message,
       });
     });
-  },
+  }
 });

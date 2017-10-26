@@ -16,7 +16,7 @@ Template.contact.events({
 				Bert.alert(error.reason, 'danger');
 			} else {
 				template.find('#contact-form').reset();
-				Bert.alert('Message was sent!', 'success');+
+				Bert.alert('Message was sent!', 'success');
 			}
 		});
 	}
