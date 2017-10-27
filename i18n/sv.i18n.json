@@ -1,6 +1,7 @@
 { 
 	"app_title": "Gemensam Demokrati",
 	"nav_home": "Hem",
+	"nav_contact": "Kontakta",
 	"nav_login": "Logga in",
 	"nav_logout": "Logga ut",
 	"home-title": "hemsida",
@@ -40,5 +41,8 @@
 		}
 	},
 
+	"name": "Namn",
+	"subject": "Ämne",
+	"contact-message": "Ditt meddelande:",
 	"login-social": "Logga in med sociala medier"
 }

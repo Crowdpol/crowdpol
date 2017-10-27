@@ -27,6 +27,7 @@ import './pages/authenticate/authenticate.js';
 import './pages/dash/dash.js';
 import './pages/resetPassword/newPassword/newPassword.js';
 import './pages/resetPassword/recoverPassword/recoverPassword.js';
+import './pages/contact/contact.js';
 import './pages/privacy.html';
 import './pages/terms.html';
 
