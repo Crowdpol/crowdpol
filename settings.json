@@ -22,11 +22,25 @@
     "mailGun": "smtps://postmaster%40mg.commondemocracy.org:1bbade5a02f2baf06efc2da5b1d76cc6@smtp.mailgun.org:465",
     "defaultUsers": [
       {
-          "username": "superadmin",
+          "username": "admin",
           "first_name": "Brett",
           "last_name":"Jackman",
           "email":"brett@commondemocracy.org",
-          "roles":["superadmin","normal"]
+          "roles":["superadmin","admin","normal"]
+      },
+      {
+          "username": "admin",
+          "first_name": "Trudie",
+          "last_name":"Spanengberg",
+          "email":"tspangenberg1@gmail.com",
+          "roles":["superadmin","admin","normal"]
+      },
+      {
+          "username": "admin",
+          "first_name": "Tim",
+          "last_name":"Olsen",
+          "email":"tim@commondemocracy.org",
+          "roles":["superadmin","admin","normal"]
       }
     ]
   }

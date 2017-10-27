@@ -126,6 +126,28 @@ function normalizeSignupUser(user) {
     profile: userProfile,
   });
 }
+
+function normalizeDemoUser(profile, user) {
+  console.log("0.2 normalizeDemoUser");
+  const credential =[];
+  credential.push({
+    source: 'demo',
+    URL: 'http://www.commondemocracy.org/',
+    validated: true,
+  });
+  const userProfile = _.extend(profile, {
+    picture: profile.picture,
+    username: profile.firstName + " " + profile.lastName,
+    firstName: profile.firstName,
+    lastName: profile.lastName,
+    isPublic: false
+  });
+  return _.extend(user, {
+    //username,
+    profile: userProfile,
+  });
+}
+
 //given a user profile it returns a slugged version of her name
 function slugName(profile) {
   var name = new String();
