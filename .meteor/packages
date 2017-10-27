@@ -31,6 +31,7 @@ tap:i18n
 accounts-password
 accounts-facebook
 accounts-google
+accounts-twitter
 service-configuration
 alanning:roles
 

@@ -20,6 +20,7 @@
 	"verify-account-message": "Kontrollera din e-postadress innan du fortsätter.",
 	"verify-resend-link": "Skicka om verifieringslänk igen",
 	"verify-success-message": "Bekräftad! Du kan göra saker!",
+
 	"new-password": "Nytt Lösenord",
 	"recovery-email": "Återställningsmail",
 	"submit": "Lämna",
@@ -37,5 +38,7 @@
 			"subject": "Common Democracy: Reset Your Password",
 			"body": "För att återställa ditt lösenord klickar du bara på länken nedan: \n\n __url__ \n\n Om du inte begärde att ändra ditt lösenord, ignorerar du det här e-postmeddelandet. Om du känner att något är fel kan du kontakta vårt supportteam: __supportEmail__."
 		}
-	}
+	},
+
+	"login-social": "Logga in med sociala medier"
 }
