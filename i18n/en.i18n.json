@@ -1,6 +1,9 @@
 { 
 	"app_title": "Common Democracy",
 	"nav_home": "Home",
+	"nav_contact": "Contact",
+	"nav_login": "Login",
+	"nav_logout": "Logout",
 	"header_nav_login" : "Login",
 	"drawer_nav_login" : "LOGIN",
 	"drawer_nav_logout": "LOGOUT",
@@ -26,5 +29,8 @@
 	"verify-resend-link": "Resend Verification Link",
 	"verify-success-message": "Verified! You can do things!",
 	"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",
+	"name": "Name",
+	"subject": "Subject",
+	"contact-message": "Your message:",
 	"login-social": "Sign in with Social Media"
 }

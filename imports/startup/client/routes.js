@@ -38,11 +38,17 @@ FlowRouter.route('/verify-email/:token',{
 	}
 }); 
 
-
 FlowRouter.route('/login', {
   name: 'App.login',
   action() {
     BlazeLayout.render('App_body', { main: 'Authenticate' });
+  },
+});
+
+FlowRouter.route('/contact', {
+  name: 'App.contact',
+  action() {
+    BlazeLayout.render('App_body', { main: 'contact' });
   },
 });
 

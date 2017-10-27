@@ -25,6 +25,7 @@ import './pages/home/home.js';
 import './pages/not-found/not-found.js';
 import './pages/authenticate/authenticate.js';
 import './pages/dash/dash.js';
+import './pages/contact/contact.js';
 import './pages/privacy.html';
 import './pages/terms.html';
 
