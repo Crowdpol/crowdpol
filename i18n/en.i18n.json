@@ -11,6 +11,7 @@
 	"drawer_nav_contact" : "CONTACT",
 	"drawer_nav_privacy" : "PRIVACY POLICY",
 	"drawer_nav_terms" : "TERMS & CONDITIONS",
+	"drawer_nav_admin" : "ADMIN DASHBOARD",
 	"home-title": "Home Page",
 	"dash-title": "Dashboard",
 	"login" : "Login",

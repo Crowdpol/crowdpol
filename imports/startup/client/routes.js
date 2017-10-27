@@ -87,3 +87,11 @@ FlowRouter.route('/terms', {
   },
 });
 
+// Admin Dash
+FlowRouter.route('/admin/users', {
+  name: 'App.admin.users',
+  action() {
+    BlazeLayout.render('App_body', { main: 'users' });
+  },
+});
+
