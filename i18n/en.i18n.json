@@ -27,5 +27,16 @@
 	"recover-password-message": "Enter your email to receive instructions for resetting your password." ,
 	"reset-password-sent-message": "An email with password recovery instructions has been sent.",
 	"password-changed": "Your password has been changed successfully.",
-	"forgot-password-link": "Forgot your password?"
+	"forgot-password-link": "Forgot your password?",
+
+	"emails": {
+		"verify-email": {
+			"subject": "Common Democracy: Please Verify Your Email",
+			"body": "To verify your email address __emailAddress__ visit the following link:\n\n __url__ \n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+		},
+		"reset-password": {
+			"subject": "Common Democracy: Reset Your Password",
+			"body": "To reset your password, simply click the link below: \n\n __url__ \n\n If you did not request to change your password, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+		}
+	}
 }
