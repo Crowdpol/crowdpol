@@ -23,5 +23,6 @@
 	"verify-success-message": "Bekräftad! Du kan göra saker!",
 	"name": "Namn",
 	"subject": "Ämne",
-	"contact-message": "Ditt meddelande:"
+	"contact-message": "Ditt meddelande:",
+	"login-social": "Logga in med sociala medier"
 }

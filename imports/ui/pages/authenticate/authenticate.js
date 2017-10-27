@@ -6,5 +6,39 @@ Template.Authenticate.events({
 	'click #log-out' (event, template){
 		event.preventDefault();
 		Meteor.logout();
-	}
+	},
+	'click #login-facebook'(event) {
+		console.log("fb click");
+		event.preventDefault();
+		Meteor.loginWithFacebook({requestPermissions: ['public_profile', 'email']}, function(err){
+			if (err) {
+				console.log('Handle errors here: ', err);
+				Bert.alert(err.reason, 'danger');
+			}else{
+				FlowRouter.go('/dash');
+			}
+		});
+  },
+  'click #login-google'(event) {
+    event.preventDefault();
+    Meteor.loginWithGoogle({}, function(err,response){
+    	if (err) {
+      	console.log('Handle errors here: ', err);
+        Bert.alert(err.reason, 'danger');
+      }else{
+				FlowRouter.go('/dash');
+      }
+    });
+	},
+	'click #login-twitter'(event) {
+    event.preventDefault();
+    Meteor.loginWithTwitter({}, function(err,response){
+    	if (err) {
+      	console.log('Handle errors here: ', err);
+        Bert.alert(err.reason, 'danger');
+      }else{
+				FlowRouter.go('/dash');
+      }
+    });
+	},
 });

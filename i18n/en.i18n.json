@@ -4,6 +4,13 @@
 	"nav_contact": "Contact",
 	"nav_login": "Login",
 	"nav_logout": "Logout",
+	"header_nav_login" : "Login",
+	"drawer_nav_login" : "LOGIN",
+	"drawer_nav_logout": "LOGOUT",
+	"drawer_nav_dash" : "DASHBOARD",
+	"drawer_nav_contact" : "CONTACT",
+	"drawer_nav_privacy" : "PRIVACY POLICY",
+	"drawer_nav_terms" : "TERMS & CONDITIONS",
 	"home-title": "Home Page",
 	"dash-title": "Dashboard",
 	"login" : "Login",
@@ -24,5 +31,6 @@
 	"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",
 	"name": "Name",
 	"subject": "Subject",
-	"contact-message": "Your message:"
+	"contact-message": "Your message:",
+	"login-social": "Sign in with Social Media"
 }
