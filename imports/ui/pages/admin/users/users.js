@@ -8,7 +8,7 @@ Template.users.onCreated(function() {
 });
 
 Template.users.helpers({
-  recipes: ()=> {
+  users: ()=> {
     return Meteor.users.find({});
   }
 });
