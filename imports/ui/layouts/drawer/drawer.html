@@ -1,5 +1,26 @@
 <template name="Drawer">
 	<div class="mdl-layout__drawer">
 		<!-- Drawer Content -->
+		{{#if currentUser}}
+			<img src={{currentUser.profile.picture}}>
+			{{currentUser.profile.name}}
+			<hr>
+		{{/if}}
+		<nav class="mdl-navigation">
+			{{#if currentUser}}
+			<a class="mdl-navigation__link" href="/dash">{{_ "drawer_nav_dash"}}</a>
+			<a class="mdl-navigation__link" href="/contact">{{_ "drawer_nav_contact"}}</a>
+			<a class="mdl-navigation__link" href="/privacy">{{_ "drawer_nav_privacy"}}</a>
+			<a class="mdl-navigation__link" href="/terms">{{_ "drawer_nav_terms"}}</a>
+			{{/if}}
+    </nav>
+    <div class="mdl-layout-spacer"></div>
+    <nav class="mdl-navigation">
+			{{#if currentUser}}
+				<a class="mdl-navigation__link" href="" id="nav-logout">{{_ "drawer_nav_logout"}}</a>
+			{{else}}
+				<a class="mdl-navigation__link" href="/login">{{_ "drawer_nav_login"}}</a>
+			{{/if}}
+    </nav>
 	</div>
 </template>

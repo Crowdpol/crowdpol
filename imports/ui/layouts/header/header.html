@@ -11,11 +11,9 @@
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation mdl-layout--large-screen-only">
         <a class="mdl-navigation__link" href="/">{{_ "nav_home"}}</a>
-        {{#if currentUser}}
-          <a class="mdl-navigation__link" href="" id="nav-logout">{{_ "nav_logout"}}</a>
-        {{else}}
-          <a class="mdl-navigation__link" href="/login">{{_ "nav_login"}}</a>
-        {{/if}}
+        {{#unless currentUser}}
+          <a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
+        {{/unless}}
         
         <!-- Right aligned menu below button -->
         <button id="demo-menu-lower-right"
