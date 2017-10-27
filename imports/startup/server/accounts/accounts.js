@@ -84,7 +84,7 @@ function normalizeTwitterUser(profile, user) {
   });
 
   const userEmail = {
-    address: '',
+    address: user.services.twitter.email,
     verified: false
   };
 

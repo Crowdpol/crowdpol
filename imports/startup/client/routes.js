@@ -53,3 +53,17 @@ FlowRouter.route('/dash', {
   },
 });
 
+FlowRouter.route('/privacy', {
+  name: 'App.privcay',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Privacy' });
+  },
+});
+
+FlowRouter.route('/terms', {
+  name: 'App.terms',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Terms' });
+  },
+});
+
