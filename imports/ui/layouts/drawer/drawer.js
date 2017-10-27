@@ -1,6 +1,6 @@
 import './drawer.html';
 
-Template.Header.events({
+Template.Drawer.events({
 	'click #drawer-nav-logout' (event, template){
 		event.preventDefault();
 		Meteor.logout();
