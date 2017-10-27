@@ -88,7 +88,17 @@ FlowRouter.route('/terms', {
 });
 
 // Admin Dash
-FlowRouter.route('/admin/users', {
+var adminRoutes = FlowRouter.group({
+  prefix: '/admin',
+  name: 'admin',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.user(), ['admin','superadmin'])){
+      FlowRouter.go('App.home');
+    }
+  }]
+});
+
+adminRoutes.route('/users', {
   name: 'App.admin.users',
   action() {
     BlazeLayout.render('App_body', { main: 'users' });
