@@ -4,6 +4,14 @@
 	"nav_contact": "Kontakta",
 	"nav_login": "Logga in",
 	"nav_logout": "Logga ut",
+	"header_nav_login" : "Logga in",
+	"drawer_nav_login" : "LOGGA IN",
+	"drawer_nav_logout": "LOGGA UT",
+	"drawer_nav_dash" : "INSTRUMENTBRÄDA",
+	"drawer_nav_contact" : "KONTAKTA",
+	"drawer_nav_privacy" : "INTEGRITETSPOLICY",
+	"drawer_nav_terms" : "REGLER & VILLKOR",
+	"drawer_nav_admin" : "ADMINISTRATION INSTRUMENTBRÄDA",
 	"home-title": "hemsida",
 	"dash-title": "Instrumentbräda",
 	"login" : "Logga in",
@@ -38,6 +46,15 @@
 		"reset-password": {
 			"subject": "Common Democracy: Reset Your Password",
 			"body": "För att återställa ditt lösenord klickar du bara på länken nedan: \n\n __url__ \n\n Om du inte begärde att ändra ditt lösenord, ignorerar du det här e-postmeddelandet. Om du känner att något är fel kan du kontakta vårt supportteam: __supportEmail__."
+		}
+	},
+
+	"admin":{
+		"users": {
+			"name": "Fullständiga namn",
+			"email": "E-postadress",
+			"roles": "Roller",
+			"public": "Offentlig"
 		}
 	},
 
