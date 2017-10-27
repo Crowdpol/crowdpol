@@ -21,6 +21,26 @@
 	"verify-account-message": "Kontrollera din e-postadress innan du fortsätter.",
 	"verify-resend-link": "Skicka om verifieringslänk igen",
 	"verify-success-message": "Bekräftad! Du kan göra saker!",
+
+	"new-password": "Nytt Lösenord",
+	"recovery-email": "Återställningsmail",
+	"submit": "Lämna",
+	"recover-password-message": "Ange din e-post för att få instruktioner för att återställa ditt lösenord.",
+	"reset-password-sent-message": "Ett e-mail med instruktioner för återställning av lösenord har skickats.",
+	"password-changed": "Ditt lösenord har ändrats framgångsrikt.",
+	"forgot-password-link": "Glömt ditt lösenord?",
+
+	"emails": {
+		"verify-email": {
+			"subject": "Gemensam demokrati: Vänligen verifiera din e-postadress",
+			"body": "För att verifiera din e-postadress __emailAddress__ besök följande länk: \n\n __url__ \n\n Om du inte begärt denna verifiering ignorerar du det här e-postmeddelandet. Om du känner att något är fel kan du kontakta vårt supportteam: __supportEmail__."
+		},
+		"reset-password": {
+			"subject": "Common Democracy: Reset Your Password",
+			"body": "För att återställa ditt lösenord klickar du bara på länken nedan: \n\n __url__ \n\n Om du inte begärde att ändra ditt lösenord, ignorerar du det här e-postmeddelandet. Om du känner att något är fel kan du kontakta vårt supportteam: __supportEmail__."
+		}
+	},
+
 	"name": "Namn",
 	"subject": "Ämne",
 	"contact-message": "Ditt meddelande:",
