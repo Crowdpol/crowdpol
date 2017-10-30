@@ -24,9 +24,11 @@
       <td class="mdl-data-table__cell--non-numeric"> {{roles}} </td>
       <td class="mdl-data-table__cell--non-numeric"> 
         {{#if profile.isPublic}} 
-          <i class="mdi mdi-check-circle"></i>
+          Yes
+          <!-- <i class="mdi mdi-check-circle"></i> -->
         {{else}}
-          <i class="mdi mdi-close-circle"></i>
+          No
+          <!-- <i class="mdi mdi-close-circle"></i> -->
         {{/if}}
       </td>
     </tr>
@@ -35,8 +37,8 @@
   </tbody>
 </table>
 
- {{else}}
-      <p> Loading... </p>
-    {{/if}}
+{{else}}
+  <p> Loading... </p>
+{{/if}}
 
 </template>
