@@ -51,10 +51,14 @@
 
 	"admin":{
 		"users": {
+			"heading": "All Users",
 			"name": "Full Name",
 			"email": "Email Address",
 			"roles": "Roles",
-			"public": "Public"
+			"public": "Public",
+			"invite-heading": "Invite a New User:",
+			"invite-message": "Enter a user's email to send them an invitation to join.",
+			"invite-button": "Send Invite"
 		}
 	},
 	
