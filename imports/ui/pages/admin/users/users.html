@@ -34,11 +34,13 @@
         </td>
         <td>
           {{#if isArchived _id}} 
-            Archived!
+            <button id="restore-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
+              <i class="mdi mdi-refresh"></i>  {{_'admin.users.restore-button'}}
+            </button>
           {{else}}
-            <button class="mdl-button mdl-js-button mdl-button--raised archive-button" data-user-id={{_id}}>
-            <i class="mdi mdi-delete"></i>  {{_'admin.users.archive-button'}}
-          </button>
+            <button id="archive-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
+              <i class="mdi mdi-delete"></i>  {{_'admin.users.archive-button'}}
+            </button>
           {{/if}}
         </td>
       </tr>

@@ -32,7 +32,11 @@ Template.users.events({
 		});
 	},
 
-	'click .archive-button': function(event, template){
+	'click #archive-button': function(event, template){
 		Meteor.call('user.archive', event.target.dataset.userId)
+	},
+
+	'click #restore-button': function(event, template){
+		Meteor.call('user.restore', event.target.dataset.userId)
 	}
 });

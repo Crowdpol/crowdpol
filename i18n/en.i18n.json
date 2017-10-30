@@ -57,6 +57,7 @@
 			"roles": "Roles",
 			"public": "Public",
 			"archive-button": "Archive",
+			"restore-button": "Restore",
 			"invite-heading": "Invite a New User:",
 			"invite-message": "Enter a user's email to send them an invitation to join.",
 			"invite-button": "Send Invite"
