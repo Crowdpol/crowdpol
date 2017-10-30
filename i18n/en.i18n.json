@@ -56,6 +56,7 @@
 			"email": "Email Address",
 			"roles": "Roles",
 			"public": "Public",
+			"archive-button": "Archive",
 			"invite-heading": "Invite a New User:",
 			"invite-message": "Enter a user's email to send them an invitation to join.",
 			"invite-button": "Send Invite"

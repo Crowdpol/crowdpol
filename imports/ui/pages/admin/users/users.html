@@ -11,6 +11,7 @@
         <th>{{_"admin.users.email"}}</th>
         <th>{{_"admin.users.roles"}}</th>
         <th>{{_"admin.users.public"}}</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +30,15 @@
             <i class="mdi mdi-check-circle"></i>
           {{else}}
             <i class="mdi mdi-close-circle"></i> 
+          {{/if}}
+        </td>
+        <td>
+          {{#if isArchived _id}} 
+            Archived!
+          {{else}}
+            <button class="mdl-button mdl-js-button mdl-button--raised archive-button" data-user-id={{_id}}>
+            <i class="mdi mdi-delete"></i>  {{_'admin.users.archive-button'}}
+          </button>
           {{/if}}
         </td>
       </tr>

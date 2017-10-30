@@ -10,6 +10,9 @@ Template.users.onCreated(function() {
 Template.users.helpers({
   users: ()=> {
     return Meteor.users.find({});
+  },
+  isArchived: (userId)=> {
+  	return Roles.userIsInRole(userId, 'archived');
   }
 });
 
@@ -27,5 +30,9 @@ Template.users.events({
 				Bert.alert('Message was sent!', 'success');
 			}
 		});
+	},
+
+	'click .archive-button': function(event, template){
+		Meteor.call('user.archive', event.target.dataset.userId)
 	}
 });
