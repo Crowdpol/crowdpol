@@ -51,5 +51,10 @@
 	"name": "Name",
 	"subject": "Subject",
 	"contact-message": "Your message:",
-	"login-social": "Sign in with Social Media"
+	"login-social": "Sign in with Social Media",
+	"profile-title" : "Profile",
+	"profile-username" : "Username",
+	"profile-public" : "Public Profile",
+	"profile-bio" : "Bio",
+	"profile-website" : "Website"
 }
