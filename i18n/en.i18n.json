@@ -7,6 +7,7 @@
 	"header_nav_login" : "Login",
 	"drawer_nav_login" : "LOGIN",
 	"drawer_nav_logout": "LOGOUT",
+	"drawer_nav_profile" : "PROFILE",
 	"drawer_nav_dash" : "DASHBOARD",
 	"drawer_nav_contact" : "CONTACT",
 	"drawer_nav_privacy" : "PRIVACY POLICY",
@@ -54,7 +55,12 @@
 	"login-social": "Sign in with Social Media",
 	"profile-title" : "Profile",
 	"profile-username" : "Username",
+	"profile-firstname" : "First name",
+	"profile-lastname" : "Last name",
+	"profile-username" : "Username",
 	"profile-public" : "Public Profile",
-	"profile-bio" : "Bio",
+	"profile-delegate" : "Delegate",
+	"profile-candidate" : "Candidate",
+	"profile-bio" : "About",
 	"profile-website" : "Website"
 }

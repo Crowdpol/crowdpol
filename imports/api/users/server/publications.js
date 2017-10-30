@@ -10,12 +10,6 @@ Meteor.publish('profiles', () =>
   Profiles.find()
 );
 
-Meteor.publish('profiles.candidates', () =>
-  Profiles.find({isCandidate: true})
-);
-
-Meteor.publish('profiles.organisations', () =>
-  Profiles.find({isOrganisation: true})
-);
-
-
+Meteor.publish("profile", function (userId) {
+	return Proposals.find({userId: userId})
+});
