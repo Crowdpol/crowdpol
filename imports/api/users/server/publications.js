@@ -1,15 +1,8 @@
+// All links-related publications
+
 import { Meteor } from 'meteor/meteor';
-import { Profiles } from "../Profiles.js"
+import { Users } from '../Users.js';
 
-// on the server
-Meteor.publish('users', function(author) {
-  return  Meteor.users.find({}, {fields: {profile: true}});
-});
-
-Meteor.publish('profiles', () =>
-  Profiles.find()
-);
-
-Meteor.publish("profile", function (userId) {
-	return Proposals.find({userId: userId})
+Meteor.publish('users.all', function () {
+  return Users.find();
 });
