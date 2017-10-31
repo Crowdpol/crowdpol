@@ -1,4 +1,5 @@
-import './users.html'
+import './users.html';
+import dialogPolyfill from 'dialog-polyfill';
 
 Template.users.onCreated(function() {
   var self = this;
@@ -31,17 +32,16 @@ Template.users.events({
 
 	'click #delete-button': function(event, template){
 		userToDelete = event.target.dataset.userId
-		var dialog = template.find('dialog');
+		dialog = template.find('dialog');
+		dialogPolyfill.registerDialog(dialog);
 		dialog.showModal();
 	},
 
 	'click #cancel-delete': function(event, template){
-		var dialog = template.find('dialog');
 		dialog.close();
 	},
 
 	'click #confirm-delete': function(event, template){
-		var dialog = template.find('dialog');
 		Meteor.call('user.delete', userToDelete)
 		dialog.close();
 	}
