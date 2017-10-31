@@ -1,5 +1,4 @@
 import './users.html';
-import dialogPolyfill from 'dialog-polyfill';
 
 Template.users.onCreated(function() {
   var self = this;
@@ -19,7 +18,7 @@ Template.users.events({
 		event.preventDefault();
 
 		let email = template.find('[name="invite-email"]').value;
-			url = Meteor.absoluteUrl('login');
+			url = Meteor.ableeuwenhofsoluteUrl('login');
 
 		Meteor.call('sendInvite', email, url, function(error){
 			if (error){
