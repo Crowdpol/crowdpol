@@ -33,15 +33,9 @@
           {{/if}}
         </td>
         <td>
-          {{#if isArchived _id}} 
-            <button id="restore-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
-              <i class="mdi mdi-refresh"></i>  {{_'admin.users.restore-button'}}
+          <button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
+              <i class="mdi mdi-delete"></i>  {{_'admin.users.delete-button'}}
             </button>
-          {{else}}
-            <button id="archive-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
-              <i class="mdi mdi-delete"></i>  {{_'admin.users.archive-button'}}
-            </button>
-          {{/if}}
         </td>
       </tr>
     {{/each}}

@@ -218,13 +218,5 @@ Accounts.validateNewUser((user) => {
   })
 });
 
-Accounts.validateLoginAttempt(function(attempt) {
-  if(Roles.userIsInRole(attempt.user._id, ['archived'])) {
-    attempt.allowed = false;
-    throw new Meteor.Error(403, "You have been archived!");
-  }
-  return true;
-});
-
 
 

@@ -10,9 +10,6 @@ Template.users.onCreated(function() {
 Template.users.helpers({
   users: ()=> {
     return Meteor.users.find({});
-  },
-  isArchived: (userId)=> {
-  	return Roles.userIsInRole(userId, 'archived');
   }
 });
 
@@ -32,11 +29,16 @@ Template.users.events({
 		});
 	},
 
-	'click #archive-button': function(event, template){
-		Meteor.call('user.archive', event.target.dataset.userId)
-	},
-
-	'click #restore-button': function(event, template){
-		Meteor.call('user.restore', event.target.dataset.userId)
+	'click #delete-button': function(event, template){
+		new Confirmation({
+			message: "Are you sure you want to delete this user?",
+		  	title: "Permanently delete a user",
+		  	cancelText: "No",
+		  	okText: "Yes",
+		  	focus: "cancel"
+		}, function (ok) {
+		  Meteor.call('user.delete', event.target.dataset.userId)
+		});
+		
 	}
 });
