@@ -7,30 +7,45 @@ import { assert } from 'meteor/practicalmeteor:chai';
 import { Users } from './Users.js';
 
 if (Meteor.isServer) {
-  let testUser;
-  describe('Users', () => {
-      it("Add User", (done) => {
+  beforeEach(function () {
+    Meteor.users.remove({});
+  });
 
-          testUser = {email: 'test@test.test', password: 'test'};
+  var testUser = {
+    createdAt: new Date(),
+    username: "test_user",
+    password: 'test',
+    services: {},
+    profile: {
+      firstName: "Test",
+      lastName: "User",
+      birthday: new Date(),
+      gender: "Other",
+      organization: "Test Org",
+      website: "http://testuser.com",
+      bio: "I am a test user",
+      picture: "/img/default-user-image.png",
+      credentials : [
+        {
+          "source" : "test",
+          "URL" : "https://www.commondemocracy.org/",
+          "validated" : true
+        }
+      ]
+    },
+    roles: ["test"],
+  }
 
-          try {
-              testUser._id = Meteor.call('addUser', testUser);
-              console.log(Accounts.users.find({_id: testUser._id}).fetch());
-              done();
-          } catch (err) {
-              console.log(err);
-              assert.fail();
-          }
-      });
+  describe('users collection', function () {
+    it('insert correctly', function () {
+      const userId = Accounts.createUser(testUser);
+      const added = Meteor.users.find({ _id: userId });
+      console.log(added);
+      const collectionName = added._getCollectionName();
+      const count = added.count();
 
-      it("Get user", (done) => {
-          try {
-              Meteor.call('getUser', testUser._id);
-              done();
-          } catch (err) {
-              console.log(err);
-              assert.fail();
-          }
-      });
+      assert.equal(collectionName, 'users');
+      assert.equal(count, 1);
+    });
   });
 }

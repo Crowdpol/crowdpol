@@ -105,10 +105,15 @@ Schema.User = new SimpleSchema({
         type: Object,
         blackbox: true
     },
-    createdAt: {
-        type: Date
-    },
     */
+    createdAt: {
+        type: Date,
+        autoValue() {
+          if (this.isInsert) {
+            return new Date();
+          }
+        },
+    },
     profile: {
         type: Schema.UserProfile,
         optional: true
