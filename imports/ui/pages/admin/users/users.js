@@ -31,18 +31,6 @@ Template.users.events({
 	},
 
 	'click #delete-button': function(event, template){
-		userToDelete = event.target.dataset.userId
-		dialog = template.find('dialog');
-		dialogPolyfill.registerDialog(dialog);
-		dialog.showModal();
-	},
-
-	'click #cancel-delete': function(event, template){
-		dialog.close();
-	},
-
-	'click #confirm-delete': function(event, template){
-		Meteor.call('user.delete', userToDelete)
-		dialog.close();
+		Meteor.call('user.delete', event.target.dataset.userId);
 	}
 });

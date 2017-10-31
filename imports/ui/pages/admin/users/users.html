@@ -1,18 +1,5 @@
 <template name="users">
 
-  <dialog class="mdl-dialog">
-    <h4 class="mdl-dialog__title">{{_'admin.users.delete-title'}}</h4>
-    <div class="mdl-dialog__content">
-      <p>
-        {{_'admin.users.delete-message'}}
-      </p>
-    </div>
-    <div class="mdl-dialog__actions">
-      <button type="button" class="mdl-button" id="confirm-delete">{{_'admin.users.delete-yes'}}</button>
-      <button type="button" class="mdl-button" id="cancel-delete">{{_'admin.users.delete-no'}}</button>
-    </div>
-  </dialog>
-
   <h3> {{_"admin.users.heading"}} </h3>
 
   {{#if Template.subscriptionsReady}}
