@@ -51,10 +51,19 @@
 
 	"admin":{
 		"users": {
+			"heading": "Alla användare",
 			"name": "Fullständiga namn",
 			"email": "E-postadress",
 			"roles": "Roller",
-			"public": "Offentlig"
+			"public": "Offentlig",
+			"delete-button": "Radera",
+			"delete-message": "Är du säker på att du vill radera den här användaren?",
+			"delete-title":"Ta bort en användare permanent",
+			"delete-yes":"Ja",
+			"delete-no":"Nej",
+			"invite-heading": "Bjud in en ny användare:",
+			"invite-message": "Ange en användares e-postmeddelande för att skicka en inbjudan att delta.",
+			"invite-button": "Skicka inbjudan"
 		}
 	},
 

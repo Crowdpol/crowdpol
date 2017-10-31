@@ -30,15 +30,19 @@ Template.users.events({
 	},
 
 	'click #delete-button': function(event, template){
-		new Confirmation({
-			message: "Are you sure you want to delete this user?",
-		  	title: "Permanently delete a user",
-		  	cancelText: "No",
-		  	okText: "Yes",
-		  	focus: "cancel"
-		}, function (ok) {
-		  Meteor.call('user.delete', event.target.dataset.userId)
-		});
-		
+		userToDelete = event.target.dataset.userId
+		var dialog = template.find('dialog');
+		dialog.showModal();
+	},
+
+	'click #cancel-delete': function(event, template){
+		var dialog = template.find('dialog');
+		dialog.close();
+	},
+
+	'click #confirm-delete': function(event, template){
+		var dialog = template.find('dialog');
+		Meteor.call('user.delete', userToDelete)
+		dialog.close();
 	}
 });
