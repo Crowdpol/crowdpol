@@ -54,6 +54,44 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
+
+    let updateProfile = {
+          firstName: "Test",
+          lastName: "User Updates",
+          gender: "Other",
+          organization: "Test Org Updated",
+          website: "http://testuser.com/update",
+          bio: "I am a test user, my profile has been updated",
+          picture: "/img/default-user-image.png",
+          credentials : [
+            {
+              "source" : "default",
+              "URL" : "https://www.commondemocracy.org/",
+              "validated" : true
+            }
+          ]
+    };
+
+    it("Get user profile", (done) => {
+      try {
+        Meteor.call('getProfile', testUser._id);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Update user profile", (done) => {
+      try {
+        Meteor.call('updateProfile', testUser._id, updateProfile);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
     it("Delete user", (done) => {
       try {
         Meteor.call('deleteUser', testUser._id);

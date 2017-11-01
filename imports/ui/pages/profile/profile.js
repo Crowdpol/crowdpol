@@ -14,8 +14,17 @@ Template.Profile.events({
 			firstname: template.find('[name="profile-firstname"]').value,
 			lastname: template.find('[name="profile-lastname"]').value,
 		};
+		let updateProfile = {
+          firstName: "Test",
+          lastName: "User Updates",
+          gender: "Other",
+          organization: "Test Org Updated",
+          website: "http://testuser.com/update",
+          bio: "I am a test user, my profile has been updated",
+          picture: "/img/default-user-image.png",
 
-		Meteor.call('updateProfile',Meteor.userId(), profile, function(error){
+    	};
+		Meteor.call('updateProfile',Meteor.userId(), updateProfile, function(error){
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {

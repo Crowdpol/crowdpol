@@ -20,7 +20,16 @@ Meteor.methods({
       check(userID, String);
       Meteor.users.remove({_id:userID});
     },
+    getProfile: function (userID) {
+      console.log("method getUserProfile called: " + userID);
+      check(userID, String);
+      const user = Meteor.call('getUser', userID);
+      console.log(user)
+      return user.profile;
+    },
     updateProfile: function (userID, profile) {
+      console.log(profile);
+      check(userID, String);
       Meteor.users.update({_id: userID}, {$set: {"profile": profile}});
     }
 });

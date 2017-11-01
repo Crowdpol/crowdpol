@@ -114,6 +114,14 @@ Schema.User = new SimpleSchema({
           }
         },
     },
+    isPublic: {
+        type: Boolean,
+        autoValue() {
+          if (this.isInsert) {
+            return false;
+          }
+        },
+    },
     profile: {
         type: Schema.UserProfile,
         optional: true
