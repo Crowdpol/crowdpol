@@ -1,8 +1,9 @@
 {
-  "name": "appName",
+  "name": "Common Democracy",
   "private": true,
   "scripts": {
-    "start": "meteor --settings=development.settings.json"
+    "start": "meteor --settings=development.settings.json",
+    "test" : "meteor test --driver-package practicalmeteor:mocha --port 8000"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
