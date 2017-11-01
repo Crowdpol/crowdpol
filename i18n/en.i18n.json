@@ -63,8 +63,17 @@
 			"delete-no":"No",
 			"invite-heading": "Invite a New User:",
 			"invite-message": "Enter a user's email to send them an invitation to join.",
-			"invite-button": "Send Invite"
+			"invite-button": "Send Invite",
+			"invite-role": "User Role"
 		}
+	},
+
+	"roles":{
+		"voter": "Voter",
+		"individual-delegate": "Individual Delegate",
+		"organisation-delegate": "Organisation Delegate",
+		"party-delegate": "Party Delegate",
+		"candidate": "Candidate"
 	},
 	
 	"name": "Name",

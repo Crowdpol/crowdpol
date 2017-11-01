@@ -63,9 +63,19 @@
 			"delete-no":"Nej",
 			"invite-heading": "Bjud in en ny användare:",
 			"invite-message": "Ange en användares e-postmeddelande för att skicka en inbjudan att delta.",
-			"invite-button": "Skicka inbjudan"
+			"invite-button": "Skicka inbjudan",
+			"invite-role": "Användarroll"
 		}
 	},
+
+	"roles":{
+		"voter": "Väljare",
+		"individual-delegate": "Individuell delegat",
+		"organisation-delegate": "Organisationens delegat",
+		"party-delegate": "Party delegat",
+		"candidate": "Kandidat"
+	},
+	
 
 	"name": "Namn",
 	"subject": "Ämne",
