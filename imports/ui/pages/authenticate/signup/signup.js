@@ -1,7 +1,8 @@
 import './signup.html';
+import './entitySignup.js';
 
 Template.Signup.events({
-	'submit form' (event, template){
+	'submit #individual-signup-form' (event, template){
 		event.preventDefault();
 
 		let user = {

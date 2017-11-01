@@ -1,6 +1,6 @@
 <template name="Signup">
 
-<form id="signup" class="signup">
+<form id="individual-signup-form" class="signup">
     <div class="mdl-textfield mdl-js-textfield">
       <label class="mdl-textfield__label" for="emailAddress">{{_ "email-address"}}</label>
       <input type="email" name="emailAddress" class="mdl-textfield__input" placeholder='{{_ "email-address"}}'>
@@ -10,8 +10,10 @@
       <input type="password" name="password" class="mdl-textfield__input" placeholder='{{_ "password"}}'>
     </div>
     <div class="form-group">
-      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "signup"}}'>
+      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "signup-button"}}'>
     </div>
   </form>
+
+  {{> entitySignup}}
 
 </template> 

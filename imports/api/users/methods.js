@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 Meteor.methods({
-	'user.delete'(userId) {
+	'deleteUser'(userId) {
 		Meteor.users.remove({_id:userId});
 	}
 });

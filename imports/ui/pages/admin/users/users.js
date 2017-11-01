@@ -31,7 +31,7 @@ Template.users.events({
 	},
 
 	'click #delete-button': function(event, template){
-		Meteor.call('user.delete', event.target.dataset.userId);
+		Meteor.call('deleteUser', event.target.dataset.userId);
 	},
 
 	'click .dropdown-item': function(event, template){

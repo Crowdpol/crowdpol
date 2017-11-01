@@ -16,7 +16,7 @@
 	"dash-title": "Dashboard",
 	"login" : "Login",
 	"logout": "Log out",
-	"signup": "Sign Up",
+	"signup-button": "Sign Up",
 	"not-found_message": "Sorry, that page doesn't exist",
 	"not-found_home-link": "Go to home",
 	"lang_en": "English",
@@ -74,6 +74,16 @@
 		"organisation-delegate": "Organisation Delegate",
 		"party-delegate": "Party Delegate",
 		"candidate": "Candidate"
+	},
+
+	"signup":{
+		"entity": {
+			"name": "Name of Entity",
+			"website": "Website",
+			"phone-number": "Phone number",
+			"contact-person": "Contact Person",
+			"type": "Entity Type"
+		}
 	},
 	
 	"name": "Name",
