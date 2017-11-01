@@ -27,6 +27,7 @@
 	"signup-title": "No account yet? Sign up below:",
 	"logged-in-title": "You are already logged in",
 	"verify-account-message": "Please verify your email address before continuing.",
+	"unapproved-entity-message": "Your account has not yet been approved by an admin.",
 	"verify-resend-link": "Resend Verification Link",
 	"verify-success-message": "Verified! You can do things!",
 	"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",

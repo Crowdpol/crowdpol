@@ -9,6 +9,9 @@
 					<p><a href="#" class="resend-verification-link">{{_ "verify-resend-link"}}</a></p>
 				{{else}}
 					<p>{{_ "verify-success-message"}}</p>
+					{{#if isUnapprovedEntity}}
+						<p>{{_ "unapproved-entity-message"}}</p>
+					{{/if}}
 				{{/unless}}
 				<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
 					{{_ "logout"}}

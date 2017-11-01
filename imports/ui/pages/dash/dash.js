@@ -1,5 +1,15 @@
 import './dash.html';
 
+Template.Dash.helpers({
+	isUnapprovedEntity: ()=> {
+		if ((Roles.userIsInRole(Meteor.userId(), ['organisation-delegate', 'party-delegate'])) && (!Meteor.user().approval)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+});
+
 Template.Dash.events({
 	'click .resend-verification-link' (event, template){
 		Meteor.call('sendVerificationLink', (error, response) => {

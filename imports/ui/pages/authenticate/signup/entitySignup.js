@@ -13,24 +13,18 @@ Template.entitySignup.events({
 			website: template.find('#entity-website').value,
 			phone: template.find('#entity-phone').value,
 			contact: template.find('#entity-contact').value,
-			roles: [template.find('#entity-type').value]
+			roles: [template.find('#entity-type').dataset.val]
 		};
 
 		console.log(entity);
 
-		Accounts.createUser({
-			'email': entity.email,
-			'password': entity.password,
-			'profile.firstName': entity.name,
-			'profile.website': entity.website,
-			'profile.phoneNumber': entity.phone,
-			'profile.contactPerson': entity.contact,
-			'roles': entity.roles
-			}, 
-			(error) => {
-				if (error) {
+		//Create entity on the server side so that a role can be assigned automatically
+		Meteor.call('createEntity', entity, function(error)	{
+			if (error) {
 					Bert.alert(error.reason, 'danger');
 				} else {
+					//Log the user in if entity creation was successful
+					Meteor.loginWithPassword(entity.email, entity.password);
 					Meteor.call('sendVerificationLink', (error, response) => {
 						if (error){
 							Bert.alert(error.reason, 'danger');
@@ -39,7 +33,7 @@ Template.entitySignup.events({
 						}
 					});
 				}
-			});
+		});
 	},
 
 	'click .dropdown-item': function(event, template){
