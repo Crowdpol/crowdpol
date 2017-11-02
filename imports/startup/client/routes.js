@@ -106,10 +106,24 @@ var adminRoutes = FlowRouter.group({
   }]
 });
 
+adminRoutes.route('/dash', {
+  name: 'App.admin.users',
+  action() {
+    BlazeLayout.render('App_body', { main: 'AdminDash' });
+  },
+});
+
 adminRoutes.route('/users', {
   name: 'App.admin.users',
   action() {
     BlazeLayout.render('App_body', { main: 'users' });
+  },
+});
+
+adminRoutes.route('/tags', {
+  name: 'App.admin.tags',
+  action() {
+    BlazeLayout.render('App_body', { main: 'AdminTags' });
   },
 });
 

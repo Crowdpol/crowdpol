@@ -51,6 +51,21 @@
 	},
 
 	"admin":{
+		"dash":{
+			"heading" : "Admin Dashboard",
+			"card": {
+				"users": {
+					"heading": "Users",
+					"text": "Add/Edit/Delete users, invite new people, change user roles.",
+					"link": "Manage Users"
+				},
+				"tags": {
+					"heading": "Tags",
+					"text": "Add/Edit/Delete tags used for filtering content.",
+					"link": "Manage Tags"
+				}
+			}
+		},
 		"users": {
 			"heading": "All Users",
 			"name": "Full Name",
@@ -66,6 +81,16 @@
 			"invite-message": "Enter a user's email to send them an invitation to join.",
 			"invite-button": "Send Invite",
 			"invite-role": "User Role"
+		},
+		"tags": {
+			"heading": "Tags",
+			"text": "Text",
+			"keyword": "Keyword",
+			"url": "URL",
+			"created": "Date created",
+			"approved": "Approved",
+			"add-button": "Add",
+			"delete-button": "Delete"
 		}
 	},
 

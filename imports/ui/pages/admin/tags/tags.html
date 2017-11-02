@@ -1,0 +1,69 @@
+<template name="AdminTags">
+	<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+    	<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+			  <i class="material-icons">arrow-left</i>
+			</button>
+      <h3> {{_"admin.tags.heading"}} </h3>
+      {{> AdminTagsTable}}
+      <p>Add</p>
+      {{> AdminTagsForm}}
+		</div>
+	</div>
+</template>
+
+<template name="AdminTagsTable">
+	{{#if Template.subscriptionsReady}}
+		<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+			<thead>
+				<tr>
+          <th class="mdl-data-table__cell--non-numeric">{{_"admin.tags.text"}}</th>
+          <th>{{_"admin.tags.keyword"}}</th>
+          <th>{{_"admin.tags.created"}}</th>
+          <th>{{_"admin.tags.approved"}}</th>
+          <th></th>
+        </tr>
+      </thead>
+    	<tbody>
+				{{#each tags}}
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric"><a href="" target="_blank">{{index}} - {{text}}</a></td>
+            <td class="mdl-data-table__cell--non-numeric"> 
+              {{keyword}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">{{createdAt}}</td>
+            <td class="mdl-data-table__cell--non-numeric">
+            	<button id="approve-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>					
+	              {{#if approved}} 
+	                <i class="mdi mdi-check-circle"></i>
+	              {{else}}
+	                <i class="mdi mdi-close-circle"></i> 
+	              {{/if}}
+	            </button>
+            </td>
+            <td>
+              <button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
+                <i class="mdi mdi-delete"></i>  {{_'admin.tags.delete-button'}}
+              </button>
+            </td>
+          </tr>
+        {{/each}}
+
+      </tbody>
+    </table>
+  {{else}}
+    <p> Loading... </p>
+	{{/if}}
+</template>
+
+<template name="AdminTagsForm">
+	<form id="add-tag">
+		<div class="mdl-textfield mdl-js-textfield">
+      <label class="mdl-textfield__label"> {{_ "admin.tags.text"}}</label>
+      <input type="text" id="tag-text" class="mdl-textfield__input" placeholder='{{_ "admin.tags.text"}}'>
+		</div>
+    <div class="form-group">
+      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "admin.tags.add-button"}}'>
+    </div>
+	</form>
+</template>

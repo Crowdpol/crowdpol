@@ -16,4 +16,9 @@ Meteor.methods({
       console.log("method deleteTag called");
       Tags.remove(tagID);
     },
+    toggleApprove: function (tagID) {
+      var current = Tags.findOne({_id: tagID}).approved;
+      console.log(current);
+      //return Tags.update({_id: tagID}, {$set: {"approved": profile}})
+    }
 });

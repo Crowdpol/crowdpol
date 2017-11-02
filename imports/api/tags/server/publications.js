@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { Tags } from '../Tags';
+import { Tags } from '../Tags.js';
 
-Meteor.publish('tags', () =>
-  Tags.find()
-);
+Meteor.publish('tags.all', function() {
+  return Tags.find();
+});
