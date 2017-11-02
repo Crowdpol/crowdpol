@@ -48,26 +48,31 @@ Meteor.methods({
     createEntity: function(entity) {
       entityID = Accounts.createUser({
         'email': entity.email,
-        'password': entity.password,
-        'profile.firstName': entity.name,
-        'profile.website': entity.website,
-        'profile.phoneNumber': entity.phone,
-        'profile.contactPerson': entity.contact
+        'password': entity.password
         });
+
+      // Update profile
+      profile = {'firstName': entity.name,
+      'website': entity.website,
+      'phoneNumber': entity.phone,
+      'contactPerson': entity.contact}
+
+      Meteor.call('updateProfile', entityID, profile)
 
       // Add entity to role
       Roles.addUsersToRoles(entityID, entity.roles);
-
-      //Add approval
-      Meteor.call('addApproval', entityID, {type: entity.roles[0], approved: false, createdAt: new Date()})
     },
     isApproved: function(userID) {
       user = Meteor.call('getUser', userID);
 
-      for (i = 0; i < user.profile.approvals.length(); i++){
-        if (!user.profile.approvals[i].approved){
-          return false;
+      if (user.profile.approvals){
+        for (i = 0; i < user.profile.approvals.length; i++){
+          if (!user.profile.approvals[i].approved){
+            return false;
+          }
         }
+      } else {
+        return false;
       }
 
       return true;

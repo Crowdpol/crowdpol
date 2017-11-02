@@ -31,8 +31,15 @@ FlowRouter.route('/verify-email/:token',{
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				FlowRouter.go('App.dash');
-				Bert.alert('Email verified!', 'success');
+        // If user is an organisation or party, create approval request for admin
+        if (Roles.userIsInRole(Meteor.userId(), ['organisation-delegate', 'party-delegate'])){
+          approval = {type: Meteor.user().roles[0], approved: false, createdAt: new Date()};
+          Meteor.call('addApproval', Meteor.userId(), approval);
+          Bert.alert(TAPi18n.__('verify-success-alert-entity'), 'success');
+        } else {
+          Bert.alert(TAPi18n.__('verify-success-alert-entity'), 'success');
+        }
+        FlowRouter.go('App.dash')
 			}
 		});
 	}

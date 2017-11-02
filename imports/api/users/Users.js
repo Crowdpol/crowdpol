@@ -111,7 +111,15 @@ Schema.UserProfile = new SimpleSchema({
     country: {
         type: Schema.UserCountry,
         optional: true
-    }
+    },
+    phoneNumber: {
+        type: String,
+        optional: true
+    },
+    contactPerson: {
+        type: String,
+        optional: true
+    },
     
 });
 

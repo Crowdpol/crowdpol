@@ -31,6 +31,8 @@
 	"unapproved-entity-message": "Your account has not yet been approved by an admin.",
 	"verify-resend-link": "Resend Verification Link",
 	"verify-success-message": "Verified! You can do things!",
+	"verify-success-alert": "Verification successful.",
+	"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",
 	"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",
 	"new-password": "New password",
 	"recovery-email": "Recovery email",
