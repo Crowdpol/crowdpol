@@ -14,11 +14,6 @@ Schema.Approval = new SimpleSchema({
     approved: {
         type: Boolean,
         optional: true,
-        autoValue() {
-          if (this.isInsert) {
-            return false;
-          }
-        },
     },
     approvedBy: {
         type: String,
@@ -30,9 +25,7 @@ Schema.Approval = new SimpleSchema({
     },
     createdAt: {
         type: Date,
-        autoValue: function() {
-            return new Date();
-        }
+        optional: true,
     },
 });
 
@@ -89,16 +82,17 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Credential,
         optional: true,
     },
-    /*
+    
     approvals: {
         type: Array,
         optional: true,
+        blackbox: true
     },
     'approvals.$': {
         type: Schema.Approval,
         optional: true,
     },
-    
+    /*
     birthday: {
         type: Date,
         optional: true
