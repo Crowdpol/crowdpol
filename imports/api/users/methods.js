@@ -36,7 +36,7 @@ Meteor.methods({
       check(isPublic, Boolean);
       Meteor.users.update({_id: userID}, {$set: {"isPublic": isPublic}});
 
-    }
+    },
     'user.delete'(userId) {
       Meteor.users.remove({_id:userId});
     }
