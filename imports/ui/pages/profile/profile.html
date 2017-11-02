@@ -4,31 +4,20 @@
 			<h1>{{_ "profile-title"}}</h1>
 			<hr>
 			{{#if Template.subscriptionsReady}}
-				<form id="go-public-form" >
 				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-				  <input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{isPublicChecked}}>
-				  <span class="mdl-switch__label">{{_ "profile-public"}}</span>
+					  <input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{isPublicChecked}}>
+					  <span class="mdl-switch__label">{{_ "profile-public"}}{{publicStatus}}</span>
 				</label>
-			</form>
-			<form id="profile-form" class="profile">
-				<img src={{profilePic}}>
-		    <input type="text" name="profile-photo-path" value="{{profilePic}}">
-		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		      <label class="mdl-textfield__label" for="profile-username">{{_ "profile-username"}}</label>
-		      <input type="text" name="profile-username" class="mdl-textfield__input" value="{{username}}">
-		    </div>
-		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		      <label class="mdl-textfield__label" for="profile-firstname">{{_ "profile-firstname"}}</label>
-		      <input type="text" name="profile-firstname" class="mdl-textfield__input" value="{{firstName}}">
-		    </div>
-		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		      <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
-		      <input type="text" name="profile-lastname" class="mdl-textfield__input" value="{{lastName}}">
-		    </div>
-		    <div class="form-group">
-		      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "save"}}'>
-		    </div>
-		  </form>
+				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+				  <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
+				  <span class="mdl-switch__label">{{_ "profile-delegate"}}{{delegateStatus}}</span>
+				</label>
+				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
+				  <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input">
+				  <span class="mdl-switch__label">{{_ "profile-candidate"}}{{candidateStatus}}</span>
+				</label>
+				{{> ProfileIndividual}}
+				<hr>
 			{{else}}
 		    {{> loader}}
 		  {{/if}}
@@ -37,30 +26,37 @@
 	</div>
 </template>
 
-<template name="Profile.Delegate">
-	<form id="profile-form" class="profile">
-				<hr>
-				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-				  <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
-				  <span class="mdl-switch__label">{{_ "profile-delegate"}}</span>
-				</label>
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		      <label class="mdl-textfield__label" for="profile-website">{{_ "profile-website"}}</label>
-		      <input type="email" name="profile-website" class="mdl-textfield__input" >
-		    </div>
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				    <textarea class="mdl-textfield__input" type="text" rows= "5" name="profile-bio" ></textarea>
-				    <label class="mdl-textfield__label" for="profile-bio">{{_ "profile-bio"}}</label>
-				</div>
-				<hr>
-				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
-				  <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input">
-				  <span class="mdl-switch__label">{{_ "profile-candidate"}}</span>
-				</label>
-				<hr>
-		    
+<template name="ProfileIndividual">
+	
+				<form id="profile-form" class="profile">
+					<img src={{profilePic}} width="50px" height="50px">
+			    <input type="text" name="profile-photo-path" value="{{profilePic}}">
+			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			      <label class="mdl-textfield__label" for="profile-username">{{_ "profile-username"}}</label>
+			      <input type="text" name="profile-username" class="mdl-textfield__input" value="{{username}}">
+			    </div>
+			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			      <label class="mdl-textfield__label" for="profile-firstname">{{_ "profile-firstname"}}</label>
+			      <input type="text" name="profile-firstname" class="mdl-textfield__input" value="{{firstName}}">
+			    </div>
+			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			      <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
+			      <input type="text" name="profile-lastname" class="mdl-textfield__input" value="{{lastName}}">
+			    </div>
+			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			      <label class="mdl-textfield__label" for="profile-website">{{_ "profile-website"}}</label>
+			      <input type="text" name="profile-website" class="mdl-textfield__input" value="{{website}}">
+			    </div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					    <textarea class="mdl-textfield__input" type="text" rows= "5" name="profile-bio" >{{bio}}</textarea>
+					    <label class="mdl-textfield__label" for="profile-bio">{{_ "profile-bio"}}</label>
+					</div>
+			    <div class="form-group">
+			      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "save"}}'>
+			    </div>
 	</form>
 </template>
+
 
 <template name="loader">
   <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"

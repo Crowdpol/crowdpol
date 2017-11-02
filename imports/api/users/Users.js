@@ -73,7 +73,6 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true,
     },
-    
     credentials: {
         type: Array,
         optional: true,
@@ -82,6 +81,7 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Credential,
         optional: true,
     },
+<<<<<<< 1e1bb2f6c4772a63546437b7bcf6592315a33583
     
     approvals: {
         type: Array,
@@ -101,12 +101,23 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
+=======
+>>>>>>> Profile page updates
     website: {
         type: String,
         regEx: SimpleSchema.RegEx.Url,
         optional: true
     },
     bio: {
+        type: String,
+        optional: true
+    }
+    /*
+    birthday: {
+        type: Date,
+        optional: true
+    },
+    organization : {
         type: String,
         optional: true
     },
@@ -188,6 +199,14 @@ Schema.User = new SimpleSchema({
         type: Object,
         optional: true,
         blackbox: true
+    },
+    approvals: {
+        type: Array,
+        optional: true,
+    },
+    'approvals.$': {
+        type: Schema.Approval,
+        optional: true,
     },
     // Add `roles` to your schema if you use the meteor-roles package.
     // Option 1: Object type

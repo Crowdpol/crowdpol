@@ -13,3 +13,7 @@ Meteor.publish('users.all', function () {
 Meteor.publish('users.pendingApprovals', function() {
 	return Meteor.users.find({'profile.approvals.approved':false});
 })
+
+Meteor.publish('users.current', function () {
+  return Meteor.users.findOne({_id: Meteor.userId()});
+});
