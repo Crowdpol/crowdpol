@@ -89,7 +89,7 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Credential,
         optional: true,
     },
-    /*
+    
     approvals: {
         type: Array,
         optional: true,
@@ -120,7 +120,7 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.UserCountry,
         optional: true
     }
-    */
+    
 });
 
 Schema.User = new SimpleSchema({
