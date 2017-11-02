@@ -3,7 +3,7 @@ import './dash.html';
 Template.Dash.helpers({
 	isUnapprovedEntity: ()=> {
 		if ((Roles.userIsInRole(Meteor.userId(), ['organisation-delegate', 'party-delegate'])) && 
-			(Meteor.call('isUnapproved', Meteor.userId()))) {
+			(!Meteor.call('isApproved', Meteor.userId()))) {
 			return true;
 		} else {
 			return false;

@@ -4,8 +4,6 @@ Template.entitySignup.events({
 	'submit #entity-signup-form' (event, template){
 		event.preventDefault();
 
-		console.log('form submitted')
-
 		let entity = {
 			email: template.find('#entity-email').value,
 			password: template.find('#entity-password').value,
@@ -15,8 +13,6 @@ Template.entitySignup.events({
 			contact: template.find('#entity-contact').value,
 			roles: [template.find('#entity-type').dataset.val]
 		};
-
-		console.log(entity);
 
 		//Create entity on the server side so that a role can be assigned automatically
 		Meteor.call('createEntity', entity, function(error)	{

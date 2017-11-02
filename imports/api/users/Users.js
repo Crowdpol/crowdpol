@@ -13,12 +13,7 @@ Schema.Approval = new SimpleSchema({
     },
     approved: {
         type: Boolean,
-        optional: true,
-        autoValue() {
-          if (this.isInsert) {
-            return false;
-          }
-        },
+        optional: true
     },
     approvedBy: {
         type: String,
@@ -29,10 +24,7 @@ Schema.Approval = new SimpleSchema({
         optional: true,
     },
     createdAt: {
-        type: Date,
-        autoValue: function() {
-            return new Date();
-        }
+        type: Date
     },
 });
 
