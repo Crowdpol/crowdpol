@@ -80,6 +80,7 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
+
     it("Update user profile", (done) => {
       try {
         Meteor.call('updateProfile', testUser._id, updateProfile);
@@ -99,5 +100,58 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
+
+    it("Creates an entity", (done) => {
+      let entityData = {
+        email:  "organisation@test.co.za",
+        password: 'test',
+        name: "Organisation",
+        website: "http://testuser.com",
+        phone: '09324802394',
+        contact: 'Contact McContact',
+        roles: 'organisation-delegate'
+      };
+      try {
+        Meteor.call('createEntity', entityData);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Can determine if a user has pending approvals", (done) => {
+      try {
+        testEntity = {
+        email:  "testorg@org.org",
+        password: 'test',
+        profile: {
+          firstName: "Test Org",
+          website: "http://testuser.com",
+          credentials : [
+            {
+              "source" : "default",
+              "URL" : "https://www.commondemocracy.org/",
+              "validated" : true
+            }
+          ],
+          approvals: [
+            {
+              "approved": false,
+              "type": 'organisation-delegate'
+            }
+          ]
+        }
+      };
+
+        Meteor.call('isApproved', testEntity._id);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+
   });
 }
