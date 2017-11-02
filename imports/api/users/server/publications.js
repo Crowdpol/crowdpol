@@ -9,3 +9,7 @@ Meteor.publish('users.all', function () {
   return Meteor.users.find();
 });
 
+Meteor.publish('users.current', function () {
+  return Meteor.users.findOne({_id: Meteor.userId()});
+});
+

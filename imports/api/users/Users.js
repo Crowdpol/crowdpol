@@ -14,11 +14,6 @@ Schema.Approval = new SimpleSchema({
     approved: {
         type: Boolean,
         optional: true,
-        autoValue() {
-          if (this.isInsert) {
-            return false;
-          }
-        },
     },
     approvedBy: {
         type: String,
@@ -30,9 +25,6 @@ Schema.Approval = new SimpleSchema({
     },
     createdAt: {
         type: Date,
-        autoValue: function() {
-            return new Date();
-        }
     },
 });
 
@@ -80,7 +72,6 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true,
     },
-    
     credentials: {
         type: Array,
         optional: true,
@@ -89,30 +80,21 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Credential,
         optional: true,
     },
-    /*
-    approvals: {
-        type: Array,
-        optional: true,
-    },
-    'approvals.$': {
-        type: Schema.Approval,
-        optional: true,
-    },
-    
-    birthday: {
-        type: Date,
-        optional: true
-    },
-    organization : {
-        type: String,
-        optional: true
-    },
     website: {
         type: String,
         regEx: SimpleSchema.RegEx.Url,
         optional: true
     },
     bio: {
+        type: String,
+        optional: true
+    }
+    /*
+    birthday: {
+        type: Date,
+        optional: true
+    },
+    organization : {
         type: String,
         optional: true
     },
@@ -186,6 +168,14 @@ Schema.User = new SimpleSchema({
         type: Object,
         optional: true,
         blackbox: true
+    },
+    approvals: {
+        type: Array,
+        optional: true,
+    },
+    'approvals.$': {
+        type: Schema.Approval,
+        optional: true,
     },
     // Add `roles` to your schema if you use the meteor-roles package.
     // Option 1: Object type
