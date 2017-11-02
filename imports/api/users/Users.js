@@ -39,7 +39,7 @@ Schema.Approval = new SimpleSchema({
 Schema.Credential = new SimpleSchema({
   source: {
     type: String,
-    allowedValues: ['facebook', 'twitter', 'google', 'script', 'default'],
+    //allowedValues: ['facebook', 'twitter', 'google', 'script', 'default'],
     optional: true,
   },
   URL: {

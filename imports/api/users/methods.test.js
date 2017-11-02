@@ -71,7 +71,6 @@ if (Meteor.isServer) {
             }
           ]
     };
-    /*
     it("Get user profile", (done) => {
       try {
         Meteor.call('getProfile', testUser._id);
@@ -81,7 +80,6 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
-    */
     it("Update user profile", (done) => {
       try {
         Meteor.call('updateProfile', testUser._id, updateProfile);
