@@ -12,7 +12,7 @@ describe('Tag publications', function () {
   describe('tags', function () {
     it('sends all tags', function (done) {
       const collector = new PublicationCollector();
-      collector.collect('tags', (collections) => {
+      collector.collect('tags.all', (collections) => {
         assert.equal(collections.tags.length, 1);
         done();
       });

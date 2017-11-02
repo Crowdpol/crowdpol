@@ -4,21 +4,23 @@ import { Tags } from './Tags.js';
 
 Meteor.methods({
     addTag: function (text) {
-      console.log("method addTag called");
+      //console.log("method addTag called");
       check(text, String);
       return Tags.insert({ text: text });
     },
     getTag: function (tagID) {
-      console.log("method getTag called");
+      //console.log("method getTag called");
       return Tags.findOne({_id: tagID});
     },
     deleteTag: function (tagID) {
-      console.log("method deleteTag called");
+      //console.log("method deleteTag called");
       Tags.remove(tagID);
     },
-    toggleApprove: function (tagID) {
-      var current = Tags.findOne({_id: tagID}).approved;
-      console.log(current);
-      //return Tags.update({_id: tagID}, {$set: {"approved": profile}})
+    toggleAuthorized: function (tagID,value) {
+      //console.log("method deleteTag called");
+      check(tagID, String);
+      check(value, Boolean);
+      var tag = Tags.findOne({_id: tagID});
+      Tags.update({_id: tagID}, {$set: {"authorized": value}});
     }
 });

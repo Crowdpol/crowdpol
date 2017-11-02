@@ -38,5 +38,14 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
+    it("Toggle tag authorized", (done) => {
+      try {
+        Meteor.call('toggleAuthorized', testTag, true);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
   });
 }

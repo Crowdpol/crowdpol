@@ -54,7 +54,9 @@ const TagSchema = new SimpleSchema({
     type: Boolean,
     optional: true,
     autoValue: function () {
-      return true;
+      if (this.isInsert) {
+        return true;
+      }
     }
   }
 });
@@ -75,7 +77,9 @@ Tags.allow({
     return false;
   },
   update: function (userId) {
+    console.log("checking users update permissions");
     if (userId) {
+      console.log("tag update permitted");
       return true;
     }
     return false;

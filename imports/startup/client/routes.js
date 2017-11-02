@@ -127,3 +127,9 @@ adminRoutes.route('/tags', {
   },
 });
 
+FlowRouter.route('/tag/:id', {
+  name: 'App.tag',
+  action() {
+    BlazeLayout.render('App_body', {main: 'TagSearch'});
+  }
+});

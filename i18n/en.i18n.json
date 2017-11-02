@@ -83,12 +83,13 @@
 			"invite-role": "User Role"
 		},
 		"tags": {
-			"heading": "Tags",
+			"heading": "Manage Tags",
 			"text": "Text",
 			"keyword": "Keyword",
 			"url": "URL",
+			"delete": "Delete",
 			"created": "Date created",
-			"approved": "Approved",
+			"approved": "Authorized",
 			"add-button": "Add",
 			"delete-button": "Delete"
 		}

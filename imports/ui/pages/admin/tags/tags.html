@@ -1,13 +1,10 @@
 <template name="AdminTags">
 	<div class="mdl-grid">
     <div class="mdl-cell mdl-cell--12-col">
-    	<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
-			  <i class="material-icons">arrow-left</i>
-			</button>
       <h3> {{_"admin.tags.heading"}} </h3>
-      {{> AdminTagsTable}}
-      <p>Add</p>
       {{> AdminTagsForm}}
+      {{> AdminTagsTable}}
+      
 		</div>
 	</div>
 </template>
@@ -21,29 +18,28 @@
           <th>{{_"admin.tags.keyword"}}</th>
           <th>{{_"admin.tags.created"}}</th>
           <th>{{_"admin.tags.approved"}}</th>
-          <th></th>
+          <th>{{_"admin.tags.delete"}}</th>
         </tr>
       </thead>
     	<tbody>
 				{{#each tags}}
           <tr>
-            <td class="mdl-data-table__cell--non-numeric"><a href="" target="_blank">{{index}} - {{text}}</a></td>
+            <td class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{text}}</a></td>
             <td class="mdl-data-table__cell--non-numeric"> 
               {{keyword}}
             </td>
-            <td class="mdl-data-table__cell--non-numeric">{{createdAt}}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{tagDate}}</td>
             <td class="mdl-data-table__cell--non-numeric">
-            	<button id="approve-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>					
-	              {{#if approved}} 
-	                <i class="mdi mdi-check-circle"></i>
-	              {{else}}
-	                <i class="mdi mdi-close-circle"></i> 
-	              {{/if}}
+            	<button id="approve-button" class="mdl-button mdl-js-button mdl-button--raised" data-tag-id={{_id}} data-tag-authorized="{{authorized}}">			{{#if authorized}}
+            			<i class="mdi mdi-check"></i>
+            		{{else}}
+            			<i class="mdi mdi-close"></i> 
+            		{{/if}} 	
 	            </button>
             </td>
             <td>
-              <button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
-                <i class="mdi mdi-delete"></i>  {{_'admin.tags.delete-button'}}
+              <button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised" data-tag-id="{{_id}}">
+                <i class="mdi mdi-delete"></i> 
               </button>
             </td>
           </tr>
