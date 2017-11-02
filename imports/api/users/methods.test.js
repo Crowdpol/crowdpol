@@ -101,7 +101,6 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
-
     it("Creates an entity", (done) => {
       entityData = {
         email:  "organisation@test.co.za",
@@ -156,7 +155,15 @@ if (Meteor.isServer) {
       }
     })
 
-
+    it("Request admin approval", (done) => {
+      try {
+        Meteor.call('requestApproval', testUser._id,'delegate-individual');
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
   });
   
 }
