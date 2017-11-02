@@ -14,7 +14,7 @@ function normalizeFacebookUser(profile, user) {
 
   const userProfile = _.extend(profile, {
 
-    picture: 'http://graph.facebook.com/' + user.services.facebook.id + '/picture/?type=large',
+    photo: 'http://graph.facebook.com/' + user.services.facebook.id + '/picture/?type=large',
     username: user.services.facebook.first_name + " " + user.services.facebook.last_name,
     firstName: user.services.facebook.first_name,
     lastName: user.services.facebook.last_name,
@@ -43,7 +43,7 @@ function normalizeGoogleUser(profile, user) {
   });
 
   const userProfile = _.extend(profile, {
-    picture: user.services.google.picture,
+    photo: user.services.google.picture,
     username: user.services.google.given_name + " " + user.services.google.family_name,
     firstName: user.services.google.given_name,
     lastName: user.services.google.family_name,
@@ -75,7 +75,7 @@ function normalizeTwitterUser(profile, user) {
 
   const userProfile = _.extend(profile, {
 
-    picture: user.services.twitter.profile_image_url_https,
+    photo: user.services.twitter.profile_image_url_https,
     username: user.services.twitter.screenName,
     firstName: profile.name,
     lastName: '',
@@ -104,7 +104,7 @@ function normalizeSignupUser(user) {
     validated: false,
   });
   const userProfile = {
-    picture: "/img/default-user-image.png",
+    photo: "/img/default-user-image.png",
     username: "anonymous",
     firstName: "Anonymous",
     lastName: "User",
@@ -127,6 +127,28 @@ function normalizeSignupUser(user) {
   });
 }
 
+function normalizeScriptUser(profile, user) {
+  console.log("0.2 normalizeScriptUser");
+  console.log(profile);
+  const credential =[];
+  credential.push({
+    source: 'script',
+    URL: 'http://www.commondemocracy.org/',
+    validated: true,
+  });
+  const userProfile = _.extend(profile, {
+    photo: profile.photo,
+    username: profile.username,
+    firstName: profile.firstName,
+    lastName: profile.lastName,
+    isPublic: false
+  });
+  return _.extend(user, {
+    //username,
+    profile: userProfile,
+  });
+}
+
 function normalizeDemoUser(profile, user) {
   console.log("0.2 normalizeDemoUser");
   const credential =[];
@@ -136,7 +158,7 @@ function normalizeDemoUser(profile, user) {
     validated: true,
   });
   const userProfile = _.extend(profile, {
-    picture: profile.picture,
+    photo: profile.photo,
     username: profile.firstName + " " + profile.lastName,
     firstName: profile.firstName,
     lastName: profile.lastName,
@@ -167,8 +189,9 @@ function slugName(profile) {
 
 Accounts.onCreateUser((options, user) => {
   console.log("0. let's start the oncreate process");
-
-  // _.extend(user.profile, { delegate: {verified: false,nominated: true,eligible: false,nominations: []}});
+  //console.log(options);
+  //console.log("-");
+  //console.log(user);
   const profile = options.profile;
   if (profile) {
     if (user.services.facebook) {
@@ -193,6 +216,9 @@ Accounts.onCreateUser((options, user) => {
     }
     if (user.services.twitter) {
       return normalizeTwitterUser(profile, user);
+    }
+    if(options.profile.credentials[0].source == "default"){
+      //normalizeScriptUser(user);
     }
   }else{
     normalizeSignupUser(user); 

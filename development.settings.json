@@ -22,25 +22,49 @@
     "mailGun": "smtps://postmaster%40mg.commondemocracy.org:1bbade5a02f2baf06efc2da5b1d76cc6@smtp.mailgun.org:465",
     "defaultUsers": [
       {
-          "username": "admin",
-          "first_name": "Brett",
-          "last_name":"Jackman",
+          "username": "admin_brett",
           "email":"brett@commondemocracy.org",
-          "roles":["superadmin","admin","normal"]
+          "roles":["superadmin","admin","normal"],
+          "isPublic": false,
+          "profile": {
+            "username": "admin_brett",
+            "firstName": "Brett",
+            "lastName": "Jackman",
+            "organization": "Common Democracy",
+            "website": "http://www.commondemocracy.org",
+            "bio": "Systems administrator",
+            "photo": "/img/default-user-image.png"
+          }
       },
       {
-          "username": "admin",
-          "first_name": "Trudie",
-          "last_name":"Spanengberg",
+          "username": "admin_trudie",
           "email":"tspangenberg1@gmail.com",
-          "roles":["superadmin","admin","normal"]
+          "roles":["superadmin","admin","normal"],
+          "isPublic": false,
+          "profile": {
+            "username": "admin_trudie",
+            "firstName": "Trudie",
+            "lastName": "Spangenberg",
+            "organization": "Common Democracy",
+            "website": "http://www.commondemocracy.org",
+            "bio": "Systems administrator",
+            "photo": "/img/default-user-image.png"
+          }
       },
       {
-          "username": "admin",
-          "first_name": "Tim",
-          "last_name":"Olsen",
+          "username": "admin_tim",
           "email":"tim@commondemocracy.org",
-          "roles":["superadmin","admin","normal"]
+          "roles":["superadmin","admin","normal"],
+          "isPublic": false,
+          "profile": {
+            "username": "admin_tim",
+            "firstName": "Tim",
+            "lastName": "Olsen",
+            "organization": "Common Democracy",
+            "website": "http://www.commondemocracy.org",
+            "bio": "Systems administrator",
+            "photo": "/img/default-user-image.png"
+          }
       }
     ]
   }

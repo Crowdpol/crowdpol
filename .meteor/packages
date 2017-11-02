@@ -49,3 +49,4 @@ session
 aldeed:collection2-core@2.0.0
 momentjs:moment
 check
+reactive-dict

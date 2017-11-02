@@ -2,36 +2,48 @@
   <div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--12-col">
 			<h1>{{_ "profile-title"}}</h1>
-			<form id="profile-form" class="profile">
-				<span class="mdl-chip mdl-chip--contact">
-				  <span class="mdl-chip__contact mdl-color--red mdl-color-text--white">P</span>
-				  <span class="mdl-chip__text">Incomplete</span>
-				</span>
-				<hr>
+			<hr>
+			{{#if Template.subscriptionsReady}}
+				<form id="go-public-form" >
 				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-				  <input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
+				  <input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{isPublicChecked}}>
 				  <span class="mdl-switch__label">{{_ "profile-public"}}</span>
 				</label>
-				<img src="/img/default-user.png">
+			</form>
+			<form id="profile-form" class="profile">
+				<img src={{profilePic}}>
+		    <input type="text" name="profile-photo-path" value="{{profilePic}}">
 		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 		      <label class="mdl-textfield__label" for="profile-username">{{_ "profile-username"}}</label>
-		      <input type="text" name="profile-username" class="mdl-textfield__input" >
+		      <input type="text" name="profile-username" class="mdl-textfield__input" value="{{username}}">
 		    </div>
 		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 		      <label class="mdl-textfield__label" for="profile-firstname">{{_ "profile-firstname"}}</label>
-		      <input type="text" name="profile-firstname" class="mdl-textfield__input" >
+		      <input type="text" name="profile-firstname" class="mdl-textfield__input" value="{{firstName}}">
 		    </div>
 		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 		      <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
-		      <input type="text" name="profile-lastname" class="mdl-textfield__input" >
+		      <input type="text" name="profile-lastname" class="mdl-textfield__input" value="{{lastName}}">
 		    </div>
-		    
+		    <div class="form-group">
+		      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "save"}}'>
+		    </div>
+		  </form>
+			{{else}}
+		    {{> loader}}
+		  {{/if}}
+			
+		</div>
+	</div>
+</template>
+
+<template name="Profile.Delegate">
+	<form id="profile-form" class="profile">
 				<hr>
 				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
 				  <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
 				  <span class="mdl-switch__label">{{_ "profile-delegate"}}</span>
 				</label>
-				<!-- Note: Sol, please add functionality to show/hide these controls depending on the value of the switch above -->
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 		      <label class="mdl-textfield__label" for="profile-website">{{_ "profile-website"}}</label>
 		      <input type="email" name="profile-website" class="mdl-textfield__input" >
@@ -46,10 +58,21 @@
 				  <span class="mdl-switch__label">{{_ "profile-candidate"}}</span>
 				</label>
 				<hr>
-		    <div class="form-group">
-		      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "save"}}'>
-		    </div>
-		  </form>
-		</div>
-	</div>
+		    
+	</form>
+</template>
+
+<template name="loader">
+  <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+  <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+    <animateTransform attributeType="xml"
+      attributeName="transform"
+      type="rotate"
+      from="0 25 25"
+      to="360 25 25"
+      dur="0.6s"
+      repeatCount="indefinite"/>
+    </path>
+  </svg>
 </template>

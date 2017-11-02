@@ -23,12 +23,12 @@ createAdmins= function (admin) {
 			username: admin.username,
 			email : admin.email,
 			password : "123456",
+			isPublic: admin.isPublic,
 			profile: {
-				demo: false,
-				username: admin.first_name + " " + admin.last_name,
-				firstName: admin.first_name,
-				lastName: admin.last_name,
-				picture: "/img/default-user-image.png",
+				username: admin.profile.username,
+				firstName: admin.profile.firstName,
+				lastName: admin.profile.lastName,
+				photo: admin.profile.photo,
 				credentials : [
 					{
 						"source" : "default",

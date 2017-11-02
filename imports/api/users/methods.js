@@ -23,13 +23,19 @@ Meteor.methods({
     getProfile: function (userID) {
       console.log("method getUserProfile called: " + userID);
       check(userID, String);
-      const user = Meteor.call('getUser', userID);
-      console.log(user)
-      return user.profile;
+      const users = Meteor.users.find({_id: userID},{fields: {profile: 1, isPublic:1}}).fetch();
+      console.log(users);
+      return users[0];
     },
     updateProfile: function (userID, profile) {
       console.log(profile);
       check(userID, String);
       Meteor.users.update({_id: userID}, {$set: {"profile": profile}});
+    },
+    togglePublic: function (userID,isPublic) {
+      check(userID, String);
+      check(isPublic, Boolean);
+      Meteor.users.update({_id: userID}, {$set: {"isPublic": isPublic}});
+
     }
 });

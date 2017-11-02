@@ -5,10 +5,41 @@ import { Tracker } from 'meteor/tracker';
 //NOTE: as recommended in https://github.com/aldeed/meteor-collection2-core#attach-a-schema-to-meteorusers
 const Schema = {};
 
+Schema.Approval = new SimpleSchema({
+    type: {
+        type: String,
+        allowedValues: ['delegate-individual', 'delegate-organisation','delegate-party', 'candidate'],
+        optional: true,
+    },
+    approved: {
+        type: Boolean,
+        optional: true,
+        autoValue() {
+          if (this.isInsert) {
+            return false;
+          }
+        },
+    },
+    approvedBy: {
+        type: String,
+        optional: true,
+    },
+    approvedOn: {
+        type: Date,
+        optional: true,
+    },
+    createdAt: {
+        type: Date,
+        autoValue: function() {
+            return new Date();
+        }
+    },
+});
+
 Schema.Credential = new SimpleSchema({
   source: {
     type: String,
-    allowedValues: ['facebook', 'twitter', 'linkedin', 'github', 'peer'],
+    allowedValues: ['facebook', 'twitter', 'google', 'script', 'default'],
     optional: true,
   },
   URL: {
@@ -40,13 +71,36 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-    birthday: {
-        type: Date,
+
+    username: {
+        type: String,
         optional: true
     },
-    gender: {
+    photo: {
         type: String,
-        allowedValues: ['Male', 'Female', 'Other'],
+        optional: true,
+    },
+    
+    credentials: {
+        type: Array,
+        optional: true,
+    },
+    'credentials.$': {
+        type: Schema.Credential,
+        optional: true,
+    },
+    /*
+    approvals: {
+        type: Array,
+        optional: true,
+    },
+    'approvals.$': {
+        type: Schema.Approval,
+        optional: true,
+    },
+    
+    birthday: {
+        type: Date,
         optional: true
     },
     organization : {
@@ -62,7 +116,6 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-    /*
     country: {
         type: Schema.UserCountry,
         optional: true
@@ -114,8 +167,10 @@ Schema.User = new SimpleSchema({
           }
         },
     },
+
     isPublic: {
         type: Boolean,
+        optional: true,
         autoValue() {
           if (this.isInsert) {
             return false;

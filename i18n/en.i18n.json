@@ -59,8 +59,12 @@
 	"profile-lastname" : "Last name",
 	"profile-username" : "Username",
 	"profile-public" : "Public Profile",
+	"profile-private" : "Private Profile",
 	"profile-delegate" : "Delegate",
 	"profile-candidate" : "Candidate",
 	"profile-bio" : "About",
-	"profile-website" : "Website"
+	"profile-website" : "Website",
+	"profile-msg-public": "Profile is now public.",
+	"profile-msg-private": "Profile is now private.",
+	"profile-msg-updated": "Profile updated."
 }
