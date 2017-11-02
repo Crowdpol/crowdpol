@@ -87,6 +87,14 @@ FlowRouter.route('/terms', {
   },
 });
 
+FlowRouter.route('/profile', {
+  name: 'App.profile',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Profile' });
+
+  },
+});
+
 // Admin Dash
 var adminRoutes = FlowRouter.group({
   prefix: '/admin',
@@ -102,6 +110,6 @@ adminRoutes.route('/users', {
   name: 'App.admin.users',
   action() {
     BlazeLayout.render('App_body', { main: 'users' });
-  },
+
 });
 

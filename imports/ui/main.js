@@ -29,6 +29,7 @@ import './pages/resetPassword/newPassword/newPassword.js';
 import './pages/resetPassword/recoverPassword/recoverPassword.js';
 import './pages/contact/contact.js';
 import './pages/admin/users/users.js';
+import './pages/profile/profile.js';
 import './pages/privacy.html';
 import './pages/terms.html';
 
