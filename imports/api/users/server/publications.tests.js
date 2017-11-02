@@ -1,5 +1,3 @@
-// Tests for the links publications
-//
 // https://guide.meteor.com/testing.html
 import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
@@ -7,12 +5,22 @@ import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import './publications.js';
 
 
-describe('users publications', function () {
+describe('User publications', function () {
   beforeEach(function () {
     Meteor.users.remove({});
     Accounts.createUser({
       email: 'test@test.test', 
       password: 'test'
+    });
+  });
+
+  describe('users', function () {
+    it('sends all users without services', function (done) {
+      const collector = new PublicationCollector();
+      collector.collect('users', (collections) => {
+        assert.equal(collections.users.length, 1);
+        done();
+      });
     });
   });
 

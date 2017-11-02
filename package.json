@@ -3,10 +3,12 @@
   "private": true,
   "scripts": {
     "start": "meteor --settings=development.settings.json",
-    "test" : "meteor test --driver-package practicalmeteor:mocha --port 8000"
+    "test": "meteor test --driver-package practicalmeteor:mocha --port 8000"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
+    "faker": "^4.1.0",
+    "json-schema-faker": "^0.4.6",
     "meteor-node-stubs": "~0.2.4",
     "simpl-schema": "^0.3.2"
   }

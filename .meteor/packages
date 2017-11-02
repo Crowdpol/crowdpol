@@ -21,8 +21,10 @@ shell-server@0.2.4            # Server-side component of the `meteor shell` comm
 kadira:flow-router      # FlowRouter is a very simple router for Meteor
 kadira:blaze-layout     # Layout manager for blaze (works well with FlowRouter)
 
+#-- testing --
 practicalmeteor:mocha             # A package for writing and running your meteor app and package tests with mocha
 johanbrook:publication-collector  # Test a Meteor publication by collecting its output
+dburles:factory					  # Generates Fake News
 
 #-- internationalization --
 tap:i18n
@@ -36,18 +38,22 @@ service-configuration
 alanning:roles
 
 #-- material design --
-zodiase:mdl
-dapearce:material-icons
+zodiase:mdl						# MDL for Meteor
+dapearce:material-icons			# material icons, duh!
 
 #-- tools --
 email
-themeteorchef:bert
+session							# keeps state
+check							# keeps yo parameters legit
+reactive-dict					# keeps state in yo template
+themeteorchef:bert				# word to yo users!
 
 #-- dev tools --
 meteortoys:allthings
 
-session
-aldeed:collection2-core@2.0.0
-momentjs:moment
-check
-reactive-dict
+#-- data related --
+aldeed:collection2-core@2.0.0	# makes schemas lekker fancy
+xolvio:cleaner					# cleans yo DB!
+
+#-- 3rd party JS libraries --
+momentjs:moment					# makes time pretty
