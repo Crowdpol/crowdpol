@@ -4,12 +4,16 @@ Template.users.onCreated(function() {
   var self = this;
   self.autorun(function() {
     self.subscribe('users');
+    self.subscribe('users.pendingApprovals');
   });
 });
 
 Template.users.helpers({
   users: ()=> {
     return Meteor.users.find({});
+  },
+  pendingApprovals: ()=> {
+    return Meteor.users.find({'profile.approvals.approved':false});
   }
 });
 

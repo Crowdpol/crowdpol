@@ -43,6 +43,38 @@
     </tbody>
   </table>
 
+  <hr>
+
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+    <thead>
+      <tr>
+        <th>{{_"admin.users.email"}}</th>
+        <th>{{_"admin.users.roles"}}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {{#each pendingApprovals}}
+        <tr>
+        <td class="mdl-data-table__cell--non-numeric"> {{profile.firstName}} {{profile.lastName}} </td>
+        <td class="mdl-data-table__cell--non-numeric"> {{roles}} </td>
+        <td>
+          <button id="approve-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
+              <i class="mdi mdi-close-circle"></i>  {{_'admin.users.approve-button'}}
+            </button>
+        </td>
+        <td>
+          <button id="reject-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
+              <i class="mdi mdi-check-circle"></i>  {{_'admin.users.reject-button'}}
+            </button>
+        </td>
+      </tr>
+    {{/each}}
+
+    </tbody>
+  </table>
+
   {{else}}
     <p> Loading... </p>
   {{/if}}

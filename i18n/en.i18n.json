@@ -68,7 +68,9 @@
 			"invite-heading": "Invite a New User:",
 			"invite-message": "Enter a user's email to send them an invitation to join.",
 			"invite-button": "Send Invite",
-			"invite-role": "User Role"
+			"invite-role": "User Role",
+			"approve-button": "Approve",
+			"reject-button": "Reject"
 		}
 	},
 
