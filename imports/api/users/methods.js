@@ -37,17 +37,38 @@ Meteor.methods({
       check(isPublic, Boolean);
       Meteor.users.update({_id: userID}, {$set: {"isPublic": isPublic}});
     },
+    addApproval: function(userID, approval) {
+      console.log('2')
+      user = Meteor.call('getUser', userID);
+      if (!user.profile.approvals){
+        console.log('3')
+        Meteor.users.update({_id: userID}, {$set: {"profile.approvals": [approval]}});
+        console.log('4')
+      } else {
+        console.log('5')
+        Meteor.users.update({_id: userID},{ $push: {"profile.approvals": approval}});
+      }
+    },
     createEntity: function(entity) {
-      entityId = Accounts.createUser({
+      console.log('-1');
+      entityID = Accounts.createUser({
         'email': entity.email,
         'password': entity.password,
         'profile.firstName': entity.name,
         'profile.website': entity.website,
         'profile.phoneNumber': entity.phone,
-        'profile.contactPerson': entity.contact
+        'profile.contactPerson': entity.contact,
+        'profile.approvals': [{type: entity.roles[0], approved: false}]
         });
 
-      Roles.addUsersToRoles(entityId, entity.roles);
+      /*// Add entity to role
+      Roles.addUsersToRoles(entityID, entity.roles);
+
+      // Add pending approval
+      console.log('0')
+      approval = {type: entity.roles[0], approved: false}
+      console.log('1')
+      Meteor.call('addApproval', entityID, approval);
+      console.log('6')*/
     }
-  
 });

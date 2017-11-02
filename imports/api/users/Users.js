@@ -8,7 +8,7 @@ const Schema = {};
 Schema.Approval = new SimpleSchema({
     type: {
         type: String,
-        allowedValues: ['delegate-individual', 'delegate-organisation','delegate-party', 'candidate'],
+        allowedValues: ['individual-delegate', 'organisation-delegate','party-delegate', 'candidate'],
         optional: true,
     },
     approved: {
