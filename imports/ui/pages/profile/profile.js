@@ -15,20 +15,30 @@ Template.Profile.events({
       });
   },
   'click #profile-delegate-switch'(event, template){
-    /*
-      Meteor.call('togglePublic',Meteor.userId(),event.target.checked,function(error){
-        if (error){
-          Bert.alert(error.reason, 'danger');
-        } else {
-          var msg = TAPi18n.__('profile-msg-private');
-          if(event.target.checked){
-            msg = TAPi18n.__('profile-msg-public');
+      var isDelegate = Roles.userIsInRole(Meteor.user(),'delegate');
+      console.log("isDelegate: " + isDelegate);
+      if(isDelegate){
+        Meteor.call('toggleDelegate',Meteor.userId(),false,function(error){
+          if (error){
+            Bert.alert(error.reason, 'danger');
+          } else {
+            var msg = "user role removed";
+            Bert.alert(msg, 'success');
           }
-          Bert.alert(msg, 'success');
-        }
-      });
-    */
-    console.log("go delegate");
+        });  
+      }else{
+        Meteor.call('requestApproval',Meteor.userId(),'delegate-individual',function(error){
+          if (error){
+            Bert.alert(error.reason, 'danger');
+          } else {
+            var msg = TAPi18n.__('profile-msg-private');
+            if(event.target.checked){
+              msg = TAPi18n.__('profile-msg-public');
+            }
+            Bert.alert(msg, 'success');
+          }
+        });  
+      }
   },
   'click #profile-candidate-switch'(event, template){
     /*

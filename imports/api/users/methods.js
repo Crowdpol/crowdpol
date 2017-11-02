@@ -39,5 +39,27 @@ Meteor.methods({
     },
     'user.delete'(userId) {
       Meteor.users.remove({_id:userId});
-    }
+    },
+    requestApproval: function (userID,type) {
+      check(userID, String);
+      check(type, String);
+      let request = [
+            {
+              "type" : 'delegate-individual',
+              "approved" : false,
+              "createdAt" : new Date(),
+            }
+          ];
+      Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": request}});
+    },
+    toggleDelegate: function (userID,isDelegate) {
+      check(userID, String);
+      check(isDelegate, Boolean);
+      if(isDelegate){
+        Roles.removeUsersFromRoles(Meteor.userId(), 'delegate');
+      }else{
+        Roles.addUsersToRoles(Meteor.userId(), 'delegate');
+      }
+    },
+    
 });
