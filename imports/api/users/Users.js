@@ -81,6 +81,7 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Credential,
         optional: true,
     },
+<<<<<<< HEAD
 <<<<<<< 1e1bb2f6c4772a63546437b7bcf6592315a33583
     
     approvals: {
@@ -101,8 +102,6 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-=======
->>>>>>> Profile page updates
     website: {
         type: String,
         regEx: SimpleSchema.RegEx.Url,
