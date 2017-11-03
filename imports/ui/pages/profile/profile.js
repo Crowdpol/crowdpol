@@ -22,7 +22,7 @@ Template.Profile.events({
           if (error){
             Bert.alert(error.reason, 'danger');
           } else {
-            var msg = "user role removed";
+            var msg = "You are no longer a delegate";
             Bert.alert(msg, 'success');
           }
         });  
@@ -31,10 +31,7 @@ Template.Profile.events({
           if (error){
             Bert.alert(error.reason, 'danger');
           } else {
-            var msg = TAPi18n.__('profile-msg-private');
-            if(event.target.checked){
-              msg = TAPi18n.__('profile-msg-public');
-            }
+            var msg = "Request submitted";//TAPi18n.__('profile-msg-private');
             Bert.alert(msg, 'success');
           }
         });  
