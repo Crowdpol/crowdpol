@@ -11,7 +11,7 @@ if (Meteor.isServer) {
   beforeEach(function () {
     Meteor.users.remove({});
   });
-  describe('Users', () => {
+  describe('User methods', () => {
     it("Add User", (done) => {
       testUser = {
         username: "test_user",
@@ -37,7 +37,7 @@ if (Meteor.isServer) {
       };
       try {
         testUser._id = Meteor.call('addUser', testUser);
-        console.log(Accounts.users.find({_id: testUser._id}).fetch());
+        //console.log(Accounts.users.find({_id: testUser._id}).fetch());
         done();
       } catch (err) {
         console.log(err);
@@ -133,4 +133,5 @@ if (Meteor.isServer) {
 
 
   });
+  
 }

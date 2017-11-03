@@ -13,7 +13,7 @@ Schema.Approval = new SimpleSchema({
     },
     approved: {
         type: Boolean,
-        optional: true
+        optional: true,
     },
     approvedBy: {
         type: String,
@@ -24,7 +24,8 @@ Schema.Approval = new SimpleSchema({
         optional: true,
     },
     createdAt: {
-        type: Date
+        type: Date,
+        optional: true,
     },
 });
 
@@ -85,12 +86,13 @@ Schema.UserProfile = new SimpleSchema({
     approvals: {
         type: Array,
         optional: true,
+        blackbox: true
     },
     'approvals.$': {
         type: Schema.Approval,
         optional: true,
     },
-    
+    /*
     birthday: {
         type: Date,
         optional: true

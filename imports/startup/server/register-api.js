@@ -6,4 +6,7 @@ import '../../api/users/server/publications.js';
 import '../../api/users/methods.js';
 import '../../api/users/server/publications.js';
 
+import '../../api/tags/methods.js';
+import '../../api/tags/server/publications.js';
+
 

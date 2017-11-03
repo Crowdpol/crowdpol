@@ -4,12 +4,19 @@
 
 import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
-import { Users } from './Users.js';
+import { resetDatabase } from 'meteor/xolvio:cleaner';
+import { Factory } from 'meteor/dburles:factory';
+import { fakerSchema } from '../../utils/test-utils/faker-schema/';
+import { User } from './Users.js';
 
 if (Meteor.isServer) {
   beforeEach(function () {
-    Meteor.users.remove({});
+    resetDatabase();
   });
+
+  const { schema, generateDoc } = fakerSchema;
+
+  Factory.define('user', User);
 
   var testUser = {
     createdAt: new Date(),
@@ -36,7 +43,15 @@ if (Meteor.isServer) {
     roles: ["test"],
   }
 
-  describe('users collection', function () {
+  describe('User schema', function () {
+    /*
+    //NOTE: improve this test with Faker schema
+    it('inserts cleanly', function() {
+      const testDoc = generateDoc(schema.User)
+      console.log(testDoc)
+      const tag = Factory.create('user', testDoc);
+    });
+    */
     it('insert correctly', function () {
       const userId = Accounts.createUser(testUser);
       const added = Meteor.users.find({ _id: userId });

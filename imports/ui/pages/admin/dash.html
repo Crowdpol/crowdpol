@@ -1,0 +1,52 @@
+<template name="AdminDash">
+	<div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--12-col">
+			<h3> {{_ "admin.dash.heading"}} </h3>
+
+			{{> AdminDashUsers}}
+			{{> AdminDashTags}}
+		</div>
+	</div>
+</template>
+
+<template name="AdminDashUsers">
+	<div class="mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.users.heading"}}</h2>
+	  </div>
+	  <div class="mdl-card__supporting-text">
+	    {{_"admin.dash.card.users.text"}}
+	  </div>
+	  <div class="mdl-card__actions mdl-card--border">
+	    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/admin/users">
+	      {{_"admin.dash.card.users.link"}}
+	    </a>
+	  </div>
+	  <div class="mdl-card__menu">
+	    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+	      <i class="material-icons">person</i>
+	    </button>
+	  </div>
+	</div>
+</template>
+
+<template name="AdminDashTags">
+	<div class="mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.tags.heading"}}</h2>
+	  </div>
+	  <div class="mdl-card__supporting-text">
+	    {{_"admin.dash.card.tags.text"}}
+	  </div>
+	  <div class="mdl-card__actions mdl-card--border">
+	    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/admin/tags">
+	      {{_"admin.dash.card.tags.link"}}
+	    </a>
+	  </div>
+	  <div class="mdl-card__menu">
+	    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+	      <i class="material-icons">subject</i>
+	    </button>
+	  </div>
+	</div>
+</template>

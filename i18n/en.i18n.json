@@ -54,6 +54,21 @@
 	},
 
 	"admin":{
+		"dash":{
+			"heading" : "Admin Dashboard",
+			"card": {
+				"users": {
+					"heading": "Users",
+					"text": "Add/Edit/Delete users, invite new people, change user roles.",
+					"link": "Manage Users"
+				},
+				"tags": {
+					"heading": "Tags",
+					"text": "Add/Edit/Delete tags used for filtering content.",
+					"link": "Manage Tags"
+				}
+			}
+		},
 		"users": {
 			"heading": "All Users",
 			"name": "Full Name",
@@ -70,7 +85,19 @@
 			"invite-button": "Send Invite",
 			"invite-role": "User Role",
 			"approve-button": "Approve",
-			"reject-button": "Reject"
+			"reject-button": "Reject",
+			"invite-role": "User Role"
+		},
+		"tags": {
+			"heading": "Manage Tags",
+			"text": "Text",
+			"keyword": "Keyword",
+			"url": "URL",
+			"delete": "Delete",
+			"created": "Date created",
+			"approved": "Authorized",
+			"add-button": "Add",
+			"delete-button": "Delete"
 		}
 	},
 
