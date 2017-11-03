@@ -45,7 +45,7 @@ Meteor.methods({
         Meteor.users.update({_id: userID},{ $push: {"profile.approvals": approval}});
       }
     },
-    createEntity: function(entity) {
+    addEntity: function(entity) {
       entityID = Accounts.createUser({
         'email': entity.email,
         'password': entity.password
@@ -61,6 +61,9 @@ Meteor.methods({
 
       // Add entity to role
       Roles.addUsersToRoles(entityID, entity.roles);
+
+      return entityID;
+
     },
     isApproved: function(userID) {
       user = Meteor.call('getUser', userID);

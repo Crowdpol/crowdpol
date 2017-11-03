@@ -102,7 +102,7 @@ if (Meteor.isServer) {
     });
 
     it("Creates an entity", (done) => {
-      let entityData = {
+      entityData = {
         email:  "organisation@test.co.za",
         password: 'test',
         name: "Organisation",
@@ -112,7 +112,7 @@ if (Meteor.isServer) {
         roles: 'organisation-delegate'
       };
       try {
-        Meteor.call('createEntity', entityData);
+        Meteor.call('addEntity', entityData);
         done();
       } catch (err) {
         console.log(err);
@@ -122,29 +122,8 @@ if (Meteor.isServer) {
 
     it("Can determine if a user has pending approvals", (done) => {
       try {
-        testEntity = {
-        email:  "testorg@org.org",
-        password: 'test',
-        profile: {
-          firstName: "Test Org",
-          website: "http://testuser.com",
-          credentials : [
-            {
-              "source" : "default",
-              "URL" : "https://www.commondemocracy.org/",
-              "validated" : true
-            }
-          ],
-          approvals: [
-            {
-              "approved": false,
-              "type": 'organisation-delegate'
-            }
-          ]
-        }
-      };
-
-        Meteor.call('isApproved', testEntity._id);
+        testEntityID = Meteor.call('addEntity', entityData);
+        Meteor.call('isApproved', testEntityID);
         done();
       } catch (err) {
         console.log(err);

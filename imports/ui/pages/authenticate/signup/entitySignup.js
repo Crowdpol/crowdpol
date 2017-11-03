@@ -15,7 +15,7 @@ Template.entitySignup.events({
 		};
 
 		//Create entity on the server side so that a role can be assigned automatically
-		Meteor.call('createEntity', entity, function(error)	{
+		Meteor.call('addEntity', entity, function(error)	{
 			if (error) {
 					Bert.alert(error.reason, 'danger');
 				} else {
