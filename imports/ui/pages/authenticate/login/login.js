@@ -3,6 +3,7 @@ import './login.html';
 Template.Login.events({
 	'submit #login-form' (event, template){
 		event.preventDefault();
+		console.log('running')
 
 		let email = template.find('[name="login-email"]').value;
 			password = template.find('[name="login-password"]').value;
