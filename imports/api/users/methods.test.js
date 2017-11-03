@@ -131,6 +131,30 @@ if (Meteor.isServer) {
       }
     });
 
+    it("Can clear a user's approvals", (done) => {
+      try {
+        testEntityID = Meteor.call('addEntity', entityData);
+        Meteor.call('addApproval', testEntityID, {approved: false, type: 'organisation-delegate'});
+        Meteor.call('clearApprovals', testEntityID);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Can set user's approvals to approved", (done) => {
+      try {
+        testEntityID = Meteor.call('addEntity', entityData);
+        Meteor.call('addApproval', testEntityID, {approved: false, type: 'organisation-delegate'});
+        Meteor.call('approveUser', testEntityID);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    })
+
 
   });
   
