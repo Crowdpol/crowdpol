@@ -4,6 +4,14 @@
 			<h1>{{_ "profile-title"}}</h1>
 			<hr>
 			{{#if Template.subscriptionsReady}}
+				<!-- Colored raised button -->
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+				  Become Delegate
+				</button>
+				<!-- Accent-colored raised button -->
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+				  Become Candidate
+				</button>
 				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
 					  <input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{isPublicChecked}}>
 					  <span class="mdl-switch__label">{{_ "profile-public"}}{{publicStatus}}</span>
