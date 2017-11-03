@@ -92,7 +92,7 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Approval,
         optional: true,
     },
-    /*
+    
     birthday: {
         type: Date,
         optional: true

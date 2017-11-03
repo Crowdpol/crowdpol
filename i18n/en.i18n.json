@@ -66,6 +66,11 @@
 					"heading": "Tags",
 					"text": "Add/Edit/Delete tags used for filtering content.",
 					"link": "Manage Tags"
+				},
+				"approvals": {
+					"heading": "Approvals",
+					"text": "Approve or reject user requests to be delegates, organisations or political parties.",
+					"link": "Manage Approvals"
 				}
 			}
 		},
@@ -98,6 +103,11 @@
 			"approved": "Authorized",
 			"add-button": "Add",
 			"delete-button": "Delete"
+		},
+		"approvals": {
+			"heading": "Approvals",
+			"approve-button": "Approve",
+			"reject-button": "Reject"
 		}
 	},
 

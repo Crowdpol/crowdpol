@@ -80,5 +80,18 @@ Meteor.methods({
 
       return true;
 
+    },
+    clearApprovals: function(userID){
+      Meteor.users.update({_id: userID}, {$set: {"profile.approvals": []}});
+    },
+    approveUser: function(userID, approverID){
+      user = Meteor.call('getUser', userID);
+      approvals = user.profile.approvals;
+      for (i=0; i<approvals.length; i++){
+        approvals[i].approved = true;
+        approvals[i].approvedBy = approverID;
+        approvals[i].approvedOn = new Date();
+        Meteor.users.update({_id: userID}, {$set: {'profile.approvals': approvals}});
+      }
     }
 });

@@ -123,7 +123,7 @@ adminRoutes.route('/dash', {
 adminRoutes.route('/users', {
   name: 'App.admin.users',
   action() {
-    BlazeLayout.render('App_body', { main: 'users' });
+    BlazeLayout.render('App_body', { main: 'AdminUsers' });
   },
 });
 
@@ -138,5 +138,12 @@ FlowRouter.route('/tag/:id', {
   name: 'App.tag',
   action() {
     BlazeLayout.render('App_body', {main: 'TagSearch'});
+  }
+});
+
+adminRoutes.route('/approvals', {
+  name: 'App.approvals',
+  action() {
+    BlazeLayout.render('App_body', {main: 'AdminApprovals'});
   }
 });

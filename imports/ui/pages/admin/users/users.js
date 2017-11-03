@@ -1,23 +1,19 @@
 import './users.html';
 
-Template.users.onCreated(function() {
+Template.AdminUsers.onCreated(function() {
   var self = this;
   self.autorun(function() {
     self.subscribe('users');
-    self.subscribe('users.pendingApprovals');
   });
 });
 
-Template.users.helpers({
+Template.AdminUsers.helpers({
   users: ()=> {
     return Meteor.users.find({});
   },
-  pendingApprovals: ()=> {
-    return Meteor.users.find({'profile.approvals.approved':false});
-  }
 });
 
-Template.users.events({
+Template.AdminUsers.events({
 	'submit form' (event, template){
 		event.preventDefault();
 

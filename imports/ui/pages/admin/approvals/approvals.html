@@ -1,0 +1,61 @@
+<template name="AdminApprovals">
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <h3>
+                {{_"admin.approvals.heading"}}
+            </h3>
+            {{#if Template.subscriptionsReady}}
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+                <thead>
+                    <tr>
+                        <th>
+                            {{_"admin.users.email"}}
+                        </th>
+                        <th>
+                            {{_"admin.users.roles"}}
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each pendingApprovals}}
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            {{#each emails}} 
+                              {{address}}
+                            {{/each}}
+                        </td>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            {{roles}}
+                        </td>
+                        <td>
+                            <button class="mdl-button mdl-js-button mdl-button--raised" 
+                            data-email="{{emails.[0].address}}" data-type="{{roles.[0]}}" 
+                            data-user-id="{{_id}}" id="approve-button">
+                                <i class="mdi mdi-close-circle">
+                                </i>
+                                {{_'admin.approvals.approve-button'}}
+                            </button>
+                        </td>
+                        <td>
+                            <button class="mdl-button mdl-js-button mdl-button--raised" 
+                            data-email="{{emails.[0].address}}" data-type="{{roles.[0]}}" 
+                            data-user-id="{{_id}}" id="reject-button">
+                                <i class="mdi mdi-check-circle">
+                                </i>
+                                {{_'admin.approvals.reject-button'}}
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p>
+                Loading...
+            </p>
+            {{/if}}
+        </div>
+    </div>
+</template>
