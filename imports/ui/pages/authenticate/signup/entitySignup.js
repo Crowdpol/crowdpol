@@ -18,17 +18,28 @@ Template.entitySignup.events({
 		Meteor.call('addEntity', entity, function(error)	{
 			if (error) {
 					Bert.alert(error.reason, 'danger');
-				} else {
-					//Log the user in if entity creation was successful
-					Meteor.loginWithPassword(entity.email, entity.password);
-					Meteor.call('sendVerificationLink', (error, response) => {
-						if (error){
-							Bert.alert(error.reason, 'danger');
-						} else {
-							Bert.alert('Welcome!', 'success');
-						}
-					});
-				}
+			} else {
+				//Step 1: Log the user in if entity creation was successful
+				Meteor.loginWithPassword(entity.email, entity.password);
+				//Step 2: Send entity request approval
+				var role = template.find('#entity-type').dataset.val;
+				Meteor.call('requestApproval',Meteor.userId(),role,function(error){
+          if (error){
+            Bert.alert(error.reason, 'danger');
+          } else {
+            var msg = "Request submitted";//TAPi18n.__('profile-msg-private');
+            Bert.alert(msg, 'success');
+          }
+        });  
+				//Step 3: Send verification email
+				Meteor.call('sendVerificationLink', (error, response) => {
+					if (error){
+						Bert.alert(error.reason, 'danger');
+					} else {
+						Bert.alert('Welcome!', 'success');
+					}
+				});
+			}
 		});
 	},
 
