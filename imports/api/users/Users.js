@@ -64,7 +64,6 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-
     username: {
         type: String,
         optional: true
@@ -107,7 +106,11 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-    contactNumber: {
+    phoneNumber: {
+        type: String,
+        optional: true
+    },
+    contactPerson: {
         type: String,
         optional: true
     }

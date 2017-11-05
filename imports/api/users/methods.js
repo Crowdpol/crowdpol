@@ -119,4 +119,8 @@ Meteor.methods({
         Roles.addUsersToRoles(Meteor.userId(), role);
       }
     },
+    getRequests(){
+      return Meteor.users.find({});//,{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1, approvals: 1, emails: 1}}).fetch();
+    }
+
 });

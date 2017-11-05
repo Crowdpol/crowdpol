@@ -4,12 +4,16 @@ Template.AdminApprovals.onCreated(function() {
   var self = this;
   self.autorun(function() {
     self.subscribe('users.pendingApprovals');
+    //self.subscribe('users.all');
   });
 });
 
 Template.AdminApprovals.helpers({
   pendingApprovals: ()=> {
-    return Meteor.users.find({'profile.approvals.approved':false});
+    var result = Meteor.users.find({"approvals" : {$exists: true}, $where : "this.approvals.length > 0"});
+    //var result = Meteor.call('getRequests');
+    console.log(result);
+    return result;
   }
 });
 
