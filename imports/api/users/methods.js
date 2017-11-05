@@ -93,29 +93,30 @@ Meteor.methods({
         approvals[i].approvedOn = new Date();
         Meteor.users.update({_id: userID}, {$set: {'profile.approvals': approvals}});
       }
-    }
+    },
     'user.delete'(userId) {
       Meteor.users.remove({_id:userId});
     },
     requestApproval: function (userID,type) {
-      check(userID, String);
-      check(type, String);
-      let request = [
-            {
-              "type" : 'delegate-individual',
-              "approved" : false,
-              "createdAt" : new Date(),
-            }
-          ];
-      Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": request}});
+      //get current user approvalReqeusts
+      var currentApprovals = Meteor.user().approvals;
+      //add to existing array before update, or else it just replaces what is already there
+      const existingRequests = currentApprovals || [];
+      existingRequests.push({
+        "type" : type,
+        "approved" : false,
+        "createdAt" : new Date(),
+      });
+      Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
     },
-    toggleDelegate: function (userID,isDelegate) {
+    toggleRole: function (userID,role,state) {
       check(userID, String);
-      check(isDelegate, Boolean);
-      if(isDelegate){
-        Roles.removeUsersFromRoles(Meteor.userId(), 'delegate');
+      check(role, String);
+      check(state, Boolean);
+      if(state){
+        Roles.removeUsersFromRoles(Meteor.userId(), role);
       }else{
-        Roles.addUsersToRoles(Meteor.userId(), 'delegate');
+        Roles.addUsersToRoles(Meteor.userId(), role);
       }
     },
 });

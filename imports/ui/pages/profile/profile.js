@@ -14,20 +14,24 @@ Template.Profile.events({
         }
       });
   },
-  'click #profile-delegate-switch'(event, template){
+  'click #profile-delegate'(event, template){
+      //Step 1: Check if person already is a delegate, if so remove role
       var isDelegate = Roles.userIsInRole(Meteor.user(),'delegate');
       console.log("isDelegate: " + isDelegate);
       if(isDelegate){
-        Meteor.call('toggleDelegate',Meteor.userId(),false,function(error){
+        Meteor.call('toggleRole',Meteor.userId(),'delegate',false,function(error){
           if (error){
             Bert.alert(error.reason, 'danger');
           } else {
             var msg = "You are no longer a delegate";
             Bert.alert(msg, 'success');
           }
-        });  
+        }); 
       }else{
-        Meteor.call('requestApproval',Meteor.userId(),'delegate-individual',function(error){
+        //Step 2: If person not delegate, check profile is complete before submission
+          //NOTE: inomplete
+        //Step 3: Profile is complete, submit approval request
+        Meteor.call('requestApproval',Meteor.userId(),'individual-delegate',function(error){
           if (error){
             Bert.alert(error.reason, 'danger');
           } else {
@@ -37,21 +41,32 @@ Template.Profile.events({
         });  
       }
   },
-  'click #profile-candidate-switch'(event, template){
-    /*
-      Meteor.call('togglePublic',Meteor.userId(),event.target.checked,function(error){
-        if (error){
-          Bert.alert(error.reason, 'danger');
-        } else {
-          var msg = TAPi18n.__('profile-msg-private');
-          if(event.target.checked){
-            msg = TAPi18n.__('profile-msg-public');
+  'click #profile-candidate'(event, template){
+      //Step 1: Check if person already is a candidate, if so remove role
+      var isCandidate = Roles.userIsInRole(Meteor.user(),'delegate');
+      console.log("isCandidate: " + isCandidate);
+      if(isCandidate){
+        Meteor.call('toggleRole',Meteor.userId(),'candidate',false,function(error){
+          if (error){
+            Bert.alert(error.reason, 'danger');
+          } else {
+            var msg = "You are no longer a candidate";
+            Bert.alert(msg, 'success');
           }
-          Bert.alert(msg, 'success');
-        }
-      });
-    */
-    console.log("go candidate");
+        }); 
+      }else{
+        //Step 2: If person not candidate, check profile is complete before submission
+          //NOTE: inomplete
+        //Step 3: Profile is complete, submit approval request
+        Meteor.call('requestApproval',Meteor.userId(),'candidate',function(error){
+          if (error){
+            Bert.alert(error.reason, 'danger');
+          } else {
+            var msg = "Request submitted";//TAPi18n.__('profile-msg-private');
+            Bert.alert(msg, 'success');
+          }
+        });  
+      }
   }
 });
 

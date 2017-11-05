@@ -81,9 +81,6 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Credential,
         optional: true,
     },
-<<<<<<< HEAD
-<<<<<<< 1e1bb2f6c4772a63546437b7bcf6592315a33583
-    
     approvals: {
         type: Array,
         optional: true,
@@ -93,7 +90,6 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Approval,
         optional: true,
     },
-    
     birthday: {
         type: Date,
         optional: true
@@ -108,6 +104,10 @@ Schema.UserProfile = new SimpleSchema({
         optional: true
     },
     bio: {
+        type: String,
+        optional: true
+    },
+    contactNumber: {
         type: String,
         optional: true
     }
@@ -132,7 +132,7 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-    
+    */
 });
 
 Schema.User = new SimpleSchema({
@@ -179,8 +179,25 @@ Schema.User = new SimpleSchema({
           }
         },
     },
-
     isPublic: {
+        type: Boolean,
+        optional: true,
+        autoValue() {
+          if (this.isInsert) {
+            return false;
+          }
+        },
+    },
+    isParty: {
+        type: Boolean,
+        optional: true,
+        autoValue() {
+          if (this.isInsert) {
+            return false;
+          }
+        },
+    },
+    isOrganisation: {
         type: Boolean,
         optional: true,
         autoValue() {
