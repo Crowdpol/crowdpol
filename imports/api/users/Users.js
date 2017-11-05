@@ -6,21 +6,30 @@ import { Tracker } from 'meteor/tracker';
 const Schema = {};
 
 Schema.Approval = new SimpleSchema({
+    id: {
+        type: String,
+        optional: true,
+    },
     type: {
         type: String,
         allowedValues: ['individual-delegate', 'organisation-delegate','party-delegate', 'candidate'],
         optional: true,
     },
-    approved: {
-        type: Boolean,
+    status: {
+        type: String,
+        allowedValues: ['Requested', 'Approved','Rejected'],
         optional: true,
     },
-    approvedBy: {
+    reviewedBy: {
         type: String,
         optional: true,
     },
-    approvedOn: {
+    reviewedOn: {
         type: Date,
+        optional: true,
+    },
+    reviewedReply: {
+        type: String,
         optional: true,
     },
     createdAt: {

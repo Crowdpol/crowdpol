@@ -34,11 +34,11 @@
                                 </td>
                                 <td>{{../roles}}</td>
                                 <td class="mdl-data-table__cell--non-numeric">{{type}}</td>
-                                <td>{{#if approved}}Approved{{else}}False{{/if}}</td>
+                                <td>{{status}}</td>
                                 <td>
                                     <button class="mdl-button mdl-js-button mdl-button--raised" 
-                                        data-email="{{emails.[0].address}}" data-type="{{roles.[0]}}" 
-                                        data-user-id="{{_id}}" id="approve-button">
+                                        data-email="{{../emails.[0].address}}" data-type="{{../roles.[0]}}" data-request-id="{{id}}"
+                                        data-user-id="{{../_id}}" id="approve-button">
                                         <i class="mdi mdi-close-circle">
                                         </i>
                                         {{_'admin.approvals.approve-button'}}
@@ -46,8 +46,8 @@
                                 </td>
                                 <td>
                                     <button class="mdl-button mdl-js-button mdl-button--raised" 
-                                        data-email="{{emails.[0].address}}" data-type="{{roles.[0]}}" 
-                                        data-user-id="{{_id}}" id="reject-button">
+                                        data-email="{{../emails.[0].address}}" data-type="{{../roles.[0]}}" data-request-id="{{id}}"
+                                        data-user-id="{{../_id}}" id="reject-button">
                                         <i class="mdi mdi-check-circle">
                                         </i>
                                         {{_'admin.approvals.reject-button'}}

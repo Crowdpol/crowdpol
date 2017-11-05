@@ -84,15 +84,18 @@ Meteor.methods({
     clearApprovals: function(userID){
       Meteor.users.update({_id: userID}, {$set: {"profile.approvals": []}});
     },
-    approveUser: function(userID, approverID){
-      user = Meteor.call('getUser', userID);
-      approvals = user.profile.approvals;
+    approveUser: function(userID, requestId,status,approverID){
+      user = Meteor.users.findOne({_id: userID,"approvals" : {$exists: true}, $where : "this.approvals.length > 0"});
+      approvals = user.approvals;
       for (i=0; i<approvals.length; i++){
-        approvals[i].approved = true;
-        approvals[i].approvedBy = approverID;
-        approvals[i].approvedOn = new Date();
-        Meteor.users.update({_id: userID}, {$set: {'profile.approvals': approvals}});
+        if(approvals[i].id==requestId){
+          approvals[i].status = status;
+          approvals[i].reviewedBy = Meteor.userId();
+          approvals[i].reviewedOn = new Date();
+        }
+        
       }
+      Meteor.users.update({_id: userID}, {$set: {'approvals': approvals}});
     },
     'user.delete'(userId) {
       Meteor.users.remove({_id:userId});
@@ -103,8 +106,9 @@ Meteor.methods({
       //add to existing array before update, or else it just replaces what is already there
       const existingRequests = currentApprovals || [];
       existingRequests.push({
+        "id": Random.id(),
         "type" : type,
-        "approved" : false,
+        "status" : "Requested",
         "createdAt" : new Date(),
       });
       Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});

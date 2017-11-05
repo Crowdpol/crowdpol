@@ -23,16 +23,20 @@ Template.AdminApprovals.events({
 		email = event.target.dataset.email;
 		type = event.target.dataset.type;
 		userID = event.target.dataset.userId;
-		Meteor.call('sendApproval', email, type);
-		Meteor.call('approveUser', userID);
+		requestId = event.target.dataset.requestId;
+		//Meteor.call('sendApproval', email, type);
+		Meteor.call('approveUser', userID,requestId,'Approved','');
+
 	},
 
 	'click #reject-button': function(event, template){
+
 		email = event.target.dataset.email;
 		type = event.target.dataset.type;
 		userID = event.target.dataset.userId;
-		Meteor.call('clearApprovals', userID);
-		Meteor.call('sendRejection', email, type);
-
+		requestId = event.target.dataset.requestId;
+		//Meteor.call('clearApprovals', userID);
+		//Meteor.call('sendRejection', email, type);
+		Meteor.call('approveUser', userID,requestId,'Rejected','');
 	}
 });
