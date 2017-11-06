@@ -3,14 +3,23 @@
 		<div class="mdl-cell mdl-cell--12-col">
 			<h1>{{_ "profile-title"}}</h1>
 			<hr>
+
 			{{#if Template.subscriptionsReady}}
-				<!-- Colored raised button -->
+			{{#if user.isPublic}}
 				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-					  <input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{isPublicChecked}}>
-					  <span class="mdl-switch__label">{{_ "profile-public"}}{{publicStatus}}</span>
+					  <input type="checkbox" id="profile-public-switch" class="mdl-switch__input" checked>
+					  <span class="mdl-switch__label">{{_ "profile-public"}}</span>
 				</label>
-				{{> ProfileIndividual}}
-				<hr>
+			{{else}}
+				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
+					  <input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
+					  <span class="mdl-switch__label">{{_ "profile-public"}}</span>
+				</label>
+			{{/if}}
+					
+					{{> ProfileIndividual}}
+					<hr>
+				
 			{{else}}
 		    {{> loader}}
 		  {{/if}}
@@ -35,11 +44,15 @@
 			      <label class="mdl-textfield__label" for="profile-firstname">{{_ "profile-firstname"}}</label>
 			      <input type="text" name="profile-firstname" class="mdl-textfield__input" value="{{firstName}}">
 			    </div>
+			    
 			    <br>
-			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			    
+			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity currentUser.profile.type}}hidden{{/if}}">
 			      <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
 			      <input type="text" name="profile-lastname" class="mdl-textfield__input" value="{{lastName}}">
 			    </div>
+
+			    
 			    <br>
 			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			      <label class="mdl-textfield__label" for="profile-website">{{_ "profile-website"}}</label>

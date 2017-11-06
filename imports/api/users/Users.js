@@ -65,6 +65,11 @@ Schema.UserCountry = new SimpleSchema({
 });
 
 Schema.UserProfile = new SimpleSchema({
+    type: {
+        type: String,
+        allowedValues: ['Individual', 'Entity'],
+        optional: true,
+    },
     firstName: {
         type: String,
         optional: true
@@ -100,10 +105,6 @@ Schema.UserProfile = new SimpleSchema({
     },
     birthday: {
         type: Date,
-        optional: true
-    },
-    organization : {
-        type: String,
         optional: true
     },
     website: {
@@ -203,20 +204,21 @@ Schema.User = new SimpleSchema({
     isParty: {
         type: Boolean,
         optional: true,
-        autoValue() {
+        /*autoValue() {
           if (this.isInsert) {
             return false;
           }
-        },
+        },*/
     },
     isOrganisation: {
         type: Boolean,
         optional: true,
+        /*
         autoValue() {
           if (this.isInsert) {
             return false;
           }
-        },
+        },*/
     },
     profile: {
         type: Schema.UserProfile,

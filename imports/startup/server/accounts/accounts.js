@@ -19,7 +19,8 @@ function normalizeFacebookUser(profile, user) {
     firstName: user.services.facebook.first_name,
     lastName: user.services.facebook.last_name,
     credentials: credential,
-    isPublic: false
+    isPublic: false,
+    type: 'Individual'
   });
 
   const userEmail = {
@@ -48,7 +49,8 @@ function normalizeGoogleUser(profile, user) {
     firstName: user.services.google.given_name,
     lastName: user.services.google.family_name,
     credentials: credential,
-    isPublic: false
+    isPublic: false,
+    type: 'Individual'
   });
   const userEmail = {
     address: user.services.google.email,
@@ -80,7 +82,8 @@ function normalizeTwitterUser(profile, user) {
     firstName: profile.name,
     lastName: '',
     credentials: credential,
-    isPublic: false
+    isPublic: false,
+    type: 'Individual'
   });
 
   const userEmail = {
@@ -108,7 +111,8 @@ function normalizeSignupUser(user) {
     username: "anonymous",
     firstName: "Anonymous",
     lastName: "User",
-    isPublic: false
+    isPublic: false,
+    type: 'Individual'
   };
   Meteor.call('profiles.initiate', user._id,userProfile,(error) => {
         if(error){
@@ -141,7 +145,8 @@ function normalizeScriptUser(profile, user) {
     username: profile.username,
     firstName: profile.firstName,
     lastName: profile.lastName,
-    isPublic: false
+    isPublic: false,
+    type: 'Individual'
   });
   return _.extend(user, {
     //username,
@@ -162,7 +167,8 @@ function normalizeDemoUser(profile, user) {
     username: profile.firstName + " " + profile.lastName,
     firstName: profile.firstName,
     lastName: profile.lastName,
-    isPublic: false
+    isPublic: false,
+    type: 'Individual'
   });
   return _.extend(user, {
     //username,

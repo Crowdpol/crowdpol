@@ -9,6 +9,12 @@ Meteor.methods({
       userId = Accounts.createUser(newUser);
       return userId;
     },
+    isPublic: function (userId) {
+
+      user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});;
+      console.log("isPublic: " + user.isPublic);
+      return user.isPublic;
+    },
     getUser: function (userID) {
       //console.log("method getUser called");
       check(userID, String);
@@ -37,6 +43,16 @@ Meteor.methods({
       check(isPublic, Boolean);
       Meteor.users.update({_id: userID}, {$set: {"isPublic": isPublic}});
     },
+    toggleParty: function (userID,isParty) {
+      check(userID, String);
+      check(isParty, Boolean);
+      Meteor.users.update({_id: userID}, {$set: {"isParty": isParty}});
+    },
+    toggleOrg: function (userID,isOrg) {
+      check(userID, String);
+      check(isOrg, Boolean);
+      Meteor.users.update({_id: userID}, {$set: {"isOrganisation": isOrg}});
+    },
     addApproval: function(userID, approval) {
       user = Meteor.call('getUser', userID);
       if (!user.profile.approvals){
@@ -48,16 +64,20 @@ Meteor.methods({
     addEntity: function(entity) {
       entityID = Accounts.createUser({
         'email': entity.email,
-        'password': entity.password
+        'password': entity.password,
+        'isPublic' : false
         });
 
       // Update profile
       profile = {'firstName': entity.name,
       'website': entity.website,
       'phoneNumber': entity.phone,
-      'contactPerson': entity.contact}
+      'contactPerson': entity.contact,
+      'type': entity.profileType};
 
-      Meteor.call('updateProfile', entityID, profile)
+      Meteor.call('updateProfile', entityID, profile);
+      Meteor.call('toggleParty', entityID,entity.isParty);
+      Meteor.call('toggleOrg', entityID,entity.isOrganisation);
 
       // Add entity to role
       Roles.addUsersToRoles(entityID, entity.roles);
@@ -87,15 +107,19 @@ Meteor.methods({
     approveUser: function(userID, requestId,status,approverID){
       user = Meteor.users.findOne({_id: userID,"approvals" : {$exists: true}, $where : "this.approvals.length > 0"});
       approvals = user.approvals;
+      var type = null;
       for (i=0; i<approvals.length; i++){
         if(approvals[i].id==requestId){
           approvals[i].status = status;
           approvals[i].reviewedBy = Meteor.userId();
           approvals[i].reviewedOn = new Date();
+          type = approvals[i].type;
         }
-        
       }
       Meteor.users.update({_id: userID}, {$set: {'approvals': approvals}});
+      if(type){
+        Roles.addUsersToRoles(userID, type);
+      }
     },
     'user.delete'(userId) {
       Meteor.users.remove({_id:userId});

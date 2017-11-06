@@ -1,5 +1,13 @@
 import "./profile.html"
 
+Template.Profile.onCreated(function(){ 
+  var self = this;
+  self.autorun(function() {
+    self.subscribe('user.current');
+  });
+  //console.log(FlowRouter.getParam(_id));
+});
+
 Template.Profile.events({
   'click #profile-public-switch' (event, template){
       Meteor.call('togglePublic',Meteor.userId(),event.target.checked,function(error){
@@ -70,9 +78,12 @@ Template.Profile.events({
   }
 });
 
-Template.Profile.events({
-  publicStatus: function() {
-    return "[Private]";
+Template.Profile.helpers({
+
+  user: function(){
+    user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});
+    console.log(user);
+    return user;
   },
   delegateStatus: function() {
     return "[Pending]";
@@ -80,6 +91,13 @@ Template.Profile.events({
   candidateStatus: function() {
     return "[Submitted for Approval]";
   },
+  isPublic: function(){
+    console.log(Meteor.user().isPublic);
+    return false;
+  },
+  isOrganisation: function(){
+    return false;
+  }
 });
 
 Template.ProfileIndividual.onCreated(function(){ 
@@ -136,7 +154,18 @@ Template.ProfileIndividual.events({
 });
 
 Template.ProfileIndividual.helpers({
-
+  isEntity: function(type){
+    console.log(type);
+    if(type=='Entity'){
+      console.log("should be hidden");
+      return true;
+    }
+    return false;
+  },
+  profile: function(){
+    user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});
+    return user.profile;
+  },
   profilePic: function() {
     return Template.instance().templateDictionary.get( 'photo' );
   },
