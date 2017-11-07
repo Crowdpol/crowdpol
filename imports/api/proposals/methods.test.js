@@ -3,7 +3,7 @@ import { assert } from 'meteor/practicalmeteor:chai';
 import './methods.js';
 
 if (Meteor.isServer) {
-  let testTag;
+  let testProposal;
   beforeEach(function () {
 
   });
@@ -17,7 +17,6 @@ if (Meteor.isServer) {
         let endDate = new Date()
         let authorId = '213924230'
         testProposal = Meteor.call('createProposal', title, abstract, body, startDate, endDate, authorId);
-        console.log(testTag);
         done();
       } catch (err) {
         console.log(err);

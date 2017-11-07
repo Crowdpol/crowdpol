@@ -49,7 +49,7 @@ Proposals.allow({
   insert() {
     return true;
   },
-  update: function(userId, doc) {
+  update: function(proposalId, doc) {
     return true;
     },
   remove() {
