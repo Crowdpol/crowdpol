@@ -46,8 +46,8 @@
 			    </div>
 			    
 			    <br>
-			    
-			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity currentUser.profile.type}}hidden{{/if}}">
+			    <!--{{#if isEntity currentUser.profile.type}}hidden{{/if}}-->
+			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity user.profile.type}}hidden{{/if}}">
 			      <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
 			      <input type="text" name="profile-lastname" class="mdl-textfield__input" value="{{lastName}}">
 			    </div>

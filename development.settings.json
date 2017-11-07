@@ -65,6 +65,21 @@
             "bio": "Systems administrator",
             "photo": "/img/default-user-image.png"
           }
+      },
+      {
+          "username": "admin_sol",
+          "email":"solwicher@gmail.com",
+          "roles":["superadmin","admin","normal"],
+          "isPublic": false,
+          "profile": {
+            "username": "admin_sol",
+            "firstName": "Sol",
+            "lastName": "Wicher",
+            "organization": "Common Democracy",
+            "website": "http://www.commondemocracy.org",
+            "bio": "Systems administrator",
+            "photo": "/img/default-user-image.png"
+          }
       }
     ]
   }
