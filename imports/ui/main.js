@@ -35,7 +35,7 @@ import './pages/privacy.html';
 import './pages/terms.html';
 // Styles import
 import './stylesheets/variables.scss';
-import './stylesheets/global.scss';
+import './stylesheets/typography.scss';
 
 Meteor.startup(function () {
 	// setup language

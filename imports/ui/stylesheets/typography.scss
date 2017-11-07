@@ -1,0 +1,84 @@
+@import 'variables.scss';
+
+html {
+  // Defines root value for REMS
+  font-size: 20px;
+}
+
+body {
+  color: $dark-grey-xdark;
+  font-family: $default-font;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $blue-xdark;
+  font-weight: 300;
+}
+
+h1,
+h2,
+h3 {
+  margin: $space 0;
+}
+
+h4 {
+  margin: ($space / 2) 0;
+}
+
+h5,
+h6 {
+  margin: ($space / 4) 0;
+}
+
+h1 {
+  font-size: $base-font-size * 2.5;
+  line-height: $base-line-height * 2;
+}
+
+h2 {
+  font-size: $base-font-size * 2.0625;
+  line-height: $base-line-height * 2;
+}
+
+h3 {
+  font-size: $base-font-size * 1.5;
+  line-height: $base-line-height * 1.5;
+}
+
+h4 {
+  font-size: $base-font-size * 1.25;
+  line-height: $base-line-height;
+}
+
+h5 {
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+}
+
+h6 {
+  font-size: $base-font-size / 0.875;
+  line-height: $base-line-height / 1.333;
+}
+
+p,
+ul,
+ol,
+li,
+span,
+a {
+  color: $dark-grey-xdark;
+  font-size: $base-font-size;
+  font-weight: 400;
+  line-height: $base-line-height;
+}
+
+p {
+  font-family: $body-font;;
+}
