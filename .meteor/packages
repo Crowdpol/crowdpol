@@ -57,3 +57,4 @@ xolvio:cleaner					# cleans yo DB!
 
 #-- 3rd party JS libraries --
 momentjs:moment					# makes time pretty
+practicalmeteor:sinon
