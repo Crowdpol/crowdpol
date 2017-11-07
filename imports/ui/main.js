@@ -33,6 +33,8 @@ import './pages/profile/profile.js';
 import './pages/tags/tags.js';
 import './pages/privacy.html';
 import './pages/terms.html';
+// Styles import
+import './stylesheets/variables.scss';
 import './stylesheets/global.scss';
 
 Meteor.startup(function () {
