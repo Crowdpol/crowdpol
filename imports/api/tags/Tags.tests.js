@@ -16,7 +16,6 @@ describe('Tags schema', function() {
   // sanity check that jsf schema validaes ok
   it('inserts cleanly', function() {
     const testDoc = generateDoc(schema.Tag)
-    //console.log(testDoc)
     const tag = Factory.create('tag', testDoc);
   });
 });

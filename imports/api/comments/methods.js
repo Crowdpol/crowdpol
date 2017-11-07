@@ -6,13 +6,6 @@ import { Comments } from './Comments.js'
 Meteor.methods({
   comment: function(commentAttributes) {
     var user = Meteor.user();
-    console.log('COMMENT FUNCTION===============================')
-    console.log('user:')
-    //console.log(user)
-    console.log('userId')
-    console.log(user._id)
-    console.log(user.username)
-    console.log('end')
     var proposal = Proposals.findOne(commentAttributes.proposalId);
     // ensure the user is logged in
     if (!user)

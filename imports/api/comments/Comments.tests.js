@@ -15,7 +15,6 @@ describe('Comment schema', function() {
 
   it('inserts cleanly', function() {
     const testDoc = generateDoc(schema.Comment)
-    console.log(testDoc)
     const comment = Factory.create('comment', testDoc);
   });
 });

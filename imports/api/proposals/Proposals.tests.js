@@ -15,7 +15,6 @@ describe('Proposal schema', function() {
 
   it('inserts cleanly', function() {
     const testDoc = generateDoc(schema.Proposal)
-    console.log(testDoc)
     const proposal = Factory.create('proposal', testDoc);
   });
 });

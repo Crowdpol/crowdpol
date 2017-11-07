@@ -11,7 +11,6 @@ if (Meteor.isServer) {
     it("Add tag", (done) => {
       try {
         testTag = Meteor.call('addTag', "testing");
-        console.log(testTag);
         done();
       } catch (err) {
         console.log(err);
