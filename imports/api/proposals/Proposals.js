@@ -41,6 +41,14 @@ ProposalSchema = new SimpleSchema({
     authorId: {
         type: String,
     },
+    invited: {
+        type: Array,
+        optional: true,
+    },
+    'invited.$': {
+        type: String,
+        optional: true,
+    },
 });
 
 Proposals.attachSchema(ProposalSchema);

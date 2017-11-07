@@ -1,0 +1,53 @@
+<template name='EditProposal'>
+	<!-- Include Quill stylesheet -->
+	<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+
+	Edit this proposal:
+
+<form id="edit-proposal-form">
+    <div class="mdl-textfield mdl-js-textfield">
+      <label class="mdl-textfield__label">{{_ "proposals.edit.title"}}</label>
+      <input type="text" id="title" class="mdl-textfield__input" value='{{ title }}'>
+    </div> <br/>
+
+	<div class="mdl-textfield mdl-js-textfield">
+		<textarea class="mdl-textfield__input" type="text" rows= "5" id="abstract" ></textarea>
+		<label class="mdl-textfield__label">{{_ "proposals.edit.abstract"}}</label>
+	</div> <br/>
+
+	<div class="mdl-textfield mdl-js-textfield">
+		<textarea class="mdl-textfield__input" type="text" rows= "5" id="body" ></textarea>
+		<label class="mdl-textfield__label">{{_ "proposals.edit.body"}}</label>
+	</div> <br/>
+
+	<div class="mdl-textfield mdl-js-textfield">
+      <label class="mdl-textfield__label">{{_ "proposals.edit.startDate"}}</label>
+      <input type="date" id="startDate" class="mdl-textfield__input" value='{{ startDate }}'>
+    </div> <br/>
+
+    <div class="mdl-textfield mdl-js-textfield">
+      <label class="mdl-textfield__label">{{_ "proposals.edit.endDate"}}</label>
+      <input type="date" id="endDate" class="mdl-textfield__input" value='{{ endDate }}'>
+    </div> <br/>
+
+    <div class="form-group">
+      <input type="submit" id="save-proposal" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "proposals.save-button"}}'>
+    </div>
+</form>
+
+
+	
+
+</template>
+
+
+<!-- Create the toolbar container
+	<div id="toolbar">
+	  <button class="ql-bold">Bold</button>
+	  <button class="ql-italic">Italic</button>
+	</div>
+	 
+	Create the editor container
+	<div id="editor">
+	  <p>Hello World!</p>
+	</div> -->
