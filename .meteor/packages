@@ -25,6 +25,7 @@ kadira:blaze-layout     # Layout manager for blaze (works well with FlowRouter)
 practicalmeteor:mocha             # A package for writing and running your meteor app and package tests with mocha
 johanbrook:publication-collector  # Test a Meteor publication by collecting its output
 dburles:factory					  # Generates Fake News
+practicalmeteor:sinon
 
 #-- internationalization --
 tap:i18n
@@ -57,4 +58,3 @@ xolvio:cleaner					# cleans yo DB!
 
 #-- 3rd party JS libraries --
 momentjs:moment					# makes time pretty
-practicalmeteor:sinon
