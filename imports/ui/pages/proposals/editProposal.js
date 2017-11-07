@@ -1,44 +1,46 @@
 import './editProposal.html'
 import Quill from 'quill'
+import { Proposals } from '../../../api/proposals/Proposals.js'
 
 Template.EditProposal.onCreated(function() {
 	var self = this;
 	self.autorun(function(){
-		proposal = null;
-		if (FlowRouter.getParam("id")){
+		proposalId = FlowRouter.getParam("id")
+		if (proposalId){
 			// Edit an existing proposal
-			proposal = Meteor.call('getProposal', FlowRouter.getParam("id"));
+			self.subscribe('proposals.one', proposalId);
+			console.log('a proposal exists already, we will edit it')
 		}
 	});
 });
 
 Template.EditProposal.onRendered(function(){
 	var self = this;
-	/*var editor = new Quill('#editor', {
+	var editor = new Quill('#body', {
 		modules: { toolbar: '#toolbar' },
 		theme: 'snow'
-  	});*/
+  	});
 });
 
 Template.EditProposal.helpers({
-	title: ()=> {
-		if (proposal) {return proposal.title;} else {return '';}
-	},
-	abstract: ()=> {
-		if (proposal) {return proposal.abstract;} else {return '';}
-	},
-	body: ()=> {
-		if (proposal) {return proposal.body;} else {return '';}
-	},
-	startDate: ()=> {
-		if (proposal) {return proposal.startDate;} else {return new Date();}
-	},
-	endDate: ()=> {
-		if (proposal) {return proposal.endDate;} else {return new Date();}
-	},
-	invited: ()=> {
-		if (proposal) {return proposal.invited;} else {return [];}
-	},
+	proposal: ()=> {
+		proposalId = FlowRouter.getParam("id")
+		if (proposalId){
+			console.log('we are editing an existing proposal, which is this:')
+			console.log(proposalId)
+			return Proposals.findOne({_id: proposalId});
+		} else {
+			console.log('we are editing a nonexistant proposal')
+			return {
+				title: '',
+				abstract: '',
+				body: '',
+				startDate: new Date('03/25/2015'),
+				endDate: new Date('03/25/2015')
+			}
+		}
+		
+	}
 });
 
 Template.EditProposal.events({
@@ -56,11 +58,15 @@ Template.EditProposal.events({
 		var functionString;
 
 		// If working on an existing proposal, save it, else create a new one
-		if (proposal){
+		if (FlowRouter.getParam("id")){
 			functionString = 'saveProposalChanges';
 		} else {
 			functionString = 'createProposal';
 		}
+
+		console.log('proposal')
+		//console.log(proposal)
+		console.log(functionString)
 
 		Meteor.call(functionString, newProposal, function(error, proposalId){
 			if (error){

@@ -7,27 +7,38 @@
 <form id="edit-proposal-form">
     <div class="mdl-textfield mdl-js-textfield">
       <label class="mdl-textfield__label">{{_ "proposals.edit.title"}}</label>
-      <input type="text" id="title" class="mdl-textfield__input" value='{{ title }}'>
+      <input type="text" id="title" class="mdl-textfield__input" value='{{ proposal.title }}'>
     </div> <br/>
 
 	<div class="mdl-textfield mdl-js-textfield">
-		<textarea class="mdl-textfield__input" type="text" rows= "5" id="abstract" ></textarea>
+		<textarea class="mdl-textfield__input" type="text" rows= "5" id="abstract" value="{{ proposal.abstract }}" ></textarea>
 		<label class="mdl-textfield__label">{{_ "proposals.edit.abstract"}}</label>
 	</div> <br/>
 
-	<div class="mdl-textfield mdl-js-textfield">
+	<!-- <div class="mdl-textfield mdl-js-textfield">
 		<textarea class="mdl-textfield__input" type="text" rows= "5" id="body" ></textarea>
 		<label class="mdl-textfield__label">{{_ "proposals.edit.body"}}</label>
-	</div> <br/>
+	</div> <br/> -->
+
+	<!-- Toolbar for the quill editor -->
+	<div id="toolbar">
+	  <button class="ql-bold">Bold</button>
+	  <button class="ql-italic">Italic</button>
+	</div>
+	 
+	<!-- Quill editor container -->
+	<div id="body">
+	  helloo
+	</div>
 
 	<div class="mdl-textfield mdl-js-textfield">
       <label class="mdl-textfield__label">{{_ "proposals.edit.startDate"}}</label>
-      <input type="date" id="startDate" class="mdl-textfield__input" value='{{ startDate }}'>
+      <input type="date" id="startDate" class="mdl-textfield__input" value='{{ proposal.startDate }}'>
     </div> <br/>
 
     <div class="mdl-textfield mdl-js-textfield">
       <label class="mdl-textfield__label">{{_ "proposals.edit.endDate"}}</label>
-      <input type="date" id="endDate" class="mdl-textfield__input" value='{{ endDate }}'>
+      <input type="date" id="endDate" class="mdl-textfield__input" value='{{ proposal.endDate }}'>
     </div> <br/>
 
     <div class="form-group">
@@ -41,13 +52,3 @@
 </template>
 
 
-<!-- Create the toolbar container
-	<div id="toolbar">
-	  <button class="ql-bold">Bold</button>
-	  <button class="ql-italic">Italic</button>
-	</div>
-	 
-	Create the editor container
-	<div id="editor">
-	  <p>Hello World!</p>
-	</div> -->
