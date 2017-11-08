@@ -3,7 +3,6 @@
 	<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
 	Edit this proposal:
-	{{#if Template.subscriptionsReady}}
 
 <form id="edit-proposal-form">
     <div class="mdl-textfield mdl-js-textfield">
@@ -24,7 +23,7 @@
 	 
 	<!-- Quill editor container -->
 	<div id="body">
-	  {{ proposal.body }}
+	  {{{ proposal.body }}}
 	</div>
 
 	<div class="mdl-textfield mdl-js-textfield">
@@ -41,8 +40,6 @@
       <input type="submit" id="save-proposal" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "proposals.save-button"}}'>
     </div>
 </form>
-
-{{/if}}
 
 </template>
 

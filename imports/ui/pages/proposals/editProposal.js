@@ -15,7 +15,7 @@ Template.EditProposal.onCreated(function() {
 
 Template.EditProposal.onRendered(function(){
 	var self = this;
-	var editor = new Quill('#body', {
+	editor = new Quill('#body', {
 		modules: { toolbar: '#toolbar' },
 		theme: 'snow'
   	});
@@ -49,16 +49,11 @@ Template.EditProposal.events({
 		let newProposal = {
 			title: template.find('#title').value,
 			abstract: template.find('#abstract').value,
-			body: template.find('#body').value,
+			body: template.find('.ql-editor').innerHTML,
 			startDate: new Date(template.find('#startDate').value),
 			endDate: new Date(template.find('#endDate').value),
 			authorId: Meteor.userId()
 		};
-
-		quill = template.find('#body')
-		console.log(quill.getContents())
-
-		/*var functionString;
 		var proposalId = FlowRouter.getParam("id");
 
 		// If working on an existing proposal, save it, else create a new one
@@ -84,7 +79,7 @@ Template.EditProposal.events({
 					}
 				}
 			});
-		}*/
+		}
 
 	}
 });
