@@ -128,6 +128,16 @@
 			"type": "Entity Type"
 		}
 	},
+
+	"proposals": {
+		"edit": {
+			"title": "Title",
+			"abstract": "Summarise your proposal",
+			"startDate": "Start date for voting",
+			"endDate": "Closing date for voting",
+			"invited": "Invite others to collaborate by entering email addresses, separated by commas"
+		}
+	},
 	
 	"name": "Name",
 	"subject": "Subject",

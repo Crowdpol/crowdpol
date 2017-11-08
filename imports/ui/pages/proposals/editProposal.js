@@ -4,12 +4,14 @@ import { Proposals } from '../../../api/proposals/Proposals.js'
 
 Template.EditProposal.onRendered(function(){
 	var self = this;
+
+	// Initialise Quill editor
 	editor = new Quill('#body', {
 		modules: { toolbar: '#toolbar' },
 		theme: 'snow'
   	});
 
-	// set values of components once rendered
+	// Set values of components once rendered
 	// (quill editor must be initialised before content is set)
 	self.autorun(function(){
 		proposalId = FlowRouter.getParam("id")
@@ -22,10 +24,10 @@ Template.EditProposal.onRendered(function(){
 				self.find('.ql-editor').innerHTML = proposal.body;
 				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
+				self.find('#invited').value = proposal.invited.join(',');
 			});
 		}
 	});
-
 });
 
 Template.EditProposal.events({
@@ -37,7 +39,8 @@ Template.EditProposal.events({
 			body: template.find('.ql-editor').innerHTML,
 			startDate: new Date(template.find('#startDate').value),
 			endDate: new Date(template.find('#endDate').value),
-			authorId: Meteor.userId()
+			authorId: Meteor.userId(),
+			invited: template.find('#invited').value.split(',')
 		};
 		var proposalId = FlowRouter.getParam("id");
 

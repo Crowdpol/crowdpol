@@ -75,7 +75,16 @@
 		"party-delegate": "Party delegat",
 		"candidate": "Kandidat"
 	},
-	
+
+	"proposals": {
+		"edit": {
+			"title": "Titel",
+			"abstract": "Sammanfatta ditt förslag",
+			"startDate": "Startdatum för omröstning",
+			"endDate": "Slutdatum för omröstning",
+			"invited": "Bjud in andra att samarbeta genom att ange e-postadresser, åtskilda av kommatecken"
+		}
+	},
 
 	"name": "Namn",
 	"subject": "Ämne",
