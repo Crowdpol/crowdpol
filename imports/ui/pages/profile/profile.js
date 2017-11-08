@@ -132,6 +132,10 @@ Template.ProfileIndividual.onCreated(function(){
 });
 
 Template.ProfileIndividual.events({
+  'submit form' (event, template){
+    event.preventDefault();
+  }
+  /*
   'blur #profile-username' (event, template){
     Meteor.call('checkUpdateUsername',event.currentTarget.value,function(error,result){
       if (error){
@@ -145,6 +149,7 @@ Template.ProfileIndividual.events({
       }
     });
   },
+  
 	'submit form' (event, template){
 
 		event.preventDefault();
@@ -165,6 +170,39 @@ Template.ProfileIndividual.events({
 			}
 		});
 	}
+  */
+});
+
+Template.ProfileIndividual.onRendered( function() {
+  let template = Template.instance();
+  $( "#profile-form" ).validate({
+    rules: {
+      profileusername: {
+        required: true,
+        minlength: 5,
+        usernameCheck: true
+      }
+    },
+    messages: {
+      profileusername: {
+        required: "Username required.",
+        minlength: "Minimum of 5 characters",
+        usernameCheck: "Username exists"
+      }
+    },
+    submitHandler() {
+      let profile = {
+        username: template.find('[name="profileusername"]').value,
+        firstName: template.find('[name="profile-firstname"]').value,
+        lastName: template.find('[name="profile-lastname"]').value,
+        photo: template.find('[name="profile-photo-path"]').value,
+        bio: template.find('[name="profile-bio"]').value,
+        website: template.find('[name="profile-website"]').value
+      };
+
+      console.log( profile );
+    }
+  });
 });
 
 Template.ProfileIndividual.helpers({
@@ -217,3 +255,19 @@ function hasOwnProperty(obj, prop) {
     return (prop in obj) &&
         (!(prop in proto) || proto[prop] !== obj[prop]);
 }
+
+$.validator.addMethod( 'usernameCheck', ( username ) => {
+  let count = Meteor.call('checkUpdateUsername',username,function(error,result){
+      if (error){
+        console.log(error);
+      }
+      console.log("result: "+result);
+      if(result>0){
+          return false;
+        }else{
+          console.log("this is a valid username");
+          return true;
+  }
+  });
+  
+});

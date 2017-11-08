@@ -47,6 +47,7 @@ session							# keeps state
 check							# keeps yo parameters legit
 reactive-dict					# keeps state in yo template
 themeteorchef:bert				# word to yo users!
+themeteorchef:jquery-validation # form validation
 
 #-- dev tools --
 meteortoys:allthings
