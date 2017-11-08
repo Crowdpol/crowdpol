@@ -133,23 +133,28 @@ Template.ProfileIndividual.onCreated(function(){
 
 Template.ProfileIndividual.events({
   'submit form' (event, template){
+    console.log("submit clicked");
     event.preventDefault();
-  }
-  /*
+  },
+  
   'blur #profile-username' (event, template){
     Meteor.call('checkUpdateUsername',event.currentTarget.value,function(error,result){
       if (error){
         console.log(error);
       }else{
-        if(result==1){
-          $("#valid-username").text("username exists");
-        }else{
+        if(result){
+          $('#submitProfile').removeAttr('disabled', 'disabled');
+          //$('form').unbind('submit');
           $("#valid-username").html("&#10003;");
+        }else{
+          $("#valid-username").text("Username exists");
+          $('#submitProfile').attr('disabled', 'disabled');
+          //$('form').bind('submit',function(e){e.preventDefault();});
         }
       }
     });
   },
-  
+  /*
 	'submit form' (event, template){
 
 		event.preventDefault();
@@ -177,30 +182,47 @@ Template.ProfileIndividual.onRendered( function() {
   let template = Template.instance();
   $( "#profile-form" ).validate({
     rules: {
-      profileusername: {
+      profileUsername: {
         required: true,
         minlength: 5,
-        usernameCheck: true
+        maxlength: 16,
+        //usernameCheck: true
+      },
+      profilewebsite: {
+        url: true
+      },
+      profilePhotoPath: {
+        url: true
       }
+      
     },
     messages: {
-      profileusername: {
+      profileUsername: {
         required: "Username required.",
         minlength: "Minimum of 5 characters",
-        usernameCheck: "Username exists"
+        maxlength: "Maximum of 16 characters",
+        //usernameCheck: "Username exists"
       }
     },
     submitHandler() {
       let profile = {
-        username: template.find('[name="profileusername"]').value,
-        firstName: template.find('[name="profile-firstname"]').value,
-        lastName: template.find('[name="profile-lastname"]').value,
-        photo: template.find('[name="profile-photo-path"]').value,
-        bio: template.find('[name="profile-bio"]').value,
-        website: template.find('[name="profile-website"]').value
+        username: template.find('[name="profileUsername"]').value,
+        firstName: template.find('[name="profileFirstName"]').value,
+        lastName: template.find('[name="profileLastName"]').value,
+        photo: template.find('[name="profilePhotoPath"]').value,
+        bio: template.find('[name="profileBio"]').value,
+        website: template.find('[name="profileWebsite"]').value
       };
 
-      console.log( profile );
+      //console.log( profile );
+      Meteor.call('updateProfile',Meteor.userId(), profile, function(error){
+      if (error){
+          Bert.alert(error.reason, 'danger');
+        } else {
+          //template.find('#profile-form').reset();
+          Bert.alert(TAPi18n.__('profile-msg-updated'), 'success');
+        }
+      });
     }
   });
 });
@@ -257,17 +279,11 @@ function hasOwnProperty(obj, prop) {
 }
 
 $.validator.addMethod( 'usernameCheck', ( username ) => {
-  let count = Meteor.call('checkUpdateUsername',username,function(error,result){
-      if (error){
-        console.log(error);
-      }
-      console.log("result: "+result);
-      if(result>0){
-          return false;
-        }else{
-          console.log("this is a valid username");
-          return true;
-  }
+  Meteor.call('checkUpdateUsername',username,function(error,result){
+    if (error){
+      console.log(error);
+    }
+    console.log("result: "+result);
+    return result;
   });
-  
 });

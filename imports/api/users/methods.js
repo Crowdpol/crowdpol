@@ -12,7 +12,7 @@ Meteor.methods({
     isPublic: function (userId) {
 
       user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});;
-      console.log("isPublic: " + user.isPublic);
+      //console.log("isPublic: " + user.isPublic);
       return user.isPublic;
     },
     getUser: function (userID) {
@@ -30,11 +30,11 @@ Meteor.methods({
       //console.log("method getUserProfile called: " + userID);
       check(userID, String);
       const users = Meteor.users.find({_id: userID},{fields: {profile: 1, isPublic:1}}).fetch();
-      console.log(users);
+      //console.log(users);
       return users[0];
     },
     updateProfile: function (userID, profile) {
-      console.log(profile);
+      //console.log(profile);
       check(userID, String);
       Meteor.users.update({_id: userID}, {$set: {"profile": profile}});
     },
@@ -157,7 +157,11 @@ Meteor.methods({
     },
     //this function checks the current user's username and id against the existing ones
     checkUpdateUsername(username){
-      return Meteor.users.find({"_id":{$ne: Meteor.userId()},"profile.username": {$eq: username}}).count()
+      var count = Meteor.users.find({"_id":{$ne: Meteor.userId()},"profile.username": {$eq: username}}).count();
+      if(count > 0){
+        return false;
+      }
+      return true;
     }
 });
 
