@@ -7,11 +7,11 @@
 <form id="edit-proposal-form">
     <div class="mdl-textfield mdl-js-textfield">
       <label class="mdl-textfield__label">{{_ "proposals.edit.title"}}</label>
-      <input type="text" id="title" class="mdl-textfield__input" value='{{ proposal.title }}'>
+      <input type="text" id="title" class="mdl-textfield__input">
     </div> <br/>
 
 	<div class="mdl-textfield mdl-js-textfield">
-		<textarea class="mdl-textfield__input" type="text" rows= "5" id="abstract" value="{{ proposal.abstract }}" ></textarea>
+		<textarea class="mdl-textfield__input" type="text" rows= "5" id="abstract"></textarea>
 		<label class="mdl-textfield__label">{{_ "proposals.edit.abstract"}}</label>
 	</div> <br/>
 
@@ -23,23 +23,23 @@
 	 
 	<!-- Quill editor container -->
 	<div id="body">
-	  {{{ proposal.body }}}
 	</div>
 
 	<div class="mdl-textfield mdl-js-textfield">
       <label class="mdl-textfield__label">{{_ "proposals.edit.startDate"}}</label>
-      <input type="date" id="startDate" class="mdl-textfield__input" value='{{ proposal.startDate }}'>
+      <input type="date" id="startDate" class="mdl-textfield__input">
     </div> <br/>
 
     <div class="mdl-textfield mdl-js-textfield">
       <label class="mdl-textfield__label">{{_ "proposals.edit.endDate"}}</label>
-      <input type="date" id="endDate" class="mdl-textfield__input" value='{{ proposal.endDate }}'>
+      <input type="date" id="endDate" class="mdl-textfield__input">
     </div> <br/>
 
     <div class="form-group">
-      <input type="submit" id="save-proposal" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "proposals.save-button"}}'>
+      <input type="submit" id="save-proposal" class="mdl-button mdl-js-button mdl-button--raised">
     </div>
 </form>
+
 
 </template>
 

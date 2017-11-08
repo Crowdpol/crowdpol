@@ -2,45 +2,30 @@ import './editProposal.html'
 import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 
-Template.EditProposal.onCreated(function() {
-	var self = this;
-	self.autorun(function(){
-		proposalId = FlowRouter.getParam("id")
-		if (proposalId){
-			// Edit an existing proposal
-			self.subscribe('proposals.one', proposalId);
-		}
-	});
-});
-
 Template.EditProposal.onRendered(function(){
 	var self = this;
 	editor = new Quill('#body', {
 		modules: { toolbar: '#toolbar' },
 		theme: 'snow'
   	});
-});
 
-Template.EditProposal.helpers({
-	proposal: ()=> {
+	// set values of components once rendered
+	// (quill editor must be initialised before content is set)
+	self.autorun(function(){
 		proposalId = FlowRouter.getParam("id")
 		if (proposalId){
-			var proposal = Proposals.findOne({_id: proposalId});
-			// convert dates to the right string format for datepicker
-			proposal.startDate = moment(proposal.startDate).format('YYYY-MM-DD');
-			proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');
-			return proposal
-		} else {
-			return {
-				title: '',
-				abstract: '',
-				body: '',
-				startDate: moment().format('YYYY-MM-DD'),
-				endDate: moment().format('YYYY-MM-DD')
-			}
+			// Edit an existing proposal
+			self.subscribe('proposals.one', proposalId, function(){
+				proposal = Proposals.findOne({_id: proposalId});
+				self.find('#title').value = proposal.title;
+				self.find('#abstract').value = proposal.abstract;
+				self.find('.ql-editor').innerHTML = proposal.body;
+				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
+				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
+			});
 		}
-		
-	}
+	});
+
 });
 
 Template.EditProposal.events({
@@ -62,10 +47,7 @@ Template.EditProposal.events({
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					Bert.alert('Proposal saved', 'success');
-					if (proposalId){
-						FlowRouter.go('App.proposal.edit', {id: proposalId});
-					}
+					Bert.alert('Changes saved', 'success');
 				}
 			});
 		} else {
@@ -73,10 +55,8 @@ Template.EditProposal.events({
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					Bert.alert('Proposal saved', 'success');
-					if (proposalId){
-						FlowRouter.go('App.proposal.edit', {id: proposalId});
-					}
+					Bert.alert('Proposal created', 'success');
+					FlowRouter.go('App.proposal.edit', {id: proposalId});
 				}
 			});
 		}
