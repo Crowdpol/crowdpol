@@ -12,7 +12,7 @@ Schema.Approval = new SimpleSchema({
     },
     type: {
         type: String,
-        allowedValues: ['individual-delegate', 'organisation-delegate','party-delegate', 'candidate'],
+        allowedValues: ['delegate', 'candidate'],
         optional: true,
     },
     status: {
@@ -200,25 +200,6 @@ Schema.User = new SimpleSchema({
             return false;
           }
         },
-    },
-    isParty: {
-        type: Boolean,
-        optional: true,
-        /*autoValue() {
-          if (this.isInsert) {
-            return false;
-          }
-        },*/
-    },
-    isOrganisation: {
-        type: Boolean,
-        optional: true,
-        /*
-        autoValue() {
-          if (this.isInsert) {
-            return false;
-          }
-        },*/
     },
     profile: {
         type: Schema.UserProfile,

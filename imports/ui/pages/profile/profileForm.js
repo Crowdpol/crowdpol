@@ -5,7 +5,7 @@ Template.ProfileForm.onCreated(function() {
   self.autorun(function() {
     self.subscribe('user.current');
   });
-  console.log("onCreated started:" + Date.now());
+  //console.log("onCreated started:" + Date.now());
   var dict = new ReactiveDict();
 
 

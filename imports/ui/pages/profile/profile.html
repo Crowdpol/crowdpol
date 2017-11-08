@@ -4,49 +4,41 @@
       <h1>{{_ "profile-title"}}</h1>
       <hr> 
       {{#if Template.subscriptionsReady}} 
-
-      <!-- Helper list -->
-        user:|{{user}}|<br>
-        delegateStatus:|{{delegateStatus}}|<br>
-        candidateStatus:|{{candidateStatus}}|<br>
-        isPublic:|{{isPublic}}|<br>
-        isOrganisation:|{{isOrganisation}}|<br>
-        isParty:|{{isParty}}|<br>
-        isOrganisationRole:|{{isOrganisationRole}}|<br>
-        isPartyRole:|{{isPartyRole}}|<br>
-        userIsDelegate:|{{userIsDelegate}}|<br>
-        userIsCandidate:|{{userIsCandidate}}|<br>
-        publicChecked:|{{publicChecked}}|<br>
-        
         <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
           <input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{publicChecked}}>
           <span class="mdl-switch__label">{{_ "profile-public"}}</span>
         </label>
 
-        {{#if user.isPublic}}
+        {{#if isPublic}}
             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-              {{#if userIsDelegate}}
-              <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" checked>
-              {{else}}
-              <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
-              {{/if}}
+              <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" {{delegateChecked}}>
               <span class="mdl-switch__label">profile-delegate-switch</span>
             </label>
           
             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
-              {{#if userIsCandidate}}
-                <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" checked>
-              {{else}}
-                <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input">
-              {{/if}}
+                <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}}>
               <span class="mdl-switch__label">profile-candidate-switch</span>
             </label>
         {{/if}}  
 
         {{> ProfileForm}}
-        {{> Dialogue}}
+        <!--{{> Dialogue}} -->
         
-      <hr> 
+        <hr> 
+        <!-- Helper list: Don't delete, useful for testing -->
+        user: |{{user}}|<br>
+        delegateStatus: |{{delegateStatus}}|<br>
+        candidateStatus: |{{candidateStatus}}|<br>
+        isPublic: |{{isPublic}}|<br>
+        isOrganisation: |{{isOrganisation}}|<br>
+        isParty: |{{isParty}}|<br>
+        isOrganisationRole: |{{isOrganisationRole}}|<br>
+        isPartyRole: |{{isPartyRole}}|<br>
+        userIsDelegate: |{{userIsDelegate}}|<br>
+        userIsCandidate: |{{userIsCandidate}}|<br>
+        publicChecked: |{{publicChecked}}|<br>
+        delegateChecked: |{{delegateChecked}}|<br>
+        candidateChecked:|{{candidateChecked}}|<br>
       {{else}} 
         {{> loader}} 
       {{/if}}

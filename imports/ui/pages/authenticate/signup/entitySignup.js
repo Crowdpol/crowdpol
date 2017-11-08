@@ -3,12 +3,17 @@ import './entitySignup.html'
 Template.entitySignup.events({
 	'submit #entity-signup-form' (event, template){
 		event.preventDefault();
-		var role = template.find('#entity-type').dataset.val;
-		var isParty = false;
-		var isOrganisation = true;
-		if(role=="party-delegate"){
+		var type = template.find('#entity-type').dataset.val;
+		console.log("type: " + type);
+		var isParty = null;
+		var isOrganisation = null;
+		if(type=="party"){
 			isParty = true;
-			idOrganisation = false;
+			isOrganisation = false;
+		}
+		if(type=="organisation"){
+			isParty = false;
+			isOrganisation = true;
 		}
 		let entity = {
 			email: template.find('#entity-email').value,
@@ -17,7 +22,7 @@ Template.entitySignup.events({
 			website: template.find('#entity-website').value,
 			phone: template.find('#entity-phone').value,
 			contact: template.find('#entity-contact').value,
-			roles: [role],
+			roles: [type],
 			profileType: "Entity",
 			isParty: isParty,
 			isOrganisation: isOrganisation,
@@ -30,17 +35,7 @@ Template.entitySignup.events({
 			} else {
 				//Step 1: Log the user in if entity creation was successful
 				Meteor.loginWithPassword(entity.email, entity.password);
-				//Step 2: Send entity request approval
-				var role = template.find('#entity-type').dataset.val;
-				Meteor.call('requestApproval',Meteor.userId(),role,function(error){
-		          if (error){
-		            Bert.alert(error.reason, 'danger');
-		          } else {
-		            var msg = "Request submitted";//TAPi18n.__('profile-msg-private');
-		            Bert.alert(msg, 'success');
-		          }
-		        });  
-				//Step 3: Send verification email
+				//Step 2: Send verification email
 				Meteor.call('sendVerificationLink', (error, response) => {
 					if (error){
 						Bert.alert(error.reason, 'danger');

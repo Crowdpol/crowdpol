@@ -6,7 +6,22 @@ Template.Profile.onCreated(function() {
   self.autorun(function() {
     self.subscribe('user.current');
   });
-  //console.log(FlowRouter.getParam(_id));
+  self.delegateStatus = new ReactiveVar("Waiting for response from server...");
+  self.candidateStatus = new ReactiveVar("Waiting for response from server...");
+  Meteor.call('getDelegateStatus',Meteor.userId(),function(error,result) {
+      if (error) {
+        console.log(error);
+      } else {
+        self.delegateStatus.set(result);
+      }
+  });
+  Meteor.call('getCandidateStatus',Meteor.userId(),function(error,result) {
+      if (error) {
+        console.log(error);
+      } else {
+        self.candidateStatus.set(result);
+      }
+  });
 });
 
 Template.Profile.events({
@@ -38,7 +53,7 @@ Template.Profile.events({
       //Step 2: If person not delegate, check profile is complete before submission
       //NOTE: inomplete
       //Step 3: Profile is complete, submit approval request
-      Meteor.call('requestApproval', Meteor.userId(), 'individual-delegate', function(error) {
+      Meteor.call('requestApproval', Meteor.userId(), 'delegate', function(error) {
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
@@ -76,23 +91,17 @@ Template.Profile.events({
 });
 
 Template.Profile.helpers({
+  /* NOTE: Consider deleting if not being used
   user: function() {
     user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1, roles: 1, isPublic: 1, isParty: 1, isOrganisation: 1 } });
-    console.log(user);
+    //console.log(user);
     return user;
-  },
+  },*/
   delegateStatus: function() {
-    return Meteor.call('getDelegateStatus',Meteor.userId(),function(error,result) {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        var msg = "Request submitted"; //TAPi18n.__('profile-msg-private');
-        Bert.alert(msg, 'success');
-      }
-    });
+    return Template.instance().delegateStatus.get();
   },
   candidateStatus: function() {
-    return Meteor.call('getCandidateStatus',Meteor.userId());
+    return Template.instance().candidateStatus.get();
   },
   isPublic: function() {
     return Meteor.user().isPublic;
@@ -119,7 +128,17 @@ Template.Profile.helpers({
     if(Meteor.user().isPublic){
       return 'checked';
     }
-  }
+  },
+  delegateChecked: function(){
+    if(isRole('delegate')){
+      return 'checked';
+    }
+  },
+  candidateChecked: function(){
+    if(isRole('candidate')){
+      return 'checked';
+    }
+  },
 });
 
 //check criteria for public status
@@ -128,6 +147,6 @@ function publicReady(){
 }
 
 function isRole(role){
-  var isRole = Roles.userIsInRole(Meteor.user(), role);
-  console.log(role + " isRole: " + isRole);
+  return Roles.userIsInRole(Meteor.user(), role);
+  //console.log(role + " isRole: " + isRole);
 }

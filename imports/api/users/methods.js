@@ -76,9 +76,8 @@ Meteor.methods({
       'type': entity.profileType};
 
       Meteor.call('updateProfile', entityID, profile);
-      Meteor.call('toggleParty', entityID,entity.isParty);
-      Meteor.call('toggleOrg', entityID,entity.isOrganisation);
-
+      //Meteor.call('toggleParty', entityID,entity.isParty);
+      //Meteor.call('toggleOrg', entityID,entity.isOrganisation);
       // Add entity to role
       Roles.addUsersToRoles(entityID, entity.roles);
 
@@ -117,7 +116,7 @@ Meteor.methods({
         }
       }
       Meteor.users.update({_id: userID}, {$set: {'approvals': approvals}});
-      if(type){
+      if(type&&status=='Approved'){
         Roles.addUsersToRoles(userID, type);
       }
     },
@@ -142,9 +141,11 @@ Meteor.methods({
       check(role, String);
       check(state, Boolean);
       if(state){
-        Roles.removeUsersFromRoles(Meteor.userId(), role);
-      }else{
+        console.log("adding role: " + role);
         Roles.addUsersToRoles(Meteor.userId(), role);
+      }else{
+        console.log("removing role: " + role);
+        Roles.removeUsersFromRoles(Meteor.userId(), role);
       }
     },
     getRequests(){
