@@ -25,6 +25,6 @@ Meteor.methods({
     	Proposals.update({_id: proposalId}, {$set: {"stage": stage}});
     },
     saveProposalChanges: function (proposalId, proposal) {
-      Proposals.update({_id: proposalId}, {$set: {proposal}});
+      Proposals.update({_id: proposalId}, {$set: proposal });
     }
 });

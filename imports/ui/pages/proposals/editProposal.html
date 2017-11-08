@@ -3,6 +3,7 @@
 	<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
 	Edit this proposal:
+	{{#if Template.subscriptionsReady}}
 
 <form id="edit-proposal-form">
     <div class="mdl-textfield mdl-js-textfield">
@@ -15,11 +16,6 @@
 		<label class="mdl-textfield__label">{{_ "proposals.edit.abstract"}}</label>
 	</div> <br/>
 
-	<!-- <div class="mdl-textfield mdl-js-textfield">
-		<textarea class="mdl-textfield__input" type="text" rows= "5" id="body" ></textarea>
-		<label class="mdl-textfield__label">{{_ "proposals.edit.body"}}</label>
-	</div> <br/> -->
-
 	<!-- Toolbar for the quill editor -->
 	<div id="toolbar">
 	  <button class="ql-bold">Bold</button>
@@ -28,7 +24,7 @@
 	 
 	<!-- Quill editor container -->
 	<div id="body">
-	  helloo
+	  {{ proposal.body }}
 	</div>
 
 	<div class="mdl-textfield mdl-js-textfield">
@@ -46,8 +42,7 @@
     </div>
 </form>
 
-
-	
+{{/if}}
 
 </template>
 

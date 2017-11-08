@@ -9,7 +9,6 @@ Template.EditProposal.onCreated(function() {
 		if (proposalId){
 			// Edit an existing proposal
 			self.subscribe('proposals.one', proposalId);
-			console.log('a proposal exists already, we will edit it')
 		}
 	});
 });
@@ -26,17 +25,18 @@ Template.EditProposal.helpers({
 	proposal: ()=> {
 		proposalId = FlowRouter.getParam("id")
 		if (proposalId){
-			console.log('we are editing an existing proposal, which is this:')
-			console.log(proposalId)
-			return Proposals.findOne({_id: proposalId});
+			var proposal = Proposals.findOne({_id: proposalId});
+			// convert dates to the right string format for datepicker
+			proposal.startDate = moment(proposal.startDate).format('YYYY-MM-DD');
+			proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');
+			return proposal
 		} else {
-			console.log('we are editing a nonexistant proposal')
 			return {
 				title: '',
 				abstract: '',
 				body: '',
-				startDate: new Date('03/25/2015'),
-				endDate: new Date('03/25/2015')
+				startDate: moment().format('YYYY-MM-DD'),
+				endDate: moment().format('YYYY-MM-DD')
 			}
 		}
 		
@@ -48,35 +48,43 @@ Template.EditProposal.events({
 		event.preventDefault();
 		let newProposal = {
 			title: template.find('#title').value,
-			abstract: template.find('#title').value,
-			body: template.find('#title').value,
-			startDate: new Date(template.find('#title').value),
-			endDate: new Date(template.find('#title').value),
+			abstract: template.find('#abstract').value,
+			body: template.find('#body').value,
+			startDate: new Date(template.find('#startDate').value),
+			endDate: new Date(template.find('#endDate').value),
 			authorId: Meteor.userId()
 		};
 
-		var functionString;
+		quill = template.find('#body')
+		console.log(quill.getContents())
+
+		/*var functionString;
+		var proposalId = FlowRouter.getParam("id");
 
 		// If working on an existing proposal, save it, else create a new one
-		if (FlowRouter.getParam("id")){
-			functionString = 'saveProposalChanges';
-		} else {
-			functionString = 'createProposal';
-		}
-
-		console.log('proposal')
-		//console.log(proposal)
-		console.log(functionString)
-
-		Meteor.call(functionString, newProposal, function(error, proposalId){
-			if (error){
-				Bert.alert(error.reason, 'danger');
-			} else {
-				Bert.alert('Proposal saved', 'success');
-				if (proposalId){
-					FlowRouter.go('App.proposal.edit', {id: proposalId});
+		if (proposalId){
+			Meteor.call('saveProposalChanges', proposalId, newProposal, function(error, proposalId){
+				if (error){
+					Bert.alert(error.reason, 'danger');
+				} else {
+					Bert.alert('Proposal saved', 'success');
+					if (proposalId){
+						FlowRouter.go('App.proposal.edit', {id: proposalId});
+					}
 				}
-			}
-		});
+			});
+		} else {
+			Meteor.call('createProposal', newProposal, function(error, proposalId){
+				if (error){
+					Bert.alert(error.reason, 'danger');
+				} else {
+					Bert.alert('Proposal saved', 'success');
+					if (proposalId){
+						FlowRouter.go('App.proposal.edit', {id: proposalId});
+					}
+				}
+			});
+		}*/
+
 	}
 });
