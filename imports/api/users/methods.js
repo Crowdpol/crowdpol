@@ -162,7 +162,15 @@ Meteor.methods({
         return false;
       }
       return true;
-    }
+    },
+    getDelegateStatus(userId){
+      check(userId,String);
+      return "Approved";
+    },
+    getCandidateStatus(userId){
+      check(userId,String);
+      return "Approved";
+    },
 });
 
 

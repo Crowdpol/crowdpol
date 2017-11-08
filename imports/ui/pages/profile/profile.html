@@ -2,73 +2,84 @@
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--12-col">
       <h1>{{_ "profile-title"}}</h1>
-      <hr> {{#if Template.subscriptionsReady}} {{#if user.isPublic}}
-      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-        <input type="checkbox" id="profile-public-switch" class="mdl-switch__input" checked>
-        <span class="mdl-switch__label">{{_ "profile-public"}}</span>
-      </label>
-      {{else}}
-      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-        <input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
-        <span class="mdl-switch__label">{{_ "profile-public"}}</span>
-      </label>
-      {{/if}} {{> ProfileIndividual}}
-      <hr> {{else}} {{> loader}} {{/if}}
+      <hr> 
+      {{#if Template.subscriptionsReady}} 
+
+      <!-- Helper list -->
+        user:|{{user}}|<br>
+        delegateStatus:|{{delegateStatus}}|<br>
+        candidateStatus:|{{candidateStatus}}|<br>
+        isPublic:|{{isPublic}}|<br>
+        isOrganisation:|{{isOrganisation}}|<br>
+        isParty:|{{isParty}}|<br>
+        isOrganisationRole:|{{isOrganisationRole}}|<br>
+        isPartyRole:|{{isPartyRole}}|<br>
+        userIsDelegate:|{{userIsDelegate}}|<br>
+        userIsCandidate:|{{userIsCandidate}}|<br>
+        publicChecked:|{{publicChecked}}|<br>
+        
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
+          <input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{publicChecked}}>
+          <span class="mdl-switch__label">{{_ "profile-public"}}</span>
+        </label>
+
+        {{#if user.isPublic}}
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+              {{#if userIsDelegate}}
+              <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" checked>
+              {{else}}
+              <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
+              {{/if}}
+              <span class="mdl-switch__label">profile-delegate-switch</span>
+            </label>
+          
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
+              {{#if userIsCandidate}}
+                <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" checked>
+              {{else}}
+                <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input">
+              {{/if}}
+              <span class="mdl-switch__label">profile-candidate-switch</span>
+            </label>
+        {{/if}}  
+
+        {{> ProfileForm}}
+        {{> Dialogue}}
+        
+      <hr> 
+      {{else}} 
+        {{> loader}} 
+      {{/if}}
     </div>
   </div>
 </template>
-<template name="ProfileIndividual">
-  <form id="profile-form" class="profile">
-    <img src={{profilePic}} width="50px" height="50px">
-    <br>
-    <input type="text" name="profilePhotoPath" value="{{profilePic}}">
-    <br>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <label class="mdl-textfield__label" for="profile-username">{{_ "profile-username"}}</label>
-      <input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
-      <span id="valid-username"></span>
-    </div>
-    <br>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <label class="mdl-textfield__label" for="profile-firstname">{{_ "profile-firstname"}}</label>
-      <input type="text" name="profileFirstName" class="mdl-textfield__input" value="{{firstName}}">
-    </div>
-    <br>
-    <!-- NOTE: Please be aware of the script that hide this input if necessary -->
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity}}hidden{{/if}}">
-      <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
-      <input type="text" name="profileLastName" class="mdl-textfield__input" value="{{lastName}}">
-    </div>
-    <br>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <label class="mdl-textfield__label" for="profile-website">{{_ "profile-website"}}</label>
-      <input type="text" name="profileWebsite" class="mdl-textfield__input" value="{{website}}">
-    </div>
-    <br>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio">{{bio}}</textarea>
-      <label class="mdl-textfield__label" for="profile-bio">{{_ "profile-bio"}}</label>
-    </div>
-    <br>
-    <div class="form-group">
-      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "save"}}' id="submitProfile">
-    </div>
-  </form>
-  <br>
-  <!-- Colored raised button -->
-  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="profile-delegate">
-    Become Delegate
-  </button>
-  <br>
-  <!-- Accent-colored raised button -->
-  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="profile-candidate">
-    Become Candidate
-  </button>
-</template>
+
 <template name="loader">
   <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
     <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
       <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite" />
     </path>
   </svg>
+</template>
+<template name="Dialogue">
+  <button class="mdl-button mdl-button--raised mdl-js-button dialog-button">Show Dialog</button>
+
+  <p>
+    Remember that the Dialog component requires the <a href="https://github.com/GoogleChrome/dialog-polyfill">Dialog polyfill</a> in order to function.
+    It takes advantage of the native dialog element to provide the most robust experience possible.
+  </p>
+
+  <dialog id="dialog" class="mdl-dialog">
+    <h3 class="mdl-dialog__title">MDL Dialog</h3>
+    <div class="mdl-dialog__content">
+      <p>
+        This is an example of the Material Design Lite dialog component.
+        Please use responsibly.
+      </p>
+    </div>
+    <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button">Close</button>
+      <button type="button" class="mdl-button" disabled>Disabled action</button>
+    </div>
+  </dialog>
 </template>

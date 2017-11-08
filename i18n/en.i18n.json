@@ -146,5 +146,9 @@
 	"profile-website" : "Website",
 	"profile-msg-public": "Profile is now public.",
 	"profile-msg-private": "Profile is now private.",
-	"profile-msg-updated": "Profile updated."
+	"profile-msg-updated": "Profile updated.",
+	"profile-msg-delegate-removed" : "Delegate Role removed.",
+	"profile-msg-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
+	"profile-msg-candidate-removed" : "Delegate Role removed.",
+	"profile-msg-candidate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed."
 }

@@ -1,0 +1,39 @@
+<template name="ProfileForm">
+  <form id="profile-form" class="profile">
+    <img src={{profilePic}} width="50px" height="50px">
+    <br>
+    <input type="text" name="profilePhotoPath" value="{{profilePic}}">
+    <br>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <label class="mdl-textfield__label" for="profile-username">{{_ "profile-username"}}</label>
+      <input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
+      <span id="valid-username"></span>
+    </div>
+    <br>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <label class="mdl-textfield__label" for="profile-firstname">{{_ "profile-firstname"}}</label>
+      <input type="text" name="profileFirstName" class="mdl-textfield__input" value="{{firstName}}">
+    </div>
+    <br>
+    <!-- NOTE: Please be aware of the script that hide this input if necessary -->
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity}}hidden{{/if}}">
+      <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
+      <input type="text" name="profileLastName" class="mdl-textfield__input" value="{{lastName}}">
+    </div>
+    <br>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <label class="mdl-textfield__label" for="profile-website">{{_ "profile-website"}}</label>
+      <input type="text" name="profileWebsite" class="mdl-textfield__input" value="{{website}}">
+    </div>
+    <br>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio">{{bio}}</textarea>
+      <label class="mdl-textfield__label" for="profile-bio">{{_ "profile-bio"}}</label>
+    </div>
+    <br>
+    <div class="form-group">
+      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "save"}}' id="submitProfile">
+    </div>
+  </form>
+  <br>
+</template>
