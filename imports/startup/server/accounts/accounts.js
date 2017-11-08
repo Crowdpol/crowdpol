@@ -15,7 +15,7 @@ function normalizeFacebookUser(profile, user) {
   const userProfile = _.extend(profile, {
 
     photo: 'http://graph.facebook.com/' + user.services.facebook.id + '/picture/?type=large',
-    username: user.services.facebook.first_name + " " + user.services.facebook.last_name,
+    username: generateUsername(user.services.facebook.first_name,user.services.facebook.last_name),
     firstName: user.services.facebook.first_name,
     lastName: user.services.facebook.last_name,
     credentials: credential,
@@ -45,7 +45,7 @@ function normalizeGoogleUser(profile, user) {
 
   const userProfile = _.extend(profile, {
     photo: user.services.google.picture,
-    username: user.services.google.given_name + " " + user.services.google.family_name,
+    username: generateUsername(user.services.google.given_name + " " + user.services.google.family_name),
     firstName: user.services.google.given_name,
     lastName: user.services.google.family_name,
     credentials: credential,
@@ -78,7 +78,7 @@ function normalizeTwitterUser(profile, user) {
   const userProfile = _.extend(profile, {
 
     photo: user.services.twitter.profile_image_url_https,
-    username: user.services.twitter.screenName,
+    username: generateUsername(user.services.twitter.screenName),
     firstName: profile.name,
     lastName: '',
     credentials: credential,
@@ -108,7 +108,7 @@ function normalizeSignupUser(user) {
   });
   const userProfile = {
     photo: "/img/default-user-image.png",
-    username: "anonymous",
+    username: generateUsername("anonymous"),
     firstName: "Anonymous",
     lastName: "User",
     isPublic: false,
@@ -142,7 +142,7 @@ function normalizeScriptUser(profile, user) {
   });
   const userProfile = _.extend(profile, {
     photo: profile.photo,
-    username: profile.username,
+    username: generateUsername(profile.username),
     firstName: profile.firstName,
     lastName: profile.lastName,
     isPublic: false,
@@ -164,7 +164,7 @@ function normalizeDemoUser(profile, user) {
   });
   const userProfile = _.extend(profile, {
     photo: profile.photo,
-    username: profile.firstName + " " + profile.lastName,
+    username: generateUsername(profile.firstName + " " + profile.lastName),
     firstName: profile.firstName,
     lastName: profile.lastName,
     isPublic: false,
@@ -177,7 +177,7 @@ function normalizeDemoUser(profile, user) {
 }
 
 //given a user profile it returns a slugged version of her name
-function slugName(profile) {
+function slugName(firstName,lastName) {
   var name = new String();
   if (profile != undefined) {
     if (profile.firstName != undefined) {
@@ -250,5 +250,20 @@ Accounts.validateNewUser((user) => {
   })
 });
 
-
-
+function generateUsername(firstName,lastName){
+  var username = new String();
+  if (firstName != undefined) {
+    username = convertToSlug(firstName);
+  }
+  if (lastName != undefined) {
+    username += '-' + convertToSlug(lastName);
+  }
+  if (username.length == 0) {
+    username = convertToSlug(TAPi18n.__('anonymous'));
+  }
+  var count = Meteor.users.find({'profile.username': username}).count();
+  if(count > 0){
+    username += "-" + (count+1);
+  }
+  return username;
+}

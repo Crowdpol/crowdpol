@@ -34,7 +34,7 @@ Meteor.methods({
       return users[0];
     },
     updateProfile: function (userID, profile) {
-      //console.log(profile);
+      console.log(profile);
       check(userID, String);
       Meteor.users.update({_id: userID}, {$set: {"profile": profile}});
     },
@@ -149,6 +149,16 @@ Meteor.methods({
     },
     getRequests(){
       return Meteor.users.find({});//,{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1, approvals: 1, emails: 1}}).fetch();
+    },
+    getProfileUsernameCount(username){
+      check(username,String);
+      var count = Meteor.users.find({'profile.username': username}).count();
+      return count;
+    },
+    //this function checks the current user's username and id against the existing ones
+    checkUpdateUsername(username){
+      return Meteor.users.find({"_id":{$ne: Meteor.userId()},"profile.username": {$eq: username}}).count()
     }
-
 });
+
+

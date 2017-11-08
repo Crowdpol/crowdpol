@@ -120,6 +120,7 @@ Template.ProfileIndividual.onCreated(function(){
       dict.set( 'bio', result.profile.bio);
       dict.set( 'website', result.profile.website );
       dict.set( 'isPublic', result.isPublic );
+      dict.set( 'type', result.profile.type );
       if(result.profile.hasOwnProperty("photo")){
         dict.set('photo', result.profile.photo );
       }else{
@@ -131,6 +132,19 @@ Template.ProfileIndividual.onCreated(function(){
 });
 
 Template.ProfileIndividual.events({
+  'blur #profile-username' (event, template){
+    Meteor.call('checkUpdateUsername',event.currentTarget.value,function(error,result){
+      if (error){
+        console.log(error);
+      }else{
+        if(result==1){
+          $("#valid-username").text("username exists");
+        }else{
+          $("#valid-username").html("&#10003;");
+        }
+      }
+    });
+  },
 	'submit form' (event, template){
 
 		event.preventDefault();
@@ -154,12 +168,14 @@ Template.ProfileIndividual.events({
 });
 
 Template.ProfileIndividual.helpers({
-  isEntity: function(type){
+  isEntity: function(){
+    var type = Template.instance().templateDictionary.get( 'type' );
     console.log(type);
     if(type=='Entity'){
       console.log("should be hidden");
       return true;
     }
+    console.log("show lastname");
     return false;
   },
   profile: function(){
@@ -183,6 +199,9 @@ Template.ProfileIndividual.helpers({
   },
   website: function() {
     return Template.instance().templateDictionary.get( 'website' );
+  },
+  type: function() {
+    return Template.instance().templateDictionary.get( 'type' );
   },
   isPublicChecked: function() {
     var isPublic = Template.instance().templateDictionary.get( 'isPublic' );

@@ -37,23 +37,22 @@
 			    <br>
 			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			      <label class="mdl-textfield__label" for="profile-username">{{_ "profile-username"}}</label>
-			      <input type="text" name="profile-username" class="mdl-textfield__input" value="{{username}}">
+			      <input type="text" name="profile-username" id="profile-username" class="mdl-textfield__input" value="{{username}}">
+			      <span id="valid-username"></span>
 			    </div>
 			    <br>
 			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			      <label class="mdl-textfield__label" for="profile-firstname">{{_ "profile-firstname"}}</label>
 			      <input type="text" name="profile-firstname" class="mdl-textfield__input" value="{{firstName}}">
-			    </div>
-			    
+			    </div>   
 			    <br>
-			    <!--{{#if isEntity currentUser.profile.type}}hidden{{/if}}-->
-			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity user.profile.type}}hidden{{/if}}">
-			      <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
-			      <input type="text" name="profile-lastname" class="mdl-textfield__input" value="{{lastName}}">
-			    </div>
-
+			    	<!-- NOTE: Please be aware of the script that hide this input if necessary -->
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity}}hidden{{/if}}">
+				      <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
+				      <input type="text" name="profile-lastname" class="mdl-textfield__input" value="{{lastName}}">
+				    </div>
+				    <br>
 			    
-			    <br>
 			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			      <label class="mdl-textfield__label" for="profile-website">{{_ "profile-website"}}</label>
 			      <input type="text" name="profile-website" class="mdl-textfield__input" value="{{website}}">
