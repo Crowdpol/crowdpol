@@ -250,6 +250,7 @@ Schema.User = new SimpleSchema({
 });
 
 Meteor.users.attachSchema(Schema.User);
+
 /*
 *  FIX: temporary workaround
 *  TBD: apply security best practices

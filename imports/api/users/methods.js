@@ -200,6 +200,11 @@ Meteor.methods({
       check(userId,String);
       return Meteor.call('getApprovalStatus',userId,'candidate');;
     },
+    searchUsers(search){
+      check(search,String);
+      var result = Meteor.users.find( { $text: { $search: search } } )
+      console.log(result);
+    }
 });
 
 

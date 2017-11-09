@@ -23,3 +23,30 @@ Meteor.publish('users.current', function () {
 Meteor.publish(null, function() {
   return Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});
 });
+
+Meteor.publish('users.delegates', function () {
+  return Meteor.users.find({roles: "candidate"});
+});
+
+Meteor.publish("user.search", function(searchValue) {
+  if (!searchValue) {
+    return Meteor.users.find({});
+  }
+  return Meteor.users.find(
+    { $text: {$search: searchValue} },
+    {
+      // `fields` is where we can add MongoDB projections. Here we're causing
+      // each document published to include a property named `score`, which
+      // contains the document's search rank, a numerical value, with more
+      // relevant documents having a higher score.
+      fields: {
+        score: { $meta: "textScore" }
+      },
+      // This indicates that we wish the publication to be sorted by the
+      // `score` property specified in the projection fields above.
+      sort: {
+        score: { $meta: "textScore" }
+      }
+    }
+  );
+});

@@ -1,4 +1,12 @@
 {
+  "galaxy.meteor.com": {
+    "env": {
+      "ROOT_URL": "https://localhost:3000",
+      "MONGO_URL": "",
+      "MONGO_OPLOG_URL": "",
+      "NODE_ENV": "development"
+    }
+  },
   "public": {},
   "private": {
     "oAuth": {
