@@ -155,17 +155,17 @@ FlowRouter.route('/proposals', {
   }
 });
 
-FlowRouter.route('/proposals/:id?/edit', {
+FlowRouter.route('/proposals/edit/:id?', {
   name: 'App.proposal.edit',
   action() {
     BlazeLayout.render('App_body', {main: 'EditProposal'});
   }
 });
 
-FlowRouter.route('/proposals/:id/view', {
+FlowRouter.route('/proposals/view/:id', {
   name: 'App.proposal.view',
   action() {
-    BlazeLayout.render('App_body', {main: 'viewProposal'});
+    BlazeLayout.render('App_body', {main: 'ViewProposal'});
   }
 });
 

@@ -34,6 +34,7 @@ import './pages/tags/tags.js';
 import './pages/privacy.html';
 import './pages/terms.html';
 import './pages/proposals/editProposal.js';
+import './pages/proposals/viewProposal.js';
 
 Meteor.startup(function () {
 	// setup language

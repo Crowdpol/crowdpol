@@ -3,12 +3,13 @@ import "./profile.html"
 Template.Profile.onCreated(function(){ 
   console.log("onCreated started:" + Date.now());   
   var dict = new ReactiveDict();
-
-
+  
   Meteor.call('getProfile',Meteor.userId(),function(error,result){
     if (error){
       Bert.alert(error.reason, 'danger');
     }else{
+      console.log('here comes the profile sonnny:')
+      console.log(result)
       dict.set( 'isPublic', result.isPublic );
       dict.set( 'username', result.profile.username );
       dict.set( 'firstname', result.profile.firstName );

@@ -14,7 +14,7 @@ Template.EditProposal.onRendered(function(){
 	// Set values of components once rendered
 	// (quill editor must be initialised before content is set)
 	self.autorun(function(){
-		proposalId = FlowRouter.getParam("id")
+		proposalId = FlowRouter.getParam("id");
 		if (proposalId){
 			// Edit an existing proposal
 			self.subscribe('proposals.one', proposalId, function(){

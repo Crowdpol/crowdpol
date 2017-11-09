@@ -1,0 +1,42 @@
+<template name='ViewProposal'>
+
+  {{#if isVisible }}
+	
+    <h3>{{ title }}</h3>
+    
+    <h5>Abstract</h5>
+    
+    <p>{{ abstract }}</p>
+    
+    <hr>
+    
+    {{{ body }}}
+    
+    <hr>
+    
+    <p> Voting starts on: {{ startDate }} </p> 
+    <p> Voting ends on: {{ endDate }} </p>
+
+    {{#if isAuthor }}
+
+      <button class="mdl-button mdl-js-button mdl-button--raised" id="edit-proposal"> Edit Proposal </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised" id="submit-proposal"> Submit Proposal </button>
+
+    {{/if}}
+
+    {{#if isInvited }}
+      
+      Comments 
+
+    {{/if}}
+
+  {{else}}
+
+    <h3> Sorry, this proposal is not yet visible to the public. </h3>
+
+  {{/if}}
+
+
+</template>
+
+
