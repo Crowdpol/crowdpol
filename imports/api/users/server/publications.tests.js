@@ -33,4 +33,15 @@ describe('User publications', function () {
       });
     });
   });
+  /* function returns an object, not a collection
+  describe('user.current', function () {
+    it('get current user', function (done) {
+      const collector = new PublicationCollector();
+      collector.collect('user.current', (collections) => {
+        assert.equal(collections.users.length, 1);
+        done();
+      });
+    });
+  });
+  */
 });

@@ -37,7 +37,7 @@ if (Meteor.isServer) {
       };
       try {
         testUser._id = Meteor.call('addUser', testUser);
-        //console.log(Accounts.users.find({_id: testUser._id}).fetch());
+        Accounts.users.find({_id: testUser._id}).fetch();
         done();
       } catch (err) {
         console.log(err);
@@ -100,7 +100,6 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
-
     it("Creates an entity", (done) => {
       entityData = {
         email:  "organisation@test.co.za",
@@ -154,8 +153,15 @@ if (Meteor.isServer) {
         assert.fail();
       }
     })
-
-
+    it("Request admin approval", (done) => {
+      try {
+        Meteor.call('requestApproval', testUser._id,'delegate-individual');
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
   });
   
 }

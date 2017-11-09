@@ -6,21 +6,30 @@ import { Tracker } from 'meteor/tracker';
 const Schema = {};
 
 Schema.Approval = new SimpleSchema({
+    id: {
+        type: String,
+        optional: true,
+    },
     type: {
         type: String,
-        allowedValues: ['individual-delegate', 'organisation-delegate','party-delegate', 'candidate'],
+        allowedValues: ['delegate', 'candidate'],
         optional: true,
     },
-    approved: {
-        type: Boolean,
+    status: {
+        type: String,
+        allowedValues: ['Requested', 'Approved','Rejected'],
         optional: true,
     },
-    approvedBy: {
+    reviewedBy: {
         type: String,
         optional: true,
     },
-    approvedOn: {
+    reviewedOn: {
         type: Date,
+        optional: true,
+    },
+    reviewedReply: {
+        type: String,
         optional: true,
     },
     createdAt: {
@@ -56,6 +65,11 @@ Schema.UserCountry = new SimpleSchema({
 });
 
 Schema.UserProfile = new SimpleSchema({
+    type: {
+        type: String,
+        allowedValues: ['Individual', 'Entity'],
+        optional: true,
+    },
     firstName: {
         type: String,
         optional: true
@@ -64,7 +78,6 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-
     username: {
         type: String,
         optional: true
@@ -73,7 +86,6 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true,
     },
-    
     credentials: {
         type: Array,
         optional: true,
@@ -82,7 +94,6 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Credential,
         optional: true,
     },
-    
     approvals: {
         type: Array,
         optional: true,
@@ -92,13 +103,8 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Approval,
         optional: true,
     },
-    
     birthday: {
         type: Date,
-        optional: true
-    },
-    organization : {
-        type: String,
         optional: true
     },
     website: {
@@ -107,6 +113,23 @@ Schema.UserProfile = new SimpleSchema({
         optional: true
     },
     bio: {
+        type: String,
+        optional: true
+    },
+    phoneNumber: {
+        type: String,
+        optional: true
+    },
+    contactPerson: {
+        type: String,
+        optional: true
+    }
+    /*
+    birthday: {
+        type: Date,
+        optional: true
+    },
+    organization : {
         type: String,
         optional: true
     },
@@ -122,7 +145,7 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-    
+    */
 });
 
 Schema.User = new SimpleSchema({
@@ -169,7 +192,6 @@ Schema.User = new SimpleSchema({
           }
         },
     },
-
     isPublic: {
         type: Boolean,
         optional: true,
@@ -188,6 +210,14 @@ Schema.User = new SimpleSchema({
         type: Object,
         optional: true,
         blackbox: true
+    },
+    approvals: {
+        type: Array,
+        optional: true,
+    },
+    'approvals.$': {
+        type: Schema.Approval,
+        optional: true,
     },
     // Add `roles` to your schema if you use the meteor-roles package.
     // Option 1: Object type

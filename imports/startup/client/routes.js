@@ -101,6 +101,13 @@ FlowRouter.route('/profile', {
 
   },
 });
+FlowRouter.route('/profile/:id', {
+  name: 'App.profile',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Profile' });
+
+  },
+});
 
 // Admin Dash
 var adminRoutes = FlowRouter.group({
