@@ -98,9 +98,16 @@ Template.Profile.helpers({
     return user;
   },*/
   delegateStatus: function() {
+    
+    if(isRole('delegate')){
+      return "Approved";
+    }
     return Template.instance().delegateStatus.get();
   },
   candidateStatus: function() {
+    if(isRole('candidate')){
+      return "Approved";
+    }
     return Template.instance().candidateStatus.get();
   },
   isPublic: function() {
@@ -128,9 +135,23 @@ Template.Profile.helpers({
       return 'checked';
     }
   },
+  delegatecDisabled: function(){
+    var status = Template.instance().delegateStatus.get();
+    if(status=='Requested'){
+      console.log("delegate should be disabled");
+      return 'disabled';
+    }
+  },
   delegateChecked: function(){
     if(isRole('delegate')){
       return 'checked';
+    }
+  },
+  candidateDisabled: function(){
+    var status = Template.instance().candidateStatus.get();
+    if(status=='Requested'){
+      console.log("candidate should be disabled");
+      return 'disabled';
     }
   },
   candidateChecked: function(){

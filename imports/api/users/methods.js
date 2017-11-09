@@ -161,6 +161,7 @@ Meteor.methods({
     },
     //this function checks the current user's username and id against the existing ones
     checkUpdateUsername(username){
+      console.log(username.length);
       var count = Meteor.users.find({"_id":{$ne: Meteor.userId()},"profile.username": {$eq: username}}).count();
       if(count > 0){
         return false;
@@ -168,13 +169,36 @@ Meteor.methods({
       return true;
     },
     //TODO: check approvals and roles and send appropriate message
+    getApprovalStatus(userId,type){
+      check(userId,String);
+      check(type,String);
+      var result = Meteor.users.aggregate([
+        { $unwind : "$approvals" },
+        {
+          $match: {"_id" : userId,"approvals" : {$exists: true}, "approvals.type":{$eq: type}}
+        },
+        { $sort : { "approvals.createdAt": -1} },
+        {
+          $project: {
+            "_id": 0, 
+            "status": "$approvals.status",
+          }
+        },
+        
+        { $limit : 1 }
+      ]);
+      if(result.length>0){
+        return result[0].status;
+      }
+      return false;
+    },
     getDelegateStatus(userId){
       check(userId,String);
-      return "";
+      return Meteor.call('getApprovalStatus',userId,'delegate');
     },
     getCandidateStatus(userId){
       check(userId,String);
-      return "";
+      return Meteor.call('getApprovalStatus',userId,'candidate');;
     },
 });
 

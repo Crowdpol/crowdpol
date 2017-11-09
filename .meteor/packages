@@ -48,6 +48,7 @@ check							# keeps yo parameters legit
 reactive-dict					# keeps state in yo template
 themeteorchef:bert				# word to yo users!
 themeteorchef:jquery-validation # form validation
+meteorhacks:aggregate			# allows for mongo db aggregate function
 
 #-- dev tools --
 meteortoys:allthings

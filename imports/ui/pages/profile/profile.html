@@ -12,12 +12,12 @@
 
         {{#if isPublic}}
             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-              <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" {{delegateChecked}}>
+              <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" {{delegateChecked}} {{delegatecDisabled}}>
               <span class="mdl-switch__label">{{_ "profile-delegate"}} {{delegateStatus}}</span>
             </label>
           
             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
-                <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}}>
+                <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}} {{candidateDisabled}}>
               <span class="mdl-switch__label">{{_ "profile-candidate"}} {{candidateStatus}}</span>
             </label>
         {{/if}}  
@@ -25,7 +25,7 @@
         
         <!--{{> Dialogue}} -->
         
-        <!-- Helper list: Don't delete, useful for testing 
+        <!-- Helper list: Don't delete, useful for testing  
         user: |{{user}}|<br>
         delegateStatus: |{{delegateStatus}}|<br>
         candidateStatus: |{{candidateStatus}}|<br>
