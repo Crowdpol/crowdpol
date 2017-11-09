@@ -35,11 +35,19 @@ ProposalSchema = new SimpleSchema({
     status: {
         // status of proposal regarding admin approval
         type: String,
-        allowedValues: ['new', 'pending', 'approved', 'rejected'],
-        defaultValue: 'new'
+        allowedValues: ['unreviewed', 'approved', 'rejected'],
+        defaultValue: 'unreviewed'
     },
     authorId: {
         type: String,
+    },
+    invited: {
+        type: Array,
+        optional: true,
+    },
+    'invited.$': {
+        type: String,
+        optional: true,
     },
 });
 

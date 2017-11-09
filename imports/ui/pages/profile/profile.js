@@ -22,6 +22,27 @@ Template.Profile.onCreated(function() {
         self.candidateStatus.set(result);
       }
   });
+
+  var dict = new ReactiveDict();
+  
+  Meteor.call('getProfile',Meteor.userId(),function(error,result){
+    if (error){
+      Bert.alert(error.reason, 'danger');
+    }else{
+      console.log('here comes the profile sonnny:')
+      console.log(result)
+      dict.set( 'isPublic', result.isPublic );
+      dict.set( 'username', result.profile.username );
+      dict.set( 'firstname', result.profile.firstName );
+      dict.set( 'lastname', result.profile.lastName );
+      dict.set( 'isPublic', result.isPublic );
+      if(result.profile.hasOwnProperty("photo")){
+        dict.set('photo', result.profile.photo );
+      }else{
+        dict.set('photo', "/img/default-user-image.png");
+      }
+    }
+  });
 });
 
 Template.Profile.events({

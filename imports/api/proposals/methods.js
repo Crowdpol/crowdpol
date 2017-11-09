@@ -3,32 +3,28 @@ import { check } from 'meteor/check';
 import { Proposals } from './Proposals.js';
 
 Meteor.methods({
-    createProposal: function (title, abstract, body, startDate, endDate, authorId) {
-      check(title, String);
-      check(abstract, String);
-      check(body, String);
-      check(startDate, Date);
-      check(endDate, Date);
-      check(authorId, String);
-      return Proposals.insert({ 
-      	title: title,
-      	abstract: abstract,
-      	body: body,
-      	startDate: startDate,
-      	endDate: endDate,
-      	authorId: authorId
-      });
+    createProposal: function (proposal) {
+      check(proposal.title, String);
+      check(proposal.abstract, String);
+      check(proposal.body, String);
+      check(proposal.startDate, Date);
+      check(proposal.endDate, Date);
+      check(proposal.authorId, String);
+      return Proposals.insert(proposal);
     },
-    getProposal: function (proposalID) {
-      return Proposals.findOne({_id: proposalID});
+    getProposal: function (proposalId) {
+      return Proposals.findOne({_id: proposalId});
     },
-    deleteProposal: function (proposalID) {
-      Proposals.remove(proposalID);
+    deleteProposal: function (proposalId) {
+      Proposals.remove(proposalId);
     },
-    updateProposalStatus: function (proposalID, status) {
-    	Proposals.update({_id: proposalID}, {$set: {"status": status}});
+    updateProposalStatus: function (proposalId, status) {
+    	Proposals.update({_id: proposalId}, {$set: {"status": status}});
     },
-    updateProposalStage: function (proposalID, stage){
-    	Proposals.update({_id: proposalID}, {$set: {"stage": stage}});
+    updateProposalStage: function (proposalId, stage){
+    	Proposals.update({_id: proposalId}, {$set: {"stage": stage}});
+    },
+    saveProposalChanges: function (proposalId, proposal) {
+      Proposals.update({_id: proposalId}, {$set: proposal });
     }
 });

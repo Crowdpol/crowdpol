@@ -22,7 +22,6 @@ FlowRouter.notFound = {
   },
 };
 
-
 // Email Verification
 FlowRouter.route('/verify-email/:token',{
 	name: 'verify-email',
@@ -154,3 +153,26 @@ adminRoutes.route('/approvals', {
     BlazeLayout.render('App_body', {main: 'AdminApprovals'});
   }
 });
+
+// Proposals
+FlowRouter.route('/proposals', {
+  name: 'App.proposals',
+  action() {
+    BlazeLayout.render('App_body', {main: 'Proposals'});
+  }
+});
+
+FlowRouter.route('/proposals/edit/:id?', {
+  name: 'App.proposal.edit',
+  action() {
+    BlazeLayout.render('App_body', {main: 'EditProposal'});
+  }
+});
+
+FlowRouter.route('/proposals/view/:id', {
+  name: 'App.proposal.view',
+  action() {
+    BlazeLayout.render('App_body', {main: 'ViewProposal'});
+  }
+});
+
