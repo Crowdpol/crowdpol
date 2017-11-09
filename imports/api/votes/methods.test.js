@@ -13,12 +13,12 @@ const { schema, generateDoc } = fakerSchema;
 Factory.define('user', Users)
 
 if (Meteor.isServer) {
-  let testComment;
+  let testVote;
   beforeEach(function () {
 
   });
-  describe('Comment methods', () => {
-    it("Lets user comment", (done) => {
+  describe('Vote methods', () => {
+    it("Lets user vote", (done) => {
       try {
         // create a fake proposal
         const proposal = Factory.create('proposal', generateDoc(schema.Proposal));
@@ -53,7 +53,7 @@ if (Meteor.isServer) {
         stub = sinon.stub(Meteor, 'user');
         stub.returns(user)
 
-        testComment = Meteor.call('comment', {message: 'test comment', proposalId: proposal._id});
+        testVote = Meteor.call('vote', {vote: 'yes', proposalId: proposal._id});
         done();
       } catch (err) {
         console.log(err);
@@ -62,9 +62,9 @@ if (Meteor.isServer) {
       sinon.restore(Meteor, 'user');
     });
 
-    it("Get comment", (done) => {
+    it("Get vote", (done) => {
       try {
-        Meteor.call('getComment', testComment);
+        Meteor.call('getVote', testVote);
         done();
       } catch (err) {
         console.log(err);
@@ -72,9 +72,9 @@ if (Meteor.isServer) {
       }
     });
 
-    it("Delete comment", (done) => {
+    it("Delete vote", (done) => {
       try {
-        Meteor.call('deleteComment', testComment);
+        Meteor.call('deleteVote', testVote);
         done();
       } catch (err) {
         console.log(err);
