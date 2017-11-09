@@ -19,7 +19,7 @@ h4,
 h5,
 h6 {
   color: $blue-xdark;
-  font-weight: 300;
+  font-family: $title-font;
 }
 
 h1,
@@ -38,33 +38,33 @@ h6 {
 }
 
 h1 {
-  font-size: $base-font-size * 2.5;
+  font-size: $base-font-size * 2.35;
   line-height: $base-line-height * 2;
 }
 
 h2 {
-  font-size: $base-font-size * 2.0625;
+  font-size: $base-font-size * 2;
   line-height: $base-line-height * 2;
 }
 
 h3 {
-  font-size: $base-font-size * 1.5;
+  font-size: $base-font-size * 1.75;
   line-height: $base-line-height * 1.5;
 }
 
 h4 {
-  font-size: $base-font-size * 1.25;
-  line-height: $base-line-height;
+  font-size: $base-font-size * 1.55;
+  line-height: $base-line-height * 1.5;
 }
 
 h5 {
-  font-size: $base-font-size;
+  font-size: $base-font-size * 1.35;
   line-height: $base-line-height;
 }
 
 h6 {
-  font-size: $base-font-size / 0.875;
-  line-height: $base-line-height / 1.333;
+  font-size: $base-font-size * 1.15;
+  line-height: $base-line-height;
 }
 
 p,
@@ -73,12 +73,9 @@ ol,
 li,
 span,
 a {
+  font-family: $body-font;;
   color: $dark-grey-xdark;
   font-size: $base-font-size;
   font-weight: 400;
   line-height: $base-line-height;
-}
-
-p {
-  font-family: $body-font;;
 }
