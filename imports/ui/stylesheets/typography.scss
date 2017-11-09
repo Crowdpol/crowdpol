@@ -20,6 +20,8 @@ h5,
 h6 {
   color: $blue-xdark;
   font-family: $title-font;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 h1,
@@ -73,9 +75,12 @@ ol,
 li,
 span,
 a {
-  font-family: $body-font;;
   color: $dark-grey-xdark;
   font-size: $base-font-size;
   font-weight: 400;
   line-height: $base-line-height;
+}
+
+p {
+  font-family: $body-font;
 }
