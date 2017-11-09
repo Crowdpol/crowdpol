@@ -134,6 +134,7 @@
 	"contact-message": "Your message:",
 	"login-social": "Sign in with Social Media",
 	"profile-title" : "Profile",
+	"profile-photo" : "Profile photo path",
 	"profile-username" : "Username",
 	"profile-firstname" : "First name",
 	"profile-lastname" : "Last name",
@@ -149,6 +150,6 @@
 	"profile-msg-updated": "Profile updated.",
 	"profile-msg-delegate-removed" : "Delegate Role removed.",
 	"profile-msg-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
-	"profile-msg-candidate-removed" : "Delegate Role removed.",
-	"profile-msg-candidate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed."
+	"profile-msg-candidate-removed" : "Candidate Role removed.",
+	"profile-msg-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed."
 }

@@ -31,7 +31,8 @@ function normalizeFacebookUser(profile, user) {
   return _.extend(user, {
     //username,
     profile: userProfile,
-    emails: [userEmail]
+    emails: [userEmail],
+    roles: ['individual']
   });
 }
 
@@ -60,7 +61,8 @@ function normalizeGoogleUser(profile, user) {
   return _.extend(user, {
     //username,
     profile: userProfile,
-    emails: [userEmail]
+    emails: [userEmail],
+    roles: ['individual']
   });
 }
 
@@ -94,7 +96,8 @@ function normalizeTwitterUser(profile, user) {
   return _.extend(user, {
     //username,
     profile: userProfile,
-    emails: [userEmail]
+    emails: [userEmail],
+    roles: ['individual']
   });
 }
 
@@ -250,7 +253,7 @@ Accounts.validateNewUser((user) => {
   })
 });
 
-function generateUsername(firstName,lastName){
+generateUsername = function(firstName,lastName) {
   var username = new String();
   if (firstName != undefined) {
     username = convertToSlug(firstName);

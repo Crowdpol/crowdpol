@@ -1,44 +1,44 @@
 <template name="Profile">
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--12-col">
-      <h1>{{_ "profile-title"}}</h1>
-      <hr> 
       {{#if Template.subscriptionsReady}} 
+        {{> ProfileForm}}
+        <h4>Settings</h4>
+        <hr>
         <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-          <input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{publicChecked}}>
+          <input type="checkbox" id="profile-public-switch" class="mdl-switch__input"  {{publicChecked}} {{publicDisabled}}>
           <span class="mdl-switch__label">{{_ "profile-public"}}</span>
         </label>
 
         {{#if isPublic}}
             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
               <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" {{delegateChecked}}>
-              <span class="mdl-switch__label">profile-delegate-switch</span>
+              <span class="mdl-switch__label">{{_ "profile-delegate"}} {{delegateStatus}}</span>
             </label>
           
             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
                 <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}}>
-              <span class="mdl-switch__label">profile-candidate-switch</span>
+              <span class="mdl-switch__label">{{_ "profile-candidate"}} {{candidateStatus}}</span>
             </label>
         {{/if}}  
 
-        {{> ProfileForm}}
+        
         <!--{{> Dialogue}} -->
         
-        <hr> 
-        <!-- Helper list: Don't delete, useful for testing -->
+        <!-- Helper list: Don't delete, useful for testing 
         user: |{{user}}|<br>
         delegateStatus: |{{delegateStatus}}|<br>
         candidateStatus: |{{candidateStatus}}|<br>
         isPublic: |{{isPublic}}|<br>
         isOrganisation: |{{isOrganisation}}|<br>
         isParty: |{{isParty}}|<br>
-        isOrganisationRole: |{{isOrganisationRole}}|<br>
-        isPartyRole: |{{isPartyRole}}|<br>
-        userIsDelegate: |{{userIsDelegate}}|<br>
-        userIsCandidate: |{{userIsCandidate}}|<br>
+        isDelegate: |{{isDelegate}}|<br>
+        isCandidate: |{{isCandidate}}|<br>
+        publicDisabled: |{{publicDisabled}}|<br>
         publicChecked: |{{publicChecked}}|<br>
         delegateChecked: |{{delegateChecked}}|<br>
         candidateChecked:|{{candidateChecked}}|<br>
+        -->
       {{else}} 
         {{> loader}} 
       {{/if}}
@@ -46,13 +46,6 @@
   </div>
 </template>
 
-<template name="loader">
-  <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-    <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
-      <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite" />
-    </path>
-  </svg>
-</template>
 <template name="Dialogue">
   <button class="mdl-button mdl-button--raised mdl-js-button dialog-button">Show Dialog</button>
 

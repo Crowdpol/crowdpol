@@ -73,11 +73,14 @@ Meteor.methods({
       'website': entity.website,
       'phoneNumber': entity.phone,
       'contactPerson': entity.contact,
-      'type': entity.profileType};
+      'type': entity.profileType,
+      'username': generateUsername(entity.name)
+      };
 
       Meteor.call('updateProfile', entityID, profile);
       //Meteor.call('toggleParty', entityID,entity.isParty);
       //Meteor.call('toggleOrg', entityID,entity.isOrganisation);
+
       // Add entity to role
       Roles.addUsersToRoles(entityID, entity.roles);
 
@@ -164,13 +167,14 @@ Meteor.methods({
       }
       return true;
     },
+    //TODO: check approvals and roles and send appropriate message
     getDelegateStatus(userId){
       check(userId,String);
-      return "Approved";
+      return "";
     },
     getCandidateStatus(userId){
       check(userId,String);
-      return "Approved";
+      return "";
     },
 });
 

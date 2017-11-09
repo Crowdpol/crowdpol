@@ -1,8 +1,13 @@
 <template name="ProfileForm">
+  <h3>{{_ "profile-title"}}&nbsp;<small>{{profile.type}}</small></h3>
+  <hr>
   <form id="profile-form" class="profile">
     <img src={{profilePic}} width="50px" height="50px">
     <br>
-    <input type="text" name="profilePhotoPath" value="{{profilePic}}">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <label class="mdl-textfield__label" for="profile-username">{{_ "profile-photo"}}</label>
+      <input type="text" name="profilePhotoPath" id="profile-photo-path" class="mdl-textfield__input" value="{{profilePic}}">
+    </div>
     <br>
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <label class="mdl-textfield__label" for="profile-username">{{_ "profile-username"}}</label>
@@ -15,6 +20,7 @@
       <input type="text" name="profileFirstName" class="mdl-textfield__input" value="{{firstName}}">
     </div>
     <br>
+    
     <!-- NOTE: Please be aware of the script that hide this input if necessary -->
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity}}hidden{{/if}}">
       <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
@@ -31,9 +37,15 @@
       <label class="mdl-textfield__label" for="profile-bio">{{_ "profile-bio"}}</label>
     </div>
     <br>
+
     <div class="form-group">
       <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "save"}}' id="submitProfile">
     </div>
   </form>
+  <br>
+  <!-- Helper list: Don't delete, useful for testing 
+  isEntity: |{{isEntity}}|<br>
+  isProfileComplete: |{{isProfileComplete}}|
+  -->
   <br>
 </template>

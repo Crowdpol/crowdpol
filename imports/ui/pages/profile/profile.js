@@ -70,7 +70,7 @@ Template.Profile.events({
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          var msg = "You are no longer a candidate";
+          var msg = TAPi18n.__('profile-msg-candidate-removed');
           Bert.alert(msg, 'success');
         }
       });
@@ -82,7 +82,7 @@ Template.Profile.events({
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          var msg = "Request submitted"; //TAPi18n.__('profile-msg-private');
+          var msg = TAPi18n.__('profile-msg-delegate-requested');
           Bert.alert(msg, 'success');
         }
       });
@@ -107,22 +107,21 @@ Template.Profile.helpers({
     return Meteor.user().isPublic;
   },
   isOrganisation: function() {
-    return Meteor.user().isOrganisation;
+    return isRole('organisation');
   },
   isParty: function() {
-    return Meteor.user().isParty;
+    return isRole('party');
   },
-  isOrganisationRole: function() {
-    return isRole('organisation-delegate');
-  },
-  isPartyRole: function() {
-    return isRole('party-delegate');
-  },
-  userIsDelegate: function(){
+  isDelegate: function(){
     return isRole('delegate');
   },
-  userIsCandidate: function(){
+  isCandidate: function(){
     return isRole('candidate');
+  },
+  publicDisabled: function(){
+    if(!publicReady()){
+      return 'disabled';
+    }
   },
   publicChecked: function(){
     if(Meteor.user().isPublic){
@@ -140,11 +139,6 @@ Template.Profile.helpers({
     }
   },
 });
-
-//check criteria for public status
-function publicReady(){
-  return true;
-}
 
 function isRole(role){
   return Roles.userIsInRole(Meteor.user(), role);
