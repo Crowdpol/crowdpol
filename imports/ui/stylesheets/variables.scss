@@ -1,0 +1,53 @@
+// Colours
+$black: #061219;
+$dark-grey-xdark: #182528;
+$dark-grey-dark: #343f42;
+$dark-grey-mid: #50595b;
+$dark-grey-light: #687175;
+$dark-grey-xlight: #7c8284;
+
+$white: #fff;
+$light-grey-xlight: #fcfcfa;
+$light-grey-light: #f4f4f4;
+$light-grey-mid: #e0e0de;
+$light-grey-dark: #c1c0bd;
+$light-grey-xdark: #b2b1b1;
+
+$blue-xdark: #0b2830;
+$blue-dark: #103042;
+$blue: #143c56;
+$blue-light: #244e66;
+$blue-xlight: #335d77;
+
+$bright-blue-xdark: #679db2;
+$bright-blue-dark: #76aac1;
+$bright-blue: #83b9cf;
+$bright-blue-light: #8ec4d6;
+$bright-blue-xlight: #a5d3e5;
+
+$yellow-xdark: #edd9a9;
+$yellow-dark: #f2e2b8;
+$yellow: #faedc1;
+$yellow-light: #f9f1e1;
+$yellow-xlight: #f9f7f4;
+
+// Base Colors
+$primary: $blue;
+$highlight: $bright-blue;
+$alternative: $yellow;
+
+// Fonts
+$default-font: 'Roboto', sans-serif;
+$body-font: 'Lora', serif;
+$title-font: 'Montserrat', sans-serif;
+$base-font-size: 1rem;
+$base-line-height: 1.6rem;
+
+$space: $base-line-height;
+
+// Media Queries
+$mobile: 480px !default;
+$tablet: 768px !default;
+$laptop: 1024px !default;
+$desktop: 1200px !default;
+$big: 1440px !default;
