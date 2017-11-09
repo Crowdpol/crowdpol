@@ -4,7 +4,6 @@ import { assert } from 'meteor/practicalmeteor:chai';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import './publications.js';
 
-
 describe('User publications', function () {
   beforeEach(function () {
     Meteor.users.remove({});

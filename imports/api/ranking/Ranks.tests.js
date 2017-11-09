@@ -2,20 +2,20 @@ import { Meteor } from 'meteor/meteor';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Factory } from 'meteor/dburles:factory';
 import { fakerSchema } from '../../utils/test-utils/faker-schema/';
-import { Tags } from './Tags';
+import { Ranks } from './Ranks';
 
 const { schema, generateDoc } = fakerSchema;
 
-Factory.define('tag', Tags);
+Factory.define('rank', Ranks);
 
-describe('Tags schema', function() {
+describe('Ranks schema', function() {
   beforeEach(function() {
     resetDatabase();
   });
 
   // sanity check that jsf schema validaes ok
   it('inserts cleanly', function() {
-    const testDoc = generateDoc(schema.Tag)
-    const tag = Factory.create('tag', testDoc);
+    const testDoc = generateDoc(schema.Rank)
+    const rank = Factory.create('rank', testDoc);
   });
 });

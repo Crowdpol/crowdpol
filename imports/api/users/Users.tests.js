@@ -55,7 +55,6 @@ if (Meteor.isServer) {
     it('insert correctly', function () {
       const userId = Accounts.createUser(testUser);
       const added = Meteor.users.find({ _id: userId });
-      console.log(added);
       const collectionName = added._getCollectionName();
       const count = added.count();
 

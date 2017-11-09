@@ -25,6 +25,7 @@ kadira:blaze-layout     # Layout manager for blaze (works well with FlowRouter)
 practicalmeteor:mocha             # A package for writing and running your meteor app and package tests with mocha
 johanbrook:publication-collector  # Test a Meteor publication by collecting its output
 dburles:factory					  # Generates Fake News
+practicalmeteor:sinon
 
 #-- internationalization --
 tap:i18n
@@ -40,6 +41,7 @@ alanning:roles
 #-- material design --
 zodiase:mdl						# MDL for Meteor
 dapearce:material-icons			# material icons, duh!
+fourseven:scss    # SASS bitches!
 
 #-- tools --
 email

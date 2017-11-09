@@ -1,16 +1,17 @@
 import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
+import { Random } from 'meteor/random';
 import './methods.js';
 
 if (Meteor.isServer) {
-  let testTag;
+  let testRank;
   beforeEach(function () {
 
   });
-  describe('Tag methods', () => {
-    it("Add tag", (done) => {
+  describe('Rank methods', () => {
+    it("Add rank", (done) => {
       try {
-        testTag = Meteor.call('addTag', "testing");
+        testRank = Meteor.call('addRank', "delegate",Random.id(),Random.id(),Random.fraction());
         done();
       } catch (err) {
         console.log(err);
@@ -18,9 +19,9 @@ if (Meteor.isServer) {
       }
     });
 
-    it("Get tag", (done) => {
+    it("Get rank", (done) => {
       try {
-        Meteor.call('getTag', testTag);
+        Meteor.call('getRank', testRank);
         done();
       } catch (err) {
         console.log(err);
@@ -28,23 +29,15 @@ if (Meteor.isServer) {
       }
     });
 
-    it("Delete tag", (done) => {
+    it("Delete rank", (done) => {
       try {
-        Meteor.call('deleteTag', testTag);
+        Meteor.call('deleteRank', testRank);
         done();
       } catch (err) {
         console.log(err);
         assert.fail();
       }
     });
-    it("Toggle tag authorized", (done) => {
-      try {
-        Meteor.call('toggleAuthorized', testTag, true);
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
+
   });
 }
