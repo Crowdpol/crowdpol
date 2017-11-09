@@ -39,6 +39,8 @@ import './pages/proposals/viewProposal.js';
 // Styles import
 import './stylesheets/variables.scss';
 import './stylesheets/typography.scss';
+import './stylesheets/global.scss';
+import './stylesheets/home.scss';
 
 Meteor.startup(function () {
 	// setup language

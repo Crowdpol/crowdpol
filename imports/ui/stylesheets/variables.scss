@@ -14,26 +14,19 @@ $light-grey-dark: #c1c0bd;
 $light-grey-xdark: #b2b1b1;
 
 $blue-xdark: #0b2830;
-$blue-dark: #103042;
 $blue: #143c56;
-$blue-light: #244e66;
-$blue-xlight: #335d77;
 
-$bright-blue-xdark: #679db2;
-$bright-blue-dark: #76aac1;
-$bright-blue: #83b9cf;
-$bright-blue-light: #8ec4d6;
-$bright-blue-xlight: #a5d3e5;
+$light-blue: #83b9cf;
 
-$yellow-xdark: #edd9a9;
-$yellow-dark: #f2e2b8;
-$yellow: #faedc1;
-$yellow-light: #f9f1e1;
-$yellow-xlight: #f9f7f4;
+$bright-blue: #337ab7;
+
+$yellow: #eebd45;
+$yellow-light: #faedc1;
 
 // Base Colors
 $primary: $blue;
-$highlight: $bright-blue;
+$secondary: $bright-blue;
+$highlight: $light-blue;
 $alternative: $yellow;
 
 // Fonts

@@ -1,0 +1,61 @@
+@import 'variables.scss';
+
+.banner-wrap {
+  min-height: 80vh;
+  padding: ($space * 2) $space;
+  background-image: url('img/wave-bg.jpg');
+  background-size: cover;
+  border-bottom: 1rem solid $yellow;
+
+  // @include breakpoint($laptop) {
+  //   padding: $space * 2;
+  // }
+
+  h1 {
+    color: $white;
+    // font-size: $base-font-size * 3;
+  }
+
+  p {
+    max-width: 20rem;
+    margin-bottom: $space * 2;
+    color: $yellow-light;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+}
+
+.hero-item-wrap {
+  display: flex;
+  justify-content: space-around;
+  max-width: 50rem;
+  margin: $space auto;
+
+  .hero-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $space * 2;
+    height: $space * 2;
+    border-radius: 100%;
+    margin: $space / 2;
+    padding: $space / 2;
+    background-color: rgba($bright-blue, 0.6);
+
+    // @include breakpoint($tablet) {
+    //   width: $space * 3;
+    //   height: $space * 3;
+    // }
+
+    i {
+      font-size: $space * 2;
+      color: $yellow-light;
+    }
+  }
+
+  h6 {
+    text-align: center;
+    font-size: $base-font-size;
+    color: $yellow;
+  }
+}
