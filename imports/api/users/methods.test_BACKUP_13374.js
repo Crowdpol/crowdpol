@@ -37,7 +37,10 @@ if (Meteor.isServer) {
       };
       try {
         testUser._id = Meteor.call('addUser', testUser);
+<<<<<<< HEAD
         Accounts.users.find({_id: testUser._id}).fetch();
+=======
+>>>>>>> 79109cbddb300247ad9e1c5c596eabb4a62d8695
         done();
       } catch (err) {
         console.log(err);
