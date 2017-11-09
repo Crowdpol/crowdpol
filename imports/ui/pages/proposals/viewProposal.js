@@ -1,18 +1,13 @@
 import './viewProposal.html'
 
 Template.ViewProposal.onCreated(function(){
-    var proposalId = FlowRouter.getParam("id");
-    /*self.subscribe('proposals.one', proposalId)
-    proposal = Meteor.call('getProposal', proposalId);    
-    console.log(proposal)*/
+  proposalId = FlowRouter.getParam("id");
   var dict = new ReactiveDict();
 
   Meteor.call('getProposal',proposalId,function(error,result){
     if (error){
       Bert.alert(error.reason, 'danger');
     }else{
-      console.log('here comes the proposal sonny==================')
-      console.log(result)
       dict.set( 'title', result.title );
       dict.set( 'abstract', result.abstract );
       dict.set( 'body', result.body );
@@ -21,14 +16,23 @@ Template.ViewProposal.onCreated(function(){
       dict.set( 'invited', result.invited );
       dict.set( 'authorId', result.authorId );
       dict.set( 'stage', result.stage );
-      console.log(dict)
     }
   });
   this.templateDictionary = dict;
 });
 
 Template.ViewProposal.events({
-  'submit form' (event, template){
+  'click #edit-proposal' (event, template){
+    FlowRouter.go('App.proposal.edit', {id: proposalId});
+  },
+  'click #submit-proposal' (event, template){
+    Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
+      if (error){
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert('Proposal submitted for admin approval', 'success');
+      }
+    });
   }
 });
 
