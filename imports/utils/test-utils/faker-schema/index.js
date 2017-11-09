@@ -4,9 +4,11 @@ import { Tag } from './Tag';
 import { Proposal } from './Proposal';
 import { Comment } from './Comment';
 import { Rank } from './Rank';
+import { Vote } from './Vote';
 export const fakerSchema = {
   generateDoc: jsf,
   schema: {
+    Vote,
   	Proposal,
   	Comment,
     Tag,

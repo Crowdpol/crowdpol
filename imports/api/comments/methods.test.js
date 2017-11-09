@@ -59,6 +59,7 @@ if (Meteor.isServer) {
         console.log(err);
         assert.fail();
       }
+      sinon.restore(Meteor, 'user');
     });
 
     it("Get comment", (done) => {
@@ -73,7 +74,7 @@ if (Meteor.isServer) {
 
     it("Delete comment", (done) => {
       try {
-        Meteor.call('deleteProposal', testComment);
+        Meteor.call('deleteComment', testComment);
         done();
       } catch (err) {
         console.log(err);
