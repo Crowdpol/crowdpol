@@ -25,18 +25,60 @@
     {{/if}}
 
     {{#if isInvited }}
-      
-      Comments 
+
+    <!--============ Comments Form ============-->
+
+    <br/>
+    <h3>Add a Comment</h3>
+
+    <form id="comment-form">
+      <div class="mdl-textfield mdl-js-textfield">
+        <textarea class="mdl-textfield__input" type="text" rows= "5" id="comment-message" ></textarea>
+      </div>
+      <div class="form-group">
+          <input class="mdl-button mdl-js-button mdl-button--raised" type="submit" value='{{_ "submit"}}'>
+      </div>
+    </form> 
 
     {{/if}}
 
+  <!--============ Comments List ============-->
+
+  <hr>
+
+  {{#if Template.subscriptionsReady}}
+
+    {{#each comments}}
+
+      <div class="mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text"> {{ username }}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          {{ message }}
+        </div>
+        <div class="mdl-card__menu">
+          <img src="{{avatar}}" style="width:40px">
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          {{ date }}
+        </div>
+      </div>
+
+    {{/each}}
+
   {{else}}
 
-    <h3> Sorry, this proposal is not yet visible to the public. </h3>
+    Loading comments...
 
   {{/if}}
 
+  {{else}}
+    <h3> Sorry, this proposal is not yet visible to the public. </h3>
+  {{/if}}
 
 </template>
+
+
 
 

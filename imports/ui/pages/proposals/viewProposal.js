@@ -1,7 +1,16 @@
 import './viewProposal.html'
+import { Comments } from '../../../api/comments/Comments.js'
 
 Template.ViewProposal.onCreated(function(){
+
+  var self = this;
+
   proposalId = FlowRouter.getParam("id");
+  self.autorun(function() {
+    self.subscribe('comments', proposalId);
+    self.subscribe('users');
+  });
+
   var dict = new ReactiveDict();
 
   Meteor.call('getProposal',proposalId,function(error,result){
@@ -33,11 +42,48 @@ Template.ViewProposal.events({
         Bert.alert('Proposal submitted for admin approval', 'success');
       }
     });
+  },
+  'submit #comment-form' (event, template){
+    var comment = {
+      message: template.find('#comment-message').value,
+      authorId: Meteor.userId(),
+      proposalId: proposalId}
+    Meteor.call('comment', comment, function(error){
+      if(error){
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert('Comment posted', 'success');
+      }
+    });
   }
 });
 
 Template.ViewProposal.helpers({
 
+  comments: function() {
+    return Comments.find({proposalId: proposalId},{transform: transformComment});
+  },
+  commentUsername: function(userId){
+    console.log('calling the function with' + userId)
+    Meteor.call('getProfile', userId, function(error, result){
+      if (error){
+        r = 'User could not be found';
+      } else {
+        console.log('success so far')
+        profile = result.profile;
+        if (profile){
+          r = profile.username;
+          console.log(r)
+        } else {
+          r = 'Anonymous';
+          console.log('the user is anon')
+        }
+      }
+      return r;
+      console.log('r is')
+      console.log(r)
+    });
+  },
   title: function() {
     return Template.instance().templateDictionary.get( 'title' );
   },
@@ -87,9 +133,11 @@ function userIsInvited(){
     return true;
   } else {
     invited = Template.instance().templateDictionary.get( 'invited' );
-    for (i=0; i<invited.length; i++){
-      if (Meteor.userId() == invited[i]) {
-        return true;
+    if (invited) {
+      for (i=0; i<invited.length; i++){
+        if (Meteor.userId() == invited[i]) {
+          return true;
+        }
       }
     }
     return false;
@@ -103,4 +151,17 @@ function proposalIsLive(){
       return false;
     }
 }
+
+function transformComment(comment) {
+    var user = Meteor.users.findOne(comment.authorId);
+    if (user) {
+        var username = user.profile.username;
+        var avatar = user.profile.photo;
+        var date = moment(comment.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+        comment.username = username;
+        comment.avatar = avatar;
+        comment.date = date;
+    }
+    return comment;
+};
 
