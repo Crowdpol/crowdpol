@@ -18,11 +18,12 @@ Meteor.methods({
     deleteProposal: function (proposalId) {
       Proposals.remove(proposalId);
     },
-    updateProposalStatus: function (proposalId, status) {
-    	Proposals.update({_id: proposalId}, {$set: {"status": status}});
+    rejectProposal: function (proposalId) {
+    	Proposals.update({_id: proposalId}, {$set: {"status": "rejected"}});
     },
-    updateProposalStage: function (proposalId, stage){
-    	Proposals.update({_id: proposalId}, {$set: {"stage": stage}});
+    approveProposal: function(proposalId){
+      Proposals.update({_id: proposalId}, {$set: {"stage": "live"}});
+      Proposals.update({_id: proposalId}, {$set: {"status": "approved"}});
     },
     saveProposalChanges: function (proposalId, proposal) {
       Proposals.update({_id: proposalId}, {$set: proposal });

@@ -46,18 +46,18 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
-    it("Update proposal status", (done) => {
+    it("Approve proposals", (done) => {
       try {
-        Meteor.call('updateProposalStatus', testProposal, 'approved');
+        Meteor.call('approveProposal', testProposal);
         done();
       } catch (err) {
         console.log(err);
         assert.fail();
       }
     });
-    it("Update proposal stage", (done) => {
+    it("Reject proposals", (done) => {
       try {
-        Meteor.call('updateProposalStage', testProposal, 'live');
+        Meteor.call('rejectProposal', testProposal, 'live');
         done();
       } catch (err) {
         console.log(err);

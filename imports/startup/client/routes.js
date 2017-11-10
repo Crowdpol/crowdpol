@@ -154,6 +154,13 @@ adminRoutes.route('/approvals', {
   }
 });
 
+adminRoutes.route('/proposals', {
+  name: 'App.admin.proposals',
+  action() {
+    BlazeLayout.render('App_body', {main: 'AdminProposals'});
+  }
+});
+
 // Proposals
 FlowRouter.route('/proposals', {
   name: 'App.proposals',
