@@ -32,6 +32,8 @@ Meteor.publish("user.search", function(searchValue) {
   if (!searchValue) {
     return Meteor.users.find({roles: "delegate"});
   }
+  searchValue = "/" + searchValue + "/";
+  //console.log("searchValue " + searchValue);
   return Meteor.users.find(
     { $text: {$search: searchValue} },
     {

@@ -12,7 +12,7 @@ Template.Delegate.helpers({
     if (Session.get("searchPhrase")) {
     	console.log("returning search");
     	//return Meteor.users.find({roles: "delegate"});	
-      return Meteor.users.find({}, { sort: [["score", "desc"]] });
+      return Meteor.users.find({_id: { $ne: Meteor.userId() }}, { sort: [["score", "desc"]] });
     } else {
     	console.log("returning all");
       return Meteor.users.find({roles: "delegate"});
