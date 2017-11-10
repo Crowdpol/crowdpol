@@ -3,6 +3,15 @@ import { Roles } from 'meteor/alanning:roles';
 import { convertToSlug } from '/lib/utils';
 import { Random } from 'meteor/random';
 
+function generateSearchString(user){
+  const profile = user.profile;
+  searchString = profile.username + " " + profile.firstName + " " + profile.lastName;
+  const userProfile = _.extend(profile, {
+    searchString: searchString
+  });
+  return user;
+}
+
 function normalizeFacebookUser(profile, user) {
   //console.log("0.2 normalizeFacebookUser");
   const credential = profile.credentials || [];
@@ -11,7 +20,7 @@ function normalizeFacebookUser(profile, user) {
     URL: user.services.facebook.link,
     validated: true,
   });
-
+  //searchString = user.services.facebook.first_name + ' ' + user.services.facebook.last_name + ' ' + generateUsername(user.services.facebook.first_name,user.services.facebook.last_name);
   const userProfile = _.extend(profile, {
 
     photo: 'http://graph.facebook.com/' + user.services.facebook.id + '/picture/?type=large',
@@ -20,7 +29,8 @@ function normalizeFacebookUser(profile, user) {
     lastName: user.services.facebook.last_name,
     credentials: credential,
     isPublic: false,
-    type: 'Individual'
+    type: 'Individual',
+    //searchString: searchString
   });
 
   const userEmail = {
@@ -51,7 +61,8 @@ function normalizeGoogleUser(profile, user) {
     lastName: user.services.google.family_name,
     credentials: credential,
     isPublic: false,
-    type: 'Individual'
+    type: 'Individual',
+    //searchString: user.services.google.given_name + ' ' + user.services.google.family_name + ' ' + generateUsername(user.services.google.given_name + " " + user.services.google.family_name);
   });
   const userEmail = {
     address: user.services.google.email,
@@ -85,7 +96,8 @@ function normalizeTwitterUser(profile, user) {
     lastName: '',
     credentials: credential,
     isPublic: false,
-    type: 'Individual'
+    type: 'Individual',
+    //searchString: profile.name + " "  + generateUsername(user.services.twitter.screenName);
   });
 
   const userEmail = {
@@ -115,7 +127,8 @@ function normalizeSignupUser(user) {
     firstName: "Anonymous",
     lastName: "User",
     isPublic: false,
-    type: 'Individual'
+    type: 'Individual',
+    //searchString: "Anonymous anonymous";
   };
   Meteor.call('profiles.initiate', user._id,userProfile,(error) => {
         if(error){
@@ -149,7 +162,8 @@ function normalizeScriptUser(profile, user) {
     firstName: profile.firstName,
     lastName: profile.lastName,
     isPublic: true,
-    type: profile.type
+    type: profile.type,
+    //searchString: profile.firstName + ' ' + profile.lastName + ' ' + profile.username;
   });
   return _.extend(user, {
     //username,
@@ -171,7 +185,8 @@ function normalizeDemoUser(profile, user) {
     firstName: profile.firstName,
     lastName: profile.lastName,
     isPublic: false,
-    type: 'Individual'
+    type: 'Individual',
+    //searchString: profile.firstName + ' ' + profile.lastName + ' ' + generateUsername(profile.firstName + " " + profile.lastName);
   });
   return _.extend(user, {
     //username,
@@ -229,10 +244,11 @@ Accounts.onCreateUser((options, user) => {
     if(options.profile.credentials[0].source == "default"){
       normalizeScriptUser(profile, user);
     }
+
   }else{
     normalizeSignupUser(user); 
   }
-
+  generateSearchString(user);
   return user;
 });
 
@@ -270,3 +286,5 @@ generateUsername = function(firstName,lastName) {
   }
   return username;
 }
+
+

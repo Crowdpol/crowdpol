@@ -123,6 +123,10 @@ Schema.UserProfile = new SimpleSchema({
     contactPerson: {
         type: String,
         optional: true
+    },
+    searchString: {
+        type: String,
+        optional: true,
     }
     /*
     birthday: {
@@ -260,11 +264,13 @@ Meteor.users.attachSchema(Schema.User);
 Meteor.users.allow({
   insert: function (userId) {
     if (userId) {
+      Schema.User.clean(doc);
       return true;
     }
   },
   update: function (userId) {
     if (userId) {
+      Schema.User.clean(doc);
       return true;
     }
   },

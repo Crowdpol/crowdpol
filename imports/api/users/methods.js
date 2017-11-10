@@ -36,6 +36,8 @@ Meteor.methods({
     updateProfile: function (userID, profile) {
       //console.log(profile);
       check(userID, String);
+      searchString = profile.firstName + " " + profile.lastName + " " + profile.username;
+      profile["searchString"] = searchString;
       Meteor.users.update({_id: userID}, {$set: {"profile": profile}});
     },
     togglePublic: function (userID,isPublic) {
@@ -74,7 +76,8 @@ Meteor.methods({
       'phoneNumber': entity.phone,
       'contactPerson': entity.contact,
       'type': entity.profileType,
-      'username': generateUsername(entity.name)
+      'username': generateUsername(entity.name),
+      'searchString': entity.name + ' ' + generateUsername(entity.name)
       };
 
       Meteor.call('updateProfile', entityID, profile);
@@ -204,6 +207,18 @@ Meteor.methods({
       check(search,String);
       var result = Meteor.users.find( { $text: { $search: search } } )
       console.log(result);
+    },
+    getUserSearchString(userId){
+      check(userId,String);
+      var result =  Meteor.users.aggregate([
+        { $unwind : "$profile" },
+        { $match: {"_id" : userId}},
+        { $project: {"_id": 0, "searchString": {$concat: ["$profile.firstName"," ","$profile.lastName"," ","$profile.username"]} } }
+      ]);
+      if(result.length>0){
+        return result[0].searchString;
+      }
+      return false;
     }
 });
 

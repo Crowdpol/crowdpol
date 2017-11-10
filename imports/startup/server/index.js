@@ -12,9 +12,7 @@ Meteor.startup(() => {
   //Meteor.call("createAdmins");
   //Meteor.users._dropIndex( "text" ) 
   Meteor.users._ensureIndex({ 
-  	"profile.firstName": "text",
-  	"profile.lastName": "text",
-  	"profile.username": "text"
+  	"profile.searchString": "text"
   });
 });
 
