@@ -5,7 +5,7 @@
   padding: ($space * 2) $space;
   background-image: url('img/wave-bg.jpg');
   background-size: cover;
-  border-bottom: 1rem solid $yellow;
+  border-bottom: ($space / 2) solid $yellow;
 
   // @include breakpoint($laptop) {
   //   padding: $space * 2;
@@ -92,5 +92,18 @@
   .primary-button {
     display: block;
     margin-left: auto;
+  }
+}
+
+.bottom-banner {
+  padding: $space * 2;
+  text-align: center;
+  background-color: $bright-blue;
+  border-bottom: ($space / 2) solid $yellow;
+
+  h2 {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    color: $yellow-light;
   }
 }
