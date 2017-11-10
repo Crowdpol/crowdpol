@@ -67,21 +67,17 @@ Template.ViewProposal.helpers({
     console.log('calling the function with' + userId)
     Meteor.call('getProfile', userId, function(error, result){
       if (error){
-        r = 'User could not be found';
+        return 'User could not be found';
       } else {
         console.log('success so far')
         profile = result.profile;
         if (profile){
-          r = profile.username;
-          console.log(r)
+          return profile.username;
         } else {
-          r = 'Anonymous';
+          return 'Anonymous';
           console.log('the user is anon')
         }
       }
-      return r;
-      console.log('r is')
-      console.log(r)
     });
   },
   title: function() {
@@ -135,7 +131,7 @@ function userIsInvited(){
     invited = Template.instance().templateDictionary.get( 'invited' );
     if (invited) {
       for (i=0; i<invited.length; i++){
-        if (Meteor.userId() == invited[i]) {
+        if (Meteor.user().profile.username == invited[i]) {
           return true;
         }
       }
