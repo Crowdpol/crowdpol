@@ -63,3 +63,34 @@
     // }
   }
 }
+
+.newsletter-form {
+  max-width: 16rem;
+  margin: 0 auto;
+  padding: ($space / 2) $space $space;
+  border-radius: 2px;
+  background-color: rgba($blue, 0.7);
+
+  .dark-textfield {
+    label,
+    &.is-focused label,
+    &.is-dirty label {
+      color: $light-blue;
+
+      &::after {
+        background-color: $light-blue;
+      }
+    }
+
+    input {
+      margin-top: $space / 2;
+      color: $yellow-light;
+      border-bottom: 1px solid $light-blue;
+    }
+  }
+
+  .primary-button {
+    display: block;
+    margin-left: auto;
+  }
+}
