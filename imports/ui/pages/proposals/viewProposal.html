@@ -3,6 +3,10 @@
   {{#if isVisible }}
 	
     <h3>{{ title }}</h3>
+
+    <button class="mdl-button mdl-js-button mdl-button--raised" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+      <i class="material-icons">link</i>
+    </button>
     
     <h5>Abstract</h5>
     
@@ -17,11 +21,12 @@
     <p> Voting starts on: {{ startDate }} </p> 
     <p> Voting ends on: {{ endDate }} </p>
 
-    {{#if isAuthor }}
-
+    {{#if isEditable }}
       <button class="mdl-button mdl-js-button mdl-button--raised" id="edit-proposal"> Edit Proposal </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised" id="submit-proposal"> Submit Proposal </button>
+    {{/if}}
 
+    {{#if isSubmittable }}
+      <button class="mdl-button mdl-js-button mdl-button--raised" id="submit-proposal"> Submit Proposal </button>
     {{/if}}
 
     {{#if isInvited }}

@@ -30,6 +30,30 @@ Template.ViewProposal.onCreated(function(){
   this.templateDictionary = dict;
 });
 
+Template.ViewProposal.onRendered(function(){
+  var clipboard = new Clipboard('#copy-proposal-link');
+
+  clipboard.on('success', function(e) {
+    Bert.alert({
+      title: 'Link copied to clipboard',
+      type: 'success',
+      style: 'growl-bottom-right',
+      icon: 'fa-link'
+    });
+    e.clearSelection();
+  });
+
+  clipboard.on('error', function(e) {
+    Bert.alert({
+      title: 'Could not copy to clipboard',
+      message: e.action + "; " + e.trigger,
+      type: 'warning',
+      style: 'growl-bottom-right',
+      icon: 'fa-link'
+    });
+  });
+});
+
 Template.ViewProposal.events({
   'click #edit-proposal' (event, template){
     FlowRouter.go('App.proposal.edit', {id: proposalId});
@@ -104,6 +128,12 @@ Template.ViewProposal.helpers({
   isLive: function() {
     return proposalIsLive();
   },
+  isSubmittable: function(){
+    return (userIsAuthor() && Template.instance().templateDictionary.get( 'stage' ) == 'draft')
+  },
+  isEditable: function(){
+    return (userIsAuthor() && !proposalIsLive())
+  },
   isVisible: function() {
     // Proposal should be visible t everyone if live, 
     //or if not live, to authors and invited users
@@ -112,7 +142,10 @@ Template.ViewProposal.helpers({
     } else {
       return false;
     }
-  }
+  },
+  getProposalLink: function() {
+      return Meteor.absoluteUrl() + "proposals/view/" + proposalId;
+    },
 });
 
 function userIsAuthor(){
@@ -125,6 +158,7 @@ function userIsAuthor(){
 
 function userIsInvited(){
   // If the user is the author, they have all the same access rights as contributors
+
   if (userIsAuthor()){
     return true;
   } else {
