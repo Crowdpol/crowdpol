@@ -71,6 +71,11 @@
 					"heading": "Approvals",
 					"text": "Approve or reject user requests to be delegates, organisations or political parties.",
 					"link": "Manage Approvals"
+				},
+				"proposals": {
+					"heading": "Proposals",
+					"text": "Review proposals submitted by users.",
+					"link": "Manage Proposals"
 				}
 			}
 		},
