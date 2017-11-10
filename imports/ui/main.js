@@ -40,6 +40,7 @@ import './pages/proposals/viewProposal.js';
 import './stylesheets/variables.scss';
 import './stylesheets/typography.scss';
 import './stylesheets/global.scss';
+import './stylesheets/forms.scss';
 import './stylesheets/home.scss';
 
 Meteor.startup(function () {

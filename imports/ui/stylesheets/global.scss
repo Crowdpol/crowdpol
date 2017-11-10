@@ -1,6 +1,21 @@
 @import 'variables.scss';
 
+.container {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: $space;
+}
+
+.narrow-container {
+  max-width: 50rem;
+}
+
 .primary-button {
   background-color: $light-blue-dark;
   color: $white;
+
+  &:hover {
+    background-color: $light-blue;
+  }
 }
+
