@@ -10,7 +10,12 @@ Meteor.startup(() => {
   // code to run on server at startup
   console.log("Common Democracy: Sweden - started...");
   //Meteor.call("createAdmins");
-  Meteor.users._ensureIndex({ username: "text" });
+  //Meteor.users._dropIndex( "text" ) 
+  Meteor.users._ensureIndex({ 
+  	"profile.firstName": "text",
+  	"profile.lastName": "text",
+  	"profile.username": "text"
+  });
 });
 
 

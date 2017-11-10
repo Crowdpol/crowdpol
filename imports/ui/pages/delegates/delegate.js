@@ -3,7 +3,7 @@ import "./delegate.html"
 
 Template.Delegate.onCreated(function () {
 	Session.set('searchPhrase','');
-  //Meteor.subscribe('users.delegates');
+  	//Meteor.subscribe('users.delegates');
 });
 
 Template.Delegate.helpers({
@@ -15,7 +15,7 @@ Template.Delegate.helpers({
       return Meteor.users.find({}, { sort: [["score", "desc"]] });
     } else {
     	console.log("returning all");
-      return Meteor.users.find({});
+      return Meteor.users.find({roles: "delegate"});
     }
   },
   searchPhrase: function() {

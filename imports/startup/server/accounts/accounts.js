@@ -4,7 +4,7 @@ import { convertToSlug } from '/lib/utils';
 import { Random } from 'meteor/random';
 
 function normalizeFacebookUser(profile, user) {
-  console.log("0.2 normalizeFacebookUser");
+  //console.log("0.2 normalizeFacebookUser");
   const credential = profile.credentials || [];
   credential.push({
     source: 'facebook',
@@ -37,7 +37,7 @@ function normalizeFacebookUser(profile, user) {
 }
 
 function normalizeGoogleUser(profile, user) {
-  console.log("0.2 normalizeGoogleUser");
+  //console.log("0.2 normalizeGoogleUser");
   const credential = profile.credentials || [];
   credential.push({
     source: 'google',
@@ -67,9 +67,9 @@ function normalizeGoogleUser(profile, user) {
 }
 
 function normalizeTwitterUser(profile, user) {
-  console.log(profile);
-  console.log(user);
-  console.log("0.2 normalizeTwitterUser");
+  //console.log(profile);
+  //console.log(user);
+  //console.log("0.2 normalizeTwitterUser");
   const credential = profile.credentials || [];
   credential.push({
     source: 'twitter',
@@ -102,7 +102,7 @@ function normalizeTwitterUser(profile, user) {
 }
 
 function normalizeSignupUser(user) {
-  console.log("0.2 normalizeSignupUser");
+  //console.log("0.2 normalizeSignupUser");
   const credential =[];
   credential.push({
     source: 'signup',
@@ -135,8 +135,8 @@ function normalizeSignupUser(user) {
 }
 
 function normalizeScriptUser(profile, user) {
-  console.log("0.2 normalizeScriptUser");
-  console.log(profile);
+  //console.log("0.2 normalizeScriptUser");
+  //console.log(profile);
   const credential =[];
   credential.push({
     source: 'script',
@@ -145,11 +145,11 @@ function normalizeScriptUser(profile, user) {
   });
   const userProfile = _.extend(profile, {
     photo: profile.photo,
-    username: generateUsername(profile.username),
+    username: profile.username,
     firstName: profile.firstName,
     lastName: profile.lastName,
-    isPublic: false,
-    type: 'Individual'
+    isPublic: true,
+    type: profile.type
   });
   return _.extend(user, {
     //username,
@@ -197,7 +197,7 @@ function slugName(firstName,lastName) {
 }
 
 Accounts.onCreateUser((options, user) => {
-  console.log("0. let's start the oncreate process");
+  //console.log("0. let's start the oncreate process");
   //console.log(options);
   //console.log("-");
   //console.log(user);
@@ -227,7 +227,7 @@ Accounts.onCreateUser((options, user) => {
       return normalizeTwitterUser(profile, user);
     }
     if(options.profile.credentials[0].source == "default"){
-      //normalizeScriptUser(user);
+      normalizeScriptUser(profile, user);
     }
   }else{
     normalizeSignupUser(user); 
@@ -244,7 +244,7 @@ Accounts.onLogin(function(user){
 
 Accounts.validateNewUser((user) => {
 
-  console.log("1. validating username on creation");
+  //console.log("1. validating username on creation");
 
   //assign random username
   let username = Random.id();

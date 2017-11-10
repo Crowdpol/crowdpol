@@ -89,6 +89,7 @@
             "photo": "/img/default-user-image.png"
           }
       }
-    ]
+    ],
+    "demoUsers": 50
   }
 }
