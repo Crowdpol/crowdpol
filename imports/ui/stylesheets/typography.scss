@@ -2,7 +2,11 @@
 
 html {
   // Defines root value for REMS
-  font-size: 20px;
+  font-size: 18px;
+
+  // @include breakpoint($tablet) {
+  //   font-size: 20px;
+  // }
 }
 
 body {

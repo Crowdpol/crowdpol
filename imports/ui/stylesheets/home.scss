@@ -55,7 +55,11 @@
 
   h6 {
     text-align: center;
-    font-size: $base-font-size;
+    font-size: $small-font-size;
     color: $yellow;
+
+    // @include breakpoint($tablet) {
+    //   font-size: $base-font-size;
+    // }
   }
 }
