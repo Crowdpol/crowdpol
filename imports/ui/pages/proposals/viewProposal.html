@@ -27,6 +27,8 @@
 
     {{#if isSubmittable }}
       <button class="mdl-button mdl-js-button mdl-button--raised" id="submit-proposal"> Submit Proposal </button>
+    {{else}}
+      {{ status }}
     {{/if}}
 
     {{#if isInvited }}

@@ -25,6 +25,7 @@ Template.ViewProposal.onCreated(function(){
       dict.set( 'invited', result.invited );
       dict.set( 'authorId', result.authorId );
       dict.set( 'stage', result.stage );
+      dict.set( 'status', result.status );
     }
   });
   this.templateDictionary = dict;
@@ -113,6 +114,9 @@ Template.ViewProposal.helpers({
   body: function() {
     return Template.instance().templateDictionary.get( 'body' );
   },
+  status: function() {
+    return Template.instance().templateDictionary.get( 'status' );
+  },
   startDate: function() {
     return Template.instance().templateDictionary.get( 'startDate' );
   },
@@ -135,12 +139,17 @@ Template.ViewProposal.helpers({
     return (userIsAuthor() && !proposalIsLive())
   },
   isVisible: function() {
-    // Proposal should be visible t everyone if live, 
-    //or if not live, to authors and invited users
-    if (proposalIsLive() || userIsAuthor() || userIsInvited()){
+    //Proposal should be visible to admin if submitted
+    if ((Roles.userIsInRole(Meteor.userId(), 'admin')) && (Template.instance().templateDictionary.get('stage') == 'submitted')){
       return true;
     } else {
-      return false;
+      // Proposal should be visible to everyone if live, 
+      //or if not live, to authors and invited users
+      if (proposalIsLive() || userIsAuthor() || userIsInvited()){
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   getProposalLink: function() {
