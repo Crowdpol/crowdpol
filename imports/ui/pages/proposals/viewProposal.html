@@ -32,7 +32,11 @@
 
     {{#if isVotable}}
       <hr>
-      {{> VoteButtons}}
+      
+      <button class="mdl-button mdl-js-button mdl-button--raised {{#if userIsFor}} mdl-button--colored {{/if}}" id="vote-yes"> Yes </button>
+
+      <button class="mdl-button mdl-js-button mdl-button--raised {{#if userIsAgainst}} mdl-button--colored {{/if}}" id="vote-no"> No </button>
+      
       <hr>
     {{/if}}
 
@@ -90,15 +94,6 @@
       {{ date }}
     </div>
   </div>
-
-</template>
-
-<!--============ Vote Buttons ============-->
-
-<template name="VoteButtons"> 
-
-  <button class="mdl-button mdl-js-button mdl-button--raised" id="vote-yes"> Yes </button>
-  <button class="mdl-button mdl-js-button mdl-button--raised" id="vote-no"> No </button>
 
 </template>
 

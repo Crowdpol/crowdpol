@@ -22,7 +22,7 @@ Meteor.methods({
     }
 
     //if the user has already voted for that proposal, update their vote
-    var existingVote = Votes.findOne({proposalId: proposalId, voterHash: user._id});
+    var existingVote = Votes.findOne({proposalId: vote.proposalId, voterHash: vote.voterHash});
     if (existingVote){
       Votes.update({_id: existingVote._id}, {$set: vote});
     } else {
