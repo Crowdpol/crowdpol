@@ -20,12 +20,23 @@ Meteor.methods({
       delegateId: voteData.delegateId,
       voterHash: user._id
     }
-    return Votes.insert(vote);
+
+    //if the user has already voted for that proposal, update their vote
+    var existingVote = Votes.findOne({proposalId: vote.proposalId, voterHash: vote.voterHash});
+    if (existingVote){
+      Votes.update({_id: existingVote._id}, {$set: vote});
+    } else {
+      //else create a new vote
+      return Votes.insert(vote);
+    }
   },
   deleteVote: function(voteId) {
     Votes.remove(voteId);
   },
   getVote: function(voteId){
     return Votes.findOne({_id: voteId});
+  },
+  getUserVoteFor: function(proposalId, voterHash){
+    return Votes.findOne({proposalId: proposalId, voterHash: voterHash});
   }
 });
