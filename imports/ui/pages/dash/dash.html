@@ -7,27 +7,40 @@
 				{{> DashProposals}}
 				{{> DashDelegates}}
 
-				<div class="dash-actions">
-					{{#unless currentUser.emails.[0].verified}}
-						<span>{{_ "verify-account-message"}}</span>
+				<div class="dash-card mdl-card mdl-shadow--2dp">
+				{{#unless currentUser.emails.[0].verified}}
+					<div class="mdl-card__title">
+						<h2 class="mdl-card__title-text">{{_ "verify-account-message"}}</h2>
+					</div>
+					<div class="mdl-card__supporting-text">
 						<span><a href="#" class="resend-verification-link">{{_ "verify-resend-link"}}</a></span>
-					{{else}}
-						<span>{{_ "verify-success-message"}}</span>
-						{{#if isUnapprovedEntity}}
-							<span>{{_ "unapproved-entity-message"}}</span>
-						{{/if}}
-					{{/unless}}
-
-					<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
-						{{_ "logout"}}
-					</button>
+					</div>
+				{{else}}
+					<div class="mdl-card__title">
+						<h2 class="mdl-card__title-text">{{_ "verify-success-message"}}</h2>
+					</div>
+					{{#if isUnapprovedEntity}}
+						<div class="mdl-card__title">
+							<h2 class="mdl-card__title-text">{{_ "unapproved-entity-message"}}</h2>
+						</div>
+					{{/if}}
+				{{/unless}}
+					<div class="mdl-card__actions mdl-card--border">
+						<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
+							{{_ "logout"}}
+						</button>
+					</div>
 				</div>
 			{{else}}
-				<div class="dash-actions">
-					<span>{{_ "authentication-required-message"}}</span>
-					<button id="log-in" class="mdl-button mdl-js-button mdl-button--raised">
-						{{_ "login"}}
-					</button>
+				<div class="dash-card mdl-card mdl-shadow--2dp">
+					<div class="mdl-card__title">
+						<h2 class="mdl-card__title-text">{{_ "authentication-required-message"}}</h2>
+					</div>
+					<div class="mdl-card__actions mdl-card--border">
+						<button id="log-in" class="primary-button mdl-button mdl-js-button mdl-button--raised">
+							{{_ "login"}}
+						</button>
+					</div>
 				</div>
 			{{/if}}
 		</div>
