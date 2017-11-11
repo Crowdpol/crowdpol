@@ -6,5 +6,6 @@ import './headers.scss';
 import './forms.scss';
 
 import './home.scss';
+import './auth.scss';
 import './dashboard.scss';
 import './profile.scss';

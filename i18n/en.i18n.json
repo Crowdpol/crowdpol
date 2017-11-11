@@ -148,13 +148,12 @@
 	"name": "Name",
 	"subject": "Subject",
 	"contact-message": "Your message:",
-	"login-social": "Sign in with Social Media",
+	"login-social": "Log in with Social Media",
 	"profile-title" : "Profile",
 	"profile-photo" : "Profile photo path",
 	"profile-username" : "Username",
 	"profile-firstname" : "First name",
 	"profile-lastname" : "Last name",
-	"profile-username" : "Username",
 	"profile-public" : "Public Profile",
 	"profile-private" : "Private Profile",
 	"profile-delegate" : "Delegate",
@@ -183,5 +182,4 @@
 			}
 		}
 	}
-
 }
