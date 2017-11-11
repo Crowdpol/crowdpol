@@ -12,6 +12,7 @@
 
 .static-content-wrap {
   padding-top: $space * 2;
+  padding-bottom: $space * 2;
 
   h1,
   h4,
@@ -38,6 +39,11 @@
     right: 40%;
     background-color: $blue;
   }
+}
+
+.p-subtitle {
+  font-style: italic;
+  max-block-size: $space * 2;
 }
 
 .primary-button {
