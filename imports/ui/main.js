@@ -36,6 +36,7 @@ import './pages/privacy.html';
 import './pages/terms.html';
 import './pages/proposals/editProposal.js';
 import './pages/proposals/viewProposal.js';
+import './pages/delegates/delegate.js';
 // Styles import
 import './stylesheets/variables.scss';
 import './stylesheets/typography.scss';

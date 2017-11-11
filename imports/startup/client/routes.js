@@ -176,3 +176,9 @@ FlowRouter.route('/proposals/view/:id', {
   }
 });
 
+FlowRouter.route('/delegate', {
+  name: 'App.delegate',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Delegate' });
+  },
+});
