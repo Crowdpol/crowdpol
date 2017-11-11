@@ -8,6 +8,12 @@
   border-radius: 100%;
 }
 
+.valid-username {
+  position: absolute;
+  top: $space;
+  right: 0;
+}
+
 .switches-wrap {
   display: flex;
   justify-content: space-around;
