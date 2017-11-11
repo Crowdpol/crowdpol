@@ -9,7 +9,7 @@ Template.Delegate.onCreated(function () {
 Template.Delegate.helpers({
   ranks: function() {
     Meteor.subscribe("ranks.all");
-    Ranks.find();
+    return [{_id:123},{"_id":"345"}];//Ranks.find({});
   },
   delegates: function() {
     Meteor.subscribe("user.search", Session.get("searchPhrase"));
