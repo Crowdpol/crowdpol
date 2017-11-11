@@ -86,7 +86,7 @@ Template.ViewProposal.events({
 Template.ViewProposal.helpers({
 
   comments: function() {
-    return Comments.find({proposalId: proposalId},{transform: transformComment});
+    return Comments.find({proposalId: proposalId},{transform: transformComment, sort: {createdAt: -1}});
   },
   commentUsername: function(userId){
     console.log('calling the function with' + userId)

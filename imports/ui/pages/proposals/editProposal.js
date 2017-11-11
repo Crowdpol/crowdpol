@@ -33,7 +33,16 @@ Template.EditProposal.onRendered(function(){
 Template.EditProposal.events({
 	'submit #edit-proposal-form' (event, template){
 		event.preventDefault();
-		let newProposal = {
+		saveChanges(event, template, 'App.proposal.edit');
+	},
+
+	'click #preview-proposal': function(event, template){
+		saveChanges(event, template, 'App.proposal.view');
+	}
+});
+
+function saveChanges(event, template, returnTo){
+	let newProposal = {
 			title: template.find('#title').value,
 			abstract: template.find('#abstract').value,
 			body: template.find('.ql-editor').innerHTML,
@@ -51,6 +60,7 @@ Template.EditProposal.events({
 					Bert.alert(error.reason, 'danger');
 				} else {
 					Bert.alert('Changes saved', 'success');
+					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
 		} else {
@@ -59,10 +69,8 @@ Template.EditProposal.events({
 					Bert.alert(error.reason, 'danger');
 				} else {
 					Bert.alert('Proposal created', 'success');
-					FlowRouter.go('App.proposal.edit', {id: proposalId});
+					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
 		}
-
-	}
-});
+};
