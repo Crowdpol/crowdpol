@@ -8,6 +8,10 @@
   background-size: cover;
   border-bottom: ($space / 2) solid $yellow;
 
+   @include breakpoint($laptop) {
+     padding: $space * 2;
+   }
+
 
   h1 {
     color: $white;
