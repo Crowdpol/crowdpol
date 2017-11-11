@@ -10,6 +10,7 @@ Template.ProposalsList.onCreated(function () {
     self.subscribe('proposals.invited');
   });
   self.openProposals = new ReactiveVar(true);
+  self.authorProposals = new ReactiveVar(true);
 });
 
 Template.ProposalsList.helpers({
@@ -22,8 +23,14 @@ Template.ProposalsList.helpers({
   myProposals: function(){
     return Proposals.find({authorId: Meteor.userId()});
   },
+  invitedProposals: function(){
+    //return Proposals.find({authorId: Meteor.userId()});
+  },
   openSelected: function(){
     return Template.instance().openProposals.get();
+  },
+  authorSelected: function(){
+    return Template.instance().authorProposals.get();
   },
 });
 
@@ -33,6 +40,9 @@ Template.ProposalsList.events({
 	},
   'click #open-closed-switch': function(event, template){
     Template.instance().openProposals.set(event.target.checked);
+  },
+  'click #author-invited-switch': function(event, template){
+    Template.instance().authorProposals.set(event.target.checked);
   }
 });
 
