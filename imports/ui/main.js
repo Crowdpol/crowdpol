@@ -42,6 +42,7 @@ import './stylesheets/typography.scss';
 import './stylesheets/global.scss';
 import './stylesheets/forms.scss';
 import './stylesheets/home.scss';
+import './stylesheets/profile.scss';
 
 Meteor.startup(function () {
 	// setup language

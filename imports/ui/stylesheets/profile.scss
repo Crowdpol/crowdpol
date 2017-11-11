@@ -1,0 +1,7 @@
+@import 'variables.scss';
+
+.profile-picture {
+  width: $space * 3;
+  height: $space * 3;
+  border-radius: 100%;
+}
