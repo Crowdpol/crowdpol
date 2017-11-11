@@ -12,7 +12,14 @@
   <!-- MDL tab panels, is-active to denote currently active -->
   <div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
 <ul class="demo-list-three mdl-list">
+	<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="open-closed-switch">
+	  <input type="checkbox" id="open-closed-switch" class="mdl-switch__input" checked>
+	  <span class="mdl-switch__label">Open/Closed</span>
+	</label>
+
 	{{#if Template.subscriptionsReady}} 
+
+	{{#if openSelected}}
 		{{#each openProposals}}
 			<li class="mdl-list__item mdl-list__item--three-line">
 				<span class="mdl-list__item-primary-content">
@@ -27,6 +34,22 @@
 			</li>
 		{{/each}}
 	{{else}}
+		{{#each closedProposals}}
+			<li class="mdl-list__item mdl-list__item--three-line">
+				<span class="mdl-list__item-primary-content">
+					<span> <a href="/proposals/view/{{_id}}">{{ title }}</a></span>
+					<span class="mdl-list__item-text-body">
+						Expires {{ endDate }}
+					</span>
+				</span>
+				<span class="mdl-list__item-secondary-content">
+					{{ abstract }}
+				</span>
+			</li>
+		{{/each}}
+	{{/if}}
+		
+	{{else}}
 		{{> loader}}
 	{{/if}}
 	</ul>
@@ -34,6 +57,9 @@
   
   <!-- MDL Tab panel 2 -->
   <div class="mdl-tabs__panel" id="my-proposals-panel">
+<button class="mdl-button mdl-js-button mdl-button--fab" id="add-new-proposal">
+<i class="material-icons">add</i>
+</button>
 <ul class="demo-list-three mdl-list">
 	{{#if Template.subscriptionsReady}} 
 		{{#each myProposals}}

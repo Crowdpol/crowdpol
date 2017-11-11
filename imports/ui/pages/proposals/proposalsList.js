@@ -6,9 +6,10 @@ Template.ProposalsList.onCreated(function () {
   self.autorun(function(){
     self.subscribe('proposals.open');
     self.subscribe('proposals.closed');
-    self.subscribe('proposals.author');
+    self.subscribe('proposals.author', Meteor.userId());
     self.subscribe('proposals.invited');
   });
+  self.openProposals = new ReactiveVar(true);
 });
 
 Template.ProposalsList.helpers({
@@ -20,13 +21,19 @@ Template.ProposalsList.helpers({
   },
   myProposals: function(){
     return Proposals.find({authorId: Meteor.userId()});
-  }
+  },
+  openSelected: function(){
+    return Template.instance().openProposals.get();
+  },
 });
 
 Template.ProposalsList.events({
-	'keyup #delegate-search': function(event, template){
-		Session.set('searchPhrase',event.target.value);
-	}
+	'click #add-new-proposal': function(event, template){
+    FlowRouter.go('App.proposal.edit', {id: ''});
+	},
+  'click #open-closed-switch': function(event, template){
+    Template.instance().openProposals.set(event.target.checked);
+  }
 });
 
 function transformProposal(proposal) { 
