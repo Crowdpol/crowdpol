@@ -37,14 +37,7 @@ import './pages/terms.html';
 import './pages/proposals/editProposal.js';
 import './pages/proposals/viewProposal.js';
 import './pages/delegates/delegate.js';
-// Styles import
-import './stylesheets/variables.scss';
-import './stylesheets/typography.scss';
-import './stylesheets/global.scss';
-import './stylesheets/forms.scss';
-import './stylesheets/home.scss';
-import './stylesheets/dashboard.scss';
-import './stylesheets/profile.scss';
+
 
 Meteor.startup(function () {
 	// setup language
