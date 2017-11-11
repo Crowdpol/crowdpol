@@ -15,10 +15,9 @@
         {{#unless currentUser}}
           <a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
         {{/unless}}
-        
+
         <!-- Right aligned menu below button -->
-        <button id="demo-menu-lower-right"
-                class="mdl-button mdl-js-button mdl-button--icon">
+        <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">language</i>
         </button>
         {{ lang }}
@@ -39,7 +38,12 @@
       <!-- Header Content Here -->
 
       <!-- Title -->
-      <span class="mdl-layout-title">{{_ "app_title"}} lalala</span>
+      <span class="mdl-layout-title">{{_ "app_title"}}</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      {{#unless currentUser}}
+        <a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
+      {{/unless}}
 
     </div>
   </header>
