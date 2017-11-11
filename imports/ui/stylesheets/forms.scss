@@ -1,0 +1,12 @@
+@import 'variables.scss';
+
+// Using the original class, this applies to all instances
+.mdl-textfield__input {
+  margin-top: $space / 2;
+}
+
+.input-wrap {
+  display: block;
+  width: auto;
+  margin: auto;
+}

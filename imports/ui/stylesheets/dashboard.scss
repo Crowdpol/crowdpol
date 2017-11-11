@@ -1,0 +1,21 @@
+@import './variables.scss';
+
+.dashboard-wrap {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.dash-card {
+  margin-bottom: $space;
+}
+
+.dash-actions {
+  display: flex;
+  flex-direction: column;
+  margin: $space;
+
+  span {
+    margin-bottom: $space / 2;
+  }
+}
