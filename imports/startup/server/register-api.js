@@ -15,4 +15,7 @@ import '../../api/proposals/server/publications.js';
 import '../../api/comments/methods.js';
 import '../../api/comments/server/publications.js';
 
+import '../../api/ranking/methods.js';
+import '../../api/ranking/server/publications.js';
+
 

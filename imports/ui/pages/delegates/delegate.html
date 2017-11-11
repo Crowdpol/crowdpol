@@ -8,6 +8,9 @@
 	
 	<ul class="demo-list-control mdl-list">
 	{{#if Template.subscriptionsReady}} 
+		{{#each ranks}}
+			{{_id}}
+		{{/each}}
 		{{#each delegates}}
 	  <li class="mdl-list__item">
 	    <span class="mdl-list__item-primary-content">
@@ -27,7 +30,7 @@
 			</button>
 	    <span class="mdl-list__item-secondary-action">
 	      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
-	        <input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input" />
+	        <input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input delegate-select" data-delegate-id="{{_id}}"/>
 	      </label>
 	    </span>
 	  </li>

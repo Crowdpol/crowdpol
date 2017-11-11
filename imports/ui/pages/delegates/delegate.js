@@ -7,6 +7,10 @@ Template.Delegate.onCreated(function () {
 });
 
 Template.Delegate.helpers({
+  ranks: function() {
+    Meteor.subscribe("ranks.all");
+    Ranks.find();
+  },
   delegates: function() {
     Meteor.subscribe("user.search", Session.get("searchPhrase"));
     if (Session.get("searchPhrase")) {
@@ -28,5 +32,16 @@ Template.Delegate.events({
 		//console.log("keyup pressed");
 		//console.log(event.target.value);
 		Session.set('searchPhrase',event.target.value);
-	}
+	},
+  'click .delegate-select': function(event, template){
+    delegateId = event.target.dataset.delegateId;
+    Meteor.call('addRank','delegate',delegateId,Meteor.userId(),1,function(error,result){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(result);
+      }
+    });
+    console.log(delegateId);
+  },
 });
