@@ -1,7 +1,19 @@
 @import 'variables.scss';
 
 .profile-picture {
-  width: $space * 3;
-  height: $space * 3;
+  display: block;
+  margin: $space auto;
+  width: $space * 5;
+  height: $space * 5;
   border-radius: 100%;
+}
+
+.switches-wrap {
+  display: flex;
+  justify-content: space-around;
+  padding: ($space * 2) 0;
+
+  label {
+    width: auto;
+  }
 }

@@ -2,24 +2,25 @@
 	<div class="container narrow-container">
 		{{#if Template.subscriptionsReady}}
 			{{> ProfileForm}}
-			<h4>Settings</h4>
-			<hr>
-			<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-				<input type="checkbox" id="profile-public-switch" class="mdl-switch__input"  {{publicChecked}} {{publicDisabled}}>
-				<span class="mdl-switch__label">{{_ "profile-public"}}</span>
-			</label>
 
-			{{#if isPublic}}
+			<div class="switches-wrap">
+				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
+					<input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{publicChecked}} {{publicDisabled}}>
+					<span class="mdl-switch__label">{{_ "profile-public"}}</span>
+				</label>
+
+				{{#if isPublic}}
 					<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
 						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" {{delegateChecked}} {{delegatecDisabled}}>
 						<span class="mdl-switch__label">{{_ "profile-delegate"}} {{delegateStatus}}</span>
 					</label>
 
 					<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
-							<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}} {{candidateDisabled}}>
+						<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}} {{candidateDisabled}}>
 						<span class="mdl-switch__label">{{_ "profile-candidate"}} {{candidateStatus}}</span>
 					</label>
-			{{/if}}
+				{{/if}}
+			</div>
 
 
 			<!--{{> Dialogue}} -->
