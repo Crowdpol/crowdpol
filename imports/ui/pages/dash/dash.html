@@ -1,74 +1,77 @@
 <template name="Dash">
-	<div class="mdl-grid">
-		<div class="mdl-cell mdl-cell--12-col">
-			<h1>{{_ "dash-title"}}</h1>
-			<!-- NOTE: This will have to be updated later on the permissions tickets. FlowRouter groups can manage this -->
+	<div class="container">
+		<h1>{{_ "dash-title"}}</h1>
+		<!-- NOTE: This will have to be updated later on the permissions tickets. FlowRouter groups can manage this -->
+		<div class="dashboard-wrap">
 			{{#if currentUser}}
-
 				{{> DashProposals}}
 				{{> DashDelegates}}
-				{{#unless currentUser.emails.[0].verified}}
-					<p>{{_ "verify-account-message"}}</p>
-					<p><a href="#" class="resend-verification-link">{{_ "verify-resend-link"}}</a></p>
-				{{else}}
-					<p>{{_ "verify-success-message"}}</p>
-					{{#if isUnapprovedEntity}}
-						<p>{{_ "unapproved-entity-message"}}</p>
-					{{/if}}
-					
-				{{/unless}}
 
-				<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
-					{{_ "logout"}}
-				</button>
+				<div class="dash-actions">
+					{{#unless currentUser.emails.[0].verified}}
+						<span>{{_ "verify-account-message"}}</span>
+						<span><a href="#" class="resend-verification-link">{{_ "verify-resend-link"}}</a></span>
+					{{else}}
+						<span>{{_ "verify-success-message"}}</span>
+						{{#if isUnapprovedEntity}}
+							<span>{{_ "unapproved-entity-message"}}</span>
+						{{/if}}
+					{{/unless}}
+
+					<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
+						{{_ "logout"}}
+					</button>
+				</div>
 			{{else}}
-				<p>{{_ "authentication-required-message"}}</p>
-				<button id="log-in" class="mdl-button mdl-js-button mdl-button--raised">
-					{{_ "login"}}
-				</button>
+				<div class="dash-actions">
+					<span>{{_ "authentication-required-message"}}</span>
+					<button id="log-in" class="mdl-button mdl-js-button mdl-button--raised">
+						{{_ "login"}}
+					</button>
+				</div>
 			{{/if}}
 		</div>
 	</div>
 </template>
 
 <template name="DashProposals">
-	<div class="mdl-card mdl-shadow--2dp">
+	<div class="dash-card mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
-	    <h2 class="mdl-card__title-text">{{_"dash.card.proposals.heading"}}</h2>
-	  </div>
-	  <div class="mdl-card__supporting-text">
-	    {{_"dash.card.proposals.text"}}
-	  </div>
-	  <div class="mdl-card__actions mdl-card--border">
-	    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/proposals">
-	      {{_"dash.card.proposals.link"}}
-	    </a>
-	  </div>
-	  <div class="mdl-card__menu">
-	    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-	      <i class="material-icons">person</i>
-	    </button>
-	  </div>
+			<h2 class="mdl-card__title-text">{{_"dash.card.proposals.heading"}}</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+			{{_"dash.card.proposals.text"}}
+		</div>
+		<div class="mdl-card__actions mdl-card--border">
+			<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/proposals">
+				{{_"dash.card.proposals.link"}}
+			</a>
+		</div>
+		<div class="mdl-card__menu">
+			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+				<i class="material-icons">person</i>
+			</button>
+		</div>
 	</div>
 </template>
 
 <template name="DashDelegates">
-	<div class="mdl-card mdl-shadow--2dp">
+	<div class="dash-card mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
-	    <h2 class="mdl-card__title-text">{{_"dash.card.delegates.heading"}}</h2>
-	  </div>
-	  <div class="mdl-card__supporting-text">
-	    {{_"dash.card.delegates.text"}}
-	  </div>
-	  <div class="mdl-card__actions mdl-card--border">
-	    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/delegate">
-	      {{_"dash.card.delegates.link"}}
-	    </a>
-	  </div>
-	  <div class="mdl-card__menu">
-	    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-	      <i class="material-icons">subject</i>
-	    </button>
-	  </div>
+			<h2 class="mdl-card__title-text">{{_"dash.card.delegates.heading"}}</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+			{{_"dash.card.delegates.text"}}
+		</div>
+		<div class="mdl-card__actions mdl-card--border">
+			<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/delegate">
+				{{_"dash.card.delegates.link"}}
+			</a>
+		</div>
+		<div class="mdl-card__menu">
+			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+				<i class="material-icons">subject</i>
+			</button>
+		</div>
 	</div>
 </template>
