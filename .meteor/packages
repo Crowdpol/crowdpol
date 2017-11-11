@@ -51,6 +51,7 @@ reactive-dict					# keeps state in yo template
 themeteorchef:bert				# word to yo users!
 themeteorchef:jquery-validation # form validation
 meteorhacks:aggregate			# allows for mongo db aggregate function
+http 							# allows for HTTP: GET, POST, PUT & DELETE
 
 #-- dev tools --
 meteortoys:allthings
