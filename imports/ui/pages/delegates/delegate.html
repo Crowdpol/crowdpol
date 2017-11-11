@@ -5,12 +5,13 @@
     <input class="mdl-textfield__input" type="text"  id="delegate-search">
     <label class="mdl-textfield__label" for="sample1">Text...</label>
   </div>
-	
+	{{> Ranks}}
+	<hr>
+	<!--
 	<ul class="demo-list-control mdl-list">
 	{{#if Template.subscriptionsReady}} 
-		{{#each ranks}}
-			{{_id}}
-		{{/each}}
+		
+		
 		{{#each delegates}}
 	  <li class="mdl-list__item">
 	    <span class="mdl-list__item-primary-content">
@@ -24,8 +25,8 @@
 	      {{/each}}
 	      
 	    </span>
-	    <!-- Colored icon button -->
-			<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+
+			<button class="mdl-button mdl-js-button mdl-button-icon mdl-button-colored">
 			  <i class="material-icons">mood</i>
 			</button>
 	    <span class="mdl-list__item-secondary-action">
@@ -43,4 +44,15 @@
 		{{> loader}} 
   {{/if}}
 	</ul>
+	-->
+</template>
+
+<template name="Ranks">
+	{{#if Template.subscriptionsReady}}
+		{{#each ranks}}
+			{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})
+		{{/each}}
+	{{else}} 
+		{{> loader}} 
+  {{/if}}
 </template>

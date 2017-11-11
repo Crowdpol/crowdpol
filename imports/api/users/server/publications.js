@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Users } from '../Users.js';
+import { Ranks } from '../../ranking/Ranks.js';
 // on the server
 Meteor.publish('users', function() {
 	return  Meteor.users.find({}, {fields: {services: false}});
@@ -57,4 +58,31 @@ Meteor.publish("user.search", function(searchValue) {
     console.log(e.name + " " + e.message);
   }
   return result;
+});
+
+Meteor.publish("user.ranks", function(userId,type) {
+  results = Ranks.aggregate([
+        { $match: {"supporterId" : "ayekMtRQgoj3PAchM","entityType" : "delegate"}},
+        {$project:{"_id": 0,"entityId" :1}}
+  ]).map(function(el) { return el.entityId });
+  console.log(results);
+  return Meteor.users.find( { _id : { $in : results } } );
+  /*
+  check(userId, String);
+  check(type, String);
+  console.log("ranks.type: userId: " + userId + " type: " + type);
+  var ranks = [];
+  Meteor.call('getRank',Meteor.userId(),'delegate',function(error,result){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("meteor call return: " + result.length);
+        ranks = result;
+        console.log(ranks);
+        users =  Meteor.users.find( { _id : { $in : ranks } } );
+        console.log(users);
+        return users;
+      }
+  });
+  */
 });

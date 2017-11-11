@@ -5,3 +5,6 @@ Meteor.publish('ranks.all', function() {
   result =  Ranks.find({});
   return result;
 });
+
+
+
