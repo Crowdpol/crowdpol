@@ -1,0 +1,23 @@
+<template name="ProposalsList">
+	<h3>Proposals</h3>
+	
+	<ul class="demo-list-three mdl-list">
+	{{#if Template.subscriptionsReady}} 
+		{{#each proposals}}
+			<li class="mdl-list__item mdl-list__item--three-line">
+				<span class="mdl-list__item-primary-content">
+					<span> <a href="/proposals/view/{{_id}}">{{ title }}</a></span>
+					<span class="mdl-list__item-text-body">
+						Expires {{ endDate }}
+					</span>
+				</span>
+				<span class="mdl-list__item-secondary-content">
+					{{ abstract }}
+				</span>
+			</li>
+		{{/each}}
+	{{else}}
+		{{> loader}}
+	{{/if}}
+	</ul>
+</template>
