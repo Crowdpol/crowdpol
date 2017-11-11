@@ -1,17 +1,17 @@
 /*
-                             welcome to
-		  	___    ___     ___ ___     ___ ___     ___     ___
-		 	 /'___\ / __`\ /' __` __`\ /' __` __`\  / __`\ /' _ `\
+														 welcome to
+				___    ___     ___ ___     ___ ___     ___     ___
+				/'___\ / __`\ /' __` __`\ /' __` __`\  / __`\ /' _ `\
 			/\ \__//\ \L\ \/\ \/\ \/\ \/\ \/\ \/\ \/\ \L\ \/\ \/\ \
-  __	\ \____\ \____/\ \_\ \_\ \_\ \_\ \_\ \_\ \____/\ \_\ \_\
+	__	\ \____\ \____/\ \_\ \_\ \_\ \_\ \_\ \_\ \____/\ \_\ \_\
  /\ \	 \/____/\/___/  \/_/\/_/\/_/\/_/\/_/\/_/\/___/  \/_/\/_/
  \_\ \     __    ___ ___     ___     ___   _ __    __      ___   __  __
  /'_` \  /'__`\/' __` __`\  / __`\  /'___\/\`'__\/'__`\   /'___\/\ \/\ \
 /\ \L\ \/\  __//\ \/\ \/\ \/\ \L\ \/\ \__/\ \ \//\ \L\.\_/\ \__/\ \ \_\ \
 \ \___,_\ \____\ \_\ \_\ \_\ \____/\ \____\\ \_\\ \__/.\_\ \____\\/`____ \
  \/__,_ /\/____/\/_/\/_/\/_/\/___/  \/____/ \/_/ \/__/\/_/\/____/ `/___/> \
-                                                                     /\___/
-                                                                     \/__/
+																																		 /\___/
+																																		 \/__/
 										(this only looks pretty at tab size: 2)
 */
 
@@ -37,16 +37,17 @@ import './pages/terms.html';
 import './pages/proposals/editProposal.js';
 import './pages/proposals/viewProposal.js';
 import './pages/delegates/delegate.js';
+import './stylesheets/stylesheets.js';
 
 
 Meteor.startup(function () {
 	// setup language
-  Session.set('showLoadingIndicator', true);
+	Session.set('showLoadingIndicator', true);
 
-  //set default language to english
-  Session.set("i18n_lang", "en");
+	//set default language to english
+	Session.set("i18n_lang", "en");
 
-  // internationalization library
+	// internationalization library
 	TAPi18n.setLanguage("en")
 		.done(function () {
 			Session.set("showLoadingIndicator", false);
