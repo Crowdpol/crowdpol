@@ -10,6 +10,42 @@
   max-width: 40rem;
 }
 
+.static-content-wrap {
+  padding-top: $space * 2;
+  padding-bottom: $space * 2;
+
+  h1,
+  h4,
+  h6 {
+    font-family: $home-title-font;
+    text-transform: uppercase;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+.title-underline {
+  position: relative;
+  margin-bottom: $space * 1.5;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -($space / 2);
+    height: 1px;
+    left: 40%;
+    right: 40%;
+    background-color: $blue;
+  }
+}
+
+.p-subtitle {
+  font-style: italic;
+  max-block-size: $space * 2;
+}
+
 .primary-button {
   background-color: $light-blue-dark;
   color: $white;

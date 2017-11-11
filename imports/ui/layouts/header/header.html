@@ -1,50 +1,50 @@
 <template name="Header">
-  <!-- Always shows a header, even in smaller screens. -->
-  <header class="mdl-layout__header mdl-layout--fixed-header">
-    <div class="mdl-layout__header-row">
-      <!-- Header Content Here -->
+	<!-- Always shows a header, even in smaller screens. -->
+	<header class="mdl-layout__header mdl-layout--fixed-header">
+		<div class="mdl-layout__header-row">
+			<span class="mdl-layout-title">{{_ "app_title"}}</span>
+			<!-- Add spacer, to align navigation to the right -->
+			<div class="mdl-layout-spacer"></div>
+			<!-- Navigation. We hide it in small screens. -->
+			<nav class="mdl-navigation mdl-layout--large-screen-only">
+				<a class="mdl-navigation__link" href="/">{{_ "nav_home"}}</a>
+				<a class="mdl-navigation__link" href="/contact">{{_ "nav_contact"}}</a>
+				{{#unless currentUser}}
+					<a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
+				{{/unless}}
 
-      <!-- Title -->
-      <span class="mdl-layout-title">{{_ "app_title"}}</span>
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
-      <!-- Navigation. We hide it in small screens. -->
-      <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link" href="/">{{_ "nav_home"}}</a>
-        <a class="mdl-navigation__link" href="/contact">{{_ "nav_contact"}}</a>
-        {{#unless currentUser}}
-          <a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
-        {{/unless}}
-
-        <!-- Right aligned menu below button -->
-        <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">language</i>
-        </button>
-        {{ lang }}
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-            for="demo-menu-lower-right">
-          <li class="mdl-menu__item lang-sel" id="en">{{_ "lang_en"}}</li>
-          <li class="mdl-menu__item lang-sel" id="sv">{{_ "lang_sv"}}</li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+				<!-- Right aligned menu below button -->
+				<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+					<i class="material-icons">language</i>
+				</button>
+				{{ lang }}
+				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+						for="demo-menu-lower-right">
+					<li class="mdl-menu__item lang-sel" id="en">{{_ "lang_en"}}</li>
+					<li class="mdl-menu__item lang-sel" id="sv">{{_ "lang_sv"}}</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 </template>
 
 <template name="HomeHeader">
-  <!-- Always shows a header, even in smaller screens. -->
-  <header class="mdl-layout__header mdl-layout--fixed-header">
-    <div class="mdl-layout__header-row">
-      <!-- Header Content Here -->
-
-      <!-- Title -->
-      <span class="mdl-layout-title">{{_ "app_title"}}</span>
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
-      {{#unless currentUser}}
-        <a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
-      {{/unless}}
-
-    </div>
-  </header>
+	<!-- Always shows a header, even in smaller screens. -->
+	<header class="logged-out-header mdl-layout__header">
+		<div class="header-inner mdl-layout__header-row">
+			<a href="/">
+				<i class="material-icons">add</i>
+				<h5>Democracy 2018</h5>
+			</a>
+			<!-- Add spacer, to align navigation to the right -->
+			<div class="mdl-layout-spacer"></div>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="/about">{{_ "nav_about"}}</a>
+					<a class="mdl-navigation__link" href="/contact">{{_ "nav_contact"}}</a>
+					{{#unless currentUser}}
+						<a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
+					{{/unless}}
+				</nav>
+		</div>
+	</header>
 </template>
