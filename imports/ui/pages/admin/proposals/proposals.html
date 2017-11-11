@@ -1,0 +1,61 @@
+<template name="AdminProposals">
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <h3>
+                Proposals
+            </h3>
+            {{#if Template.subscriptionsReady}}
+                {{#if proposals.count}}
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Author</th>
+                        <th>Contributors</th>
+                        <th>Title</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each proposals}}
+                    <tr>
+                        <td>{{createdAt}}</td>
+                        <td>{{authorId}}</td>
+                        <td>
+                            {{#each user in invited}} 
+                                {{user}} <br>
+                            {{/each}}
+                        </td>
+                        <td> <a href="/proposals/view/{{_id}}">{{title}}</a></td>
+                        <td>
+                            <button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
+                                <i class="mdi mdi-close-circle">
+                                </i>
+                                {{_'admin.approvals.approve-button'}}
+                            </button>
+                        </td>
+                        <td>
+                            <button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
+                                <i class="mdi mdi-check-circle">
+                                </i>
+                                {{_'admin.approvals.reject-button'}}
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p>
+                There are no proposals awaiting review.
+            </p>
+            {{/if}}
+            {{else}}
+            <p>
+                Loading...
+            </p>
+            {{/if}}
+        </div>
+    </div>
+</template>

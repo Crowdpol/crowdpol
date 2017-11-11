@@ -3,6 +3,10 @@
   {{#if isVisible }}
 	
     <h3>{{ title }}</h3>
+
+    <button class="mdl-button mdl-js-button mdl-button--raised" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+      <i class="material-icons">link</i>
+    </button>
     
     <h5>Abstract</h5>
     
@@ -17,26 +21,84 @@
     <p> Voting starts on: {{ startDate }} </p> 
     <p> Voting ends on: {{ endDate }} </p>
 
-    {{#if isAuthor }}
-
+    {{#if isEditable }}
       <button class="mdl-button mdl-js-button mdl-button--raised" id="edit-proposal"> Edit Proposal </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised" id="submit-proposal"> Submit Proposal </button>
+    {{/if}}
 
+    {{#if isSubmittable }}
+      <button class="mdl-button mdl-js-button mdl-button--raised" id="submit-proposal"> Submit Proposal </button>
+    {{else}}
+      {{ status }}
     {{/if}}
 
     {{#if isInvited }}
+
+    <br/>
       
-      Comments 
+    {{> CommentForm}}
+
+    {{/if}}
+
+    <hr>
+
+    {{#if Template.subscriptionsReady}}
+
+      {{#each comments}}
+
+        {{> Comment}}
+
+      {{/each}}
+
+    {{else}}
+
+      {{> loader}}
 
     {{/if}}
 
   {{else}}
-
     <h3> Sorry, this proposal is not yet visible to the public. </h3>
-
   {{/if}}
 
+</template>
+
+<!--============ Comment Form ============-->
+
+<template name="CommentForm">
+
+  <h3>Add a Comment</h3>
+
+  <form id="comment-form">
+    <div class="mdl-textfield mdl-js-textfield">
+      <textarea class="mdl-textfield__input" type="text" rows= "5" id="comment-message" ></textarea>
+    </div>
+    <div class="form-group">
+        <input class="mdl-button mdl-js-button mdl-button--raised" type="submit" value='{{_ "submit"}}'>
+    </div>
+  </form> 
 
 </template>
+
+<!--============ Single Comment ============-->
+
+<template name="Comment"> 
+
+  <div class="mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text"> {{ username }}</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+      {{ message }}
+    </div>
+    <div class="mdl-card__menu">
+      <img src="{{avatar}}" class="mdl-list__item-avatar" style="width:40px">
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      {{ date }}
+    </div>
+  </div>
+
+</template>
+
+
 
 

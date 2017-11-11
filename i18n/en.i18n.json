@@ -71,6 +71,11 @@
 					"heading": "Approvals",
 					"text": "Approve or reject user requests to be delegates, organisations or political parties.",
 					"link": "Manage Approvals"
+				},
+				"proposals": {
+					"heading": "Proposals",
+					"text": "Review proposals submitted by users.",
+					"link": "Manage Proposals"
 				}
 			}
 		},
@@ -135,7 +140,7 @@
 			"abstract": "Summarise your proposal",
 			"startDate": "Start date for voting",
 			"endDate": "Closing date for voting",
-			"invited": "Invite others to collaborate by entering email addresses, separated by commas"
+			"invited": "Invite others to collaborate by entering their usernames, separated by commas"
 		}
 	},
 	
