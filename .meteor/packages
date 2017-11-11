@@ -52,6 +52,7 @@ themeteorchef:bert				# word to yo users!
 themeteorchef:jquery-validation # form validation
 meteorhacks:aggregate			# allows for mongo db aggregate function
 zenorocha:clipboard				# lets users copy text with one click
+http 							# allows for HTTP: GET, POST, PUT & DELETE
 
 #-- dev tools --
 meteortoys:allthings

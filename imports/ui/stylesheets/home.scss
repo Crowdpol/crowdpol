@@ -1,0 +1,109 @@
+@import 'variables.scss';
+
+.banner-wrap {
+  min-height: 80vh;
+  padding: ($space * 2) $space;
+  background-image: url('img/wave-bg.jpg');
+  background-size: cover;
+  border-bottom: ($space / 2) solid $yellow;
+
+  // @include breakpoint($laptop) {
+  //   padding: $space * 2;
+  // }
+
+  h1 {
+    color: $white;
+    // font-size: $base-font-size * 3;
+  }
+
+  p {
+    max-width: 20rem;
+    margin-bottom: $space * 2;
+    color: $yellow-light;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+}
+
+.hero-item-wrap {
+  display: flex;
+  justify-content: space-around;
+  max-width: 50rem;
+  margin: $space auto;
+
+  .hero-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $space * 2;
+    height: $space * 2;
+    border-radius: 100%;
+    margin: $space / 2;
+    padding: $space / 2;
+    background-color: rgba($bright-blue, 0.6);
+
+    // @include breakpoint($tablet) {
+    //   width: $space * 3;
+    //   height: $space * 3;
+    // }
+
+    i {
+      font-size: $space * 2;
+      color: $yellow-light;
+    }
+  }
+
+  h6 {
+    text-align: center;
+    font-size: $small-font-size;
+    color: $yellow;
+
+    // @include breakpoint($tablet) {
+    //   font-size: $base-font-size;
+    // }
+  }
+}
+
+.newsletter-form {
+  max-width: 16rem;
+  margin: 0 auto;
+  padding: ($space / 2) $space $space;
+  border-radius: 2px;
+  background-color: rgba($blue, 0.7);
+
+  .dark-textfield {
+    label,
+    &.is-focused label,
+    &.is-dirty label {
+      color: $light-blue;
+
+      &::after {
+        background-color: $light-blue;
+      }
+    }
+
+    input {
+      margin-top: $space / 2;
+      color: $yellow-light;
+      border-bottom: 1px solid $light-blue;
+    }
+  }
+
+  .primary-button {
+    display: block;
+    margin-left: auto;
+  }
+}
+
+.bottom-banner {
+  padding: $space * 2;
+  text-align: center;
+  background-color: $bright-blue;
+  border-bottom: ($space / 2) solid $yellow;
+
+  h2 {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    color: $yellow-light;
+  }
+}

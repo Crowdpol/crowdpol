@@ -1,18 +1,22 @@
 <template name="App_body">
 	<div class="site mdl-layout mdl-js-layout">
-		<!-- imports/ui/components/layout/header/header.html -->
-		{{> Header}}
-		<!-- imports/ui/components/layout/drawer/drawer.html -->           
-    {{> Drawer}}
+		{{#if currentUser}}
+			<!-- imports/ui/components/layout/header/header.html -->
+			{{> Header}}
+			<!-- imports/ui/components/layout/drawer/drawer.html -->
+		
+    	{{> Drawer}}
+    {{else}}
+    	{{> HomeHeader}}
+    {{/if}}
     <main class="mdl-layout__content">
 			<div class="page-content">
 				<!-- Your content goes here -->
 				{{> Template.dynamic template=main}}
 			</div>
 		</main>
-		<!-- imports/ui/components/layout/footer/footer.html --> 
+		<!-- imports/ui/components/layout/footer/footer.html -->
 		{{> Footer}}
 	</div>
 </template>
 
-  

@@ -2,7 +2,11 @@
 
 html {
   // Defines root value for REMS
-  font-size: 20px;
+  font-size: 18px;
+
+  // @include breakpoint($tablet) {
+  //   font-size: 20px;
+  // }
 }
 
 body {
@@ -27,16 +31,16 @@ h6 {
 h1,
 h2,
 h3 {
-  margin: $space 0;
+  margin: 0 0 $space 0;
 }
 
 h4 {
-  margin: ($space / 2) 0;
+  margin: 0 0 ($space / 2) 0;
 }
 
 h5,
 h6 {
-  margin: ($space / 4) 0;
+  margin: 0 0 ($space / 4) 0;
 }
 
 h1 {
@@ -65,7 +69,7 @@ h5 {
 }
 
 h6 {
-  font-size: $base-font-size * 1.15;
+  font-size: $base-font-size;
   line-height: $base-line-height;
 }
 

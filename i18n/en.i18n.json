@@ -166,5 +166,21 @@
 	"profile-msg-delegate-removed" : "Delegate Role removed.",
 	"profile-msg-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
 	"profile-msg-candidate-removed" : "Candidate Role removed.",
-	"profile-msg-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed."
+	"profile-msg-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
+	"dash":{
+		"heading" : "Dashboard",
+		"card": {
+			"proposals": {
+				"heading": "Proposals",
+				"text": "View proposals.",
+				"link": "Proposals"
+			},
+			"delegates": {
+				"heading": "Delegates",
+				"text": "Select your delegates",
+				"link": "Delegates"
+			}
+		}
+	}
+
 }

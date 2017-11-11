@@ -1,7 +1,41 @@
-
 <template name="Home">
 	<div class="banner-wrap">
-		<h1>{{_ "home-title"}}</h1>
+		<h1>Common <br />Democracy</h1>
 		<p>A liquid democracy platform for the Swedish Politcal system.</p>
+		<div class="hero-item-wrap">
+			<div class="hero-item">
+				<div class="hero-icon">
+					<i class="material-icons">face</i>
+				</div>
+				<h6>Delegate</h6>
+			</div>
+			<div class="hero-item">
+				<div class="hero-icon">
+					<i class="material-icons">lightbulb_outline</i>
+				</div>
+				<h6>Propose</h6>
+			</div>
+			<div class="hero-item">
+				<div class="hero-icon">
+					<i class="material-icons">thumb_up</i>
+				</div>
+				<h6>Vote</h6>
+			</div>
+		</div>
+		<div class="newsletter-form">
+			<!--This form needs to be hooked in, it is only a placeholder at the moment  -->
+			<form action="#">
+				<div class="dark-textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" id="sample3">
+					<label class="mdl-textfield__label" for="sample3">Get notified when the app is live</label>
+				</div>
+				<button class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+					Submit
+				</button>
+			</form>
+		</div>
+	</div>
+	<div class="bottom-banner">
+		<h2>A new wave of democracy is coming to Sweeden</h2>
 	</div>
 </template>
