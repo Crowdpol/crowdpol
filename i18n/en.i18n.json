@@ -1,10 +1,11 @@
-{ 
+{
 	"app_title": "Common Democracy",
 	"nav_home": "Home",
+	"nav_about": "About",
 	"nav_contact": "Contact",
 	"nav_login": "Login",
 	"nav_logout": "Logout",
-	"header_nav_login" : "Login",
+	"header_nav_login" : "Login / Register",
 	"drawer_nav_login" : "LOGIN",
 	"drawer_nav_logout": "LOGOUT",
 	"drawer_nav_profile" : "PROFILE",
@@ -143,7 +144,7 @@
 			"invited": "Invite others to collaborate by entering their usernames, separated by commas"
 		}
 	},
-	
+
 	"name": "Name",
 	"subject": "Subject",
 	"contact-message": "Your message:",
