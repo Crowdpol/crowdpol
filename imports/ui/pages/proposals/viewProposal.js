@@ -53,6 +53,17 @@ Template.ViewProposal.onRendered(function(){
       icon: 'fa-link'
     });
   });
+
+  Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
+      if (result){
+        if (result.vote == 'yes'){
+          this.find('#vote-yes').classList.add('mdl-button--colored');
+        } else {
+          this.find('#vote-no').classList.add('mdl-button--colored');
+        }
+      }
+  })
+
 });
 
 Template.ViewProposal.events({
@@ -68,6 +79,7 @@ Template.ViewProposal.events({
       }
     });
   },
+
   'submit #comment-form' (event, template){
     var comment = {
       message: template.find('#comment-message').value,
@@ -80,6 +92,18 @@ Template.ViewProposal.events({
         Bert.alert('Comment posted', 'success');
       }
     });
+  },
+
+  'click #vote-yes' (event, template){
+    vote('yes');
+    template.find('#vote-no').classList.remove('mdl-button--colored');
+    event.target.classList.add('mdl-button--colored');
+  },
+
+  'click #vote-no' (event, template){
+    vote('no');
+    template.find('#vote-yes').classList.remove('mdl-button--colored');
+    event.target.classList.add('mdl-button--colored'); 
   }
 });
 
@@ -138,6 +162,20 @@ Template.ViewProposal.helpers({
   isEditable: function(){
     return (userIsAuthor() && !proposalIsLive())
   },
+  isVotable: function(){
+    var stage = Template.instance().templateDictionary.get('stage');
+    var status = Template.instance().templateDictionary.get('status');
+    var startDate = Template.instance().templateDictionary.get('startDate');
+    var endDate = Template.instance().templateDictionary.get('endDate');
+    var isOpen = ((moment().isAfter(startDate, 'day')) && (moment().isBefore(endDate, 'day')))
+
+    //Should be live, approved and between the start and end dates
+    if ((stage == 'live') && (status == 'approved') && (isOpen)) {
+      return true;
+    } else {
+      return false;
+    }
+  },
   isVisible: function() {
     //Proposal should be visible to admin if submitted
     if ((Roles.userIsInRole(Meteor.userId(), 'admin')) && (Template.instance().templateDictionary.get('stage') == 'submitted')){
@@ -154,7 +192,7 @@ Template.ViewProposal.helpers({
   },
   getProposalLink: function() {
       return Meteor.absoluteUrl() + "proposals/view/" + proposalId;
-    },
+    }
 });
 
 function userIsAuthor(){
@@ -203,4 +241,15 @@ function transformComment(comment) {
     }
     return comment;
 };
+
+function vote(voteString){
+  var vote = {vote: voteString, proposalId: proposalId = FlowRouter.getParam("id"), delegateId: ''}
+  Meteor.call('vote', vote, function(error){
+      if (error){
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert('Your vote has been cast', 'success');
+      }
+    });
+}
 
