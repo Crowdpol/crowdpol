@@ -3,18 +3,17 @@
 		<!-- Is User signed in? -->
 		{{#if currentUser}}
 			<!-- YES: Tell user, provide log out -->
-			<h6>{{_ "logged-in-title"}}</h6>
+			<h5>{{_ "logged-in-title"}}</h5>
 			<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
 				{{_ "logout"}}
 			</button>
 		<!-- NO: Show login or Signup -->
 		{{else}}
-			<!-- Login buttons for Social Media OAuth -->
-			<h2>{{_ "login-title"}}</h2>
-			{{> SocialLogin}}
 			{{> Login}}
-			<!-- <p>{{_ "signup-title"}}</p> -->
+
 			<!-- {{> Signup}} -->
+
+			 <!-- {{> entitySignup}} -->
 		{{/if}}
 	</div>
 </template>
