@@ -1,9 +1,19 @@
 <template name="ProposalsList">
 	<h3>Proposals</h3>
-	
-	<ul class="demo-list-three mdl-list">
+
+<!-- MDL Tab Container -->
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <!-- Tab Bars -->
+  <div class="mdl-tabs__tab-bar">
+      <a href="#vote-proposals-panel" class="mdl-tabs__tab is-active">Vote Proposals</a>
+      <a href="#my-proposals-panel" class="mdl-tabs__tab">My Proposals</a>
+  </div>
+
+  <!-- MDL tab panels, is-active to denote currently active -->
+  <div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
+<ul class="demo-list-three mdl-list">
 	{{#if Template.subscriptionsReady}} 
-		{{#each proposals}}
+		{{#each openProposals}}
 			<li class="mdl-list__item mdl-list__item--three-line">
 				<span class="mdl-list__item-primary-content">
 					<span> <a href="/proposals/view/{{_id}}">{{ title }}</a></span>
@@ -20,4 +30,31 @@
 		{{> loader}}
 	{{/if}}
 	</ul>
+  </div>
+  
+  <!-- MDL Tab panel 2 -->
+  <div class="mdl-tabs__panel" id="my-proposals-panel">
+<ul class="demo-list-three mdl-list">
+	{{#if Template.subscriptionsReady}} 
+		{{#each myProposals}}
+			<li class="mdl-list__item mdl-list__item--three-line">
+				<span class="mdl-list__item-primary-content">
+					<span> <a href="/proposals/view/{{_id}}">{{ title }}</a></span>
+					<span class="mdl-list__item-text-body">
+						Expires {{ endDate }}
+					</span>
+				</span>
+				<span class="mdl-list__item-secondary-content">
+					{{ abstract }}
+				</span>
+			</li>
+		{{/each}}
+	{{else}}
+		{{> loader}}
+	{{/if}}
+	</ul>
+  </div>
+  
+</div>
+	
 </template>
