@@ -1,12 +1,13 @@
 @import 'variables.scss';
+@import 'breakpoint.scss';
 
 html {
   // Defines root value for REMS
   font-size: 18px;
 
-  // @include breakpoint($tablet) {
-  //   font-size: 20px;
-  // }
+  @include breakpoint($tablet) {
+    font-size: 20px;
+  }
 }
 
 body {
@@ -87,4 +88,8 @@ a {
 
 p {
   font-family: $body-font;
+}
+
+small {
+  font-size: $small-font-size;
 }

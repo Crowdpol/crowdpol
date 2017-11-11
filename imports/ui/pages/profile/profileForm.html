@@ -1,51 +1,42 @@
 <template name="ProfileForm">
-  <h3>{{_ "profile-title"}}&nbsp;<small>{{profile.type}}</small></h3>
-  <hr>
-  <form id="profile-form" class="profile">
-    <img src={{profilePic}} width="50px" height="50px">
-    <br>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <label class="mdl-textfield__label" for="profile-username">{{_ "profile-photo"}}</label>
-      <input type="text" name="profilePhotoPath" id="profile-photo-path" class="mdl-textfield__input" value="{{profilePic}}">
-    </div>
-    <br>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <label class="mdl-textfield__label" for="profile-username">{{_ "profile-username"}}</label>
-      <input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
-      <span id="valid-username"></span>
-    </div>
-    <br>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <label class="mdl-textfield__label" for="profile-firstname">{{_ "profile-firstname"}}</label>
-      <input type="text" name="profileFirstName" class="mdl-textfield__input" value="{{firstName}}">
-    </div>
-    <br>
-    
-    <!-- NOTE: Please be aware of the script that hide this input if necessary -->
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity}}hidden{{/if}}">
-      <label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
-      <input type="text" name="profileLastName" class="mdl-textfield__input" value="{{lastName}}">
-    </div>
-    <br>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <label class="mdl-textfield__label" for="profile-website">{{_ "profile-website"}}</label>
-      <input type="text" name="profileWebsite" class="mdl-textfield__input" value="{{website}}">
-    </div>
-    <br>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio">{{bio}}</textarea>
-      <label class="mdl-textfield__label" for="profile-bio">{{_ "profile-bio"}}</label>
-    </div>
-    <br>
+	<h3>{{_ "profile-title"}}&nbsp;<small>{{profile.type}}</small></h3>
 
-    <div class="form-group">
-      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "save"}}' id="submitProfile">
-    </div>
-  </form>
-  <br>
-  <!-- Helper list: Don't delete, useful for testing 
-  isEntity: |{{isEntity}}|<br>
-  isProfileComplete: |{{isProfileComplete}}|
-  -->
-  <br>
+	<form id="profile-form" class="profile">
+		<img src={{profilePic}} class="profile-picture">
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="profile-username">{{_ "profile-photo"}}</label>
+			<input type="text" name="profilePhotoPath" id="profile-photo-path" class="mdl-textfield__input" value="{{profilePic}}">
+		</div>
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="profile-username">{{_ "profile-username"}}</label>
+			<input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
+			<span id="valid-username" class="valid-username"></span>
+		</div>
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="profile-firstname">{{_ "profile-firstname"}}</label>
+			<input type="text" name="profileFirstName" class="mdl-textfield__input" value="{{firstName}}">
+		</div>
+
+		<!-- NOTE: Please be aware of the script that hide this input if necessary -->
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity}}hidden{{/if}}">
+			<label class="mdl-textfield__label" for="profile-lastname">{{_ "profile-lastname"}}</label>
+			<input type="text" name="profileLastName" class="mdl-textfield__input" value="{{lastName}}">
+		</div>
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="profile-website">{{_ "profile-website"}}</label>
+			<input type="text" name="profileWebsite" class="mdl-textfield__input" value="{{website}}">
+		</div>
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio">{{bio}}</textarea>
+			<label class="mdl-textfield__label" for="profile-bio">{{_ "profile-bio"}}</label>
+		</div>
+
+		<div class="form-group">
+			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "save"}}' id="submitProfile">
+		</div>
+	</form>
+	<!-- Helper list: Don't delete, useful for testing
+	isEntity: |{{isEntity}}|<br>
+	isProfileComplete: |{{isProfileComplete}}|
+	-->
 </template>

@@ -1,70 +1,68 @@
 <template name="Profile">
-  <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--12-col">
-      {{#if Template.subscriptionsReady}} 
-        {{> ProfileForm}}
-        <h4>Settings</h4>
-        <hr>
-        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-          <input type="checkbox" id="profile-public-switch" class="mdl-switch__input"  {{publicChecked}} {{publicDisabled}}>
-          <span class="mdl-switch__label">{{_ "profile-public"}}</span>
-        </label>
+	<div class="container narrow-container">
+		{{#if Template.subscriptionsReady}}
+			{{> ProfileForm}}
 
-        {{#if isPublic}}
-            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-              <input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" {{delegateChecked}} {{delegatecDisabled}}>
-              <span class="mdl-switch__label">{{_ "profile-delegate"}} {{delegateStatus}}</span>
-            </label>
-          
-            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
-                <input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}} {{candidateDisabled}}>
-              <span class="mdl-switch__label">{{_ "profile-candidate"}} {{candidateStatus}}</span>
-            </label>
-        {{/if}}  
+			<div class="switches-wrap">
+				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
+					<input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{publicChecked}} {{publicDisabled}}>
+					<span class="mdl-switch__label">{{_ "profile-public"}}</span>
+				</label>
 
-        
-        <!--{{> Dialogue}} -->
-        
-        <!-- Helper list: Don't delete, useful for testing  
-        user: |{{user}}|<br>
-        delegateStatus: |{{delegateStatus}}|<br>
-        candidateStatus: |{{candidateStatus}}|<br>
-        isPublic: |{{isPublic}}|<br>
-        isOrganisation: |{{isOrganisation}}|<br>
-        isParty: |{{isParty}}|<br>
-        isDelegate: |{{isDelegate}}|<br>
-        isCandidate: |{{isCandidate}}|<br>
-        publicDisabled: |{{publicDisabled}}|<br>
-        publicChecked: |{{publicChecked}}|<br>
-        delegateChecked: |{{delegateChecked}}|<br>
-        candidateChecked:|{{candidateChecked}}|<br>
-        -->
-      {{else}} 
-        {{> loader}} 
-      {{/if}}
-    </div>
-  </div>
+				{{#if isPublic}}
+					<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" {{delegateChecked}} {{delegatecDisabled}}>
+						<span class="mdl-switch__label">{{_ "profile-delegate"}} {{delegateStatus}}</span>
+					</label>
+
+					<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
+						<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}} {{candidateDisabled}}>
+						<span class="mdl-switch__label">{{_ "profile-candidate"}} {{candidateStatus}}</span>
+					</label>
+				{{/if}}
+			</div>
+
+
+			<!--{{> Dialogue}} -->
+
+			<!-- Helper list: Don't delete, useful for testing
+			user: |{{user}}|<br>
+			delegateStatus: |{{delegateStatus}}|<br>
+			candidateStatus: |{{candidateStatus}}|<br>
+			isPublic: |{{isPublic}}|<br>
+			isOrganisation: |{{isOrganisation}}|<br>
+			isParty: |{{isParty}}|<br>
+			isDelegate: |{{isDelegate}}|<br>
+			isCandidate: |{{isCandidate}}|<br>
+			publicDisabled: |{{publicDisabled}}|<br>
+			publicChecked: |{{publicChecked}}|<br>
+			delegateChecked: |{{delegateChecked}}|<br>
+			candidateChecked:|{{candidateChecked}}|<br>
+			-->
+		{{else}}
+			{{> loader}}
+		{{/if}}
+	</div>
 </template>
 
 <template name="Dialogue">
-  <button class="mdl-button mdl-button--raised mdl-js-button dialog-button">Show Dialog</button>
+	<button class="mdl-button mdl-button--raised mdl-js-button dialog-button">Show Dialog</button>
+	<p>
+		Remember that the Dialog component requires the <a href="https://github.com/GoogleChrome/dialog-polyfill">Dialog polyfill</a> in order to function.
+		It takes advantage of the native dialog element to provide the most robust experience possible.
+	</p>
 
-  <p>
-    Remember that the Dialog component requires the <a href="https://github.com/GoogleChrome/dialog-polyfill">Dialog polyfill</a> in order to function.
-    It takes advantage of the native dialog element to provide the most robust experience possible.
-  </p>
-
-  <dialog id="dialog" class="mdl-dialog">
-    <h3 class="mdl-dialog__title">MDL Dialog</h3>
-    <div class="mdl-dialog__content">
-      <p>
-        This is an example of the Material Design Lite dialog component.
-        Please use responsibly.
-      </p>
-    </div>
-    <div class="mdl-dialog__actions">
-      <button type="button" class="mdl-button">Close</button>
-      <button type="button" class="mdl-button" disabled>Disabled action</button>
-    </div>
-  </dialog>
+	<dialog id="dialog" class="mdl-dialog">
+		<h3 class="mdl-dialog__title">MDL Dialog</h3>
+		<div class="mdl-dialog__content">
+			<p>
+				This is an example of the Material Design Lite dialog component.
+				Please use responsibly.
+			</p>
+		</div>
+		<div class="mdl-dialog__actions">
+			<button type="button" class="mdl-button">Close</button>
+			<button type="button" class="mdl-button" disabled>Disabled action</button>
+		</div>
+	</dialog>
 </template>

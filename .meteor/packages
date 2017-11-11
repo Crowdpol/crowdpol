@@ -41,7 +41,8 @@ alanning:roles
 #-- material design --
 zodiase:mdl						# MDL for Meteor
 dapearce:material-icons			# material icons, duh!
-fourseven:scss    # SASS bitches!
+fourseven:scss    				# SASS bitches!
+#andreioprisan:breakpoint-sass	# Breakpoint... aw yiss!
 
 #-- tools --
 email
