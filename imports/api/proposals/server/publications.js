@@ -21,6 +21,6 @@ Meteor.publish('proposals.author', function(authorId) {
   return Proposals.find({authorId: authorId});
 });
 
-Meteor.publish('proposals.invited', function() {
-  return Proposals.find();
+Meteor.publish('proposals.invited', function(username) {
+  return Proposals.find({invited: username});
 });

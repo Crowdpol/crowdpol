@@ -7,7 +7,7 @@ Template.ProposalsList.onCreated(function () {
     self.subscribe('proposals.open');
     self.subscribe('proposals.closed');
     self.subscribe('proposals.author', Meteor.userId());
-    self.subscribe('proposals.invited');
+    self.subscribe('proposals.invited', Meteor.user().username);
   });
   self.openProposals = new ReactiveVar(true);
   self.authorProposals = new ReactiveVar(true);
@@ -24,7 +24,8 @@ Template.ProposalsList.helpers({
     return Proposals.find({authorId: Meteor.userId()});
   },
   invitedProposals: function(){
-    //return Proposals.find({authorId: Meteor.userId()});
+    console.log(Meteor.user().username)
+    return Proposals.find({invited: Meteor.user().username});
   },
   openSelected: function(){
     return Template.instance().openProposals.get();
