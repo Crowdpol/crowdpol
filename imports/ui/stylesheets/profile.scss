@@ -1,7 +1,12 @@
 @import 'variables.scss';
+// @import 'breakpoint-sass.scss';
 
 .profile-picture {
   width: $space * 3;
   height: $space * 3;
   border-radius: 100%;
+}
+
+.switches-wrap {
+  display: flex;
 }
