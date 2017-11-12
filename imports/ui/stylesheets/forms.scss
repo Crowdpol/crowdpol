@@ -7,6 +7,7 @@
 
 .input-wrap {
   display: block;
+  overflow: hidden;
   width: auto;
   margin: auto;
 }
@@ -15,4 +16,8 @@
   position: absolute;
   right: 0;
   bottom: $space / 2;
+}
+
+.search-input input {
+  padding: ($space / 4) ($space * 1.5);
 }

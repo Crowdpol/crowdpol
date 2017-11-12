@@ -1,6 +1,21 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
 
+.logged-in-header {
+  background-color: $white;
+
+  .header-inner {
+    i,
+    a {
+      color: $blue;
+    }
+  }
+}
+
+.mdl-layout__drawer-button i {
+  color: $blue;
+}
+
 .logged-out-header {
   display: block;
   background-color: $white;
@@ -34,5 +49,17 @@
     a {
       color: $blue;
     }
+  }
+}
+
+.header-title {
+  margin-left: $space * 1.5;
+
+  @include breakpoint($tablet) {
+    margin-left: $space;
+  }
+
+  @include breakpoint($laptop) {
+    margin-left: 0;
   }
 }
