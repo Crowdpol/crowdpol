@@ -1,10 +1,10 @@
 <template name="App_body">
-	<div class="site mdl-layout mdl-js-layout">
+	<div class="site mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		{{#if currentUser}}
 			<!-- imports/ui/components/layout/header/header.html -->
 			{{> Header}}
 			<!-- imports/ui/components/layout/drawer/drawer.html -->
-		
+
     	{{> Drawer}}
     {{else}}
     	{{> HomeHeader}}
