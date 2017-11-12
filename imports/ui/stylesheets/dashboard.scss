@@ -7,6 +7,9 @@
 }
 
 .dash-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin-bottom: $space;
   padding: $space / 2;
 }
