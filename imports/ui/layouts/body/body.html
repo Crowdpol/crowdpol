@@ -16,7 +16,9 @@
 			</div>
 		</main>
 		<!-- imports/ui/components/layout/footer/footer.html -->
-		{{> Footer}}
+		{{#if currentUser}}
+			{{> Footer}}
+		{{/if}}
 	</div>
 </template>
 
