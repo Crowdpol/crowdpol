@@ -9,6 +9,7 @@ Template.Delegate.onCreated(function () {
   self.autorun(function() {
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate");
     results = ReactiveMethod.call("getRanks", Meteor.userId(), "delegate");
+    //console.log(results);
     Session.set('ranked',results);
   });
   
@@ -20,7 +21,7 @@ Template.Delegate.onCreated(function () {
 Template.Delegate.helpers({
   ranks: function() {
     results = ReactiveMethod.call("getRanks", Meteor.userId(), "delegate");
-    console.log(results);
+    //console.log(results);
     return Meteor.users.find( { _id : { $in :  Session.get('ranked')} } );
     /*
     console.log(Template.instance().ranks.get());
@@ -37,7 +38,11 @@ Template.Delegate.helpers({
     */
   },
   delegates: function() {
-    return Meteor.users.find({ _id : { $nin :  Session.get('ranked')}});
+    return Meteor.users.find( { $and: [ 
+      { _id : { $nin : Session.get('ranked')}},
+      { _id : { $ne: Meteor.userId()} }
+    ]});
+    //Meteor.users.find({ _id : { $nin :  Session.get('ranked')}});
     /*
     if (Session.get("searchPhrase")) {
     	console.log("returning search");
@@ -65,15 +70,15 @@ Template.Delegate.events({
 	},
   'click .delegate-select': function(event, template){
     delegateId = event.target.dataset.delegateId;
+    console.log(delegateId);
     Meteor.call('toggleRank','delegate',delegateId,Meteor.userId(),1,event.target.checked,function(error,result){
       if (error) {
         console.log(error);
       } else {
-        console.log(result);
+        //console.log(result);
         Session.set('ranked',result);
       }
     });
-    console.log(delegateId);
   },
 });
 
@@ -93,7 +98,7 @@ function returnRanks(){
       if(error){
         console.log(error);
       }else{
-        console.log("setting ranks");
+        //console.log("setting ranks");
         return result;
       }
   });

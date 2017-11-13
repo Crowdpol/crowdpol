@@ -6,7 +6,7 @@
     <label class="mdl-textfield__label" for="sample1">Text...</label>
   </div>
   <br>
-
+	{{#if Template.subscriptionsReady}}
   <h5>Ranks: {{ranks.count}}</h5>
 	{{#each ranks}}
 		<li class="mdl-list__item">
@@ -32,13 +32,9 @@
 	    </span>
 	  </li>
 	{{/each}}
-
-	<hr>
-	SearchPhrase: {{searchPhrase}}
-	<hr>
 	<h5>Delegates: {{delegates.count}}</h5>
 	<ul class="demo-list-control mdl-list">
-	{{#if Template.subscriptionsReady}} 
+	
 		
 		
 		{{#each delegates}}
@@ -69,11 +65,11 @@
 	  {{#each messages}}
 	  	{{username}}&nbsp;{{profile.firstName}}&nbsp;{{profile.lastName}}<br>
 	  {{/each}}
+	
+	</ul>
 	{{else}} 
 		{{> loader}} 
   {{/if}}
-	</ul>
-
 </template>
 
 <template name="Ranks">
