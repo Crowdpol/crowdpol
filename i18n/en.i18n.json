@@ -173,12 +173,12 @@
 			"proposals": {
 				"heading": "Proposals",
 				"text": "View proposals.",
-				"link": "Proposals"
+				"link": "Vote"
 			},
 			"delegates": {
 				"heading": "Delegates",
 				"text": "Select your delegates",
-				"link": "Delegates"
+				"link": "Delegate"
 			}
 		}
 	}

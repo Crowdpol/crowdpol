@@ -1,13 +1,18 @@
 <template name="Header">
 	<!-- Always shows a header, even in smaller screens. -->
-	<header class="mdl-layout__header mdl-layout--fixed-header">
-		<div class="mdl-layout__header-row">
-			<span class="mdl-layout-title">{{_ "app_title"}}</span>
+	<header class="logged-in-header mdl-layout__header">
+		<div class="header-inner mdl-layout__header-row">
+			<span class="mdl-layout-title">
+				<!-- This should be the page title -->
+				{{_ "app_title"}}
+			</span>
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>
 			<!-- Navigation. We hide it in small screens. -->
 			<nav class="mdl-navigation mdl-layout--large-screen-only">
 				<a class="mdl-navigation__link" href="/">{{_ "nav_home"}}</a>
+				<a class="mdl-navigation__link" href="/delegate">Delegate</a>
+				<a class="mdl-navigation__link" href="/proposals">Vote</a>
 				<a class="mdl-navigation__link" href="/contact">{{_ "nav_contact"}}</a>
 				{{#unless currentUser}}
 					<a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
@@ -17,7 +22,7 @@
 				<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
 					<i class="material-icons">language</i>
 				</button>
-				{{ lang }}
+				<small>{{ lang }}</small>
 				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 						for="demo-menu-lower-right">
 					<li class="mdl-menu__item lang-sel" id="en">{{_ "lang_en"}}</li>

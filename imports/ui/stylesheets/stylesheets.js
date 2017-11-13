@@ -9,3 +9,4 @@ import './home.scss';
 import './auth.scss';
 import './dashboard.scss';
 import './profile.scss';
+import './delegate.scss';

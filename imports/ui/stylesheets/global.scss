@@ -10,6 +10,12 @@
   max-width: 40rem;
 }
 
+.app-container {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: $space / 2;
+}
+
 .static-content-wrap {
   padding-top: $space * 2;
   padding-bottom: $space * 2;
@@ -56,3 +62,10 @@
   }
 }
 
+.mdl-chip {
+  background-color: $light-blue;
+
+  .mdl-chip__text {
+    color: $white;
+  }
+}
