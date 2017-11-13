@@ -172,7 +172,7 @@ adminRoutes.route('/proposals', {
 FlowRouter.route('/proposals', {
   name: 'App.proposals',
   action() {
-    BlazeLayout.render('App_body', {main: 'Proposals'});
+    BlazeLayout.render('App_body', {main: 'ProposalsList'});
   }
 });
 

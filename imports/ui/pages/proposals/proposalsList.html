@@ -1,0 +1,100 @@
+<template name="ProposalsList">
+	<h3>Proposals</h3>
+
+	<!-- MDL Tab Container -->
+	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+		<!-- Tab Bars -->
+		<div class="mdl-tabs__tab-bar">
+			<a href="#vote-proposals-panel" class="mdl-tabs__tab is-active">Vote Proposals</a>
+			<a href="#my-proposals-panel" class="mdl-tabs__tab">My Proposals</a>
+		</div>
+
+		<div class="mdl-textfield mdl-js-textfield">
+			<input class="mdl-textfield__input" type="text"  id="proposal-search">
+			<label class="mdl-textfield__label" for="sample1">Search Proposals</label>
+		</div>
+
+		<!-- MDL tab panels, is-active to denote currently active -->
+		<div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
+			<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="open-closed-switch">
+				<input type="checkbox" id="open-closed-switch" class="mdl-switch__input" checked>
+				<span class="mdl-switch__label">Open/Closed</span>
+			</label>
+
+			{{#if Template.subscriptionsReady}} 
+
+			{{#if openSelected}}
+
+			<h4>Open Proposals</h4>
+			{{#each openProposals}}
+			{{> ProposalCard}}
+			{{/each}}
+			{{else}}
+
+			<h4>Closed Proposals</h4>
+			{{#each closedProposals}}
+			{{> ProposalCard}}
+			{{/each}}
+			{{/if}}
+
+			{{else}}
+			{{> loader}}
+			{{/if}}
+		</div>
+
+		<!-- MDL Tab panel 2 -->
+		<div class="mdl-tabs__panel" id="my-proposals-panel">
+			<button class="mdl-button mdl-js-button mdl-button--fab" id="add-new-proposal">
+				<i class="material-icons">add</i>
+			</button>
+			{{#if Template.subscriptionsReady}} 
+			<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="author-invited-switch">
+				<input type="checkbox" id="author-invited-switch" class="mdl-switch__input" checked>
+				<span class="mdl-switch__label">Author/Invited</span>
+			</label>
+			{{#if  authorSelected}}
+
+			<h4>My proposals</h4>
+
+			{{#each myProposals}}
+			{{> ProposalCard}}
+			{{/each}}
+
+			{{else}}
+
+			<h4>Proposals I contribute to</h4>
+
+			{{#each invitedProposals}}
+			{{> ProposalCard}}
+			{{/each}}
+
+			{{/if}}
+
+			{{else}}
+			{{> loader}}
+			{{/if}}
+		</div>
+
+	</div>
+	
+</template>
+
+<template name="ProposalCard">
+
+	<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">{{ title }}</h2> 
+		</div>
+		<div class="mdl-card__supporting-text">
+			{{ abstract }}
+		</div>
+		<div class="mdl-card__actions mdl-card--border">
+			<a href="/proposals/view/{{_id}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				Read More
+			</a>
+		</div>
+		<div class="mdl-card__menu">
+			<small>Expires {{ endDate }}</small>
+		</div>
+	</div>
+</template>
