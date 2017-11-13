@@ -13,7 +13,7 @@
 .app-container {
   max-width: 40rem;
   margin: 0 auto;
-  padding: $space / 2;
+  padding: $space ($space / 2) ($space * 3);
 }
 
 .static-content-wrap {
@@ -60,6 +60,10 @@
   &:hover {
     background-color: $light-blue;
   }
+}
+
+.secondary-button {
+  color: $light-blue;
 }
 
 .mdl-chip {

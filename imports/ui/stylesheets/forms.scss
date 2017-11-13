@@ -12,6 +12,16 @@
   margin: auto;
 }
 
+.small-inputs-wrap {
+  display: flex;
+  justify-content: space-between;
+
+  .input-wrap {
+    flex-basis: 45%;
+    margin: 0;
+  }
+}
+
 .dropdown-icon {
   position: absolute;
   right: 0;
