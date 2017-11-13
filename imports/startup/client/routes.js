@@ -42,7 +42,7 @@ FlowRouter.route('/verify-email/:token',{
 			}
 		});
 	}
-}); 
+});
 
 //Password recovery
 FlowRouter.route('/reset-password/:token?', {
@@ -90,6 +90,13 @@ FlowRouter.route('/terms', {
   name: 'App.terms',
   action() {
     BlazeLayout.render('App_body', { main: 'Terms' });
+  },
+});
+
+FlowRouter.route('/about', {
+  name: 'App.about',
+  action() {
+    BlazeLayout.render('App_body', { main: 'About' });
   },
 });
 

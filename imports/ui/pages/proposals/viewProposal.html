@@ -9,7 +9,6 @@
     </button>
     
     <h5>Abstract</h5>
-    
     <p>{{ abstract }}</p>
     
     <hr>
@@ -31,30 +30,29 @@
       {{ status }}
     {{/if}}
 
-    {{#if isInvited }}
-
-    <br/>
+    {{#if isVotable}}
+      <hr>
       
-    {{> CommentForm}}
+      <button class="mdl-button mdl-js-button mdl-button--raised {{#if userIsFor}} mdl-button--colored {{/if}}" id="vote-yes"> Yes </button>
 
+      <button class="mdl-button mdl-js-button mdl-button--raised {{#if userIsAgainst}} mdl-button--colored {{/if}}" id="vote-no"> No </button>
+      
+      <hr>
     {{/if}}
 
-    <hr>
+    {{#if isInvited }}
+      <hr>
+      {{> CommentForm}}
+      <hr>
+    {{/if}}
 
     {{#if Template.subscriptionsReady}}
-
       {{#each comments}}
-
         {{> Comment}}
-
       {{/each}}
-
     {{else}}
-
       {{> loader}}
-
     {{/if}}
-
   {{else}}
     <h3> Sorry, this proposal is not yet visible to the public. </h3>
   {{/if}}

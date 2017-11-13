@@ -1,41 +1,37 @@
 <template name="Authenticate">
-  <div class="mdl-grid">
-		<div class="mdl-cell mdl-cell--12-col">
-			<!-- Is User signed in? -->
-			{{#if currentUser}}
-				<!-- YES: Tell user, provide log out -->
-				<p>{{_ "logged-in-title"}}</p>
-				<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
-					{{_ "logout"}}
-				</button>
-			<!-- NO: Show login or Signup -->
-			{{else}}
-				<!-- Login buttons for Social Media OAuth -->
-				<p>{{_ "login-social"}}</p>
-				{{> SocialLogin}}
-				<hr>
-				<p>{{_ "login-title"}}</p>
-				{{> Login}}
-				<hr>
-				<p>{{_ "signup-title"}}</p>
-				{{> Signup}}
-			{{/if}}
-		</div>
+  <div class="container narrow-container auth-wrap">
+		<!-- Is User signed in? -->
+		{{#if currentUser}}
+			<!-- YES: Tell user, provide log out -->
+			<h5>{{_ "logged-in-title"}}</h5>
+			<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
+				{{_ "logout"}}
+			</button>
+		<!-- NO: Show login or Signup -->
+		{{else}}
+			{{> Login}}
+
+			{{> Signup}}
+
+			{{> entitySignup}}
+		{{/if}}
 	</div>
 </template>
 
 <!-- Login buttons for Social Media OAuth -->
 <template name="SocialLogin">
-	<!-- Twitter - Hex: #00acee-->
-	<button id="login-twitter" class="mdl-button mdl-js-button mdl-button--raised">
-		<i class="fa fa-twitter fa-fw"></i> Twitter
-	</button>
-	 <!-- Facebook - Hex: #3b5998 -->
-	<button id="login-facebook" class="mdl-button mdl-js-button mdl-button--raised">
-		<i class="fa fa-facebook fa-fw"></i> Facebook
-	</button>
-	<!-- Google+ - Hex: #e93f2e -->
-	<button id="login-google" class="mdl-button mdl-js-button mdl-button--raised">
-		<i class="fa fa-google-plus fa-fw"></i> Google
-	</button>
+	<div class="social-auth">
+		<!-- Twitter - Hex: #00acee-->
+		<button id="login-twitter" class="mdl-button mdl-js-button mdl-button--raised">
+			<i class="fa fa-twitter fa-fw"></i> Twitter
+		</button>
+		<!-- Facebook - Hex: #3b5998 -->
+		<button id="login-facebook" class="mdl-button mdl-js-button mdl-button--raised">
+			<i class="fa fa-facebook fa-fw"></i> Facebook
+		</button>
+		<!-- Google+ - Hex: #e93f2e -->
+		<button id="login-google" class="mdl-button mdl-js-button mdl-button--raised">
+			<i class="fa fa-google-plus fa-fw"></i> Google
+		</button>
+	</div>
 </template>

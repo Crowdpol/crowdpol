@@ -24,8 +24,6 @@ h4,
 h5,
 h6 {
   color: $blue-xdark;
-  font-family: $title-font;
-  text-transform: uppercase;
   letter-spacing: 1px;
 }
 
@@ -51,7 +49,7 @@ h1 {
 
 h2 {
   font-size: $base-font-size * 2;
-  line-height: $base-line-height * 2;
+  line-height: $base-line-height * 1.5;
 }
 
 h3 {

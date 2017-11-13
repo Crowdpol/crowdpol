@@ -1,53 +1,53 @@
 <template name="entitySignup">
+	<h2>Register as an Organisation or Political Party</h2>
 
-  <h3>Sign up as an Organisation or Political Party</h3>
+	<form id="entity-signup-form">
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="entity-name">{{_ "signup.entity.name"}}</label>
+			<input type="text" id="entity-name" class="mdl-textfield__input" placeholder='{{_ "signup.entity.name"}}'>
+		</div>
 
-  <form id="entity-signup-form">
-    <div class="mdl-textfield mdl-js-textfield">
-      <label class="mdl-textfield__label" for="entity-name">{{_ "signup.entity.name"}}</label>
-      <input type="text" id="entity-name" class="mdl-textfield__input" placeholder='{{_ "signup.entity.name"}}'>
-    </div>
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="entity-wesbite">{{_ "signup.entity.website"}}</label>
+			<input type="url" id="entity-website" class="mdl-textfield__input" placeholder='{{_ "signup.entity.website"}}'>
+		</div>
 
-    <div class="mdl-textfield mdl-js-textfield">
-      <label class="mdl-textfield__label" for="entity-wesbite">{{_ "signup.entity.website"}}</label>
-      <input type="url" id="entity-website" class="mdl-textfield__input" placeholder='{{_ "signup.entity.website"}}'>
-    </div>
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="entity-phone">{{_ "signup.entity.phone-number"}}</label>
+			<input type="tel" id="entity-phone" class="mdl-textfield__input" placeholder='{{_ "signup.entity.phone-number"}}'>
+		</div>
 
-    <div class="mdl-textfield mdl-js-textfield">
-      <label class="mdl-textfield__label" for="entity-phone">{{_ "signup.entity.phone-number"}}</label>
-      <input type="tel" id="entity-phone" class="mdl-textfield__input" placeholder='{{_ "signup.entity.phone-number"}}'>
-    </div>
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="entity-contact">{{_ "signup.entity.contact-person"}}</label>
+			<input type="tel" id="entity-contact" class="mdl-textfield__input" placeholder='{{_ "signup.entity.contact-person"}}'>
+		</div>
 
-    <div class="mdl-textfield mdl-js-textfield">
-      <label class="mdl-textfield__label" for="entity-contact">{{_ "signup.entity.contact-person"}}</label>
-      <input type="tel" id="entity-contact" class="mdl-textfield__input" placeholder='{{_ "signup.entity.contact-person"}}'>
-    </div>
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="entity-email">{{_ "email-address"}}</label>
+			<input type="email" id="entity-email" class="mdl-textfield__input" placeholder='{{_ "email-address"}}'>
+		</div>
 
-    <div class="mdl-textfield mdl-js-textfield">
-      <label class="mdl-textfield__label" for="entity-email">{{_ "email-address"}}</label>
-      <input type="email" id="entity-email" class="mdl-textfield__input" placeholder='{{_ "email-address"}}'>
-    </div>
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="entity-password">{{_ "password"}}</label>
+			<input type="password" id="entity-password" class="mdl-textfield__input" placeholder='{{_ "password"}}'>
+		</div>
 
-    <div class="mdl-textfield mdl-js-textfield">
-      <label class="mdl-textfield__label" for="entity-password">{{_ "password"}}</label>
-      <input type="password" id="entity-password" class="mdl-textfield__input" placeholder='{{_ "password"}}'>
-    </div>
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+			<input class="mdl-textfield__input" type="text" id="entity-type" data-val="party" value="{{_ 'roles.party-delegate'}}" readonly tabIndex="-1">
+			<label for="entity-type" class="dropdown-icon">
+					<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+			</label>
+			<label for="entity-type" class="mdl-textfield__label">{{_'signup.entity.type'}}</label>
+			<ul for="entity-type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+				<li class="mdl-menu__item dropdown-item" data-val="party">{{_ 'roles.party-delegate'}}</li>
+				<li class="mdl-menu__item dropdown-item" data-val="organisation">{{_ 'roles.organisation-delegate'}}</li>
+			</ul>
+		</div>
 
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-      <input class="mdl-textfield__input" type="text" id="entity-type" data-val="party" value="{{_ 'roles.party-delegate'}}" readonly tabIndex="-1">
-      <label for="entity-type">
-          <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-      </label>
-      <label for="entity-type" class="mdl-textfield__label">{{_'signup.entity.type'}}</label>
-      <ul for="entity-type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-        <li class="mdl-menu__item dropdown-item" data-val="party">{{_ 'roles.party-delegate'}}</li>
-        <li class="mdl-menu__item dropdown-item" data-val="organisation">{{_ 'roles.organisation-delegate'}}</li>
-      </ul>
-    </div>
-
-    <div class="form-group">
-      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "signup-button"}}'>
-    </div>
-  </form>
-
-</template> 
+		<div class="form-group">
+			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "signup-button"}}'>
+		</div>
+	</form>
+	<a href="#" class="center">Register as an individual</a>
+	<a href="#" class="center">Already have an account? Log in</a>
+</template>
