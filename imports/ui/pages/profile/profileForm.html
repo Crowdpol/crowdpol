@@ -1,8 +1,9 @@
 <template name="ProfileForm">
-	<h3>{{_ "profile-title"}}&nbsp;<small>{{profile.type}}</small></h3>
+	<h3>{{_ "profile-title"}}</h3>
 
 	<form id="profile-form" class="profile">
 		<img src={{profilePic}} class="profile-picture">
+		<small class="center">{{profile.type}}</small>
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="profile-username">{{_ "profile-photo"}}</label>
 			<input type="text" name="profilePhotoPath" id="profile-photo-path" class="mdl-textfield__input" value="{{profilePic}}">
