@@ -18,4 +18,8 @@ import '../../api/comments/server/publications.js';
 import '../../api/votes/methods.js';
 import '../../api/votes/server/publications.js';
 
+import '../../api/ranking/methods.js';
+import '../../api/ranking/server/publications.js';
+
+
 

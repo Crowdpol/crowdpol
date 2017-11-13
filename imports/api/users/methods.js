@@ -210,11 +210,11 @@ Meteor.methods({
     },
     getUserSearchString(userId){
       check(userId,String);
-      var result =  Meteor.users.aggregate([
+      var result =  Meteor.users.find(
         { $unwind : "$profile" },
         { $match: {"_id" : userId}},
         { $project: {"_id": 0, "searchString": {$concat: ["$profile.firstName"," ","$profile.lastName"," ","$profile.username"]} } }
-      ]);
+      );
       if(result.length>0){
         return result[0].searchString;
       }

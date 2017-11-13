@@ -11,9 +11,9 @@ Meteor.startup(() => {
   console.log("Common Democracy: Sweden - started...");
   //Meteor.call("createAdmins");
   //Meteor.users._dropIndex( "text" ) 
-  Meteor.users._ensureIndex({ 
-  	"profile.searchString": "text"
-  });
+  //Meteor.users._ensureIndex({ 
+  //	"profile.searchString": "text"
+  //});
 });
 
 
