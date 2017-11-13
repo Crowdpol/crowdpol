@@ -2,25 +2,50 @@ import { Meteor } from 'meteor/meteor';
 import { Proposals } from '../Proposals.js';
 
 Meteor.publish('proposals.all', function() {
-  return Proposals.find();
+	return Proposals.find();
 });
 
 Meteor.publish('proposals.one', function(id) {
-  return Proposals.find({_id: id});
+	return Proposals.find({_id: id});
 });
 
-Meteor.publish('proposals.open', function() {
-	return Proposals.find({endDate:{"$lte": new Date()}, stage: 'live'});
+//Proposals that are live and open to the public
+Meteor.publish('proposals.public', function(search) {
+	let query = generateSearchQuery(search);
+	query.stage = 'live';
+	return Proposals.find(query);
 });
 
-Meteor.publish('proposals.closed', function() {
-	return Proposals.find({endDate:{"$gte": new Date()}, stage: 'live'});
+//Proposals that are the user authored
+Meteor.publish('proposals.author', function(authorId, search) {
+	let query = generateSearchQuery(search);
+	query.authorId = authorId;
+	return Proposals.find(query);
 });
 
-Meteor.publish('proposals.author', function(authorId) {
-  return Proposals.find({authorId: authorId});
+//Proposals that the user is invited to collaborate on
+Meteor.publish('proposals.invited', function(username, search) {
+	let query = generateSearchQuery(search);
+	query.invited = username;
+	return Proposals.find(query);
 });
 
-Meteor.publish('proposals.invited', function(username) {
-  return Proposals.find({invited: username});
-});
+function generateSearchQuery(searchTerm){
+	check(searchTerm, Match.OneOf(String, null, undefined));
+
+	let query = {}
+
+	if (searchTerm) {
+		let regex = new RegExp(searchTerm, 'i');
+
+		query = {
+			$or: [
+			{ title: regex },
+			{ abstract: regex },
+			{ body: regex }
+			]
+		};
+	}
+
+	return query;
+}

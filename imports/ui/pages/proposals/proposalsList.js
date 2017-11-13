@@ -3,29 +3,36 @@ import { Proposals } from '../../../api/proposals/Proposals.js'
 
 Template.ProposalsList.onCreated(function () {
   var self = this;
-  self.autorun(function(){
-    self.subscribe('proposals.open');
-    self.subscribe('proposals.closed');
-    self.subscribe('proposals.author', Meteor.userId());
-    self.subscribe('proposals.invited', Meteor.user().username);
-  });
+
+  self.searchQuery = new ReactiveVar();
   self.openProposals = new ReactiveVar(true);
   self.authorProposals = new ReactiveVar(true);
+
+  self.autorun(function(){
+    self.subscribe('proposals.public', self.searchQuery.get());
+    self.subscribe('proposals.author', Meteor.userId(), self.searchQuery.get());
+    self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get());
+  })
 });
 
 Template.ProposalsList.helpers({
+  searching() {
+    return Template.instance().searching.get();
+  },
+  query() {
+    return Template.instance().searchQuery.get();
+  },
   closedProposals: function() {
-    return Proposals.find({endDate:{"$lte": new Date()}, stage: 'live'}, {transform: transformProposal, sort: {endDate: -1}});
+    return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: -1}});
   },
   openProposals: function() {
-    return Proposals.find({endDate:{"$gte": new Date()}, stage: 'live'}, {transform: transformProposal, sort: {endDate: -1}});
+    return Proposals.find({endDate:{"$gte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: -1}});
   },
   myProposals: function(){
-    return Proposals.find({authorId: Meteor.userId()});
+    return Proposals.find({authorId: Meteor.userId()}, {transform: transformProposal, sort: {createdAt: -1}});
   },
   invitedProposals: function(){
-    console.log(Meteor.user().username)
-    return Proposals.find({invited: Meteor.user().username});
+    return Proposals.find({invited: Meteor.user().username}, {transform: transformProposal, sort: {createdAt: -1}});
   },
   openSelected: function(){
     return Template.instance().openProposals.get();
@@ -36,6 +43,10 @@ Template.ProposalsList.helpers({
 });
 
 Template.ProposalsList.events({
+  'keyup #proposal-search' ( event, template ) {
+    let value = event.target.value.trim();
+    template.searchQuery.set(value);
+  },
 	'click #add-new-proposal': function(event, template){
     FlowRouter.go('App.proposal.edit', {id: ''});
 	},
@@ -49,6 +60,5 @@ Template.ProposalsList.events({
 
 function transformProposal(proposal) { 
   proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');;
-  
   return proposal;
 };
