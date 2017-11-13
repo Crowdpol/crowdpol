@@ -33,10 +33,12 @@ Meteor.publish("user.search", function(searchValue) {
   if (!searchValue) {
     return Meteor.users.find({roles: "delegate"});
   }
-  //searchValue = "/" + searchValue + "/";
+  searchKey = "/.*" + searchValue + ".*/";
+  
   //console.log("searchValue " + searchValue);
   var result = false;
   try{
+
     result = Meteor.users.aggregate([
       { $text: {$search: searchValue} },
       {
@@ -54,6 +56,7 @@ Meteor.publish("user.search", function(searchValue) {
         }
       }
     ]);
+    //var result = Meteor.users.find({"profile.searchString": searchKey});
   } catch(e) {
     console.log(e.name + " " + e.message);
   }
@@ -85,4 +88,30 @@ Meteor.publish("user.ranks", function(userId,type) {
       }
   });
   */
+});
+
+Meteor.publish('simpleSearch', function(search,type) {
+  check( search, Match.OneOf( String, null, undefined ) );
+  if (!search) {
+    return Meteor.users.find({roles: type});
+  }
+  let query      = {},
+      projection = { limit: 10, sort: { title: 1 } };
+
+  if ( search ) {
+    let regex = new RegExp( search, 'i' );
+
+    query = {$and: [
+      {$or: [
+        { "profile.firstName": regex },
+        { "profile.lastName": regex },
+        { "profile.userName": regex }
+      ]},
+      {roles: type}
+    ]};
+
+    projection.limit = 100;
+  }
+
+  return Meteor.users.find( query, projection );
 });

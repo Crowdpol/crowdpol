@@ -3,13 +3,20 @@ import { check } from 'meteor/check';
 import { Ranks } from './Ranks.js';
 
 Meteor.methods({
-    addRank: function (entityType,entityId,supporterId,ranking) {
+    toggleRank: function (entityType,entityId,supporterId,ranking,create) {
       console.log("method addRank called");
       check(entityType, String);
       check(entityId, String);
       check(supporterId, String);
       check(ranking, Number);
-      return Ranks.insert({ entityType: entityType, entityId: entityId, supporterId: supporterId, ranking: ranking});
+      check(create, Boolean);
+      if(create){
+        Ranks.insert({ entityType: entityType, entityId: entityId, supporterId: supporterId, ranking: ranking});
+      }else{
+        Ranks.remove({ entityType: entityType, entityId: entityId, supporterId: supporterId, ranking: ranking});
+      }
+      
+      return Meteor.call('getRanks',Meteor.userId(),entityType);
     },
     getRank: function (rankID) {
       console.log("method getRank called");
@@ -19,7 +26,7 @@ Meteor.methods({
       console.log("method deleteRank called");
       Ranks.remove(rankID);
     },
-    getRank: function(userId, type) {
+    getRanks: function(userId, type) {
       check(userId, String);
       check(type, String);
       console.log("getRank: userId: " + userId + " type: " + type);
@@ -28,6 +35,7 @@ Meteor.methods({
         {$project:{"_id": 0,"entityId" :1}}
       ]).map(function(el) { return el.entityId });
       console.log(results);
+      //Session.set("ranks",results);
       return results;
     }
 });

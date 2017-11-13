@@ -60,6 +60,7 @@ meteortoys:allthings
 #-- data related --
 aldeed:collection2-core@2.0.0	# makes schemas lekker fancy
 xolvio:cleaner					# cleans yo DB!
+simple:reactive-method			# instant meth calls
 
 #-- 3rd party JS libraries --
 momentjs:moment					# makes time pretty
