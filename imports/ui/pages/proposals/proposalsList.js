@@ -15,10 +15,10 @@ Template.ProposalsList.onCreated(function () {
 
 Template.ProposalsList.helpers({
   closedProposals: function() {
-    return Proposals.find({endDate:{"$lte": new Date()}, stage: 'live'}, {transform: transformProposal, sort: {createdAt: -1}});
+    return Proposals.find({endDate:{"$lte": new Date()}, stage: 'live'}, {transform: transformProposal, sort: {endDate: -1}});
   },
   openProposals: function() {
-    return Proposals.find({endDate:{"$gte": new Date()}, stage: 'live'}, {transform: transformProposal, sort: {createdAt: -1}});
+    return Proposals.find({endDate:{"$gte": new Date()}, stage: 'live'}, {transform: transformProposal, sort: {endDate: -1}});
   },
   myProposals: function(){
     return Proposals.find({authorId: Meteor.userId()});
@@ -48,7 +48,7 @@ Template.ProposalsList.events({
 });
 
 function transformProposal(proposal) { 
-  proposal.endDate = moment(proposal.endDate).format('MMMM Do YYYY, h:mm:ss a');
+  proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');;
   
   return proposal;
 };
