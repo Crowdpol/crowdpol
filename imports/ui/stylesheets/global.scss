@@ -66,6 +66,20 @@
   color: $light-blue;
 }
 
+.switch.is-checked {
+  .mdl-switch__thumb {
+    background-color: $light-blue;
+  }
+
+  .mdl-switch__track {
+    background-color: rgba($light-blue, 0.5);
+  }
+
+  span {
+    color: $light-blue;
+  }
+}
+
 .mdl-chip {
   background-color: $light-blue;
 

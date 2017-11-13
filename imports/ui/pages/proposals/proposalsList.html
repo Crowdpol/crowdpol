@@ -18,29 +18,31 @@
 
 			<!-- MDL tab panels, is-active to denote currently active -->
 			<div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
-				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="open-closed-switch">
+				<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="open-closed-switch">
 					<input type="checkbox" id="open-closed-switch" class="mdl-switch__input" checked>
 					<span class="mdl-switch__label">Open/Closed</span>
 				</label>
 
 				{{#if Template.subscriptionsReady}}
+					{{#if openSelected}}
+						<h4>Open Proposals</h4>
+						<ul class="delegate-list demo-list-control mdl-list">
+							{{#each openProposals}}
+								{{> ProposalCard}}
+							{{/each}}
+						</ul>
+					{{else}}
 
-				{{#if openSelected}}
+						<h4>Closed Proposals</h4>
+						<ul class="delegate-list demo-list-control mdl-list">
+							{{#each closedProposals}}
+								{{> ProposalCard}}
+							{{/each}}
+						</ul>
+					{{/if}}
 
-				<h4>Open Proposals</h4>
-				{{#each openProposals}}
-				{{> ProposalCard}}
-				{{/each}}
 				{{else}}
-
-				<h4>Closed Proposals</h4>
-				{{#each closedProposals}}
-				{{> ProposalCard}}
-				{{/each}}
-				{{/if}}
-
-				{{else}}
-				{{> loader}}
+					{{> loader}}
 				{{/if}}
 			</div>
 
@@ -49,31 +51,32 @@
 				<button class="add-new-proposal mdl-button mdl-js-button mdl-button--fab" id="add-new-proposal">
 					<i class="material-icons">add</i>
 				</button>
+
 				{{#if Template.subscriptionsReady}}
-				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="author-invited-switch">
-					<input type="checkbox" id="author-invited-switch" class="mdl-switch__input" checked>
-					<span class="mdl-switch__label">Author/Invited</span>
-				</label>
-				{{#if  authorSelected}}
+					<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="author-invited-switch">
+						<input type="checkbox" id="author-invited-switch" class="mdl-switch__input" checked>
+						<span class="mdl-switch__label">Created/Invited</span>
+					</label>
 
-				<h4>My proposals</h4>
+					{{#if authorSelected}}
+						<h4>My proposals</h4>
+						<ul class="delegate-list demo-list-control mdl-list">
+							{{#each myProposals}}
+								{{> ProposalCard}}
+							{{/each}}
+						</ul>
 
-				{{#each myProposals}}
-				{{> ProposalCard}}
-				{{/each}}
+					{{else}}
+						<h4>Proposals I contribute to</h4>
+						<ul class="delegate-list demo-list-control mdl-list">
+							{{#each invitedProposals}}
+								{{> ProposalCard}}
+							{{/each}}
+						</ul>
+					{{/if}}
 
 				{{else}}
-
-				<h4>Proposals I contribute to</h4>
-
-				{{#each invitedProposals}}
-				{{> ProposalCard}}
-				{{/each}}
-
-				{{/if}}
-
-				{{else}}
-				{{> loader}}
+					{{> loader}}
 				{{/if}}
 			</div>
 		</div>
@@ -81,7 +84,7 @@
 </template>
 
 <template name="ProposalCard">
-	<div class="proposal-item mdl-list__item">
+	<li class="proposal-item mdl-list__item">
 		<div class="card-main-wrap">
 			<span class="card-main mdl-list__item-primary-content">
 				<h6>{{ title }}</h6>
@@ -93,8 +96,8 @@
 		<div class="card-secondary-wrap">
 			<p class="proposal-abstract">{{ abstract }}</p>
 		</div>
-			<a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
-				Read More
-			</a>
-	</div>
+		<a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
+			Read More
+		</a>
+	</li>
 </template>
