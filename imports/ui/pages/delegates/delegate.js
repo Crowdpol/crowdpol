@@ -69,16 +69,43 @@ Template.Delegate.events({
 		Session.set('searchPhrase',event.target.value);
 	},
   'click .delegate-select': function(event, template){
+    console.log(this._id);
+    console.log(event);
+    console.log(template);
+    delegateId = this._id;
+    console.log(delegateId);
+    //(entityType,entityId,supporterId,ranking)
+    var ranks = Session.get('ranked');
+    console.log(ranks.length);
+    if(ranks.length>=5){
+      Bert.alert("You can only have 5 delegates.", 'danger');
+    }else{
+      Meteor.call('addRank','delegate',delegateId,1,function(error,result){
+        if (error) {
+          console.log(error);
+        } else {
+          //console.log(result);
+          Session.set('ranked',result);
+        }
+      });
+   }
+  },
+  'click .rank-select': function(event, template){
+
     delegateId = event.target.dataset.delegateId;
     console.log(delegateId);
-    Meteor.call('toggleRank','delegate',delegateId,Meteor.userId(),1,event.target.checked,function(error,result){
-      if (error) {
-        console.log(error);
-      } else {
-        //console.log(result);
-        Session.set('ranked',result);
-      }
-    });
+    //(entityType,entityId,supporterId,ranking,create)
+    
+
+      Meteor.call('removeRank','delegate',delegateId,1,event.target.checked,function(error,result){
+        if (error) {
+          console.log(error);
+        } else {
+          //console.log(result);
+          Session.set('ranked',result);
+        }
+      });
+
   },
 });
 
