@@ -1,0 +1,69 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+.proposal-item,
+.delegate-item {
+  flex-flow: row wrap;
+  position: relative;
+  padding: $space / 2;
+  margin-bottom: 1rem;
+  background-color: $light-grey-xlight;
+  box-shadow: 0 1px 5px rgba($black, 0.2);
+}
+
+.delegate-item.selected {
+  outline: ($space / 2) solid $light-blue;
+}
+
+.card-main-wrap {
+  display: flex;
+  flex-basis: 100%;
+  margin-bottom: $space / 2;
+
+  .card-main {
+    flex: 1;
+  }
+}
+
+.card-secondary-wrap {
+  flex-basis: 100%;
+  flex-flow: row wrap;
+}
+
+.proposal-date {
+  color: $light-blue;
+}
+
+.proposal-abstract {
+  margin-bottom: 0;
+  font-family: $default-font;
+  line-height: $base-line-height;
+  font-size: $small-font-size;
+  color: $dark-grey-dark;
+}
+
+.proposal-card-button {
+  margin-left: auto;
+}
+
+.add-new-proposal {
+  position: fixed;
+  bottom: $space * 3;
+  right: $space;
+  z-index: 2;
+  background-color: $bright-blue;
+  color: $white;
+
+  @include breakpoint($laptop) {
+    bottom: $space;
+  }
+}
+
+.proposal-switch {
+  margin-bottom: $space / 2;
+}
+
+.proposal-actions {
+  margin: $space 0;
+  text-align: right;
+}

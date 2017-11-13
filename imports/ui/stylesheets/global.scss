@@ -11,9 +11,10 @@
 }
 
 .app-container {
+  position: relative;
   max-width: 40rem;
   margin: 0 auto;
-  padding: $space / 2;
+  padding: $space ($space / 2) ($space * 3);
 }
 
 .static-content-wrap {
@@ -31,6 +32,10 @@
 .center {
   display: block;
   text-align: center;
+}
+
+.right {
+  text-align: right;
 }
 
 .title-underline {
@@ -59,6 +64,24 @@
 
   &:hover {
     background-color: $light-blue;
+  }
+}
+
+.secondary-button {
+  color: $light-blue;
+}
+
+.switch.is-checked {
+  .mdl-switch__thumb {
+    background-color: $light-blue;
+  }
+
+  .mdl-switch__track {
+    background-color: rgba($light-blue, 0.5);
+  }
+
+  span {
+    color: $light-blue;
   }
 }
 
