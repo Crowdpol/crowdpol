@@ -83,6 +83,8 @@ meteortoys:toykit@4.0.1
 minifier-css@1.2.16
 minifier-js@2.2.1
 minimongo@1.4.1
+mizzao:build-fetcher@0.2.0
+mizzao:jquery-ui@1.11.4
 mobile-experience@1.0.5
 mobile-status-bar@1.0.14
 modules@0.11.0

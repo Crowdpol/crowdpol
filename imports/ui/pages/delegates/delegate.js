@@ -18,6 +18,17 @@ Template.Delegate.onCreated(function () {
   	//Meteor.subscribe('users.delegates');
 });
 
+Template.Delegate.onRendered(function () {
+  Meteor.defer(function(){
+  $( "#sortable" ).sortable();
+  $( "#sortable" ).disableSelection();
+  console.log("rendered");
+  $( "#sortable" ).on("sortchange", sortEventHandler);
+  
+  });
+
+});
+
 Template.Delegate.helpers({
   ranks: function() {
     results = ReactiveMethod.call("getRanks", Meteor.userId(), "delegate");
@@ -119,4 +130,27 @@ function returnRanks(){
         return result;
       }
   });
+}
+
+function sortEventHandler(){
+  /*
+  var idsInOrder = $("#sortable").children();
+  jQuery.each( idsInOrder, function( i, val ) {
+    console.log("i: " + (i+1) + " val: " + val.id);
+  })
+  console.log(idsInOrder);
+  */
+  var listItems = $("#sortable li");
+  var ranking = [];
+  listItems.each(function(idx, li) {
+      var product = $(li);
+      if(!(product).hasClass( "ui-sortable-placeholder" )){
+        ranking.push(this.id);
+      }else{
+        console.log("ignore placeholder");
+      }
+      
+      // and the rest of your code
+  });
+  console.log(ranking)
 }
