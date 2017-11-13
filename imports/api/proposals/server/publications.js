@@ -17,9 +17,9 @@ Meteor.publish('proposals.public', function(search) {
 });
 
 //Proposals that are the user authored
-Meteor.publish('proposals.author', function(authorId, search) {
+Meteor.publish('proposals.author', function(search) {
 	let query = generateSearchQuery(search);
-	query.authorId = authorId;
+	query.authorId = this.userId;
 	return Proposals.find(query);
 });
 

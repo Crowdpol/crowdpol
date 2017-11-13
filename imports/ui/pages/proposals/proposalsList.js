@@ -10,7 +10,7 @@ Template.ProposalsList.onCreated(function () {
 
   self.autorun(function(){
     self.subscribe('proposals.public', self.searchQuery.get());
-    self.subscribe('proposals.author', Meteor.userId(), self.searchQuery.get());
+    self.subscribe('proposals.author', self.searchQuery.get());
     self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get());
   })
 });
