@@ -1,29 +1,34 @@
 <template name="Drawer">
-	<div class="mdl-layout__drawer">
+	<div class="side-nav mdl-layout__drawer">
 		<!-- Drawer Content -->
 		{{#if currentUser}}
-			<img src={{currentUser.profile.picture}}>
-			{{currentUser.profile.name}}
-			<hr>
+			<div class="side-nav-header">
+				<img src='img/profile-pic.png'>
+				<h6>Brett's mom</h6>
+				<!-- This does not render at the moment
+					<img src={{currentUser.profile.picture}}>
+				{{currentUser.profile.name}} -->
+			</div>
 		{{/if}}
-		<nav class="mdl-navigation">
+		<nav class="side-nav-link-wrap mdl-navigation">
 			{{#if currentUser}}
-				<a class="mdl-navigation__link" href="/dash">{{_ "drawer_nav_dash"}}</a>
+				<a class="side-nav-link mdl-navigation__link" href="/dash">{{_ "drawer_nav_dash"}}</a>
 				{{#if isInRole 'admin, superadmin'}}
-					<a class="mdl-navigation__link" href="/admin/dash">{{_ "drawer_nav_admin"}}</a>
+					<a class="side-nav-link mdl-navigation__link" href="/admin/dash">{{_ "drawer_nav_admin"}}</a>
 				{{/if}}
-				<a class="mdl-navigation__link" href="/profile">{{_ "drawer_nav_profile"}}</a>
-				<a class="mdl-navigation__link" href="/contact">{{_ "drawer_nav_contact"}}</a>
-				<a class="mdl-navigation__link" href="/privacy">{{_ "drawer_nav_privacy"}}</a>
-				<a class="mdl-navigation__link" href="/terms">{{_ "drawer_nav_terms"}}</a>
+				<a class="side-nav-link mdl-navigation__link" href="/profile">{{_ "drawer_nav_profile"}}</a>
+				<a class="side-nav-link mdl-navigation__link" href="/contact">{{_ "drawer_nav_contact"}}</a>
+				<!-- We don't have the real content yet - hiding for now
+					<a class="side-nav-link mdl-navigation__link" href="/privacy">{{_ "drawer_nav_privacy"}}</a>
+				<a class="side-nav-link mdl-navigation__link" href="/terms">{{_ "drawer_nav_terms"}}</a> -->
 			{{/if}}
     </nav>
     <div class="mdl-layout-spacer"></div>
-    <nav class="mdl-navigation">
+    <nav class="side-nav-link-wrap mdl-navigation">
 			{{#if currentUser}}
-				<a class="mdl-navigation__link" href="" id="drawer-nav-logout">{{_ "drawer_nav_logout"}}</a>
+				<a class="side-nav-link mdl-navigation__link" href="" id="drawer-nav-logout">{{_ "drawer_nav_logout"}}</a>
 			{{else}}
-				<a class="mdl-navigation__link" href="/login">{{_ "drawer_nav_login"}}</a>
+				<a class="side-nav-link mdl-navigation__link" href="/login">{{_ "drawer_nav_login"}}</a>
 			{{/if}}
     </nav>
 	</div>

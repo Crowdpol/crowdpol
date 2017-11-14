@@ -4,6 +4,7 @@ import './typography.scss';
 import './global.scss';
 import './headers.scss';
 import './footer.scss';
+import './side-nav.scss';
 import './forms.scss';
 
 import './home.scss';
