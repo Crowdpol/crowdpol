@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor'
 import SimpleSchema from 'simpl-schema';
 
-export const Votes = new Meteor.Collection('votes');
+export const DelegateVotes = new Meteor.Collection('delegateVotes');
 
-VotesSchema = new SimpleSchema({
+DelegateVotesSchema = new SimpleSchema({
 	proposalId: {
         type: String,
     },
@@ -12,12 +12,8 @@ VotesSchema = new SimpleSchema({
         allowedValues: ['yes', 'no'],
         defaultValue: 'yes'
     },
-    voterHash: {
-        type: String,
-    },
     delegateId: {
         type: String,
-        optional: true,
     },
     createdAt: {
         type: Date,
@@ -28,9 +24,9 @@ VotesSchema = new SimpleSchema({
 
 });
 
-Votes.attachSchema(VotesSchema);
+DelegateVotes.attachSchema(DelegateVotesSchema);
 
-Votes.allow({
+DelegateVotes.allow({
   insert() {
     return false;
   },
@@ -42,7 +38,7 @@ Votes.allow({
   },
 });
 
-Votes.deny({
+DelegateVotes.deny({
   insert() {
     return true;
   },
