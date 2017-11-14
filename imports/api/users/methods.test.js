@@ -108,7 +108,7 @@ if (Meteor.isServer) {
         website: "http://testuser.com",
         phone: '09324802394',
         contact: 'Contact McContact',
-        roles: 'organisation-delegate'
+        roles: 'delegate'
       };
       try {
         Meteor.call('addEntity', entityData);
@@ -133,7 +133,7 @@ if (Meteor.isServer) {
     it("Can clear a user's approvals", (done) => {
       try {
         testEntityID = Meteor.call('addEntity', entityData);
-        Meteor.call('addApproval', testEntityID, {approved: false, type: 'organisation-delegate'});
+        Meteor.call('addApproval', testEntityID, {approved: false, type: 'delegate'});
         Meteor.call('clearApprovals', testEntityID);
         done();
       } catch (err) {
@@ -145,7 +145,7 @@ if (Meteor.isServer) {
     it("Can set user's approvals to approved", (done) => {
       try {
         testEntityID = Meteor.call('addEntity', entityData);
-        Meteor.call('addApproval', testEntityID, {approved: false, type: 'organisation-delegate'});
+        Meteor.call('addApproval', testEntityID, {approved: false, type: 'delegate'});
         Meteor.call('approveUser', testEntityID);
         done();
       } catch (err) {
@@ -155,7 +155,7 @@ if (Meteor.isServer) {
     })
     it("Request admin approval", (done) => {
       try {
-        Meteor.call('requestApproval', testUser._id,'delegate-individual');
+        Meteor.call('requestApproval', testUser._id,'delegate');
         done();
       } catch (err) {
         console.log(err);

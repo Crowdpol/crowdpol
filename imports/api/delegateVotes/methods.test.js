@@ -15,9 +15,10 @@ Factory.define('user', Users)
 if (Meteor.isServer) {
   let testVote;
   
-  describe('Vote methods', () => {
+  describe('DelegateVote methods', () => {
     beforeEach(function () {
-      var testUser = {
+      // create a fake user
+      var testDelegate = {
         createdAt: new Date(),
         username: "test_user",
         password: 'test',
@@ -39,11 +40,15 @@ if (Meteor.isServer) {
           }
           ]
         },
-        roles: ["test"],
       }
     // stub Meteor's user method to simulate a logged in user
-    const userId = Accounts.createUser(testUser);
+    const userId = Accounts.createUser(testDelegate);
+    Roles.addUsersToRoles(userId, 'delegate');
     const user = Meteor.call('getUser', userId);
+    console.log('===================================')
+    console.log(user)
+    console.log(user.roles)
+    console.log('+++++++++++++++++++++++++++++++++++++')
     stub = sinon.stub(Meteor, 'user');
     stub.returns(user)
   });
@@ -51,12 +56,12 @@ if (Meteor.isServer) {
     // restores Meteor's user method
     sinon.restore(Meteor, 'user');
   });
-    it("Lets user vote", (done) => {
+    it("Lets delegate vote", (done) => {
       try {
         // create a fake proposal
         const proposal = Factory.create('proposal', generateDoc(schema.Proposal));
 
-        testVote = Meteor.call('vote', {vote: 'yes', proposalId: proposal._id});
+        testVote = Meteor.call('voteAsDelegate', {vote: 'yes', proposalId: proposal._id});
         done();
       } catch (err) {
         console.log(err);
@@ -66,7 +71,7 @@ if (Meteor.isServer) {
 
     it("Get vote", (done) => {
       try {
-        Meteor.call('getVote', testVote);
+        Meteor.call('getDelegateVote', testVote);
         done();
       } catch (err) {
         console.log(err);
@@ -76,7 +81,7 @@ if (Meteor.isServer) {
 
     it("Delete vote", (done) => {
       try {
-        Meteor.call('deleteVote', testVote);
+        Meteor.call('deleteDelegateVote', testVote);
         done();
       } catch (err) {
         console.log(err);
