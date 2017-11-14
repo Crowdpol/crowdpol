@@ -31,7 +31,11 @@
 						Submit Proposal
 					</button>
 				{{else}}
-					{{ status }}
+					<span class="mdl-chip">
+						<span class="mdl-chip__text">
+							{{ status }}
+						</span>
+					</span>
 				{{/if}}
 			</div>
 			{{#if isVotable}}

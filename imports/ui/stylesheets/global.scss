@@ -92,3 +92,12 @@
     color: $white;
   }
 }
+
+.mdl-data-table {
+  white-space: initial;
+  width: 100%;
+
+  th {
+    text-align: left;
+  }
+}
