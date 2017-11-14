@@ -37,11 +37,11 @@ accounts-twitter@1.4.0
 service-configuration@1.0.11
 alanning:roles
 
-#-- material design --
+#-- UI/design --
 zodiase:mdl						# MDL for Meteor
 dapearce:material-icons			# material icons, duh!
 fourseven:scss    				# SASS bitches!
-
+mizzao:jquery-ui
 
 #-- tools --
 email@1.2.3

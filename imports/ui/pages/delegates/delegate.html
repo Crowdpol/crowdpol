@@ -1,16 +1,42 @@
 <template name="Delegate">
 	<div class="app-container">
 		<h3>Delegate</h3>
-
+	
 	<div class="search-input input-wrap mdl-textfield mdl-js-textfield">
 			<label class="mdl-button mdl-js-button mdl-button--icon" for="sample1">
 				<i class="material-icons">search</i>
 			</label>
 			<input class="mdl-textfield__input" type="text"  id="delegate-search">
 			<label class="mdl-textfield__label" for="sample1"></label>
-		</div>
-	{{#if Template.subscriptionsReady}}
+	</div>
+	<ul id="sortable" class="delegate-list demo-list-control mdl-list" >
+		{{#each ranks}}
+		<li class="delegate-item selected mdl-list__item" id="{{_id}}">
+				 <div class="card-main-wrap">
+					<span class="card-main mdl-list__item-primary-content">
+						<img src={{profile.photo}} width="50px" height="50px" class="mdl-list__item-avatar">
+						<h6>{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})-{{_id}}</h6>
+					</span>
+					<span class="mdl-list__item-secondary-action">
+						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
+							<input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
+						</label>
+					</span>
+				 </div>
+
+			</li>
+			{{/each}}
+	</ul>
+	<!--
+	
+
+	
 	{{#each ranks}}
+	  <li class="">{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})</li>
+		{{/each}}
+	<ul class="delegate-list demo-list-control mdl-list" >
+	{{#each ranks}}
+
 	  <li class="delegate-item selected mdl-list__item">
 				 <div class="card-main-wrap">
 					<span class="card-main mdl-list__item-primary-content">
@@ -31,7 +57,12 @@
 					{{/each}}
 				</div>
 			</li>
-	{{/each}}
+		{{/each}}
+	</ul>
+	-->
+	
+	{{#if Template.subscriptionsReady}}
+	
 	<hr>
 	<ul class="delegate-list demo-list-control mdl-list">
 	
