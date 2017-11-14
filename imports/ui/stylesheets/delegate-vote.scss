@@ -18,7 +18,6 @@
 .card-main-wrap {
   display: flex;
   flex-basis: 100%;
-  margin-bottom: $space / 2;
 
   .card-main {
     flex: 1;
@@ -28,6 +27,14 @@
 .card-secondary-wrap {
   flex-basis: 100%;
   flex-flow: row wrap;
+  margin-top: $space / 2;
+}
+
+.delegate-name {
+  font-size: $small-font-size;
+  line-height: $base-line-height / 1.5;
+  letter-spacing: normal;
+  word-break: break-word;
 }
 
 .proposal-date {
