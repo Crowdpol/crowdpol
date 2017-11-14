@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import "./delegate.html"
+import { Ranks } from '../../../api/ranking/Ranks.js'
 
 Template.Delegate.onCreated(function () {
   Session.set('searchPhrase','');
@@ -8,9 +9,11 @@ Template.Delegate.onCreated(function () {
   self.ranks = new ReactiveVar([]);
   self.autorun(function() {
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate");
+    self.subscribe('ranks.all');
     results = ReactiveMethod.call("getRanks", Meteor.userId(), "delegate");
     //console.log(results);
     Session.set('ranked',results);
+    console.log("autorun complete");
   });
   
 	
@@ -19,17 +22,34 @@ Template.Delegate.onCreated(function () {
 });
 
 Template.Delegate.onRendered(function () {
+  $( "svg" ).delay( 750 ).fadeIn();
   Meteor.defer(function(){
-  $( "#sortable" ).sortable();
-  $( "#sortable" ).disableSelection();
-  console.log("rendered");
-  $( "#sortable" ).on("sortchange", sortEventHandler);
-  
+    $( "#sortable" ).sortable({
+      create: function( event, ui ) {
+        console.log('create called');
+      }
+    });
+    $( "#sortable" ).disableSelection();
+
+    $( "#sortable" ).on("sortchange", sortEventHandler);
+    console.log("rendered");  
+
+    
   });
 
 });
 
 Template.Delegate.helpers({
+  getRanking: function(template) {
+    
+    result = Ranks.findOne({entityType: 'delegate', entityId: this._id, supporterId: Meteor.userId()});
+    if(result){
+      //console.log("return rank");
+      return result.ranking;
+    }
+    //console.log("sorting");
+    //$( "#sortable" ).sortable( "refreshPositions" );
+  },
   ranks: function() {
     results = ReactiveMethod.call("getRanks", Meteor.userId(), "delegate");
     //console.log(results);
@@ -80,16 +100,16 @@ Template.Delegate.events({
 		Session.set('searchPhrase',event.target.value);
 	},
   'click .delegate-select': function(event, template){
-    console.log(this._id);
-    console.log(event);
-    console.log(template);
+    //console.log(this._id);
+    //console.log(template);
     delegateId = this._id;
-    console.log(delegateId);
+    //console.log(delegateId);
     //(entityType,entityId,supporterId,ranking)
     var ranks = Session.get('ranked');
     console.log(ranks.length);
     if(ranks.length>=5){
       Bert.alert("You can only have 5 delegates.", 'danger');
+      event.target.checked = false;
     }else{
       Meteor.call('addRank','delegate',delegateId,1,function(error,result){
         if (error) {
@@ -108,7 +128,7 @@ Template.Delegate.events({
     //(entityType,entityId,supporterId,ranking,create)
     
 
-      Meteor.call('removeRank','delegate',delegateId,1,event.target.checked,function(error,result){
+      Meteor.call('removeRank','delegate',delegateId,1,function(error,result){
         if (error) {
           console.log(error);
         } else {
@@ -133,13 +153,27 @@ function returnRanks(){
 }
 
 function sortEventHandler(){
+  $('#sortable').sortable({
+    update: function(event, ui) {
+      var order = $(this).sortable('toArray');
+      Meteor.call('updateRanks',order,'delegate', function(error,result){
+        if(error){
+          console.log(error)
+          Bert.alert("Ranking failed. " + error.reason, 'danger');
+        }else{
+          console.log(result);
+          Bert.alert("Ranking updated.", 'success');
+        }
+      });
+    }
+  });
   /*
   var idsInOrder = $("#sortable").children();
   jQuery.each( idsInOrder, function( i, val ) {
     console.log("i: " + (i+1) + " val: " + val.id);
   })
   console.log(idsInOrder);
-  */
+  
   var listItems = $("#sortable li");
   var ranking = [];
   listItems.each(function(idx, li) {
@@ -153,4 +187,5 @@ function sortEventHandler(){
       // and the rest of your code
   });
   console.log(ranking)
+  */
 }

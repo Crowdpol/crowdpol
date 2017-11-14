@@ -4,7 +4,7 @@ import { Ranks } from './Ranks.js';
 
 Meteor.methods({
     addRank: function (entityType,entityId,ranking) {
-      console.log("method addRank called");
+      //console.log("method addRank called");
       check(entityType, String);
       check(entityId, String);
       check(ranking, Number);
@@ -12,30 +12,36 @@ Meteor.methods({
       return Meteor.call('getRanks',Meteor.userId(),entityType);
     },
     removeRank: function (entityType,entityId) {
-      console.log("method addRank called");
+      //console.log("method addRank called");
       check(entityType, String);
       check(entityId, String);
       Ranks.remove({ entityType: entityType, entityId: entityId, supporterId: Meteor.userId()});
       return Meteor.call('getRanks',Meteor.userId(),entityType);
     },
     getRank: function (rankID) {
-      console.log("method getRank called");
+      //console.log("method getRank called");
       return Ranks.findOne({_id: rankID});
     },
     deleteRank: function (rankID) {
-      console.log("method deleteRank called");
       Ranks.remove(rankID);
     },
     getRanks: function(userId, type) {
       check(userId, String);
       check(type, String);
-      console.log("getRank: userId: " + userId + " type: " + type);
+      //console.log("getRank: userId: " + userId + " type: " + type);
       results = Ranks.aggregate([
         { $match: {"supporterId" : userId,"entityType" : type}},
         {$project:{"_id": 0,"entityId" :1}}
       ]).map(function(el) { return el.entityId });
-      console.log(results);
-      //Session.set("ranks",results);
       return results;
+    },
+    updateRanks: function(rankings,type){
+      check(rankings, [String]);
+      var rank = 1;
+      rankings.forEach(function(entry) {
+        currentRanking = Ranks.findOne({entityType: type, entityId: entry, supporterId: Meteor.userId()});
+        result = Ranks.update({_id: currentRanking._id},{$set: {"ranking": rank}});
+        rank+=1;
+      });
     }
 });
