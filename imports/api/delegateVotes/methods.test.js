@@ -45,10 +45,6 @@ if (Meteor.isServer) {
     const userId = Accounts.createUser(testDelegate);
     Roles.addUsersToRoles(userId, 'delegate');
     const user = Meteor.call('getUser', userId);
-    console.log('===================================')
-    console.log(user)
-    console.log(user.roles)
-    console.log('+++++++++++++++++++++++++++++++++++++')
     stub = sinon.stub(Meteor, 'user');
     stub.returns(user)
   });
