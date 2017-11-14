@@ -3,11 +3,12 @@
 		<!-- Drawer Content -->
 		{{#if currentUser}}
 			<div class="side-nav-header">
-				<img src='img/profile-pic.png'>
-				<h6>Brett's mom</h6>
-				<!-- This does not render at the moment
-					<img src={{currentUser.profile.picture}}>
-				{{currentUser.profile.name}} -->
+				<img src="{{currentUser.profile.photo}}">
+				{{#if currentUser.profile.firstname}}
+					<h6>{{currentUser.profile.firstname}} {{currentUser.profile.lastname}}</h6>
+				{{else}}
+					<h6>{{currentUser.profile.username}}</h6>
+				{{/if}}
 			</div>
 		{{/if}}
 		<nav class="side-nav-link-wrap mdl-navigation">
