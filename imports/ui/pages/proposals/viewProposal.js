@@ -29,13 +29,23 @@ Template.ViewProposal.onCreated(function(){
     }
   });
 
-  Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
+  if (Session.get('currentUserRole') == 'Delegate'){
+    Meteor.call('getDelegateVoteFor', proposalId, Meteor.userId(), function(error, result){
       if (result){
         dict.set( 'userVote', result.vote );
       } else {
         dict.set( 'userVote', '' );
       }
-  })
+    });
+  } else {
+     Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
+      if (result){
+        dict.set( 'userVote', result.vote );
+      } else {
+        dict.set( 'userVote', '' );
+      }
+    });
+  }
 
   this.templateDictionary = dict;
 });
@@ -149,6 +159,9 @@ Template.ViewProposal.helpers({
   isInvited: function() {
     return userIsInvited();
   },
+  isVotingAsDelegate: function(){
+    return (Session.get('currentUserRole') == 'Delegate');
+  },
   isAuthor: function() {
     return userIsAuthor();
   },
@@ -248,13 +261,28 @@ function transformComment(comment) {
 };
 
 function vote(voteString){
-  var vote = {vote: voteString, proposalId: FlowRouter.getParam("id"), delegateId: ''}
-  Meteor.call('vote', vote, function(error){
+  var currentRole = Session.get('currentUserRole');
+
+  if (currentRole == 'Delegate'){
+    // Vote as a delegate
+    var delegateVote = {vote: voteString, proposalId: FlowRouter.getParam("id")};
+    Meteor.call('voteAsDelegate', delegateVote, function(error){
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
         Bert.alert('Your vote has been cast', 'success');
       }
     });
+  } else {
+    // Vote as an individual voter
+    var vote = {vote: voteString, proposalId: FlowRouter.getParam("id"), delegateId: ''};
+    Meteor.call('vote', vote, function(error){
+      if (error){
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert('Your vote has been cast', 'success');
+      }
+    });
+  }
 };
 

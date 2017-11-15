@@ -62,6 +62,7 @@ Template.Header.events({
 });
 
 function getMenuRoles(userRoles){
+  console.log(userRoles)
   var menuRoles = ['individual', 'delegate', 'candidate'];
   return _.intersection(userRoles, menuRoles);
 }

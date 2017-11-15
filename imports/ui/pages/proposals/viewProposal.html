@@ -39,6 +39,10 @@
 				{{/if}}
 			</div>
 			{{#if isVotable}}
+				{{#if isVotingAsDelegate}}
+					<small>Please note that you are voting as a delegate. Your vote wil be public.</small>
+					<small>To switch to voting as an individual, click the 'Roles' menu.</small> <br/>
+				{{/if}}
 				<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} primary-button {{/if}}" id="vote-yes">
 					Yes
 				</button>
