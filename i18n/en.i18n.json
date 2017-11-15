@@ -126,12 +126,37 @@
 	},
 
 	"signup":{
+		"tab": {
+			"individual": "Individuals",
+			"entities": "Organisations/Political Parties"
+		},
+		"links": {
+			"login": "Already have an account? Log in",
+			"register": "Don't have an account? Register",
+			"forgot": "Forgot your password?"
+		},
+		"individual": {
+			"register": {
+				"title": "Signup"
+			},	
+			"login": {
+				"title": "Login"
+			}
+		},
 		"entity": {
 			"name": "Name of Entity",
 			"website": "Website",
 			"phone-number": "Phone number",
 			"contact-person": "Contact Person",
-			"type": "Entity Type"
+			"type": "Entity Type",
+			"register": {
+				"title": "Signup",
+				"loginlink": "Already have an account? Log in"
+			},	
+			"login": {
+				"title": "Login",
+				"signuplink": "Don't have an account? Register"
+			}
 		}
 	},
 
