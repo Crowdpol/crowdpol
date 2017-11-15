@@ -18,5 +18,16 @@ Meteor.methods({
         text: `An administrator has rejected your request to be a ${type}.`,
       });
     });
-  }
+  },
+  sendNewsletterConfirmation(email) {
+    Meteor.defer(() => {
+      Email.send({
+        to: `${email}`,
+        from: `Common Democracy <info@commondemocracy.org>`,
+        subject: `Newsletter Signup Confirmation`,
+        text: `Thank you for signing up to our newsletter. We will be sure to keep you up to date.`,
+      });
+      console.log("sendNewsletterConfirmation sent");
+    });
+  },
 });
