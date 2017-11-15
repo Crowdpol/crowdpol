@@ -1,5 +1,36 @@
 <template name="Drawer">
-	<div class="mdl-layout__drawer">
+	<div class="side-nav mdl-layout__drawer">
 		<!-- Drawer Content -->
+		{{#if currentUser}}
+			<div class="side-nav-header">
+				<img src="{{currentUser.profile.photo}}">
+				{{#if currentUser.profile.firstname}}
+					<h6>{{currentUser.profile.firstname}} {{currentUser.profile.lastname}}</h6>
+				{{else}}
+					<h6>{{currentUser.profile.username}}</h6>
+				{{/if}}
+			</div>
+		{{/if}}
+		<nav class="side-nav-link-wrap mdl-navigation">
+			{{#if currentUser}}
+				<a class="side-nav-link mdl-navigation__link" href="/dash">{{_ "drawer_nav_dash"}}</a>
+				{{#if isInRole 'admin, superadmin'}}
+					<a class="side-nav-link mdl-navigation__link" href="/admin/dash">{{_ "drawer_nav_admin"}}</a>
+				{{/if}}
+				<a class="side-nav-link mdl-navigation__link" href="/profile">{{_ "drawer_nav_profile"}}</a>
+				<a class="side-nav-link mdl-navigation__link" href="/contact">{{_ "drawer_nav_contact"}}</a>
+				<!-- We don't have the real content yet - hiding for now
+					<a class="side-nav-link mdl-navigation__link" href="/privacy">{{_ "drawer_nav_privacy"}}</a>
+				<a class="side-nav-link mdl-navigation__link" href="/terms">{{_ "drawer_nav_terms"}}</a> -->
+			{{/if}}
+    </nav>
+    <div class="mdl-layout-spacer"></div>
+    <nav class="side-nav-link-wrap mdl-navigation">
+			{{#if currentUser}}
+				<a class="side-nav-link mdl-navigation__link" href="" id="drawer-nav-logout">{{_ "drawer_nav_logout"}}</a>
+			{{else}}
+				<a class="side-nav-link mdl-navigation__link" href="/login">{{_ "drawer_nav_login"}}</a>
+			{{/if}}
+    </nav>
 	</div>
 </template>

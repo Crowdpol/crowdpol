@@ -1,0 +1,109 @@
+<template name='ViewProposal'>
+	<div class="app-container">
+		{{#if isVisible }}
+			<h3>{{ title }}</h3>
+
+			<div class="mdl-card__menu">
+				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+					<i class="material-icons">share</i>
+				</button>
+			</div>
+
+			<h5>Abstract</h5>
+			<p>{{ abstract }}</p>
+			<hr>
+			{{{ body }}}
+			<hr>
+
+			<small>Voting starts on: {{ startDate }}</small>
+			<br />
+			<small>Voting ends on: {{ endDate }}</small>
+
+			<div class="proposal-actions">
+				{{#if isEditable }}
+					<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
+						Edit Proposal
+					</button>
+				{{/if}}
+
+				{{#if isSubmittable }}
+					<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
+						Submit Proposal
+					</button>
+				{{else}}
+					<span class="mdl-chip">
+						<span class="mdl-chip__text">
+							{{ status }}
+						</span>
+					</span>
+				{{/if}}
+			</div>
+			{{#if isVotable}}
+				{{#if isVotingAsDelegate}}
+					<small>Please note that you are voting as a delegate. Your vote wil be public.</small>
+					<small>To switch to voting as an individual, click the 'Roles' menu.</small> <br/>
+				{{/if}}
+				<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} primary-button {{/if}}" id="vote-yes">
+					Yes
+				</button>
+				<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} primary-button {{/if}}" id="vote-no">
+					No
+				</button>
+
+				<hr>
+			{{/if}}
+
+			{{#if isInvited }}
+				<hr>
+				{{> CommentForm}}
+			{{/if}}
+
+			{{#if Template.subscriptionsReady}}
+				<ul class="demo-list-control mdl-list">
+					{{#each comments}}
+						{{> Comment}}
+					{{/each}}
+				</ul>
+			{{else}}
+				{{> loader}}
+			{{/if}}
+		{{else}}
+			<h3>Sorry, this proposal is not yet visible to the public.</h3>
+		{{/if}}
+	</div>
+</template>
+
+<!--============ Comment Form ============-->
+
+<template name="CommentForm">
+	<form class="comment-form" id="comment-form">
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<textarea class="mdl-textfield__input" type="text" rows= "5" id="comment-message" ></textarea>
+			<label class="mdl-textfield__label">Add a comment</label>
+		</div>
+		<div class="form-group">
+			<input class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" type="submit" value='{{_ "submit"}}'>
+		</div>
+	</form>
+</template>
+
+<!--============ Single Comment ============-->
+
+<template name="Comment">
+	<li class="delegate-item mdl-list__item">
+		<div class="card-main-wrap">
+			<span class="card-main mdl-list__item-primary-content">
+				<img src="{{avatar}}" class="mdl-list__item-avatar">
+				<h6>{{ username }}</h6>
+			</span>
+			<span class="right mdl-list__item-secondary-action">
+				<small class="proposal-date">{{ date }}</small>
+			</span>
+		</div>
+		<div class="card-secondary-wrap">
+			<p class="proposal-abstract">
+				{{ message }}
+			</p>
+		</div>
+	</li>
+</template>

@@ -1,0 +1,95 @@
+{
+  "galaxy.meteor.com": {
+    "env": {
+      "ROOT_URL": "https://localhost:3000",
+      "MONGO_URL": "",
+      "MONGO_OPLOG_URL": "",
+      "NODE_ENV": "development"
+    }
+  },
+  "public": {},
+  "private": {
+    "oAuth": {
+      "facebook": {
+        "appId": "106534056676989",
+        "secret": "0109f679d648b0943bac351963030e04"
+      },
+      "github": {
+        "clientId": "",
+        "secret": ""
+      },
+      "google": {
+        "clientId": "553314559559-ooer1f393t39b5755ghcnern9qi93vtm.apps.googleusercontent.com",
+        "secret": "Nd3lZ7vvC8uM1Zb_XuvNW4PQ"
+      },
+      "twitter": {
+        "consumerKey": "NfKKECOdFd4m8DSNFeImYHZpr",
+        "secret": "yMvyA4T8KKacwT1FaEcUhgUv8Nc7tPnmCHm369WYtNq44gxxtS"
+      }
+    },
+    "mailGun": "smtps://postmaster%40mg.commondemocracy.org:1bbade5a02f2baf06efc2da5b1d76cc6@smtp.mailgun.org:465",
+    "defaultUsers": [
+      {
+          "username": "admin_brett",
+          "email":"brett@commondemocracy.org",
+          "roles":["superadmin","admin","normal"],
+          "isPublic": false,
+          "profile": {
+            "username": "admin_brett",
+            "firstName": "Brett",
+            "lastName": "Jackman",
+            "organization": "Common Democracy",
+            "website": "http://www.commondemocracy.org",
+            "bio": "Systems administrator",
+            "photo": "/img/default-user-image.png"
+          }
+      },
+      {
+          "username": "admin_trudie",
+          "email":"tspangenberg1@gmail.com",
+          "roles":["superadmin","admin","normal"],
+          "isPublic": false,
+          "profile": {
+            "username": "admin_trudie",
+            "firstName": "Trudie",
+            "lastName": "Spangenberg",
+            "organization": "Common Democracy",
+            "website": "http://www.commondemocracy.org",
+            "bio": "Systems administrator",
+            "photo": "/img/default-user-image.png"
+          }
+      },
+      {
+          "username": "admin_tim",
+          "email":"tim@commondemocracy.org",
+          "roles":["superadmin","admin","normal"],
+          "isPublic": false,
+          "profile": {
+            "username": "admin_tim",
+            "firstName": "Tim",
+            "lastName": "Olsen",
+            "organization": "Common Democracy",
+            "website": "http://www.commondemocracy.org",
+            "bio": "Systems administrator",
+            "photo": "/img/default-user-image.png"
+          }
+      },
+      {
+          "username": "admin_sol",
+          "email":"solwicher@gmail.com",
+          "roles":["superadmin","admin","normal"],
+          "isPublic": false,
+          "profile": {
+            "username": "admin_sol",
+            "firstName": "Sol",
+            "lastName": "Wicher",
+            "organization": "Common Democracy",
+            "website": "http://www.commondemocracy.org",
+            "bio": "Systems administrator",
+            "photo": "/img/default-user-image.png"
+          }
+      }
+    ],
+    "demoUsers": 50
+  }
+}

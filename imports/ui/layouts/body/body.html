@@ -1,18 +1,27 @@
 <template name="App_body">
-	<div class="site mdl-layout mdl-js-layout">
-		<!-- imports/ui/components/layout/header/header.html -->
-		{{> Header}}
-		<!-- imports/ui/components/layout/drawer/drawer.html -->           
-    {{> Drawer}}
-    <main class="mdl-layout__content" style="flex: 1 0 auto;">
+	<div class="site mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		{{#if showDrawer}}
+			<!-- imports/ui/components/layout/header/header.html -->
+			{{> Header}}
+			<!-- imports/ui/components/layout/drawer/drawer.html -->
+
+    	{{> Drawer}}
+    	 <div class="mdl-layout__drawer-right">
+        <span class="mdl-layout-title">Notifications</span>
+       </div>
+    {{else}}
+    	{{> HomeHeader}}
+    {{/if}}
+    <main class="mdl-layout__content">
 			<div class="page-content">
 				<!-- Your content goes here -->
 				{{> Template.dynamic template=main}}
 			</div>
 		</main>
-		<!-- imports/ui/components/layout/footer/footer.html --> 
-		{{> Footer}}
+		<!-- imports/ui/components/layout/footer/footer.html -->
+		{{#if currentUser}}
+			{{> Footer}}
+		{{/if}}
 	</div>
 </template>
 
-  

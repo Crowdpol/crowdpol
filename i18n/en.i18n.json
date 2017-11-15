@@ -1,0 +1,185 @@
+{
+	"app_title": "Common Democracy",
+	"nav_home": "Home",
+	"nav_about": "About",
+	"nav_contact": "Contact",
+	"nav_login": "Login",
+	"nav_logout": "Logout",
+	"header_nav_login" : "Login / Register",
+	"drawer_nav_login" : "Log in",
+	"drawer_nav_logout": "Log out",
+	"drawer_nav_profile" : "Profile",
+	"drawer_nav_dash" : "Dashboard",
+	"drawer_nav_contact" : "Contact",
+	"drawer_nav_privacy" : "Privacy policy",
+	"drawer_nav_terms" : "Terms & conditions",
+	"drawer_nav_admin" : "Admin dashboard",
+	"home-title": "Home Page",
+	"dash-title": "Dashboard",
+	"login" : "Login",
+	"logout": "Log out",
+	"signup-button": "Sign Up",
+	"not-found_message": "Sorry, that page doesn't exist",
+	"not-found_home-link": "Go to home",
+	"lang_en": "English",
+	"lang_sv": "Swedish",
+	"email-address": "Email Address",
+	"password": "Password",
+	"login-title": "Login to get started:",
+	"signup-title": "No account yet? Sign up below:",
+	"logged-in-title": "You are already logged in",
+	"verify-account-message": "Please verify your email address before continuing.",
+	"unapproved-entity-message": "Your account has not yet been approved by an admin.",
+	"verify-resend-link": "Resend Verification Link",
+	"verify-success-message": "Verified! You can do things!",
+	"verify-success-alert": "Verification successful.",
+	"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",
+	"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",
+	"new-password": "New password",
+	"recovery-email": "Recovery email",
+	"submit": "Submit",
+	"recover-password-message": "Enter your email to receive instructions for resetting your password." ,
+	"reset-password-sent-message": "An email with password recovery instructions has been sent.",
+	"password-changed": "Your password has been changed successfully.",
+	"forgot-password-link": "Forgot your password?",
+
+	"emails": {
+		"verify-email": {
+			"subject": "Common Democracy: Please Verify Your Email",
+			"body": "To verify your email address __emailAddress__ visit the following link:\n\n __url__ \n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+		},
+		"reset-password": {
+			"subject": "Common Democracy: Reset Your Password",
+			"body": "To reset your password, simply click the link below: \n\n __url__ \n\n If you did not request to change your password, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+		}
+	},
+
+	"admin":{
+		"dash":{
+			"heading" : "Admin Dashboard",
+			"card": {
+				"users": {
+					"heading": "Users",
+					"text": "Add/Edit/Delete users, invite new people, change user roles.",
+					"link": "Manage Users"
+				},
+				"tags": {
+					"heading": "Tags",
+					"text": "Add/Edit/Delete tags used for filtering content.",
+					"link": "Manage Tags"
+				},
+				"approvals": {
+					"heading": "Approvals",
+					"text": "Approve or reject user requests to be delegates, organisations or political parties.",
+					"link": "Manage Approvals"
+				},
+				"proposals": {
+					"heading": "Proposals",
+					"text": "Review proposals submitted by users.",
+					"link": "Manage Proposals"
+				}
+			}
+		},
+		"users": {
+			"heading": "All Users",
+			"name": "Full Name",
+			"email": "Email Address",
+			"roles": "Roles",
+			"public": "Public",
+			"delete-button": "Delete",
+			"delete-message": "Are you sure you want to delete this user?",
+			"delete-title":"Permanently delete a user",
+			"delete-yes":"Yes",
+			"delete-no":"No",
+			"invite-heading": "Invite a New User:",
+			"invite-message": "Enter a user's email to send them an invitation to join.",
+			"invite-button": "Send Invite",
+			"invite-role": "User Role",
+			"approve-button": "Approve",
+			"reject-button": "Reject",
+			"invite-role": "User Role"
+		},
+		"tags": {
+			"heading": "Manage Tags",
+			"text": "Text",
+			"keyword": "Keyword",
+			"url": "URL",
+			"delete": "Delete",
+			"created": "Date created",
+			"approved": "Authorized",
+			"add-button": "Add",
+			"delete-button": "Delete"
+		},
+		"approvals": {
+			"heading": "Approvals",
+			"approve-button": "Approve",
+			"reject-button": "Reject"
+		}
+	},
+
+	"roles":{
+		"voter": "Voter",
+		"individual-delegate": "Individual Delegate",
+		"organisation-delegate": "Organisation Delegate",
+		"party-delegate": "Party Delegate",
+		"candidate": "Candidate"
+	},
+
+	"signup":{
+		"entity": {
+			"name": "Name of Entity",
+			"website": "Website",
+			"phone-number": "Phone number",
+			"contact-person": "Contact Person",
+			"type": "Entity Type"
+		}
+	},
+
+	"proposals": {
+		"edit": {
+			"title": "Title",
+			"abstract": "Summarise your proposal",
+			"startDate": "Start date for voting",
+			"endDate": "Closing date for voting",
+			"invited": "Invite others to collaborate by entering their usernames, separated by commas"
+		}
+	},
+
+	"name": "Name",
+	"subject": "Subject",
+	"contact-message": "Your message:",
+	"login-social": "Log in with Social Media",
+	"profile-title" : "Profile",
+	"profile-photo" : "Profile photo path",
+	"profile-username" : "Username",
+	"profile-firstname" : "First name",
+	"profile-lastname" : "Last name",
+	"profile-public" : "Public Profile",
+	"profile-private" : "Private Profile",
+	"profile-delegate" : "Delegate",
+	"profile-candidate" : "Candidate",
+	"profile-bio" : "About",
+	"profile-website" : "Website",
+	"profile-msg-public": "Profile is now public.",
+	"profile-msg-private": "Profile is now private.",
+	"profile-msg-updated": "Profile updated.",
+	"profile-msg-delegate-removed" : "Delegate Role removed.",
+	"profile-msg-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
+	"profile-msg-candidate-removed" : "Candidate Role removed.",
+	"profile-msg-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
+	"dash":{
+		"heading" : "Dashboard",
+		"card": {
+			"proposals": {
+				"heading": "Proposals",
+				"text": "View proposals.",
+				"link": "Vote"
+			},
+			"delegates": {
+				"heading": "Delegates",
+				"text": "Select your delegates",
+				"link": "Delegate"
+			}
+		}
+	}
+}

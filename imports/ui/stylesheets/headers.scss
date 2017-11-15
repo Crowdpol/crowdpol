@@ -1,0 +1,55 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+.logged-in-header {
+  background-color: $white;
+
+  .header-inner {
+    i,
+    a,
+    small {
+      color: $blue;
+    }
+  }
+}
+
+.mdl-layout__drawer-button i {
+  color: $blue;
+}
+
+.logged-out-header {
+  display: block;
+  background-color: $white;
+
+  .header-inner {
+    padding: 0 $space / 2;
+
+    h5,
+    a {
+      vertical-align: middle;
+      font-family: $home-title-font;
+      text-transform: uppercase;
+    }
+
+    i {
+      vertical-align: middle;
+      color: $yellow;
+      font-size: $space * 1.5;
+    }
+
+    h5 {
+      display: none;
+
+      @include breakpoint($tablet) {
+        display: inline-block;
+        margin: 0;
+        color: $bright-blue;
+      }
+    }
+
+    a {
+      color: $blue;
+    }
+  }
+}
+

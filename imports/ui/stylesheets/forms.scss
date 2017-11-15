@@ -1,0 +1,38 @@
+@import 'variables.scss';
+
+// Using the original class, this applies to all instances
+.mdl-textfield__input {
+  margin-top: $space / 2;
+}
+
+.input-wrap {
+  display: block;
+  overflow: hidden;
+  width: auto;
+  margin: auto;
+}
+
+.small-inputs-wrap {
+  display: flex;
+  justify-content: space-between;
+
+  .input-wrap {
+    flex-basis: 45%;
+    margin: 0;
+  }
+}
+
+.dropdown-icon {
+  position: absolute;
+  right: 0;
+  bottom: $space / 2;
+}
+
+.search-input input {
+  margin-top: 0;
+  padding: ($space / 4) ($space * 1.5);
+}
+
+.comment-form {
+  margin: ($space * 3) 0;
+}

@@ -1,0 +1,103 @@
+@import 'variables.scss';
+
+.container {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: $space;
+}
+
+.narrow-container {
+  max-width: 40rem;
+}
+
+.app-container {
+  position: relative;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: $space ($space / 2) ($space * 3);
+}
+
+.static-content-wrap {
+  padding-top: $space * 2;
+  padding-bottom: $space * 2;
+
+  h1,
+  h4,
+  h6 {
+    font-family: $home-title-font;
+    text-transform: uppercase;
+  }
+}
+
+.center {
+  display: block;
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.title-underline {
+  position: relative;
+  margin-bottom: $space * 1.5;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -($space / 2);
+    height: 1px;
+    left: 40%;
+    right: 40%;
+    background-color: $blue;
+  }
+}
+
+.p-subtitle {
+  font-style: italic;
+  max-block-size: $space * 2;
+}
+
+.primary-button {
+  background-color: $light-blue-dark;
+  color: $white;
+
+  &:hover {
+    background-color: $light-blue;
+  }
+}
+
+.secondary-button {
+  color: $light-blue;
+}
+
+.switch.is-checked {
+  .mdl-switch__thumb {
+    background-color: $light-blue;
+  }
+
+  .mdl-switch__track {
+    background-color: rgba($light-blue, 0.5);
+  }
+
+  span {
+    color: $light-blue;
+  }
+}
+
+.mdl-chip {
+  background-color: $light-blue;
+
+  .mdl-chip__text {
+    color: $white;
+  }
+}
+
+.mdl-data-table {
+  white-space: initial;
+  width: 100%;
+
+  th {
+    text-align: left;
+  }
+}

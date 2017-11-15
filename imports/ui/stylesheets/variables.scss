@@ -1,0 +1,49 @@
+// Colours
+$black: #061219;
+$dark-grey-xdark: #182528;
+$dark-grey-dark: #343f42;
+$dark-grey-mid: #50595b;
+$dark-grey-light: #687175;
+$dark-grey-xlight: #7c8284;
+
+$white: #fff;
+$light-grey-xlight: #fcfcfa;
+$light-grey-light: #f4f4f4;
+$light-grey-mid: #e0e0de;
+$light-grey-dark: #c1c0bd;
+$light-grey-xdark: #b2b1b1;
+
+$blue-xdark: #0b2830;
+$blue: #143c56;
+
+$light-blue: #83b9cf;
+$light-blue-dark: #76aac1;
+
+$bright-blue: #337ab7;
+
+$yellow: #eebd45;
+$yellow-light: #faedc1;
+
+// Base Colors
+$primary: $blue;
+$secondary: $bright-blue;
+$highlight: $light-blue;
+$alternative: $yellow;
+$warning: $yellow;
+
+// Fonts
+$default-font: 'Roboto', sans-serif;
+$body-font: 'Lora', serif;
+$home-title-font: 'Montserrat', sans-serif;
+$base-line-height: 1.6rem;
+$base-font-size: 1rem;
+$small-font-size: 0.8rem;
+
+$space: $base-line-height;
+
+// Media Queries
+$mobile: 480px !default;
+$tablet: 768px !default;
+$laptop: 1024px !default;
+$desktop: 1200px !default;
+$big: 1440px !default;

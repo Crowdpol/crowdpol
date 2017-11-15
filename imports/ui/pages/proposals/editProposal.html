@@ -1,0 +1,54 @@
+<template name='EditProposal'>
+	<!-- Include Quill stylesheet -->
+	<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+
+	<div class="app-container">
+		<h3>Write your proposal</h3>
+		<form id="edit-proposal-form">
+			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<label class="mdl-textfield__label">{{_ "proposals.edit.title"}}</label>
+				<input type="text" id="title" class="mdl-textfield__input">
+			</div>
+
+			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<textarea class="mdl-textfield__input" type="text" rows= "5" id="abstract"></textarea>
+				<label class="mdl-textfield__label">{{_ "proposals.edit.abstract"}}</label>
+			</div>
+
+			<!-- Toolbar for the quill editor -->
+			<div id="toolbar">
+				<button class="ql-bold">Bold</button>
+				<button class="ql-italic">Italic</button>
+			</div>
+
+			<!-- Quill editor container -->
+			<div id="body">
+			</div>
+
+			<div class="small-inputs-wrap">
+				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label class="mdl-textfield__label">{{_ "proposals.edit.startDate"}}</label>
+					<input type="date" id="startDate" class="mdl-textfield__input">
+				</div>
+
+				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label class="mdl-textfield__label">{{_ "proposals.edit.endDate"}}</label>
+					<input type="date" id="endDate" class="mdl-textfield__input">
+				</div>
+			</div>
+
+			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<label class="mdl-textfield__label">{{_ "proposals.edit.invited"}}</label>
+				<input type="text" id="invited" class="mdl-textfield__input">
+			</div>
+
+			<div class="form-group">
+				<input type="submit" id="save-proposal" class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" value="Save">
+				<input id="preview-proposal" class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" value="Preview">
+			</div>
+		</form>
+	</div>
+
+</template>
+
+

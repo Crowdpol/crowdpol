@@ -1,0 +1,94 @@
+{
+	"app_title": "Gemensam Demokrati",
+	"nav_home": "Hem",
+	"nav_about": "About",
+	"nav_contact": "Kontakta",
+	"nav_login": "Logga in",
+	"nav_logout": "Logga ut",
+	"header_nav_login" : "Logga in",
+	"drawer_nav_login" : "Logga in",
+	"drawer_nav_logout": "Logga ut",
+	"drawer_nav_dash" : "Instrumentbräda",
+	"drawer_nav_contact" : "Kontakta",
+	"drawer_nav_privacy" : "Integritetspolicy",
+	"drawer_nav_terms" : "Regler & Villkor",
+	"drawer_nav_admin" : "Administration Instrumentbräda",
+	"home-title": "hemsida",
+	"dash-title": "Instrumentbräda",
+	"login" : "Logga in",
+	"logout": "Logga ut",
+	"signup": "Bli Medlem",
+	"not-found_message": "Tyvärr, den sidan finns inte",
+	"not-found_home-link": "Gå till hemmet",
+	"lang_en": "Engelsk",
+	"lang_sv": "Svenska",
+	"email-address": "E-postadress",
+	"password": "Lösenord",
+	"login-title": "Logga in för att komma igång:",
+	"signup-title": "Inget konto än? Registrera dig nedan:",
+	"logged-in-title": "Du är redan inloggad.",
+	"verify-account-message": "Kontrollera din e-postadress innan du fortsätter.",
+	"verify-resend-link": "Skicka om verifieringslänk igen",
+	"verify-success-message": "Bekräftad! Du kan göra saker!",
+
+	"new-password": "Nytt Lösenord",
+	"recovery-email": "Återställningsmail",
+	"submit": "Lämna",
+	"recover-password-message": "Ange din e-post för att få instruktioner för att återställa ditt lösenord.",
+	"reset-password-sent-message": "Ett e-mail med instruktioner för återställning av lösenord har skickats.",
+	"password-changed": "Ditt lösenord har ändrats framgångsrikt.",
+	"forgot-password-link": "Glömt ditt lösenord?",
+
+	"emails": {
+		"verify-email": {
+			"subject": "Gemensam demokrati: Vänligen verifiera din e-postadress",
+			"body": "För att verifiera din e-postadress __emailAddress__ besök följande länk: \n\n __url__ \n\n Om du inte begärt denna verifiering ignorerar du det här e-postmeddelandet. Om du känner att något är fel kan du kontakta vårt supportteam: __supportEmail__."
+		},
+		"reset-password": {
+			"subject": "Common Democracy: Reset Your Password",
+			"body": "För att återställa ditt lösenord klickar du bara på länken nedan: \n\n __url__ \n\n Om du inte begärde att ändra ditt lösenord, ignorerar du det här e-postmeddelandet. Om du känner att något är fel kan du kontakta vårt supportteam: __supportEmail__."
+		}
+	},
+
+	"admin":{
+		"users": {
+			"heading": "Alla användare",
+			"name": "Fullständiga namn",
+			"email": "E-postadress",
+			"roles": "Roller",
+			"public": "Offentlig",
+			"delete-button": "Radera",
+			"delete-message": "Är du säker på att du vill radera den här användaren?",
+			"delete-title":"Ta bort en användare permanent",
+			"delete-yes":"Ja",
+			"delete-no":"Nej",
+			"invite-heading": "Bjud in en ny användare:",
+			"invite-message": "Ange en användares e-postmeddelande för att skicka en inbjudan att delta.",
+			"invite-button": "Skicka inbjudan",
+			"invite-role": "Användarroll"
+		}
+	},
+
+	"roles":{
+		"voter": "Väljare",
+		"individual-delegate": "Individuell delegat",
+		"organisation-delegate": "Organisationens delegat",
+		"party-delegate": "Party delegat",
+		"candidate": "Kandidat"
+	},
+
+	"proposals": {
+		"edit": {
+			"title": "Titel",
+			"abstract": "Sammanfatta ditt förslag",
+			"startDate": "Startdatum för omröstning",
+			"endDate": "Slutdatum för omröstning",
+			"invited": "Bjud in andra att samarbeta genom att ange e-postadresser, åtskilda av kommatecken"
+		}
+	},
+
+	"name": "Namn",
+	"subject": "Ämne",
+	"contact-message": "Ditt meddelande:",
+	"login-social": "Logga in med sociala medier"
+}
