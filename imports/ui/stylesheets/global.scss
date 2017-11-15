@@ -71,17 +71,33 @@
   color: $light-blue;
 }
 
-.switch.is-checked {
-  .mdl-switch__thumb {
-    background-color: $light-blue;
-  }
+.switch-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: $space;
 
-  .mdl-switch__track {
-    background-color: rgba($light-blue, 0.5);
-  }
+  .switch {
+    width: auto;
+    padding-left: $space * 1.5;
 
-  span {
-    color: $light-blue;
+    .mdl-switch__label {
+      left: 0;
+      vertical-align: top;
+    }
+
+    &.is-checked {
+      .mdl-switch__thumb {
+        background-color: $light-blue;
+      }
+
+      .mdl-switch__track {
+        background-color: rgba($light-blue, 0.5);
+      }
+
+      span {
+        color: $light-blue;
+      }
+    }
   }
 }
 

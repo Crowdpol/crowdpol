@@ -1,7 +1,7 @@
 <template name='ViewProposal'>
-	<div class="app-container">
+	<div class="app-container proposal-container">
 		{{#if isVisible }}
-			<h3>{{ title }}</h3>
+			<h1 class="proposal-title">{{ title }}</h1>
 
 			<div class="mdl-card__menu">
 				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
@@ -9,11 +9,15 @@
 				</button>
 			</div>
 
-			<h5>Abstract</h5>
-			<p>{{ abstract }}</p>
-			<hr>
-			{{{ body }}}
-			<hr>
+			<div class="proposal-wrap">
+				<h5>Abstract</h5>
+				<p>{{ abstract }}</p>
+			</div>
+
+			<div class="proposal-wrap">
+				<h5>Proposal</h5>
+				{{{ body }}}
+			</div>
 
 			<small>Voting starts on: {{ startDate }}</small>
 			<br />
@@ -39,22 +43,24 @@
 				{{/if}}
 			</div>
 			{{#if isVotable}}
+				<hr>
+				<h5>Vote on this proposal</h5>
 				{{#if isVotingAsDelegate}}
-					<small>Please note that you are voting as a delegate. Your vote wil be public.</small>
-					<small>To switch to voting as an individual, click the 'Roles' menu.</small> <br/>
+					<small>Please note that you are voting as a delegate. Your vote wil be public.</small><br/>
+					<small>To switch to voting as an individual, click the 'Roles' menu.</small>
 				{{/if}}
-				<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} primary-button {{/if}}" id="vote-yes">
-					Yes
-				</button>
-				<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} primary-button {{/if}}" id="vote-no">
-					No
-				</button>
-
+				<div class="vote-actions">
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} primary-button {{/if}}" id="vote-yes">
+						Yes
+					</button>
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} primary-button {{/if}}" id="vote-no">
+						No
+					</button>
+				</div>
 				<hr>
 			{{/if}}
 
 			{{#if isInvited }}
-				<hr>
 				{{> CommentForm}}
 			{{/if}}
 

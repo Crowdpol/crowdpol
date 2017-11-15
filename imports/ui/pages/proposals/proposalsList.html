@@ -18,10 +18,12 @@
 
 			<!-- MDL tab panels, is-active to denote currently active -->
 			<div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
-				<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="open-closed-switch">
-					<input type="checkbox" id="open-closed-switch" class="mdl-switch__input" checked>
-					<span class="mdl-switch__label">Open/Closed</span>
-				</label>
+				<div class="switch-wrap">
+					<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="open-closed-switch">
+						<input type="checkbox" id="open-closed-switch" class="mdl-switch__input" checked>
+						<span class="mdl-switch__label">Open/Closed</span>
+					</label>
+				</div>
 
 				{{#if Template.subscriptionsReady}}
 					{{#if openSelected}}
@@ -53,10 +55,12 @@
 				</button>
 
 				{{#if Template.subscriptionsReady}}
-					<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="author-invited-switch">
-						<input type="checkbox" id="author-invited-switch" class="mdl-switch__input" checked>
-						<span class="mdl-switch__label">Created/Invited</span>
-					</label>
+					<div class="switch-wrap">
+						<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="author-invited-switch">
+							<input type="checkbox" id="author-invited-switch" class="mdl-switch__input" checked>
+							<span class="mdl-switch__label">Created/Invited</span>
+						</label>
+					</div>
 
 					{{#if authorSelected}}
 						<h4>My proposals</h4>
