@@ -20,6 +20,9 @@
 						<h6 class="delegate-name">{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})-{{_id}}</h6>
 					</span>
 					<span class="mdl-list__item-secondary-action">
+					  <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored profile-view" data-profile-id="{{_id}}">
+						  <i class="material-icons">mood</i>
+						</button>
 						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
 							<input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
 						</label>
@@ -76,6 +79,9 @@
 						<h6 class="delegate-name">{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})</h6>
 					</span>
 					<span class="mdl-list__item-secondary-action">
+						<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored profile-view" data-profile-id="{{_id}}">
+						  <i class="material-icons">mood</i>
+						</button>
 						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delegate-checkbox-{{@index}}">
 							<input type="checkbox" id="delegate-checkbox-{{@index}}" class="mdl-checkbox__input delegate-select" />
 						</label>

@@ -138,6 +138,28 @@ Template.Candidate.events({
       });
 
   },
+  'click .profile-view': function(event, template){
+      console.log(this._id);
+        console.log("body rendering");
+        $('#notif').click(function(){
+         if($('.mdl-layout__drawer-right').hasClass('active')){       
+            $('.mdl-layout__drawer-right').removeClass('active'); 
+         }
+         else{
+            $('.mdl-layout__drawer-right').addClass('active'); 
+         }
+        });
+
+        $('.mdl-layout__obfuscator-right').click(function(){
+         if($('.mdl-layout__drawer-right').hasClass('active')){       
+            $('.mdl-layout__drawer-right').removeClass('active'); 
+         }
+         else{
+            $('.mdl-layout__drawer-right').addClass('active'); 
+         }
+        });
+        console.log("body rendering finito");
+  }
 });
 
 
