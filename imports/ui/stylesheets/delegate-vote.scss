@@ -12,7 +12,23 @@
 }
 
 .delegate-item.selected {
+  cursor: pointer;
   outline: ($space / 2) solid $light-blue;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: $space / 4;
+    top: $space / 4;
+    bottom: $space / 4;
+    width: 3px;
+    border-left: 2px dotted $light-grey-dark;
+    border-right: 2px dotted $light-grey-dark;
+  }
+
+  .card-avatar {
+    margin-left: $space / 2;
+  }
 }
 
 .card-main-wrap {
@@ -28,6 +44,11 @@
   flex-basis: 100%;
   flex-flow: row wrap;
   margin-top: $space / 2;
+}
+
+.card-avatar {
+  width: $space * 1.5;
+  height: $space * 1.5;
 }
 
 .delegate-name {
