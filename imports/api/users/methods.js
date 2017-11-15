@@ -219,6 +219,24 @@ Meteor.methods({
         return result[0].searchString;
       }
       return false;
+    },
+    signupNewsletter(email){
+        check(email,String);
+        testUser = {
+          email:  email,
+          password: Random.id()
+        };
+        testUser._id = Meteor.call('addUser', testUser);
+        Roles.addUsersToRoles(testUser._id, "newsletter");
+        Meteor.call('sendNewsletterConfirmation',email, (error, response) => {
+          if (error){
+            return false;
+          } else {
+            return true
+          }
+        });
+
+      return false;
     }
 });
 

@@ -2,7 +2,7 @@ import './signup.html';
 import './entitySignup.js';
 
 Template.Signup.events({
-	'submit #individual-signup-form' (event, template){
+	'submit #newletterSignupForm' (event, template){
 		event.preventDefault();
 
 		let user = {
