@@ -5,7 +5,7 @@
 	"nav_contact": "Contact",
 	"nav_login": "Login",
 	"nav_logout": "Logout",
-	"header_nav_login" : "Login / Register",
+	"header_nav_login" : "Login",
 	"drawer_nav_login" : "Log in",
 	"drawer_nav_logout": "Log out",
 	"drawer_nav_profile" : "Profile",

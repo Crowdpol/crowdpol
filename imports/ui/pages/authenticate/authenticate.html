@@ -1,56 +1,52 @@
 <template name="Authenticate">
-  <div class="container narrow-container auth-wrap">
-		<!-- Is User signed in? -->
-		{{#if currentUser}}
-			<!-- YES: Tell user, provide log out -->
-			<h5>{{_ "logged-in-title"}}</h5>
-			<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
-				{{_ "logout"}}
-			</button>
-		<!-- NO: Show login or Signup -->
-		{{else}}
-			<h2>{{_ "login-title"}}</h2>
-
-			<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-				<!-- Tab Bars -->
-				<div class="mdl-tabs__tab-bar">
-					<a href="#individual-login-panel" class="mdl-tabs__tab is-active">Individuals</a>
-					<a href="#entity-login-panel" class="mdl-tabs__tab">Organisations/Political Parties</a>
+	<!-- Is User signed in? -->
+	{{#if currentUser}}
+	<div class="container narrow-container auth-wrap">
+		<!-- YES: Tell user, provide log out -->
+		<h5>{{_ "logged-in-title"}}</h5>
+		<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
+			{{_ "logout"}}
+		</button>
+	</div>
+	<!-- NO: Show login or Signup -->
+	{{else}}
+		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+			<!-- Tab Bars -->
+			<div class="mdl-tabs__tab-bar">
+				<a href="#individual-login-panel" class="mdl-tabs__tab is-active">Individuals</a>
+				<a href="#entity-login-panel" class="mdl-tabs__tab">Organisations/Political Parties</a>
+			</div>
+			<!-- MDL tab panels, is-active to denote currently active -->
+			<div class="mdl-tabs__panel is-active" id="individual-login-panel">
+				<div id="individual-login" class="container narrow-container auth-wrap">
+					<h5>{{_ "login-title"}}</h5>
+					{{> SocialLogin}}
+					{{> Login}}
+					<a href="#" class="center" id="individual-signup-link">Don't have an account? Register</a>
 				</div>
-				<!-- MDL tab panels, is-active to denote currently active -->
-				<div class="mdl-tabs__panel is-active" id="individual-login-panel">
-					<div id="individual-login">
-						<h5>Individual Login</h5>
-						{{> SocialLogin}}
-						{{> Login}}
-   					<a href="#" class="center" id="individual-signup-link">Don't have an account? Register</a>
-					</div>
-					<div id="indivdual-signup"  style="display:none">
-						<h5>Individual Signup</h5>
-						{{> SocialLogin}}
-						{{> Signup}}
-						<a href="#" class="center" id="individual-login-link">Already have an account? Log in</a>
-					</div>
-				</div>
-				<div class="mdl-tabs__panel" id="entity-login-panel">
-					<div id="entity-login">
-						<h5>Organisation/Party Login</h5>
-						{{> Login}}
-						<a href="#" class="center" id="entity-signup-link">Don't have an account? Register</a>
-					</div>
-					<div id="entity-signup"  style="display:none">
-						<h5>Organisation/Party Signup</h5>
-						{{> entitySignup}}
-						<a href="#" class="center" id="entity-login-link">Already have an account? Log in</a>
-					</div>
+				<div id="indivdual-signup" class="container narrow-container auth-wrap" style="display:none">
+					<h5>Register as an individual</h5>
+					{{> SocialLogin}}
+					{{> Signup}}
+					<a href="#" class="center" id="individual-login-link">Already have an account? Log in</a>
 				</div>
 			</div>
-			
+			<div class="mdl-tabs__panel" id="entity-login-panel">
+				<div id="entity-login" class="container narrow-container auth-wrap">
+					<h5>Login as Organisation/Party</h5>
+					{{> Login}}
+					<a href="#" class="center" id="entity-signup-link">Don't have an account? Register</a>
+				</div>
+				<div id="entity-signup" class="container narrow-container auth-wrap" style="display:none">
+					<h5>Register as Organisation/Party</h5>
+					{{> entitySignup}}
+					<a href="#" class="center" id="entity-login-link">Already have an account? Log in</a>
+				</div>
+			</div>
+		</div>
 
-			
-		{{/if}}
-	</div>
-	<a href="/reset-password" class="center">{{_ "forgot-password-link"}}</a>
+	{{/if}}
+	<a href="/reset-password" class="password-link center">{{_ "forgot-password-link"}}</a>
 </template>
 
 <!-- Login buttons for Social Media OAuth -->

@@ -3,6 +3,10 @@
 .auth-wrap {
   max-width: 25rem;
 
+  h5 {
+    margin-bottom: $space * 1.5;
+  }
+
   .form-group {
     margin: 0 0 $space;
   }
@@ -16,6 +20,10 @@
   button {
     color: $white;
   }
+}
+
+.password-link {
+  margin-bottom: $space * 2;
 }
 
 #login-twitter {
