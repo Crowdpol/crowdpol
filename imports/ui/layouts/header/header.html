@@ -17,7 +17,28 @@
 					<a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
 				{{/unless}}
 
-				<!-- Right aligned menu below button -->
+				{{#if userHasMultipleRoles}}
+
+				<!-- Role Selection Menu -->
+				<a id="demo-menu-lower-left" class="mdl-navigation__link">
+					Switch Roles <i class="material-icons">arrow_drop_down</i>
+				</a>
+
+				<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+				    for="demo-menu-lower-left">
+				    {{#each roles}}
+				    	<li class="mdl-menu__item role-menu-item" data-role="{{this}}">
+							{{this}}
+							{{#if isCurrentRole this}}
+								<i class="material-icons small">check</i>
+							{{/if}}
+					    </li>
+				    {{/each}}
+				</ul>
+
+				{{/if}}
+
+				<!-- Language Menu -->
 				<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
 					<i class="material-icons">language</i>
 				</button>
