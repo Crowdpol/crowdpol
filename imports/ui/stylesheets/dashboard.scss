@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: $space;
+  margin: 0 ($space / 2) $space;
   padding: $space / 2;
 }
 
