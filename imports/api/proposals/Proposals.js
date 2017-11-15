@@ -5,7 +5,7 @@ import { Tracker } from 'meteor/tracker';
 export const Proposals = new Mongo.Collection('proposals');
 
 if ( Meteor.isServer ) {
-  Proposals._ensureIndex( { title: 1, abstract: 1, body: 1 } );
+  //Proposals._ensureIndex( { title: 1, abstract: 1, body: 1 } );
 }
 
 ProposalSchema = new SimpleSchema({

@@ -12,3 +12,5 @@ import './auth.scss';
 import './dashboard.scss';
 import './profile.scss';
 import './delegate-vote.scss';
+import './drawer-right.css';
+
