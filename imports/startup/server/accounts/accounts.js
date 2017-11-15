@@ -144,6 +144,7 @@ function normalizeSignupUser(user) {
   return _.extend(user, {
     //username,
     profile: userProfile,
+    roles: ['individual']
   });
 }
 
@@ -191,6 +192,7 @@ function normalizeDemoUser(profile, user) {
   return _.extend(user, {
     //username,
     profile: userProfile,
+    roles: ['individual']
   });
 }
 

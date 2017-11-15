@@ -21,5 +21,8 @@ import '../../api/votes/server/publications.js';
 import '../../api/ranking/methods.js';
 import '../../api/ranking/server/publications.js';
 
+import '../../api/delegateVotes/methods.js';
+import '../../api/delegateVotes/server/publications.js';
+
 
 
