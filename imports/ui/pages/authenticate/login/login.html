@@ -1,6 +1,4 @@
 <template name="Login">
-  <h2>{{_ "login-title"}}</h2>
-  {{> SocialLogin}}
   <form id="login-form" class="login">
     <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <label class="mdl-textfield__label" for="emailAddress">{{_ "email-address"}}</label>
@@ -13,8 +11,5 @@
     <div class="form-group">
       <input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "login"}}'>
     </div>
-    <a href="/reset-password" class="center">{{_ "forgot-password-link"}}</a>
-    <a href="#" class="center">Don't have an account? Register</a>
-    <a href="#" class="center">Register as an organisation or party</a>
   </form>
 </template>

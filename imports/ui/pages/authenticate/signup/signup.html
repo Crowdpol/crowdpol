@@ -1,8 +1,4 @@
 <template name="Signup">
-	<h2>{{_ "signup-title"}}</h2>
-
-	{{> SocialLogin}}
-
 	<form id="individual-signup-form" class="signup">
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="emailAddress">{{_ "email-address"}}</label>
@@ -16,6 +12,4 @@
 			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "signup-button"}}'>
 		</div>
 	</form>
-	<a href="#" class="center">Register as an organisation or party</a>
-	<a href="#" class="center">Already have an account? Log in</a>
 </template>

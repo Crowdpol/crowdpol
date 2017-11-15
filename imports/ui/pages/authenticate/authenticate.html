@@ -9,13 +9,48 @@
 			</button>
 		<!-- NO: Show login or Signup -->
 		{{else}}
-			{{> Login}}
+			<h2>{{_ "login-title"}}</h2>
 
-			{{> Signup}}
+			<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+				<!-- Tab Bars -->
+				<div class="mdl-tabs__tab-bar">
+					<a href="#individual-login-panel" class="mdl-tabs__tab is-active">Individuals</a>
+					<a href="#entity-login-panel" class="mdl-tabs__tab">Organisations/Political Parties</a>
+				</div>
+				<!-- MDL tab panels, is-active to denote currently active -->
+				<div class="mdl-tabs__panel is-active" id="individual-login-panel">
+					<div id="individual-login">
+						<h5>Individual Login</h5>
+						{{> SocialLogin}}
+						{{> Login}}
+   					<a href="#" class="center" id="individual-signup-link">Don't have an account? Register</a>
+					</div>
+					<div id="indivdual-signup"  style="display:none">
+						<h5>Individual Signup</h5>
+						{{> SocialLogin}}
+						{{> Signup}}
+						<a href="#" class="center" id="individual-login-link">Already have an account? Log in</a>
+					</div>
+				</div>
+				<div class="mdl-tabs__panel" id="entity-login-panel">
+					<div id="entity-login">
+						<h5>Organisation/Party Login</h5>
+						{{> Login}}
+						<a href="#" class="center" id="entity-signup-link">Don't have an account? Register</a>
+					</div>
+					<div id="entity-signup"  style="display:none">
+						<h5>Organisation/Party Signup</h5>
+						{{> entitySignup}}
+						<a href="#" class="center" id="entity-login-link">Already have an account? Log in</a>
+					</div>
+				</div>
+			</div>
+			
 
-			{{> entitySignup}}
+			
 		{{/if}}
 	</div>
+	<a href="/reset-password" class="center">{{_ "forgot-password-link"}}</a>
 </template>
 
 <!-- Login buttons for Social Media OAuth -->
