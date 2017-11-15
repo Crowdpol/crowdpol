@@ -1,16 +1,16 @@
 import { Meteor } from 'meteor/meteor';
-import "./delegate.html"
+import "./candidates.html"
 import { Ranks } from '../../../api/ranking/Ranks.js'
 
-Template.Delegate.onCreated(function () {
+Template.Candidate.onCreated(function () {
   Session.set('searchPhrase','');
   
   var self = this;
   self.ranks = new ReactiveVar([]);
   self.autorun(function() {
-    self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate");
+    self.subscribe("simpleSearch",Session.get('searchPhrase'),"candidate");
     self.subscribe('ranks.all');
-    results = ReactiveMethod.call("getRanks", Meteor.userId(), "delegate");
+    results = ReactiveMethod.call("getRanks", Meteor.userId(), "candidate");
     //console.log(results);
     Session.set('ranked',results);
     console.log("autorun complete");
@@ -18,10 +18,10 @@ Template.Delegate.onCreated(function () {
   
 	
   
-  	//Meteor.subscribe('users.delegates');
+  	//Meteor.subscribe('users.candidates');
 });
 
-Template.Delegate.onRendered(function () {
+Template.Candidate.onRendered(function () {
   $( "svg" ).delay( 750 ).fadeIn();
   Meteor.defer(function(){
     $( "#sortable" ).sortable({
@@ -39,10 +39,10 @@ Template.Delegate.onRendered(function () {
 
 });
 
-Template.Delegate.helpers({
+Template.Candidate.helpers({
   getRanking: function(template) {
     
-    result = Ranks.findOne({entityType: 'delegate', entityId: this._id, supporterId: Meteor.userId()});
+    result = Ranks.findOne({entityType: 'candidate', entityId: this._id, supporterId: Meteor.userId()});
     if(result){
       //console.log("return rank");
       return result.ranking;
@@ -51,7 +51,7 @@ Template.Delegate.helpers({
     //$( "#sortable" ).sortable( "refreshPositions" );
   },
   ranks: function() {
-    results = ReactiveMethod.call("getRanks", Meteor.userId(), "delegate");
+    results = ReactiveMethod.call("getRanks", Meteor.userId(), "candidate");
     //console.log(results);
     return Meteor.users.find( { _id : { $in :  Session.get('ranked')} } );
     /*
@@ -68,7 +68,7 @@ Template.Delegate.helpers({
     return result;
     */
   },
-  delegates: function() {
+  candidates: function() {
     return Meteor.users.find( { $and: [ 
       { _id : { $nin : Session.get('ranked')}},
       { _id : { $ne: Meteor.userId()} }
@@ -77,7 +77,7 @@ Template.Delegate.helpers({
     /*
     if (Session.get("searchPhrase")) {
     	console.log("returning search");
-    	//return Meteor.users.find({roles: "delegate"});	
+    	//return Meteor.users.find({roles: "candidate"});	
       return Meteor.users.find({$and:[
         {_id: { $ne: Meteor.userId() },
         { _id : { $nin :  Session.get('ranked')} }
@@ -93,7 +93,7 @@ Template.Delegate.helpers({
   }
 });
 
-Template.Delegate.events({
+Template.Candidate.events({
 	'keyup #delegate-search': function(event, template){
 		//console.log("keyup pressed");
 		//console.log(event.target.value);
@@ -102,16 +102,16 @@ Template.Delegate.events({
   'click .delegate-select': function(event, template){
     //console.log(this._id);
     //console.log(template);
-    delegateId = this._id;
-    //console.log(delegateId);
+    candidateId = this._id;
+    //console.log(candidateId);
     //(entityType,entityId,supporterId,ranking)
     var ranks = Session.get('ranked');
     console.log(ranks.length);
     if(ranks.length>=5){
-      Bert.alert("You can only have 5 delegates.", 'danger');
+      Bert.alert("You can only have 5 candidates.", 'danger');
       event.target.checked = false;
     }else{
-      Meteor.call('addRank','delegate',delegateId,1,function(error,result){
+      Meteor.call('addRank','candidate',candidateId,1,function(error,result){
         if (error) {
           console.log(error);
         } else {
@@ -123,12 +123,12 @@ Template.Delegate.events({
   },
   'click .rank-select': function(event, template){
 
-    delegateId = this._id;
+    candidateId = this._id;
     console.log(this._id);
     //(entityType,entityId,supporterId,ranking,create)
     
 
-      Meteor.call('removeRank','delegate',delegateId,1,function(error,result){
+      Meteor.call('removeRank','candidate',candidateId,1,function(error,result){
         if (error) {
           console.log(error);
         } else {
@@ -142,7 +142,7 @@ Template.Delegate.events({
 
 
 function returnRanks(){
-  Meteor.call('getRanks',Meteor.userId(),'delegate', function(error, result){
+  Meteor.call('getRanks',Meteor.userId(),'candidate', function(error, result){
       if(error){
         console.log(error);
       }else{
@@ -156,7 +156,7 @@ function sortEventHandler(){
   $('#sortable').sortable({
     update: function(event, ui) {
       var order = $(this).sortable('toArray');
-      Meteor.call('updateRanks',order,'delegate', function(error,result){
+      Meteor.call('updateRanks',order,'candidate', function(error,result){
         if(error){
           console.log(error)
           Bert.alert("Ranking failed. " + error.reason, 'danger');

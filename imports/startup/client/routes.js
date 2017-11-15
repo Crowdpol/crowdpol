@@ -196,3 +196,10 @@ FlowRouter.route('/delegate', {
     BlazeLayout.render('App_body', { main: 'Delegate' });
   },
 });
+
+FlowRouter.route('/candidate', {
+  name: 'App.candidate',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Candidate' });
+  },
+});
