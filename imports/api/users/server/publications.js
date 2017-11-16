@@ -10,6 +10,12 @@ Meteor.publish('users.all', function () {
   return Meteor.users.find();
 });
 
+Meteor.publish('user.profile', function(userId) {
+  check(userId,String);
+
+  return Meteor.users.find({_id: userId},{profile: 1,roles: 1,isPublic: 1});
+});
+
 // Publish approvals to list 
 Meteor.publish('users.pendingApprovals', function() {
 	//return Meteor.users.find({'profile.approvals.approved':false});

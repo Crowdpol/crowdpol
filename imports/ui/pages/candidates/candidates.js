@@ -34,7 +34,6 @@ Template.Candidate.onRendered(function () {
     $( "#sortable" ).on("sortchange", sortEventHandler);
     console.log("rendered");  
 
-    
   });
 
 });
@@ -138,27 +137,16 @@ Template.Candidate.events({
       });
 
   },
-  'click .profile-view': function(event, template){
-      console.log(this._id);
-        console.log("body rendering");
-        $('#notif').click(function(){
-         if($('.mdl-layout__drawer-right').hasClass('active')){       
-            $('.mdl-layout__drawer-right').removeClass('active'); 
-         }
-         else{
-            $('.mdl-layout__drawer-right').addClass('active'); 
-         }
-        });
-
-        $('.mdl-layout__obfuscator-right').click(function(){
-         if($('.mdl-layout__drawer-right').hasClass('active')){       
-            $('.mdl-layout__drawer-right').removeClass('active'); 
-         }
-         else{
-            $('.mdl-layout__drawer-right').addClass('active'); 
-         }
-        });
-        console.log("body rendering finito");
+  'click .candidate-view': function(event, template){
+    console.log('show drawer ' + this._id);
+    Session.set('drawerId',this._id);
+    if($('.mdl-layout__drawer-right').hasClass('active')){       
+        $('.mdl-layout__drawer-right').removeClass('active'); 
+     }
+     else{
+        $('.mdl-layout__drawer-right').addClass('active'); 
+     }
+    
   }
 });
 

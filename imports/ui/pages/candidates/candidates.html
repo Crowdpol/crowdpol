@@ -15,7 +15,7 @@
 				{{#each ranks}}
 					<li class="delegate-item selected mdl-list__item" id="{{_id}}" data-ex="{{getRanking}}">
 					<div class="card-main-wrap">
-						<span class="card-main mdl-list__item-primary-content">
+						<span class="card-main mdl-list__item-primary-content candidate-view">
 							<img src={{profile.photo}} class="card-avatar mdl-list__item-avatar">
 							<h6 class="delegate-name">{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})-{{_id}}</h6>
 						</span>
@@ -71,7 +71,7 @@
 		{{#each candidates}}
 			<li class="delegate-item mdl-list__item">
 				<div class="card-main-wrap">
-					<span class="card-main mdl-list__item-primary-content">
+					<span class="card-main mdl-list__item-primary-content candidate-view">
 						<img src={{profile.photo}} class="card-avatar mdl-list__item-avatar">
 						<h6 class="delegate-name">{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})</h6>
 					</span>
