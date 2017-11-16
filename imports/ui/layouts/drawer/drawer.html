@@ -34,3 +34,18 @@
     </nav>
 	</div>
 </template>
+
+<template name="RightDrawer">
+	<div class="mdl-layout__drawer-right">
+			<div class="side-nav-header">
+				<img src="{{user.profile.photo}}">
+				({{user.profile.type}})
+			</div>
+			{{user.profile.firstName}} {{user.profile.lastName}}<br>
+			({{user.profile.username}})<br>
+			{{user.profile.bio}}<br>
+			{{#each user.profile.roles}}
+				{{this}}
+			{{/each}}
+	</div>
+</template>
