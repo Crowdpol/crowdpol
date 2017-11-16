@@ -196,7 +196,6 @@ function registerDemoUsers(numUsers){
 }
 
 function createDemoProposal(){
-
 	var tagObjects = _.map(['environment', 'gender'], function(keyword){
 			 	var tag = Meteor.call('getTagByKeyword', keyword);
 			 	return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};

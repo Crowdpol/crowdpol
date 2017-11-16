@@ -17,15 +17,15 @@ Template.TagSearch.helpers({
 	},
 	candidates(){
 		var keyword = FlowRouter.getParam('keyword');
-		return Meteor.users.find({roles: "candidate", 'profile.tags':keyword});
+		return Meteor.users.find({roles: 'candidate', 'profile.tags': { $elemMatch: {keyword: keyword}}});
 	},
 	delegates(){
 		var keyword = FlowRouter.getParam('keyword');
-		return Meteor.users.find({roles: "delegate", 'profile.tags':keyword});
+		return Meteor.users.find({roles: 'delegate', 'profile.tags': { $elemMatch: {keyword: keyword}}});
 	},
 	proposals(){
 		var keyword = FlowRouter.getParam('keyword');
-		return Proposals.find({tags: keyword}, {transform: transformProposal});
+		return Proposals.find({tags: { $elemMatch: {keyword: keyword}}}, {transform: transformProposal});
 	}
 });
 

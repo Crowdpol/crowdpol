@@ -30,6 +30,13 @@ Meteor.publish('proposals.invited', function(username, search) {
 	return Proposals.find(query);
 });
 
+Meteor.publish('proposals.withTag', function (keyword) {
+  var tag = Meteor.call('getTagByKeyword', keyword)
+  if (tag){
+    return Proposals.find({tags: { $elemMatch: {_id: tag._id}}});
+  }
+});
+
 function generateSearchQuery(searchTerm){
 	check(searchTerm, Match.OneOf(String, null, undefined));
 

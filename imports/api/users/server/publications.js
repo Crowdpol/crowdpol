@@ -33,12 +33,18 @@ Meteor.publish('users.delegates', function () {
   return Meteor.users.find({roles: "delegate"});
 });
 
-Meteor.publish('users.candidatesWithTag', function (tag) {
-  return Meteor.users.find({roles: "candidate", 'profile.tags': tag});
+Meteor.publish('users.candidatesWithTag', function (keyword) {
+  var tag = Meteor.call('getTagByKeyword', keyword)
+  if (tag){
+    return Meteor.users.find({roles: 'candidate', 'profile.tags': { $elemMatch: {_id: tag._id}}});
+  }
 });
 
-Meteor.publish('users.delegatesWithTag', function (tag) {
-  return Meteor.users.find({roles: "delegate", 'profile.tags': tag});
+Meteor.publish('users.delegatesWithTag', function (keyword) {
+  var tag = Meteor.call('getTagByKeyword', keyword)
+  if (tag){
+    return Meteor.users.find({roles: 'delegate', 'profile.tags': { $elemMatch: {_id: tag._id}}});
+  }
 });
 
 Meteor.publish("user.search", function(searchValue) {
