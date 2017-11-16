@@ -2,7 +2,7 @@ import './signup.html';
 import './entitySignup.js';
 
 Template.Signup.events({
-	'submit #newletterSignupForm' (event, template){
+	'submit #individual-signup-form' (event, template){
 		event.preventDefault();
 
 		let user = {
@@ -14,6 +14,7 @@ Template.Signup.events({
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
+				FlowRouter.go('/dash');
 				Meteor.call('sendVerificationLink', (error, response) => {
 					if (error){
 						Bert.alert(error.reason, 'danger');
