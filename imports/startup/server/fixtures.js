@@ -6,6 +6,7 @@ import { Proposals } from '../../api/proposals/Proposals.js'
 
 Meteor.startup(() => {
   //register administrators
+  createDemoTags();
   registerAdmins();
   registerDemoUsers(Meteor.settings.private.demoUsers);
   createDemoProposal();
@@ -16,7 +17,6 @@ function registerAdmins(){
 	for(var x = 0; x < admins.length; x++){
 		createAdmins(admins[x]);
 	}
-	
 }
 
 createAdmins= function (admin) {
@@ -58,6 +58,12 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function createDemoTags(){
+	var tags = ['Environment', 'Economics', 'Gender', 'Food-security', 'Technology'];
+	_.each(tags, function(text){ Meteor.call('addTag', text) });
+
+}
+
 function createDemoUsers(users){
 	var successCount = 0;
 	for(var x = 0; x < users.length; x++){
@@ -66,21 +72,22 @@ function createDemoUsers(users){
 			var num = getRandomInt(0,8);
 			var type = '';
 			var roles = [];
+			var keywords = '';
 			switch (num) {
 			    case 0:
 			        roles = ["candidate","party","demo"];
 			        type = 'Entity';
-			        tags = ['environment', 'economics', 'gender', 'food-security', 'technology']
+			        keywords = ['environment', 'economics', 'gender', 'food-security', 'technology']
 			        break;
 			    case 1:
 			        roles = ["candidate","organisation","demo"];
 			        type = 'Entity';
-			        tags = ['economics']
+			        keywords = ['economics']
 			        break;
 			    case 2:
 			        roles = ["delegate","party","demo"];
 			        type = 'Entity';
-			        tags = ['gender', 'food-security', 'technology']
+			        keywords = ['gender', 'food-security', 'technology']
 			        break;
 			    case 3:
 			    	roles = ["delegate","organisation","demo"];
@@ -89,31 +96,37 @@ function createDemoUsers(users){
 			    case 4:
 			    	roles = ["delegate","candidate","organisation","demo"];
 			    	type = 'Entity';
-			    	tags = ['technology']
+			    	keywords = ['technology']
 			        break;
 			    case 5:
 			    	roles = ["candidate","delegate","party","demo"];
 			    	type = 'Entity';
-			    	tags = ['environment']
+			    	keywords = ['environment']
 			        break;
 			    case 6:
 			    	roles = ["candidate","individual","demo"];
 			    	type = 'Individual';
-			    	tags = ['food-security', 'technology']
+			    	keywords = ['food-security', 'technology']
 			        break;
 			    case 7:
 			    	roles = ["delegate","individual","demo"];
 			    	type = 'Individual';
-			    	tags = ['environment','gender']
+			    	keywords = ['environment','gender']
 			        break;
 			    case 8:
 			    	roles = ["delegate,candidate,individual","demo"];
 			    	type = 'Individual';
-			    	tags = ['environment']
+			    	keywords = ['environment']
 			        break;
 			    default:
 
 			 }
+
+			 var tagObjects = _.map(keywords, function(keyword){
+			 	var tag = Meteor.call('getTagByKeyword', keyword);
+			 	return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
+			 })
+
 			var id = Accounts.createUser({
 				username: Random.id(),
 				email : users[x].email,
@@ -125,7 +138,7 @@ function createDemoUsers(users){
 					lastName: users[x].name.last,
 					photo: users[x].picture.thumbnail,
 					type: type,
-					tags: tags,
+					tags: tagObjects,
 					credentials : [
 						{
 							"source" : "default",
@@ -184,6 +197,11 @@ function registerDemoUsers(numUsers){
 
 function createDemoProposal(){
 
+	var tagObjects = _.map(['environment', 'gender'], function(keyword){
+			 	var tag = Meteor.call('getTagByKeyword', keyword);
+			 	return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
+			 })
+
 	if (Proposals.find({title: 'Demo Proposal'}).count() < 1){
 		var proposal = {
 			title: 'Demo Proposal',
@@ -191,7 +209,7 @@ function createDemoProposal(){
 			body: 'Praesent at laoreet risus. Mauris eleifend nunc quis orci venenatis vestibulum. Nam ante elit, bibendum sed tempus sed, bibendum eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
 			startDate: new Date(),
 			endDate: new Date(),
-			tags: ['environment', 'technology'],
+			tags: tagObjects,
 			authorId: Meteor.users.findOne({roles: 'demo'})._id
 		};
 
