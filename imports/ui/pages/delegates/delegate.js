@@ -16,8 +16,6 @@ Template.Delegate.onCreated(function () {
     //console.log("autorun complete");
   });
   
-	
-  
   	//Meteor.subscribe('users.delegates');
 });
 

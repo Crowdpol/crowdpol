@@ -237,7 +237,13 @@ Meteor.methods({
         });
 
       return false;
-    }
+    },
+    addTagToProfile: function(userId, tag) {
+      Meteor.users.update({_id: userId}, {$push: {'profile.tags': tag} });
+    },
+    removeTagFromProfile: function(userId, tag) {
+      Meteor.users.update({_id: proposalId}, {$pull: {'profile.tags': tag} });
+    },
 });
 
 

@@ -203,6 +203,13 @@ adminRoutes.route('/tags', {
   },
 });
 
+FlowRouter.route('/tag/:keyword', {
+  name: 'App.tag',
+  action() {
+    BlazeLayout.render('App_body', {main: 'TagSearch'});
+  }
+});
+
 adminRoutes.route('/approvals', {
   name: 'App.approvals',
   action() {
