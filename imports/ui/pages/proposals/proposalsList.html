@@ -1,4 +1,5 @@
 <template name="ProposalsList">
+	{{#if currentUser}}
 	<!-- MDL Tab Container -->
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<!-- Tab Bars -->
@@ -85,6 +86,7 @@
 			</div>
 		</div>
 	</div>
+	{{/if}}
 </template>
 
 <template name="ProposalCard">

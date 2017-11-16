@@ -1,4 +1,5 @@
 <template name="Profile">
+	{{#if currentUser}}
 	<div class="container narrow-container">
 		{{#if Template.subscriptionsReady}}
 			{{> ProfileForm}}
@@ -43,6 +44,7 @@
 			{{> loader}}
 		{{/if}}
 	</div>
+	{{/if}}
 </template>
 
 <template name="Dialogue">
