@@ -24,5 +24,8 @@ import '../../api/ranking/server/publications.js';
 import '../../api/delegateVotes/methods.js';
 import '../../api/delegateVotes/server/publications.js';
 
+import '../../api/tags/methods.js';
+import '../../api/tags/server/publications.js';
+
 
 
