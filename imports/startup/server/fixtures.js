@@ -195,13 +195,15 @@ function registerDemoUsers(numUsers){
 	}
 }
 
-function createDemoProposal(){
+function createDemoProposal(userId){
+
 	var tagObjects = _.map(['environment', 'gender'], function(keyword){
 			 	var tag = Meteor.call('getTagByKeyword', keyword);
 			 	return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
 			 })
 
 	if (Proposals.find({title: 'Demo Proposal'}).count() < 1){
+		var user = Accounts.findUserByEmail("tspangenberg1@gmail.com");
 		var proposal = {
 			title: 'Demo Proposal',
 			abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ante ligula, tempor et risus feugiat, posuere semper enim. Etiam eleifend lacus a libero blandit, a placerat felis aliquam.',
@@ -209,7 +211,7 @@ function createDemoProposal(){
 			startDate: new Date(),
 			endDate: new Date(),
 			tags: tagObjects,
-			authorId: Meteor.users.findOne({roles: 'demo'})._id
+			authorId: user._id
 		};
 
 		Proposals.insert(proposal);
