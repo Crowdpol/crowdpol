@@ -12,7 +12,11 @@ Template.Login.events({
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				FlowRouter.go('/dash');
+				if (Roles.userIsInRole(Meteor.userId(), ['admin', 'superadmin'])){
+					FlowRouter.go('/admin/dash');
+				} else {
+					FlowRouter.go('/dash');
+				}	
 			}
 		});
 	}
