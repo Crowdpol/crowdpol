@@ -1,4 +1,5 @@
 <template name='EditProposal'>
+	{{#if currentUser}}
 	<!-- Include Quill stylesheet -->
 	<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
@@ -48,7 +49,7 @@
 			</div>
 		</form>
 	</div>
-
+{{/if}}
 </template>
 
 
