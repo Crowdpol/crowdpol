@@ -15,10 +15,18 @@ Template.Header.onCreated(function(){
 });
 
 Template.Header.helpers({
-	lang() {
-		var str = Session.get("i18n_lang")
-		return str.toUpperCase();
-	},
+  hideHamburger() {
+    $(".mdl-layout__drawer-button").hide();
+    console.log("hamburger hidden");
+  },
+  showHamburger() {
+    $(".mdl-layout__drawer-button").show();
+    console.log("hamburger shown");
+  },
+  lang() {
+    var str = Session.get("i18n_lang")
+    return str.toUpperCase();
+  },
 
   userHasMultipleRoles(){
     var user = Meteor.user();
@@ -54,7 +62,7 @@ Template.Header.events({
   },
   'click #nav-logout' : function(e){
     event.preventDefault();
-	Meteor.logout();
+  Meteor.logout();
   },
   'click .role-menu-item' : function(){
     Session.set('currentUserRole', event.target.dataset.role);
