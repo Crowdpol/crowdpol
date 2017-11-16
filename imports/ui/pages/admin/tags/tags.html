@@ -1,9 +1,11 @@
 <template name="AdminTags">
+	{{#if currentUserIsAdmin}}
 	<div class="container">
 		<h3> {{_"admin.tags.heading"}} </h3>
 		{{> AdminTagsForm}}
 		{{> AdminTagsTable}}
 	</div>
+	{{/if}}
 </template>
 
 <template name="AdminTagsTable">

@@ -1,4 +1,5 @@
 <template name="AdminUsers">
+	{{#if currentUserIsAdmin}}
 	<div class="container">
 		<h3> {{_"admin.users.invite-heading"}} </h3>
 		<form id="invite">
@@ -72,4 +73,5 @@
 			<p> Loading... </p>
 		{{/if}}
 	</div>
+	{{/if}}
 </template>
