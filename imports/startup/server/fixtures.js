@@ -2,11 +2,13 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
+import { Proposals } from '../../api/proposals/Proposals.js'
 
 Meteor.startup(() => {
   //register administrators
   registerAdmins();
   registerDemoUsers(Meteor.settings.private.demoUsers);
+  createDemoProposal();
 });
 
 function registerAdmins(){
@@ -68,14 +70,17 @@ function createDemoUsers(users){
 			    case 0:
 			        roles = ["candidate","party","demo"];
 			        type = 'Entity';
+			        tags = ['environment', 'economics', 'gender', 'food-security', 'technology']
 			        break;
 			    case 1:
 			        roles = ["candidate","organisation","demo"];
 			        type = 'Entity';
+			        tags = ['economics']
 			        break;
 			    case 2:
 			        roles = ["delegate","party","demo"];
 			        type = 'Entity';
+			        tags = ['gender', 'food-security', 'technology']
 			        break;
 			    case 3:
 			    	roles = ["delegate","organisation","demo"];
@@ -84,22 +89,27 @@ function createDemoUsers(users){
 			    case 4:
 			    	roles = ["delegate","candidate","organisation","demo"];
 			    	type = 'Entity';
+			    	tags = ['technology']
 			        break;
 			    case 5:
 			    	roles = ["candidate","delegate","party","demo"];
 			    	type = 'Entity';
+			    	tags = ['environment']
 			        break;
 			    case 6:
 			    	roles = ["candidate","individual","demo"];
 			    	type = 'Individual';
+			    	tags = ['food-security', 'technology']
 			        break;
 			    case 7:
 			    	roles = ["delegate","individual","demo"];
 			    	type = 'Individual';
+			    	tags = ['environment','gender']
 			        break;
 			    case 8:
 			    	roles = ["delegate,candidate,individual","demo"];
 			    	type = 'Individual';
+			    	tags = ['environment']
 			        break;
 			    default:
 
@@ -115,6 +125,7 @@ function createDemoUsers(users){
 					lastName: users[x].name.last,
 					photo: users[x].picture.thumbnail,
 					type: type,
+					tags: tags,
 					credentials : [
 						{
 							"source" : "default",
@@ -168,5 +179,22 @@ function registerDemoUsers(numUsers){
 			console.log(e);
 			return false;
 		}
+	}
+}
+
+function createDemoProposal(){
+
+	if (Proposals.find({title: 'Demo Proposal'}).count() < 1){
+		var proposal = {
+			title: 'Demo Proposal',
+			abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ante ligula, tempor et risus feugiat, posuere semper enim. Etiam eleifend lacus a libero blandit, a placerat felis aliquam.',
+			body: 'Praesent at laoreet risus. Mauris eleifend nunc quis orci venenatis vestibulum. Nam ante elit, bibendum sed tempus sed, bibendum eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+			startDate: new Date(),
+			endDate: new Date(),
+			tags: ['environment', 'technology'],
+			authorId: Meteor.users.findOne({roles: 'demo'})._id
+		};
+
+		Proposals.insert(proposal);
 	}
 }

@@ -31,10 +31,10 @@ Meteor.methods({
     saveProposalChanges: function (proposalId, proposal) {
       Proposals.update({_id: proposalId}, {$set: proposal });
     },
-    addTag: function(proposalId, tag) {
+    addTagToProposal: function(proposalId, tag) {
       Proposals.update({_id: proposalId}, {$push: {tags: tag} });
     },
-    removeTag: function(proposalId, tag) {
+    removeTagFromProposal: function(proposalId, tag) {
       Proposals.update({_id: proposalId}, {$pull: {tags: tag} });
     },
 });

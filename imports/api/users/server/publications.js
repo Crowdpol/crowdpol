@@ -25,8 +25,20 @@ Meteor.publish(null, function() {
   return Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});
 });
 
-Meteor.publish('users.delegates', function () {
+Meteor.publish('users.candidates', function () {
   return Meteor.users.find({roles: "candidate"});
+});
+
+Meteor.publish('users.delegates', function () {
+  return Meteor.users.find({roles: "delegate"});
+});
+
+Meteor.publish('users.candidatesWithTag', function (tag) {
+  return Meteor.users.find({roles: "candidate", 'profile.tags': tag});
+});
+
+Meteor.publish('users.delegatesWithTag', function (tag) {
+  return Meteor.users.find({roles: "delegate", 'profile.tags': tag});
 });
 
 Meteor.publish("user.search", function(searchValue) {
