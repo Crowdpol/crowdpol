@@ -1,6 +1,7 @@
 {
 	"app_title": "Common Democracy",
 	"nav_home": "Home",
+	"nav_dash": "Dashboard",
 	"nav_about": "About",
 	"nav_contact": "Contact",
 	"nav_login": "Login",
