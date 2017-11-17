@@ -82,6 +82,7 @@ Template.ProfileForm.events({
 });
 
 Template.ProfileForm.onRendered(function() {
+
   let template = Template.instance();
   $("#profile-form").validate({
     rules: {

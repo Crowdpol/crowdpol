@@ -22,6 +22,7 @@ import { Session } from 'meteor/session';
 // Import needed templates
 import './layouts/body/body.js';
 import './components/loader/loader.js';
+import './components/upload/upload.js';
 import './pages/home/home.js';
 import './pages/not-found/not-found.js';
 import './pages/authenticate/authenticate.js';
