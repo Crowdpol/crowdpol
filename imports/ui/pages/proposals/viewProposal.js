@@ -26,6 +26,7 @@ Template.ViewProposal.onCreated(function(){
       dict.set( 'authorId', result.authorId );
       dict.set( 'stage', result.stage );
       dict.set( 'status', result.status );
+      dict.set( 'tags', result.tags );
     }
   });
 
@@ -140,6 +141,9 @@ Template.ViewProposal.helpers({
   },
   title: function() {
     return Template.instance().templateDictionary.get( 'title' );
+  },
+  tags: function() {
+    return Template.instance().templateDictionary.get( 'tags' );
   },
   abstract: function() {
     return Template.instance().templateDictionary.get( 'abstract' );
