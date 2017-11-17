@@ -1,14 +1,31 @@
 import "./profileForm.html"
+import { setupTaggle } from '../../components/taggle/taggle.js'
+
+Template.ProfileForm.onRendered(function(){
+  var self = this;
+  self.taggle = new ReactiveVar(setupTaggle());
+
+  Meteor.call('getUserTags', Meteor.userId(), function(error, result){
+    if (error){
+      Bert.alert(error.reason, 'danger');
+    } else {
+      console.log('here are the user tags')
+      console.log(result)
+      var tagsText = _.map(result, function(tag){ return tag.text; });
+      self.taggle.get().add(tagsText);
+    }
+  });
+});
 
 Template.ProfileForm.onCreated(function() {
   var self = this;
   self.type = new ReactiveVar("Waiting for response from server...");
+  
   self.autorun(function() {
     self.subscribe('user.current');
   });
   //console.log("onCreated started:" + Date.now());
   var dict = new ReactiveDict();
-
 
   Meteor.call('getProfile', Meteor.userId(), function(error, result) {
     if (error) {
@@ -108,26 +125,34 @@ Template.ProfileForm.onRendered(function() {
       }
     },
     submitHandler() {
-      let profile = {
-        username: template.find('[name="profileUsername"]').value,
-        firstName: template.find('[name="profileFirstName"]').value,
-        lastName: template.find('[name="profileLastName"]').value,
-        photo: template.find('[name="profilePhotoPath"]').value,
-        bio: template.find('[name="profileBio"]').value,
-        website: template.find('[name="profileWebsite"]').value,
-        credentials: template.templateDictionary.get('credentials'),
-        type: template.type.get(),
-      };
-
-      //console.log( profile );
-      Meteor.call('updateProfile', Meteor.userId(), profile, function(error) {
-        if (error) {
-          Bert.alert(error.reason, 'danger');
+      Meteor.call('transformTags', template.taggle.get().getTagValues(), function(error, proposalTags){
+        if (error){
+          Bert.alert(error, 'reason');
         } else {
-          //template.find('#profile-form').reset();
-          Bert.alert(TAPi18n.__('profile-msg-updated'), 'success');
-        }
+          let profile = {
+            username: template.find('[name="profileUsername"]').value,
+            firstName: template.find('[name="profileFirstName"]').value,
+            lastName: template.find('[name="profileLastName"]').value,
+            photo: template.find('[name="profilePhotoPath"]').value,
+            bio: template.find('[name="profileBio"]').value,
+            website: template.find('[name="profileWebsite"]').value,
+            credentials: template.templateDictionary.get('credentials'),
+            type: template.type.get(),
+            tags: proposalTags
+          };
+          //console.log( profile );
+          Meteor.call('updateProfile', Meteor.userId(), profile, function(error) {
+            if (error) {
+              Bert.alert(error.reason, 'danger');
+            } else {
+              //template.find('#profile-form').reset();
+              Bert.alert(TAPi18n.__('profile-msg-updated'), 'success');
+            }
+          });
+
+        } 
       });
+      
     }
   });
 });
