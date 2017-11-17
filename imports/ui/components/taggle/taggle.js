@@ -10,9 +10,37 @@ Template.taggle.onCreated(function(){
   });
 })
 
+export function setupTaggle(){
+  var taggle = new Taggle('tags', {placeholder: 'Tag your proposal', duplicateTagClass: 'bounce'});
+  var availableTags = Tags.find().pluck('text');
+  var container = taggle.getContainer();
+  var input = taggle.getInput();
+
+  $(input).autocomplete({
+      source: availableTags,
+      appendTo: container,
+      position: { at: "left bottom", of: container },
+      select: function(event, data) {
+          event.preventDefault();
+          //Add the tag if user clicks
+          if (event.which === 1) {
+              taggle.add(data.item.value);
+          }
+      }
+  });
+
+  return taggle;
+}
+
 
 Template.taggle.onRendered(function(){
-  taggle = new Taggle('tags', {placeholder: 'Tag your proposal', duplicateTagClass: 'bounce'});
+
+  
+
+
+
+  ////////////////////////////////////
+/*  taggle = new Taggle('tags', {placeholder: 'Tag your proposal', duplicateTagClass: 'bounce'});
   var availableTags = Tags.find().pluck('text');
   var container = taggle.getContainer();
   var input = taggle.getInput();
@@ -28,6 +56,6 @@ Template.taggle.onRendered(function(){
               taggle.add(data.item.value);
           }
       }
-  });
+  });*/
 	
 });

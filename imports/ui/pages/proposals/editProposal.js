@@ -1,6 +1,7 @@
 import './editProposal.html'
 import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import { setupTaggle } from '../../components/taggle/taggle.js'
 
 Template.EditProposal.onRendered(function(){
 	var self = this;
@@ -10,6 +11,9 @@ Template.EditProposal.onRendered(function(){
 		modules: { toolbar: '#toolbar' },
 		theme: 'snow'
   	});
+
+  	var taggle = setupTaggle();
+  	self.taggle = new ReactiveVar(taggle);
 
 	// Set values of components once rendered
 	// (quill editor must be initialised before content is set)
@@ -25,7 +29,7 @@ Template.EditProposal.onRendered(function(){
 				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
 				self.find('#invited').value = proposal.invited.join(',');
-				taggle.add(_.map(proposal.tags, function(tag){return tag.text}));
+				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.text; }));
 			});
 		}
 	});
@@ -43,7 +47,7 @@ Template.EditProposal.events({
 });
 
 function saveChanges(event, template, returnTo){
-	Meteor.call('transformTags', taggle.getTagValues(), function(error, proposalTags){
+	Meteor.call('transformTags', template.taggle.get().getTagValues(), function(error, proposalTags){
 		if (error){
 			Bert.alert(error, 'reason');
 		} else {
@@ -61,7 +65,7 @@ function saveChanges(event, template, returnTo){
 
 		// If working on an existing proposal, save it, else create a new one
 		if (proposalId){
-			Meteor.call('saveProposalChanges', proposalId, newProposal, function(error, proposalId){
+			Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
