@@ -70,3 +70,7 @@ underscore
 liberation:collection-pluck
 coffeescript
 mfpierre:chartist-js
+
+
+#-- File Upload --
+ostrio:files 					# Basic Upload files
