@@ -4,6 +4,8 @@
 	<form id="profile-form" class="profile">
 		<img src={{profilePic}} class="profile-picture">
 		<small class="center">{{pages.profile.type}}</small>
+		{{> uploadForm}}
+		{{> uploadedFiles}}
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="profile-username">{{_ "pages.profile.photo"}}</label>
 			<input type="text" name="profilePhotoPath" id="profile-photo-path" class="mdl-textfield__input" value="{{profilePic}}">
