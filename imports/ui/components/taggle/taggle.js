@@ -1,14 +1,19 @@
 import './taggle.html'
-//import Taggle from './tagglejs.js'
 import Taggle from 'taggle'
-//import './taggle.css'
+import { Tags } from '../../../api/tags/Tags.js'
+
+Template.taggle.onCreated(function(){
+  var self = this;
+  self.autorun(function(){
+    //subscribe to list of existing tags
+    self.subscribe('tags.all');
+  });
+})
+
 
 Template.taggle.onRendered(function(){
-	
-	var self = this;
-
-	var taggle = new Taggle('tags', {placeholder: 'Tag your proposal',duplicateTagClass: 'bounce'});
-  var availableTags = ['environment', 'politics', 'technology', 'economics']
+  taggle = new Taggle('tags', {placeholder: 'Tag your proposal', duplicateTagClass: 'bounce'});
+  var availableTags = Tags.find().pluck('text');
   var container = taggle.getContainer();
   var input = taggle.getInput();
 
