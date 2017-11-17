@@ -1,4 +1,5 @@
 <template name='EditProposal'>
+	
 	{{#if currentUser}}
 	<!-- Include Quill stylesheet -->
 	<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
@@ -37,6 +38,8 @@
 					<input type="date" id="endDate" class="mdl-textfield__input">
 				</div>
 			</div>
+			Add some tags your proposal:
+			<div id="proposal-taggle"></div>
 
 			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<label class="mdl-textfield__label">{{_ "proposals.edit.invited"}}</label>

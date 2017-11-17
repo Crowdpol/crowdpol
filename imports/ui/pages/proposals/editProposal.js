@@ -1,9 +1,29 @@
 import './editProposal.html'
 import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import Taggle from 'taggle'
+import '../../../../node_modules/taggle/example/css/taggle.min.css'
 
 Template.EditProposal.onRendered(function(){
 	var self = this;
+
+	var taggle = new Taggle('proposal-taggle', {placeholder: 'Tag your proposal'});
+	var availableTags = ['environment', 'politics', 'technology', 'economics']
+	var container = taggle.getContainer();
+	var input = taggle.getInput();
+
+$(input).autocomplete({
+    source: availableTags, 
+    appendTo: container,
+    position: { at: "left bottom", of: container },
+    select: function(event, data) {
+        event.preventDefault();
+        //Add the tag if user clicks
+        if (event.which === 1) {
+            taggle.add(data.item.value);
+        }
+    }
+});
 
 	// Initialise Quill editor
 	editor = new Quill('#body', {
