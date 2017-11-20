@@ -1,6 +1,27 @@
 import './signup.html';
 import './entitySignup.js';
 
+Template.Signup.onRendered( function() {
+  $( "#individual-signup-form" ).validate({
+    rules: {
+      'emailAddress': {
+        required: true
+      },
+      'password': {
+        required: true
+      },
+    },
+    messages: {
+      'emailAddress': {
+        required: 'Please enter your email address.'
+      },
+      'password': {
+        required: 'Please enter your password.'
+      },
+    }
+  });
+});
+
 Template.Signup.events({
 	'submit #individual-signup-form' (event, template){
 		event.preventDefault();
