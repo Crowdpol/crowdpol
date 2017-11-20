@@ -20,6 +20,14 @@
 				{{{ body }}}
 			</div>
 
+			<div class="proposal-wrap">
+				{{#each tags}}
+					<span class="mdl-chip">
+						<a href="{{this.url}}" class="mdl-chip__text">{{this.text}}</a>
+					</span>
+				{{/each}}
+			</div>
+
 			<small>Voting starts on: {{ startDate }}</small>
 			<br />
 			<small>Voting ends on: {{ endDate }}</small>

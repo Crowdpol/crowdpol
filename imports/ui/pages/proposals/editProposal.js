@@ -1,6 +1,7 @@
 import './editProposal.html'
 import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import { setupTaggle } from '../../components/taggle/taggle.js'
 
 Template.EditProposal.onRendered(function(){
 	var self = this;
@@ -10,6 +11,9 @@ Template.EditProposal.onRendered(function(){
 		modules: { toolbar: '#toolbar' },
 		theme: 'snow'
   	});
+
+  	var taggle = setupTaggle();
+  	self.taggle = new ReactiveVar(taggle);
 
 	// Set values of components once rendered
 	// (quill editor must be initialised before content is set)
@@ -25,6 +29,7 @@ Template.EditProposal.onRendered(function(){
 				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
 				self.find('#invited').value = proposal.invited.join(',');
+				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.text; }));
 			});
 		}
 	});
@@ -42,20 +47,25 @@ Template.EditProposal.events({
 });
 
 function saveChanges(event, template, returnTo){
-	let newProposal = {
+	Meteor.call('transformTags', template.taggle.get().getTagValues(), function(error, proposalTags){
+		if (error){
+			Bert.alert(error, 'reason');
+		} else {
+			let newProposal = {
 			title: template.find('#title').value,
 			abstract: template.find('#abstract').value,
 			body: template.find('.ql-editor').innerHTML,
 			startDate: new Date(template.find('#startDate').value),
 			endDate: new Date(template.find('#endDate').value),
 			authorId: Meteor.userId(),
-			invited: template.find('#invited').value.split(',')
+			invited: template.find('#invited').value.split(','),
+			tags: proposalTags
 		};
 		var proposalId = FlowRouter.getParam("id");
 
 		// If working on an existing proposal, save it, else create a new one
 		if (proposalId){
-			Meteor.call('saveProposalChanges', proposalId, newProposal, function(error, proposalId){
+			Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
@@ -73,4 +83,8 @@ function saveChanges(event, template, returnTo){
 				}
 			});
 		}
+		}
+	})
+	
+	
 };

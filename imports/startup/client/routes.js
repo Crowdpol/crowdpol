@@ -128,7 +128,7 @@ loggedInRoutes.route('/dash', {
   },
 });
 
-loggedInRoutes.route('/tag/:id', {
+loggedInRoutes.route('/tag/:keyword', {
   name: 'App.tag',
   action() {
     BlazeLayout.render('App_body', {main: 'TagSearch'});
