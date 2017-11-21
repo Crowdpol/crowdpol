@@ -163,10 +163,11 @@ Meteor.methods({
       return count;
     },
     //this function checks the current user's username and id against the existing ones
-    checkUpdateUsername(username){
-      console.log(username.length);
+    //Returns true if username is unique, false otherwise
+    updateUsernameIsUnique(username){
       var count = Meteor.users.find({"_id":{$ne: Meteor.userId()},"profile.username": {$eq: username}}).count();
       if(count > 0){
+        console.log('returning false')
         return false;
       }
       return true;
