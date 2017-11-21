@@ -243,6 +243,7 @@ Template.ProfileForm.onRendered(function() {
 Template.ProfileForm.helpers({
   isEntity: function() {
     var type = Template.instance().templateDictionary.get('type');
+
     //console.log(type);
     if (type == 'Entity') {
       //console.log("should be hidden");
@@ -300,6 +301,7 @@ function hasOwnProperty(obj, prop) {
     (!(prop in proto) || proto[prop] !== obj[prop]);
 }
 
+
 function checkProfileIsComplete(){
   var template = Template.instance();
   var profile = {
@@ -322,6 +324,56 @@ function checkProfileIsComplete(){
         isComplete = false;
       } 
     });
+  }
+}
+
+$.validator.addMethod('usernameCheck', (username) => {
+  Meteor.call('checkUpdateUsername', username, function(error, result) {
+    if (error) {
+      console.log(error);
+    }
+    //console.log("result: " + result);
+    return result;
+  });
+});
+
+//check criteria for public status
+publicReady = function() {
+  var ready = true;
+    /*
+  photo = template.templateDictionary.get('photo');
+  firstname = Template.instance().templateDictionary.get('firstname');
+  lastname = Template.instance().templateDictionary.get('lastname');
+  username = Template.instance().templateDictionary.get('username');
+  bio = Template.instance().templateDictionary.get('bio');
+  website = Template.instance().templateDictionary.get('website');
+  //type = Template.instance().templateDictionary.get('type');
+
+  if(photo.length == 0){
+    console.log("no photo");
+    ready = false;
+  }
+
+  if(firstname.length == 0){
+    console.log("no name");
+    ready = false;
+  }
+  if(lastname.length == 0){
+    console.log("no lastname");
+    ready = false;
+  }
+  if(username.length == 0){
+    console.log("no photo");
+    ready = false;
+  }
+  if(bio.length == 0){
+    console.log("no photo");
+    ready = false;
+  }
+  if(website.length == 0){
+    console.log("no website");
+    ready = false;
+>>>>>>> Upload working, now refactoring
   }
 }
 
