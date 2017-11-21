@@ -6,11 +6,62 @@ import { setupTaggle } from '../../components/taggle/taggle.js'
 Template.EditProposal.onRendered(function(){
 	var self = this;
 
+	// Form Validations
+	$( "#edit-proposal-form" ).validate({
+		ignore: "",
+		rules: {
+			title: {
+				required: true,
+				minlength: 5
+			},
+			abstract: {
+				required: true,
+				minlength: 5
+			},
+			body: {
+				required: true,
+				minlength: 50
+			},
+			startDate: {
+				required: true,
+			},
+			endDate: {
+				required: true,
+			},
+		},
+		messages: {
+			title: {
+				required: 'Please make sure your proposal has a title.',
+				minlength: "Use at least 5 characters."
+			},
+			abstract: {
+				required: 'Please provide a short abstract for your proposal.',
+				minlength: "Use at least 5 characters."
+			},
+			body: {
+				body: 'Please provide a body for your proposal.',
+				minlength: "Use at least 50 characters."
+			},
+			startDate: {
+				required: 'Please indicate when voting will open for this proposal.'
+			},
+			endDate: {
+				required: 'Please indicate when voting will close for this proposal.'
+			},
+		}
+	});
+
 	// Initialise Quill editor
-	editor = new Quill('#body', {
+	editor = new Quill('#body-editor', {
 		modules: { toolbar: '#toolbar' },
 		theme: 'snow'
   	});
+  	
+  	editor.on('text-change', function (delta, source) {
+  		// Copy quill editor's contents to hidden input for validation
+		var bodyText = self.find('.ql-editor').innerHTML;
+		self.find('#body').value = bodyText;
+	});
 
   	var taggle = setupTaggle();
   	self.taggle = new ReactiveVar(taggle);
@@ -26,6 +77,7 @@ Template.EditProposal.onRendered(function(){
 				self.find('#title').value = proposal.title;
 				self.find('#abstract').value = proposal.abstract;
 				self.find('.ql-editor').innerHTML = proposal.body;
+				self.find('#body').value = proposal.body;
 				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
 				self.find('#invited').value = proposal.invited.join(',');
@@ -54,13 +106,14 @@ function saveChanges(event, template, returnTo){
 			let newProposal = {
 			title: template.find('#title').value,
 			abstract: template.find('#abstract').value,
-			body: template.find('.ql-editor').innerHTML,
+			body: template.find('#body').value,
 			startDate: new Date(template.find('#startDate').value),
 			endDate: new Date(template.find('#endDate').value),
 			authorId: Meteor.userId(),
 			invited: template.find('#invited').value.split(','),
 			tags: proposalTags
 		};
+
 		var proposalId = FlowRouter.getParam("id");
 
 		// If working on an existing proposal, save it, else create a new one
