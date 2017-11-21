@@ -1,12 +1,7 @@
-import { Meteor }          from 'meteor/meteor';
-import { FilesCollection } from 'meteor/ostrio:files';
-import { Random } from 'meteor/random';
-
-console.log("images loaded");
 var gcloud, gcs, bucket, bucketMetadata, Request, bound, Collections = {};
 
 if (Meteor.isServer) {
-console.log("staring the gCloud process...");
+  console.log("staring the gCloud process...");
   gcloud = Npm.require('google-cloud')({
     projectId: 'common-democracy', // <-- Replace this with your project ID
     keyFilename: Meteor.settings.private.gStorageKeyPath,  // <-- Replace this with the path to your key.json
@@ -26,19 +21,12 @@ console.log("staring the gCloud process...");
     return callback();
   });
 }
-const Images = new FilesCollection({
-  debug: true,
-  collectionName: 'Images',
-  allowClientCode: false, // Disallow remove files from Client
-  //storagePath: 'assets/app/uploads/uploadedFiles'
-  storagePath: 'public/uploads',
-  onBeforeUpload: function (file) {
-    // Allow upload files under 10MB, and only in png/jpg/jpeg formats
-    if (file.size <= 1024 * 1024 * 10 && /png|jpe?g/i.test(file.extension)) {
-      return true;
-    }
-    return 'Please upload image, with size equal or less than 10MB';
-  },
+
+Collections.files = new FilesCollection({
+  debug: false, // Set to true to enable debugging messages
+  storagePath: 'assets/app/uploads/uploadedFiles',
+  collectionName: 'uploadedFiles',
+  allowClientCode: false,
   onAfterUpload: function(fileRef) {
     // In the onAfterUpload callback, we will move the file to Google Cloud Storage
     var self = this;
@@ -73,7 +61,6 @@ const Images = new FilesCollection({
               } else {
                 // Unlink original files from FS
                 // after successful upload to Google Cloud Storage
-                console.log(self.collection.findOne(fileRef._id));
                 self.unlink(self.collection.findOne(fileRef._id), version);
               }
             });
@@ -99,11 +86,12 @@ const Images = new FilesCollection({
     }
   }
 });
+
 if (Meteor.isServer) {
   // Intercept file's collection remove method to remove file from Google Cloud Storage
-  var _origRemove = Images.remove;
+  var _origRemove = Collections.files.remove;
 
-  Images.remove = function(search) {
+  Collections.files.remove = function(search) {
     var cursor = this.collection.find(search);
     cursor.forEach(function(fileRef) {
       _.each(fileRef.versions, function(vRef) {
@@ -178,14 +166,3 @@ function getReadableStream(http, path, vRef){
 
   return remoteReadStream;
 }
-
-if (Meteor.isServer) {
-  Images.denyClient();
-  Meteor.publish('files.images.all', function () {
-    return Images.find().cursor;
-  });
-} else {
-  Meteor.subscribe('files.images.all');
-}
-
-export default Images;
