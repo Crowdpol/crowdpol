@@ -2,6 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import './fixtures.js';
 import './register-api.js';
+//import './gCloud.js';
 import "./accounts/accounts.js";
 import "./accounts/configure-services.js";
 
