@@ -1,6 +1,6 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import Images from '../../../api/files/Files.js'
+import Images from '../../../api/files/Images.js';
 import './upload.html';
 
 Template.uploadedFiles.helpers({
@@ -39,9 +39,9 @@ Template.uploadForm.events({
 
           uploadInstance.on('end', function(error, fileObj) {
             if (error) {
-              window.alert('Error during upload: ' + error.reason);
+              Bert.alert('Error during upload: ' + error.reason, 'danger');
             } else {
-              window.alert('File "' + fileObj.name + '" successfully uploaded');
+              Bert.alert('File "' + fileObj.name + '" successfully uploaded', 'success');
             }
             template.currentUpload.set(false);
           });

@@ -1,6 +1,8 @@
 import { Meteor }          from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 
+console.log("images loaded");
+
 const Images = new FilesCollection({
   debug: true,
   collectionName: 'Images',
