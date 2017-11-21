@@ -15,45 +15,11 @@ if (Meteor.isServer) {
   });
 
   const { schema, generateDoc } = fakerSchema;
-
-  Factory.define('user', User);
-
-  var testUser = {
-    createdAt: new Date(),
-    username: "test_user",
-    password: 'test',
-    services: {},
-    profile: {
-      firstName: "Test",
-      lastName: "User",
-      birthday: new Date(),
-      gender: "Other",
-      organization: "Test Org",
-      website: "http://testuser.com",
-      bio: "I am a test user",
-      picture: "/img/default-user-image.png",
-      credentials : [
-        {
-          "source" : "test",
-          "URL" : "https://www.commondemocracy.org/",
-          "validated" : true
-        }
-      ]
-    },
-    roles: ["test"],
-  }
+  Factory.define('user', Meteor.users, schema.User);
 
   describe('User schema', function () {
-    /*
-    //NOTE: improve this test with Faker schema
-    it('inserts cleanly', function() {
-      const testDoc = generateDoc(schema.User)
-      console.log(testDoc)
-      const tag = Factory.create('user', testDoc);
-    });
-    */
     it('insert correctly', function () {
-      const userId = Accounts.createUser(testUser);
+      const userId = Factory.create('user')._id
       const added = Meteor.users.find({ _id: userId });
       const collectionName = added._getCollectionName();
       const count = added.count();

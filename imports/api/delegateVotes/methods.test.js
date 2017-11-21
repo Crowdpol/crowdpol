@@ -17,34 +17,13 @@ if (Meteor.isServer) {
   
   describe('DelegateVote methods', () => {
     beforeEach(function () {
-      // create a fake user
-      var testDelegate = {
-        createdAt: new Date(),
-        username: "test_user",
-        password: 'test',
-        services: {},
-        profile: {
-          firstName: "Test",
-          lastName: "User",
-          birthday: new Date(),
-          gender: "Other",
-          organization: "Test Org",
-          website: "http://testuser.com",
-          bio: "I am a test user",
-          picture: "/img/default-user-image.png",
-          credentials : [
-          {
-            "source" : "test",
-            "URL" : "https://www.commondemocracy.org/",
-            "validated" : true
-          }
-          ]
-        },
-      }
+    // create a fake user
+    Factory.define('user', Meteor.users, schema.User);
+    const userId = Factory.create('user')._id
     // stub Meteor's user method to simulate a logged in user
-    const userId = Accounts.createUser(testDelegate);
     Roles.addUsersToRoles(userId, 'delegate');
     const user = Meteor.call('getUser', userId);
+    sinon.restore(Meteor, 'user');
     stub = sinon.stub(Meteor, 'user');
     stub.returns(user)
   });
