@@ -136,7 +136,7 @@ function createDemoUsers(users){
 					username: users[x].login.username,
 					firstName: users[x].name.first,
 					lastName: users[x].name.last,
-					photo: users[x].picture.thumbnail,
+					photo: users[x].picture.large,
 					type: type,
 					tags: tagObjects,
 					credentials : [

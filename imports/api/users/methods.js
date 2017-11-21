@@ -33,6 +33,11 @@ Meteor.methods({
       //console.log(users);
       return users[0];
     },
+    getUserTags: function(userID) {
+      check(userID, String);
+      const users = Meteor.users.find({_id: userID},{fields: {profile: 1}}).fetch();
+      return users[0].profile.tags;
+    },
     updateProfile: function (userID, profile) {
       //console.log(profile);
       check(userID, String);
