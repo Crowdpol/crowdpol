@@ -11,8 +11,6 @@ import '../proposals/methods.js';
 
 const { schema, generateDoc } = fakerSchema;
 
-
-
 if (Meteor.isServer) {
   let testComment;
   beforeEach(function () {
