@@ -54,7 +54,7 @@ Template.ProfileForm.events({
     Session.set('profileIsComplete', checkProfileIsComplete())
   },
   'submit form' (event, template) {
-    console.log("submit clicked");
+    //console.log("submit clicked");
     event.preventDefault();
   },
 
@@ -162,17 +162,17 @@ Template.ProfileForm.onRendered(function() {
 Template.ProfileForm.helpers({
   isEntity: function() {
     var type = Template.instance().type.get();
-    console.log(type);
+    //console.log(type);
     if (type == 'Entity') {
-      console.log("should be hidden");
+      //console.log("should be hidden");
       return true;
     }
-    console.log("show lastname");
+    //console.log("show lastname");
     return false;
   },
   profile: function() {
     user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1, roles: 1, isPublic: 1, isParty: 1, isOrganisation: 1 } });
-    console.log(user);
+    //console.log(user);
     return user.profile;
   },
   profilePic: function() {
@@ -199,7 +199,7 @@ Template.ProfileForm.helpers({
   },
   isPublicChecked: function() {
     var isPublic = Template.instance().templateDictionary.get('isPublic');
-    console.log("isPublicChecked: " + isPublic);
+    //console.log("isPublicChecked: " + isPublic);
     if (isPublic) {
       return "checked";
     }
@@ -219,6 +219,7 @@ function hasOwnProperty(obj, prop) {
     (!(prop in proto) || proto[prop] !== obj[prop]);
 }
 
+<<<<<<< 99a946a079b033dd7368c7df9a0104c749b8e42c
 function checkProfileIsComplete(){
   var template = Template.instance();
   var profile = {
@@ -241,6 +242,54 @@ function checkProfileIsComplete(){
         isComplete = false;
       } 
     });
+=======
+$.validator.addMethod('usernameCheck', (username) => {
+  Meteor.call('checkUpdateUsername', username, function(error, result) {
+    if (error) {
+      console.log(error);
+    }
+    //console.log("result: " + result);
+    return result;
+  });
+});
+
+//check criteria for public status
+publicReady = function() {
+  var ready = true;
+    /*
+  photo = template.templateDictionary.get('photo');
+  firstname = Template.instance().templateDictionary.get('firstname');
+  lastname = Template.instance().templateDictionary.get('lastname');
+  username = Template.instance().templateDictionary.get('username');
+  bio = Template.instance().templateDictionary.get('bio');
+  website = Template.instance().templateDictionary.get('website');
+  //type = Template.instance().templateDictionary.get('type');
+
+  if(photo.length == 0){
+    console.log("no photo");
+    ready = false;
+  }
+
+  if(firstname.length == 0){
+    console.log("no name");
+    ready = false;
+  }
+  if(lastname.length == 0){
+    console.log("no lastname");
+    ready = false;
+  }
+  if(username.length == 0){
+    console.log("no photo");
+    ready = false;
+  }
+  if(bio.length == 0){
+    console.log("no photo");
+    ready = false;
+  }
+  if(website.length == 0){
+    console.log("no website");
+    ready = false;
+>>>>>>> Upload working, now refactoring
   }
   return isComplete;
 }
