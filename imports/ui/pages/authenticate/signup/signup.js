@@ -8,7 +8,8 @@ Template.Signup.onRendered( function() {
         required: true
       },
       'password': {
-        required: true
+        required: true,
+        minlength: 6
       },
     },
     messages: {
@@ -16,7 +17,8 @@ Template.Signup.onRendered( function() {
         required: 'Please enter your email address.'
       },
       'password': {
-        required: 'Please enter your password.'
+        required: 'Please enter your password.',
+        minlength: 'Your password must be at least 6 characters long.'
       },
     }
   });

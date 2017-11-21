@@ -10,7 +10,8 @@ Template.entitySignup.onRendered( function() {
         required: true
       },
       'entity-password': {
-        required: true
+        required: true,
+        minlength: 6
       },
       'entity-type': {
         required: true
@@ -24,7 +25,8 @@ Template.entitySignup.onRendered( function() {
         required: 'Please enter a contact email.'
       },
       'entity-password': {
-        required: 'Please enter a password.'
+        required: 'Please enter a password.',
+        minlength: 'Your password must be at least 6 characters long.'
       },
       'entity-type': {
         required: 'Please select the type of entity you wish to register.'
