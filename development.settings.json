@@ -27,6 +27,7 @@
         "secret": "yMvyA4T8KKacwT1FaEcUhgUv8Nc7tPnmCHm369WYtNq44gxxtS"
       }
     },
+    "gStorageKeyPath": "../../../../../imports/startup/server/key.json",
     "mailGun": "smtps://postmaster%40mg.commondemocracy.org:1bbade5a02f2baf06efc2da5b1d76cc6@smtp.mailgun.org:465",
     "defaultUsers": [
       {
