@@ -27,5 +27,8 @@ import '../../api/delegateVotes/server/publications.js';
 import '../../api/tags/methods.js';
 import '../../api/tags/server/publications.js';
 
+import '../../api/files/Images.js';
+import '../../api/files/server/publications.js';
+
 
 

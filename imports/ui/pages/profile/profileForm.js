@@ -36,7 +36,7 @@ Template.ProfileForm.onCreated(function() {
 
 Template.ProfileForm.events({
   'submit form' (event, template) {
-    console.log("submit clicked");
+    //console.log("submit clicked");
     event.preventDefault();
   },
 
@@ -136,17 +136,17 @@ Template.ProfileForm.onRendered(function() {
 Template.ProfileForm.helpers({
   isEntity: function() {
     var type = Template.instance().type.get();
-    console.log(type);
+    //console.log(type);
     if (type == 'Entity') {
-      console.log("should be hidden");
+      //console.log("should be hidden");
       return true;
     }
-    console.log("show lastname");
+    //console.log("show lastname");
     return false;
   },
   profile: function() {
     user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1, roles: 1, isPublic: 1, isParty: 1, isOrganisation: 1 } });
-    console.log(user);
+    //console.log(user);
     return user.profile;
   },
   profilePic: function() {
@@ -176,7 +176,7 @@ Template.ProfileForm.helpers({
   },
   isPublicChecked: function() {
     var isPublic = Template.instance().templateDictionary.get('isPublic');
-    console.log("isPublicChecked: " + isPublic);
+    //console.log("isPublicChecked: " + isPublic);
     if (isPublic) {
       return "checked";
     }
@@ -194,7 +194,7 @@ $.validator.addMethod('usernameCheck', (username) => {
     if (error) {
       console.log(error);
     }
-    console.log("result: " + result);
+    //console.log("result: " + result);
     return result;
   });
 });
