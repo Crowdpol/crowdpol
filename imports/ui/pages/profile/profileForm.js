@@ -75,7 +75,9 @@ Template.ProfileForm.events({
       }
     });
   },
-
+  'onchange #profile-photo-path' (event, template) {
+    $('img#photo-preview').prop('src', this.value);
+  },
   /*
   'submit form' (event, template){
 
