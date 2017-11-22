@@ -19,3 +19,16 @@ Template.App_body.helpers({
 		return showDrawer;
 	}
 });
+
+Template.App_body.onRendered(function () {
+  $('.mdl-layout__obfuscator-right').click(function(){
+    console.log("obfuscator");
+   if($('.mdl-layout__drawer-right').hasClass('active')){    
+      $('.mdl-layout__drawer-right').removeClass('active'); 
+      Session.set('drawerId','');
+   }
+   else{
+      $('.mdl-layout__drawer-right').addClass('active'); 
+   }
+  });
+})

@@ -33,6 +33,11 @@ Meteor.methods({
       //console.log(users);
       return users[0];
     },
+    getUserTags: function(userID) {
+      check(userID, String);
+      const users = Meteor.users.find({_id: userID},{fields: {profile: 1}}).fetch();
+      return users[0].profile.tags;
+    },
     updateProfile: function (userID, profile) {
       //console.log(profile);
       check(userID, String);
@@ -163,10 +168,11 @@ Meteor.methods({
       return count;
     },
     //this function checks the current user's username and id against the existing ones
-    checkUpdateUsername(username){
-      console.log(username.length);
+    //Returns true if username is unique, false otherwise
+    updateUsernameIsUnique(username){
       var count = Meteor.users.find({"_id":{$ne: Meteor.userId()},"profile.username": {$eq: username}}).count();
       if(count > 0){
+        console.log('returning false')
         return false;
       }
       return true;
@@ -219,7 +225,31 @@ Meteor.methods({
         return result[0].searchString;
       }
       return false;
-    }
+    },
+    signupNewsletter(email){
+        check(email,String);
+        testUser = {
+          email:  email,
+          password: Random.id()
+        };
+        testUser._id = Meteor.call('addUser', testUser);
+        Roles.addUsersToRoles(testUser._id, "newsletter");
+        Meteor.call('sendNewsletterConfirmation',email, (error, response) => {
+          if (error){
+            return false;
+          } else {
+            return true
+          }
+        });
+
+      return false;
+    },
+    addTagToProfile: function(userId, tag) {
+      Meteor.users.update({_id: userId}, {$push: {'profile.tags': tag} });
+    },
+    removeTagFromProfile: function(userId, tag) {
+      Meteor.users.update({_id: proposalId}, {$pull: {'profile.tags': tag} });
+    },
 });
 
 

@@ -1,5 +1,22 @@
 import './newPassword.html'
 
+Template.newPassword.onRendered( function() {
+  $( "#new-password" ).validate({
+    rules: {
+      'new-password-password': {
+        required: true,
+        minlength: 6
+      },
+    },
+    messages: {
+      'new-password-password': {
+        required: 'Please enter your new password.',
+        minlength: 'Your password must be at least 6 characters long.'
+      },
+    }
+  });
+});
+
 Template.newPassword.events({
     'submit #new-password': function(event, template) {
         event.preventDefault();

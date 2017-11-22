@@ -10,6 +10,12 @@ Meteor.publish('users.all', function () {
   return Meteor.users.find();
 });
 
+Meteor.publish('user.profile', function(userId) {
+  check(userId,String);
+
+  return Meteor.users.find({_id: userId},{profile: 1,roles: 1,isPublic: 1});
+});
+
 // Publish approvals to list 
 Meteor.publish('users.pendingApprovals', function() {
 	//return Meteor.users.find({'profile.approvals.approved':false});
@@ -25,8 +31,26 @@ Meteor.publish(null, function() {
   return Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});
 });
 
-Meteor.publish('users.delegates', function () {
+Meteor.publish('users.candidates', function () {
   return Meteor.users.find({roles: "candidate"});
+});
+
+Meteor.publish('users.delegates', function () {
+  return Meteor.users.find({roles: "delegate"});
+});
+
+Meteor.publish('users.candidatesWithTag', function (keyword) {
+  var tag = Meteor.call('getTagByKeyword', keyword)
+  if (tag){
+    return Meteor.users.find({roles: 'candidate', 'profile.tags': { $elemMatch: {_id: tag._id}}});
+  }
+});
+
+Meteor.publish('users.delegatesWithTag', function (keyword) {
+  var tag = Meteor.call('getTagByKeyword', keyword)
+  if (tag){
+    return Meteor.users.find({roles: 'delegate', 'profile.tags': { $elemMatch: {_id: tag._id}}});
+  }
 });
 
 Meteor.publish("user.search", function(searchValue) {

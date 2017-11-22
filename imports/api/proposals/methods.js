@@ -30,5 +30,11 @@ Meteor.methods({
     },
     saveProposalChanges: function (proposalId, proposal) {
       Proposals.update({_id: proposalId}, {$set: proposal });
-    }
+    },
+    addTagToProposal: function(proposalId, tag) {
+      Proposals.update({_id: proposalId}, {$push: {tags: tag} });
+    },
+    removeTagFromProposal: function(proposalId, tag) {
+      Proposals.update({_id: proposalId}, {$pull: {tags: tag} });
+    },
 });

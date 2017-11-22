@@ -127,7 +127,31 @@ Schema.UserProfile = new SimpleSchema({
     searchString: {
         type: String,
         optional: true,
-    }
+    },
+    tags: {
+        type: Array,
+        optional: true,
+    },
+    "tags.$": {
+        type: Object,
+        optional: true
+    },
+    "tags.$.keyword": {
+        type: String,
+        optional: true
+    },
+    "tags.$._id": {
+        type: String,
+        optional: true
+    },
+    "tags.$.text": {
+        type: String,
+        optional: true
+    },
+    "tags.$.url": {
+        type: String,
+        optional: true
+    },
     /*
     birthday: {
         type: Date,

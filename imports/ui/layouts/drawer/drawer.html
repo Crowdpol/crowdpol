@@ -34,3 +34,25 @@
     </nav>
 	</div>
 </template>
+
+<template name="RightDrawer">
+	<div class="right-drawer mdl-layout__drawer-right">
+		<div class="right-drawer-header mdl-shadow--2dp">
+			<img src="{{user.profile.photo}}" class="profile-picture">
+			<h4>{{user.profile.firstName}} {{user.profile.lastName}}</h4>
+			<h6>{{user.profile.type}}</h6>
+		</div>
+		<div class="right-drawer-content">
+			<!-- <h4>Interests</h4> -->
+			<div class="user-tags-wrap">
+				{{#each user.profile.roles}}
+					<span class="mdl-chip">
+						<span class="mdl-chip__text">{{this}}</span>
+					</span>
+				{{/each}}
+			</div>
+			<h4>About {{user.profile.firstName}} {{user.profile.lastName}}</h4>
+			<p>{{user.profile.bio}}</p>
+		</div>
+	</div>
+</template>

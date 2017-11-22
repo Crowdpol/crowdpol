@@ -1,4 +1,6 @@
 <template name='EditProposal'>
+	
+	{{#if currentUser}}
 	<!-- Include Quill stylesheet -->
 	<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
@@ -7,11 +9,11 @@
 		<form id="edit-proposal-form">
 			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<label class="mdl-textfield__label">{{_ "proposals.edit.title"}}</label>
-				<input type="text" id="title" class="mdl-textfield__input">
+				<input type="text" name="title" id="title" class="mdl-textfield__input">
 			</div>
 
 			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<textarea class="mdl-textfield__input" type="text" rows= "5" id="abstract"></textarea>
+				<textarea class="mdl-textfield__input" type="text" rows= "5" name="abstract" id="abstract"></textarea>
 				<label class="mdl-textfield__label">{{_ "proposals.edit.abstract"}}</label>
 			</div>
 
@@ -22,20 +24,23 @@
 			</div>
 
 			<!-- Quill editor container -->
-			<div id="body">
+			<div id="body-editor">
 			</div>
+			<input type="hidden" name="body" id="body" class="mdl-textfield__input">
 
 			<div class="small-inputs-wrap">
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label class="mdl-textfield__label">{{_ "proposals.edit.startDate"}}</label>
-					<input type="date" id="startDate" class="mdl-textfield__input">
+					<input type="date" name="startDate" id="startDate" class="mdl-textfield__input">
 				</div>
 
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label class="mdl-textfield__label">{{_ "proposals.edit.endDate"}}</label>
-					<input type="date" id="endDate" class="mdl-textfield__input">
+					<input type="date" name="endDate" id="endDate" class="mdl-textfield__input">
 				</div>
 			</div>
+			Add some tags your proposal:
+			{{> taggle }}
 
 			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<label class="mdl-textfield__label">{{_ "proposals.edit.invited"}}</label>
@@ -48,7 +53,7 @@
 			</div>
 		</form>
 	</div>
-
+{{/if}}
 </template>
 
 

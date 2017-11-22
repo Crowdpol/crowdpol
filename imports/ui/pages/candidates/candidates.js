@@ -13,7 +13,7 @@ Template.Candidate.onCreated(function () {
     results = ReactiveMethod.call("getRanks", Meteor.userId(), "candidate");
     //console.log(results);
     Session.set('ranked',results);
-    console.log("autorun complete");
+    //console.log("autorun complete");
   });
   
 	
@@ -32,9 +32,8 @@ Template.Candidate.onRendered(function () {
     $( "#sortable" ).disableSelection();
 
     $( "#sortable" ).on("sortchange", sortEventHandler);
-    console.log("rendered");  
+    //console.log("rendered");  
 
-    
   });
 
 });
@@ -106,7 +105,7 @@ Template.Candidate.events({
     //console.log(candidateId);
     //(entityType,entityId,supporterId,ranking)
     var ranks = Session.get('ranked');
-    console.log(ranks.length);
+    //console.log(ranks.length);
     if(ranks.length>=5){
       Bert.alert("You can only have 5 candidates.", 'danger');
       event.target.checked = false;
@@ -124,7 +123,7 @@ Template.Candidate.events({
   'click .rank-select': function(event, template){
 
     candidateId = this._id;
-    console.log(this._id);
+    //console.log(this._id);
     //(entityType,entityId,supporterId,ranking,create)
     
 
@@ -138,27 +137,16 @@ Template.Candidate.events({
       });
 
   },
-  'click .profile-view': function(event, template){
-      console.log(this._id);
-        console.log("body rendering");
-        $('#notif').click(function(){
-         if($('.mdl-layout__drawer-right').hasClass('active')){       
-            $('.mdl-layout__drawer-right').removeClass('active'); 
-         }
-         else{
-            $('.mdl-layout__drawer-right').addClass('active'); 
-         }
-        });
-
-        $('.mdl-layout__obfuscator-right').click(function(){
-         if($('.mdl-layout__drawer-right').hasClass('active')){       
-            $('.mdl-layout__drawer-right').removeClass('active'); 
-         }
-         else{
-            $('.mdl-layout__drawer-right').addClass('active'); 
-         }
-        });
-        console.log("body rendering finito");
+  'click .candidate-view': function(event, template){
+    //console.log('show drawer ' + this._id);
+    Session.set('drawerId',this._id);
+    if($('.mdl-layout__drawer-right').hasClass('active')){       
+        $('.mdl-layout__drawer-right').removeClass('active'); 
+     }
+     else{
+        $('.mdl-layout__drawer-right').addClass('active'); 
+     }
+    
   }
 });
 
@@ -183,7 +171,7 @@ function sortEventHandler(){
           console.log(error)
           Bert.alert("Ranking failed. " + error.reason, 'danger');
         }else{
-          console.log(result);
+          //console.log(result);
           Bert.alert("Ranking updated.", 'success');
         }
       });

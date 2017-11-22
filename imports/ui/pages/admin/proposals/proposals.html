@@ -1,4 +1,5 @@
 <template name="AdminProposals">
+	{{#if currentUserIsAdmin}}
 	<div class="container">
 		<h3>Proposals</h3>
 		{{#if Template.subscriptionsReady}}
@@ -52,4 +53,5 @@
 			</p>
 		{{/if}}
 	</div>
+	{{/if}}
 </template>

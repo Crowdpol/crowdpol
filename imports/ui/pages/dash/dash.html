@@ -4,8 +4,9 @@
 		<!-- NOTE: This will have to be updated later on the permissions tickets. FlowRouter groups can manage this -->
 		<div class="dashboard-wrap">
 			{{#if currentUser}}
-				{{> DashProposals}}
 				{{> DashDelegates}}
+				{{> DashProposals}}
+				{{> DashCandidates}}
 
 				<div class="dash-card mdl-card mdl-shadow--2dp">
 				{{#unless currentUser.emails.[0].verified}}
@@ -62,7 +63,7 @@
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-				<i class="material-icons">subject</i>
+				<i class="material-icons">lightbulb_outline</i>
 			</button>
 		</div>
 	</div>
@@ -83,7 +84,28 @@
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-				<i class="material-icons">person</i>
+				<i class="material-icons">face</i>
+			</button>
+		</div>
+	</div>
+</template>
+
+<template name="DashCandidates">
+	<div class="dash-card mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">Candidates</h2>
+		</div>
+		<div class="dash-card-text mdl-card__supporting-text">
+			Nominate candidates.
+		</div>
+		<div class="mdl-card__actions">
+			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/candidate">
+				Nominate
+			</a>
+		</div>
+		<div class="mdl-card__menu">
+			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+				<i class="material-icons">record_voice_over</i>
 			</button>
 		</div>
 	</div>

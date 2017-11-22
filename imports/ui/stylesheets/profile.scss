@@ -23,3 +23,32 @@
     width: auto;
   }
 }
+
+.user-tags-wrap {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.right-drawer.active {
+  width: 80%;
+  max-width: 40rem;
+}
+
+.right-drawer-header {
+  padding: ($space / 2) $space;
+  text-align: center;
+
+  .profile-picture {
+    width: $space * 4;
+    height: $space * 4;
+  }
+
+  h6 {
+    color: $light-grey-dark;
+    margin-bottom: $space / 2;
+  }
+}
+
+.right-drawer-content {
+  padding: $space;
+}

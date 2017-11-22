@@ -31,14 +31,30 @@ Template.Authenticate.events({
     });
 	},
 	'click #login-twitter'(event) {
-    event.preventDefault();
-    Meteor.loginWithTwitter({}, function(err,response){
-    	if (err) {
-      	console.log('Handle errors here: ', err);
-        Bert.alert(err.reason, 'danger');
-      }else{
-				FlowRouter.go('/dash');
-      }
-    });
+	    event.preventDefault();
+	    Meteor.loginWithTwitter({}, function(err,response){
+	    	if (err) {
+	      	console.log('Handle errors here: ', err);
+	        Bert.alert(err.reason, 'danger');
+	      }else{
+					FlowRouter.go('/dash');
+	      }
+	    });
 	},
+	'click #individual-login-link'(event) {
+		$("#indivdual-signup").hide();
+		$("#individual-login").show();
+	},
+	'click #individual-signup-link'(event) {
+		$("#individual-login").hide();
+		$("#indivdual-signup").show();
+	},
+	'click #entity-login-link'(event) {
+		$("#entity-signup").hide();
+		$("#entity-login").show();
+	},
+	'click #entity-signup-link'(event) {
+		$("#entity-login").hide();
+		$("#entity-signup").show();
+	}
 });

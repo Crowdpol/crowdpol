@@ -12,12 +12,34 @@
 }
 
 .delegate-item.selected {
+  cursor: pointer;
   outline: ($space / 2) solid $light-blue;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: $space / 4;
+    top: $space / 4;
+    bottom: $space / 4;
+    width: 3px;
+    border-left: 2px dotted $light-grey-dark;
+    border-right: 2px dotted $light-grey-dark;
+  }
+
+  .card-avatar {
+    margin-left: $space / 2;
+  }
 }
 
 .card-main-wrap {
   display: flex;
   flex-basis: 100%;
+
+  h6 {
+    line-height: $base-line-height / 1.5;
+    letter-spacing: normal;
+    word-break: break-word;
+  }
 
   .card-main {
     flex: 1;
@@ -30,15 +52,24 @@
   margin-top: $space / 2;
 }
 
-.delegate-name {
-  font-size: $small-font-size;
-  line-height: $base-line-height / 1.5;
-  letter-spacing: normal;
-  word-break: break-word;
+.card-avatar {
+  width: $space * 1.5;
+  height: $space * 1.5;
 }
 
 .proposal-date {
   color: $light-blue;
+}
+
+// Proposal single view
+
+.proposal-container {
+  padding-top: $space * 2;
+}
+
+.proposal-wrap,
+.proposal-title {
+  margin-bottom: $space * 2;
 }
 
 .proposal-abstract {
@@ -68,9 +99,27 @@
 
 .proposal-switch {
   margin-bottom: $space / 2;
+
+  @include breakpoint($mobile) {
+    margin-bottom: 0;
+  }
 }
 
 .proposal-actions {
   margin: $space 0;
   text-align: right;
+
+  .mdl-chip {
+    vertical-align: middle;
+  }
+}
+
+.vote-actions {
+  display: flex;
+  justify-content: space-around;
+  margin: $space 0;
+
+  button {
+    flex-basis: 30%;
+  }
 }

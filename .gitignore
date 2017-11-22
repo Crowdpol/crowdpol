@@ -1,5 +1,6 @@
 # ------------- meteor gitignore
 node_modules/
+development.settings.json
 settings.json
 
 # ------------- OSX gitignore

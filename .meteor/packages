@@ -66,3 +66,4 @@ simple:reactive-method			# instant meth calls
 momentjs:moment					# makes time pretty
 seba:minifiers-autoprefixer
 underscore
+liberation:collection-pluck

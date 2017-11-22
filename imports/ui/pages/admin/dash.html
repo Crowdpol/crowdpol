@@ -1,4 +1,5 @@
 <template name="AdminDash">
+	{{#if currentUserIsAdmin}}
 	<div class="container">
 		<h3> {{_ "admin.dash.heading"}} </h3>
 		<div class="dashboard-wrap">
@@ -8,6 +9,7 @@
 			{{> AdminDashProposals}}
 		</div>
 	</div>
+	{{/if}}
 </template>
 
 <template name="AdminDashUsers">

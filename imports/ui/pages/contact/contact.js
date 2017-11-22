@@ -1,5 +1,38 @@
 import './contact.html'
 
+Template.contact.onRendered( function() {
+  $( "#contact-form" ).validate({
+    rules: {
+      'contact-email': {
+        required: true
+      },
+      'contact-name': {
+        required: true
+      },
+      'contact-subject': {
+        required: true
+      },
+      'contact-message': {
+        required: true
+      },
+    },
+    messages: {
+      'contact-email': {
+        required: 'Please enter your email address.'
+      },
+      'contact-name': {
+        required: 'Please enter your name.'
+      },
+      'contact-subject': {
+        required: 'Please provide a subject for your message.'
+      },
+      'contact-message': {
+        required: 'Please provide a messsage.'
+      },
+    }
+  })
+});
+
 Template.contact.events({
 	'submit form' (event, template){
 

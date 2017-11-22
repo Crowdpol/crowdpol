@@ -13,10 +13,8 @@ Template.Delegate.onCreated(function () {
     results = ReactiveMethod.call("getRanks", Meteor.userId(), "delegate");
     //console.log(results);
     Session.set('ranked',results);
-    console.log("autorun complete");
+    //console.log("autorun complete");
   });
-  
-	
   
   	//Meteor.subscribe('users.delegates');
 });
@@ -26,13 +24,13 @@ Template.Delegate.onRendered(function () {
   Meteor.defer(function(){
     $( "#sortable" ).sortable({
       create: function( event, ui ) {
-        console.log('create called');
+        //console.log('create called');
       }
     });
     $( "#sortable" ).disableSelection();
 
     $( "#sortable" ).on("sortchange", sortEventHandler);
-    console.log("rendered");  
+    //console.log("rendered");  
 
     
   });
@@ -106,7 +104,7 @@ Template.Delegate.events({
     //console.log(delegateId);
     //(entityType,entityId,supporterId,ranking)
     var ranks = Session.get('ranked');
-    console.log(ranks.length);
+    //console.log(ranks.length);
     if(ranks.length>=5){
       Bert.alert("You can only have 5 delegates.", 'danger');
       event.target.checked = false;
@@ -124,7 +122,7 @@ Template.Delegate.events({
   'click .rank-select': function(event, template){
 
     delegateId = this._id;
-    console.log(this._id);
+    //console.log(this._id);
     //(entityType,entityId,supporterId,ranking,create)
     
 
@@ -138,6 +136,17 @@ Template.Delegate.events({
       });
 
   },
+  'click .delegate-view': function(event, template){
+    //console.log('show drawer ' + this._id);
+    Session.set('drawerId',this._id);
+    if($('.mdl-layout__drawer-right').hasClass('active')){       
+        $('.mdl-layout__drawer-right').removeClass('active'); 
+     }
+     else{
+        $('.mdl-layout__drawer-right').addClass('active'); 
+     }
+    
+  }
 });
 
 
@@ -161,7 +170,7 @@ function sortEventHandler(){
           console.log(error)
           Bert.alert("Ranking failed. " + error.reason, 'danger');
         }else{
-          console.log(result);
+          //console.log(result);
           Bert.alert("Ranking updated.", 'success');
         }
       });

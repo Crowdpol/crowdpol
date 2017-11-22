@@ -4,11 +4,12 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 // Import needed templates
 import '../../ui/main.js';
 
+// Public Routes:
+
 Accounts.onLogout(function() {
 	FlowRouter.go('App.home');
 });
 
-// Set up all routes in the app
 FlowRouter.route('/', {
   name: 'App.home',
   action() {
@@ -44,7 +45,6 @@ FlowRouter.route('/verify-email/:token',{
 	}
 });
 
-//Password recovery
 FlowRouter.route('/reset-password/:token?', {
   name: 'App.password-recovery',
   action(params) {
@@ -57,7 +57,6 @@ FlowRouter.route('/reset-password/:token?', {
   }
 });
 
-
 FlowRouter.route('/login', {
   name: 'App.login',
   action() {
@@ -69,13 +68,6 @@ FlowRouter.route('/contact', {
   name: 'App.contact',
   action() {
     BlazeLayout.render('App_body', { main: 'contact' });
-  },
-});
-
-FlowRouter.route('/dash', {
-  name: 'App.dash',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Dash' });
   },
 });
 
@@ -100,14 +92,28 @@ FlowRouter.route('/about', {
   },
 });
 
-FlowRouter.route('/profile', {
+
+// Routes for logged-in users only:
+
+var loggedInRoutes = FlowRouter.group({
+  name: 'loggedIn',
+  triggersEnter: [function(context, redirect) {
+    if (!Meteor.user()){
+    FlowRouter.go('App.home');
+    Bert.alert('You must log in to access that page.', 'danger');
+  }
+  }]
+});
+
+loggedInRoutes.route('/profile', {
   name: 'App.profile',
   action() {
     BlazeLayout.render('App_body', { main: 'Profile' });
 
   },
 });
-FlowRouter.route('/profile/:id', {
+
+loggedInRoutes.route('/profile/:id', {
   name: 'App.profile',
   action() {
     BlazeLayout.render('App_body', { main: 'Profile' });
@@ -115,7 +121,57 @@ FlowRouter.route('/profile/:id', {
   },
 });
 
-// Admin Dash
+loggedInRoutes.route('/dash', {
+  name: 'App.dash',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Dash' });
+  },
+});
+
+loggedInRoutes.route('/tag/:keyword', {
+  name: 'App.tag',
+  action() {
+    BlazeLayout.render('App_body', {main: 'TagSearch'});
+  }
+});
+
+loggedInRoutes.route('/proposals', {
+  name: 'App.proposals',
+  action() {
+    BlazeLayout.render('App_body', {main: 'ProposalsList'});
+  }
+});
+
+loggedInRoutes.route('/proposals/edit/:id?', {
+  name: 'App.proposal.edit',
+  action() {
+    BlazeLayout.render('App_body', {main: 'EditProposal'});
+  }
+});
+
+loggedInRoutes.route('/proposals/view/:id', {
+  name: 'App.proposal.view',
+  action() {
+    BlazeLayout.render('App_body', {main: 'ViewProposal'});
+  }
+});
+
+loggedInRoutes.route('/delegate', {
+  name: 'App.delegate',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Delegate' });
+  },
+});
+
+loggedInRoutes.route('/candidate', {
+  name: 'App.candidate',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Candidate' });
+  },
+});
+
+// Admin Routes:
+
 var adminRoutes = FlowRouter.group({
   prefix: '/admin',
   name: 'admin',
@@ -147,7 +203,7 @@ adminRoutes.route('/tags', {
   },
 });
 
-FlowRouter.route('/tag/:id', {
+FlowRouter.route('/tag/:keyword', {
   name: 'App.tag',
   action() {
     BlazeLayout.render('App_body', {main: 'TagSearch'});
@@ -166,40 +222,4 @@ adminRoutes.route('/proposals', {
   action() {
     BlazeLayout.render('App_body', {main: 'AdminProposals'});
   }
-});
-
-// Proposals
-FlowRouter.route('/proposals', {
-  name: 'App.proposals',
-  action() {
-    BlazeLayout.render('App_body', {main: 'ProposalsList'});
-  }
-});
-
-FlowRouter.route('/proposals/edit/:id?', {
-  name: 'App.proposal.edit',
-  action() {
-    BlazeLayout.render('App_body', {main: 'EditProposal'});
-  }
-});
-
-FlowRouter.route('/proposals/view/:id', {
-  name: 'App.proposal.view',
-  action() {
-    BlazeLayout.render('App_body', {main: 'ViewProposal'});
-  }
-});
-
-FlowRouter.route('/delegate', {
-  name: 'App.delegate',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Delegate' });
-  },
-});
-
-FlowRouter.route('/candidate', {
-  name: 'App.candidate',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Candidate' });
-  },
 });

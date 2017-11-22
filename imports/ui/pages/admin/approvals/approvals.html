@@ -1,4 +1,5 @@
 <template name="AdminApprovals">
+	{{#if currentUserIsAdmin}}
 	<div class="container">
 		<h3>{{_"admin.approvals.heading"}}</h3>
 		{{#if Template.subscriptionsReady}}
@@ -67,4 +68,5 @@
 		</p>
 		{{/if}}
 	</div>
+	{{/if}}
 </template>
