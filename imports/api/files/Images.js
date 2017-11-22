@@ -52,7 +52,8 @@ const Images = new FilesCollection({
       // https://googlecloudplatform.github.io/gcloud-node/#/docs/v0.36.0/storage/bucket?method=upload
       var options = {
         destination: filePath,
-        resumable: true
+        resumable: true,
+        public: true
       };
 
       bucket.upload(fileRef.path, options, function(error, file){
@@ -91,6 +92,8 @@ const Images = new FilesCollection({
       // We will pipe request to Google Cloud Storage
       // So, original link will stay always secure
       var remoteReadStream = getReadableStream(http, path, vRef);
+      console.log("remoteReadStream");
+      console.log(remoteReadStream);
       this.serve(http, fileRef, vRef, version, remoteReadStream);
       return true;
     } else {
