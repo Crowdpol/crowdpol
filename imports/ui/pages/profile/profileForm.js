@@ -129,7 +129,6 @@ Template.ProfileForm.events({
             streams: 'dynamic',
             chunkSize: 'dynamic'
           }, false);
-
           uploadInstance.on('start', function() {
             template.currentUpload.set(this);
           });
@@ -152,7 +151,10 @@ Template.ProfileForm.events({
     //  console.log(e);
      // Bert.alert(e.reason,"danger");
     //}
-  }
+  },
+  'onchange #profile-photo-path' (event, template) {
+    $('img#photo-preview').prop('src', this.value);
+  },
   /*
   'submit form' (event, template){
 
@@ -301,7 +303,6 @@ function hasOwnProperty(obj, prop) {
     (!(prop in proto) || proto[prop] !== obj[prop]);
 }
 
-
 function checkProfileIsComplete(){
   var template = Template.instance();
   var profile = {
@@ -373,7 +374,6 @@ publicReady = function() {
   if(website.length == 0){
     console.log("no website");
     ready = false;
->>>>>>> Upload working, now refactoring
   }
 }
 
