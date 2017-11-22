@@ -2,6 +2,7 @@
 node_modules/
 development.settings.json
 settings.json
+imports/startup/server/key.json
 
 # ------------- OSX gitignore
 
