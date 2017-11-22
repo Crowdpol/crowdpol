@@ -33,5 +33,5 @@ ServiceConfiguration.configurations.insert({
   service: 'twitter',
   consumerKey: Meteor.settings.private.oAuth.twitter.consumerKey,
   secret: Meteor.settings.private.oAuth.twitter.secret,
-  loginStyle: 'redirect',
+  //loginStyle: 'redirect',
 });
