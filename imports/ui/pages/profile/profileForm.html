@@ -3,14 +3,34 @@
 
 	<form id="profile-form" class="profile">
 		<img src={{profilePic}} class="profile-picture">
+		<button class="mdl-button mdl-js-button mdl-button--icon">
+		  <i class="material-icons">cloud_upload</i>
+		</button>
 		<small class="center">{{profile.type}}</small>
-		{{> uploadForm}}
-		
-		<img src='http://localhost:3000/cdn/storage/Images/SbkPsH53cHJRDbrAi/original/SbkPsH53cHJRDbrAi.png' class="profile-picture">
-		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label class="mdl-textfield__label" for="profile-username">{{_ "profile-photo"}}</label>
-			<input type="text" name="profilePhotoPath" id="profile-photo-path" class="mdl-textfield__input" value="{{profilePic}}">
+		<div id="change-photo">
+			<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+				<!-- Tab Bars -->
+				<div class="mdl-tabs__tab-bar">
+					<a href="#photo-url" class="mdl-tabs__tab is-active">URL</a>
+					<a href="#photo-upload" class="mdl-tabs__tab">Upload</a>
+				</div>
+				<!-- MDL tab panels, is-active to denote currently active -->
+				<div class="mdl-tabs__panel is-active" id="photo-url">
+					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label class="mdl-textfield__label" for="profile-username">{{_ "profile-photo"}}</label>
+						<input type="text" name="profilePhotoPath" id="profile-photo-path" class="mdl-textfield__input" value="{{profilePic}}">
+					</div>
+				</div>
+				<div class="mdl-tabs__panel is-active" id="photo-upload">
+					{{> uploadForm}}
+				</div>
+				<img src='http://localhost:3000/cdn/storage/Images/SbkPsH53cHJRDbrAi/original/SbkPsH53cHJRDbrAi.png' id="photo-preview">
+			</div>
 		</div>
+		
+		
+		
+		
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="profile-username">{{_ "profile-username"}}</label>
 			<input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
