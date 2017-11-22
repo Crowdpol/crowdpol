@@ -76,6 +76,10 @@ Template.ProfileForm.events({
     });
   },
 
+  'onchange #profile-photo-path' (event, template) {
+    $('img#photo-preview').prop('src', this.value);
+  },
+
   /*
   'submit form' (event, template){
 
@@ -219,7 +223,6 @@ function hasOwnProperty(obj, prop) {
     (!(prop in proto) || proto[prop] !== obj[prop]);
 }
 
-<<<<<<< 99a946a079b033dd7368c7df9a0104c749b8e42c
 function checkProfileIsComplete(){
   var template = Template.instance();
   var profile = {
@@ -242,7 +245,9 @@ function checkProfileIsComplete(){
         isComplete = false;
       } 
     });
-=======
+  }
+}
+
 $.validator.addMethod('usernameCheck', (username) => {
   Meteor.call('checkUpdateUsername', username, function(error, result) {
     if (error) {
@@ -289,7 +294,7 @@ publicReady = function() {
   if(website.length == 0){
     console.log("no website");
     ready = false;
->>>>>>> Upload working, now refactoring
   }
   return isComplete;
+  */
 }
