@@ -60,14 +60,6 @@ Meteor.methods({
       check(isOrg, Boolean);
       Meteor.users.update({_id: userID}, {$set: {"isOrganisation": isOrg}});
     },
-    addApproval: function(userID, approval) {
-      user = Meteor.call('getUser', userID);
-      if (!user.profile.approvals){
-        Meteor.users.update({_id: userID}, {$set: {"profile.approvals": [approval]}});
-      } else {
-        Meteor.users.update({_id: userID},{ $push: {"profile.approvals": approval}});
-      }
-    },
     addEntity: function(entity) {
       entityID = Accounts.createUser({
         'email': entity.email,
@@ -81,8 +73,8 @@ Meteor.methods({
       'phoneNumber': entity.phone,
       'contactPerson': entity.contact,
       'type': entity.profileType,
-      'username': generateUsername(entity.name),
-      'searchString': entity.name + ' ' + generateUsername(entity.name)
+      //'username': generateUs"approvals": {$exists: true}, $where : "this.approvals.length > 0"})ername(entity.name),
+      'searchString': entity.name //+ ' ' + generateUsername(entity.name)
       };
 
       Meteor.call('updateProfile', entityID, profile);
@@ -114,8 +106,9 @@ Meteor.methods({
     clearApprovals: function(userID){
       Meteor.users.update({_id: userID}, {$set: {"profile.approvals": []}});
     },
-    approveUser: function(userID, requestId,status,approverID){
-      user = Meteor.users.findOne({_id: userID,"approvals" : {$exists: true}, $where : "this.approvals.length > 0"});
+    approveUser: function(userID, requestId, status, approverID){
+      user = Meteor.users.findOne({_id: userID, "approvals": {$exists: true}, $where : "this.approvals.length > 0"});
+      
       approvals = user.approvals;
       var type = null;
       for (i=0; i<approvals.length; i++){

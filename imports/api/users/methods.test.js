@@ -5,6 +5,11 @@
 import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
 import './methods.js';
+import { Factory } from 'meteor/dburles:factory';
+import { fakerSchema } from '../../utils/test-utils/faker-schema/';
+import { sinon } from 'meteor/practicalmeteor:sinon';
+
+const { schema, generateDoc } = fakerSchema;
 
 if (Meteor.isServer) {
   let testUser;
@@ -121,6 +126,15 @@ if (Meteor.isServer) {
 
     it("Can determine if a user has pending approvals", (done) => {
       try {
+        entityData = {
+        email:  "organisation@test.co.za",
+        password: 'test',
+        name: "Organisation",
+        website: "http://testuser.com",
+        phone: '09324802394',
+        contact: 'Contact McContact',
+        roles: 'delegate'
+      };
         testEntityID = Meteor.call('addEntity', entityData);
         Meteor.call('isApproved', testEntityID);
         done();
@@ -144,9 +158,26 @@ if (Meteor.isServer) {
 
     it("Can set user's approvals to approved", (done) => {
       try {
-        testEntityID = Meteor.call('addEntity', entityData);
-        Meteor.call('addApproval', testEntityID, {approved: false, type: 'delegate'});
-        Meteor.call('approveUser', testEntityID);
+        entityData = {
+        email:  "organisation@test.co.za",
+        password: 'test',
+        name: "Organisation",
+        website: "http://testuser.com",
+        phone: '09324802394',
+        contact: 'Contact McContact',
+        roles: 'delegate'
+      };
+        var testEntityId = Meteor.call('addEntity', entityData);
+        var testEntity = Meteor.call('getUser', testEntityId)
+        // stub Meteor's user method to simulate the entity being logged in
+        var userStub = sinon.stub(Meteor, 'user');
+        var idStub = sinon.stub(Meteor, 'userId');
+        userStub.returns(testEntity)
+        idStub.returns(testEntityId)
+        Meteor.call('requestApproval', testEntityId,'delegate');
+        Meteor.call('approveUser', testEntityId);
+        sinon.restore(Meteor, 'user');
+        sinon.restore(Meteor, 'userId');
         done();
       } catch (err) {
         console.log(err);
@@ -155,7 +186,15 @@ if (Meteor.isServer) {
     })
     it("Request admin approval", (done) => {
       try {
+        // create a fake user
+        Factory.define('user', Meteor.users, schema.User);
+        const userId = Factory.create('user')._id
+        const user = Meteor.call('getUser', userId);
+        // stub Meteor's user method to simulate a logged in user
+        stub = sinon.stub(Meteor, 'user');
+        stub.returns(user)
         Meteor.call('requestApproval', testUser._id,'delegate');
+        sinon.restore(Meteor, 'user');
         done();
       } catch (err) {
         console.log(err);
