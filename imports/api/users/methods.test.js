@@ -146,9 +146,26 @@ if (Meteor.isServer) {
 
     it("Can clear a user's approvals", (done) => {
       try {
-        testEntityID = Meteor.call('addEntity', entityData);
-        Meteor.call('addApproval', testEntityID, {approved: false, type: 'delegate'});
-        Meteor.call('clearApprovals', testEntityID);
+        entityData = {
+        email:  "organisation@test.co.za",
+        password: 'test',
+        name: "Organisation",
+        website: "http://testuser.com",
+        phone: '09324802394',
+        contact: 'Contact McContact',
+        roles: 'delegate'
+      };
+        var testEntityId = Meteor.call('addEntity', entityData);
+        var testEntity = Meteor.call('getUser', testEntityId)
+        // stub Meteor's user method to simulate the entity being logged in
+        var userStub = sinon.stub(Meteor, 'user');
+        var idStub = sinon.stub(Meteor, 'userId');
+        userStub.returns(testEntity)
+        idStub.returns(testEntityId)
+        Meteor.call('requestApproval', testEntityId,'delegate');
+        Meteor.call('clearApprovals', testEntityId);
+        sinon.restore(Meteor, 'user');
+        sinon.restore(Meteor, 'userId');
         done();
       } catch (err) {
         console.log(err);

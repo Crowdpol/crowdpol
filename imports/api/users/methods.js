@@ -104,7 +104,7 @@ Meteor.methods({
 
     },
     clearApprovals: function(userID){
-      Meteor.users.update({_id: userID}, {$set: {"profile.approvals": []}});
+      Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
     },
     approveUser: function(userID, requestId, status, approverID){
       user = Meteor.users.findOne({_id: userID, "approvals": {$exists: true}, $where : "this.approvals.length > 0"});
