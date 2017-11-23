@@ -4,6 +4,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
+import { expect } from 'meteor/practicalmeteor:chai';
 import './methods.js';
 import { Factory } from 'meteor/dburles:factory';
 import { fakerSchema } from '../../utils/test-utils/faker-schema/';
@@ -14,36 +15,6 @@ const { schema, generateDoc } = fakerSchema;
 Factory.define('user', Meteor.users, schema.User);
 
 // Test data and other messy stuff
-testUser = {
-  username: "test_user",
-  email:  "brett@numbcity.co.za",
-  password: 'test',
-  profile: {
-    firstName: "Test",
-    lastName: "User",
-    birthday: new Date(),
-    gender: "Other",
-    organization: "Test Org",
-    website: "http://testuser.com",
-    bio: "I am a test user",
-    picture: "/img/default-user-image.png",
-    credentials : [
-      {
-        "source" : "default",
-        "URL" : "https://www.commondemocracy.org/",
-        "validated" : true
-      }
-    ],
-    tags : [
-      {
-        "text" : "Tag",
-        "keyword" : "tag",
-        "url" : 'tags/tag',
-        "_id" : '123'
-      }
-    ]
-  }
-};
 
 updateProfile = {
   firstName: "Test",
@@ -89,8 +60,9 @@ if (Meteor.isServer) {
 
       it("Adds a new user", (done) => {
         try {
-          testUser._id = Meteor.call('addUser', testUser);
-          Accounts.users.find({_id: testUser._id}).fetch();
+          var user = Factory.build('user', generateDoc(schema.User))
+          var id = Meteor.call('addUser', user);
+          expect(Accounts.users.find({_id: id}).count()).to.equal(1);
           done();
         } catch (err) {
           console.log(err);
@@ -100,7 +72,8 @@ if (Meteor.isServer) {
 
       it("Gets a user", (done) => {
         try {
-          Meteor.call('getUser', userId);
+          var user = Meteor.call('getUser', userId);
+          expect(user).to.exist
           done();
         } catch (err) {
           console.log(err);
@@ -111,6 +84,7 @@ if (Meteor.isServer) {
       it("Deletes a user", (done) => {
         try {
           Meteor.call('deleteUser', userId);
+          expect(Meteor.call('getUser', userId)).to.not.exist
           done();
         } catch (err) {
           console.log(err);
@@ -132,7 +106,14 @@ if (Meteor.isServer) {
 
       it("Toggles user role", (done) => {
         try {
+          // Add a role
+          Meteor.call('toggleRole', userId, 'delegate', true);
+          var user = Meteor.call('getUser', userId);
+          expect(user.roles).to.include('delegate'); 
+          // Remove a role
           Meteor.call('toggleRole', userId, 'delegate', false);
+          var user = Meteor.call('getUser', userId);
+          expect(user.roles).to.not.include('delegate');     
           done();
         } catch (err) {
           console.log(err);
@@ -146,7 +127,8 @@ if (Meteor.isServer) {
 
       it("Gets a user's profile", (done) => {
         try {
-          Meteor.call('getProfile', userId);
+          var profile = Meteor.call('getProfile', userId);
+          expect(profile).to.exist;
           done();
         } catch (err) {
           console.log(err);
@@ -157,26 +139,9 @@ if (Meteor.isServer) {
       it("Updates a user's profile", (done) => {
         try {
           Meteor.call('updateProfile', userId, updateProfile);
-          done();
-        } catch (err) {
-          console.log(err);
-          assert.fail();
-        }
-      });
-
-      it("Fetches tags on user's profile", (done) => {
-        try {
-          Meteor.call('getUserTags', userId);
-          done();
-        } catch (err) {
-          console.log(err);
-          assert.fail();
-        }
-      });
-
-      it("Toggles user profile to be public/private", (done) => {
-        try {
-          Meteor.call('togglePublic', userId, true);
+          var user = Meteor.call('getUser', userId);
+          expect(user.profile.firstName).to.equal(updateProfile.firstName)
+          expect(user.profile.lastName).to.equal(updateProfile.lastName)
           done();
         } catch (err) {
           console.log(err);
@@ -187,6 +152,21 @@ if (Meteor.isServer) {
       it("Adds a tag to the user's profile", (done) => {
         try {
           Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          var user = Meteor.call('getUser', userId);
+          expect(user.profile.tags).to.have.lengthOf(1);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+      it("Fetches tags on user's profile", (done) => {
+        try {
+          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          var tags = Meteor.call('getUserTags', userId);
+          expect(tags).to.have.lengthOf(1);
+          expect(tags[0].text).to.equal('Text');
           done();
         } catch (err) {
           console.log(err);
@@ -196,7 +176,27 @@ if (Meteor.isServer) {
 
       it("Removes a tag from the user's profile", (done) => {
         try {
+          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', id: '1234'});
           Meteor.call('removeTagFromProfile', userId, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          var user = Meteor.call('getUser', userId);
+          expect(user.profile.tags).to.have.lengthOf(1);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+      it("Toggles user profile to be public/private", (done) => {
+        try {
+          // Set to true
+          Meteor.call('togglePublic', userId, true);
+          var user = Meteor.call('getUser', userId);
+          expect(user.isPublic).to.equal(true);
+          // Set to false
+          Meteor.call('togglePublic', userId, false);
+          var user = Meteor.call('getUser', userId);
+          expect(user.isPublic).to.equal(false)
           done();
         } catch (err) {
           console.log(err);
@@ -206,7 +206,10 @@ if (Meteor.isServer) {
 
       it("Checks if user's username is unique", (done) => {
         try {
-          Meteor.call('updateUsernameIsUnique', 'username');
+          Factory.create('user', { 'profile.username': 'username' })
+          expect(Meteor.call('updateUsernameIsUnique', 'uniqueUsername')).to.equal(true);
+          Factory.create('user', { 'profile.username': 'uniqueUsername' })
+          expect(Meteor.call('updateUsernameIsUnique', 'uniqueUsername')).to.equal(false);
           done();
         } catch (err) {
           console.log(err);
@@ -220,7 +223,9 @@ if (Meteor.isServer) {
 
       it("Creates an entity", (done) => {  
         try {
-          Meteor.call('addEntity', entityData);
+          var id = Meteor.call('addEntity', entityData);
+          entity = Meteor.call('getUser', id);
+          expect(entity).to.exist;
           done();
         } catch (err) {
           console.log(err);
@@ -248,9 +253,11 @@ if (Meteor.isServer) {
         resetDatabase();
       });
 
-      it("Determines if a user has pending approvals", (done) => {
+      it("Request admin approval", (done) => {
         try {
-          Meteor.call('isApproved', testEntityId);
+          Meteor.call('requestApproval', testEntityId,'delegate');
+          var testEntity = Meteor.call('getUser', testEntityId)
+          expect(testEntity.approvals).to.have.lengthOf(1);
           done();
         } catch (err) {
           console.log(err);
@@ -262,16 +269,8 @@ if (Meteor.isServer) {
         try {
           Meteor.call('requestApproval', testEntityId,'delegate');
           Meteor.call('clearApprovals', testEntityId);
-          done();
-        } catch (err) {
-          console.log(err);
-          assert.fail();
-        }
-      });
-
-      it("Request admin approval", (done) => {
-        try {
-          Meteor.call('requestApproval', testUser._id,'delegate');
+          var testEntity = Meteor.call('getUser', testEntityId)
+          expect(testEntity.approvals).to.have.lengthOf(0);
           done();
         } catch (err) {
           console.log(err);
@@ -281,8 +280,27 @@ if (Meteor.isServer) {
 
       it("Can set user's approvals to approved", (done) => {
         try {
+          Meteor.call('requestApproval', testEntityId);
+          var testEntity = Meteor.call('getUser', testEntityId)
+          var approval = testEntity.approvals[0]
+          Meteor.call('approveUser', testEntityId, approval.id, 'Approved','12345');
+          testEntity = Meteor.call('getUser', testEntityId)
+          expect(testEntity.approvals[0].status).to.equal('Approved')
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+      it("Determines if a user has pending approvals", (done) => {
+        try {
           Meteor.call('requestApproval', testEntityId,'delegate');
-          Meteor.call('approveUser', testEntityId);
+          var testEntity = Meteor.call('getUser', testEntityId)
+          expect(Meteor.call('isApproved', testEntityId)).to.equal(false);
+          var approval = testEntity.approvals[0]
+          Meteor.call('approveUser', testEntityId, approval.id, 'Approved','12345');
+          expect(Meteor.call('isApproved', testEntityId)).to.equal(true);
           done();
         } catch (err) {
           console.log(err);

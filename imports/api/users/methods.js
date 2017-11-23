@@ -34,9 +34,6 @@ Meteor.methods({
     },
     getUserTags: function(userID) {
       check(userID, String);
-      console.log('in the method')
-      console.log(userID)
-      console.log(Meteor.users.find().fetch())
       const users = Meteor.users.find({_id: userID},{fields: {profile: 1}}).fetch();
       return users[0].profile.tags;
     },
@@ -82,9 +79,9 @@ Meteor.methods({
     isApproved: function(userID) {
       user = Meteor.call('getUser', userID);
 
-      if (user.profile.approvals){
-        for (i = 0; i < user.profile.approvals.length; i++){
-          if (!user.profile.approvals[i].approved){
+      if (user.approvals){
+        for (i = 0; i < user.approvals.length; i++){
+          if (user.approvals[i].status != 'Approved'){
             return false;
           }
         }
