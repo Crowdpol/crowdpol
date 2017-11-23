@@ -32,6 +32,14 @@ testUser = {
         "URL" : "https://www.commondemocracy.org/",
         "validated" : true
       }
+    ],
+    tags : [
+      {
+        "text" : "Tag",
+        "keyword" : "tag",
+        "url" : 'tags/tag',
+        "_id" : '123'
+      }
     ]
   }
 };
@@ -105,6 +113,20 @@ if (Meteor.isServer) {
       });
     }); // End of basic method tests
 
+    describe('Methods for Canidates and Delegate', ()=>{
+
+      it("Toggles user role", (done) => {
+        try {
+          Meteor.call('toggleRole', testUser._id, 'delegate', false);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+    }); //End of Candidates and Delegates Methods
+
     describe('Profile Methods', () => {
 
       it("Gets a user's profile", (done) => {
@@ -126,6 +148,57 @@ if (Meteor.isServer) {
           assert.fail();
         }
       });
+
+      it("Fetches tags on user's profile", (done) => {
+        try {
+          Meteor.call('getUserTags', testUser._id);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+      it("Toggles user profile to be public/private", (done) => {
+        try {
+          Meteor.call('togglePublic', testUser._id, true);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+      it("Adds a tag to the user's profile", (done) => {
+        try {
+          Meteor.call('addTagToProfile', testUser._id, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+      it("Removes a tag from the user's profile", (done) => {
+        try {
+          Meteor.call('removeTagFromProfile', testUser._id, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+      it("Removes a tag from the user's profile", (done) => {
+        try {
+          Meteor.call('checkUpdateUsername', testUser._id, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+      
     }); // End of Profile Methods
 
     describe('Entity Methods', () => {

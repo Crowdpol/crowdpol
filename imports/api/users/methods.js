@@ -10,7 +10,6 @@ Meteor.methods({
       return userId;
     },
     isPublic: function (userId) {
-
       user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});;
       //console.log("isPublic: " + user.isPublic);
       return user.isPublic;
@@ -49,16 +48,6 @@ Meteor.methods({
       check(userID, String);
       check(isPublic, Boolean);
       Meteor.users.update({_id: userID}, {$set: {"isPublic": isPublic}});
-    },
-    toggleParty: function (userID,isParty) {
-      check(userID, String);
-      check(isParty, Boolean);
-      Meteor.users.update({_id: userID}, {$set: {"isParty": isParty}});
-    },
-    toggleOrg: function (userID,isOrg) {
-      check(userID, String);
-      check(isOrg, Boolean);
-      Meteor.users.update({_id: userID}, {$set: {"isOrganisation": isOrg}});
     },
     addEntity: function(entity) {
       entityID = Accounts.createUser({
@@ -123,9 +112,6 @@ Meteor.methods({
       if(type&&status=='Approved'){
         Roles.addUsersToRoles(userID, type);
       }
-    },
-    'user.delete'(userId) {
-      Meteor.users.remove({_id:userId});
     },
     requestApproval: function (userID,type) {
       //get current user approvalReqeusts
