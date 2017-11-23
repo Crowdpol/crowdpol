@@ -1,5 +1,40 @@
 import './entitySignup.html'
 
+Template.entitySignup.onRendered( function() {
+  $( "#entity-signup-form" ).validate({
+    rules: {
+      'entity-name': {
+        required: true
+      },
+      'entity-email': {
+        required: true
+      },
+      'entity-password': {
+        required: true,
+        minlength: 6
+      },
+      'entity-type': {
+        required: true
+      },
+    },
+    messages: {
+      'entity-name': {
+        required: 'Provide a name for your party or organisation.'
+      },
+      'entity-email': {
+        required: 'Please enter a contact email.'
+      },
+      'entity-password': {
+        required: 'Please enter a password.',
+        minlength: 'Your password must be at least 6 characters long.'
+      },
+      'entity-type': {
+        required: 'Please select the type of entity you wish to register.'
+      },
+    }
+  });
+});
+
 Template.entitySignup.events({
 	'submit #entity-signup-form' (event, template){
 		event.preventDefault();

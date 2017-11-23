@@ -58,7 +58,7 @@ Template.ProfileForm.events({
   },
 
   'blur #profile-username' (event, template) {
-    Meteor.call('checkUpdateUsername', event.currentTarget.value, function(error, result) {
+    Meteor.call('updateUsernameIsUnique', event.currentTarget.value, function(error, result) {
       if (error) {
         console.log(error);
       } else {
@@ -100,15 +100,16 @@ Template.ProfileForm.events({
 
 Template.ProfileForm.onRendered(function() {
   let template = Template.instance();
+
   $("#profile-form").validate({
     rules: {
       profileUsername: {
         required: true,
         minlength: 5,
         maxlength: 16,
-        //usernameCheck: true
+        
       },
-      profilewebsite: {
+      profileWebsite: {
         url: true
       },
       profilePhotoPath: {
@@ -121,8 +122,7 @@ Template.ProfileForm.onRendered(function() {
         required: "Username required.",
         minlength: "Minimum of 5 characters",
         maxlength: "Maximum of 16 characters",
-        //usernameCheck: "Username exists"
-      }
+      },
     },
     submitHandler() {
       Meteor.call('transformTags', template.taggle.get().getTagValues(), function(error, proposalTags){
@@ -212,16 +212,6 @@ function hasOwnProperty(obj, prop) {
   return (prop in obj) &&
     (!(prop in proto) || proto[prop] !== obj[prop]);
 }
-
-$.validator.addMethod('usernameCheck', (username) => {
-  Meteor.call('checkUpdateUsername', username, function(error, result) {
-    if (error) {
-      console.log(error);
-    }
-    console.log("result: " + result);
-    return result;
-  });
-});
 
 //check criteria for public status
 publicReady = function() {

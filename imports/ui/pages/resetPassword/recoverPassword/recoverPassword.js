@@ -1,5 +1,20 @@
 import './recoverPassword.html'
 
+Template.recoverPassword.onRendered( function() {
+  $( "#recover-password" ).validate({
+    rules: {
+      'recovery-email': {
+        required: true,
+      },
+    },
+    messages: {
+      'recovery-email': {
+        required: 'Please enter your new recovery email address.',
+      },
+    }
+  });
+});
+
 Template.recoverPassword.events({
     'submit #recover-password': function(event, template) {
         event.preventDefault()
