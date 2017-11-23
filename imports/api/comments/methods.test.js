@@ -17,6 +17,7 @@ if (Meteor.isServer) {
 
   });
   describe('Comment methods', () => {
+    
     it("Lets user comment", (done) => {
       try {
         // create a fake proposal

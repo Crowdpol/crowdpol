@@ -8,216 +8,207 @@ import './methods.js';
 import { Factory } from 'meteor/dburles:factory';
 import { fakerSchema } from '../../utils/test-utils/faker-schema/';
 import { sinon } from 'meteor/practicalmeteor:sinon';
+import { resetDatabase } from 'meteor/xolvio:cleaner';
 
 const { schema, generateDoc } = fakerSchema;
 
+// Test data and other messy stuff
+testUser = {
+  username: "test_user",
+  email:  "brett@numbcity.co.za",
+  password: 'test',
+  profile: {
+    firstName: "Test",
+    lastName: "User",
+    birthday: new Date(),
+    gender: "Other",
+    organization: "Test Org",
+    website: "http://testuser.com",
+    bio: "I am a test user",
+    picture: "/img/default-user-image.png",
+    credentials : [
+      {
+        "source" : "default",
+        "URL" : "https://www.commondemocracy.org/",
+        "validated" : true
+      }
+    ]
+  }
+};
+
+updateProfile = {
+  firstName: "Test",
+  lastName: "User Updates",
+  gender: "Other",
+  organization: "Test Org Updated",
+  website: "http://testuser.com/update",
+  bio: "I am a test user, my profile has been updated",
+  picture: "/img/default-user-image.png",
+  credentials : [
+    {
+      "source" : "default",
+      "URL" : "https://www.commondemocracy.org/",
+      "validated" : true
+    }
+  ]
+};
+
+entityData = {
+  email:  "organisation@test.co.za",
+  password: 'test',
+  name: "Organisation",
+  website: "http://testuser.com",
+  phone: '09324802394',
+  contact: 'Contact McContact',
+  roles: 'delegate-organisation'
+};
+
 if (Meteor.isServer) {
-  let testUser;
-  beforeEach(function () {
-    Meteor.users.remove({});
-  });
-  describe('User methods', () => {
-    it("Add User", (done) => {
-      testUser = {
-        username: "test_user",
-        email:  "brett@numbcity.co.za",
-        password: 'test',
-        profile: {
-          firstName: "Test",
-          lastName: "User",
-          birthday: new Date(),
-          gender: "Other",
-          organization: "Test Org",
-          website: "http://testuser.com",
-          bio: "I am a test user",
-          picture: "/img/default-user-image.png",
-          credentials : [
-            {
-              "source" : "default",
-              "URL" : "https://www.commondemocracy.org/",
-              "validated" : true
-            }
-          ]
+
+  describe('User Methods', () => {
+
+    beforeEach( ()=> {
+      resetDatabase(null);
+    });
+
+    describe('Basic User Methods', () => {
+
+      it("Adds a new user", (done) => {
+        try {
+          testUser._id = Meteor.call('addUser', testUser);
+          Accounts.users.find({_id: testUser._id}).fetch();
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
         }
-      };
-      try {
-        testUser._id = Meteor.call('addUser', testUser);
-        Accounts.users.find({_id: testUser._id}).fetch();
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
+      });
 
-    it("Get user", (done) => {
-      try {
-        Meteor.call('getUser', testUser._id);
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
+      it("Gets a user", (done) => {
+        try {
+          Meteor.call('getUser', testUser._id);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
 
-    let updateProfile = {
-          firstName: "Test",
-          lastName: "User Updates",
-          gender: "Other",
-          organization: "Test Org Updated",
-          website: "http://testuser.com/update",
-          bio: "I am a test user, my profile has been updated",
-          picture: "/img/default-user-image.png",
-          credentials : [
-            {
-              "source" : "default",
-              "URL" : "https://www.commondemocracy.org/",
-              "validated" : true
-            }
-          ]
-    };
-    it("Get user profile", (done) => {
-      try {
-        Meteor.call('getProfile', testUser._id);
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
+      it("Deletes a user", (done) => {
+        try {
+          Meteor.call('deleteUser', testUser._id);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+    }); // End of basic method tests
 
-    it("Update user profile", (done) => {
-      try {
-        Meteor.call('updateProfile', testUser._id, updateProfile);
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
+    describe('Profile Methods', () => {
 
-    it("Delete user", (done) => {
-      try {
-        Meteor.call('deleteUser', testUser._id);
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
-    it("Creates an entity", (done) => {
-      entityData = {
-        email:  "organisation@test.co.za",
-        password: 'test',
-        name: "Organisation",
-        website: "http://testuser.com",
-        phone: '09324802394',
-        contact: 'Contact McContact',
-        roles: 'delegate'
-      };
-      try {
-        Meteor.call('addEntity', entityData);
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
+      it("Gets a user's profile", (done) => {
+        try {
+          Meteor.call('getProfile', testUser._id);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
 
-    it("Can determine if a user has pending approvals", (done) => {
-      try {
-        entityData = {
-        email:  "organisation@test.co.za",
-        password: 'test',
-        name: "Organisation",
-        website: "http://testuser.com",
-        phone: '09324802394',
-        contact: 'Contact McContact',
-        roles: 'delegate'
-      };
-        testEntityID = Meteor.call('addEntity', entityData);
-        Meteor.call('isApproved', testEntityID);
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
+      it("Updates a user's profile", (done) => {
+        try {
+          Meteor.call('updateProfile', testUser._id, updateProfile);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+    }); // End of Profile Methods
 
-    it("Can clear a user's approvals", (done) => {
-      try {
-        entityData = {
-        email:  "organisation@test.co.za",
-        password: 'test',
-        name: "Organisation",
-        website: "http://testuser.com",
-        phone: '09324802394',
-        contact: 'Contact McContact',
-        roles: 'delegate'
-      };
-        var testEntityId = Meteor.call('addEntity', entityData);
-        var testEntity = Meteor.call('getUser', testEntityId)
+    describe('Entity Methods', () => {
+
+      it("Creates an entity", (done) => {  
+        try {
+          testEntityId = Meteor.call('addEntity', entityData);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+    }); // End of Entity Methods
+
+    describe('Approvals Methods', () => {
+
+      beforeEach( ()=> {
         // stub Meteor's user method to simulate the entity being logged in
+        var testEntity = Meteor.call('getUser', testEntityId)
         var userStub = sinon.stub(Meteor, 'user');
         var idStub = sinon.stub(Meteor, 'userId');
         userStub.returns(testEntity)
         idStub.returns(testEntityId)
-        Meteor.call('requestApproval', testEntityId,'delegate');
-        Meteor.call('clearApprovals', testEntityId);
-        sinon.restore(Meteor, 'user');
-        sinon.restore(Meteor, 'userId');
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
+      });
 
-    it("Can set user's approvals to approved", (done) => {
-      try {
-        entityData = {
-        email:  "organisation@test.co.za",
-        password: 'test',
-        name: "Organisation",
-        website: "http://testuser.com",
-        phone: '09324802394',
-        contact: 'Contact McContact',
-        roles: 'delegate'
-      };
-        var testEntityId = Meteor.call('addEntity', entityData);
-        var testEntity = Meteor.call('getUser', testEntityId)
-        // stub Meteor's user method to simulate the entity being logged in
-        var userStub = sinon.stub(Meteor, 'user');
-        var idStub = sinon.stub(Meteor, 'userId');
-        userStub.returns(testEntity)
-        idStub.returns(testEntityId)
-        Meteor.call('requestApproval', testEntityId,'delegate');
-        Meteor.call('approveUser', testEntityId);
+      afterEach(()=>{
         sinon.restore(Meteor, 'user');
         sinon.restore(Meteor, 'userId');
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    })
-    it("Request admin approval", (done) => {
-      try {
-        // create a fake user
-        Factory.define('user', Meteor.users, schema.User);
-        const userId = Factory.create('user')._id
-        const user = Meteor.call('getUser', userId);
-        // stub Meteor's user method to simulate a logged in user
-        stub = sinon.stub(Meteor, 'user');
-        stub.returns(user)
-        Meteor.call('requestApproval', testUser._id,'delegate');
-        sinon.restore(Meteor, 'user');
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
-  });
-  
+      });
+
+      it("Determines if a user has pending approvals", (done) => {
+        try {
+          Meteor.call('isApproved', testEntityID);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+      it("Clears a user's approvals", (done) => {
+        try {
+          Meteor.call('requestApproval', testEntityId,'delegate');
+          Meteor.call('clearApprovals', testEntityId);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+      it("Can set user's approvals to approved", (done) => {
+        try {
+          Meteor.call('requestApproval', testEntityId,'delegate');
+          Meteor.call('approveUser', testEntityId);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+      it("Request admin approval", (done) => {
+        try {
+          // create a fake user
+          Factory.define('user', Meteor.users, schema.User);
+          const userId = Factory.create('user')._id
+          const user = Meteor.call('getUser', userId);
+          // stub Meteor's user method to simulate a logged in user
+          var adminStub = sinon.stub(Meteor, 'user');
+          adminStub.returns(user)
+          Meteor.call('requestApproval', testUser._id,'delegate');
+          sinon.restore(Meteor, 'user');
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
+
+    }); // End of Approvals Methods
+
+  }) // End of user method tests
 }

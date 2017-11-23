@@ -12,7 +12,6 @@ Meteor.methods({
       return Meteor.call('getRanks',Meteor.userId(),entityType);
     },
     removeRank: function (entityType,entityId) {
-      //console.log("method addRank called");
       check(entityType, String);
       check(entityId, String);
       Ranks.remove({ entityType: entityType, entityId: entityId, supporterId: Meteor.userId()});

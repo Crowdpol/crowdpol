@@ -74,6 +74,16 @@ if (Meteor.isServer) {
       }
     });
 
+    it("Gets a user's vote for specific proposal", (done) => {
+      try {
+        Meteor.call('getUserVoteFor', testVote.proposalId, testVote.voterHash);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
     it("Delete vote", (done) => {
       try {
         Meteor.call('deleteVote', testVote);

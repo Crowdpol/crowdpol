@@ -46,7 +46,8 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
-    it("Approve proposals", (done) => {
+
+    it("Approve proposal", (done) => {
       try {
         Meteor.call('approveProposal', testProposal);
         done();
@@ -55,9 +56,50 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
-    it("Reject proposals", (done) => {
+
+    it("Reject proposal", (done) => {
       try {
         Meteor.call('rejectProposal', testProposal, 'live');
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Update propsal stage", (done) => {
+      try {
+        Meteor.call('updateProposalStage', 'live');
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+     it("Save proposal changes", (done) => {
+      try {
+        Meteor.call('saveProposalChanges', {body: 'new body'});
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Add tag to proposal", (done) => {
+      try {
+        Meteor.call('addTagToProposal', {text: 'text', keyword: 'keyword', url: 'tags/keyword', _id: '123'});
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Remove tag from proposal", (done) => {
+      try {
+        Meteor.call('addTagToProposal', {text: 'text', keyword: 'keyword', url: 'tags/keyword', _id: '123'});
         done();
       } catch (err) {
         console.log(err);

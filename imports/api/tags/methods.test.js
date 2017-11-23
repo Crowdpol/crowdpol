@@ -37,6 +37,7 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
+    
     it("Toggle tag authorized", (done) => {
       try {
         Meteor.call('toggleAuthorized', testTag, true);
@@ -46,5 +47,17 @@ if (Meteor.isServer) {
         assert.fail();
       }
     });
+
+    it("Tranform tags", (done) => {
+      try {
+        Meteor.call('transformTags', ['TagOne', 'TagTwo'], true);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+
   });
 }

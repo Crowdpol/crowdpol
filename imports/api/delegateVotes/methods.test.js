@@ -31,6 +31,7 @@ if (Meteor.isServer) {
     // restores Meteor's user method
     sinon.restore(Meteor, 'user');
   });
+
     it("Lets delegate vote", (done) => {
       try {
         // create a fake proposal
@@ -46,7 +47,17 @@ if (Meteor.isServer) {
 
     it("Get vote", (done) => {
       try {
-        Meteor.call('getDelegateVote', testVote);
+        Meteor.call('getDelegateVote', testVote._id);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Gets vote of specific delegate for specific proposal", (done) => {
+      try {
+        Meteor.call('getDelegateVote', testVote.proposalId, testVote.delegateId);
         done();
       } catch (err) {
         console.log(err);

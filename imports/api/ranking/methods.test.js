@@ -8,7 +8,6 @@ import './methods.js';
 const { schema, generateDoc } = fakerSchema;
 
 if (Meteor.isServer) {
-  let testRank;
   describe('Rank methods', () => {
     beforeEach(function () {
     // create a fake user
@@ -17,6 +16,7 @@ if (Meteor.isServer) {
     // stub Meteor's user method to simulate a logged in user
     stub = sinon.stub(Meteor, 'userId');
     stub.returns(userId)
+    testRank = Meteor.call('addRank', "delegate", Random.id(), Random.fraction());
   });
 
     afterEach(function () {
@@ -25,7 +25,17 @@ if (Meteor.isServer) {
 
     it("Add rank", (done) => {
       try {
-        testRank = Meteor.call('addRank', "delegate", Random.id(), Random.fraction());
+        var testRank = Meteor.call('addRank', "delegate", Random.id(), Random.fraction());
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Remove rank", (done) => {
+      try {
+        var testRank = Meteor.call('removeRank', "delegate", Random.id());
         done();
       } catch (err) {
         console.log(err);
@@ -46,6 +56,26 @@ if (Meteor.isServer) {
     it("Delete rank", (done) => {
       try {
         Meteor.call('deleteRank', testRank[0]._id);
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Get ranks", (done) => {
+      try {
+        testRank = Meteor.call('getRanks',Random.id(), "delegate");
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Update ranks", (done) => {
+      try {
+        testRank = Meteor.call('updateRanks', [Random.id(), Random.id(), Random.id()], "delegate");
         done();
       } catch (err) {
         console.log(err);
