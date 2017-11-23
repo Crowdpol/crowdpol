@@ -18,17 +18,20 @@ ServiceConfiguration.configurations.insert({
     service: "facebook",
     appId: Meteor.settings.private.oAuth.facebook.appId,
     secret: Meteor.settings.private.oAuth.facebook.secret,
-    loginStyle: "popup",
+    loginStyle: 'redirect',
+    //loginStyle: "popup",
 });
 
 ServiceConfiguration.configurations.insert({
   service: 'google',
   clientId: Meteor.settings.private.oAuth.google.clientId,
   secret: Meteor.settings.private.oAuth.google.secret,
+  loginStyle: 'redirect',
 });
 
 ServiceConfiguration.configurations.insert({
   service: 'twitter',
   consumerKey: Meteor.settings.private.oAuth.twitter.consumerKey,
   secret: Meteor.settings.private.oAuth.twitter.secret,
+  //loginStyle: 'redirect',
 });
