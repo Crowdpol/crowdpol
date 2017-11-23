@@ -34,6 +34,9 @@ Meteor.methods({
     },
     getUserTags: function(userID) {
       check(userID, String);
+      console.log('in the method')
+      console.log(userID)
+      console.log(Meteor.users.find().fetch())
       const users = Meteor.users.find({_id: userID},{fields: {profile: 1}}).fetch();
       return users[0].profile.tags;
     },
@@ -151,7 +154,6 @@ Meteor.methods({
     updateUsernameIsUnique(username){
       var count = Meteor.users.find({"_id":{$ne: Meteor.userId()},"profile.username": {$eq: username}}).count();
       if(count > 0){
-        console.log('returning false')
         return false;
       }
       return true;
@@ -227,7 +229,7 @@ Meteor.methods({
       Meteor.users.update({_id: userId}, {$push: {'profile.tags': tag} });
     },
     removeTagFromProfile: function(userId, tag) {
-      Meteor.users.update({_id: proposalId}, {$pull: {'profile.tags': tag} });
+      Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
 });
 

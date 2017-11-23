@@ -11,6 +11,7 @@ import { sinon } from 'meteor/practicalmeteor:sinon';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 
 const { schema, generateDoc } = fakerSchema;
+Factory.define('user', Meteor.users, schema.User);
 
 // Test data and other messy stuff
 testUser = {
@@ -74,9 +75,14 @@ entityData = {
 if (Meteor.isServer) {
 
   describe('User Methods', () => {
+    
+    beforeEach(()=>{
+      Factory.define('user', Meteor.users, schema.User);
+      userId = Factory.create('user', generateDoc(schema.User))._id
+    });
 
-    beforeEach( ()=> {
-      resetDatabase(null);
+    afterEach(()=>{
+      resetDatabase();
     });
 
     describe('Basic User Methods', () => {
@@ -94,7 +100,7 @@ if (Meteor.isServer) {
 
       it("Gets a user", (done) => {
         try {
-          Meteor.call('getUser', testUser._id);
+          Meteor.call('getUser', userId);
           done();
         } catch (err) {
           console.log(err);
@@ -104,7 +110,7 @@ if (Meteor.isServer) {
 
       it("Deletes a user", (done) => {
         try {
-          Meteor.call('deleteUser', testUser._id);
+          Meteor.call('deleteUser', userId);
           done();
         } catch (err) {
           console.log(err);
@@ -113,11 +119,20 @@ if (Meteor.isServer) {
       });
     }); // End of basic method tests
 
-    describe('Methods for Canidates and Delegate', ()=>{
+    describe('Methods for Canidates and Delegates', ()=>{
+      beforeEach( ()=> {
+        // stub Meteor's user method to simulate the entity being logged in
+        var stub = sinon.stub(Meteor, 'userId');
+        stub.returns(userId)
+      });
+
+      afterEach(()=>{
+        sinon.restore(Meteor, 'userId');
+      });
 
       it("Toggles user role", (done) => {
         try {
-          Meteor.call('toggleRole', testUser._id, 'delegate', false);
+          Meteor.call('toggleRole', userId, 'delegate', false);
           done();
         } catch (err) {
           console.log(err);
@@ -131,7 +146,7 @@ if (Meteor.isServer) {
 
       it("Gets a user's profile", (done) => {
         try {
-          Meteor.call('getProfile', testUser._id);
+          Meteor.call('getProfile', userId);
           done();
         } catch (err) {
           console.log(err);
@@ -141,7 +156,7 @@ if (Meteor.isServer) {
 
       it("Updates a user's profile", (done) => {
         try {
-          Meteor.call('updateProfile', testUser._id, updateProfile);
+          Meteor.call('updateProfile', userId, updateProfile);
           done();
         } catch (err) {
           console.log(err);
@@ -151,7 +166,7 @@ if (Meteor.isServer) {
 
       it("Fetches tags on user's profile", (done) => {
         try {
-          Meteor.call('getUserTags', testUser._id);
+          Meteor.call('getUserTags', userId);
           done();
         } catch (err) {
           console.log(err);
@@ -161,7 +176,7 @@ if (Meteor.isServer) {
 
       it("Toggles user profile to be public/private", (done) => {
         try {
-          Meteor.call('togglePublic', testUser._id, true);
+          Meteor.call('togglePublic', userId, true);
           done();
         } catch (err) {
           console.log(err);
@@ -171,7 +186,7 @@ if (Meteor.isServer) {
 
       it("Adds a tag to the user's profile", (done) => {
         try {
-          Meteor.call('addTagToProfile', testUser._id, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', id: '1234'});
           done();
         } catch (err) {
           console.log(err);
@@ -181,7 +196,7 @@ if (Meteor.isServer) {
 
       it("Removes a tag from the user's profile", (done) => {
         try {
-          Meteor.call('removeTagFromProfile', testUser._id, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          Meteor.call('removeTagFromProfile', userId, {text: 'Text', keyword: 'text', url: '', id: '1234'});
           done();
         } catch (err) {
           console.log(err);
@@ -189,9 +204,9 @@ if (Meteor.isServer) {
         }
       });
 
-      it("Removes a tag from the user's profile", (done) => {
+      it("Checks if user's username is unique", (done) => {
         try {
-          Meteor.call('checkUpdateUsername', testUser._id, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          Meteor.call('updateUsernameIsUnique', 'username');
           done();
         } catch (err) {
           console.log(err);
@@ -205,7 +220,7 @@ if (Meteor.isServer) {
 
       it("Creates an entity", (done) => {  
         try {
-          testEntityId = Meteor.call('addEntity', entityData);
+          Meteor.call('addEntity', entityData);
           done();
         } catch (err) {
           console.log(err);
@@ -218,6 +233,7 @@ if (Meteor.isServer) {
     describe('Approvals Methods', () => {
 
       beforeEach( ()=> {
+        testEntityId = Meteor.call('addEntity', entityData);
         // stub Meteor's user method to simulate the entity being logged in
         var testEntity = Meteor.call('getUser', testEntityId)
         var userStub = sinon.stub(Meteor, 'user');
@@ -229,11 +245,12 @@ if (Meteor.isServer) {
       afterEach(()=>{
         sinon.restore(Meteor, 'user');
         sinon.restore(Meteor, 'userId');
+        resetDatabase();
       });
 
       it("Determines if a user has pending approvals", (done) => {
         try {
-          Meteor.call('isApproved', testEntityID);
+          Meteor.call('isApproved', testEntityId);
           done();
         } catch (err) {
           console.log(err);
@@ -252,10 +269,9 @@ if (Meteor.isServer) {
         }
       });
 
-      it("Can set user's approvals to approved", (done) => {
+      it("Request admin approval", (done) => {
         try {
-          Meteor.call('requestApproval', testEntityId,'delegate');
-          Meteor.call('approveUser', testEntityId);
+          Meteor.call('requestApproval', testUser._id,'delegate');
           done();
         } catch (err) {
           console.log(err);
@@ -263,17 +279,10 @@ if (Meteor.isServer) {
         }
       });
 
-      it("Request admin approval", (done) => {
+      it("Can set user's approvals to approved", (done) => {
         try {
-          // create a fake user
-          Factory.define('user', Meteor.users, schema.User);
-          const userId = Factory.create('user')._id
-          const user = Meteor.call('getUser', userId);
-          // stub Meteor's user method to simulate a logged in user
-          var adminStub = sinon.stub(Meteor, 'user');
-          adminStub.returns(user)
-          Meteor.call('requestApproval', testUser._id,'delegate');
-          sinon.restore(Meteor, 'user');
+          Meteor.call('requestApproval', testEntityId,'delegate');
+          Meteor.call('approveUser', testEntityId);
           done();
         } catch (err) {
           console.log(err);
