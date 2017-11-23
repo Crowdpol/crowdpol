@@ -58,3 +58,11 @@ Template.Authenticate.events({
 		$("#entity-signup").show();
 	}
 });
+
+Template.Authenticate.onRendered( function() {
+	if (Meteor.user()){
+		console.log("user signed in... redirect");
+	}else{
+		console.log("login page rendered");
+	}
+});

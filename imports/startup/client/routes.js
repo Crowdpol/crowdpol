@@ -60,7 +60,11 @@ FlowRouter.route('/reset-password/:token?', {
 FlowRouter.route('/login', {
   name: 'App.login',
   action() {
-    BlazeLayout.render('App_body', { main: 'Authenticate' });
+    if (!Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'Authenticate' });
+    }else{
+      BlazeLayout.render('App_body', { main: 'Dash' });
+    }
   },
 });
 
@@ -120,6 +124,7 @@ loggedInRoutes.route('/profile/:id', {
 
   },
 });
+
 
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
