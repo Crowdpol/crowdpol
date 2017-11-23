@@ -1,16 +1,22 @@
 import { Meteor } from 'meteor/meteor';
-import { assert } from 'meteor/practicalmeteor:chai';
+import { assert, expect } from 'meteor/practicalmeteor:chai';
 import './methods.js';
+import { Factory } from 'meteor/dburles:factory';
+import { fakerSchema } from '../../utils/test-utils/faker-schema/';
+
+const { schema, generateDoc } = fakerSchema;
 
 if (Meteor.isServer) {
-  let testProposal;
-  beforeEach(function () {
 
-  });
   describe('Proposal methods', () => {
+
+    beforeEach(function () {
+      proposalId = Factory.create('proposal', generateDoc(schema.Proposal))._id;
+    });
+
     it("Create proposal", (done) => {
       try {
-        proposal = {
+        var proposalData = {
           title: 'Test Proposal',
           abstract: 'This proposal will test the proposals',
           body: 'I hereby propose a proposal to test the proposals so that others, too, may propose proposals.',
@@ -19,7 +25,8 @@ if (Meteor.isServer) {
           authorId: '213924230'
         }
         
-        testProposal = Meteor.call('createProposal', proposal);
+        id = Meteor.call('createProposal', proposalData);
+        expect(id).to.exist;
         done();
       } catch (err) {
         console.log(err);
@@ -29,7 +36,8 @@ if (Meteor.isServer) {
 
     it("Get proposal", (done) => {
       try {
-        Meteor.call('getProposal', testProposal);
+        var proposal = Meteor.call('getProposal', proposalId);
+        expect(proposal).to.exist;
         done();
       } catch (err) {
         console.log(err);
@@ -39,7 +47,9 @@ if (Meteor.isServer) {
 
     it("Delete proposal", (done) => {
       try {
-        Meteor.call('deleteProposal', testProposal);
+        Meteor.call('deleteProposal', proposalId);
+        var proposal = Meteor.call('getProposal', proposalId);
+        expect(proposal).to.not.exist;
         done();
       } catch (err) {
         console.log(err);
@@ -49,7 +59,10 @@ if (Meteor.isServer) {
 
     it("Approve proposal", (done) => {
       try {
-        Meteor.call('approveProposal', testProposal);
+        Meteor.call('approveProposal', proposalId);
+        var proposal = Meteor.call('getProposal', proposalId);
+        expect(proposal.stage).to.equal('live');
+        expect(proposal.status).to.equal('approved');
         done();
       } catch (err) {
         console.log(err);
@@ -59,17 +72,9 @@ if (Meteor.isServer) {
 
     it("Reject proposal", (done) => {
       try {
-        Meteor.call('rejectProposal', testProposal, 'live');
-        done();
-      } catch (err) {
-        console.log(err);
-        assert.fail();
-      }
-    });
-
-    it("Update propsal stage", (done) => {
-      try {
-        Meteor.call('updateProposalStage', 'live');
+        Meteor.call('rejectProposal', proposalId);
+        var proposal = Meteor.call('getProposal', proposalId);
+        expect(proposal.status).to.equal('rejected');
         done();
       } catch (err) {
         console.log(err);
@@ -79,7 +84,9 @@ if (Meteor.isServer) {
 
      it("Save proposal changes", (done) => {
       try {
-        Meteor.call('saveProposalChanges', {body: 'new body'});
+        Meteor.call('saveProposalChanges', proposalId, {body: 'new body'});
+        var proposal = Meteor.call('getProposal', proposalId);
+        expect(proposal.body).to.equal('new body');
         done();
       } catch (err) {
         console.log(err);
@@ -89,7 +96,9 @@ if (Meteor.isServer) {
 
     it("Add tag to proposal", (done) => {
       try {
-        Meteor.call('addTagToProposal', {text: 'text', keyword: 'keyword', url: 'tags/keyword', _id: '123'});
+        Meteor.call('addTagToProposal', proposalId, {text: 'text', keyword: 'keyword', url: 'tags/keyword', _id: '123'});
+        var proposal = Meteor.call('getProposal', proposalId);
+        expect(proposal.tags).to.have.lengthOf(1);
         done();
       } catch (err) {
         console.log(err);
@@ -99,7 +108,11 @@ if (Meteor.isServer) {
 
     it("Remove tag from proposal", (done) => {
       try {
-        Meteor.call('addTagToProposal', {text: 'text', keyword: 'keyword', url: 'tags/keyword', _id: '123'});
+        var tag = {text: 'text', keyword: 'keyword', url: 'tags/keyword', _id: '123'}
+        Meteor.call('addTagToProposal', proposalId, tag);
+        Meteor.call('removeTagFromProposal', proposalId, tag);
+        var proposal = Meteor.call('getProposal', proposalId);
+        expect(proposal.tags).to.have.lengthOf(0);
         done();
       } catch (err) {
         console.log(err);

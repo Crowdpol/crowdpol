@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { assert } from 'meteor/practicalmeteor:chai';
+import { assert, expect } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Factory } from 'meteor/dburles:factory';
 import { fakerSchema } from '../../utils/test-utils/faker-schema/';
@@ -12,15 +12,13 @@ import '../proposals/methods.js';
 const { schema, generateDoc } = fakerSchema;
 
 if (Meteor.isServer) {
-  let testComment;
-  beforeEach(function () {
 
-  });
+  let testCommentId;
+
   describe('Comment methods', () => {
-    
-    it("Lets user comment", (done) => {
-      try {
-        // create a fake proposal
+
+    beforeEach(()=>{
+      // create a fake proposal
         const proposal = Factory.create('proposal', generateDoc(schema.Proposal));
         // create a fake user
         Factory.define('user', Meteor.users, schema.User);
@@ -29,19 +27,29 @@ if (Meteor.isServer) {
         // stub Meteor's user method to simulate a logged in user
         stub = sinon.stub(Meteor, 'user');
         stub.returns(user)
+        testCommentId = Meteor.call('comment', {message: 'test comment', proposalId: proposal._id});
+      });
 
-        testComment = Meteor.call('comment', {message: 'test comment', proposalId: proposal._id});
+    afterEach(()=>{
+      sinon.restore(Meteor, 'user');
+    });
+    
+    it("Lets user comment", (done) => {
+      try {
+        expect(testCommentId).to.exist;
         done();
       } catch (err) {
         console.log(err);
         assert.fail();
       }
-      sinon.restore(Meteor, 'user');
     });
 
     it("Get comment", (done) => {
       try {
-        Meteor.call('getComment', testComment);
+        console.log(testCommentId)
+        var testComment = Meteor.call('getComment', testCommentId);
+        expect(testComment).to.exist;
+        expect(testComment.message).to.equal('test comment');
         done();
       } catch (err) {
         console.log(err);
@@ -51,7 +59,9 @@ if (Meteor.isServer) {
 
     it("Delete comment", (done) => {
       try {
-        Meteor.call('deleteComment', testComment);
+        Meteor.call('deleteComment', testCommentId);
+        var testComment = Meteor.call('getComment', testCommentId);
+        expect(testComment).to.not.exist;
         done();
       } catch (err) {
         console.log(err);
