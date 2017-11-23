@@ -70,7 +70,7 @@ if (Meteor.isServer) {
         var tagArray = Meteor.call('transformTags', ['TagOne'], true);
         expect(tagArray[0].text).to.equal('TagOne');
         expect(tagArray[0].keyword).to.equal('tagone');
-        expect(tagArray[0].url).to.equal('/tags/tagone');
+        expect(tagArray[0].url).to.equal('/tag/tagone');
         done();
       } catch (err) {
         console.log(err);
