@@ -17,7 +17,7 @@ export const Rank = {
     }
   },
   required: [
-    'type',
+    'entityType',
     'entityId',
     'supporterId',
     'ranking',
