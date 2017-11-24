@@ -61,7 +61,8 @@ if (Meteor.isServer) {
 
     it("Delete rank", (done) => {
       try {
-        var id = Meteor.call('deleteRank', testRank[0]._id);
+        var id = Ranks.find().fetch()[0]._id;
+        Meteor.call('deleteRank', id);
         expect(Meteor.call('getRank', id)).to.not.exist;
         done();
       } catch (err) {

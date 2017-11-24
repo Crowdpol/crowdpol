@@ -10,7 +10,9 @@ Meteor.methods({
         body: String, 
         startDate: Date, 
         endDate: Date, 
-        authorId: String });
+        authorId: String,
+        invited: Match.Maybe([String]),
+        tags: Match.Maybe([Object])});
       return Proposals.insert(proposal);
     },
     getProposal: function (proposalId) {
@@ -45,7 +47,7 @@ Meteor.methods({
         text: String, 
         keyword: String, 
         url: String, 
-        _id: Date });
+        _id: String });
       Proposals.update({_id: proposalId}, {$push: {tags: tag} });
     },
     removeTagFromProposal: function(proposalId, tag) {
@@ -54,7 +56,7 @@ Meteor.methods({
         text: String, 
         keyword: String, 
         url: String, 
-        _id: Date });
+        _id: String });
       Proposals.update({_id: proposalId}, {$pull: {tags: tag} });
     },
 });
