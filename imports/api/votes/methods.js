@@ -5,6 +5,7 @@ import { Votes } from './Votes.js'
 
 Meteor.methods({
   vote: function(voteData) {
+    check(voteDate, {vote: String, proposalId: String, delegateId: String, voterHash: String});
     var user = Meteor.user();
     var proposal = Proposals.findOne(voteData.proposalId);
     // ensure the user is logged in
@@ -31,12 +32,16 @@ Meteor.methods({
     }
   },
   deleteVote: function(voteId) {
+    check(voteId, String);
     Votes.remove(voteId);
   },
   getVote: function(voteId){
+    check(voteId, String);
     return Votes.findOne({_id: voteId});
   },
   getUserVoteFor: function(proposalId, voterHash){
+    check(proposalId, String);
+    check(voterHash, String);
     return Votes.findOne({proposalId: proposalId, voterHash: voterHash});
   }
 });

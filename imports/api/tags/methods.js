@@ -5,6 +5,7 @@ import { convertToSlug } from '../../utils/functions';
 
 Meteor.methods({
     addTag: function (text) {
+      check(text, String);
       var existingTag = Tags.findOne({keyword: convertToSlug(text)});
       if (!existingTag){
         return Tags.insert({ text: text });
@@ -13,12 +14,15 @@ Meteor.methods({
       }
     },
     getTag: function (tagID) {
+      check(tagID, String);
       return Tags.findOne({_id: tagID});
     },
     getTagByKeyword: function(keyword){
+      check(keyword, String);
       return Tags.findOne({keyword: keyword});
     },
     deleteTag: function (tagID) {
+      check(tagID, String);
       Tags.remove(tagID);
     },
     toggleAuthorized: function (tagID,value) {
@@ -30,7 +34,7 @@ Meteor.methods({
     transformTags: function(tagsText){
       /*Takes an array of tag text and returns an array of tag objects 
       to store on user profiles or proposals*/
-
+      check(tagsText, [String]);
       var tags = []
       for (i=0; i<tagsText.length; i++){
         var tag = Tags.findOne({text: tagsText[i]});

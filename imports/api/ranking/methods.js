@@ -18,10 +18,12 @@ Meteor.methods({
       return Meteor.call('getRanks',Meteor.userId(),entityType);
     },
     getRank: function (rankID) {
+      check(rankID, String);
       //console.log("method getRank called");
       return Ranks.findOne({_id: rankID});
     },
     deleteRank: function (rankID) {
+      check(rankID, String);
       Ranks.remove(rankID);
     },
     getRanks: function(userId, type) {
@@ -36,6 +38,7 @@ Meteor.methods({
     },
     updateRanks: function(rankings,type){
       check(rankings, [String]);
+      check(type, String);
       var rank = 1;
       rankings.forEach(function(entry) {
         currentRanking = Ranks.findOne({entityType: type, entityId: entry, supporterId: Meteor.userId()});

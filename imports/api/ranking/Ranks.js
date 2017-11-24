@@ -45,29 +45,27 @@ const RankSchema = new SimpleSchema({
 
 Ranks.attachSchema(RankSchema);
 
-/*
-*  FIX: temporary workaround
-*  TBD: apply security best practices
-*  All to methods, validate paramenters
-*/
 //permissions
 Ranks.allow({
-  insert: function (userId) {
-    if (userId) {
-      return true;
-    }
+  insert() {
     return false;
   },
-  update: function (userId) {
-    if (userId) {
-      return true;
-    }
+  update() {
     return false;
   },
-  remove: function (userId) {
-    if (userId) {
-      return true;
-    }
+  remove() {
     return false;
+  },
+});
+
+Ranks.deny({
+  insert() {
+    return true;
+  },
+  update() {
+    return true;
+  },
+  remove() {
+    return true;
   },
 });

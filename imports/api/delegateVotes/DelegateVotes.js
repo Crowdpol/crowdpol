@@ -28,6 +28,18 @@ DelegateVotes.attachSchema(DelegateVotesSchema);
 
 DelegateVotes.allow({
   insert() {
+    return false;
+  },
+  update() {
+    return false;
+  },
+  remove() {
+    return false;
+  },
+});
+
+DelegateVotes.deny({
+  insert() {
     return true;
   },
   update() {
