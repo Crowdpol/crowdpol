@@ -12,3 +12,8 @@ Tracker.autorun(function() {
     return FlowRouter.initialize();
   }
 });
+
+Meteor.startup(function () {
+  // Client startup method.
+  Meteor.absoluteUrl.defaultOptions.rootUrl = 'http://www.commondemocracy.org/';
+});
