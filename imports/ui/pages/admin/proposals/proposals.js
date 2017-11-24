@@ -22,7 +22,7 @@ Template.AdminProposals.events({
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert("Proposal approved", 'success');
+				Bert.alert(TAPi18n.__('alerts.proposal-approved'), 'success');
 			}
 		}); 
 		
@@ -33,7 +33,7 @@ Template.AdminProposals.events({
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert("Proposal rejected", 'success');
+				Bert.alert(TAPi18n.__('alerts.proposal-rejected'), 'success');
 			}
 		}); 
 	}

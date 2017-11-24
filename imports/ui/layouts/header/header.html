@@ -13,7 +13,7 @@
 				{{hideHamburger}}
 				<a href="/">
 					<i class="material-icons">add</i>
-					<h5>Democracy 2018</h5>
+					<h5>{{_ "democracy"}} 2018</h5>
 			</a>
 			{{/if}}
 			<!-- Add spacer, to align navigation to the right -->
@@ -22,9 +22,9 @@
 				<!-- Navigation. We hide it in small screens. -->
 				<nav class="mdl-navigation mdl-layout--large-screen-only">
 					<a class="mdl-navigation__link" href="/dash">{{_ "nav_dash"}}</a>
-					<a class="mdl-navigation__link" href="/delegate">Delegate</a>
-					<a class="mdl-navigation__link" href="/proposals">Vote</a>
-					<a class="mdl-navigation__link" href="/candidate">Nominate</a>
+					<a class="mdl-navigation__link" href="/delegate">{{_ "delegate"}}</a>
+					<a class="mdl-navigation__link" href="/proposals">{{_ "vote"}}</a>
+					<a class="mdl-navigation__link" href="/candidate">{{_ "nominate"}}</a>
 					{{#unless currentUser}}
 						<a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
 					{{/unless}}
@@ -77,7 +77,7 @@
 		<div class="header-inner mdl-layout__header-row">
 			<a href="/">
 				<i class="material-icons">add</i>
-				<h5>Democracy 2018</h5>
+				<h5>{{_ "democracy"}} 2018</h5>
 			</a>
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>

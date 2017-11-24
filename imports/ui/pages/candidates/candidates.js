@@ -107,7 +107,7 @@ Template.Candidate.events({
     var ranks = Session.get('ranked');
     //console.log(ranks.length);
     if(ranks.length>=5){
-      Bert.alert("You can only have 5 candidates.", 'danger');
+      Bert.alert(TAPi18n.__('alerts.candidate-limit'), 'danger');
       event.target.checked = false;
     }else{
       Meteor.call('addRank','candidate',candidateId,1,function(error,result){

@@ -18,7 +18,8 @@ Template.Dash.events({
 				Bert.alert(error.reason, 'danger');
 			} else {
 				let email = Meteor.user().emails[0].address;
-				Bert.alert('Verification sent to ${email}', 'success');
+				message = TAPi18n.__('alerts.verification-email-sent') + email;
+				Bert.alert(message, 'success');
 			}
 		});
 	},

@@ -35,7 +35,7 @@ Template.AdminApprovals.events({
 				Bert.alert(error.reason, 'danger');
 			} else {
 				Meteor.call('sendApproval', email, type);
-				Bert.alert("User approved", 'success');//TAPi18n.__('profile-msg-private');
+				Bert.alert(TAPi18n.__('alerts.user-approved'), 'success');//TAPi18n.__('profile-msg-private');
 			}
 		});  
 		//
@@ -52,7 +52,7 @@ Template.AdminApprovals.events({
 				Bert.alert(error.reason, 'danger');
 			} else {
 				Meteor.call('sendRejection', email, type);
-				Bert.alert("User rejected", 'success');//TAPi18n.__('profile-msg-private');
+				Bert.alert(TAPi18n.__('alerts.user-rejected'), 'success');//TAPi18n.__('profile-msg-private');
 			}
 		}); 
 	}

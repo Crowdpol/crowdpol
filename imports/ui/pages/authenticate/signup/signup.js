@@ -42,7 +42,7 @@ Template.Signup.events({
 					if (error){
 						Bert.alert(error.reason, 'danger');
 					} else {
-						Bert.alert('Welcome!', 'success');
+						Bert.alert(TAPi18n.__('alerts.welcome'), 'success');
 					}
 				});
 			}

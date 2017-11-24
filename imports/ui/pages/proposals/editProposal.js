@@ -122,7 +122,7 @@ function saveChanges(event, template, returnTo){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					Bert.alert('Changes saved', 'success');
+					Bert.alert(TAPi18n.__('alerts.changes-saved'), 'success');
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
@@ -131,7 +131,7 @@ function saveChanges(event, template, returnTo){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					Bert.alert('Proposal created', 'success');
+					Bert.alert(TAPi18n.__('alerts.proposal-created'), 'success');
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
