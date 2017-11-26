@@ -51,9 +51,9 @@ Template.Profile.events({
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
-        var msg = TAPi18n.__('profile-msg-private');
+        var msg = TAPi18n.__('pages.profile.alerts.profile-private');
         if (event.target.checked) {
-          msg = TAPi18n.__('profile-msg-public');
+          msg = TAPi18n.__('pages.profile.alerts.profile-public');
         }
         Bert.alert(msg, 'success');
       }
@@ -66,7 +66,7 @@ Template.Profile.events({
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          var msg = TAPi18n.__('profile-msg-delegate-removed');
+          var msg = TAPi18n.__('pages.profile.profile-delegate-removed');
           Bert.alert(msg, 'success');
         }
       });
@@ -78,7 +78,7 @@ Template.Profile.events({
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          var msg = TAPi18n.__('profile-msg-delegate-requested');
+          var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
           Bert.alert(msg, 'success');
         }
       });
@@ -91,7 +91,7 @@ Template.Profile.events({
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          var msg = TAPi18n.__('profile-msg-candidate-removed');
+          var msg = TAPi18n.__('pages.profile.alerts.profile-candidate-removed');
           Bert.alert(msg, 'success');
         }
       });
@@ -103,7 +103,7 @@ Template.Profile.events({
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          var msg = TAPi18n.__('profile-msg-delegate-requested');
+          var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
           Bert.alert(msg, 'success');
         }
       });

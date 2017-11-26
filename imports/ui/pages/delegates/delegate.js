@@ -106,7 +106,7 @@ Template.Delegate.events({
     var ranks = Session.get('ranked');
     //console.log(ranks.length);
     if(ranks.length>=5){
-      Bert.alert(TAPi18n.__('alerts.delegate-limit'), 'danger');
+      Bert.alert(TAPi18n.__('pages.delegates.alerts.delegate-limit'), 'danger');
       event.target.checked = false;
     }else{
       Meteor.call('addRank','delegate',delegateId,1,function(error,result){
@@ -171,7 +171,7 @@ function sortEventHandler(){
           Bert.alert("Ranking failed. " + error.reason, 'danger');
         }else{
           //console.log(result);
-          Bert.alert(TAPi18n.__('alerts.ranking-updated'), 'success');
+          Bert.alert(TAPi18n.__('pages.delegates.alerts.ranking-updated'), 'success');
         }
       });
     }

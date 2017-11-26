@@ -38,7 +38,11 @@
 		"login": "Login",
 		"logout": "Logout",
 		"signup": "Sign Up",
+		"read-more": "Read More",
+		"preview": "Preview",
 		"loading": "Loading...",
+		"not-found_message": "Sorry, that page doesn't exist",
+		"not-found_home-link": "Go to home",
 		"alerts": {
 			"welcome": "Welcome"
 		}
@@ -53,10 +57,15 @@
 		"bio": "About",
 		"website": "Website",
 		"phone": "Phone number",
+		"subject": "Subject",
 		"contact": "Contact person",
+		"message": "Your message",
+		"save": "Save",
 		"submit": "Submit"
 	},
 	"pages": {
+		"home": {},
+		"about": {},
 		"authenticate":{
 			"logged-in-title": "You are already logged in",
 			"logout": "Log out",
@@ -84,14 +93,29 @@
 				"login": {
 					"title": "Login as Organisation/Party"
 				}
+			},
+			"new-passowrd":{
+				"heading": "Enter new password",
+				"new-password": "New password",
+				"alerts": {
+					"password-changed": "Your password has been changed successfully."
+				}
+			},
+			"recover-password":{
+				"heading": "Enter your email to receive instructions for resetting your password.",
+				"recovery-email": "Recovery email",
+				"alerts": {
+					"reset-password-sent-message": "An email with password recovery instructions has been sent."
+				}
 			}
 		},
-		"login":{
-			
-		},
+		"login":{},
 		"signup":{},
 		"entitySignup":{
 			"type": "Entity Type"
+		},
+		"contact":{
+			"heading": "Contact Us"
 		},
 		"dashboard": {
 			"heading" : "Dashboard",
@@ -121,59 +145,62 @@
 			"alerts": {
 				"verification-email-sent": "Verification sent to __email__"
 			}
-		}
-
-	},
-	"not-found_message": "Sorry, that page doesn't exist",
-	"not-found_home-link": "Go to home",
-	"login-title": "Login to get started:",
-	"signup-title": "No account yet? Sign up below:",
-	"new-password": "New password",
-	"recovery-email": "Recovery email",
-	"recover-password-message": "Enter your email to receive instructions for resetting your password." ,
-	"reset-password-sent-message": "An email with password recovery instructions has been sent.",
-	"password-changed": "Your password has been changed successfully.",
-	"forgot-password-link": "Forgot your password?",
-	"delegate": "Delegate",
-	"nominate": "Nominate",
-	"vote" : "Vote,",
-	"democracy": "Democracy",
-	"alerts": {
-		"welcome": "Welcome",
-		"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",
-		"login-to-view": "You must log in to access that page.",
-		"user-approved": "User approved",
-		"user-rejected": "User rejected",
-		"proposal-approved": "Proposal approved",
-		"proposal-rejected": "Proposal rejected",
-		"tag-updated": "Tag Updated",
-		"tag-added": "Tag Added",
-		"tag-deleted": "Tag Deleted",
-		"candidate-limit": "You can only have 5 candidates",
-		"delegate-limit": "You can only have 5 delegates",
-		"ranking-updated": "Ranking updated",
-		"contact-message-sent": "Your contact message has been sent.",
-		"verification-email-sent": "Verification sent to ",
-		"mailing-list-signup-success": "Thank you. You have been added to the mailing list.",
-		"changes-saved": "Changes saved",
-		"proposal-created": "Proposal created",
-		"copy-to-clipboard-success": "Proposal link copied to clipboard",
-		"copy-to-clipboard-fail": "Could not copy to clipboard",
-		"proposal-submitted": "Proposal submitted for admin approval",
-		"comment-success": "Comment posted",
-		"vote-success": "Your vote has been cast"
-	},
-	"emails": {
-		"verify-email": {
-			"subject": "Common Democracy: Please Verify Your Email",
-			"body": "To verify your email address __emailAddress__ visit the following link:\n\n __url__ \n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
 		},
-		"reset-password": {
-			"subject": "Common Democracy: Reset Your Password",
-			"body": "To reset your password, simply click the link below: \n\n __url__ \n\n If you did not request to change your password, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+		"profile": {
+			"heading": "Profile",
+			"photo" : "Profile photo path",
+			"public" : "Public Profile",
+			"private" : "Private Profile",
+			"delegate" : "Delegate",
+			"candidate" : "Candidate",
+			"alerts": {
+				"profile-updated": "Profile updated.",
+				"profile-private": "Profile is now private.",
+				"profile-public": "Profile is now public.",
+				"profile-delegate-removed" : "Delegate Role removed.",
+				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-candidate-removed" : "Candidate Role removed.",
+				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed."
+			}
+		},
+		"delegates": {
+			"heading": "Delegates",
+			"alerts": {
+				"delegate-limit": "You can only have 5 delegates",
+				"ranking-updated": "Delegate ranking updated"
+			}
+		},
+		"candidates": {
+			"heading": "Candidates",
+			"alerts": {
+				"candidate-limit": "You can only have 5 candidates",
+				"ranking-updated": "Candidate ranking updated"
+			}
+		},
+		"proposals": {
+			"heading": "Proposals",
+			"tabs": {
+				"vote-proposals": "Vote Proposals",
+				"my-proposals": "My Proposals"
+			},
+			"open-closed-switch": "Open/Closed",
+			"created-invited-switch": "Created/Invited",
+			"open-proposals": "Open Proposals",
+			"close-proposals": "Closed Proposals",
+			"my-proposals": "My proposals",
+			"contributed-prosals": "Proposals I contribute to",
+			"proposal-expires": "Expires",
+			"edit": {
+				"heading": "Write your proposal",
+				"title": "Title",
+				"abstract": "Summarise your proposal",
+				"startDate": "Start date for voting",
+				"endDate": "Closing date for voting",
+				"invited": "Invite others to collaborate by entering their usernames, separated by commas",
+				"add-tags": "Add some tags your proposal:"
+			}
 		}
 	},
-
 	"admin":{
 		"dash":{
 			"heading" : "Admin Dashboard",
@@ -236,45 +263,51 @@
 			"reject-button": "Reject"
 		}
 	},
-
+	"login-title": "Login to get started:",
+	"signup-title": "No account yet? Sign up below:",
+	"recover-password-message": "Enter your email to receive instructions for resetting your password." ,
+	"forgot-password-link": "Forgot your password?",
+	"delegate": "Delegate",
+	"nominate": "Nominate",
+	"vote" : "Vote,",
+	"democracy": "Democracy",
+	"alerts": {
+		"welcome": "Welcome",
+		"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",
+		"login-to-view": "You must log in to access that page.",
+		"user-approved": "User approved",
+		"user-rejected": "User rejected",
+		"proposal-approved": "Proposal approved",
+		"proposal-rejected": "Proposal rejected",
+		"tag-updated": "Tag Updated",
+		"tag-added": "Tag Added",
+		"tag-deleted": "Tag Deleted",
+		"contact-message-sent": "Your contact message has been sent.",
+		"verification-email-sent": "Verification sent to ",
+		"mailing-list-signup-success": "Thank you. You have been added to the mailing list.",
+		"changes-saved": "Changes saved",
+		"proposal-created": "Proposal created",
+		"copy-to-clipboard-success": "Proposal link copied to clipboard",
+		"copy-to-clipboard-fail": "Could not copy to clipboard",
+		"proposal-submitted": "Proposal submitted for admin approval",
+		"comment-success": "Comment posted",
+		"vote-success": "Your vote has been cast"
+	},
+	"emails": {
+		"verify-email": {
+			"subject": "Common Democracy: Please Verify Your Email",
+			"body": "To verify your email address __emailAddress__ visit the following link:\n\n __url__ \n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+		},
+		"reset-password": {
+			"subject": "Common Democracy: Reset Your Password",
+			"body": "To reset your password, simply click the link below: \n\n __url__ \n\n If you did not request to change your password, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+		}
+	},
 	"roles":{
 		"voter": "Voter",
 		"individual-delegate": "Individual Delegate",
 		"organisation-delegate": "Organisation Delegate",
 		"party-delegate": "Party Delegate",
 		"candidate": "Candidate"
-	},
-
-	"proposals": {
-		"edit": {
-			"title": "Title",
-			"abstract": "Summarise your proposal",
-			"startDate": "Start date for voting",
-			"endDate": "Closing date for voting",
-			"invited": "Invite others to collaborate by entering their usernames, separated by commas"
-		}
-	},
-
-	"name": "Name",
-	"subject": "Subject",
-	"contact-message": "Your message:",
-	"login-social": "Log in with Social Media",
-	"profile-title" : "Profile",
-	"profile-photo" : "Profile photo path",
-	"profile-username" : "Username",
-	"profile-firstname" : "First name",
-	"profile-lastname" : "Last name",
-	"profile-public" : "Public Profile",
-	"profile-private" : "Private Profile",
-	"profile-delegate" : "Delegate",
-	"profile-candidate" : "Candidate",
-	"profile-bio" : "About",
-	"profile-website" : "Website",
-	"profile-msg-public": "Profile is now public.",
-	"profile-msg-private": "Profile is now private.",
-	"profile-msg-updated": "Profile updated.",
-	"profile-msg-delegate-removed" : "Delegate Role removed.",
-	"profile-msg-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
-	"profile-msg-candidate-removed" : "Candidate Role removed.",
-	"profile-msg-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed."
+	}
 }

@@ -146,7 +146,7 @@ Template.ProfileForm.onRendered(function() {
               Bert.alert(error.reason, 'danger');
             } else {
               //template.find('#profile-form').reset();
-              Bert.alert(TAPi18n.__('profile-msg-updated'), 'success');
+              Bert.alert(TAPi18n.__('profile.alerts.profile-updated'), 'success');
             }
           });
 
