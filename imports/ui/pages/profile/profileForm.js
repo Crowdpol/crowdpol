@@ -60,7 +60,7 @@ Template.ProfileForm.events({
       }
     });
   },
-  'keyup #profile-photo-path, paste #profile-photo-path' (event, template) {
+  'keyup #profile-photo-path, paste #profile-photo-path, keydown #profile-photo-path, blur #profile-photo-path' (event, template) {
     var path = $("input#profile-photo-path").val();
     var obj = new Image();
     obj.src = path;
