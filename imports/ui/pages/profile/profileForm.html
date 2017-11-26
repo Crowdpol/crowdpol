@@ -1,27 +1,13 @@
 <template name="ProfileForm">
 	<h3>{{_ "pages.profile.heading"}}</h3>
 
-	<form id="profile-form" class="profile">
-		<img src={{profilePic}} class="profile-picture">
-
-
-		<small class="center">{{pages.profile.type}}</small>
-
+	<form id="profile-photo-form" class="profile">
+		<img src={{profilePic}} class="profile-picture" id="profile-pic">
+		<a href="#" id="change-photo-button">
+		  <i class="material-icons">camera_alt</i>
+		</a>
 		<small class="center">{{profile.type}}</small>
-		{{> uploadForm}}
-		{{> uploadedFiles}}
-
-		<img src='http://localhost:3000/cdn/storage/Images/SbkPsH53cHJRDbrAi/original/SbkPsH53cHJRDbrAi.png' class="profile-picture">
-
-		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label class="mdl-textfield__label" for="profile-username">{{_ "pages.profile.photo"}}</label>
-			<input type="text" name="profilePhotoPath" id="profile-photo-path" class="mdl-textfield__input" value="{{profilePic}}">
-		</div>
-		<button class="mdl-button mdl-js-button mdl-button--icon">
-		  <i class="material-icons">cloud_upload</i>
-		</button>
-		<small class="center">{{profile.type}}</small>
-		<div id="change-photo">
+		<div id="change-photo" style="display:none">
 			<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 				<!-- Tab Bars -->
 				<div class="mdl-tabs__tab-bar">
@@ -33,19 +19,27 @@
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="mdl-textfield__label" for="profile-username">{{_ "profile-photo"}}</label>
 						<input type="text" name="profilePhotoPath" id="profile-photo-path" class="mdl-textfield__input" value="{{profilePic}}">
+						
 					</div>
 				</div>
 				<div class="mdl-tabs__panel is-active" id="photo-upload">
-					{{> uploadForm}}
+					<!-- NOTE: Sol, check out this code pen for an MDL uploader -->
+				  {{#with currentUpload}}
+				    Uploading <b>{{file.name}}</b>: 
+				    <span id="progress">{{progress.get}}%</span>
+				  {{else}}
+				    <input id="fileInput" type="file" />
+				    <p><small>Upload file in <code>jpeg</code> or <code>png</code> format, with size less or equal to 10MB</small></p>
+				  {{/with}}
 				</div>
-				<img src='http://localhost:3000/cdn/storage/Images/SbkPsH53cHJRDbrAi/original/SbkPsH53cHJRDbrAi.png' id="photo-preview">
+				<span id="valid-photo-path"></span>
 			</div>
 
 		</div>
 		
 		
-		
-		
+	</form>
+	<form id="profile-form" class="profile">	
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
 			<input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
