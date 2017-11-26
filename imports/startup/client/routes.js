@@ -35,9 +35,9 @@ FlowRouter.route('/verify-email/:token',{
         if (Roles.userIsInRole(Meteor.userId(), ['organisation-delegate', 'party-delegate'])){
           approval = {type: Meteor.user().roles[0], approved: false, createdAt: new Date()};
           Meteor.call('addApproval', Meteor.userId(), approval);
-          Bert.alert(TAPi18n.__('alerts.verify-success-alert-entity'), 'success');
+          Bert.alert(TAPi18n.__('routes.alerts.verify-success-alert-entity'), 'success');
         } else {
-          Bert.alert(TAPi18n.__('alerts.verify-success-alert-entity'), 'success');
+          Bert.alert(TAPi18n.__('routes.alerts.verify-success-alert-entity'), 'success');
         }
         FlowRouter.go('App.dash')
 			}
@@ -104,7 +104,7 @@ var loggedInRoutes = FlowRouter.group({
   triggersEnter: [function(context, redirect) {
     if (!Meteor.user()){
     FlowRouter.go('App.home');
-    Bert.alert(TAPi18n.__('alerts.login-to-view'), 'danger');
+    Bert.alert(TAPi18n.__('routes.alerts.login-to-view'), 'danger');
   }
   }]
 });

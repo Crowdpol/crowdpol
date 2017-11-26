@@ -91,7 +91,7 @@ Template.ProfileForm.events({
         Bert.alert(error.reason, 'danger');
       } else {
         //template.find('#profile-form').reset();
-        Bert.alert(TAPi18n.__('profile-msg-updated'), 'success');
+        Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
       }
     });
   }
@@ -146,7 +146,7 @@ Template.ProfileForm.onRendered(function() {
               Bert.alert(error.reason, 'danger');
             } else {
               //template.find('#profile-form').reset();
-              Bert.alert(TAPi18n.__('profile.alerts.profile-updated'), 'success');
+              Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
             }
           });
 

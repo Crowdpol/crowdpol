@@ -3,9 +3,9 @@ Meteor.methods({
     Meteor.defer(() => {
       Email.send({
         to: `${email}`,
-        from: `Common Democracy <info@commondemocracy.org>`,
-        subject: `Invitation to Common Democracy`,
-        text: `You have been invited to participate in Common Democracy as a ${role}. Click the link to register: ${url}`,
+        from: TAPi18n.__('emails.send-invite.from', {name: Meteor.settings.private.deploymentName, email: Meteor.settings.private.fromEmail}),
+        subject: TAPi18n.__('emails.send-invite.subject'),
+        text: TAPi18n.__('emails.send-invite.body', {role: role, url: url})
       });
     });
   }

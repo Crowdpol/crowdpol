@@ -57,7 +57,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('success', function(e) {
     Bert.alert({
-      title: TAPi18n.__('alerts.copied-to-clipboard'),
+      title: TAPi18n.__('pages.proposals.alerts.copied-to-clipboard'),
       type: 'success',
       style: 'growl-bottom-right',
       icon: 'fa-link'
@@ -67,7 +67,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('error', function(e) {
     Bert.alert({
-      title: TAPi18n.__('alerts.copy-to-clipboard-fail'),
+      title: TAPi18n.__('pages.proposals.alerts.copy-to-clipboard-fail'),
       message: e.action + "; " + e.trigger,
       type: 'warning',
       style: 'growl-bottom-right',
@@ -86,7 +86,7 @@ Template.ViewProposal.events({
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert(TAPi18n.__('alerts.proposal-submitted'), 'success');
+        Bert.alert(TAPi18n.__('pages.proposals.alerts.proposal-submitted'), 'success');
       }
     });
   },
@@ -100,7 +100,7 @@ Template.ViewProposal.events({
       if(error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert(TAPi18n.__('alerts.comment-success'), 'success');
+        Bert.alert(TAPi18n.__('pages.proposals.alerts.comment-success'), 'success');
       }
     });
   },
@@ -274,7 +274,7 @@ function vote(voteString){
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert(TAPi18n.__('alerts.vote-success'), 'success');
+        Bert.alert(TAPi18n.__('pages.proposals.alerts.vote-success'), 'success');
       }
     });
   } else {
@@ -284,7 +284,7 @@ function vote(voteString){
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert(TAPi18n.__('alerts.vote-success'), 'success');
+        Bert.alert(TAPi18n.__('pages.proposals.alerts.vote-success'), 'success');
       }
     });
   }
