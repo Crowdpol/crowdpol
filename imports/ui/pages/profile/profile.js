@@ -165,43 +165,7 @@ Template.Profile.helpers({
   },
   isCandidate: function(){
     return isInRole('candidate');
-  },
-  /*
-  publicDisabled: function(){
-    if(!publicReady()){
-      return 'disabled';
-    }
-  },
-  publicChecked: function(){
-    if(Meteor.user().isPublic){
-      return 'checked';
-    }
-  },
-  delegatecDisabled: function(){
-    var status = Template.instance().delegateStatus.get();
-    if(status=='Requested'){
-      //console.log("delegate should be disabled");
-      return 'disabled';
-    }
-  },
-  delegateChecked: function(){
-    if(isRole('delegate')){
-      return 'checked';
-    }
-  },
-  candidateDisabled: function(){
-    var status = Template.instance().candidateStatus.get();
-    if(status=='Requested'){
-      //console.log("candidate should be disabled");
-      return 'disabled';
-    }
-  },
-  candidateChecked: function(){
-    if(isRole('candidate')){
-      return 'checked';
-    }
-  },
-  */
+  }
 });
 
 function isInRole(role){

@@ -6,7 +6,6 @@
 		<a href="#" id="change-photo-button">
 		  <i class="material-icons">camera_alt</i>
 		</a>
-	<form id="profile-form" class="profile">
 		<small class="center">{{profile.type}}</small>
 		<div id="change-photo" style="display:none; background-color: #e9ebee">
 			<form id="profile-photo-form" class="profile">
@@ -42,6 +41,7 @@
 			</form>
 		</div>
 
+	<form id="profile-form" class="profile">	
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
 			<input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
