@@ -13,40 +13,40 @@
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 			<!-- Tab Bars -->
 			<div class="mdl-tabs__tab-bar">
-				<a href="#individual-login-panel" class="mdl-tabs__tab is-active">{{_ "signup.tab.individual"}}</a>
-				<a href="#entity-login-panel" class="mdl-tabs__tab">{{_ "signup.tab.entities"}}</a>
+				<a href="#individual-login-panel" class="mdl-tabs__tab is-active">{{_ "pages.authenticate.tab.individual"}}</a>
+				<a href="#entity-login-panel" class="mdl-tabs__tab">{{_ "pages.authenticate.tab.entities"}}</a>
 			</div>
 			<!-- MDL tab panels, is-active to denote currently active -->
 			<div class="mdl-tabs__panel is-active" id="individual-login-panel">
 				<div id="individual-login" class="container narrow-container auth-wrap">
-					<h5>{{_ "signup.individual.login.title"}}</h5>
+					<h5>{{_ "pages.authenticate.individual.login.title"}}</h5>
 					{{> SocialLogin}}
 					{{> Login}}
-					<a href="#" class="center" id="individual-signup-link">{{_ "signup.links.register"}}</a>
+					<a href="#" class="center" id="individual-signup-link">{{_ "pages.authenticate.links.register"}}</a>
 				</div>
 				<div id="indivdual-signup" class="container narrow-container auth-wrap" style="display:none">
-					<h5>{{_ "signup.individual.register.title"}}</h5>
+					<h5>{{_ "pages.authenticate.individual.register.title"}}</h5>
 					{{> SocialLogin}}
 					{{> Signup}}
-					<a href="#" class="center" id="individual-login-link">{{_ "signup.links.login"}}</a>
+					<a href="#" class="center" id="individual-login-link">{{_ "pages.authenticate.links.login"}}</a>
 				</div>
 			</div>
 			<div class="mdl-tabs__panel" id="entity-login-panel">
 				<div id="entity-login" class="container narrow-container auth-wrap">
-					<h5>Login as Organisation/Party</h5>
+					<h5>{{_ "pages.authenticate.entity.login.title"}}</h5>
 					{{> Login}}
-					<a href="#" class="center" id="entity-signup-link">{{_ "signup.links.register"}}</a>
+					<a href="#" class="center" id="entity-signup-link">{{_ "pages.authenticate.links.register"}}</a>
 				</div>
 				<div id="entity-signup" class="container narrow-container auth-wrap" style="display:none">
-					<h5>Register as Organisation/Party</h5>
+					<h5>{{_ "pages.authenticate.entity.register.title"}}</h5>
 					{{> entitySignup}}
-					<a href="#" class="center" id="entity-login-link">{{_ "signup.links.login"}}</a>
+					<a href="#" class="center" id="entity-login-link">{{_ "pages.authenticate.links.login"}}</a>
 				</div>
 			</div>
 		</div>
 
 	{{/if}}
-	<a href="/reset-password" class="password-link center">{{_ "signup.links.forgot"}}</a>
+	<a href="/reset-password" class="password-link center">{{_ "pages.authenticate.links.forgot"}}</a>
 </template>
 
 <!-- Login buttons for Social Media OAuth -->

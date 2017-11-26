@@ -1,43 +1,135 @@
 {
-	"app_title": "Common Democracy",
-	"nav_home": "Home",
-	"nav_dash": "Dashboard",
-	"nav_about": "About",
-	"nav_contact": "Contact",
-	"nav_login": "Login",
-	"nav_logout": "Logout",
-	"header_nav_login" : "Login",
-	"drawer_nav_login" : "Log in",
-	"drawer_nav_logout": "Log out",
-	"drawer_nav_profile" : "Profile",
-	"drawer_nav_dash" : "Dashboard",
-	"drawer_nav_contact" : "Contact",
-	"drawer_nav_privacy" : "Privacy policy",
-	"drawer_nav_terms" : "Terms & conditions",
-	"drawer_nav_admin" : "Admin dashboard",
-	"home-title": "Home Page",
-	"dash-title": "Dashboard",
-	"login" : "Login",
-	"logout": "Log out",
-	"signup-button": "Sign Up",
+	"layout": {
+		"header": {
+			"app_title": "Common Democracy",
+			"home_title": "Democracy 2018",
+			"nav_home": "Home",
+			"nav_dash": "Dashboard",
+			"nav_delegate" : "Delegate",
+			"nav_vote": "Vote",
+			"nav_nominate": "Nominate",
+			"nav_about": "About",
+			"nav_contact": "Contact",
+			"nav_login": "Login",
+			"nav_logout": "Logout",
+			"lang_en": "English",
+			"lang_sv": "Swedish",
+			"role_selector": "Switch Roles"
+		},
+		"drawer": {
+			"nav_login" : "Log in",
+			"nav_logout": "Log out",
+			"nav_profile" : "Profile",
+			"nav_dash" : "Dashboard",
+			"nav_contact" : "Contact",
+			"nav_privacy" : "Privacy policy",
+			"nav_terms" : "Terms & conditions",
+			"nav_admin_dash" : "Admin dashboard",
+			"right_about" : "About"
+		},
+		"body":{},
+		"footer": {
+			"delegate": "Delegate",
+			"vote": "Vote",
+			"nominate": "Nominate"
+		}
+	},
+	"generic": {
+		"login": "Login",
+		"logout": "Logout",
+		"signup": "Sign Up",
+		"loading": "Loading...",
+		"alerts": {
+			"welcome": "Welcome"
+		}
+	},
+	"form": {
+		"email": "Email address",
+		"password": "Password",
+		"name": "Name",
+		"firstname": "First name",
+		"lastname": "Last name",
+		"username": "Username",
+		"bio": "About",
+		"website": "Website",
+		"phone": "Phone number",
+		"contact": "Contact person",
+		"submit": "Submit"
+	},
+	"pages": {
+		"authenticate":{
+			"logged-in-title": "You are already logged in",
+			"logout": "Log out",
+			"tab": {
+				"individual": "Individuals",
+				"entities": "Organisations/Political Parties"
+			},
+			"links": {
+				"login": "Already have an account? Log in",
+				"register": "Don't have an account? Register",
+				"forgot": "Forgot your password?"
+			},
+			"individual": {
+				"register": {
+					"title": "Signup"
+				},	
+				"login": {
+					"title": "Login"
+				}
+			},
+			"entity": {
+				"register": {
+					"title": "Register as Organisation/Party"
+				},	
+				"login": {
+					"title": "Login as Organisation/Party"
+				}
+			}
+		},
+		"login":{
+			
+		},
+		"signup":{},
+		"entitySignup":{
+			"type": "Entity Type"
+		},
+		"dashboard": {
+			"heading" : "Dashboard",
+			"card": {
+				"proposals": {
+					"heading": "Proposals",
+					"text": "View proposals.",
+					"link": "Vote"
+				},
+				"delegates": {
+					"heading": "Delegates",
+					"text": "Select your delegates",
+					"link": "Delegate"
+				},
+				"candidates": {
+					"heading": "Candidates",
+					"text": "Select your candidates",
+					"link": "Nominate"
+				}
+			},
+			"verify-account-message": "Please verify your email address before continuing.",
+			"unapproved-entity-message": "Your account has not yet been approved by an admin.",
+			"verify-resend-link": "Resend Verification Link",
+			"verify-success-message": "Verified! You can do things!",
+			"verify-success-alert": "Verification successful.",
+			"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",
+			"alerts": {
+				"verification-email-sent": "Verification sent to __email__"
+			}
+		}
+
+	},
 	"not-found_message": "Sorry, that page doesn't exist",
 	"not-found_home-link": "Go to home",
-	"lang_en": "English",
-	"lang_sv": "Swedish",
-	"email-address": "Email Address",
-	"password": "Password",
 	"login-title": "Login to get started:",
 	"signup-title": "No account yet? Sign up below:",
-	"logged-in-title": "You are already logged in",
-	"verify-account-message": "Please verify your email address before continuing.",
-	"unapproved-entity-message": "Your account has not yet been approved by an admin.",
-	"verify-resend-link": "Resend Verification Link",
-	"verify-success-message": "Verified! You can do things!",
-	"verify-success-alert": "Verification successful.",
-	"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",
 	"new-password": "New password",
 	"recovery-email": "Recovery email",
-	"submit": "Submit",
 	"recover-password-message": "Enter your email to receive instructions for resetting your password." ,
 	"reset-password-sent-message": "An email with password recovery instructions has been sent.",
 	"password-changed": "Your password has been changed successfully.",
@@ -46,7 +138,6 @@
 	"nominate": "Nominate",
 	"vote" : "Vote,",
 	"democracy": "Democracy",
-	"loading": "Loading...",
 	"alerts": {
 		"welcome": "Welcome",
 		"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",
@@ -154,41 +245,6 @@
 		"candidate": "Candidate"
 	},
 
-	"signup":{
-		"tab": {
-			"individual": "Individuals",
-			"entities": "Organisations/Political Parties"
-		},
-		"links": {
-			"login": "Already have an account? Log in",
-			"register": "Don't have an account? Register",
-			"forgot": "Forgot your password?"
-		},
-		"individual": {
-			"register": {
-				"title": "Signup"
-			},	
-			"login": {
-				"title": "Login"
-			}
-		},
-		"entity": {
-			"name": "Name of Entity",
-			"website": "Website",
-			"phone-number": "Phone number",
-			"contact-person": "Contact Person",
-			"type": "Entity Type",
-			"register": {
-				"title": "Signup",
-				"loginlink": "Already have an account? Log in"
-			},	
-			"login": {
-				"title": "Login",
-				"signuplink": "Don't have an account? Register"
-			}
-		}
-	},
-
 	"proposals": {
 		"edit": {
 			"title": "Title",
@@ -220,20 +276,5 @@
 	"profile-msg-delegate-removed" : "Delegate Role removed.",
 	"profile-msg-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
 	"profile-msg-candidate-removed" : "Candidate Role removed.",
-	"profile-msg-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
-	"dash":{
-		"heading" : "Dashboard",
-		"card": {
-			"proposals": {
-				"heading": "Proposals",
-				"text": "View proposals.",
-				"link": "Vote"
-			},
-			"delegates": {
-				"heading": "Delegates",
-				"text": "Select your delegates",
-				"link": "Delegate"
-			}
-		}
-	}
+	"profile-msg-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed."
 }

@@ -75,7 +75,7 @@ Template.entitySignup.events({
 					if (error){
 						Bert.alert(error.reason, 'danger');
 					} else {
-						Bert.alert(TAPi18n.__('alerts.welcome'), 'success');
+						Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
 					}
 				});
 			}
