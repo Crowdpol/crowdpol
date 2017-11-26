@@ -57,7 +57,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('success', function(e) {
     Bert.alert({
-      title: TAPi18n.__('pages.proposals.alerts.copied-to-clipboard'),
+      title: TAPi18n.__('pages.proposals.alerts.copy-to-clipboard-success'),
       type: 'success',
       style: 'growl-bottom-right',
       icon: 'fa-link'
