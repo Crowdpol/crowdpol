@@ -26,6 +26,8 @@ Template.Profile.onCreated(function() {
     if (error){
       Bert.alert(error.reason, 'danger');
     }else{
+      //console.log('here comes the profile sonnny:')
+      //console.log(result)
       dict.set( 'isPublic', result.isPublic );
       dict.set( 'username', result.profile.username );
       dict.set( 'firstname', result.profile.firstName );
@@ -164,6 +166,42 @@ Template.Profile.helpers({
   isCandidate: function(){
     return isInRole('candidate');
   },
+  /*
+  publicDisabled: function(){
+    if(!publicReady()){
+      return 'disabled';
+    }
+  },
+  publicChecked: function(){
+    if(Meteor.user().isPublic){
+      return 'checked';
+    }
+  },
+  delegatecDisabled: function(){
+    var status = Template.instance().delegateStatus.get();
+    if(status=='Requested'){
+      //console.log("delegate should be disabled");
+      return 'disabled';
+    }
+  },
+  delegateChecked: function(){
+    if(isRole('delegate')){
+      return 'checked';
+    }
+  },
+  candidateDisabled: function(){
+    var status = Template.instance().candidateStatus.get();
+    if(status=='Requested'){
+      //console.log("candidate should be disabled");
+      return 'disabled';
+    }
+  },
+  candidateChecked: function(){
+    if(isRole('candidate')){
+      return 'checked';
+    }
+  },
+  */
 });
 
 function isInRole(role){
