@@ -25,7 +25,7 @@ Template.Home.events({
 					Bert.alert(error.message, 'danger');
 				} else {
 					//console.log("success");
-					Bert.alert(TAPi18n.__('alerts.mailing-list-signup-success'), 'success');
+					Bert.alert(TAPi18n.__('pages.home.alerts.mailing-list-signup-success'), 'success');
 				}
 			});
 		}
