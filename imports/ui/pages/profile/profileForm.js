@@ -1,8 +1,9 @@
+import Images from '../../../api/files/Images.js';
 import "./profileForm.html"
 
 Template.ProfileForm.onCreated(function() {
   var self = this;
-  self.type = new ReactiveVar("Waiting for response from server...");
+  //self.type = new ReactiveVar("Waiting for response from server...");
   self.autorun(function() {
     self.subscribe('user.current');
   });
@@ -23,7 +24,9 @@ Template.ProfileForm.onCreated(function() {
       dict.set('isPublic', result.isPublic);
       dict.set('type', result.profile.type);
       dict.set('credentials', result.profile.credentials);
-      self.type.set(result.profile.type);
+      dict.set('type',result.profile.type);
+      dict.set('change-photo', false);
+      dict.set("currentUpload",false);
       if (result.profile.hasOwnProperty("photo")) {
         dict.set('photo', result.profile.photo);
       } else {
@@ -57,9 +60,82 @@ Template.ProfileForm.events({
       }
     });
   },
-  'onchange #profile-photo-path' (event, template) {
-    $('img#photo-preview').prop('src', this.value);
+  'keyup #profile-photo-path, paste #profile-photo-path' (event, template) {
+    var path = $("input#profile-photo-path").val();
+    var obj = new Image();
+    obj.src = path;
+
+    if (obj.complete) {
+        //alert('worked');
+        $('img#profile-pic').prop('src', path);
+        $("#valid-photo-path").html("");
+    } else {
+        //alert('doesnt work');
+        path = $('[name="profilePhotoPath"]').val();
+        $("#valid-photo-path").html("Invalid photo path");
+        //$('img#profile-pic').prop('src', path);
+    }
   },
+  'click #change-photo-button' (event, template) {
+    event.preventDefault();
+    var shown = Template.instance().templateDictionary.get('change-photo');
+    if(shown){
+      $( "#change-photo" ).hide();
+    }else{
+      $( "#change-photo" ).show();
+    }
+    Template.instance().templateDictionary.set('change-photo',!shown);
+  },
+  'change #fileInput': function (e, template) {
+    //try{
+      if (e.currentTarget.files && e.currentTarget.files[0]) {
+        // We upload only one file, in case
+        // there was multiple files selected
+        var file = e.currentTarget.files[0];
+          // Only process image files.
+        if (!file.type.match('image.*')) {
+          $("#valid-photo-path").html("This is not an image");
+          return;
+        }
+        $("#valid-photo-path").html("");
+        if (file) {
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+            $('img#profile-pic').prop('src', e.target.result);
+          }
+
+          reader.readAsDataURL(file);
+          /*
+          var uploadInstance = Images.insert({
+            file: file,
+            streams: 'dynamic',
+            chunkSize: 'dynamic'
+          }, false);
+
+          uploadInstance.on('start', function() {
+            template.currentUpload.set(this);
+          });
+
+          uploadInstance.on('end', function(error, fileObj) {
+            if (error) {
+              Bert.alert('Error during upload: ' + error.reason, 'danger');
+            } else {
+              Bert.alert('File "' + fileObj.name + '" successfully uploaded', 'success');
+            }
+            template.currentUpload.set(false);
+          });
+
+          uploadInstance.start();
+          */
+          console.log(file);
+        }
+      }
+    //}catch(e){
+    //  console.log(e);
+     // Bert.alert(e.reason,"danger");
+    //}
+  }
   /*
   'submit form' (event, template){
 
@@ -85,7 +161,9 @@ Template.ProfileForm.events({
 });
 
 Template.ProfileForm.onRendered(function() {
-
+  function updateProfilePhoto(){
+    console.log("paste detected");
+  }
   let template = Template.instance();
   $("#profile-form").validate({
     rules: {
@@ -120,7 +198,7 @@ Template.ProfileForm.onRendered(function() {
         bio: template.find('[name="profileBio"]').value,
         website: template.find('[name="profileWebsite"]').value,
         credentials: template.templateDictionary.get('credentials'),
-        type: template.type.get(),
+        type: template.templateDictionary.get('type'),
       };
 
       //console.log( profile );
@@ -138,7 +216,7 @@ Template.ProfileForm.onRendered(function() {
 
 Template.ProfileForm.helpers({
   isEntity: function() {
-    var type = Template.instance().type.get();
+    var type = Template.instance().templateDictionary.get('type');
     //console.log(type);
     if (type == 'Entity') {
       //console.log("should be hidden");
@@ -172,7 +250,7 @@ Template.ProfileForm.helpers({
   },
   type: function() {
     //return Template.instance().templateDictionary.get('type');
-    return Template.instance().type.get();
+    return Template.instance().templateDictionary.get('type');
   },
   isProfileComplete: function(){
     return publicReady();
@@ -242,3 +320,4 @@ publicReady = function() {
   */
   return ready;
 }
+

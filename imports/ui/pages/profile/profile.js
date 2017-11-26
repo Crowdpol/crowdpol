@@ -29,8 +29,8 @@ Template.Profile.onCreated(function() {
     if (error){
       Bert.alert(error.reason, 'danger');
     }else{
-      console.log('here comes the profile sonnny:')
-      console.log(result)
+      //console.log('here comes the profile sonnny:')
+      //console.log(result)
       dict.set( 'isPublic', result.isPublic );
       dict.set( 'username', result.profile.username );
       dict.set( 'firstname', result.profile.firstName );
@@ -159,7 +159,7 @@ Template.Profile.helpers({
   delegatecDisabled: function(){
     var status = Template.instance().delegateStatus.get();
     if(status=='Requested'){
-      console.log("delegate should be disabled");
+      //console.log("delegate should be disabled");
       return 'disabled';
     }
   },
@@ -171,7 +171,7 @@ Template.Profile.helpers({
   candidateDisabled: function(){
     var status = Template.instance().candidateStatus.get();
     if(status=='Requested'){
-      console.log("candidate should be disabled");
+      //console.log("candidate should be disabled");
       return 'disabled';
     }
   },
