@@ -5,8 +5,8 @@
 		<form id="invite">
 			<div class="small-inputs-wrap">
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label class="mdl-textfield__label"> {{_ "email-address"}}</label>
-					<input type="email" id="invite-email" class="mdl-textfield__input" placeholder='{{_ "email-address"}}'>
+					<label class="mdl-textfield__label"> {{_ "form.email"}}</label>
+					<input type="email" id="invite-email" class="mdl-textfield__input" placeholder='{{_ "form.email"}}'>
 				</div>
         
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
@@ -70,7 +70,7 @@
 			</table>
 
 		{{else}}
-			<p> Loading... </p>
+			<p>{{_ "generic.loading"}}</p>
 		{{/if}}
 	</div>
 	{{/if}}

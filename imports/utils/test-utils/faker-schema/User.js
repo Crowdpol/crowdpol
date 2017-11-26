@@ -106,5 +106,11 @@ export const User = {
       faker: 'date.past'
     }
   },
-  required: ['createdAt']
+  required: [
+  'username',
+  'emails',
+  'isPublic',
+  'profile',
+  'createdAt'
+  ]
 };

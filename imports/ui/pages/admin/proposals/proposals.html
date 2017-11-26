@@ -1,16 +1,16 @@
 <template name="AdminProposals">
 	{{#if currentUserIsAdmin}}
 	<div class="container">
-		<h3>Proposals</h3>
+		<h3>{{_"admin.proposals.heading"}}</h3>
 		{{#if Template.subscriptionsReady}}
 			{{#if proposals.count}}
 				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
 						<thead>
 								<tr>
-										<th>Date</th>
-										<th>Author</th>
-										<th>Contributors</th>
-										<th>Title</th>
+										<th>{{_"admin.proposals.date"}}</th>
+										<th>{{_"admin.proposals.author"}}</th>
+										<th>{{_"admin.proposals.contributors"}}</th>
+										<th>{{_"admin.proposals.title"}}</th>
 										<th></th>
 										<th></th>
 								</tr>
@@ -29,13 +29,13 @@
 										<td>
 												<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
 														<i class="material-icons">check</i>
-														{{_'admin.approvals.approve-button'}}
+														{{_'admin.proposals.approve-button'}}
 												</button>
 										</td>
 										<td>
 												<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
 														<i class="material-icons">close</i>
-														{{_'admin.approvals.reject-button'}}
+														{{_'admin.proposals.reject-button'}}
 												</button>
 										</td>
 								</tr>
@@ -44,12 +44,12 @@
 				</table>
 			{{else}}
 				<p>
-					There are no proposals awaiting review.
+					{{_"admin.tags.none-waiting"}}
 				</p>
 			{{/if}}
 		{{else}}
 			<p>
-				Loading...
+				{{_ "generic.loading"}}
 			</p>
 		{{/if}}
 	</div>

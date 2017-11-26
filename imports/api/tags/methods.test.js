@@ -1,16 +1,25 @@
 import { Meteor } from 'meteor/meteor';
-import { assert } from 'meteor/practicalmeteor:chai';
+import { assert, expect } from 'meteor/practicalmeteor:chai';
+import { Factory } from 'meteor/dburles:factory';
+import { fakerSchema } from '../../utils/test-utils/faker-schema/';
 import './methods.js';
 
-if (Meteor.isServer) {
-  let testTag;
-  beforeEach(function () {
+const { schema, generateDoc } = fakerSchema;
 
-  });
+if (Meteor.isServer) {
   describe('Tag methods', () => {
+
+    beforeEach(()=>{
+      // Create a fake tag
+      tag = Factory.create('tag', generateDoc(schema.Tag));
+    });
+
     it("Add tag", (done) => {
       try {
-        testTag = Meteor.call('addTag', "testing");
+        var id = Meteor.call('addTag', "testing");
+        expect(id).to.exist;
+        var testTag = Meteor.call('getTag', id);
+        expect(testTag).to.exist;
         done();
       } catch (err) {
         console.log(err);
@@ -20,7 +29,8 @@ if (Meteor.isServer) {
 
     it("Get tag", (done) => {
       try {
-        Meteor.call('getTag', testTag);
+        var testTag = Meteor.call('getTag', tag._id);
+        expect(testTag).to.exist;
         done();
       } catch (err) {
         console.log(err);
@@ -30,21 +40,44 @@ if (Meteor.isServer) {
 
     it("Delete tag", (done) => {
       try {
-        Meteor.call('deleteTag', testTag);
+        Meteor.call('deleteTag', tag._id);
+        var testTag = Meteor.call('getTag', tag._id);
+        expect(testTag).to.not.exist;
         done();
       } catch (err) {
         console.log(err);
         assert.fail();
       }
     });
+    
     it("Toggle tag authorized", (done) => {
       try {
-        Meteor.call('toggleAuthorized', testTag, true);
+        Meteor.call('toggleAuthorized', tag._id, false);
+        tag = Meteor.call('getTag', tag._id);
+        expect(tag.authorized).to.equal(false);
+        Meteor.call('toggleAuthorized', tag._id, true);
+        tag = Meteor.call('getTag', tag._id);
+        expect(tag.authorized).to.equal(true);
         done();
       } catch (err) {
         console.log(err);
         assert.fail();
       }
     });
+
+    it("Tranform tags", (done) => {
+      try {
+        var tagArray = Meteor.call('transformTags', ['TagOne'], true);
+        expect(tagArray[0].text).to.equal('TagOne');
+        expect(tagArray[0].keyword).to.equal('tagone');
+        expect(tagArray[0].url).to.equal('/tag/tagone');
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+
   });
 }

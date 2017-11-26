@@ -4,8 +4,8 @@
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<!-- Tab Bars -->
 		<div class="mdl-tabs__tab-bar">
-			<a href="#vote-proposals-panel" class="mdl-tabs__tab is-active">Vote Proposals</a>
-			<a href="#my-proposals-panel" class="mdl-tabs__tab">My Proposals</a>
+			<a href="#vote-proposals-panel" class="mdl-tabs__tab is-active">{{_ "pages.proposals.tabs.vote-proposals"}}</a>
+			<a href="#my-proposals-panel" class="mdl-tabs__tab">{{_ "pages.proposals.tabs.my-proposals"}}</a>
 		</div>
 
 		<div class="app-container">
@@ -22,13 +22,13 @@
 				<div class="switch-wrap">
 					<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="open-closed-switch">
 						<input type="checkbox" id="open-closed-switch" class="mdl-switch__input" checked>
-						<span class="mdl-switch__label">Open/Closed</span>
+						<span class="mdl-switch__label">{{_ "pages.proposals.open-closed-switch"}}</span>
 					</label>
 				</div>
 
 				{{#if Template.subscriptionsReady}}
 					{{#if openSelected}}
-						<h4>Open Proposals</h4>
+						<h4>{{_ "pages.proposals.open-proposals"}}</h4>
 						<ul class="demo-list-control mdl-list">
 							{{#each openProposals}}
 								{{> ProposalCard}}
@@ -36,7 +36,7 @@
 						</ul>
 					{{else}}
 
-						<h4>Closed Proposals</h4>
+						<h4>{{_ "pages.proposals.closed-proposals"}}</h4>
 						<ul class="demo-list-control mdl-list">
 							{{#each closedProposals}}
 								{{> ProposalCard}}
@@ -59,12 +59,12 @@
 					<div class="switch-wrap">
 						<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="author-invited-switch">
 							<input type="checkbox" id="author-invited-switch" class="mdl-switch__input" checked>
-							<span class="mdl-switch__label">Created/Invited</span>
+							<span class="mdl-switch__label">{{_ "pages.proposals.created-invited-switch"}}</span>
 						</label>
 					</div>
 
 					{{#if authorSelected}}
-						<h4>My proposals</h4>
+						<h4>{{_ "pages.proposals.my-proposals"}}</h4>
 						<ul class="demo-list-control mdl-list">
 							{{#each myProposals}}
 								{{> ProposalCard}}
@@ -72,7 +72,7 @@
 						</ul>
 
 					{{else}}
-						<h4>Proposals I contribute to</h4>
+						<h4>{{_ "pages.proposals.contributed-prosals"}}</h4>
 						<ul class="demo-list-control mdl-list">
 							{{#each invitedProposals}}
 								{{> ProposalCard}}
@@ -96,14 +96,14 @@
 				<h6>{{ title }}</h6>
 			</span>
 			<span class="mdl-list__item-secondary-action">
-				<small class="proposal-date">Expires {{ endDate }}</small>
+				<small class="proposal-date">{{_ "pages.proposals.proposal-expires"}}&nbsp;{{ endDate }}</small>
 			</span>
 		</div>
 		<div class="card-secondary-wrap">
 			<p class="proposal-abstract">{{ abstract }}</p>
 		</div>
 		<a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
-			Read More
+			{{_ "generic.read-more"}}
 		</a>
 	</li>
 </template>

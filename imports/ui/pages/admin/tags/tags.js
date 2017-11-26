@@ -29,7 +29,7 @@ Template.AdminTagsTable.events({
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('Tag updated', 'success');
+				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-updated'), 'success');
 			}
 		});
 	},
@@ -40,7 +40,7 @@ Template.AdminTagsTable.events({
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('Tag added', 'success');
+				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-added'), 'success');
 			}
 		});
 	},
@@ -56,13 +56,14 @@ Template.AdminTagsForm.events({
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('Tag added', 'success');
+				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-added'), 'success');
 			}
 		});
 	},
 
 	'click #delete-button': function(event, template){
 		//Meteor.call('deleteTage', event.target.dataset.userId);
+		//Bert.alert(TAPi18n.__('pages.admin.alerts.tag-deleted'), 'success');
 	},
 
 });

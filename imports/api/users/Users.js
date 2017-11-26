@@ -94,15 +94,6 @@ Schema.UserProfile = new SimpleSchema({
         type: Schema.Credential,
         optional: true,
     },
-    approvals: {
-        type: Array,
-        optional: true,
-        blackbox: true
-    },
-    'approvals.$': {
-        type: Schema.Approval,
-        optional: true,
-    },
     birthday: {
         type: Date,
         optional: true

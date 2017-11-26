@@ -25,7 +25,7 @@ Template.newPassword.events({
             if (error) {
             	Bert.alert(error.reason, 'danger');
             } else {
-                Bert.alert(TAPi18n.__('password-changed'), 'success');
+                Bert.alert(TAPi18n.__('pages.authenticate.recover-password.alerts.password-changed'), 'success');
                 FlowRouter.go('App.dash');
             }
         });
