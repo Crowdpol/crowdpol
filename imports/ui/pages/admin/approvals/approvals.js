@@ -4,7 +4,6 @@ Template.AdminApprovals.onCreated(function() {
   var self = this;
   self.autorun(function() {
     self.subscribe('users.pendingApprovals');
-    //self.subscribe('users.all');
   });
 });
 
