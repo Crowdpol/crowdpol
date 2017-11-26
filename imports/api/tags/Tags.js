@@ -63,31 +63,27 @@ const TagSchema = new SimpleSchema({
 
 Tags.attachSchema(TagSchema);
 
-/*
-*  FIX: temporary workaround
-*  TBD: apply security best practices
-*  All to methods, validate paramenters
-*/
 //permissions
 Tags.allow({
-  insert: function (userId) {
-    if (userId) {
-      return true;
-    }
+  insert() {
     return false;
   },
-  update: function (userId) {
-    console.log("checking users update permissions");
-    if (userId) {
-      console.log("tag update permitted");
-      return true;
-    }
+  update() {
     return false;
   },
-  remove: function (userId) {
-    if (userId) {
-      return true;
-    }
+  remove() {
     return false;
+  },
+});
+
+Tags.deny({
+  insert() {
+    return true;
+  },
+  update() {
+    return true;
+  },
+  remove() {
+    return true;
   },
 });

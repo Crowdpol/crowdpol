@@ -94,7 +94,6 @@ Template.ViewProposal.events({
   'submit #comment-form' (event, template){
     var comment = {
       message: template.find('#comment-message').value,
-      authorId: Meteor.userId(),
       proposalId: proposalId}
     Meteor.call('comment', comment, function(error){
       if(error){

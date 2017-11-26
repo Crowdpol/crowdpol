@@ -151,7 +151,7 @@ if (Meteor.isServer) {
 
       it("Adds a tag to the user's profile", (done) => {
         try {
-          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', _id: '1234'});
           var user = Meteor.call('getUser', userId);
           expect(user.profile.tags).to.have.lengthOf(1);
           done();
@@ -163,7 +163,7 @@ if (Meteor.isServer) {
 
       it("Fetches tags on user's profile", (done) => {
         try {
-          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', _id: '1234'});
           var tags = Meteor.call('getUserTags', userId);
           expect(tags).to.have.lengthOf(1);
           expect(tags[0].text).to.equal('Text');
@@ -176,10 +176,10 @@ if (Meteor.isServer) {
 
       it("Removes a tag from the user's profile", (done) => {
         try {
-          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', id: '1234'});
-          Meteor.call('removeTagFromProfile', userId, {text: 'Text', keyword: 'text', url: '', id: '1234'});
+          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', _id: '1234'});
+          Meteor.call('removeTagFromProfile', userId, {text: 'Text', keyword: 'text', url: '', _id: '1234'});
           var user = Meteor.call('getUser', userId);
-          expect(user.profile.tags).to.have.lengthOf(1);
+          expect(user.profile.tags).to.have.lengthOf(0);
           done();
         } catch (err) {
           console.log(err);
@@ -255,7 +255,7 @@ if (Meteor.isServer) {
 
       it("Request admin approval", (done) => {
         try {
-          Meteor.call('requestApproval', testEntityId,'delegate');
+          Meteor.call('requestApproval', testEntityId, 'delegate');
           var testEntity = Meteor.call('getUser', testEntityId)
           expect(testEntity.approvals).to.have.lengthOf(1);
           done();
@@ -280,10 +280,10 @@ if (Meteor.isServer) {
 
       it("Can set user's approvals to approved", (done) => {
         try {
-          Meteor.call('requestApproval', testEntityId);
+          Meteor.call('requestApproval', testEntityId, 'delegate');
           var testEntity = Meteor.call('getUser', testEntityId)
           var approval = testEntity.approvals[0]
-          Meteor.call('approveUser', testEntityId, approval.id, 'Approved','12345');
+          Meteor.call('approveUser', testEntityId, approval.id, 'Approved');
           testEntity = Meteor.call('getUser', testEntityId)
           expect(testEntity.approvals[0].status).to.equal('Approved')
           done();

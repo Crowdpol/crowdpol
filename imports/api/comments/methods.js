@@ -5,6 +5,7 @@ import { Comments } from './Comments.js'
 
 Meteor.methods({
   comment: function(commentAttributes) {
+    check(commentAttributes, { message: String, proposalId: String });
     var user = Meteor.user();
     var proposal = Proposals.findOne(commentAttributes.proposalId);
     // ensure the user is logged in
@@ -22,9 +23,11 @@ Meteor.methods({
     return Comments.insert(comment);
   },
   deleteComment: function(commentId) {
+    check(commentId, String);
     Comments.remove(commentId);
   },
   getComment: function(commentId){
+    check(commentId, String);
     return Comments.findOne({_id: commentId});
   }
 });

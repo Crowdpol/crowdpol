@@ -5,12 +5,12 @@ Meteor.methods({
 
     addUser: function (newUser) {
       //console.log("method addUser called");
-      //check(newUser, { email: String, password: String });
       userId = Accounts.createUser(newUser);
       return userId;
     },
     isPublic: function (userId) {
-      user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});;
+      check(userID, String);
+      user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1}});;
       //console.log("isPublic: " + user.isPublic);
       return user.isPublic;
     },
@@ -50,6 +50,16 @@ Meteor.methods({
       Meteor.users.update({_id: userID}, {$set: {"isPublic": isPublic}});
     },
     addEntity: function(entity) {
+      check(entity, { 
+        email: String, 
+        password: String, 
+        phone: Match.Maybe(String), 
+        contact: Match.Maybe(String), 
+        profileType: Match.Maybe(String), 
+        name: String, 
+        website: Match.Maybe(String),
+        roles: Match.Maybe(String) });
+
       entityID = Accounts.createUser({
         'email': entity.email,
         'password': entity.password,
@@ -67,8 +77,6 @@ Meteor.methods({
       };
 
       Meteor.call('updateProfile', entityID, profile);
-      //Meteor.call('toggleParty', entityID,entity.isParty);
-      //Meteor.call('toggleOrg', entityID,entity.isOrganisation);
 
       // Add entity to role
       Roles.addUsersToRoles(entityID, entity.roles);
@@ -77,6 +85,7 @@ Meteor.methods({
 
     },
     isApproved: function(userID) {
+      check(userID, String);
       user = Meteor.call('getUser', userID);
 
       if (user.approvals){
@@ -93,11 +102,15 @@ Meteor.methods({
 
     },
     clearApprovals: function(userID){
+      check(userID, String);
       Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
     },
-    approveUser: function(userID, requestId, status, approverID){
+    approveUser: function(userID, requestId, status){
+      check(userID, String);
+      check(requestId, String);
+      check(status, String);
       user = Meteor.users.findOne({_id: userID, "approvals": {$exists: true}, $where : "this.approvals.length > 0"});
-      
+
       approvals = user.approvals;
       var type = null;
       for (i=0; i<approvals.length; i++){
@@ -113,7 +126,9 @@ Meteor.methods({
         Roles.addUsersToRoles(userID, type);
       }
     },
-    requestApproval: function (userID,type) {
+    requestApproval: function (userID, type) {
+      check(userID, String);
+      check(type, String);
       //get current user approvalReqeusts
       var currentApprovals = Meteor.user().approvals;
       //add to existing array before update, or else it just replaces what is already there
@@ -149,6 +164,7 @@ Meteor.methods({
     //this function checks the current user's username and id against the existing ones
     //Returns true if username is unique, false otherwise
     updateUsernameIsUnique(username){
+      check(username, String);
       var count = Meteor.users.find({"_id":{$ne: Meteor.userId()},"profile.username": {$eq: username}}).count();
       if(count > 0){
         return false;
@@ -223,9 +239,21 @@ Meteor.methods({
       return false;
     },
     addTagToProfile: function(userId, tag) {
+      check(userId, String);
+      check(tag, { 
+        text: String, 
+        keyword: String, 
+        url: String, 
+        _id: String });
       Meteor.users.update({_id: userId}, {$push: {'profile.tags': tag} });
     },
     removeTagFromProfile: function(userId, tag) {
+      check(userId, String);
+      check(tag, { 
+        text: String, 
+        keyword: String, 
+        url: String, 
+        _id: String });
       Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
 });

@@ -83,9 +83,21 @@ Proposals.attachSchema(ProposalSchema);
 
 Proposals.allow({
   insert() {
+    return false;
+  },
+  update() {
+    return false;
+    },
+  remove() {
+    return false;
+  },
+});
+
+Proposals.deny({
+  insert() {
     return true;
   },
-  update: function(proposalId, doc) {
+  update() {
     return true;
     },
   remove() {
