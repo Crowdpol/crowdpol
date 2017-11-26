@@ -286,7 +286,6 @@ if (Meteor.isServer) {
           Meteor.call('approveUser', testEntityId, approval.id, 'Approved');
           testEntity = Meteor.call('getUser', testEntityId)
           expect(testEntity.approvals[0].status).to.equal('Approved')
-
           done();
         } catch (err) {
           console.log(err);

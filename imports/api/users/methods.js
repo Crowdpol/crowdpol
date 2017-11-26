@@ -10,7 +10,7 @@ Meteor.methods({
     },
     isPublic: function (userId) {
       check(userID, String);
-      user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});;
+      user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1}});;
       //console.log("isPublic: " + user.isPublic);
       return user.isPublic;
     },
@@ -110,6 +110,7 @@ Meteor.methods({
       check(requestId, String);
       check(status, String);
       user = Meteor.users.findOne({_id: userID, "approvals": {$exists: true}, $where : "this.approvals.length > 0"});
+
       approvals = user.approvals;
       var type = null;
       for (i=0; i<approvals.length; i++){
