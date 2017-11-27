@@ -2,11 +2,10 @@ import { Meteor }          from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { Random } from 'meteor/random';
 
-console.log("images loaded");
+
 var gcloud, gcs, bucket, bucketMetadata, Request, bound, Collections = {};
 
-if (Meteor.isServer) {
-console.log("staring the gCloud process...");
+if (Meteor.isServer) {  
   gcloud = Npm.require('google-cloud')({
     projectId: 'common-democracy', // <-- Replace this with your project ID
     keyFilename: Meteor.settings.private.gStorageKeyPath,  // <-- Replace this with the path to your key.json
@@ -17,8 +16,8 @@ console.log("staring the gCloud process...");
     if (error) {
       console.error(error);
     }else{
-      console.log("Api response:");
-      console.log(apiResponse);
+      //console.log("Api response:");
+      //console.log(apiResponse);
     }
   });
   Request = Npm.require('request');
