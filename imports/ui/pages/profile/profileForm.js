@@ -11,8 +11,8 @@ Template.ProfileForm.onRendered(function(){
     } else {
       console.log('here are the user tags')
       console.log(result)
-      var tagsText = _.map(result, function(tag){ return tag.text; });
-      self.taggle.get().add(tagsText);
+      var keywords = _.map(result, function(tag){ return tag.keyword; });
+      self.taggle.get().add(keywords);
     }
   });
 });

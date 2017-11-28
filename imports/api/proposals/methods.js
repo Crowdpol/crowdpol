@@ -44,7 +44,6 @@ Meteor.methods({
     addTagToProposal: function(proposalId, tag) {
       check(proposalId, String);
       check(tag, { 
-        text: String, 
         keyword: String, 
         url: String, 
         _id: String });
@@ -53,7 +52,6 @@ Meteor.methods({
     removeTagFromProposal: function(proposalId, tag) {
       check(proposalId, String);
       check(tag, { 
-        text: String, 
         keyword: String, 
         url: String, 
         _id: String });

@@ -81,7 +81,7 @@ Template.EditProposal.onRendered(function(){
 				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
 				self.find('#invited').value = proposal.invited.join(',');
-				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.text; }));
+				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
 			});
 		}
 	});
