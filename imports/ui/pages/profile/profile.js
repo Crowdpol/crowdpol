@@ -6,9 +6,7 @@ Template.Profile.onCreated(function() {
   self.delegateStatus = new ReactiveVar("Waiting for response from server...");
   self.candidateStatus = new ReactiveVar("Waiting for response from server...");
   self.autorun(function() {
-    self.subscribe('user.current');
-    self.delegateStatus.set(ReactiveMethod.call("getDelegateStatus", Meteor.userId()));
-    self.candidateStatus.set(ReactiveMethod.call("getCandidateStatus", Meteor.userId()));
+    self.subscribe('users.current');
   });
 
   var dict = new ReactiveDict();
@@ -49,7 +47,7 @@ Template.Profile.events({
   },  
   'click #profile-delegate-switch' (event, template) {
     //Step 1: Check if person already is a delegate, if so remove role
-    if (isRole('delegate')) {
+    if (isInRole('delegate')) {
       Meteor.call('toggleRole', Meteor.userId(), 'delegate', false, function(error) {
         if (error) {
           Bert.alert(error.reason, 'danger');
@@ -74,7 +72,7 @@ Template.Profile.events({
   },
   'click #profile-candidate-switch' (event, template) {
     //Step 1: Check if person already is a candidate, if so remove role
-    if (isRole('candidate')) {
+    if (isInRole('candidate')) {
       Meteor.call('toggleRole', Meteor.userId(), 'candidate', false, function(error) {
         if (error) {
           Bert.alert(error.reason, 'danger');
@@ -100,41 +98,34 @@ Template.Profile.events({
 });
 
 Template.Profile.helpers({
-  /* NOTE: Consider deleting if not being used
-  user: function() {
-    user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1, roles: 1, isPublic: 1, isParty: 1, isOrganisation: 1 } });
-    //console.log(user);
-    return user;
-  },*/
   delegateStatus: function() {
-    //return ReactiveMethod.call("getDelegateStatus", Meteor.userId());
-    
-    if(isRole('delegate')){
+    if(isInRole('delegate')){
       return "Approved";
     }
-    return Template.instance().delegateStatus.get();
+    return approvalStatus('delegate')
+     
   },
   candidateStatus: function() {
-   // return ReactiveMethod.call("getCandidateStatus", Meteor.userId());
-    if(isRole('candidate')){
+    if(isInRole('candidate')){
       return "Approved";
     }
-    return Template.instance().candidateStatus.get();
+
+    return approvalStatus('candidate')
   },
   isPublic: function() {
     return Meteor.user().isPublic;
   },
   isOrganisation: function() {
-    return isRole('organisation');
+    return isInRole('organisation');
   },
   isParty: function() {
-    return isRole('party');
+    return isInRole('party');
   },
   isDelegate: function(){
-    return isRole('delegate');
+    return isInRole('delegate');
   },
   isCandidate: function(){
-    return isRole('candidate');
+    return isInRole('candidate');
   },
   publicDisabled: function(){
     if(!publicReady()){
@@ -146,33 +137,40 @@ Template.Profile.helpers({
       return 'checked';
     }
   },
-  delegatecDisabled: function(){
-    var status = Template.instance().delegateStatus.get();
+  delegateDisabled: function(){
+    var status = approvalStatus('delegate');
     if(status=='Requested'){
       console.log("delegate should be disabled");
       return 'disabled';
     }
   },
   delegateChecked: function(){
-    if(isRole('delegate')){
+    if(isInRole('delegate')){
       return 'checked';
     }
   },
   candidateDisabled: function(){
-    var status = Template.instance().candidateStatus.get();
+    var status = approvalStatus('candidate');
     if(status=='Requested'){
       console.log("candidate should be disabled");
       return 'disabled';
     }
   },
   candidateChecked: function(){
-    if(isRole('candidate')){
+    if(isInRole('candidate')){
       return 'checked';
     }
   },
 });
 
-function isRole(role){
+function isInRole(role){
   return Roles.userIsInRole(Meteor.user(), role);
-  //console.log(role + " isRole: " + isRole);
+}
+
+function approvalStatus(type){
+  var approvals = Meteor.user().approvals
+    var currentApproval = approvals.find(approval => approval.type === type)
+    if (currentApproval){
+      return currentApproval.status;
+    }
 }

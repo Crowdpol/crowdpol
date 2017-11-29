@@ -27,8 +27,9 @@ Meteor.publish('users.pendingApprovals', function() {
 })
 
 Meteor.publish('users.current', function () {
-  return Meteor.users.findOne({_id: Meteor.userId()}, defaultUserProjection);
+  return Meteor.users.find({_id: Meteor.userId()}, {fields: {profile: 1,roles: 1,isPublic: 1, approvals:1}});
 });
+
 //null publish updates default currentUser Spacebar
 Meteor.publish(null, function() {
   return Meteor.users.find({_id: Meteor.userId()}, defaultUserProjection);

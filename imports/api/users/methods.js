@@ -129,21 +129,25 @@ Meteor.methods({
     requestApproval: function (userID, type) {
       check(userID, String);
       check(type, String);
-      //check if this user already has a requested approval of this type:
-      var existingApprovalCount = Meteor.users.find({$and:[{_id: userID},{'approvals.type': type}, {'approvals.status': 'Requested'}]}).count();
-      if (!existingApprovalCount > 0){
-        //get current user approvalRequests
-        var currentApprovals = Meteor.user().approvals;
-        //add to existing array before update, or else it just replaces what is already there
-        const existingRequests = currentApprovals || [];
-        existingRequests.push({
-          "id": Random.id(),
-          "type" : type,
-          "status" : "Requested",
-          "createdAt" : new Date(),
-        });
-        Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
-      }
+      //check if this user already has an approval of this type
+      //users should only ever have one approval per 
+      var existingApprovalCount = Meteor.users.find({$and:[{_id: userID},{'approvals.type': type}]}).count();
+      if (existingApprovalCount > 0){ 
+        //an approval request of this type already exists - remove it.
+        Meteor.users.update({_id: userId}, {$pull: {approvals: {type: type}} });
+      } 
+      //get current user approvalRequests
+      var currentApprovals = Meteor.user().approvals;
+      //add to existing array before update, or else it just replaces what is already there
+      const existingRequests = currentApprovals || [];
+      existingRequests.push({
+        "id": Random.id(),
+        "type" : type,
+        "status" : "Requested",
+        "createdAt" : new Date(),
+      });
+      Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
+      
     },
     toggleRole: function (userID,role,state) {
       check(userID, String);
@@ -177,6 +181,7 @@ Meteor.methods({
     },
     //TODO: check approvals and roles and send appropriate message
     getApprovalStatus(userId,type){
+      console.log('getApprovalStatus being called')
       check(userId,String);
       check(type,String);
       var result = Meteor.users.aggregate([
@@ -195,11 +200,14 @@ Meteor.methods({
         { $limit : 1 }
       ]);
       if(result.length>0){
+        console.log(result[0].status)
+        console.log(result[0])
         return result[0].status;
       }
       return false;
     },
     getDelegateStatus(userId){
+      console.log('getDelegateStatus being called')
       check(userId,String);
       return Meteor.call('getApprovalStatus',userId,'delegate');
     },
