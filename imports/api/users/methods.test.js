@@ -258,6 +258,10 @@ if (Meteor.isServer) {
           Meteor.call('requestApproval', testEntityId, 'delegate');
           var testEntity = Meteor.call('getUser', testEntityId)
           expect(testEntity.approvals).to.have.lengthOf(1);
+          // shouldn't add the same approval to the same user twice
+          Meteor.call('requestApproval', testEntityId, 'delegate');
+          var testEntity = Meteor.call('getUser', testEntityId)
+          expect(testEntity.approvals).to.have.lengthOf(1);
           done();
         } catch (err) {
           console.log(err);

@@ -45,7 +45,6 @@ Template.AdminApprovals.events({
 		type = event.target.dataset.type;
 		userID = event.target.dataset.userId;
 		requestId = event.target.dataset.requestId;
-		//Meteor.call('clearApprovals', userID);
 		Meteor.call('approveUser', userID,requestId,'Rejected','',function(error){
 			if (error){
 				Bert.alert(error.reason, 'danger');

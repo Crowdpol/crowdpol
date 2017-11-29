@@ -12,6 +12,7 @@ Template.Profile.onCreated(function() {
       if (error) {
         console.log(error);
       } else {
+        console.log('delegate status is being set and it is: ' + result)
         self.delegateStatus.set(result);
       }
   });

@@ -129,17 +129,21 @@ Meteor.methods({
     requestApproval: function (userID, type) {
       check(userID, String);
       check(type, String);
-      //get current user approvalReqeusts
-      var currentApprovals = Meteor.user().approvals;
-      //add to existing array before update, or else it just replaces what is already there
-      const existingRequests = currentApprovals || [];
-      existingRequests.push({
-        "id": Random.id(),
-        "type" : type,
-        "status" : "Requested",
-        "createdAt" : new Date(),
-      });
-      Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
+      //check if this user already has a requested approval of this type:
+      var existingApprovalCount = Meteor.users.find({$and:[{_id: userID},{'approvals.type': type}, {'approvals.status': 'Requested'}]}).count();
+      if (!existingApprovalCount > 0){
+        //get current user approvalRequests
+        var currentApprovals = Meteor.user().approvals;
+        //add to existing array before update, or else it just replaces what is already there
+        const existingRequests = currentApprovals || [];
+        existingRequests.push({
+          "id": Random.id(),
+          "type" : type,
+          "status" : "Requested",
+          "createdAt" : new Date(),
+        });
+        Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
+      }
     },
     toggleRole: function (userID,role,state) {
       check(userID, String);
