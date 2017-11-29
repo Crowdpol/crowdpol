@@ -3,25 +3,12 @@ import "./profile.html"
 
 Template.Profile.onCreated(function() {
   var self = this;
-  self.autorun(function() {
-    self.subscribe('user.current');
-  });
   self.delegateStatus = new ReactiveVar("Waiting for response from server...");
   self.candidateStatus = new ReactiveVar("Waiting for response from server...");
-  Meteor.call('getDelegateStatus',Meteor.userId(),function(error,result) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('delegate status is being set and it is: ' + result)
-        self.delegateStatus.set(result);
-      }
-  });
-  Meteor.call('getCandidateStatus',Meteor.userId(),function(error,result) {
-      if (error) {
-        console.log(error);
-      } else {
-        self.candidateStatus.set(result);
-      }
+  self.autorun(function() {
+    self.subscribe('user.current');
+    self.delegateStatus.set(ReactiveMethod.call("getDelegateStatus", Meteor.userId()));
+    self.candidateStatus.set(ReactiveMethod.call("getCandidateStatus", Meteor.userId()));
   });
 
   var dict = new ReactiveDict();
@@ -120,6 +107,7 @@ Template.Profile.helpers({
     return user;
   },*/
   delegateStatus: function() {
+    //return ReactiveMethod.call("getDelegateStatus", Meteor.userId());
     
     if(isRole('delegate')){
       return "Approved";
@@ -127,6 +115,7 @@ Template.Profile.helpers({
     return Template.instance().delegateStatus.get();
   },
   candidateStatus: function() {
+   // return ReactiveMethod.call("getCandidateStatus", Meteor.userId());
     if(isRole('candidate')){
       return "Approved";
     }

@@ -22,7 +22,7 @@ Meteor.publish('users.pendingApprovals', function() {
       "approvals" : {$exists: true}, 
       $where : "this.approvals.length > 0"
     }, 
-    {fields: {profile: 1,roles: 1,isPublic: 1, approvals: 1}}
+    {fields: {_id: 1, profile: 1,roles: 1,isPublic: 1, approvals: 1}}
   );
 })
 
