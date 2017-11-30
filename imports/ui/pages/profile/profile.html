@@ -11,13 +11,13 @@
 				</label>
 
 				{{#if isPublic}}
-					<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" {{delegateChecked}} {{delegateDisabled}}>
+					<label id='profile-delegate-switch-label' class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
 						<span class="mdl-switch__label">{{_ "profile-delegate"}} {{delegateStatus}}</span>
 					</label>
 
-					<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
-						<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}} {{candidateDisabled}}>
+					<label id="profile-candidate-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
+						<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input">
 						<span class="mdl-switch__label">{{_ "profile-candidate"}} {{candidateStatus}}</span>
 					</label>
 				{{/if}}

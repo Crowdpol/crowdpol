@@ -102,13 +102,13 @@ Template.Profile.helpers({
     if(isInRole('delegate')){
       return "Approved";
     }
-    return approvalStatus('delegate')
+    return updateDisplayedStatus('delegate')
   },
   candidateStatus: function() {
     if(isInRole('candidate')){
       return "Approved";
     }
-    return approvalStatus('candidate')
+    return updateDisplayedStatus('candidate')
   },
   isPublic: function() {
     return Meteor.user().isPublic;
@@ -135,40 +135,26 @@ Template.Profile.helpers({
       return 'checked';
     }
   },
-  delegateDisabled: function(){
-    var status = approvalStatus('delegate');
-    if(status=='Requested'){
-      console.log("delegate should be disabled");
-      return 'disabled';
-    }
-  },
-  delegateChecked: function(){
-    if(isInRole('delegate')){
-      return 'checked';
-    }
-  },
-  candidateDisabled: function(){
-    var status = approvalStatus('candidate');
-    if(status=='Requested'){
-      console.log("candidate should be disabled");
-      return 'disabled';
-    }
-  },
-  candidateChecked: function(){
-    if(isInRole('candidate')){
-      return 'checked';
-    }
-  },
 });
 
 function isInRole(role){
   return Roles.userIsInRole(Meteor.user(), role);
 }
 
-function approvalStatus(type){
+function updateDisplayedStatus(type){
   var approvals = Meteor.user().approvals
     var currentApproval = approvals.find(approval => approval.type === type)
     if (currentApproval){
-      return currentApproval.status;
+      var status = currentApproval.status
+      /* NOTE: on web console, the following works with document.querySelector
+      doesn't seem to work in template helpers, or in Template.onRendered
+      var statusSwitch = Template.instance().find('#profile-' + type + '-switch').MaterialSwitch;
+      if(status=='Requested'){
+        statusSwitch.disable()
+      }
+      if(isInRole(type)){
+        statusSwitch.check();
+      }*/
+      return status;
     }
 }
