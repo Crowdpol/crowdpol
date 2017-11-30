@@ -103,13 +103,11 @@ Template.Profile.helpers({
       return "Approved";
     }
     return approvalStatus('delegate')
-     
   },
   candidateStatus: function() {
     if(isInRole('candidate')){
       return "Approved";
     }
-
     return approvalStatus('candidate')
   },
   isPublic: function() {
