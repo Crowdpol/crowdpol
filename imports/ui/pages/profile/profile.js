@@ -3,10 +3,18 @@ import "./profile.html"
 
 Template.Profile.onCreated(function() {
   var self = this;
-  self.delegateStatus = new ReactiveVar("Waiting for response from server...");
-  self.candidateStatus = new ReactiveVar("Waiting for response from server...");
-  self.autorun(function() {
-    self.subscribe('users.current');
+  self.delegateStatus = new ReactiveVar('');
+  self.candidateStatus = new ReactiveVar('');
+
+  const handle = Meteor.subscribe('users.current');
+
+  Tracker.autorun(() => {
+    const isReady = handle.ready();
+    
+    if (isReady){
+      self.delegateStatus.set(updateDisplayedStatus('delegate', self));
+      self.candidateStatus.set(updateDisplayedStatus('candidate', self));
+    }
   });
 
   var dict = new ReactiveDict();
@@ -15,8 +23,6 @@ Template.Profile.onCreated(function() {
     if (error){
       Bert.alert(error.reason, 'danger');
     }else{
-      console.log('here comes the profile sonnny:')
-      console.log(result)
       dict.set( 'isPublic', result.isPublic );
       dict.set( 'username', result.profile.username );
       dict.set( 'firstname', result.profile.firstName );
@@ -102,13 +108,13 @@ Template.Profile.helpers({
     if(isInRole('delegate')){
       return "Approved";
     }
-    return updateDisplayedStatus('delegate')
+    return Template.instance().delegateStatus.get()
   },
   candidateStatus: function() {
     if(isInRole('candidate')){
       return "Approved";
     }
-    return updateDisplayedStatus('candidate')
+    return Template.instance().candidateStatus.get()
   },
   isPublic: function() {
     return Meteor.user().isPublic;
@@ -141,20 +147,22 @@ function isInRole(role){
   return Roles.userIsInRole(Meteor.user(), role);
 }
 
-function updateDisplayedStatus(type){
+function updateDisplayedStatus(type, template){
   var approvals = Meteor.user().approvals
     var currentApproval = approvals.find(approval => approval.type === type)
     if (currentApproval){
       var status = currentApproval.status
-      /* NOTE: on web console, the following works with document.querySelector
-      doesn't seem to work in template helpers, or in Template.onRendered
-      var statusSwitch = Template.instance().find('#profile-' + type + '-switch').MaterialSwitch;
+      var statusSwitch = template.find('#profile-' + type + '-switch-label').MaterialSwitch;
       if(status=='Requested'){
-        statusSwitch.disable()
+        statusSwitch.disable();
+      } else {
+        statusSwitch.enable();
       }
       if(isInRole(type)){
-        statusSwitch.check();
-      }*/
+        statusSwitch.on();
+      } else {
+        statusSwitch.off();
+      }
       return status;
     }
 }
