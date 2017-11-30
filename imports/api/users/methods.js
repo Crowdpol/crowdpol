@@ -52,7 +52,6 @@ Meteor.methods({
       and makes their profile private, remove the requests*/
       var user = Meteor.call('getUser', userID)
       var pendingApprovals = user.approvals.find(approval => approval.status == 'Requested');
-      console.log(pendingApprovals)
       if (pendingApprovals){
         Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
       }
