@@ -48,6 +48,15 @@ Meteor.methods({
       check(userID, String);
       check(isPublic, Boolean);
       Meteor.users.update({_id: userID}, {$set: {"isPublic": isPublic}});
+      /*if a user has pending request for delegate/candidate approval
+      and makes their profile private, remove the requests*/
+      var user = Meteor.call('getUser', userID)
+      var pendingApprovals = user.approvals.find(approval => approval.status == 'Requested');
+      console.log(pendingApprovals)
+      if (pendingApprovals){
+        Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
+      }
+
     },
     addEntity: function(entity) {
       check(entity, { 
@@ -126,12 +135,12 @@ Meteor.methods({
         Roles.addUsersToRoles(userID, type);
       }
     },
-    requestApproval: function (userID, type) {
-      check(userID, String);
+    requestApproval: function (userId, type) {
+      check(userId, String);
       check(type, String);
       //check if this user already has an approval of this type
       //users should only ever have one approval per 
-      var existingApprovalCount = Meteor.users.find({$and:[{_id: userID},{'approvals.type': type}]}).count();
+      var existingApprovalCount = Meteor.users.find({$and:[{_id: userId},{'approvals.type': type}]}).count();
       if (existingApprovalCount > 0){ 
         //an approval request of this type already exists - remove it.
         Meteor.users.update({_id: userId}, {$pull: {approvals: {type: type}} });
@@ -155,7 +164,13 @@ Meteor.methods({
       check(state, Boolean);
       if(state){
         console.log("adding role: " + role);
-        Roles.addUsersToRoles(Meteor.userId(), role);
+        if ((role == 'delegate' || role == 'candidate')){
+          if (Meteor.user().isPublic){
+            Roles.addUsersToRoles(Meteor.userId(), role);
+          }
+        } else {
+          Roles.addUsersToRoles(Meteor.userId(), role);
+        }
       }else{
         console.log("removing role: " + role);
         Roles.removeUsersFromRoles(Meteor.userId(), role);
