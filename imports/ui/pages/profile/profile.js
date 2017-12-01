@@ -42,17 +42,24 @@ Template.Profile.onCreated(function() {
 
 Template.Profile.events({
   'click #profile-public-switch' (event, template) {
-    Meteor.call('togglePublic', Meteor.userId(), event.target.checked, function(error) {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        var msg = TAPi18n.__('profile-msg-private');
-        if (event.target.checked) {
-          msg = TAPi18n.__('profile-msg-public');
+    if (event.target.checked && !Session.get('profileIsComplete')){
+      Bert.alert('You can not have a public profile if it is incomplete.', 'danger');
+      template.find('#profile-public-switch-label').MaterialSwitch.off();
+    } else {
+
+      Meteor.call('togglePublic', Meteor.userId(), event.target.checked, function(error) {
+        if (error) {
+          Bert.alert(error.reason, 'danger');
+        } else {
+          var msg = TAPi18n.__('profile-msg-private');
+          if (event.target.checked) {
+            msg = TAPi18n.__('profile-msg-public');
+          }
+          Bert.alert(msg, 'success');
         }
-        Bert.alert(msg, 'success');
-      }
-    });
+      });
+
+    }
   },  
   'click #profile-delegate-switch' (event, template) {
     //Step 1: Check if person already is a delegate, if so remove role
@@ -69,7 +76,6 @@ Template.Profile.events({
       }
     } else {
       //Step 2: If person not delegate, check profile is complete before submission
-      //NOTE: inomplete
       //Step 3: Profile is complete, submit approval request
       Meteor.call('requestApproval', Meteor.userId(), 'delegate', function(error) {
         if (error) {

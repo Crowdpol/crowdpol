@@ -4,7 +4,7 @@ import { setupTaggle } from '../../components/taggle/taggle.js'
 Template.ProfileForm.onRendered(function(){
   var self = this;
   self.taggle = new ReactiveVar(setupTaggle());
-  self.profileIsComplete.set(checkProfileIsComplete());
+  Session.set('profileIsComplete', checkProfileIsComplete())
 
   Meteor.call('getUserTags', Meteor.userId(), function(error, result){
     if (error){
@@ -18,8 +18,6 @@ Template.ProfileForm.onRendered(function(){
 
 Template.ProfileForm.onCreated(function() {
   var self = this;
-
-  self.profileIsComplete = new ReactiveVar(true);
   self.type = new ReactiveVar("Waiting for response from server...");
   
   self.autorun(function() {
@@ -53,9 +51,7 @@ Template.ProfileForm.onCreated(function() {
 
 Template.ProfileForm.events({
   'keyup input, keyup textarea' (event, template){
-    console.log('Is the profile complete?')
-    console.log(checkProfileIsComplete())
-    template.profileIsComplete.set(checkProfileIsComplete());
+    Session.set('profileIsComplete', checkProfileIsComplete())
   },
   'submit form' (event, template) {
     console.log("submit clicked");
@@ -177,17 +173,18 @@ Template.ProfileForm.helpers({
     //return Template.instance().templateDictionary.get('type');
     return Template.instance().type.get();
   },
-  saveDisabled: function(){
-    if (!Template.instance().profileIsComplete.get()){
-      return 'disabled';
-    }
-    
-  },
   isPublicChecked: function() {
     var isPublic = Template.instance().templateDictionary.get('isPublic');
     console.log("isPublicChecked: " + isPublic);
     if (isPublic) {
       return "checked";
+    }
+  },
+  saveDisabled: function(){
+    if (Meteor.user().isPublic && !Session.get('profileIsComplete')){
+      return 'disabled';
+    } else {
+      return '';
     }
   }
 });
@@ -199,32 +196,27 @@ function hasOwnProperty(obj, prop) {
 }
 
 function checkProfileIsComplete(){
-  if (Meteor.user().isPublic){
-      var template = Template.instance();
-      var profile = {
-        username: template.find('[name="profileUsername"]').value,
-        firstName: template.find('[name="profileFirstName"]').value,
-        lastName: template.find('[name="profileLastName"]').value,
-        photo: template.find('[name="profilePhotoPath"]').value,
-        bio: template.find('[name="profileBio"]').value,
-        website: template.find('[name="profileWebsite"]').value,
-        tags: template.taggle.get().getTagValues()
-      };
-      var isComplete = true;
-      var profileFields = _.keys(profile);
-      public = profile;
-      if (profile.tags.length < 5){
+  var template = Template.instance();
+  var profile = {
+    username: template.find('[name="profileUsername"]').value,
+    firstName: template.find('[name="profileFirstName"]').value,
+    lastName: template.find('[name="profileLastName"]').value,
+    photo: template.find('[name="profilePhotoPath"]').value,
+    bio: template.find('[name="profileBio"]').value,
+    website: template.find('[name="profileWebsite"]').value,
+    tags: template.taggle.get().getTagValues()
+  };
+  var isComplete = true;
+  var profileFields = _.keys(profile);
+  public = profile;
+  if (profile.tags.length < 5){
+    isComplete = false;
+  } else {
+    _.map(profileFields, function(field){
+      if (profile[field].length == 0){
         isComplete = false;
-      } else {
-        _.map(profileFields, function(field){
-          if (profile[field].length == 0){
-            isComplete = false;
-          } 
-        });
-      }
-    } else {
-      isComplete = true;
-    }
-
+      } 
+    });
+  }
   return isComplete;
 }
