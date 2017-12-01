@@ -137,24 +137,29 @@ Meteor.methods({
     requestApproval: function (userId, type) {
       check(userId, String);
       check(type, String);
-      //check if this user already has an approval of this type
-      //users should only ever have one approval per 
-      var existingApprovalCount = Meteor.users.find({$and:[{_id: userId},{'approvals.type': type}]}).count();
-      if (existingApprovalCount > 0){ 
-        //an approval request of this type already exists - remove it.
-        Meteor.users.update({_id: userId}, {$pull: {approvals: {type: type}} });
-      } 
-      //get current user approvalRequests
-      var currentApprovals = Meteor.user().approvals;
-      //add to existing array before update, or else it just replaces what is already there
-      const existingRequests = currentApprovals || [];
-      existingRequests.push({
-        "id": Random.id(),
-        "type" : type,
-        "status" : "Requested",
-        "createdAt" : new Date(),
-      });
-      Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
+      //don't create request unless profile is complete
+      if (profileIsComplete(Meteor.user())) {
+        //check if this user already has an approval of this type
+        //users should only ever have one approval per 
+        var existingApprovalCount = Meteor.users.find({$and:[{_id: userId},{'approvals.type': type}]}).count();
+        if (existingApprovalCount > 0){ 
+          //an approval request of this type already exists - remove it.
+          Meteor.users.update({_id: userId}, {$pull: {approvals: {type: type}} });
+        } 
+        //get current user approvalRequests
+        var currentApprovals = Meteor.user().approvals;
+        //add to existing array before update, or else it just replaces what is already there
+        const existingRequests = currentApprovals || [];
+        existingRequests.push({
+          "id": Random.id(),
+          "type" : type,
+          "status" : "Requested",
+          "createdAt" : new Date(),
+        });
+        Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
+      } else {
+        Bert.alert('You can not apply to be a candidate or delegate if your profile is incomplete.', 'danger')
+      }
       
     },
     toggleRole: function (userID,role,state) {
@@ -283,5 +288,30 @@ Meteor.methods({
       Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
 });
+
+function profileIsComplete(user){
+  var profile = {
+    username: user.profile.username,
+    firstName: user.profile.firstName,
+    lastName: user.profile.lastName,
+    photo: user.profile.photo,
+    bio: user.profile.bio,
+    website: user.profile.website,
+    tags: user.profile.tags
+  };
+  var isComplete = true;
+  var profileFields = _.keys(profile);
+  public = profile;
+  if (profile.tags.length < 5){
+    isComplete = false;
+  } else {
+    _.map(profileFields, function(field){
+      if (profile[field].length == 0){
+        isComplete = false;
+      } 
+    });
+  }
+  return isComplete;
+}
 
 
