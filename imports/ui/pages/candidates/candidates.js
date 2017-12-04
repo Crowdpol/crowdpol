@@ -52,7 +52,7 @@ Template.Candidate.helpers({
   ranks: function() {
     results = ReactiveMethod.call("getRanks", Meteor.userId(), "candidate");
     //console.log(results);
-    return Meteor.users.find( { _id : { $in :  Session.get('ranked')} } );
+    return Meteor.users.find( { _id : { $in :  Session.get('ranked')} } ,{sort: ["ranking"]} );
     /*
     console.log(Template.instance().ranks.get());
     console.log(returnRanks());
@@ -110,7 +110,7 @@ Template.Candidate.events({
       Bert.alert("You can only have 5 candidates.", 'danger');
       event.target.checked = false;
     }else{
-      Meteor.call('addRank','candidate',candidateId,1,function(error,result){
+      Meteor.call('addRank','candidate',candidateId,(ranks.length +1),function(error,result){
         if (error) {
           console.log(error);
         } else {
@@ -127,7 +127,7 @@ Template.Candidate.events({
     //(entityType,entityId,supporterId,ranking,create)
     
 
-      Meteor.call('removeRank','candidate',candidateId,1,function(error,result){
+      Meteor.call('removeRank','candidate',candidateId,function(error,result){
         if (error) {
           console.log(error);
         } else {
