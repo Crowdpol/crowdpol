@@ -20,10 +20,13 @@ Template.taggle.events({
     var matchedTags = matchTags(input, template.availableTags.get());
     template.matchedTags.set(matchedTags);
   },
-  'click .autocomplete-item' (event, template) {
+  'mousedown .autocomplete-item' (event, template) {
     taggle.add(event.target.dataset.keyword);
     template.matchedTags.set([]);
   },
+  'focusout input' (event, template){
+    template.matchedTags.set([]);
+  }
 })
 
 Template.taggle.helpers({
@@ -37,6 +40,16 @@ export function setupTaggle(){
 
   var container = taggle.getContainer();
   var input = taggle.getInput();
+
+  window.addEventListener('click', function(e){   
+  if (document.getElementById('tagsarea').contains(e.target)){
+    console.log('clicked within')
+    Session.set('clickedOutside', false)
+  } else{
+    console.log('clicked without')
+    Session.set('clickedOutside', true)
+  }
+});
 
   return taggle;
 }
