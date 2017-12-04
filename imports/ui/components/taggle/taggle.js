@@ -15,25 +15,14 @@ Template.taggle.onCreated(function(){
 });
 
 Template.taggle.events({
-  'keyup input, focusout input' (event, template) {
+  'keyup input' (event, template) {
     var input = event.target.value;
     var matchedTags = matchTags(input, template.availableTags.get());
     template.matchedTags.set(matchedTags);
   },
-  'click .tag-autocomplete-item' (event, template) {
+  'click .autocomplete-item' (event, template) {
     taggle.add(event.target.dataset.keyword);
     template.matchedTags.set([]);
-    /*when this runs, the event below shouldn't run*/
-  },
-  'focusout input' (event, template){
-    //template.matchedTags.set([]);
-    /* so we want the matchedTags list to clear on focusout
-    but not when you focusout to click on a tag*/
-    // check if the user is just clicking on a tag item
-    console.log('focusout happeed')
-    setTimeout(function(){
-      template.matchedTags.set([]);
-    },1);
   },
 })
 
