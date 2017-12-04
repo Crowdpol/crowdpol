@@ -5,7 +5,9 @@ Template.TagSearch.onCreated(function(){
 	var self = this;
 	var keyword = FlowRouter.getParam('keyword');
 	self.autorun(function() {
-		Meteor.subscribe('proposals.all');
+		Meteor.subscribe('proposals.public');
+		Meteor.subscribe('proposals.author');
+		Meteor.subscribe('proposals.invited');
 		Meteor.subscribe('users.delegatesWithTag', keyword);
 		Meteor.subscribe('users.candidatesWithTag', keyword);
 	});
