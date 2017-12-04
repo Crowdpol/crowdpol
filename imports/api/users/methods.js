@@ -48,6 +48,14 @@ Meteor.methods({
       check(userID, String);
       check(isPublic, Boolean);
       Meteor.users.update({_id: userID}, {$set: {"isPublic": isPublic}});
+      /*if a user has pending request for delegate/candidate approval
+      and makes their profile private, remove the requests*/
+      var user = Meteor.call('getUser', userID)
+      var pendingApprovals = user.approvals.find(approval => approval.status == 'Requested');
+      if (pendingApprovals){
+        Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
+      }
+
     },
     addEntity: function(entity) {
       check(entity, { 
@@ -126,20 +134,33 @@ Meteor.methods({
         Roles.addUsersToRoles(userID, type);
       }
     },
-    requestApproval: function (userID, type) {
-      check(userID, String);
+    requestApproval: function (userId, type) {
+      check(userId, String);
       check(type, String);
-      //get current user approvalReqeusts
-      var currentApprovals = Meteor.user().approvals;
-      //add to existing array before update, or else it just replaces what is already there
-      const existingRequests = currentApprovals || [];
-      existingRequests.push({
-        "id": Random.id(),
-        "type" : type,
-        "status" : "Requested",
-        "createdAt" : new Date(),
-      });
-      Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
+      //don't create request unless profile is complete
+      if (profileIsComplete(Meteor.user())) {
+        //check if this user already has an approval of this type
+        //users should only ever have one approval per 
+        var existingApprovalCount = Meteor.users.find({$and:[{_id: userId},{'approvals.type': type}]}).count();
+        if (existingApprovalCount > 0){ 
+          //an approval request of this type already exists - remove it.
+          Meteor.users.update({_id: userId}, {$pull: {approvals: {type: type}} });
+        } 
+        //get current user approvalRequests
+        var currentApprovals = Meteor.user().approvals;
+        //add to existing array before update, or else it just replaces what is already there
+        const existingRequests = currentApprovals || [];
+        existingRequests.push({
+          "id": Random.id(),
+          "type" : type,
+          "status" : "Requested",
+          "createdAt" : new Date(),
+        });
+        Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
+      } else {
+        Bert.alert('You can not apply to be a candidate or delegate if your profile is incomplete.', 'danger')
+      }
+      
     },
     toggleRole: function (userID,role,state) {
       check(userID, String);
@@ -147,7 +168,13 @@ Meteor.methods({
       check(state, Boolean);
       if(state){
         console.log("adding role: " + role);
-        Roles.addUsersToRoles(Meteor.userId(), role);
+        if ((role == 'delegate' || role == 'candidate')){
+          if (Meteor.user().isPublic){
+            Roles.addUsersToRoles(Meteor.userId(), role);
+          }
+        } else {
+          Roles.addUsersToRoles(Meteor.userId(), role);
+        }
       }else{
         console.log("removing role: " + role);
         Roles.removeUsersFromRoles(Meteor.userId(), role);
@@ -173,6 +200,7 @@ Meteor.methods({
     },
     //TODO: check approvals and roles and send appropriate message
     getApprovalStatus(userId,type){
+      console.log('getApprovalStatus being called')
       check(userId,String);
       check(type,String);
       var result = Meteor.users.aggregate([
@@ -191,11 +219,14 @@ Meteor.methods({
         { $limit : 1 }
       ]);
       if(result.length>0){
+        console.log(result[0].status)
+        console.log(result[0])
         return result[0].status;
       }
       return false;
     },
     getDelegateStatus(userId){
+      console.log('getDelegateStatus being called')
       check(userId,String);
       return Meteor.call('getApprovalStatus',userId,'delegate');
     },
@@ -257,5 +288,30 @@ Meteor.methods({
       Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
 });
+
+function profileIsComplete(user){
+  var profile = {
+    username: user.profile.username,
+    firstName: user.profile.firstName,
+    lastName: user.profile.lastName,
+    photo: user.profile.photo,
+    bio: user.profile.bio,
+    website: user.profile.website,
+    tags: user.profile.tags
+  };
+  var isComplete = true;
+  var profileFields = _.keys(profile);
+  public = profile;
+  if (profile.tags.length < 5){
+    isComplete = false;
+  } else {
+    _.map(profileFields, function(field){
+      if (profile[field].length == 0){
+        isComplete = false;
+      } 
+    });
+  }
+  return isComplete;
+}
 
 

@@ -4,13 +4,12 @@ import { setupTaggle } from '../../components/taggle/taggle.js'
 Template.ProfileForm.onRendered(function(){
   var self = this;
   self.taggle = new ReactiveVar(setupTaggle());
+  Session.set('profileIsComplete', checkProfileIsComplete())
 
   Meteor.call('getUserTags', Meteor.userId(), function(error, result){
     if (error){
       Bert.alert(error.reason, 'danger');
     } else {
-      console.log('here are the user tags')
-      console.log(result)
       var tagsText = _.map(result, function(tag){ return tag.text; });
       self.taggle.get().add(tagsText);
     }
@@ -24,7 +23,6 @@ Template.ProfileForm.onCreated(function() {
   self.autorun(function() {
     self.subscribe('user.current');
   });
-  //console.log("onCreated started:" + Date.now());
   var dict = new ReactiveDict();
 
   Meteor.call('getProfile', Meteor.userId(), function(error, result) {
@@ -52,6 +50,9 @@ Template.ProfileForm.onCreated(function() {
 });
 
 Template.ProfileForm.events({
+  'keyup input, keyup textarea' (event, template){
+    Session.set('profileIsComplete', checkProfileIsComplete())
+  },
   'submit form' (event, template) {
     console.log("submit clicked");
     event.preventDefault();
@@ -74,28 +75,6 @@ Template.ProfileForm.events({
       }
     });
   },
-  /*
-  'submit form' (event, template){
-
-    event.preventDefault();
-    let profile = {
-      username: template.find('[name="profile-username"]').value,
-      firstName: template.find('[name="profile-firstname"]').value,
-      lastName: template.find('[name="profile-lastname"]').value,
-      photo: template.find('[name="profile-photo-path"]').value,
-      bio: template.find('[name="profile-bio"]').value,
-      website: template.find('[name="profile-website"]').value
-    };
-    Meteor.call('updateProfile',Meteor.userId(), profile, function(error){
-      if (error){
-        Bert.alert(error.reason, 'danger');
-      } else {
-        //template.find('#profile-form').reset();
-        Bert.alert(TAPi18n.__('profile-msg-updated'), 'success');
-      }
-    });
-  }
-  */
 });
 
 Template.ProfileForm.onRendered(function() {
@@ -115,7 +94,6 @@ Template.ProfileForm.onRendered(function() {
       profilePhotoPath: {
         url: true
       }
-
     },
     messages: {
       profileUsername: {
@@ -129,7 +107,7 @@ Template.ProfileForm.onRendered(function() {
         if (error){
           Bert.alert(error, 'reason');
         } else {
-          let profile = {
+          var profile = {
             username: template.find('[name="profileUsername"]').value,
             firstName: template.find('[name="profileFirstName"]').value,
             lastName: template.find('[name="profileLastName"]').value,
@@ -140,7 +118,7 @@ Template.ProfileForm.onRendered(function() {
             type: template.type.get(),
             tags: proposalTags
           };
-          //console.log( profile );
+
           Meteor.call('updateProfile', Meteor.userId(), profile, function(error) {
             if (error) {
               Bert.alert(error.reason, 'danger');
@@ -195,14 +173,18 @@ Template.ProfileForm.helpers({
     //return Template.instance().templateDictionary.get('type');
     return Template.instance().type.get();
   },
-  isProfileComplete: function(){
-    return publicReady();
-  },
   isPublicChecked: function() {
     var isPublic = Template.instance().templateDictionary.get('isPublic');
     console.log("isPublicChecked: " + isPublic);
     if (isPublic) {
       return "checked";
+    }
+  },
+  saveDisabled: function(){
+    if (Meteor.user().isPublic && !Session.get('profileIsComplete')){
+      return 'disabled';
+    } else {
+      return '';
     }
   }
 });
@@ -213,43 +195,28 @@ function hasOwnProperty(obj, prop) {
     (!(prop in proto) || proto[prop] !== obj[prop]);
 }
 
-//check criteria for public status
-publicReady = function() {
-  var ready = true;
-    /*
-  photo = template.templateDictionary.get('photo');
-  firstname = Template.instance().templateDictionary.get('firstname');
-  lastname = Template.instance().templateDictionary.get('lastname');
-  username = Template.instance().templateDictionary.get('username');
-  bio = Template.instance().templateDictionary.get('bio');
-  website = Template.instance().templateDictionary.get('website');
-  //type = Template.instance().templateDictionary.get('type');
-
-  if(photo.length == 0){
-    console.log("no photo");
-    ready = false;
+function checkProfileIsComplete(){
+  var template = Template.instance();
+  var profile = {
+    username: template.find('[name="profileUsername"]').value,
+    firstName: template.find('[name="profileFirstName"]').value,
+    lastName: template.find('[name="profileLastName"]').value,
+    photo: template.find('[name="profilePhotoPath"]').value,
+    bio: template.find('[name="profileBio"]').value,
+    website: template.find('[name="profileWebsite"]').value,
+    tags: template.taggle.get().getTagValues()
+  };
+  var isComplete = true;
+  var profileFields = _.keys(profile);
+  public = profile;
+  if (profile.tags.length < 5){
+    isComplete = false;
+  } else {
+    _.map(profileFields, function(field){
+      if (profile[field].length == 0){
+        isComplete = false;
+      } 
+    });
   }
-
-  if(firstname.length == 0){
-    console.log("no name");
-    ready = false;
-  }
-  if(lastname.length == 0){
-    console.log("no lastname");
-    ready = false;
-  }
-  if(username.length == 0){
-    console.log("no photo");
-    ready = false;
-  }
-  if(bio.length == 0){
-    console.log("no photo");
-    ready = false;
-  }
-  if(website.length == 0){
-    console.log("no website");
-    ready = false;
-  }
-  */
-  return ready;
+  return isComplete;
 }
