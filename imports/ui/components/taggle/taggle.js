@@ -4,30 +4,63 @@ import { Tags } from '../../../api/tags/Tags.js'
 
 Template.taggle.onCreated(function(){
   var self = this;
+  self.availableTags = new ReactiveVar([]);
+  self.matchedTags = new ReactiveVar([]);
+
   self.autorun(function(){
     //subscribe to list of existing tags
     self.subscribe('tags.all');
+    self.availableTags.set(Tags.find().pluck('keyword'));
   });
+});
+
+Template.taggle.events({
+  'keyup input, focusout input' (event, template) {
+    var input = event.target.value;
+    var matchedTags = matchTags(input, template.availableTags.get());
+    template.matchedTags.set(matchedTags);
+  },
+  'click .tag-autocomplete-item' (event, template) {
+    taggle.add(event.target.dataset.keyword);
+    template.matchedTags.set([]);
+    /*when this runs, the event below shouldn't run*/
+  },
+  'focusout input' (event, template){
+    //template.matchedTags.set([]);
+    /* so we want the matchedTags list to clear on focusout
+    but not when you focusout to click on a tag*/
+    // check if the user is just clicking on a tag item
+    console.log('focusout happeed')
+    setTimeout(function(){
+      template.matchedTags.set([]);
+    },1);
+  },
+})
+
+Template.taggle.helpers({
+  'matchedTags'() {
+    return Template.instance().matchedTags.get();
+  }
 })
 
 export function setupTaggle(){
-  var taggle = new Taggle('tags', {placeholder: 'Add some tags', duplicateTagClass: 'bounce'});
-  var availableTags = Tags.find().pluck('text');
+  taggle = new Taggle('tags', {placeholder: 'Add some tags', duplicateTagClass: 'bounce'});
+
   var container = taggle.getContainer();
   var input = taggle.getInput();
 
-  $(input).autocomplete({
-      source: availableTags,
-      appendTo: container,
-      position: { at: "left bottom", of: container },
-      select: function(event, data) {
-          event.preventDefault();
-          //Add the tag if user clicks
-          if (event.which === 1) {
-              taggle.add(data.item.value);
-          }
-      }
-  });
-
   return taggle;
+}
+
+function matchTags(input, tags) {
+  if (input) {
+    var reg = new RegExp(input.split('').join('\\w*').replace(/\W/, ""), 'i');
+    return tags.filter(function(tag) {
+      if (tag.match(reg)) {
+        return tag;
+      }
+    });
+  } else {
+    return [];
+  } 
 }

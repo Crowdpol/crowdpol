@@ -1,3 +1,16 @@
 <template name="taggle">
 	<div class="input textarea clearfix" id="tags"></div>
+
+	{{#if matchedTags}}
+		<ul class="demo-list-item mdl-list" id="matchedTagsList">
+			{{#each matchedTags}}
+			<li class="mdl-list__item tag-autocomplete-item" data-keyword={{this}}>
+				<span class="mdl-list__item-primary-content" data-keyword={{this}}>
+					{{this}}
+				</span>
+			</li>
+			{{/each}}
+		</ul>
+	{{/if}}
+
 </template>
