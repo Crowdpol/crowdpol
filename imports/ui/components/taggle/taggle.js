@@ -12,7 +12,7 @@ Template.taggle.onCreated(function(){
 
 export function setupTaggle(){
   var taggle = new Taggle('tags', {placeholder: 'Add some tags', duplicateTagClass: 'bounce'});
-  var availableTags = Tags.find().pluck('text');
+  var availableTags = Tags.find().pluck('keyword');
   var container = taggle.getContainer();
   var input = taggle.getInput();
 
