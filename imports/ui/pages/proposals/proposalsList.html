@@ -4,8 +4,9 @@
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<!-- Tab Bars -->
 		<div class="mdl-tabs__tab-bar">
-			<a href="#vote-proposals-panel" class="mdl-tabs__tab is-active">Vote Proposals</a>
-			<a href="#my-proposals-panel" class="mdl-tabs__tab">My Proposals</a>
+			<a href="#vote-proposals-panel" id="vote-proposals-tab" class="mdl-tabs__tab is-active">All Proposals</a>
+			<a href="#my-proposals-panel" id="my-proposals-tab" class="mdl-tabs__tab">My Proposals</a>
+			<a href="/proposals/edit" class="mdl-tabs__tab">Write Proposals</a>
 		</div>
 
 		<div class="app-container">
@@ -19,6 +20,9 @@
 
 			<!-- MDL tab panels, is-active to denote currently active -->
 			<div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
+				<button class="add-new-proposal mdl-button mdl-js-button mdl-button--fab" id="add-new-proposal">
+					<i class="material-icons">add</i>
+				</button>
 				<div class="switch-wrap">
 					<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="open-closed-switch">
 						<input type="checkbox" id="open-closed-switch" class="mdl-switch__input" checked>
@@ -103,7 +107,8 @@
 			<p class="proposal-abstract">{{ abstract }}</p>
 		</div>
 		<a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
-			Read More
+			Read More {{#if canVote}}and Vote{{/if}}
+
 		</a>
 	</li>
 </template>

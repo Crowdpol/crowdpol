@@ -29,15 +29,16 @@ Template.ViewProposal.onCreated(function(){
       dict.set( 'tags', result.tags );
     }
   });
-
-  if (Session.get('currentUserRole') == 'Delegate'){
-    Meteor.call('getDelegateVoteFor', proposalId, Meteor.userId(), function(error, result){
+  Meteor.call('getDelegateVoteFor', proposalId, Meteor.userId(), function(error, result){
       if (result){
-        dict.set( 'userVote', result.vote );
+        dict.set( 'delegateVote', result.vote );
       } else {
-        dict.set( 'userVote', '' );
+        dict.set( 'delegateVote', '' );
       }
-    });
+  });
+  if (Session.get('currentUserRole') == 'Delegate'){
+      dict.set( 'userVote', dict.get( 'delegateVote' ));
+
   } else {
      Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
       if (result){
@@ -82,13 +83,16 @@ Template.ViewProposal.events({
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
   'click #submit-proposal' (event, template){
-    Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
-      if (error){
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert('Proposal submitted for admin approval', 'success');
-      }
-    });
+    if (window.confirm('Are you sure you want to submit for approval. Once a proposal has been submitted, it cannot be edited, only deleted.')){
+      Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
+        if (error){
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert('Proposal submitted for admin approval', 'success');
+          FlowRouter.go('App.proposals');
+        }
+      });
+    }
   },
 
   'submit #comment-form' (event, template){
@@ -208,11 +212,21 @@ Template.ViewProposal.helpers({
   getProposalLink: function() {
     return Meteor.absoluteUrl() + "proposals/view/" + proposalId;
   },
-  userIsFor: function(){
-    return (Template.instance().templateDictionary.get('userVote') == 'yes')
+  yesColour: function(){
+    if(Template.instance().templateDictionary.get('userVote') == 'yes'){
+      return "mdl-button--accent";
+    }
+    if(Template.instance().templateDictionary.get('delegateVote') == 'yes'){
+      return "mdl-button--colored";
+    }
   },
-  userIsAgainst: function(){
-    return (Template.instance().templateDictionary.get('userVote') == 'no')
+  noColour: function(){
+    if(Template.instance().templateDictionary.get('userVote') == 'no'){
+      return "mdl-button--accent";
+    }
+    if(Template.instance().templateDictionary.get('delegateVote') == 'no'){
+      return "mdl-button--colored";
+    }
   }
 });
 
