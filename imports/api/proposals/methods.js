@@ -4,6 +4,7 @@ import { Proposals } from './Proposals.js';
 
 Meteor.methods({
     createProposal: function (proposal) {
+      try{
       check(proposal, { 
         title: String, 
         abstract: String, 
@@ -12,8 +13,18 @@ Meteor.methods({
         endDate: Date, 
         authorId: String,
         invited: Match.Maybe([String]),
-        tags: Match.Maybe([Object])});
-      return Proposals.insert(proposal);
+        tags: Match.Maybe([Object]),
+        pointsFor: Match.Maybe([String]),
+        pointsAgainst: Match.Maybe([String]),
+        references: Match.Maybe([String])
+      });
+      console.log(proposal);
+      result = Proposals.insert(proposal);
+      return result;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
     },
     getProposal: function (proposalId) {
       check(proposalId, String);
@@ -56,5 +67,8 @@ Meteor.methods({
         url: String, 
         _id: String });
       Proposals.update({_id: proposalId}, {$pull: {tags: tag} });
+    },
+    addPointFor: function(proposalId, text) {
+      Proposals.update({_id: proposalId}, { $push: { pointsFor: text } });
     },
 });

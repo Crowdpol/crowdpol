@@ -27,6 +27,50 @@
 			<div id="body-editor">
 			</div>
 			<input type="hidden" name="body" id="body" class="mdl-textfield__input">
+			
+			<!-- Points for and against -->
+			<div class="mdl-grid">
+  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+  				<p>Points For:</p>
+  				<form >
+					  <div class="mdl-textfield mdl-js-textfield">
+					    <input class="mdl-textfield__input" type="text" id="input-point-for">
+					    <label class="mdl-textfield__label" for="input-point-for">Text...</label>
+					  </div>
+					  <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-for">
+						  <i class="material-icons">add</i>
+						</button>
+					</form>
+					<ul id="points-for-list">
+						{{#each pointsFor}}
+							<li>{{this}}<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-against">
+							<i class="material-icons">remove</i>
+						</button></li>
+						{{/each}}
+					</ul>
+  			</div>
+  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+  				<p>Points Against:</p>
+  				<form >
+					  <div class="mdl-textfield mdl-js-textfield">
+					    <input class="mdl-textfield__input" type="text" id="input-point-against">
+					    <label class="mdl-textfield__label" for="input-point-against">Text...</label>
+					  </div>
+					  <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-against">
+							<i class="material-icons">add</i>
+						</button>
+					</form>
+					<ul id="points-against-list">
+						{{#each pointsAgainst}}
+							<li>{{this}}<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-against">
+							<i class="material-icons">remove</i>
+						</button></li>
+						{{/each}}
+					</ul>
+  			</div>
+  			
+  		</div>
+			<!-- References & Links -->
 
 			<div class="small-inputs-wrap">
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
