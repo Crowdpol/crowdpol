@@ -383,16 +383,21 @@ textarea.input {
 
 // Homemade Autocomplete using mdl list component
 
-.autocomplete-item:hover {
-    background: $light-blue-dark;
-    cursor: pointer;
-    .mdl-list__item-primary-content {
-        color: white !important;
-    }
-}
-
 #matchedTagsList{
     height: 200px;
     width: 50%;
     overflow-y: scroll;
+
+    .autocomplete-item{
+        padding: 0px;
+    }
+
+    .autocomplete-item:hover {
+        background: $light-blue-dark;
+        cursor: pointer;
+
+        .mdl-list__item-primary-content {
+            color: white !important;
+        }
+    }
 }
