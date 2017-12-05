@@ -390,3 +390,9 @@ textarea.input {
         color: white !important;
     }
 }
+
+#matchedTagsList{
+    height: 200px;
+    width: 50%;
+    overflow-y: scroll;
+}

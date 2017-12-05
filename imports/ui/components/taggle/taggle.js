@@ -25,7 +25,7 @@ Template.taggle.events({
     template.matchedTags.set([]);
   },
   'focusout input' (event, template){
-    template.matchedTags.set([]);
+   template.matchedTags.set([]);
   }
 })
 
