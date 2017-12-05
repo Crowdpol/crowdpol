@@ -6,19 +6,13 @@ import { convertToSlug } from '../../utils/functions';
 export const Tags = new Mongo.Collection('tags');
 
 const TagSchema = new SimpleSchema({
-  text: {
-    // Tag name
-    type: String,
-    optional: false
-  },
   keyword: {
     // Unique identifier in DB as keyword-based-slug
     type: String,
-    optional: true,
-    autoValue: function() {
+    autoValue: function () {
       if (this.isInsert) {
-        return convertToSlug(this.field('text').value);
-      };
+        return convertToSlug(this.value);
+      }
     }
   },
   url: {
@@ -27,7 +21,7 @@ const TagSchema = new SimpleSchema({
     optional: true,
     autoValue: function () {
       if (this.isInsert) {
-        return '/tag/' + convertToSlug(this.field("text").value);
+        return '/tag/' + this.field("keyword").value;
       }
     }
   },

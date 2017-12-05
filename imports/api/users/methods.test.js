@@ -151,7 +151,7 @@ if (Meteor.isServer) {
 
       it("Adds a tag to the user's profile", (done) => {
         try {
-          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', _id: '1234'});
+          Meteor.call('addTagToProfile', userId, {keyword: 'text', url: '', _id: '1234'});
           var user = Meteor.call('getUser', userId);
           expect(user.profile.tags).to.have.lengthOf(1);
           done();
@@ -163,10 +163,10 @@ if (Meteor.isServer) {
 
       it("Fetches tags on user's profile", (done) => {
         try {
-          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', _id: '1234'});
+          Meteor.call('addTagToProfile', userId, {keyword: 'text', url: '', _id: '1234'});
           var tags = Meteor.call('getUserTags', userId);
           expect(tags).to.have.lengthOf(1);
-          expect(tags[0].text).to.equal('Text');
+          expect(tags[0].keyword).to.equal('text');
           done();
         } catch (err) {
           console.log(err);
@@ -176,8 +176,8 @@ if (Meteor.isServer) {
 
       it("Removes a tag from the user's profile", (done) => {
         try {
-          Meteor.call('addTagToProfile', userId, {text: 'Text', keyword: 'text', url: '', _id: '1234'});
-          Meteor.call('removeTagFromProfile', userId, {text: 'Text', keyword: 'text', url: '', _id: '1234'});
+          Meteor.call('addTagToProfile', userId, {keyword: 'text', url: '', _id: '1234'});
+          Meteor.call('removeTagFromProfile', userId, {keyword: 'text', url: '', _id: '1234'});
           var user = Meteor.call('getUser', userId);
           expect(user.profile.tags).to.have.lengthOf(0);
           done();

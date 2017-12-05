@@ -130,10 +130,10 @@ Meteor.publish("user.ranks", function(userId,type) {
 
 Meteor.publish('simpleSearch', function(search,type) {
   check( search, Match.OneOf( String, null, undefined ) );
-  if (!search) {
+  /*if (!search) {
     return Meteor.users.find({roles: type});
-  }
-  let query      = {},
+  }*/
+  let query      = {$and: [{roles: type},{ roles: { $nin: [ "demo" ] }}]},
       projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
@@ -145,11 +145,25 @@ Meteor.publish('simpleSearch', function(search,type) {
         { "profile.lastName": regex },
         { "profile.userName": regex }
       ]},
-      {roles: type}
+      {roles: type},
+      { roles: { $nin: [ "demo" ] }}
     ]};
 
     projection.limit = 100;
   }
-
-  return Meteor.users.find( query, projection );
+  var self = this;
+   Meteor.users
+        .find( query, projection )
+        //loop through each match and add the ranking to the user object
+        .forEach(function(user) {
+            currentRanking = Ranks.findOne({entityType: type, entityId: user._id, supporterId: Meteor.userId()});
+            ranking = 0;
+            if(currentRanking){
+              ranking = currentRanking.ranking;
+            }
+            user["ranking"] = ranking;
+            self.added("users", user._id, user);
+        });
+    self.ready();
+  //return Meteor.users.find( query, projection );
 });

@@ -271,8 +271,7 @@ Meteor.methods({
     },
     addTagToProfile: function(userId, tag) {
       check(userId, String);
-      check(tag, { 
-        text: String, 
+      check(tag, {
         keyword: String, 
         url: String, 
         _id: String });
@@ -280,8 +279,7 @@ Meteor.methods({
     },
     removeTagFromProfile: function(userId, tag) {
       check(userId, String);
-      check(tag, { 
-        text: String, 
+      check(tag, {
         keyword: String, 
         url: String, 
         _id: String });

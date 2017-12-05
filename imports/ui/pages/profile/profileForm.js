@@ -10,8 +10,8 @@ Template.ProfileForm.onRendered(function(){
     if (error){
       Bert.alert(error.reason, 'danger');
     } else {
-      var tagsText = _.map(result, function(tag){ return tag.text; });
-      self.taggle.get().add(tagsText);
+      var keywords = _.map(result, function(tag){ return tag.keyword; });
+      self.taggle.get().add(keywords);
     }
   });
 });

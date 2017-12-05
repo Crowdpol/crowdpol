@@ -96,7 +96,7 @@ if (Meteor.isServer) {
 
     it("Add tag to proposal", (done) => {
       try {
-        Meteor.call('addTagToProposal', proposalId, {text: 'text', keyword: 'keyword', url: 'tags/keyword', _id: '123'});
+        Meteor.call('addTagToProposal', proposalId, {keyword: 'keyword', url: 'tags/keyword', _id: '123'});
         var proposal = Meteor.call('getProposal', proposalId);
         expect(proposal.tags).to.have.lengthOf(1);
         done();
@@ -108,7 +108,7 @@ if (Meteor.isServer) {
 
     it("Remove tag from proposal", (done) => {
       try {
-        var tag = {text: 'text', keyword: 'keyword', url: 'tags/keyword', _id: '123'}
+        var tag = {keyword: 'keyword', url: 'tags/keyword', _id: '123'}
         Meteor.call('addTagToProposal', proposalId, tag);
         Meteor.call('removeTagFromProposal', proposalId, tag);
         var proposal = Meteor.call('getProposal', proposalId);

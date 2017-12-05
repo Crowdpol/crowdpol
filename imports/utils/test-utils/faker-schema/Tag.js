@@ -3,9 +3,6 @@ import jsf from 'json-schema-faker';
 export const Tag = {
   type: 'object',
   properties: {
-    text: {
-      type: 'string',
-    },
     keyword: {
       faker: {
         'helpers.slugify': [jsf({ faker: 'hacker.phrase' })],

@@ -69,10 +69,6 @@ ProposalSchema = new SimpleSchema({
         type: String,
         optional: true
     },
-    "tags.$.text": {
-        type: String,
-        optional: true
-    },
     "tags.$.url": {
         type: String,
         optional: true
