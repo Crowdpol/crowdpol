@@ -3,9 +3,21 @@ import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { setupTaggle } from '../../components/taggle/taggle.js'
 
-Template.EditProposal.onRendered(function(){
+Template.EditProposal.onCreated(function(){
+	console.log("created started");
 	var self = this;
+	self.pointsFor = new ReactiveVar([]);
+  	self.pointsAgainst = new ReactiveVar([]);
+//});
 
+//Template.EditProposal.onRendered(function(){
+	//console.log("rendered started");
+	//var self = this;
+	//self.pointsFor = new ReactiveVar(['point one','point two','point three']);
+  	//self.pointsAgainst = new ReactiveVar(['point one','point two','point three']);
+  	//console.log(Template.instance().pointsFor.get());
+  	//self.pointsFor = ['point one','point two','point three'];//proposal.pointsFor;
+	//self.pointsAgainst = ['point one','point two','point three'];//proposal.pointsAgainst;
 	// Form Validations
 	$( "#edit-proposal-form" ).validate({
 		ignore: "",
@@ -52,6 +64,7 @@ Template.EditProposal.onRendered(function(){
 	});
 
 	// Initialise Quill editor
+	/*
 	editor = new Quill('#body-editor', {
 		modules: { toolbar: '#toolbar' },
 		theme: 'snow'
@@ -62,14 +75,37 @@ Template.EditProposal.onRendered(function(){
 		var bodyText = self.find('.ql-editor').innerHTML;
 		self.find('#body').value = bodyText;
 	});
-
-  	var taggle = setupTaggle();
+	var taggle = setupTaggle();
   	self.taggle = new ReactiveVar(taggle);
+	*/
+
+  	
+  	
 
 	// Set values of components once rendered
 	// (quill editor must be initialised before content is set)
-	self.autorun(function(){
+	
+});
+
+Template.EditProposal.onRendered(function(){
+	var self = this;
+	// Initialise Quill editor
+	editor = new Quill('#body-editor', {
+		modules: { toolbar: '#toolbar' },
+		theme: 'snow'
+  	});
+  	
+  	editor.on('text-change', function (delta, source) {
+  		// Copy quill editor's contents to hidden input for validation
+		var bodyText = self.find('.ql-editor').innerHTML;
+		self.find('#body').value = bodyText;
+	});
+	var taggle = setupTaggle();
+  	self.taggle = new ReactiveVar(taggle);
+
+  	self.autorun(function(){
 		proposalId = FlowRouter.getParam("id");
+		
 		if (proposalId){
 			// Edit an existing proposal
 			self.subscribe('proposals.one', proposalId, function(){
@@ -82,6 +118,9 @@ Template.EditProposal.onRendered(function(){
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
 				self.find('#invited').value = proposal.invited.join(',');
 				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
+				self.pointsFor = proposal.pointsFor;
+				self.pointsAgainst = proposal.pointsAgainst;
+				console.log(self.pointsFor);
 			});
 		}
 	});
@@ -95,7 +134,31 @@ Template.EditProposal.events({
 
 	'click #preview-proposal': function(event, template){
 		saveChanges(event, template, 'App.proposal.view');
+	},
+	'click #add-point-for': function(event, template){
+		event.preventDefault();
+		var instance = Template.instance();
+		console.log(Template.instance().pointsFor.get());
+		//var tempArray = template.pointsFor.get();
+		//tempArray.push(template.find('#input-point-for').value);
+		//template.pointsFor.set(tempArray);
+	},
+	'click #add-point-against': function(event, template){
+		event.preventDefault();
+		var tempArray = template.pointsAgainst.get();
+		tempArray.push(template.find('#input-point-against').value);
+		template.pointsAgainst.set(tempArray);
 	}
+});
+
+Template.EditProposal.helpers({
+  pointsFor() {
+  	console.log(Template.instance().pointsFor.get());
+    return Template.instance().pointsFor.get();
+  },
+  pointsAgainst() {
+    return Template.instance().pointsAgainst.get();
+  }
 });
 
 function saveChanges(event, template, returnTo){
@@ -111,7 +174,10 @@ function saveChanges(event, template, returnTo){
 			endDate: new Date(template.find('#endDate').value),
 			authorId: Meteor.userId(),
 			invited: template.find('#invited').value.split(','),
-			tags: proposalTags
+			tags: proposalTags,
+			pointsFor: template.pointsFor.get(),
+			pointsAgainst: template.pointsAgainst.get(),
+			references: ['']
 		};
 
 		var proposalId = FlowRouter.getParam("id");
