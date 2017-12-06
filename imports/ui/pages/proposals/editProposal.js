@@ -148,6 +148,9 @@ Template.EditProposal.events({
 		var tempArray = template.pointsAgainst.get();
 		tempArray.push(template.find('#input-point-against').value);
 		template.pointsAgainst.set(tempArray);
+	},
+	'click #remove-point-for': function(event, template){
+		console.log(this);
 	}
 });
 

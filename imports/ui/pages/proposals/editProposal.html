@@ -43,7 +43,7 @@
 					</form>
 					<ul id="points-for-list">
 						{{#each pointsFor}}
-							<li>{{this}}<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-against">
+							<li>{{@index}}{{this}}<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-for">
 							<i class="material-icons">remove</i>
 						</button></li>
 						{{/each}}
@@ -62,7 +62,7 @@
 					</form>
 					<ul id="points-against-list">
 						{{#each pointsAgainst}}
-							<li>{{this}}<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-against">
+							<li data-value="{{@index}}">{{@index}}{{this}}<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-against">
 							<i class="material-icons">remove</i>
 						</button></li>
 						{{/each}}

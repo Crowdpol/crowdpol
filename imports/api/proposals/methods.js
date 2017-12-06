@@ -5,26 +5,25 @@ import { Proposals } from './Proposals.js';
 Meteor.methods({
     createProposal: function (proposal) {
       try{
-      check(proposal, { 
-        title: String, 
-        abstract: String, 
-        body: String, 
-        startDate: Date, 
-        endDate: Date, 
-        authorId: String,
-        invited: Match.Maybe([String]),
-        tags: Match.Maybe([Object]),
-        pointsFor: Match.Maybe([String]),
-        pointsAgainst: Match.Maybe([String]),
-        references: Match.Maybe([String])
-      });
-      console.log(proposal);
-      result = Proposals.insert(proposal);
-      return result;
-    } catch (err) {
-      console.log(err);
-      return err;
-    }
+        check(proposal, { 
+          title: String, 
+          abstract: String, 
+          body: String, 
+          startDate: Date, 
+          endDate: Date, 
+          authorId: String,
+          invited: Match.Maybe([String]),
+          tags: Match.Maybe([Object]),
+          pointsFor: Match.Maybe([String]),
+          pointsAgainst: Match.Maybe([String]),
+          references: Match.Maybe([String])
+        });
+        result = Proposals.insert(proposal);
+        return result;
+      } catch (err) {
+        //console.log(err);
+        return err;
+      }
     },
     getProposal: function (proposalId) {
       check(proposalId, String);
