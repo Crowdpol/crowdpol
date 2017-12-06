@@ -1,5 +1,6 @@
 import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
+import { Ranks } from '../ranking/Ranks.js'
 
 Meteor.methods({
 
@@ -285,6 +286,33 @@ Meteor.methods({
         _id: String });
       Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
+    getDelegateVotes: function(vote){
+      /*returns the delegate votes for the current user's ranked delegates 
+      that voted for/against, sorted*/
+      return Ranks.aggregate([
+        {
+          $match: {
+            supporterId: Meteor.userId(), entityType: 'delegate'
+          }
+        },
+        {
+          $lookup:{
+            from: "delegateVotes",localField: "entityId",foreignField: "delegateId",as: "vote_info"
+          }
+        },
+        {
+          $lookup:{
+            from: "users",localField: "entityId",foreignField: "_id",as: "user_info"
+          }
+        }, 
+        {
+          $project: {ranking: 1, 'vote_info.vote': 1, 'user_info.profile.firstName':1, 'user_info.profile.lastName':1, 'user_info.profile.username':1, 'user_info.profile.photo':1}
+        },
+        {$match: {'vote_info.vote': vote}},
+        {$sort: {ranking: 1}}
+      ])
+
+    }
 });
 
 function profileIsComplete(user){

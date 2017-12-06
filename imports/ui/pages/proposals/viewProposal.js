@@ -4,7 +4,8 @@ import { Comments } from '../../../api/comments/Comments.js'
 Template.ViewProposal.onCreated(function(){
 
   var self = this;
-  self.delegatesVoted = new ReactiveVar([]);
+  self.delegatesFor = new ReactiveVar([]);
+  self.delegatesAgainst = new ReactiveVar([]);
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
@@ -12,11 +13,19 @@ Template.ViewProposal.onCreated(function(){
     self.subscribe('users.all');
   });
 
-  Meteor.call("getRanks", Meteor.userId(), "delegate", function(error, result){
+  Meteor.call("getDelegateVotes", 'yes', function(error, result){
     if (error){
       Bert.alert(error.reason, 'danger');
     } else {
-      self.delegatesVoted.set(result);
+      self.delegatesFor.set(result);
+    }
+  });
+
+  Meteor.call("getDelegateVotes", 'no', function(error, result){
+    if (error){
+      Bert.alert(error.reason, 'danger');
+    } else {
+      self.delegatesAgainst.set(result);
     }
   });
 
@@ -223,11 +232,23 @@ Template.ViewProposal.helpers({
   userIsAgainst: function(){
     return (Template.instance().templateDictionary.get('userVote') == 'no')
   },
-  delegatesVoted: function(){
-    var delegateIds = Template.instance().delegatesVoted.get();
-    return Meteor.users.find( { _id : { $in :  delegateIds} },{sort: ["ranking"]} );
+  delegatesFor: function(){
+    return Template.instance().delegatesFor.get();
+  },
+  delegatesAgainst: function(){
+    return Template.instance().delegatesAgainst.get();
   }
 });
+
+Template.delegateVoteListItem.helpers({
+  voteIcon: function(vote){
+    if (vote=='yes'){
+      return 'check_circle'
+    } else if (vote=='no'){
+      return 'cancel'
+    }
+  }
+})
 
 function userIsAuthor(){
   if (Meteor.userId() == Template.instance().templateDictionary.get( 'authorId' )){

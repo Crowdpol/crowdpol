@@ -1,0 +1,19 @@
+@import 'variables.scss';
+
+.delegate-vote-list-item{
+  padding: 5px;
+
+  .mdl-list__item-primary-content, .mdl-list__item-secondary-action{
+    font-size: $small-font-size;
+  }
+
+  .mdl-list__item-avatar{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .material-icons{
+    color: #83b9cf;
+  }
+  
+}
