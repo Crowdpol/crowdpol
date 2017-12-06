@@ -18,9 +18,9 @@
             <form action="#" st>
                 <small>Give a brief (optional) reason for your choice. This will be visible to your supporters.</small>
                 <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <textarea class="mdl-textfield__input" type="text" rows= "4" name="abstract" id="delegate-reason">
-                    </textarea>
+                    <textarea class="mdl-textfield__input" type="text" maxlength='160' rows= "4" name="abstract" id="delegate-reason"></textarea>
                 </div>
+                <small>{{charCountString}}</small>
             </form>
         </div>
         <div class="mdl-card__actions mdl-card--border">

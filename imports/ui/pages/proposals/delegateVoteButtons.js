@@ -3,6 +3,7 @@ import './delegateVoteButtons.html'
 Template.delegateVoteButtons.onCreated(function(){
 	self = this;
 	self.vote = new ReactiveVar();
+	self.charCount = new ReactiveVar(0);
 	var proposalId = FlowRouter.getParam("id");
 
 	self.autorun(function(){
@@ -26,6 +27,12 @@ Template.delegateVoteButtons.helpers({
 		if (Template.instance().vote.get() == 'no'){
 			return 'mdl-button--colored'
 		}
+	},
+	'charCountString': function(){
+		var charCount = Template.instance().charCount.get();
+		if (charCount <= 160){
+			return charCount + '/160'
+		}
 	}
 });
 
@@ -41,17 +48,19 @@ Template.delegateVoteButtons.events({
 		template.vote.set('no');
 	},
 	'click #final-vote': function(event, template){
-		var reason = template.find('#delegate-reason').value;
-		var proposalId = FlowRouter.getParam("id");
-		var vote = template.vote.get()
-		Meteor.call('voteAsDelegate', {vote: vote, reason: reason, proposalId: proposalId}, function(error){
-			if (error){
-				Bert.alert(error.reason, 'danger');
-			} else {
-				template.find('#mdl-custom-modal').style.display = "none";
-				Bert.alert('Your vote has been cast', 'success');
-			}
-		});
+		if (template.charCount.get() <= 160){
+			var reason = template.find('#delegate-reason').value;
+			var proposalId = FlowRouter.getParam("id");
+			var vote = template.vote.get()
+			Meteor.call('voteAsDelegate', {vote: vote, reason: reason, proposalId: proposalId}, function(error){
+				if (error){
+					Bert.alert(error.reason, 'danger');
+				} else {
+					template.find('#mdl-custom-modal').style.display = "none";
+					Bert.alert('Your vote has been cast', 'success');
+				}
+			});
+		}
 	},
 	'click .mdl-custom-close': function(event, template){
 		'use strict';	
@@ -63,5 +72,8 @@ Template.delegateVoteButtons.events({
 		if (event.target == modal) {
 			modal.style.display = "none";
 		}
+	},
+	'keyup textarea': function(event, template){
+		template.charCount.set(event.target.value.length);
 	}
 });
