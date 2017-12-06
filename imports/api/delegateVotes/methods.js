@@ -38,5 +38,19 @@ Meteor.methods({
     check(proposalId, String);
     check(delegateId, String);
     return DelegateVotes.findOne({proposalId: proposalId, delegateId: delegateId});
+  },
+  getUserDelegateVote: function(proposalId){
+    /* Returns null if the user has already voted, else returns the vote of the 
+    current user's first-ranked delegate*/
+    var userVote = Meteor.call('getUserVoteFor', proposalId, Meteor.userId());
+
+    if (!userVote){
+      var rankedDelegates = Meteor.call('getDelegateVotes');
+      return rankedDelegates[0].vote_info[0].vote;
+    } else {
+      return false;
+    }
+
+
   }
 });

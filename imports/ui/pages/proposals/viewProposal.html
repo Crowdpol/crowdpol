@@ -51,6 +51,7 @@
 					</span>
 				{{/if}}
 			</div>
+
 			{{#if isVotable}}
 				<hr>
 				<h5>Vote on this proposal</h5>
@@ -59,10 +60,10 @@
 					<small>To switch to voting as an individual, click the 'Roles' menu.</small>
 				{{/if}}
 				<div class="vote-actions">
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} primary-button {{/if}}" id="vote-yes">
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} mdl-button--colored {{/if}} {{#if delegateIsFor}} mdl-button--delegate-colored {{/if}}" id="vote-yes">
 						Yes
 					</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} primary-button {{/if}}" id="vote-no">
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} mdl-button--colored {{/if}} {{#if delegateIsFor}} mdl-button--delegate-colored {{/if}}" id="vote-no">
 						No
 					</button>
 				</div>
@@ -126,7 +127,7 @@
 			<span class="card-main mdl-list__item-primary-content">
 				<i class="material-icons">{{voteIcon vote_info.[0].vote}}</i> &nbsp;
 				<img src={{user_info.[0].profile.photo}} class="mdl-list__item-avatar">
-				{{user_info.[0].profile.firstName}}&nbsp;{{user_info.[0].profile.lastName}} ({{user_info.[0].profile.username}})
+				#{{ranking}}&nbsp; {{user_info.[0].profile.firstName}}&nbsp;{{user_info.[0].profile.lastName}} ({{user_info.[0].profile.username}})
 			</span>
 		</div>
 	</li>

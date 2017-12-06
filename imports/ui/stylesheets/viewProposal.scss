@@ -13,7 +13,11 @@
   }
 
   .material-icons{
-    color: #83b9cf;
+    color: $light-blue;
   }
   
+}
+
+.mdl-button--delegate-colored{
+  background-color: $light-blue;
 }

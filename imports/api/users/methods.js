@@ -287,8 +287,8 @@ Meteor.methods({
       Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
     getDelegateVotes: function(vote){
-      /*returns the delegate votes for the current user's ranked delegates 
-      that voted for/against, sorted*/
+      /* Returns the delegate votes for the current user's ranked delegates 
+      that voted for/against, sorted */
       return Ranks.aggregate([
         {
           $match: {
@@ -308,10 +308,8 @@ Meteor.methods({
         {
           $project: {ranking: 1, 'vote_info.vote': 1, 'user_info.profile.firstName':1, 'user_info.profile.lastName':1, 'user_info.profile.username':1, 'user_info.profile.photo':1}
         },
-        {$match: {'vote_info.vote': vote}},
         {$sort: {ranking: 1}}
       ])
-
     }
 });
 

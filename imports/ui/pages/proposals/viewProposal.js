@@ -6,6 +6,7 @@ Template.ViewProposal.onCreated(function(){
   var self = this;
   self.delegatesFor = new ReactiveVar([]);
   self.delegatesAgainst = new ReactiveVar([]);
+  self.delegateVote = new ReactiveVar([]);
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
@@ -28,6 +29,14 @@ Template.ViewProposal.onCreated(function(){
       self.delegatesAgainst.set(result);
     }
   });
+
+  Meteor.call('getUserDelegateVote', proposalId, function(error, result){
+    if (error){
+      Bert.alert(error.reason, 'danger');
+    } else {
+      self.delegateVote.set(result);
+    }
+  })
 
   var dict = new ReactiveDict();
 
@@ -124,14 +133,12 @@ Template.ViewProposal.events({
 
   'click #vote-yes' (event, template){
     vote('yes');
-    template.find('#vote-no').classList.remove('mdl-button--colored');
-    event.target.classList.add('mdl-button--colored');
+    template.templateDictionary.set('userVote', 'yes');
   },
 
   'click #vote-no' (event, template){
     vote('no');
-    template.find('#vote-yes').classList.remove('mdl-button--colored');
-    event.target.classList.add('mdl-button--colored'); 
+    template.templateDictionary.set('userVote', 'no');
   }
 });
 
@@ -145,13 +152,11 @@ Template.ViewProposal.helpers({
       if (error){
         return 'User could not be found';
       } else {
-        console.log('success so far')
         profile = result.profile;
         if (profile){
           return profile.username;
         } else {
           return 'Anonymous';
-          console.log('the user is anon')
         }
       }
     });
@@ -231,6 +236,12 @@ Template.ViewProposal.helpers({
   },
   userIsAgainst: function(){
     return (Template.instance().templateDictionary.get('userVote') == 'no')
+  },
+  delegateIsFor: function(){
+    return (Template.instance().delegateVote == 'yes')
+  },
+  delegateIsAgainst: function(){
+    return (Template.instance().delegateVote == 'no')
   },
   delegatesFor: function(){
     return Template.instance().delegatesFor.get();
