@@ -23,6 +23,7 @@ import { Session } from 'meteor/session';
 import './layouts/body/body.js';
 import './components/loader/loader.js';
 import './components/taggle/taggle.js';
+import './components/modal/modal.js';
 import './pages/home/home.js';
 import './pages/not-found/not-found.js';
 import './pages/authenticate/authenticate.js';
