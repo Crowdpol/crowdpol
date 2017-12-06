@@ -60,10 +60,10 @@
 					<small>To switch to voting as an individual, click the 'Roles' menu.</small>
 				{{/if}}
 				<div class="vote-actions">
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} mdl-button--colored {{/if}} {{#if delegateIsFor}} mdl-button--delegate-colored {{/if}}" id="vote-yes">
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} mdl-button--colored {{/if}} {{delegateYesClass}}" id="vote-yes">
 						Yes
 					</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} mdl-button--colored {{/if}} {{#if delegateIsFor}} mdl-button--delegate-colored {{/if}}" id="vote-no">
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} mdl-button--colored {{/if}} {{delegateNoClass}}" id="vote-no">
 						No
 					</button>
 				</div>

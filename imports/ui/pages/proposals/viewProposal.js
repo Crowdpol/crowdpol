@@ -237,11 +237,15 @@ Template.ViewProposal.helpers({
   userIsAgainst: function(){
     return (Template.instance().templateDictionary.get('userVote') == 'no')
   },
-  delegateIsFor: function(){
-    return (Template.instance().delegateVote == 'yes')
+  delegateYesClass: function(){
+    if (Template.instance().delegateVote.get() == 'yes'){
+      return 'delegate-color'
+    }
   },
-  delegateIsAgainst: function(){
-    return (Template.instance().delegateVote == 'no')
+  delegateNoClass: function(){
+    if (Template.instance().delegateVote.get() == 'no'){
+      return 'delegate-color'
+    }
   },
   delegatesFor: function(){
     return Template.instance().delegatesFor.get();
