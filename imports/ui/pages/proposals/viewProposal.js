@@ -4,11 +4,20 @@ import { Comments } from '../../../api/comments/Comments.js'
 Template.ViewProposal.onCreated(function(){
 
   var self = this;
+  self.delegatesVoted = new ReactiveVar([]);
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
     self.subscribe('comments', proposalId);
-    self.subscribe('users');
+    self.subscribe('users.all');
+  });
+
+  Meteor.call("getRanks", Meteor.userId(), "delegate", function(error, result){
+    if (error){
+      Bert.alert(error.reason, 'danger');
+    } else {
+      self.delegatesVoted.set(result);
+    }
   });
 
   var dict = new ReactiveDict();
@@ -213,6 +222,10 @@ Template.ViewProposal.helpers({
   },
   userIsAgainst: function(){
     return (Template.instance().templateDictionary.get('userVote') == 'no')
+  },
+  delegatesVoted: function(){
+    var delegateIds = Template.instance().delegatesVoted.get();
+    return Meteor.users.find( { _id : { $in :  delegateIds} },{sort: ["ranking"]} );
   }
 });
 
