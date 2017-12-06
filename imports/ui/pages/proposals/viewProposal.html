@@ -131,6 +131,13 @@
 			</span>
 		</div>
 	</li>
+	<div class="mdl-tooltip" for="{{_id}}">
+	{{#if vote_info.[0].reason}}
+		{{vote_info.[0].reason}}
+	{{else}}
+		This delegate did not provide a reason for their voting choice.
+	{{/if}}
+	</div>
 </template>
 
 <!--============ Comment Form ============-->
