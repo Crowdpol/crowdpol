@@ -139,9 +139,9 @@ Template.EditProposal.events({
 		event.preventDefault();
 		var instance = Template.instance();
 		console.log(Template.instance().pointsFor.get());
-		//var tempArray = template.pointsFor.get();
-		//tempArray.push(template.find('#input-point-for').value);
-		//template.pointsFor.set(tempArray);
+		var tempArray = template.pointsFor.get();
+		tempArray.push(template.find('#input-point-for').value);
+		template.pointsFor.set(tempArray);
 	},
 	'click #add-point-against': function(event, template){
 		event.preventDefault();
