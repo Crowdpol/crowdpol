@@ -5,7 +5,7 @@ import { DelegateVotes } from './DelegateVotes.js'
 
 Meteor.methods({
   voteAsDelegate: function(voteData) {
-    check(voteData, { vote: String, proposalId: String });
+    check(voteData, { vote: String, proposalId: String, reason: Match.Maybe(String)});
     var delegate = Meteor.user();
     var proposal = Proposals.findOne(voteData.proposalId);
     // ensure the user is logged in
@@ -20,7 +20,7 @@ Meteor.methods({
     vote = {
       vote: voteData.vote,
       proposalId: voteData.proposalId,
-      delegateId: voteData.delegateId,
+      reason: voteData.reason,
       delegateId: delegate._id
     }
 

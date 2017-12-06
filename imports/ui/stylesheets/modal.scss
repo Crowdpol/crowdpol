@@ -1,3 +1,6 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
 .modal {
     display: none;
     position: fixed;
@@ -16,3 +19,13 @@
 }
 
 .mdl-card__actions { background-color: rgba(222, 222, 222, 0.25); }
+
+.vote-actions {
+  display: flex;
+  justify-content: space-around;
+  margin: $space 0;
+
+  button {
+    flex-basis: 30%;
+  }
+}
