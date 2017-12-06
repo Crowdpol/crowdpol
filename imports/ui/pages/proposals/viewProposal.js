@@ -4,9 +4,8 @@ import { Comments } from '../../../api/comments/Comments.js'
 Template.ViewProposal.onCreated(function(){
 
   var self = this;
-  self.delegatesFor = new ReactiveVar([]);
-  self.delegatesAgainst = new ReactiveVar([]);
-  self.delegateVote = new ReactiveVar([]);
+  self.delegates = new ReactiveVar([]);
+  self.delegateVote = new ReactiveVar();
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
@@ -14,19 +13,11 @@ Template.ViewProposal.onCreated(function(){
     self.subscribe('users.all');
   });
 
-  Meteor.call("getDelegateVotes", 'yes', function(error, result){
+  Meteor.call("getDelegateVotes", function(error, result){
     if (error){
       Bert.alert(error.reason, 'danger');
     } else {
-      self.delegatesFor.set(result);
-    }
-  });
-
-  Meteor.call("getDelegateVotes", 'no', function(error, result){
-    if (error){
-      Bert.alert(error.reason, 'danger');
-    } else {
-      self.delegatesAgainst.set(result);
+      self.delegates.set(result);
     }
   });
 
@@ -248,10 +239,24 @@ Template.ViewProposal.helpers({
     }
   },
   delegatesFor: function(){
-    return Template.instance().delegatesFor.get();
+    var delegates = Template.instance().delegates.get();
+    var delegatesFor = [];
+    _.map(delegates, function(delegate){
+      if (delegate.vote_info[0].vote == 'yes'){
+        delegatesFor.push(delegate);
+      }
+    });
+    return delegatesFor;
   },
   delegatesAgainst: function(){
-    return Template.instance().delegatesAgainst.get();
+    var delegates = Template.instance().delegates.get();
+    var delegatesAgainst = [];
+    _.map(delegates, function(delegate){
+      if (delegate.vote_info[0].vote == 'no'){
+        delegatesAgainst.push(delegate);
+      }
+    });
+    return delegatesAgainst;
   }
 });
 

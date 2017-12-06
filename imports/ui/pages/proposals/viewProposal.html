@@ -69,10 +69,10 @@
 				</div>
 
 				<hr>
-				<h5>See how your delegates voted:</h5>
 
 				<div class="mdl-grid delegateVoteGrid">
 				  <div class="mdl-cell mdl-cell--6-col">
+				  	<h5>For:</h5>
 				  	{{#if delegatesFor}}
 					  	<ul class="delegateVoteList demo-list-control mdl-list" >
 					  		{{#each delegatesFor}}
@@ -80,10 +80,11 @@
 					  		{{/each}}
 					  	</ul>
 				  	{{else}}
-				  		None of your delegates voted in favour of this issue.
+				  	<small> None of your delegates voted in favour of this issue. </small>
 				  	{{/if}}
 					</div>
 				  <div class="mdl-cell mdl-cell--6-col">
+				  	<h5>Against:</h5>
 				  	{{#if delegatesAgainst}}
 					  	<ul class="demo-list-control mdl-list" >
 							{{#each delegatesAgainst}}
@@ -91,7 +92,7 @@
 							{{/each}}
 						</ul>
 					{{else}}
-						None of your delegates voted against this issue.
+						<small>None of your delegates voted against this issue.</small>
 				  	{{/if}}
 				  </div>
 				</div>
