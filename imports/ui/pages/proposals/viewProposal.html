@@ -56,18 +56,17 @@
 				<hr>
 				<h5>Vote on this proposal</h5>
 				{{#if isVotingAsDelegate}}
-					<small>Please note that you are voting as a delegate. Your vote wil be public.</small><br/>
-					<small>To switch to voting as an individual, click the 'Roles' menu.</small>
+					{{> delegateVoteButtons}}
+				{{else}}
+					<div class="vote-actions">
+						<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} mdl-button--colored {{/if}} {{delegateYesClass}}" id="vote-yes">
+							Yes
+						</button>
+						<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} mdl-button--colored {{/if}} {{delegateNoClass}}" id="vote-no">
+							No
+						</button>
+					</div>
 				{{/if}}
-				<div class="vote-actions">
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} mdl-button--colored {{/if}} {{delegateYesClass}}" id="vote-yes">
-						Yes
-					</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} mdl-button--colored {{/if}} {{delegateNoClass}}" id="vote-no">
-						No
-					</button>
-				</div>
-
 				<hr>
 
 				<div class="mdl-grid delegateVoteGrid">
@@ -132,6 +131,13 @@
 			</span>
 		</div>
 	</li>
+	<div class="mdl-tooltip" for="{{_id}}">
+	{{#if vote_info.[0].reason}}
+		{{vote_info.[0].reason}}
+	{{else}}
+		This delegate did not provide a reason for their voting choice.
+	{{/if}}
+	</div>
 </template>
 
 <!--============ Comment Form ============-->

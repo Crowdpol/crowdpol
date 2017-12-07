@@ -5,22 +5,26 @@ export const DelegateVotes = new Meteor.Collection('delegateVotes');
 
 DelegateVotesSchema = new SimpleSchema({
 	proposalId: {
-        type: String,
-    },
-    vote: {
-        type: String,
-        allowedValues: ['yes', 'no'],
-        defaultValue: 'yes'
-    },
-    delegateId: {
-        type: String,
-    },
-    createdAt: {
-        type: Date,
-        autoValue: function() {
-            return new Date();
-        }
-    },
+    type: String,
+  },
+  vote: {
+    type: String,
+    allowedValues: ['yes', 'no'],
+    defaultValue: 'yes'
+  },
+  delegateId: {
+    type: String,
+  },
+  reason: {
+    type: String,
+    optional: true
+  },
+  createdAt: {
+    type: Date,
+    autoValue: function() {
+      return new Date();
+    }
+  },
 
 });
 

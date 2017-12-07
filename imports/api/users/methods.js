@@ -306,7 +306,7 @@ Meteor.methods({
           }
         }, 
         {
-          $project: {ranking: 1, 'vote_info.vote': 1, 'user_info.profile.firstName':1, 'user_info.profile.lastName':1, 'user_info.profile.username':1, 'user_info.profile.photo':1}
+          $project: {ranking: 1, 'vote_info.vote': 1, 'vote_info.reason':1, 'user_info.profile.firstName':1, 'user_info.profile.lastName':1, 'user_info.profile.username':1, 'user_info.profile.photo':1}
         },
         {$sort: {ranking: 1}}
       ])
