@@ -185,13 +185,14 @@ function updateDisplayedStatus(type, template){
       if (statusSwitch) {
         if(status=='Requested'){
           statusSwitch.disable();
-        } else {
-          statusSwitch.enable();
-        }
-        if(isInRole(type)){
           statusSwitch.on();
         } else {
-          statusSwitch.off();
+          statusSwitch.enable();
+          if(isInRole(type)){
+            statusSwitch.on();
+          } else {
+            statusSwitch.off();
+          }
         }
       } 
       return status;

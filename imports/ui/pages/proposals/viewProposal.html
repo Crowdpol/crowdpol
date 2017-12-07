@@ -1,5 +1,6 @@
 <template name='ViewProposal'>
 	{{#if currentUser}}
+	{{#if Template.subscriptionsReady}}
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
 			<h1 class="proposal-title">{{ title }}</h1>
@@ -116,6 +117,9 @@
 			<h3>Sorry, this proposal is not yet visible to the public.</h3>
 		{{/if}}
 	</div>
+	{{else}}
+		{{> loader}}
+	{{/if}}
 	{{/if}}
 </template>
 
