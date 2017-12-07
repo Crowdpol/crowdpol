@@ -8,16 +8,10 @@ Template.EditProposal.onCreated(function(){
 	var self = this;
 	Template.instance().pointsFor = new ReactiveVar([]);
   	Template.instance().pointsAgainst = new ReactiveVar([]);
-//});
+});
 
-//Template.EditProposal.onRendered(function(){
-	//console.log("rendered started");
-	//var self = this;
-	//self.pointsFor = new ReactiveVar(['point one','point two','point three']);
-  	//self.pointsAgainst = new ReactiveVar(['point one','point two','point three']);
-  	//console.log(Template.instance().pointsFor.get());
-  	//self.pointsFor = ['point one','point two','point three'];//proposal.pointsFor;
-	//self.pointsAgainst = ['point one','point two','point three'];//proposal.pointsAgainst;
+Template.EditProposal.onRendered(function(){
+	var self = this;
 	// Form Validations
 	$( "#edit-proposal-form" ).validate({
 		ignore: "",
@@ -64,7 +58,6 @@ Template.EditProposal.onCreated(function(){
 	});
 
 	// Initialise Quill editor
-	/*
 	editor = new Quill('#body-editor', {
 		modules: { toolbar: '#toolbar' },
 		theme: 'snow'
@@ -75,31 +68,8 @@ Template.EditProposal.onCreated(function(){
 		var bodyText = self.find('.ql-editor').innerHTML;
 		self.find('#body').value = bodyText;
 	});
-	var taggle = setupTaggle();
-  	self.taggle = new ReactiveVar(taggle);
-	*/
-
-  	
-  	
-
 	// Set values of components once rendered
 	// (quill editor must be initialised before content is set)
-	
-});
-
-Template.EditProposal.onRendered(function(){
-	var self = this;
-	// Initialise Quill editor
-	editor = new Quill('#body-editor', {
-		modules: { toolbar: '#toolbar' },
-		theme: 'snow'
-  	});
-  	
-  	editor.on('text-change', function (delta, source) {
-  		// Copy quill editor's contents to hidden input for validation
-		var bodyText = self.find('.ql-editor').innerHTML;
-		self.find('#body').value = bodyText;
-	});
 	var taggle = setupTaggle();
   	self.taggle = new ReactiveVar(taggle);
 
@@ -129,8 +99,19 @@ Template.EditProposal.onRendered(function(){
 					console.log(array[i]);
 					$("#points-against-list").append('<li id="point-against-'+i+'">'+array[i]+'<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-for" data-id="'+i+'"><i class="material-icons">remove</i></button></li>');
 				}
-				Template.instance().pointsFor = proposal.pointsFor;
-				Template.instance().pointsAgainst = proposal.pointsAgainst;
+				//using a try catch to handle the weird uncaught error on page load.
+				//A TypeError is thrown if you use a value that is outside the range of expected types
+				try{
+					if (proposal.pointsFor != null){
+						Template.instance().pointsFor = proposal.pointsFor;
+					}
+					if (proposal.pointsAgainst != null){
+						Template.instance().pointsAgainst = proposal.pointsAgainst;
+					}
+				}catch(e){
+					console.log("["+e.name+"]: "+e.message);
+				}
+				
 			});
 		}
 	});
