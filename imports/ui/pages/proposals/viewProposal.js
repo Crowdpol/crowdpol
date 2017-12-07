@@ -47,6 +47,8 @@ Template.ViewProposal.onCreated(function(){
       dict.set( 'stage', result.stage );
       dict.set( 'status', result.status );
       dict.set( 'tags', result.tags );
+      dict.set( 'pointsFor', result.pointsFor );
+      dict.set( 'pointsAgainst', result.pointsFor );
     }
   });
 
@@ -167,6 +169,12 @@ Template.ViewProposal.helpers({
   },
   endDate: function() {
     return Template.instance().templateDictionary.get( 'endDate' );
+  },
+  pointsFor: function() {
+    return Template.instance().templateDictionary.get( 'pointsFor' );
+  },
+  pointsAgainst: function() {
+    return Template.instance().templateDictionary.get( 'pointsAgainst' );
   },
   isInvited: function() {
     return userIsInvited();
