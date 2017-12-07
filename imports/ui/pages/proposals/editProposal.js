@@ -123,7 +123,7 @@ function saveChanges(event, template, returnTo){
 					Bert.alert(error.reason, 'danger');
 				} else {
 					Bert.alert('Changes saved', 'success');
-					FlowRouter.go('App.proposal.view', {id: proposalId});
+					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
 		} else {
@@ -132,7 +132,7 @@ function saveChanges(event, template, returnTo){
 					Bert.alert(error.reason, 'danger');
 				} else {
 					Bert.alert('Proposal created', 'success');
-					FlowRouter.go('App.proposal.view', {id: proposalId});
+					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
 		}
