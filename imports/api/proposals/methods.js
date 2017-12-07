@@ -4,7 +4,7 @@ import { Proposals } from './Proposals.js';
 
 Meteor.methods({
     createProposal: function (proposal) {
-      try{
+      //try{
         check(proposal, { 
           title: String, 
           abstract: String, 
@@ -20,10 +20,10 @@ Meteor.methods({
         });
         result = Proposals.insert(proposal);
         return result;
-      } catch (err) {
+      //} catch (err) {
         //console.log(err);
-        return err;
-      }
+        //return err;
+      //}
     },
     getProposal: function (proposalId) {
       check(proposalId, String);

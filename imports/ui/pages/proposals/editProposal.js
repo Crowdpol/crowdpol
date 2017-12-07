@@ -133,25 +133,47 @@ Template.EditProposal.events({
 	},
 
 	'click #preview-proposal': function(event, template){
+		event.preventDefault();
 		saveChanges(event, template, 'App.proposal.view');
 	},
 	'click #add-point-for': function(event, template){
 		event.preventDefault();
-		var instance = Template.instance();
-		console.log(Template.instance().pointsFor.get());
 		var tempArray = template.pointsFor.get();
-		tempArray.push(template.find('#input-point-for').value);
-		template.pointsFor.set(tempArray);
+		var string = template.find('#input-point-for').value;
+		if(tempArray.indexOf(string) > -1){
+			var listItemId = "#point-for-" + tempArray.indexOf(string);
+			$(listItemId).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+		}else{
+			tempArray.push(string);
+			template.pointsFor.set(tempArray);
+		}
 	},
 	'click #add-point-against': function(event, template){
 		event.preventDefault();
 		var tempArray = template.pointsAgainst.get();
-		tempArray.push(template.find('#input-point-against').value);
-		template.pointsAgainst.set(tempArray);
+		var string = template.find('#input-point-against').value;
+		if(tempArray.indexOf(string) > -1){
+			var listItemId = "#point-against-" + tempArray.indexOf(string);
+			$(listItemId).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+		}else{
+			tempArray.push(string);
+			template.pointsAgainst.set(tempArray);
+		}
 	},
 	'click #remove-point-for': function(event, template){
-		console.log(this);
-	}
+		event.preventDefault();
+		var index = event.currentTarget.getAttribute('data-id');
+		var tempArray = template.pointsFor.get();
+		tempArray.splice(index, 1);
+		template.pointsFor.set(tempArray);
+	},
+	'click #remove-point-against': function(event, template){
+		event.preventDefault();
+		var index = event.currentTarget.getAttribute('data-id');
+		var tempArray = template.pointsAgainst.get();
+		tempArray.splice(index, 1);
+		template.pointsAgainst.set(tempArray);
+	},
 });
 
 Template.EditProposal.helpers({
