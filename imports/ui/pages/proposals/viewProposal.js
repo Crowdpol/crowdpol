@@ -4,12 +4,32 @@ import { Comments } from '../../../api/comments/Comments.js'
 Template.ViewProposal.onCreated(function(){
 
   var self = this;
+  self.delegates = new ReactiveVar([]);
+  self.delegateVote = new ReactiveVar();
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
     self.subscribe('comments', proposalId);
-    self.subscribe('users');
+    self.subscribe('users.all');
   });
+
+  Meteor.call("getDelegateVotes", function(error, result){
+    if (error){
+      Bert.alert(error.reason, 'danger');
+    } else {
+      self.delegates.set(result);
+    }
+  });
+
+  Meteor.call('getUserDelegateVote', proposalId, function(error, result){
+    if (error){
+      Bert.alert(error.reason, 'danger');
+    } else {
+      self.delegateVote.set(result);
+      console.log('the delegate vote is')
+      console.log(result)
+    }
+  })
 
   var dict = new ReactiveDict();
 
@@ -29,25 +49,14 @@ Template.ViewProposal.onCreated(function(){
       dict.set( 'tags', result.tags );
     }
   });
-  Meteor.call('getDelegateVoteFor', proposalId, Meteor.userId(), function(error, result){
-      if (result){
-        dict.set( 'delegateVote', result.vote );
-      } else {
-        dict.set( 'delegateVote', '' );
-      }
-  });
-  if (Session.get('currentUserRole') == 'Delegate'){
-      dict.set( 'userVote', dict.get( 'delegateVote' ));
 
-  } else {
-     Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
+   Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
       if (result){
         dict.set( 'userVote', result.vote );
       } else {
         dict.set( 'userVote', '' );
       }
     });
-  }
 
   this.templateDictionary = dict;
 });
@@ -110,14 +119,12 @@ Template.ViewProposal.events({
 
   'click #vote-yes' (event, template){
     vote('yes');
-    template.find('#vote-no').classList.remove('mdl-button--colored');
-    event.target.classList.add('mdl-button--colored');
+    template.templateDictionary.set('userVote', 'yes');
   },
 
   'click #vote-no' (event, template){
     vote('no');
-    template.find('#vote-yes').classList.remove('mdl-button--colored');
-    event.target.classList.add('mdl-button--colored'); 
+    template.templateDictionary.set('userVote', 'no');
   }
 });
 
@@ -131,13 +138,11 @@ Template.ViewProposal.helpers({
       if (error){
         return 'User could not be found';
       } else {
-        console.log('success so far')
         profile = result.profile;
         if (profile){
           return profile.username;
         } else {
           return 'Anonymous';
-          console.log('the user is anon')
         }
       }
     });
@@ -212,23 +217,57 @@ Template.ViewProposal.helpers({
   getProposalLink: function() {
     return Meteor.absoluteUrl() + "proposals/view/" + proposalId;
   },
-  yesColour: function(){
+  userYesClass: function(){
     if(Template.instance().templateDictionary.get('userVote') == 'yes'){
-      return "mdl-button--accent";
-    }
-    if(Template.instance().templateDictionary.get('delegateVote') == 'yes'){
       return "mdl-button--colored";
     }
   },
-  noColour: function(){
+  userNoClass: function(){
     if(Template.instance().templateDictionary.get('userVote') == 'no'){
-      return "mdl-button--accent";
-    }
-    if(Template.instance().templateDictionary.get('delegateVote') == 'no'){
       return "mdl-button--colored";
     }
+  },
+  delegateYesClass: function(){
+    if (Template.instance().delegateVote.get() == 'yes'){
+      return 'delegate-color'
+    }
+  },
+  delegateNoClass: function(){
+    if (Template.instance().delegateVote.get() == 'no'){
+      return 'delegate-color'
+    }
+  },
+  delegatesFor: function(){
+    var delegates = Template.instance().delegates.get();
+    var delegatesFor = [];
+    _.map(delegates, function(delegate){
+      if (delegate.vote_info[0].vote == 'yes'){
+        delegatesFor.push(delegate);
+      }
+    });
+    return delegatesFor;
+  },
+  delegatesAgainst: function(){
+    var delegates = Template.instance().delegates.get();
+    var delegatesAgainst = [];
+    _.map(delegates, function(delegate){
+      if (delegate.vote_info[0].vote == 'no'){
+        delegatesAgainst.push(delegate);
+      }
+    });
+    return delegatesAgainst;
   }
 });
+
+Template.delegateVoteListItem.helpers({
+  voteIcon: function(vote){
+    if (vote=='yes'){
+      return 'check_circle'
+    } else if (vote=='no'){
+      return 'cancel'
+    }
+  }
+})
 
 function userIsAuthor(){
   if (Meteor.userId() == Template.instance().templateDictionary.get( 'authorId' )){

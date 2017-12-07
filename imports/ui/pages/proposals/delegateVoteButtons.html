@@ -1,0 +1,38 @@
+<template name='delegateVoteButtons'>
+
+    <small>Please note that you are voting as a delegate. Your vote wil be public.</small><br/>
+    <small>To switch to voting as an individual, click the 'Roles' menu.</small>
+
+    <div class="vote-actions">
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised vote-button {{delegateYesClass}}" id="delegate-vote-yes">
+            Yes
+        </button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised vote-button {{delegateNoClass}}" id="delegate-vote-no">
+            No
+        </button>
+    </div>
+
+<div id="mdl-custom-modal" class="modal">
+    <div class="modal-content mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-card--expand">
+            <form action="#" st>
+                <small>Give a brief (optional) reason for your choice. This will be visible to your supporters.</small>
+                <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <textarea class="mdl-textfield__input" type="text" maxlength='160' rows= "4" name="abstract" id="delegate-reason"></textarea>
+                </div>
+                <small>{{charCountString}}</small>
+            </form>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a id='final-vote' class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Vote
+            </a>
+        </div>
+        <div class="mdl-card__menu">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect mdl-custom-close">
+              <span class="material-icons">close</span>
+            </button>
+        </div>
+    </div>
+</div>
+</template>
