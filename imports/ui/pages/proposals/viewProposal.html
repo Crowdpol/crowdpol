@@ -1,5 +1,6 @@
 <template name='ViewProposal'>
 	{{#if currentUser}}
+	{{#if Template.subscriptionsReady}}
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
 			<h1 class="proposal-title">{{ title }}</h1>
@@ -59,10 +60,10 @@
 					<small>To switch to voting as an individual, click the 'Roles' menu.</small>
 				{{/if}}
 				<div class="vote-actions">
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} primary-button {{/if}}" id="vote-yes">
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{yesColour}}" id="vote-yes">
 						Yes
 					</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} primary-button {{/if}}" id="vote-no">
+					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{noColour}}" id="vote-no">
 						No
 					</button>
 				</div>
@@ -86,6 +87,9 @@
 			<h3>Sorry, this proposal is not yet visible to the public.</h3>
 		{{/if}}
 	</div>
+	{{else}}
+		{{> loader}}
+	{{/if}}
 	{{/if}}
 </template>
 

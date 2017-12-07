@@ -162,12 +162,36 @@
 	},
 
 	"proposals": {
+		"list": {
+			"tabs":{
+				"allProposals": "All Proposals",
+				"myProposals": "My Proposals",
+				"writeProposals": "Write Proposals"
+			},
+			"headings":{
+				"openProposals": "Open Proposals",
+				"closedProposals": "Closed Proposals",
+				"myProposals": "My proposals"
+			},
+			"cards":{
+				"expires": "Expires",
+				"read": "Read More",
+				"vote": "and vote"
+			},
+			"openClosedSwitch": "Open/Closed",
+			"createdInvitedSwitch": "Created/Invited"
+		},
 		"edit": {
 			"title": "Title",
 			"abstract": "Summarise your proposal",
 			"startDate": "Start date for voting",
 			"endDate": "Closing date for voting",
-			"invited": "Invite others to collaborate by entering their usernames, separated by commas"
+			"invited": "Invite others to collaborate by entering their usernames, separated by commas",
+			"tags": "Add some tags your proposal:"
+		},
+		"view":{
+			"confirmSubmit": "Are you sure you want to submit for approval. Once a proposal has been submitted, it cannot be edited, only deleted.",
+			"voteCast": "Your vote has been cast"
 		}
 	},
 

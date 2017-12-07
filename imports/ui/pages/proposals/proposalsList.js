@@ -7,6 +7,7 @@ Template.ProposalsList.onCreated(function () {
   self.searchQuery = new ReactiveVar();
   self.openProposals = new ReactiveVar(true);
   self.authorProposals = new ReactiveVar(true);
+  Session.set("canVote",true);
 
   self.autorun(function(){
     self.subscribe('proposals.public', self.searchQuery.get());
@@ -47,18 +48,31 @@ Template.ProposalsList.events({
     let value = event.target.value.trim();
     template.searchQuery.set(value);
   },
-	'click #add-new-proposal': function(event, template){
+	'click #add-new-proposal, click #new-proposals-link': function(event, template){
     FlowRouter.go('App.proposal.edit', {id: ''});
 	},
   'click #open-closed-switch': function(event, template){
+    Session.set("canVote",event.target.checked);
     Template.instance().openProposals.set(event.target.checked);
   },
   'click #author-invited-switch': function(event, template){
     Template.instance().authorProposals.set(event.target.checked);
-  }
+  },
+  'click #my-proposals-tab': function(event, template){
+    Session.set("canVote",false);
+  },
+  'click #vote-proposals-tab': function(event, template){
+    Session.set("canVote",Template.instance().openProposals.get());
+  },
 });
 
 function transformProposal(proposal) { 
   proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');;
   return proposal;
 };
+
+Template.ProposalCard.helpers({
+  canVote: function() {
+    return Session.get("canVote");
+  }
+});
