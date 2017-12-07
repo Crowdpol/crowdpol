@@ -29,6 +29,30 @@
 				{{/each}}
 			</div>
 
+			<!-- Points for and against -->
+			<div class="proposal-wrap">
+				<div class="mdl-grid">
+	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+	  				<p>Points For:</p>
+						<ul id="points-for-list">
+							{{#each pointsFor}}
+								<li>{{this}}</li>
+							{{/each}}
+						</ul>
+	  			</div>
+	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+	  				<p>Points Against:</p>
+						<ul id="points-against-list">
+							{{#each pointsFor}}
+								<li>{{this}}</li>
+							{{/each}}
+						</ul>
+	  			</div>
+	  			
+	  		</div>
+  		</div>
+			<!-- References & Links -->
+
 			<small>Voting starts on: {{ startDate }}</small>
 			<br />
 			<small>Voting ends on: {{ endDate }}</small>

@@ -6,8 +6,8 @@ import { setupTaggle } from '../../components/taggle/taggle.js'
 Template.EditProposal.onCreated(function(){
 	console.log("created started");
 	var self = this;
-	self.pointsFor = new ReactiveVar([]);
-  	self.pointsAgainst = new ReactiveVar([]);
+	Template.instance().pointsFor = new ReactiveVar([]);
+  	Template.instance().pointsAgainst = new ReactiveVar([]);
 //});
 
 //Template.EditProposal.onRendered(function(){
@@ -118,9 +118,19 @@ Template.EditProposal.onRendered(function(){
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
 				self.find('#invited').value = proposal.invited.join(',');
 				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
-				self.pointsFor = proposal.pointsFor;
-				self.pointsAgainst = proposal.pointsAgainst;
-				console.log(self.pointsFor);
+				
+				var array = proposal.pointsFor;
+				for (var i = 0; i < array.length; i++) {
+					console.log(array[i]);
+					$("#points-for-list").append('<li id="point-for-'+i+'">'+array[i]+'<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-for" data-id="'+i+'"><i class="material-icons">remove</i></button></li>');
+				};
+				array = proposal.pointsAgainst;
+				for (var i = 0; i < array.length; i++) {
+					console.log(array[i]);
+					$("#points-against-list").append('<li id="point-against-'+i+'">'+array[i]+'<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-for" data-id="'+i+'"><i class="material-icons">remove</i></button></li>');
+				}
+				Template.instance().pointsFor = proposal.pointsFor;
+				Template.instance().pointsAgainst = proposal.pointsAgainst;
 			});
 		}
 	});
@@ -138,41 +148,46 @@ Template.EditProposal.events({
 	},
 	'click #add-point-for': function(event, template){
 		event.preventDefault();
-		var tempArray = template.pointsFor.get();
+		var instance = Template.instance();
+		console.log(instance);
+		var tempArray = instance.pointsFor.get();
 		var string = template.find('#input-point-for').value;
 		if(tempArray.indexOf(string) > -1){
 			var listItemId = "#point-for-" + tempArray.indexOf(string);
 			$(listItemId).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 		}else{
 			tempArray.push(string);
-			template.pointsFor.set(tempArray);
+			instance.pointsFor.set(tempArray);
 		}
 	},
 	'click #add-point-against': function(event, template){
 		event.preventDefault();
-		var tempArray = template.pointsAgainst.get();
+		var instance = Template.instance();
+		var tempArray = instance.pointsAgainst.get();
 		var string = template.find('#input-point-against').value;
 		if(tempArray.indexOf(string) > -1){
 			var listItemId = "#point-against-" + tempArray.indexOf(string);
 			$(listItemId).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 		}else{
 			tempArray.push(string);
-			template.pointsAgainst.set(tempArray);
+			instance.pointsAgainst.set(tempArray);
 		}
 	},
 	'click #remove-point-for': function(event, template){
 		event.preventDefault();
+		var instance = Template.instance();
 		var index = event.currentTarget.getAttribute('data-id');
-		var tempArray = template.pointsFor.get();
+		var tempArray = instance.pointsFor.get();
 		tempArray.splice(index, 1);
-		template.pointsFor.set(tempArray);
+		instance.pointsFor.set(tempArray);
 	},
 	'click #remove-point-against': function(event, template){
 		event.preventDefault();
+		var instance = Template.instance();
 		var index = event.currentTarget.getAttribute('data-id');
-		var tempArray = template.pointsAgainst.get();
+		var tempArray = instance.pointsAgainst.get();
 		tempArray.splice(index, 1);
-		template.pointsAgainst.set(tempArray);
+		instance.pointsAgainst.set(tempArray);
 	},
 });
 
@@ -182,6 +197,7 @@ Template.EditProposal.helpers({
     return Template.instance().pointsFor.get();
   },
   pointsAgainst() {
+  	console.log(Template.instance().pointsFor.get());
     return Template.instance().pointsAgainst.get();
   }
 });
