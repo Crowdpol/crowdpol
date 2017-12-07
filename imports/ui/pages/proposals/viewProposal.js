@@ -83,7 +83,7 @@ Template.ViewProposal.events({
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
   'click #submit-proposal' (event, template){
-    if (window.confirm('Are you sure you want to submit for approval. Once a proposal has been submitted, it cannot be edited, only deleted.')){
+    if (window.confirm(TAPi18n.__('proposals.view.confirmSubmit'))){
       Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
         if (error){
           Bert.alert(error.reason, 'danger');
@@ -287,7 +287,7 @@ function vote(voteString){
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Your vote has been cast', 'success');
+        Bert.alert(TAPi18n.__('proposals.view.voteCast'), 'success');
       }
     });
   } else {
@@ -297,7 +297,7 @@ function vote(voteString){
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Your vote has been cast', 'success');
+        Bert.alert(TAPi18n.__('proposals.view.voteCast'), 'success');
       }
     });
   }

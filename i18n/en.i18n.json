@@ -188,6 +188,10 @@
 			"endDate": "Closing date for voting",
 			"invited": "Invite others to collaborate by entering their usernames, separated by commas",
 			"tags": "Add some tags your proposal:"
+		},
+		"view":{
+			"confirmSubmit": "Are you sure you want to submit for approval. Once a proposal has been submitted, it cannot be edited, only deleted.",
+			"voteCast": "Your vote has been cast"
 		}
 	},
 
