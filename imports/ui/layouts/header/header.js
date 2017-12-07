@@ -95,10 +95,6 @@ Template.Header.events({
   'submit form, click #search-button' (event, template){
     var keyword = template.find('#header-tag-search').value;
     var url = Tags.findOne({keyword: keyword}).url
-    console.log('form submitted')
-    thing = Tags.findOne({keyword: keyword})
-    console.log(keyword)
-    console.log(url)
     FlowRouter.go(url)
   }
 });
