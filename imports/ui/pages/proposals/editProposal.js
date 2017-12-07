@@ -14,6 +14,7 @@ Template.EditProposal.onRendered(function(){
 	var self = this;
 	// Form Validations
 	$( "#edit-proposal-form" ).validate({
+		debug: true,
 		ignore: "",
 		rules: {
 			title: {
@@ -34,6 +35,16 @@ Template.EditProposal.onRendered(function(){
 			endDate: {
 				required: true,
 			},
+			inputPointFor: {
+				required: false,
+				minlength: 10,
+				maxlength: 160
+			},
+			inputPointAgainst: {
+				required: false,
+				minlength: 10,
+				maxlength: 160
+			}
 		},
 		messages: {
 			title: {
@@ -88,7 +99,7 @@ Template.EditProposal.onRendered(function(){
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
 				self.find('#invited').value = proposal.invited.join(',');
 				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
-				
+				/*
 				var array = proposal.pointsFor;
 				for (var i = 0; i < array.length; i++) {
 					console.log(array[i]);
@@ -99,6 +110,7 @@ Template.EditProposal.onRendered(function(){
 					console.log(array[i]);
 					$("#points-against-list").append('<li id="point-against-'+i+'">'+array[i]+'<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-for" data-id="'+i+'"><i class="material-icons">remove</i></button></li>');
 				}
+				*/
 				//using a try catch to handle the weird uncaught error on page load.
 				//A TypeError is thrown if you use a value that is outside the range of expected types
 				try{
@@ -132,26 +144,28 @@ Template.EditProposal.events({
 		var instance = Template.instance();
 		console.log(instance);
 		var tempArray = instance.pointsFor.get();
-		var string = template.find('#input-point-for').value;
+		var string = template.find('#inputPointFor').value;
 		if(tempArray.indexOf(string) > -1){
 			var listItemId = "#point-for-" + tempArray.indexOf(string);
 			$(listItemId).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 		}else{
 			tempArray.push(string);
 			instance.pointsFor.set(tempArray);
+			template.find('#inputPointFor').value = "";
 		}
 	},
 	'click #add-point-against': function(event, template){
 		event.preventDefault();
 		var instance = Template.instance();
 		var tempArray = instance.pointsAgainst.get();
-		var string = template.find('#input-point-against').value;
+		var string = template.find('#inputPointAgainst').value;
 		if(tempArray.indexOf(string) > -1){
 			var listItemId = "#point-against-" + tempArray.indexOf(string);
 			$(listItemId).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 		}else{
 			tempArray.push(string);
 			instance.pointsAgainst.set(tempArray);
+			template.find('#inputPointAgainst').value = "";
 		}
 	},
 	'click #remove-point-for': function(event, template){

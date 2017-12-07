@@ -33,16 +33,14 @@
 			<!-- Points for and against -->
 			<div class="mdl-grid">
   			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-  				<p>Points For:</p>
-  				<form >
-					  <div class="mdl-textfield mdl-js-textfield">
-					    <input class="mdl-textfield__input" type="text" id="input-point-for">
-					    <label class="mdl-textfield__label" for="input-point-for">Text...</label>
+
+					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					    <input class="mdl-textfield__input" type="text" id="inputPointFor" name="inputPointFor">
+					    <label class="mdl-textfield__label" >Points For:</label>
 					  </div>
 					  <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-for">
 						  <i class="material-icons">add</i>
 						</button>
-					</form>
 					<ul id="points-for-list">
 						{{#each pointsFor}}
 							<li id="point-for-{{@index}}">{{this}}<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-for" data-id="{{@index}}">
@@ -52,16 +50,14 @@
 					</ul>
   			</div>
   			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-  				<p>Points Against:</p>
-  				<form >
-					  <div class="mdl-textfield mdl-js-textfield">
-					    <input class="mdl-textfield__input" type="text" id="input-point-against">
-					    <label class="mdl-textfield__label" for="input-point-against">Text...</label>
+
+					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					    <input class="mdl-textfield__input" type="text" id="inputPointAgainst" name="inputPointAgainst">
+					    <label class="mdl-textfield__label" for="inputPointAgainst">Points Against:</label>
+							<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-against" style="float: right;">
+								<i class="material-icons">add</i>
+							</button>
 					  </div>
-					  <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-against">
-							<i class="material-icons">add</i>
-						</button>
-					</form>
 					<ul id="points-against-list">
 						{{#each pointsAgainst}}
 							<li  id="point-against-{{@index}}">{{this}}<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-against">
