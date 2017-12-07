@@ -46,11 +46,14 @@ Meteor.methods({
 
     if (!userVote){
       var rankedDelegates = Meteor.call('getDelegateVotes');
-      return rankedDelegates[0].vote_info[0].vote;
+      var voteInfo = rankedDelegates[0].vote_info[0]
+      if (voteInfo) {
+        return voteInfo.vote
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
-
-
   }
 });

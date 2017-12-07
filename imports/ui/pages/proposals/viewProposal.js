@@ -26,6 +26,8 @@ Template.ViewProposal.onCreated(function(){
       Bert.alert(error.reason, 'danger');
     } else {
       self.delegateVote.set(result);
+      console.log('the delegate vote is')
+      console.log(result)
     }
   })
 
@@ -47,25 +49,14 @@ Template.ViewProposal.onCreated(function(){
       dict.set( 'tags', result.tags );
     }
   });
-  Meteor.call('getDelegateVoteFor', proposalId, Meteor.userId(), function(error, result){
-      if (result){
-        dict.set( 'delegateVote', result.vote );
-      } else {
-        dict.set( 'delegateVote', '' );
-      }
-  });
-  if (Session.get('currentUserRole') == 'Delegate'){
-      dict.set( 'userVote', dict.get( 'delegateVote' ));
 
-  } else {
-     Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
+   Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
       if (result){
         dict.set( 'userVote', result.vote );
       } else {
         dict.set( 'userVote', '' );
       }
     });
-  }
 
   this.templateDictionary = dict;
 });
@@ -228,12 +219,12 @@ Template.ViewProposal.helpers({
   },
   userYesClass: function(){
     if(Template.instance().templateDictionary.get('userVote') == 'yes'){
-      return "mdl-button--accent";
+      return "mdl-button--colored";
     }
   },
   userNoClass: function(){
     if(Template.instance().templateDictionary.get('userVote') == 'no'){
-      return "mdl-button--accent";
+      return "mdl-button--colored";
     }
   },
   delegateYesClass: function(){
