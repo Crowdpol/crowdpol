@@ -90,6 +90,7 @@
           }
       }
     ],
-    "demoUsers": 50
+    "demoUsers": 50,
+    "defaultPhotoUrl": "https://www.commondemocracy.org/img/default-user-image.png"
   }
 }
