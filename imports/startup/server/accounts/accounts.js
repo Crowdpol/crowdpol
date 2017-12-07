@@ -122,7 +122,7 @@ function normalizeSignupUser(user) {
     validated: false,
   });
   const userProfile = {
-    photo: "/img/default-user-image.png",
+    photo: Meteor.settings.private.defaultPhotoUrl,
     username: generateUsername("anonymous"),
     firstName: "Anonymous",
     lastName: "User",
