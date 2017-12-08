@@ -26,15 +26,9 @@ ProposalSchema = new SimpleSchema({
     },
     startDate: {
         type: Date,
-        autoValue: function() {
-            return new Date(2018,8,1);
-        }
     },
     endDate: {
         type: Date,
-        autoValue: function() {
-            return new Date(2018,8,1);
-        }
     },
     stage: {
         // current stage of proposal
