@@ -34,35 +34,42 @@
 			<div class="mdl-grid">
   			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 
-					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input" type="text" id="inputPointFor" name="inputPointFor">
+					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pointsForWrap">
+					    <textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointFor" name="inputPointFor"></textarea>
 					    <label class="mdl-textfield__label" >Points For:</label>
-					  </div>
-					  <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-for">
+					    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="add-point-for" style="position: relative; bottom: 40px; float: right;">
 						  <i class="material-icons">add</i>
 						</button>
-					<ul id="points-for-list">
+					  </div>
+					  
+					<ul id="points-for-list" class="pointsList">
 						{{#each pointsFor}}
-							<li id="point-for-{{@index}}">{{this}}<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-for" data-id="{{@index}}">
-							<i class="material-icons">remove</i>
-						</button></li>
+							<li id="point-for-{{@index}}" class="pointsListItem">
+								{{this}}
+								<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="remove-point-for" data-id="{{@index}}" style="position: relative; float: right; display: none;">
+									<i class="material-icons">remove</i>
+								</button>
+							</li>
 						{{/each}}
 					</ul>
   			</div>
   			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 
-					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pointsAgainstWrap">
 					    <input class="mdl-textfield__input" type="text" id="inputPointAgainst" name="inputPointAgainst">
 					    <label class="mdl-textfield__label" for="inputPointAgainst">Points Against:</label>
-							<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="add-point-against" style="float: right;">
+							<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="add-point-against" style="position: relative; bottom: 40px; float: right;">
 								<i class="material-icons">add</i>
 							</button>
 					  </div>
-					<ul id="points-against-list">
+					<ul id="points-against-list" class="pointsList">
 						{{#each pointsAgainst}}
-							<li  id="point-against-{{@index}}">{{this}}<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-against">
-							<i class="material-icons">remove</i>
-						</button></li>
+							<li  id="point-against-{{@index}}" class="pointsListItem">
+								{{this}}
+								<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="remove-point-against" style="position: relative; float: right; display: none;">
+									<i class="material-icons">remove</i>
+								</button>
+							</li>
 						{{/each}}
 					</ul>
   			</div>
@@ -86,7 +93,7 @@
 
 			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<label class="mdl-textfield__label">{{_ "proposals.edit.invited"}}</label>
-				<input type="text" id="invited" class="mdl-textfield__input">
+				<input type="text" id="invited" class="mdl-textfield__input" name="invited"> 
 			</div>
 
 			<div class="form-group">

@@ -2,19 +2,16 @@ import './editProposal.html'
 import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { setupTaggle } from '../../components/taggle/taggle.js'
+import "./styles.css"
 
 Template.EditProposal.onCreated(function(){
 	console.log("created started");
 	var self = this;
 	Template.instance().pointsFor = new ReactiveVar([]);
   	Template.instance().pointsAgainst = new ReactiveVar([]);
-  	//console.log("pointsForReactiveVar: " + Template.instance().pointsFor.get());
-  	//console.log("pointsAgainstReactiveVar: " + Template.instance().pointsAgainst.get());
 });
 
 Template.EditProposal.onRendered(function(){
-	console.log("pointsForReactiveVar: " + Template.instance().pointsFor.get());
-  	console.log("pointsAgainstReactiveVar: " + Template.instance().pointsAgainst.get());
 	var self = this;
 	// Form Validations
 	$( "#edit-proposal-form" ).validate({
@@ -41,12 +38,12 @@ Template.EditProposal.onRendered(function(){
 			},
 			inputPointFor: {
 				required: false,
-				minlength: 10,
+				minlength: 1,
 				maxlength: 160
 			},
 			inputPointAgainst: {
 				required: false,
-				minlength: 10,
+				minlength: 1,
 				maxlength: 160
 			}
 		},
@@ -103,43 +100,12 @@ Template.EditProposal.onRendered(function(){
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
 				self.find('#invited').value = proposal.invited.join(',');
 				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
-				/*
-				var array = proposal.pointsFor;
-				for (var i = 0; i < array.length; i++) {
-					console.log(array[i]);
-					$("#points-for-list").append('<li id="point-for-'+i+'">'+array[i]+'<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-for" data-id="'+i+'"><i class="material-icons">remove</i></button></li>');
-				};
-				array = proposal.pointsAgainst;
-				for (var i = 0; i < array.length; i++) {
-					console.log(array[i]);
-					$("#points-against-list").append('<li id="point-against-'+i+'">'+array[i]+'<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="remove-point-for" data-id="'+i+'"><i class="material-icons">remove</i></button></li>');
+				if (proposal.pointsFor != null){
+					self.pointsFor.set(proposal.pointsFor);
 				}
-				*/
-				//using a try catch to handle the weird uncaught error on page load.
-				//A TypeError is thrown if you use a value that is outside the range of expected types
-				console.log(proposal.pointsFor);
-				console.log("Begining TRY/CATCH");
-				//try{
-					//console.log("pointsForReactiveVar: " + Template.instance().pointsFor.get());
-					console.log("proposal.pointsFor: " + proposal.pointsFor);
-					if (proposal.pointsFor != null){
-						self.pointsFor.set(proposal.pointsFor);
-					}else{
-						console.log("proposal.pointsFor is null");
-					}
-					//console.log("pointsAgainstReactiveVar: " + Template.instance().pointsAgainst.get());
-					console.log("proposal.pointsAgainst: " + proposal.pointsAgainst);
-					if (proposal.pointsAgainst != null){
-						self.pointsAgainst.set(proposal.pointsAgainst);
-					}else{
-						console.log("proposal.pointsAgainst is null");
-					}
-				//}catch(e){
-				//	console.log("["+e.name+"]: "+e.message);
-				//}
-				console.log("pointsForReactiveVar: " + self.pointsFor.get());
-  				console.log("pointsAgainstReactiveVar: " + self.pointsAgainst.get());
-				
+				if (proposal.pointsAgainst != null){
+					self.pointsAgainst.set(proposal.pointsAgainst);
+				}
 			});
 		}
 	});
@@ -158,7 +124,6 @@ Template.EditProposal.events({
 	'click #add-point-for': function(event, template){
 		event.preventDefault();
 		var instance = Template.instance();
-		console.log(instance);
 		var tempArray = instance.pointsFor.get();
 		var string = template.find('#inputPointFor').value;
 		if(tempArray.indexOf(string) > -1){
@@ -168,6 +133,7 @@ Template.EditProposal.events({
 			tempArray.push(string);
 			instance.pointsFor.set(tempArray);
 			template.find('#inputPointFor').value = "";
+			$("#pointsForWrap").removeClass("is-dirty");
 		}
 	},
 	'click #add-point-against': function(event, template){
@@ -182,6 +148,7 @@ Template.EditProposal.events({
 			tempArray.push(string);
 			instance.pointsAgainst.set(tempArray);
 			template.find('#inputPointAgainst').value = "";
+			$("#pointsAgainstWrap").removeClass("is-dirty");
 		}
 	},
 	'click #remove-point-for': function(event, template){
@@ -200,15 +167,21 @@ Template.EditProposal.events({
 		tempArray.splice(index, 1);
 		instance.pointsAgainst.set(tempArray);
 	},
+	'mouseenter .pointsListItem':  function(event, template){
+		string = "#" + event.currentTarget.id + " > button";
+		$(string).show();
+	},
+	'mouseleave  .pointsListItem':  function(event, template){
+		string = "#" + event.currentTarget.id + " > button";
+		$(string).hide();
+	}
 });
 
 Template.EditProposal.helpers({
   pointsFor() {
-  	console.log(Template.instance().pointsFor.get());
     return Template.instance().pointsFor.get();
   },
   pointsAgainst() {
-  	console.log(Template.instance().pointsFor.get());
     return Template.instance().pointsAgainst.get();
   }
 });
