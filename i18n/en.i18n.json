@@ -190,7 +190,7 @@
 			"tags": "Add some tags your proposal:"
 		},
 		"view":{
-			"confirmSubmit": "Are you sure you want to submit for approval. Once a proposal has been submitted, it cannot be edited, only deleted.",
+			"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
 			"voteCast": "Your vote has been cast"
 		}
 	},

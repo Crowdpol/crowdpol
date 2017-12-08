@@ -42,12 +42,12 @@ Template.EditProposal.onRendered(function(){
 				body: 'Please provide a body for your proposal.',
 				minlength: "Use at least 50 characters."
 			},
-			startDate: {
+			/*startDate: {
 				required: 'Please indicate when voting will open for this proposal.'
 			},
 			endDate: {
 				required: 'Please indicate when voting will close for this proposal.'
-			},
+			},*/
 		}
 	});
 
@@ -78,8 +78,8 @@ Template.EditProposal.onRendered(function(){
 				self.find('#abstract').value = proposal.abstract;
 				self.find('.ql-editor').innerHTML = proposal.body;
 				self.find('#body').value = proposal.body;
-				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
-				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
+				//self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
+				//self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
 				self.find('#invited').value = proposal.invited.join(',');
 				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
 			});
@@ -107,8 +107,8 @@ function saveChanges(event, template, returnTo){
 			title: template.find('#title').value,
 			abstract: template.find('#abstract').value,
 			body: template.find('#body').value,
-			startDate: new Date(template.find('#startDate').value),
-			endDate: new Date(template.find('#endDate').value),
+			startDate: new Date(2018, 8, 1),//new Date(template.find('#startDate').value),
+			endDate: new Date(2018, 8, 1),//new Date(template.find('#endDate').value),
 			authorId: Meteor.userId(),
 			invited: template.find('#invited').value.split(','),
 			tags: proposalTags
