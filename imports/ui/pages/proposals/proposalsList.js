@@ -93,9 +93,7 @@ Template.ProposalCard.helpers({
       // If looking at own proposals, show draft/submitted/live
     } else if (Session.get('myProposals')){
       var stage = proposal.stage;
-      if (stage == 'live' && (new Date(proposal.endDate) > new Date())) {
-        return stage.charAt(0).toUpperCase() + stage.slice(1);
-      }
+      return stage.charAt(0).toUpperCase() + stage.slice(1);
     }
   }
 });
