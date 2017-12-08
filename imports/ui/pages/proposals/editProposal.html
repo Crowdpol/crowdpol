@@ -5,7 +5,7 @@
 	<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
 	<div class="app-container">
-		<h3>Write your proposal</h3>
+		<h3>{{_ "proposals.edit.heading"}}</h3>
 		<form id="edit-proposal-form">
 			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<label class="mdl-textfield__label">{{_ "proposals.edit.title"}}</label>
@@ -36,7 +36,7 @@
 
 					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pointsForWrap">
 					    <textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointFor" name="inputPointFor"></textarea>
-					    <label class="mdl-textfield__label" >Points For:</label>
+					    <label class="mdl-textfield__label" >{{_ "proposals.edit.pointFor"}}</label>
 					    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="add-point-for" style="position: relative; bottom: 40px; float: right;">
 						  <i class="material-icons">add</i>
 						</button>
@@ -57,7 +57,7 @@
 
 					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pointsAgainstWrap">
 					    <input class="mdl-textfield__input" type="text" id="inputPointAgainst" name="inputPointAgainst">
-					    <label class="mdl-textfield__label" for="inputPointAgainst">Points Against:</label>
+					    <label class="mdl-textfield__label" for="inputPointAgainst">{{_ "proposals.edit.pointAgainst"}}</label>
 							<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="add-point-against" style="position: relative; bottom: 40px; float: right;">
 								<i class="material-icons">add</i>
 							</button>
