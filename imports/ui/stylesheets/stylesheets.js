@@ -16,4 +16,5 @@ import './delegate-vote.scss';
 import './drawer-right.css';
 import './viewProposal.scss'
 import './modal.scss'
+import './back-button.scss'
 

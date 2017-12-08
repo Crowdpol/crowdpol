@@ -1,5 +1,6 @@
 <template name="AdminTags">
 	{{#if currentUserIsAdmin}}
+	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
 	<div class="container">
 		<h3> {{_"admin.tags.heading"}} </h3>
 		{{> AdminTagsForm}}
