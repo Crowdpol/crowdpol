@@ -73,6 +73,27 @@ ProposalSchema = new SimpleSchema({
         type: String,
         optional: true
     },
+    "pointsFor": {
+        type: Array,
+        optional: true
+    },
+    'pointsFor.$': {
+        type: String
+    },
+    "pointsAgainst": {
+        type: Array,
+        optional: true
+    },
+    'pointsAgainst.$': {
+        type: String
+    },
+    "references": {
+        type: Array,
+        optional: true
+    },
+    'references.$': {
+        type: String
+    },
 });
 
 Proposals.attachSchema(ProposalSchema);

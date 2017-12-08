@@ -1,5 +1,6 @@
 <template name="AdminApprovals">
 	{{#if currentUserIsAdmin}}
+	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
 	<div class="container">
 		<h3>{{_"admin.approvals.heading"}}</h3>
 		{{#if Template.subscriptionsReady}}

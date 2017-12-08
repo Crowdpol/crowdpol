@@ -4,16 +4,26 @@ import { Proposals } from './Proposals.js';
 
 Meteor.methods({
     createProposal: function (proposal) {
-      check(proposal, { 
-        title: String, 
-        abstract: String, 
-        body: String, 
-        startDate: Date, 
-        endDate: Date, 
-        authorId: String,
-        invited: Match.Maybe([String]),
-        tags: Match.Maybe([Object])});
-      return Proposals.insert(proposal);
+      //try{
+        check(proposal, { 
+          title: String, 
+          abstract: String, 
+          body: String, 
+          startDate: Date, 
+          endDate: Date, 
+          authorId: String,
+          invited: Match.Maybe([String]),
+          tags: Match.Maybe([Object]),
+          pointsFor: Match.Maybe([String]),
+          pointsAgainst: Match.Maybe([String]),
+          references: Match.Maybe([String])
+        });
+        result = Proposals.insert(proposal);
+        return result;
+      //} catch (err) {
+        //console.log(err);
+        //return err;
+      //}
     },
     getProposal: function (proposalId) {
       check(proposalId, String);
@@ -61,5 +71,8 @@ Meteor.methods({
         url: String, 
         _id: String });
       Proposals.update({_id: proposalId}, {$pull: {tags: tag} });
+    },
+    addPointFor: function(proposalId, text) {
+      Proposals.update({_id: proposalId}, { $push: { pointsFor: text } });
     },
 });
