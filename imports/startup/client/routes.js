@@ -96,6 +96,34 @@ FlowRouter.route('/about', {
   },
 });
 
+//STATISTICS 
+FlowRouter.route('/stats', {
+  name: 'App.stats',
+  action() {
+    console.log("show me stats");
+    BlazeLayout.render('App_body', { main: 'Stats' });
+  },
+});
+
+var statsRoutes = FlowRouter.group({
+  prefix: '/stats',
+  name: 'App.stats',
+});
+
+statsRoutes.route('/proposals', {
+  name: 'App.stats.proposals',
+  action() {
+    console.log("going to stats.proposals");
+    BlazeLayout.render('App_body', {main: 'ProposalStats'});
+  }
+});
+statsRoutes.route('/proposals/:id', {
+  name: 'App.stats.proposals.view',
+  action() {
+    BlazeLayout.render('App_body', { main: 'ProposalStatsPage' });
+
+  },
+});
 
 // Routes for logged-in users only:
 

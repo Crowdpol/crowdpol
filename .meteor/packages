@@ -68,3 +68,4 @@ seba:minifiers-autoprefixer
 underscore
 liberation:collection-pluck
 coffeescript
+mfpierre:chartist-js
