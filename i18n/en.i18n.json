@@ -182,16 +182,40 @@
 			"createdInvitedSwitch": "Created/Invited"
 		},
 		"edit": {
+			"heading": "Write your proposal",
 			"title": "Title",
 			"abstract": "Summarise your proposal",
 			"startDate": "Start date for voting",
 			"endDate": "Closing date for voting",
 			"invited": "Invite others to collaborate by entering their usernames, separated by commas",
-			"tags": "Add some tags your proposal:"
+			"tags": "Add some tags your proposal:",
+			"pointFor": "Points For:",
+			"pointAgainst": "Points Against:"
 		},
 		"view":{
-			"confirmSubmit": "Are you sure you want to submit for approval. Once a proposal has been submitted, it cannot be edited, only deleted.",
-			"voteCast": "Your vote has been cast"
+			"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
+			"voteCast": "Your vote has been cast",
+			"editProposal": "Edit Proposal",
+			"submitProposal": "Submit Proposal",
+			"pointsFor": "Points For:",
+			"pointsAgainst": "Points Against:",
+			"noDelegatesVoted": "None of your delegates voted against this issue",
+			"proposalUnvailable": "Sorry, this proposal is not yet visible to the public.",
+			"noDelegateReason": "This delegate did not provide a reason for their voting choice.",
+			"addComment": "Add a comment",
+			"voteHeading": "Vote on this proposal",
+			"voteStarts": "Voting starts on:",
+			"voteEnds": "Voting ends on: ",
+			"abstract": "Abstract",
+			"proposal": "Proposal",
+			"alerts": {
+				"linkToClipboardSuccess": "Link copied to clipboard",
+				"linkToClipboardFailed": "Link copied to clipboard",
+				"proposalSubmitted":"Proposal submitted for admin approval",
+				"commentPosted":"Comment posted"
+			},
+			"userNotFound":"User could not be found",
+			"anonymous": "Anonymous"
 		}
 	},
 

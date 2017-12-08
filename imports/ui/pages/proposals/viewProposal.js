@@ -49,7 +49,7 @@ Template.ViewProposal.onCreated(function(){
       self.delegateVote.set(result);
     }
   })
-
+  
    Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
       if (result){
         dict.set( 'userVote', result.vote );
@@ -65,7 +65,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('success', function(e) {
     Bert.alert({
-      title: 'Link copied to clipboard',
+      title: TAPi18n.__('proposals.view.alerts.linkToClipboardSuccess'),
       type: 'success',
       style: 'growl-bottom-right',
       icon: 'fa-link'
@@ -75,7 +75,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('error', function(e) {
     Bert.alert({
-      title: 'Could not copy to clipboard',
+      title: TAPi18n.__('proposals.view.alerts.linkToClipboardFailed'),
       message: e.action + "; " + e.trigger,
       type: 'warning',
       style: 'growl-bottom-right',
@@ -95,7 +95,7 @@ Template.ViewProposal.events({
         if (error){
           Bert.alert(error.reason, 'danger');
         } else {
-          Bert.alert('Proposal submitted for admin approval', 'success');
+          Bert.alert(TAPi18n.__('proposals.view.alerts.proposalSubmitted'), 'success');
           FlowRouter.go('App.proposals');
         }
       });
@@ -103,6 +103,7 @@ Template.ViewProposal.events({
   },
 
   'submit #comment-form' (event, template){
+    event.preventDefault();
     var comment = {
       message: template.find('#comment-message').value,
       proposalId: proposalId}
@@ -110,7 +111,8 @@ Template.ViewProposal.events({
       if(error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Comment posted', 'success');
+        Bert.alert(TAPi18n.__('proposals.view.alerts.commentPosted'), 'success');
+        template.find('#comment-message').value = "";
       }
     });
   },
@@ -145,13 +147,13 @@ Template.ViewProposal.helpers({
   commentUsername: function(userId){
     Meteor.call('getProfile', userId, function(error, result){
       if (error){
-        return 'User could not be found';
+        return TAPi18n.__('proposals.view.userNotFound');
       } else {
         profile = result.profile;
         if (profile){
           return profile.username;
         } else {
-          return 'Anonymous';
+          return TAPi18n.__('proposals.view.anonymous');
         }
       }
     });
@@ -176,6 +178,12 @@ Template.ViewProposal.helpers({
   },
   endDate: function() {
     return Template.instance().templateDictionary.get( 'endDate' );
+  },
+  pointsFor: function() {
+    return Template.instance().templateDictionary.get( 'pointsFor' );
+  },
+  pointsAgainst: function() {
+    return Template.instance().templateDictionary.get( 'pointsAgainst' );
   },
   isInvited: function() {
     return userIsInvited();

@@ -36,6 +36,15 @@ Meteor.methods({
     check(voteId, String);
     DelegateVotes.remove(voteId);
   },
+  getAllDelegateVotes: function(proposalId){
+    check(proposalId, String);
+    results = DelegateVotes.aggregate([
+      { $match: {"proposalId" : "GqXEii9qmfJ7vai6K"}},
+      { $group: {_id: "$vote", total : { $sum : 1 } }}
+    ]);
+    console.log(results);
+    return results;
+  },
   getDelegateVote: function(voteId){
     check(voteId, String);
     return DelegateVotes.findOne({_id: voteId});

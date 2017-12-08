@@ -1,5 +1,6 @@
 <template name="Profile">
 	{{#if currentUser}}
+	{{> backButton text="Back to Dashboard" url="/dash"}}
 	<div class="container narrow-container">
 		{{#if Template.subscriptionsReady}}
 			{{> ProfileForm}}

@@ -82,6 +82,7 @@ meteortoys:sub@4.0.0
 meteortoys:throttle@4.0.0
 meteortoys:toggle@4.0.0
 meteortoys:toykit@4.0.1
+mfpierre:chartist-js@1.6.0
 minifier-css@1.2.16
 minifier-js@2.2.1
 minimongo@1.4.1

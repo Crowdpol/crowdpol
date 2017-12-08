@@ -3,17 +3,27 @@ import { check } from 'meteor/check';
 import { Proposals } from './Proposals.js';
 
 Meteor.methods({
-    createProposal: function (proposal) {
-      check(proposal, { 
-        title: String, 
-        abstract: String, 
-        body: String, 
-        startDate: Date, 
-        endDate: Date, 
-        authorId: String,
-        invited: Match.Maybe([String]),
-        tags: Match.Maybe([Object])});
-      return Proposals.insert(proposal);
+  createProposal: function (proposal) {
+      //try{
+        check(proposal, { 
+          title: String, 
+          abstract: String, 
+          body: String, 
+          startDate: Date, 
+          endDate: Date, 
+          authorId: String,
+          invited: Match.Maybe([String]),
+          tags: Match.Maybe([Object]),
+          pointsFor: Match.Maybe([String]),
+          pointsAgainst: Match.Maybe([String]),
+          references: Match.Maybe([String])
+        });
+        result = Proposals.insert(proposal);
+        return result;
+      //} catch (err) {
+        //console.log(err);
+        //return err;
+      //}
     },
     getProposal: function (proposalId) {
       check(proposalId, String);
@@ -25,12 +35,17 @@ Meteor.methods({
     },
     rejectProposal: function (proposalId) {
       check(proposalId, String);
-    	Proposals.update({_id: proposalId}, {$set: {"status": "rejected"}});
+      Proposals.update({_id: proposalId}, {$set: {"status": "rejected"}});
     },
     approveProposal: function(proposalId){
       check(proposalId, String);
       Proposals.update({_id: proposalId}, {$set: {"stage": "live"}});
       Proposals.update({_id: proposalId}, {$set: {"status": "approved"}});
+      /* This should be removed after September 2018: 
+      Voting opens from the day the proposal is approved.
+      Eventually custom dates should be set by the author.
+      */
+      Proposals.update({_id: proposalId}, {$set: {"startDate": new Date()}});
     },
     updateProposalStage: function(proposalId, stage){
       check(proposalId, String);
@@ -58,26 +73,29 @@ Meteor.methods({
       Proposals.update({_id: proposalId}, {$pull: {tags: tag} });
     },
     toggleSignProposal: function(proposalId) {
-    check(proposalId, String);
-    var user = Meteor.user();
-    var proposal = Proposals.findOne(proposalId);
-    // ensure the user is logged in
-    if (!user)
-      throw new Meteor.Error(401, "You need to login to sign a proposal");
-    if (!proposal)
-      throw new Meteor.Error(422, 'You must sign a proposal');
+      check(proposalId, String);
+      var user = Meteor.user();
+      var proposal = Proposals.findOne(proposalId);
+      // ensure the user is logged in
+      if (!user)
+        throw new Meteor.Error(401, "You need to login to sign a proposal");
+      if (!proposal)
+        throw new Meteor.Error(422, 'You must sign a proposal');
 
-    //If already signed, unsign
-    var userHasSigned = false;
-    if (proposal.signatures){
-      if (proposal.signatures.includes(Meteor.userId())){
-        userHasSigned = true;
+      //If already signed, unsign
+      var userHasSigned = false;
+      if (proposal.signatures){
+        if (proposal.signatures.includes(Meteor.userId())){
+          userHasSigned = true;
+        }
       }
-    }
-    if (userHasSigned){
-      return Proposals.update({_id: proposalId}, {$pull: {signatures: Meteor.userId()}});
-    } else {
-      return Proposals.update({_id: proposalId}, {$push: {signatures: Meteor.userId()}});
-    }
+      if (userHasSigned){
+        return Proposals.update({_id: proposalId}, {$pull: {signatures: Meteor.userId()}});
+      } else {
+        return Proposals.update({_id: proposalId}, {$push: {signatures: Meteor.userId()}});
+      }
+  },
+  addPointFor: function(proposalId, text) {
+    Proposals.update({_id: proposalId}, { $push: { pointsFor: text } });
   },
 });
