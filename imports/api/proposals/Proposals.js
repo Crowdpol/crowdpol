@@ -25,7 +25,7 @@ ProposalSchema = new SimpleSchema({
         }
     },
     startDate: {
-        type: Date
+        type: Date,
     },
     endDate: {
         type: Date,
@@ -72,6 +72,27 @@ ProposalSchema = new SimpleSchema({
     "tags.$.url": {
         type: String,
         optional: true
+    },
+    "pointsFor": {
+        type: Array,
+        optional: true
+    },
+    'pointsFor.$': {
+        type: String
+    },
+    "pointsAgainst": {
+        type: Array,
+        optional: true
+    },
+    'pointsAgainst.$': {
+        type: String
+    },
+    "references": {
+        type: Array,
+        optional: true
+    },
+    'references.$': {
+        type: String
     },
 });
 

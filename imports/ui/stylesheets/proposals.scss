@@ -1,0 +1,28 @@
+@import 'variables.scss';
+
+.delegate-vote-list-item {
+  padding: 5px;
+
+  .mdl-list__item-primary-content, .mdl-list__item-secondary-action {
+    font-size: $small-font-size;
+  }
+
+  .mdl-list__item-avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .material-icons {
+    color: $light-blue;
+  }
+}
+
+.delegate-color {
+  background-color: $light-blue;
+}
+
+.proposal-item {
+  .mdl-list__item-secondary-action {
+    margin-right: $space;
+  }
+}

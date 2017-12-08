@@ -1,5 +1,6 @@
 <template name="ProposalsList">
 	{{#if currentUser}}
+	{{> backButton text="Back to Dashboard" url="/dash"}}
 	<!-- MDL Tab Container -->
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<!-- Tab Bars -->
@@ -101,6 +102,9 @@
 			</span>
 			<span class="mdl-list__item-secondary-action">
 				<small class="proposal-date">{{_ "proposals.list.cards.expires"}} {{ endDate }}</small>
+			</span>
+			<span class="mdl-chip proposal-status-chip">
+			    <span class="mdl-chip__text">{{ proposalStatus this }}</span>
 			</span>
 		</div>
 		<div class="card-secondary-wrap">

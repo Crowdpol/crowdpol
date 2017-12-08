@@ -1,0 +1,16 @@
+@import 'variables.scss';
+
+#back-button { 
+
+	text-transform: none;
+	margin-top: $space/2;
+	margin-left: $space/2;
+
+	.back-button-text{
+		font-size: $small-font-size;
+	}
+
+	.material-icons {
+		font-size: $base-font-size;
+	}
+}
