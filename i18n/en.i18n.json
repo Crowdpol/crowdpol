@@ -190,7 +190,7 @@
 			"invited": "Invite others to collaborate by entering their usernames, separated by commas",
 			"tags": "Add some tags your proposal:",
 			"pointFor": "Points For:",
-			"pointsAgainst": "Points Agaist:"
+			"pointAgainst": "Points Agaist:"
 		},
 		"view":{
 			"confirmSubmit": "Are you sure you want to submit for approval. Once a proposal has been submitted, it cannot be edited, only deleted.",
