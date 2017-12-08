@@ -190,7 +190,7 @@
 			"invited": "Invite others to collaborate by entering their usernames, separated by commas",
 			"tags": "Add some tags your proposal:",
 			"pointFor": "Points For:",
-			"pointAgainst": "Points Agaist:"
+			"pointAgainst": "Points Against:"
 		},
 		"view":{
 			"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
@@ -198,7 +198,7 @@
 			"editProposal": "Edit Proposal",
 			"submitProposal": "Submit Proposal",
 			"pointsFor": "Points For:",
-			"pointsAgainst": "Points Against",
+			"pointsAgainst": "Points Against:",
 			"noDelegatesVoted": "None of your delegates voted against this issue",
 			"proposalUnvailable": "Sorry, this proposal is not yet visible to the public.",
 			"noDelegateReason": "This delegate did not provide a reason for their voting choice.",

@@ -73,6 +73,14 @@ ProposalSchema = new SimpleSchema({
         type: String,
         optional: true
     },
+    signatures: {
+        type: Array,
+        optional: true,
+    },
+    'signatures.$': {
+        type: String,
+        optional: true,
+    },
     "pointsFor": {
         type: Array,
         optional: true

@@ -21,8 +21,13 @@
   background-color: $light-blue;
 }
 
-.proposal-item {
-  .mdl-list__item-secondary-action {
-    margin-right: $space;
+#sign-proposal {
+  border: 2px solid;
+
+  .proposal-item {
+    .mdl-list__item-secondary-action {
+      margin-right: $space;
+    }
   }
+
 }
