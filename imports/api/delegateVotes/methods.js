@@ -52,7 +52,10 @@ Meteor.methods({
 
     if (!userVote){
       var rankedDelegates = Meteor.call('getDelegateVotes');
-      var voteInfo = rankedDelegates[0].vote_info[0]
+      var voteInfo;
+      if (rankedDelegates[0]){
+        voteInfo = rankedDelegates[0].vote_info[0]
+      }
       if (voteInfo) {
         return voteInfo.vote
       } else {
