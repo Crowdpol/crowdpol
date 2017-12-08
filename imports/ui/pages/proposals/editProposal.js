@@ -8,9 +8,13 @@ Template.EditProposal.onCreated(function(){
 	var self = this;
 	Template.instance().pointsFor = new ReactiveVar([]);
   	Template.instance().pointsAgainst = new ReactiveVar([]);
+  	//console.log("pointsForReactiveVar: " + Template.instance().pointsFor.get());
+  	//console.log("pointsAgainstReactiveVar: " + Template.instance().pointsAgainst.get());
 });
 
 Template.EditProposal.onRendered(function(){
+	console.log("pointsForReactiveVar: " + Template.instance().pointsFor.get());
+  	console.log("pointsAgainstReactiveVar: " + Template.instance().pointsAgainst.get());
 	var self = this;
 	// Form Validations
 	$( "#edit-proposal-form" ).validate({
@@ -113,16 +117,28 @@ Template.EditProposal.onRendered(function(){
 				*/
 				//using a try catch to handle the weird uncaught error on page load.
 				//A TypeError is thrown if you use a value that is outside the range of expected types
-				try{
+				console.log(proposal.pointsFor);
+				console.log("Begining TRY/CATCH");
+				//try{
+					//console.log("pointsForReactiveVar: " + Template.instance().pointsFor.get());
+					console.log("proposal.pointsFor: " + proposal.pointsFor);
 					if (proposal.pointsFor != null){
-						Template.instance().pointsFor = proposal.pointsFor;
+						self.pointsFor.set(proposal.pointsFor);
+					}else{
+						console.log("proposal.pointsFor is null");
 					}
+					//console.log("pointsAgainstReactiveVar: " + Template.instance().pointsAgainst.get());
+					console.log("proposal.pointsAgainst: " + proposal.pointsAgainst);
 					if (proposal.pointsAgainst != null){
-						Template.instance().pointsAgainst = proposal.pointsAgainst;
+						self.pointsAgainst.set(proposal.pointsAgainst);
+					}else{
+						console.log("proposal.pointsAgainst is null");
 					}
-				}catch(e){
-					console.log("["+e.name+"]: "+e.message);
-				}
+				//}catch(e){
+				//	console.log("["+e.name+"]: "+e.message);
+				//}
+				console.log("pointsForReactiveVar: " + self.pointsFor.get());
+  				console.log("pointsAgainstReactiveVar: " + self.pointsAgainst.get());
 				
 			});
 		}

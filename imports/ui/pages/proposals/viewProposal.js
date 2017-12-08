@@ -48,7 +48,7 @@ Template.ViewProposal.onCreated(function(){
       dict.set( 'status', result.status );
       dict.set( 'tags', result.tags );
       dict.set( 'pointsFor', result.pointsFor );
-      dict.set( 'pointsAgainst', result.pointsFor );
+      dict.set( 'pointsAgainst', result.pointsAgainst );
     }
   });
 
