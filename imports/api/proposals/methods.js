@@ -57,4 +57,25 @@ Meteor.methods({
         _id: String });
       Proposals.update({_id: proposalId}, {$pull: {tags: tag} });
     },
+    signProposal: function(proposalId) {
+    check(proposalId, String);
+    var user = Meteor.user();
+    var proposal = Proposals.findOne(proposalId);
+    // ensure the user is logged in
+    if (!user)
+      throw new Meteor.Error(401, "You need to login to sign a proposal");
+    if (!proposal)
+      throw new Meteor.Error(422, 'You must sign a proposal');
+
+    //users can not sign the same proposal twice
+    var userHasSigned = false;
+    if (proposal.signatures){
+      if (proposal.signatures.includes(Meteor.userId())){
+        userHasSigned = true;
+      }
+    }
+    if (!userHasSigned){
+      return Proposals.update({_id: proposalId}, {$push: {signatures: Meteor.userId()}});
+    }
+  },
 });

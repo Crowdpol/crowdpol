@@ -9,6 +9,7 @@ Template.ViewProposal.onCreated(function(){
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
+    self.subscribe('proposals.one', proposalId)
     self.subscribe('comments', proposalId);
     self.subscribe('users.all');
   });
@@ -26,8 +27,6 @@ Template.ViewProposal.onCreated(function(){
       Bert.alert(error.reason, 'danger');
     } else {
       self.delegateVote.set(result);
-      console.log('the delegate vote is')
-      console.log(result)
     }
   })
 
@@ -47,6 +46,7 @@ Template.ViewProposal.onCreated(function(){
       dict.set( 'stage', result.stage );
       dict.set( 'status', result.status );
       dict.set( 'tags', result.tags );
+      dict.set( 'signatures', result.signatures || [] )
     }
   });
 
@@ -125,6 +125,16 @@ Template.ViewProposal.events({
   'click #vote-no' (event, template){
     vote('no');
     template.templateDictionary.set('userVote', 'no');
+  },
+
+  'click #sign-proposal' (event, template){
+    Meteor.call('signProposal', proposalId, function(error, result){
+      if (error){
+        Bert.alert(error.reason, 'danger');
+      } else {
+       console.log(result)
+      }
+    })
   }
 });
 
@@ -185,6 +195,10 @@ Template.ViewProposal.helpers({
   },
   isEditable: function(){
     return (userIsAuthor() && !proposalIsLive())
+  },
+  userHasSigned: function(){
+    console.log('checking if user has signed')
+    return Template.instance().templateDictionary.get('signatures').includes(Meteor.userId());
   },
   isVotable: function(){
     var stage = Template.instance().templateDictionary.get('stage');

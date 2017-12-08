@@ -9,6 +9,17 @@
 				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
 					<i class="material-icons">share</i>
 				</button>
+				{{#if isLive}}
+					{{#if userHasSigned}}
+						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+							<i class="material-icons">star</i>
+						</button>
+					{{else}}
+						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="sign-proposal">
+							<i class="material-icons">star_border</i>
+						</button>
+					{{/if}}
+				{{/if}}
 			</div>
 
 			<div class="proposal-wrap">
