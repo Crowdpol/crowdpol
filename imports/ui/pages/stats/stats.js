@@ -1,5 +1,6 @@
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import "./stats.html"
+import "../../components/charts/proposalVotes.js"
 
 Template.Stats.onRendered( function() {
 	console.log("stats rendered");
