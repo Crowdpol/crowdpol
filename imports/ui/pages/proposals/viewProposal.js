@@ -272,6 +272,9 @@ Template.ViewProposal.helpers({
       }
     });
     return delegatesAgainst;
+  },
+  signatureCount: function(){
+    return Template.instance().templateDictionary.get('signatures').length
   }
 });
 
