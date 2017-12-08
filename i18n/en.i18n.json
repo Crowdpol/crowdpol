@@ -193,7 +193,7 @@
 			"pointAgainst": "Points Agaist:"
 		},
 		"view":{
-			"confirmSubmit": "Are you sure you want to submit for approval. Once a proposal has been submitted, it cannot be edited, only deleted.",
+			"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
 			"voteCast": "Your vote has been cast",
 			"editProposal": "Edit Proposal",
 			"submitProposal": "Submit Proposal",
@@ -216,8 +216,6 @@
 			},
 			"userNotFound":"User could not be found",
 			"anonymous": "Anonymous"
-			
-
 		}
 	},
 

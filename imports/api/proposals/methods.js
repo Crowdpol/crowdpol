@@ -41,6 +41,11 @@ Meteor.methods({
       check(proposalId, String);
       Proposals.update({_id: proposalId}, {$set: {"stage": "live"}});
       Proposals.update({_id: proposalId}, {$set: {"status": "approved"}});
+      /* This should be removed after September 2018: 
+      Voting opens from the day the proposal is approved.
+      Eventually custom dates should be set by the author.
+       */
+      Proposals.update({_id: proposalId}, {$set: {"startDate": new Date()}});
     },
     updateProposalStage: function(proposalId, stage){
       check(proposalId, String);

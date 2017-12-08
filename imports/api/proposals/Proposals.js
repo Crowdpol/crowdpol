@@ -25,7 +25,7 @@ ProposalSchema = new SimpleSchema({
         }
     },
     startDate: {
-        type: Date
+        type: Date,
     },
     endDate: {
         type: Date,
