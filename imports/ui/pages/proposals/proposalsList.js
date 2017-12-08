@@ -8,6 +8,9 @@ Template.ProposalsList.onCreated(function () {
   self.openProposals = new ReactiveVar(true);
   self.authorProposals = new ReactiveVar(true);
   Session.set("canVote",true);
+  // Indicate active tab
+  Session.set("allProposals",true);
+  Session.set("myProposals",false);
 
   self.autorun(function(){
     self.subscribe('proposals.public', self.searchQuery.get());
@@ -40,7 +43,7 @@ Template.ProposalsList.helpers({
   },
   authorSelected: function(){
     return Template.instance().authorProposals.get();
-  },
+  }
 });
 
 Template.ProposalsList.events({
@@ -60,19 +63,37 @@ Template.ProposalsList.events({
   },
   'click #my-proposals-tab': function(event, template){
     Session.set("canVote",false);
+    Session.set("myProposals",true);
+    Session.set("allProposals",false);
   },
   'click #vote-proposals-tab': function(event, template){
     Session.set("canVote",Template.instance().openProposals.get());
+    Session.set("myProposals",false);
+    Session.set("allProposals",true);
   },
 });
 
 function transformProposal(proposal) { 
-  proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');;
+  proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');
   return proposal;
 };
 
 Template.ProposalCard.helpers({
   canVote: function() {
     return Session.get("canVote");
+  },
+  proposalStatus: function(proposal) {
+    // If looking at public proposals, show open/closed
+    if (Session.get('allProposals')){
+      if (new Date(proposal.endDate) > new Date()){
+        return 'Open';
+      } else {
+        return 'Closed';
+      }
+      // If looking at own proposals, show draft/submitted/live
+    } else if (Session.get('myProposals')){
+      var stage = proposal.stage;
+      return stage.charAt(0).toUpperCase() + stage.slice(1);
+    }
   }
 });
