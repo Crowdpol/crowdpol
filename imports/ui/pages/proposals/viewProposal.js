@@ -126,7 +126,7 @@ Template.ViewProposal.events({
   },
 
   'click #sign-proposal' (event, template){
-    Meteor.call('signProposal', proposalId, function(error, result){
+    Meteor.call('toggleSignProposal', proposalId, function(error){
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {

@@ -57,7 +57,7 @@ Meteor.methods({
         _id: String });
       Proposals.update({_id: proposalId}, {$pull: {tags: tag} });
     },
-    signProposal: function(proposalId) {
+    toggleSignProposal: function(proposalId) {
     check(proposalId, String);
     var user = Meteor.user();
     var proposal = Proposals.findOne(proposalId);
@@ -67,14 +67,16 @@ Meteor.methods({
     if (!proposal)
       throw new Meteor.Error(422, 'You must sign a proposal');
 
-    //users can not sign the same proposal twice
+    //If already signed, unsign
     var userHasSigned = false;
     if (proposal.signatures){
       if (proposal.signatures.includes(Meteor.userId())){
         userHasSigned = true;
       }
     }
-    if (!userHasSigned){
+    if (userHasSigned){
+      return Proposals.update({_id: proposalId}, {$pull: {signatures: Meteor.userId()}});
+    } else {
       return Proposals.update({_id: proposalId}, {$push: {signatures: Meteor.userId()}});
     }
   },
