@@ -115,6 +115,14 @@
 			"heading": "Approvals",
 			"approve-button": "Approve",
 			"reject-button": "Reject"
+		},
+		"stats": {
+			"proposals":{
+				"tabs": {
+					"overview" : "Overview",
+					"proposalList" : "Proposal Stats"
+				}
+			}
 		}
 	},
 
