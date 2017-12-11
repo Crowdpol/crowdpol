@@ -42,20 +42,24 @@
 			<div class="proposal-wrap">
 				<div class="mdl-grid">
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-	  				<p>{{_ "proposals.view.pointsFor"}}</p>
-						<ul id="points-for-list">
-							{{#each pointsFor}}
-								<li>{{this}}</li>
-							{{/each}}
-						</ul>
+	  				{{#if showPointsFor}}
+		  				<p>{{_ "proposals.view.pointsFor"}}</p>
+							<ul id="points-for-list">
+								{{#each pointsFor}}
+									<li>{{this}}</li>
+								{{/each}}
+							</ul>
+						{{/if}}
 	  			</div>
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-	  				<p>{{_ "proposals.view.pointsAgainst"}}</p>
-						<ul id="points-against-list">
-							{{#each pointsAgainst}}
-								<li>{{this}}</li>
-							{{/each}}
-						</ul>
+						{{#if showPointsAgainst}}
+		  				<p>{{_ "proposals.view.pointsAgainst"}}</p>
+							<ul id="points-against-list">
+								{{#each pointsAgainst}}
+									<li>{{this}}</li>
+								{{/each}}
+							</ul>
+						{{/if}}
 	  			</div>
 	  			
 	  		</div>
