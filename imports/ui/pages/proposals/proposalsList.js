@@ -95,5 +95,27 @@ Template.ProposalCard.helpers({
       var stage = proposal.stage;
       return stage.charAt(0).toUpperCase() + stage.slice(1);
     }
+  },
+  userIsAuthor: function(proposalId) {
+    var proposal = Proposals.findOne(proposalId);
+    return proposal.authorId == Meteor.userId();
   }
+});
+
+Template.ProposalCard.events({
+  'click .delete-proposal-button': function(event, template){
+    var proposalId = event.target.dataset.proposalId;
+
+    if (window.confirm(TAPi18n.__('proposals.list.confirmDelete'))){
+      Meteor.call('deleteProposal', proposalId, function(error){
+        if (error){
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert(TAPi18n.__('proposals.list.deletedMessage'), 'success');
+        }
+      });
+    }
+    
+  },
+
 });

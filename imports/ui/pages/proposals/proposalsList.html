@@ -97,7 +97,15 @@
 	<li class="proposal-item mdl-list__item">
 		<div class="card-main-wrap">
 			<span class="card-main mdl-list__item-primary-content">
-				<h6>{{ title }}</h6>
+				<h6>
+					{{ title }}
+					{{#if userIsAuthor _id}}
+						<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal-button" data-proposal-id="{{_id}}">
+						  <i class="material-icons delete-proposal-icon" data-proposal-id="{{_id}}">delete</i>
+						</button>
+					{{/if}}
+				</h6>
+				
 			</span>
 			<span class="mdl-list__item-secondary-action">
 				<small class="proposal-date">{{_ "proposals.list.cards.expires"}} {{ endDate }}</small>
