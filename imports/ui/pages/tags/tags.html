@@ -81,7 +81,7 @@
 		</div>
 		{{#each tags}}
 			<span class="mdl-chip">
-				<a href="{{this.url}}" class="mdl-chip__text">{{this.text}}</a>
+				<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
 			</span>
 		{{/each}}
 		 <a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -101,7 +101,7 @@
 		<div class="card-secondary-wrap">
 			{{#each profile.tags}}
 				<span class="mdl-chip">
-					<a href="{{this.url}}" class="mdl-chip__text">{{this.text}}</a>
+					<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
 				</span>
 			{{/each}}
 		</div>

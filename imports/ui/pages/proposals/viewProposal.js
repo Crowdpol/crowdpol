@@ -1,54 +1,62 @@
 import './viewProposal.html'
 import { Comments } from '../../../api/comments/Comments.js'
+import { Proposals } from '../../../api/proposals/Proposals.js'
 
 Template.ViewProposal.onCreated(function(){
 
   var self = this;
+  self.delegates = new ReactiveVar([]);
+  self.delegateVote = new ReactiveVar();
+  var dict = new ReactiveDict();
+  this.templateDictionary = dict;
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
     self.subscribe('comments', proposalId);
-    self.subscribe('users');
+    self.subscribe('users.all');
+    self.subscribe('proposals.one', proposalId, function(error){
+      if (error){
+        Bert.alert(error.reason, 'danger');
+      } else {
+        proposal = Proposals.findOne({_id: proposalId})
+        dict.set( 'title', proposal.title );
+        dict.set( 'abstract', proposal.abstract );
+        dict.set( 'body', proposal.body );
+        dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') );
+        dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') );
+        dict.set( 'invited', proposal.invited );
+        dict.set( 'authorId', proposal.authorId );
+        dict.set( 'stage', proposal.stage );
+        dict.set( 'status', proposal.status );
+        dict.set( 'tags', proposal.tags );
+        dict.set( 'signatures', proposal.signatures || [] );
+      }
+    })
   });
 
-  var dict = new ReactiveDict();
-
-  Meteor.call('getProposal',proposalId,function(error,result){
+  Meteor.call("getDelegateVotes", function(error, result){
     if (error){
       Bert.alert(error.reason, 'danger');
-    }else{
-      dict.set( 'title', result.title );
-      dict.set( 'abstract', result.abstract );
-      dict.set( 'body', result.body );
-      dict.set( 'startDate', moment(result.startDate).format('YYYY-MM-DD') );
-      dict.set( 'endDate', moment(result.endDate).format('YYYY-MM-DD') );
-      dict.set( 'invited', result.invited );
-      dict.set( 'authorId', result.authorId );
-      dict.set( 'stage', result.stage );
-      dict.set( 'status', result.status );
-      dict.set( 'tags', result.tags );
+    } else {
+      self.delegates.set(result);
     }
   });
 
-  if (Session.get('currentUserRole') == 'Delegate'){
-    Meteor.call('getDelegateVoteFor', proposalId, Meteor.userId(), function(error, result){
+  Meteor.call('getUserDelegateVote', proposalId, function(error, result){
+    if (error){
+      Bert.alert(error.reason, 'danger');
+    } else {
+      self.delegateVote.set(result);
+    }
+  })
+  
+   Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
       if (result){
         dict.set( 'userVote', result.vote );
       } else {
         dict.set( 'userVote', '' );
       }
     });
-  } else {
-     Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
-      if (result){
-        dict.set( 'userVote', result.vote );
-      } else {
-        dict.set( 'userVote', '' );
-      }
-    });
-  }
-
-  this.templateDictionary = dict;
 });
 
 Template.ViewProposal.onRendered(function(){
@@ -57,7 +65,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('success', function(e) {
     Bert.alert({
-      title: TAPi18n.__('pages.proposals.alerts.copy-to-clipboard-success'),
+      title: TAPi18n.__('proposals.view.alerts.linkToClipboardSuccess'),
       type: 'success',
       style: 'growl-bottom-right',
       icon: 'fa-link'
@@ -67,7 +75,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('error', function(e) {
     Bert.alert({
-      title: TAPi18n.__('pages.proposals.alerts.copy-to-clipboard-fail'),
+      title: TAPi18n.__('proposals.view.alerts.linkToClipboardFailed'),
       message: e.action + "; " + e.trigger,
       type: 'warning',
       style: 'growl-bottom-right',
@@ -82,39 +90,52 @@ Template.ViewProposal.events({
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
   'click #submit-proposal' (event, template){
-    Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
-      if (error){
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert(TAPi18n.__('pages.proposals.alerts.proposal-submitted'), 'success');
-      }
-    });
+    if (window.confirm(TAPi18n.__('proposals.view.confirmSubmit'))){
+      Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
+        if (error){
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert(TAPi18n.__('proposals.view.alerts.proposalSubmitted'), 'success');
+          FlowRouter.go('App.proposals');
+        }
+      });
+    }
   },
 
   'submit #comment-form' (event, template){
+    event.preventDefault();
     var comment = {
       message: template.find('#comment-message').value,
-      authorId: Meteor.userId(),
       proposalId: proposalId}
     Meteor.call('comment', comment, function(error){
       if(error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert(TAPi18n.__('pages.proposals.alerts.comment-success'), 'success');
+        Bert.alert(TAPi18n.__('proposals.view.alerts.commentPosted'), 'success');
+        template.find('#comment-message').value = "";
       }
     });
   },
 
   'click #vote-yes' (event, template){
     vote('yes');
-    template.find('#vote-no').classList.remove('mdl-button--colored');
-    event.target.classList.add('mdl-button--colored');
+    template.templateDictionary.set('userVote', 'yes');
   },
 
   'click #vote-no' (event, template){
     vote('no');
-    template.find('#vote-yes').classList.remove('mdl-button--colored');
-    event.target.classList.add('mdl-button--colored'); 
+    template.templateDictionary.set('userVote', 'no');
+  },
+
+  'click #sign-proposal' (event, template){
+    Meteor.call('toggleSignProposal', proposalId, function(error){
+      if (error){
+        Bert.alert(error.reason, 'danger');
+      } else {
+        template.templateDictionary.set('signatures', Proposals.findOne({_id: proposalId}).signatures)
+      }
+    });
+    
   }
 });
 
@@ -126,15 +147,13 @@ Template.ViewProposal.helpers({
   commentUsername: function(userId){
     Meteor.call('getProfile', userId, function(error, result){
       if (error){
-        return 'User could not be found';
+        return TAPi18n.__('proposals.view.userNotFound');
       } else {
-        console.log('success so far')
         profile = result.profile;
         if (profile){
           return profile.username;
         } else {
-          return 'Anonymous';
-          console.log('the user is anon')
+          return TAPi18n.__('proposals.view.anonymous');
         }
       }
     });
@@ -160,6 +179,12 @@ Template.ViewProposal.helpers({
   endDate: function() {
     return Template.instance().templateDictionary.get( 'endDate' );
   },
+  pointsFor: function() {
+    return Template.instance().templateDictionary.get( 'pointsFor' );
+  },
+  pointsAgainst: function() {
+    return Template.instance().templateDictionary.get( 'pointsAgainst' );
+  },
   isInvited: function() {
     return userIsInvited();
   },
@@ -177,6 +202,13 @@ Template.ViewProposal.helpers({
   },
   isEditable: function(){
     return (userIsAuthor() && !proposalIsLive())
+  },
+  signatureIcon: function(){
+    if (Template.instance().templateDictionary.get('signatures').includes(Meteor.userId())){
+      return 'star'
+    } else {
+      return 'star_border'
+    }
   },
   isVotable: function(){
     var stage = Template.instance().templateDictionary.get('stage');
@@ -209,13 +241,60 @@ Template.ViewProposal.helpers({
   getProposalLink: function() {
     return Meteor.absoluteUrl() + "proposals/view/" + proposalId;
   },
-  userIsFor: function(){
-    return (Template.instance().templateDictionary.get('userVote') == 'yes')
+  userYesClass: function(){
+    if(Template.instance().templateDictionary.get('userVote') == 'yes'){
+      return "mdl-button--colored";
+    }
   },
-  userIsAgainst: function(){
-    return (Template.instance().templateDictionary.get('userVote') == 'no')
+  userNoClass: function(){
+    if(Template.instance().templateDictionary.get('userVote') == 'no'){
+      return "mdl-button--colored";
+    }
+  },
+  delegateYesClass: function(){
+    if (Template.instance().delegateVote.get() == 'yes'){
+      return 'delegate-color'
+    }
+  },
+  delegateNoClass: function(){
+    if (Template.instance().delegateVote.get() == 'no'){
+      return 'delegate-color'
+    }
+  },
+  delegatesFor: function(){
+    var delegates = Template.instance().delegates.get();
+    var delegatesFor = [];
+    _.map(delegates, function(delegate){
+      if (delegate.vote_info[0].vote == 'yes'){
+        delegatesFor.push(delegate);
+      }
+    });
+    return delegatesFor;
+  },
+  delegatesAgainst: function(){
+    var delegates = Template.instance().delegates.get();
+    var delegatesAgainst = [];
+    _.map(delegates, function(delegate){
+      if (delegate.vote_info[0].vote == 'no'){
+        delegatesAgainst.push(delegate);
+      }
+    });
+    return delegatesAgainst;
+  },
+  signatureCount: function(){
+    return Template.instance().templateDictionary.get('signatures').length
   }
 });
+
+Template.delegateVoteListItem.helpers({
+  voteIcon: function(vote){
+    if (vote=='yes'){
+      return 'check_circle'
+    } else if (vote=='no'){
+      return 'cancel'
+    }
+  }
+})
 
 function userIsAuthor(){
   if (Meteor.userId() == Template.instance().templateDictionary.get( 'authorId' )){
@@ -274,7 +353,7 @@ function vote(voteString){
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert(TAPi18n.__('pages.proposals.alerts.vote-success'), 'success');
+        Bert.alert(TAPi18n.__('proposals.view.voteCast'), 'success');
       }
     });
   } else {
@@ -284,7 +363,7 @@ function vote(voteString){
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert(TAPi18n.__('pages.proposals.alerts.vote-success'), 'success');
+        Bert.alert(TAPi18n.__('proposals.view.voteCast'), 'success');
       }
     });
   }

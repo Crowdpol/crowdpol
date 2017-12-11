@@ -39,5 +39,10 @@
 }
 
 .comment-form {
-  margin: ($space * 3) 0;
+  margin: ($space * 1.5) 0;
+}
+
+.custom-label{
+  color: rgba(0,0,0,.26);
+  font-size: $small-font-size;
 }

@@ -396,6 +396,137 @@
 		"party-delegate": "Party Delegate",
 		"candidate": "Candidate"
 	},
+	"signup":{
+		"tab": {
+			"individual": "Individuals",
+			"entities": "Organisations/Political Parties"
+		},
+		"links": {
+			"login": "Already have an account? Log in",
+			"register": "Don't have an account? Register",
+			"forgot": "Forgot your password?"
+		},
+		"individual": {
+			"register": {
+				"title": "Signup"
+			},	
+			"login": {
+				"title": "Login"
+			}
+		},
+		"entity": {
+			"name": "Name of Entity",
+			"website": "Website",
+			"phone-number": "Phone number",
+			"contact-person": "Contact Person",
+			"type": "Entity Type",
+			"register": {
+				"title": "Signup",
+				"loginlink": "Already have an account? Log in"
+			},	
+			"login": {
+				"title": "Login",
+				"signuplink": "Don't have an account? Register"
+			}
+		}
+	},
+
+	"proposals": {
+		"list": {
+			"tabs":{
+				"allProposals": "All Proposals",
+				"myProposals": "My Proposals",
+				"writeProposals": "Write Proposals"
+			},
+			"headings":{
+				"openProposals": "Open Proposals",
+				"closedProposals": "Closed Proposals",
+				"myProposals": "My proposals"
+			},
+			"cards":{
+				"expires": "Expires",
+				"read": "Read More",
+				"vote": "and vote"
+			},
+			"openClosedSwitch": "Open/Closed",
+			"createdInvitedSwitch": "Created/Invited"
+		},
+		"edit": {
+			"heading": "Write your proposal",
+			"title": "Title",
+			"abstract": "Summarise your proposal",
+			"startDate": "Start date for voting",
+			"endDate": "Closing date for voting",
+			"invited": "Invite others to collaborate by entering their usernames, separated by commas",
+			"tags": "Add some tags your proposal:",
+			"pointFor": "Points For:",
+			"pointAgainst": "Points Against:"
+		},
+		"view":{
+			"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
+			"voteCast": "Your vote has been cast",
+			"editProposal": "Edit Proposal",
+			"submitProposal": "Submit Proposal",
+			"pointsFor": "Points For:",
+			"pointsAgainst": "Points Against:",
+			"noDelegatesVoted": "None of your delegates voted against this issue",
+			"proposalUnvailable": "Sorry, this proposal is not yet visible to the public.",
+			"noDelegateReason": "This delegate did not provide a reason for their voting choice.",
+			"addComment": "Add a comment",
+			"voteHeading": "Vote on this proposal",
+			"voteStarts": "Voting starts on:",
+			"voteEnds": "Voting ends on: ",
+			"abstract": "Abstract",
+			"proposal": "Proposal",
+			"alerts": {
+				"linkToClipboardSuccess": "Link copied to clipboard",
+				"linkToClipboardFailed": "Link copied to clipboard",
+				"proposalSubmitted":"Proposal submitted for admin approval",
+				"commentPosted":"Comment posted"
+			},
+			"userNotFound":"User could not be found",
+			"anonymous": "Anonymous"
+		}
+	},
+
+	"name": "Name",
+	"subject": "Subject",
+	"contact-message": "Your message:",
+	"login-social": "Log in with Social Media",
+	"profile-title" : "Profile",
+	"profile-photo" : "Profile photo path",
+	"profile-username" : "Username",
+	"profile-firstname" : "First name",
+	"profile-lastname" : "Last name",
+	"profile-public" : "Public Profile",
+	"profile-private" : "Private Profile",
+	"profile-delegate" : "Delegate",
+	"profile-candidate" : "Candidate",
+	"profile-bio" : "About",
+	"profile-website" : "Website",
+	"profile-tags" : "Fill in at least five of your interests",
+	"profile-msg-public": "Profile is now public.",
+	"profile-msg-private": "Profile is now private.",
+	"profile-msg-updated": "Profile updated.",
+	"profile-msg-delegate-removed" : "Delegate Role removed.",
+	"profile-msg-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
+	"profile-msg-candidate-removed" : "Candidate Role removed.",
+	"profile-msg-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
+	"dash":{
+		"heading" : "Dashboard",
+		"card": {
+			"proposals": {
+				"heading": "Proposals",
+				"text": "View proposals.",
+				"link": "Vote"
+			},
+			"delegates": {
+				"heading": "Delegates",
+				"text": "Select your delegates",
+				"link": "Delegate"
+			}
+		}
+	},
 	"routes": {
 		"alerts": {
 			"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",

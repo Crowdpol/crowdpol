@@ -26,6 +26,18 @@ Comments.attachSchema(CommentsSchema);
 
 Comments.allow({
   insert() {
+    return false;
+  },
+  update() {
+    return false;
+  },
+  remove() {
+    return false;
+  },
+});
+
+Comments.deny({
+  insert() {
     return true;
   },
   update() {

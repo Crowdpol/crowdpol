@@ -19,6 +19,28 @@
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>
 			{{#if currentUser}}
+				<!-- Tag Search Field -->
+				<form action="#">
+					<div class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="text" id="header-tag-search" placeholder="Search for tags...">
+					</div>
+					<label class="mdl-button mdl-js-button mdl-button--icon" for="header-tag-search" id="search-button">
+				      <i class="material-icons">search</i>
+				    </label>
+					<!-- Dropdown tag autocomplete -->
+					{{#if matchedTags}}
+					<ul class="demo-list-item mdl-list autocomplete-list" id="headerMatchedTagsList">
+						{{#each matchedTags}}
+						<li class="mdl-list__item autocomplete-item" data-keyword={{this}}>
+							<span class="mdl-list__item-primary-content" data-keyword={{this}}>
+								{{this}}
+							</span>
+						</li>
+						{{/each}}
+					</ul>
+					{{/if}}
+				</form>
+
 				<!-- Navigation. We hide it in small screens. -->
 				<nav class="mdl-navigation mdl-layout--large-screen-only">
 					<a class="mdl-navigation__link" href="/dash">{{_ "layout.header.nav_dash"}}</a>
@@ -32,17 +54,17 @@
 					{{#if userHasMultipleRoles}}
 						<!-- Role Selection Menu -->
 						<a id="demo-menu-lower-left" class="mdl-navigation__link">
-							{{_ "layout.header.role_selector"}} <i class="material-icons">arrow_drop_down</i>
+							Switch Roles <i class="material-icons">arrow_drop_down</i>
 						</a>
 
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
 							{{#each roles}}
-								<li class="mdl-menu__item role-menu-item" data-role="{{this}}">
+							<li class="mdl-menu__item role-menu-item" data-role="{{this}}">
 								{{this}}
 								{{#if isCurrentRole this}}
-									<i class="material-icons small">check</i>
+								<i class="material-icons small">check</i>
 								{{/if}}
-								</li>
+							</li>
 							{{/each}}
 						</ul>
 					{{/if}}
@@ -69,6 +91,7 @@
 			{{/if}}
 		</div>
 	</header>
+
 </template>
 
 <template name="HomeHeader">

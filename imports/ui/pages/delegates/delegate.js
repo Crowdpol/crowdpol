@@ -51,7 +51,7 @@ Template.Delegate.helpers({
   ranks: function() {
     results = ReactiveMethod.call("getRanks", Meteor.userId(), "delegate");
     //console.log(results);
-    return Meteor.users.find( { _id : { $in :  Session.get('ranked')} } );
+    return Meteor.users.find( { _id : { $in :  Session.get('ranked')} },{sort: ["ranking"]} );
     /*
     console.log(Template.instance().ranks.get());
     console.log(returnRanks());
@@ -109,7 +109,7 @@ Template.Delegate.events({
       Bert.alert(TAPi18n.__('pages.delegates.alerts.delegate-limit'), 'danger');
       event.target.checked = false;
     }else{
-      Meteor.call('addRank','delegate',delegateId,1,function(error,result){
+      Meteor.call('addRank','delegate',delegateId,(ranks.length +1),function(error,result){
         if (error) {
           console.log(error);
         } else {
@@ -126,7 +126,7 @@ Template.Delegate.events({
     //(entityType,entityId,supporterId,ranking,create)
     
 
-      Meteor.call('removeRank','delegate',delegateId,1,function(error,result){
+      Meteor.call('removeRank','delegate',delegateId,function(error,result){
         if (error) {
           console.log(error);
         } else {

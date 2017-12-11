@@ -25,7 +25,7 @@ ProposalSchema = new SimpleSchema({
         }
     },
     startDate: {
-        type: Date
+        type: Date,
     },
     endDate: {
         type: Date,
@@ -69,13 +69,38 @@ ProposalSchema = new SimpleSchema({
         type: String,
         optional: true
     },
-    "tags.$.text": {
-        type: String,
-        optional: true
-    },
     "tags.$.url": {
         type: String,
         optional: true
+    },
+    signatures: {
+        type: Array,
+        optional: true,
+    },
+    'signatures.$': {
+        type: String,
+        optional: true,
+    },
+    "pointsFor": {
+        type: Array,
+        optional: true
+    },
+    'pointsFor.$': {
+        type: String
+    },
+    "pointsAgainst": {
+        type: Array,
+        optional: true
+    },
+    'pointsAgainst.$': {
+        type: String
+    },
+    "references": {
+        type: Array,
+        optional: true
+    },
+    'references.$': {
+        type: String
     },
 });
 
@@ -83,9 +108,21 @@ Proposals.attachSchema(ProposalSchema);
 
 Proposals.allow({
   insert() {
+    return false;
+  },
+  update() {
+    return false;
+    },
+  remove() {
+    return false;
+  },
+});
+
+Proposals.deny({
+  insert() {
     return true;
   },
-  update: function(proposalId, doc) {
+  update() {
     return true;
     },
   remove() {

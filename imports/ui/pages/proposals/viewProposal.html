@@ -1,5 +1,8 @@
 <template name='ViewProposal'>
+	{{> backButton text="Back to Proposals" url="/proposals"}}
+	
 	{{#if currentUser}}
+	{{#if Template.subscriptionsReady}}
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
 			<h1 class="proposal-title">{{ title }}</h1>
@@ -8,40 +11,71 @@
 				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
 					<i class="material-icons">share</i>
 				</button>
+				{{#if isLive}}
+					<div class="mdl-layout-spacer"></div>
+					<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="sign-proposal">
+						<i class="material-icons">{{ signatureIcon }}</i>
+					</button>
+					{{ signatureCount }}
+				{{/if}}
 			</div>
 
 			<div class="proposal-wrap">
-				<h5>Abstract</h5>
+				<h5>{{_ "proposals.view.abstract"}}</h5>
 				<p>{{ abstract }}</p>
 			</div>
 
 			<div class="proposal-wrap">
-				<h5>Proposal</h5>
+				<h5>{{_ "proposals.view.proposal"}}</h5>
 				{{{ body }}}
 			</div>
 
 			<div class="proposal-wrap">
 				{{#each tags}}
 					<span class="mdl-chip">
-						<a href="{{this.url}}" class="mdl-chip__text">{{this.text}}</a>
+						<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
 					</span>
 				{{/each}}
 			</div>
 
-			<small>Voting starts on: {{ startDate }}</small>
+			<!-- Points for and against -->
+			<div class="proposal-wrap">
+				<div class="mdl-grid">
+	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+	  				<p>{{_ "proposals.view.pointsFor"}}</p>
+						<ul id="points-for-list">
+							{{#each pointsFor}}
+								<li>{{this}}</li>
+							{{/each}}
+						</ul>
+	  			</div>
+	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+	  				<p>{{_ "proposals.view.pointsAgainst"}}</p>
+						<ul id="points-against-list">
+							{{#each pointsAgainst}}
+								<li>{{this}}</li>
+							{{/each}}
+						</ul>
+	  			</div>
+	  			
+	  		</div>
+  		</div>
+			<!-- References & Links -->
+
+			<small>{{_ "proposals.view.voteStarts"}}&nbsp;{{ startDate }}</small>
 			<br />
-			<small>Voting ends on: {{ endDate }}</small>
+			<small>{{_ "proposals.view.voteEnds"}}&nbsp;{{ endDate }}</small>
 
 			<div class="proposal-actions">
 				{{#if isEditable }}
 					<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
-						Edit Proposal
+						{{_ "proposals.view.editProposal"}}
 					</button>
 				{{/if}}
 
 				{{#if isSubmittable }}
 					<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
-						Submit Proposal
+						{{_ "proposals.view.submitProposal"}}
 					</button>
 				{{else}}
 					<span class="mdl-chip">
@@ -51,23 +85,53 @@
 					</span>
 				{{/if}}
 			</div>
+
 			{{#if isVotable}}
 				<hr>
-				<h5>Vote on this proposal</h5>
+				<h5>{{_ "proposals.view.voteHeading"}}</h5>
 				{{#if isVotingAsDelegate}}
-					<small>Please note that you are voting as a delegate. Your vote wil be public.</small><br/>
-					<small>To switch to voting as an individual, click the 'Roles' menu.</small>
+					{{> delegateVoteButtons}}
+				{{else}}
+					<div class="vote-actions">
+						<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userYesClass}} {{delegateYesClass}}" id="vote-yes">
+							Yes
+						</button>
+						<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userNoClass}} {{delegateNoClass}}" id="vote-no">
+							No
+						</button>
+					</div>
 				{{/if}}
-				<div class="vote-actions">
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsFor}} primary-button {{/if}}" id="vote-yes">
-						Yes
-					</button>
-					<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{#if userIsAgainst}} primary-button {{/if}}" id="vote-no">
-						No
-					</button>
-				</div>
 				<hr>
+
+				<div class="mdl-grid delegateVoteGrid">
+				  <div class="mdl-cell mdl-cell--6-col">
+				  	<h5>{{_ "proposals.view.pointsFor"}}</h5>
+				  	{{#if delegatesFor}}
+					  	<ul class="delegateVoteList demo-list-control mdl-list" >
+					  		{{#each delegatesFor}}
+					  			{{> delegateVoteListItem}}
+					  		{{/each}}
+					  	</ul>
+				  	{{else}}
+				  	<small>{{_ "proposals.view.noDelegatesVoted"}}</small>
+				  	{{/if}}
+					</div>
+				  <div class="mdl-cell mdl-cell--6-col">
+				  	<h5>{{_ "proposals.view.pointsAgainst"}}</h5>
+				  	{{#if delegatesAgainst}}
+					  	<ul class="demo-list-control mdl-list" >
+							{{#each delegatesAgainst}}
+								{{> delegateVoteListItem}}
+							{{/each}}
+						</ul>
+					{{else}}
+						<small>{{_ "proposals.view.noDelegatesVoted"}}</small>
+				  	{{/if}}
+				  </div>
+				</div>
 			{{/if}}
+
+			<hr>
 
 			{{#if isInvited }}
 				{{> CommentForm}}
@@ -83,10 +147,34 @@
 				{{> loader}}
 			{{/if}}
 		{{else}}
-			<h3>Sorry, this proposal is not yet visible to the public.</h3>
+			<h3>{{_ "proposals.view.proposalUnvailable"}}</h3>
 		{{/if}}
 	</div>
+	{{else}}
+		{{> loader}}
 	{{/if}}
+	{{/if}}
+</template>
+
+<!--============ Single delegate item ============-->
+
+<template name="delegateVoteListItem">
+	<li class="selected mdl-list__item delegate-vote-list-item" id="{{_id}}">
+		<div class="card-main-wrap">
+			<span class="card-main mdl-list__item-primary-content">
+				<i class="material-icons">{{voteIcon vote_info.[0].vote}}</i> &nbsp;
+				<img src={{user_info.[0].profile.photo}} class="mdl-list__item-avatar">
+				#{{ranking}}&nbsp; {{user_info.[0].profile.firstName}}&nbsp;{{user_info.[0].profile.lastName}} ({{user_info.[0].profile.username}})
+			</span>
+		</div>
+	</li>
+	<div class="mdl-tooltip" for="{{_id}}">
+	{{#if vote_info.[0].reason}}
+		{{vote_info.[0].reason}}
+	{{else}}
+		{{_ "proposals.view.noDelegateReason"}}
+	{{/if}}
+	</div>
 </template>
 
 <!--============ Comment Form ============-->
@@ -94,8 +182,8 @@
 <template name="CommentForm">
 	<form class="comment-form" id="comment-form">
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<textarea class="mdl-textfield__input" type="text" rows= "5" id="comment-message" ></textarea>
-			<label class="mdl-textfield__label">Add a comment</label>
+			<textarea class="mdl-textfield__input" type="text" rows= "3" id="comment-message" ></textarea>
+			<label class="mdl-textfield__label">{{_ "proposals.view.addComment"}}</label>
 		</div>
 		<div class="form-group">
 			<input class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" type="submit" value='{{_ "submit"}}'>

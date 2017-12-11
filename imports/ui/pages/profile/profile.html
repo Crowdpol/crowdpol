@@ -1,10 +1,12 @@
 <template name="Profile">
 	{{#if currentUser}}
+	{{> backButton text="Back to Dashboard" url="/dash"}}
 	<div class="container narrow-container">
 		{{#if Template.subscriptionsReady}}
 			{{> ProfileForm}}
 
 			<div class="switches-wrap">
+
 				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
 					<input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{publicChecked}} {{publicDisabled}}>
 					<span class="mdl-switch__label">{{_ "pages.profile.public"}}</span>
@@ -19,6 +21,7 @@
 					<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
 						<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}} {{candidateDisabled}}>
 						<span class="mdl-switch__label">{{_ "pages.profile.candidate"}} {{candidateStatus}}</span>
+
 					</label>
 				{{/if}}
 			</div>

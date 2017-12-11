@@ -23,6 +23,7 @@ import { Session } from 'meteor/session';
 import './layouts/body/body.js';
 import './components/loader/loader.js';
 import './components/taggle/taggle.js';
+import './components/back-button/back-button.html';
 import './pages/home/home.js';
 import './pages/not-found/not-found.js';
 import './pages/authenticate/authenticate.js';
@@ -38,9 +39,11 @@ import './pages/privacy.html';
 import './pages/terms.html';
 import './pages/proposals/editProposal.js';
 import './pages/proposals/viewProposal.js';
+import './pages/proposals/delegateVoteButtons.js';
 import './pages/proposals/proposalsList.js';
 import './pages/delegates/delegate.js';
 import './pages/candidates/candidates.js';
+//import './pages/stats/stats.js';
 import './stylesheets/stylesheets.js';
 
 

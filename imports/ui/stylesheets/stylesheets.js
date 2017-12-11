@@ -14,4 +14,7 @@ import './dashboard.scss';
 import './profile.scss';
 import './delegate-vote.scss';
 import './drawer-right.css';
+import './proposals.scss'
+import './modal.scss'
+import './back-button.scss'
 

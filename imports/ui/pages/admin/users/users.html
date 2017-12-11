@@ -1,5 +1,6 @@
 <template name="AdminUsers">
 	{{#if currentUserIsAdmin}}
+	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
 	<div class="container">
 		<h3> {{_"admin.users.invite-heading"}} </h3>
 		<form id="invite">

@@ -4,7 +4,6 @@ Template.AdminApprovals.onCreated(function() {
   var self = this;
   self.autorun(function() {
     self.subscribe('users.pendingApprovals');
-    //self.subscribe('users.all');
   });
 });
 
@@ -41,12 +40,26 @@ Template.AdminApprovals.events({
 		//
 	},
 	'click #reject-button': function(event, template){
+		email = event.target.dataset.email;
+		type = event.target.dataset.type;
+		userID = event.target.dataset.userId;
+		requestId = event.target.dataset.requestId;
+		Meteor.call('approveUser', userID,requestId,'Rejected','',function(error){
+			if (error){
+				Bert.alert(error.reason, 'danger');
+			} else {
+				//Meteor.call('sendApproval', email, type);
+				Bert.alert("User rejected", 'success');//TAPi18n.__('profile-msg-private');
+			}
+		});  
+		//
+	},
+	/*'click #reject-button': function(event, template){
 
 		email = event.target.dataset.email;
 		type = event.target.dataset.type;
 		userID = event.target.dataset.userId;
 		requestId = event.target.dataset.requestId;
-		//Meteor.call('clearApprovals', userID);
 		Meteor.call('approveUser', userID,requestId,'Rejected','',function(error){
 			if (error){
 				Bert.alert(error.reason, 'danger');
@@ -55,5 +68,5 @@ Template.AdminApprovals.events({
 				Bert.alert(TAPi18n.__('pages.admin.alerts.user-rejected'), 'success');//TAPi18n.__('profile-msg-private');
 			}
 		}); 
-	}
+	}*/
 });

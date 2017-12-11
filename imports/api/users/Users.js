@@ -135,10 +135,6 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-    "tags.$.text": {
-        type: String,
-        optional: true
-    },
     "tags.$.url": {
         type: String,
         optional: true
@@ -278,21 +274,27 @@ Meteor.users.attachSchema(Schema.User);
 // permissions
 Meteor.users.allow({
   insert: function (userId) {
-    if (userId) {
-      Schema.User.clean(doc);
-      return true;
-    }
+    return false;
   },
   update: function (userId) {
-    if (userId) {
-      Schema.User.clean(doc);
-      return true;
-    }
+    return false;
   },
   remove: function (userId) {
-    if (userId) {
-      return true;
-    }
+    return false;
   },
 });
+
+Meteor.users.deny({
+  insert: function (userId) {
+    return true;
+  },
+  update: function (userId) {
+    return true;
+  },
+  remove: function (userId) {
+    return true;
+  },
+});
+
+
 

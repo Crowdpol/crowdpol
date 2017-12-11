@@ -3,7 +3,7 @@ import './users.html';
 Template.AdminUsers.onCreated(function() {
   var self = this;
   self.autorun(function() {
-    self.subscribe('users');
+    self.subscribe('users.all');
   });
 });
 
