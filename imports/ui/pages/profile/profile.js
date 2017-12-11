@@ -42,19 +42,26 @@ Template.Profile.onCreated(function() {
 
 Template.Profile.events({
   'click #profile-public-switch' (event, template) {
-    if (event.target.checked && !Session.get('profileIsComplete')){
-      Bert.alert('You can not have a public profile if it is incomplete.', 'danger');
-      template.find('#profile-public-switch-label').MaterialSwitch.off();
-    } else {
-
-      Meteor.call('togglePublic', Meteor.userId(), event.target.checked, function(error) {
+    Meteor.call('togglePublic', Meteor.userId(), event.target.checked, function(error) {
+      if (error) {
+        Bert.alert(error.reason, 'danger');
+      } else {
+        var msg = TAPi18n.__('pages.profile.alerts.profile-private');
+        if (event.target.checked) {
+          msg = TAPi18n.__('pages.profile.alerts.profile-public');
+        }
+        Bert.alert(msg, 'success');
+      }
+    });
+  },  
+  'click #profile-delegate-switch' (event, template) {
+    //Step 1: Check if person already is a delegate, if so remove role
+    if (isRole('delegate')) {
+      Meteor.call('toggleRole', Meteor.userId(), 'delegate', false, function(error) {
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          var msg = TAPi18n.__('profile-msg-private');
-          if (event.target.checked) {
-            msg = TAPi18n.__('profile-msg-public');
-          }
+          var msg = TAPi18n.__('pages.profile.profile-delegate-removed');
           Bert.alert(msg, 'success');
         }
       });
@@ -81,7 +88,7 @@ Template.Profile.events({
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          var msg = TAPi18n.__('profile-msg-delegate-requested');
+          var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
           Bert.alert(msg, 'success');
         }
       });
@@ -89,17 +96,15 @@ Template.Profile.events({
   },
   'click #profile-candidate-switch' (event, template) {
     //Step 1: Check if person already is a candidate, if so remove role
-    if (isInRole('candidate')) {
-      if (window.confirm('Are you sure you want to stop being a candidate?')){
-        Meteor.call('toggleRole', Meteor.userId(), 'candidate', false, function(error) {
-          if (error) {
-            Bert.alert(error.reason, 'danger');
-          } else {
-            var msg = TAPi18n.__('profile-msg-candidate-removed');
-            Bert.alert(msg, 'success');
-          }
-        });
-      } 
+    if (isRole('candidate')) {
+      Meteor.call('toggleRole', Meteor.userId(), 'candidate', false, function(error) {
+        if (error) {
+          Bert.alert(error.reason, 'danger');
+        } else {
+          var msg = TAPi18n.__('pages.profile.alerts.profile-candidate-removed');
+          Bert.alert(msg, 'success');
+        }
+      });
     } else {
       //Step 2: If person not candidate, check profile is complete before submission
       //NOTE: inomplete
@@ -108,7 +113,7 @@ Template.Profile.events({
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          var msg = TAPi18n.__('profile-msg-delegate-requested');
+          var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
           Bert.alert(msg, 'success');
         }
       });

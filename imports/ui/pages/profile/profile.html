@@ -6,20 +6,22 @@
 			{{> ProfileForm}}
 
 			<div class="switches-wrap">
-				<label id="profile-public-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-					<input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
-					<span class="mdl-switch__label">{{_ "profile-public"}}</span>
+
+				<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
+					<input type="checkbox" id="profile-public-switch" class="mdl-switch__input" {{publicChecked}} {{publicDisabled}}>
+					<span class="mdl-switch__label">{{_ "pages.profile.public"}}</span>
 				</label>
 
 				{{#if isPublic}}
-					<label id='profile-delegate-switch-label' class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
-						<span class="mdl-switch__label">{{_ "profile-delegate"}} {{delegateStatus}}</span>
+					<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input" {{delegateChecked}} {{delegatecDisabled}}>
+						<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
 					</label>
 
-					<label id="profile-candidate-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
-						<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input">
-						<span class="mdl-switch__label">{{_ "profile-candidate"}} {{candidateStatus}}</span>
+					<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
+						<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input" {{candidateChecked}} {{candidateDisabled}}>
+						<span class="mdl-switch__label">{{_ "pages.profile.candidate"}} {{candidateStatus}}</span>
+
 					</label>
 				{{/if}}
 			</div>

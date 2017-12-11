@@ -75,6 +75,29 @@ Template.ProfileForm.events({
       }
     });
   },
+
+  /*
+  'submit form' (event, template){
+
+    event.preventDefault();
+    let profile = {
+      username: template.find('[name="profile-username"]').value,
+      firstName: template.find('[name="profile-firstname"]').value,
+      lastName: template.find('[name="profile-lastname"]').value,
+      photo: template.find('[name="profile-photo-path"]').value,
+      bio: template.find('[name="profile-bio"]').value,
+      website: template.find('[name="profile-website"]').value
+    };
+    Meteor.call('updateProfile',Meteor.userId(), profile, function(error){
+      if (error){
+        Bert.alert(error.reason, 'danger');
+      } else {
+        //template.find('#profile-form').reset();
+        Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
+      }
+    });
+  }
+  */
 });
 
 Template.ProfileForm.onRendered(function() {
@@ -124,7 +147,7 @@ Template.ProfileForm.onRendered(function() {
               Bert.alert(error.reason, 'danger');
             } else {
               //template.find('#profile-form').reset();
-              Bert.alert(TAPi18n.__('profile-msg-updated'), 'success');
+              Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
             }
           });
 

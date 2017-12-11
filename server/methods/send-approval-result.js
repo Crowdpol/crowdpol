@@ -3,9 +3,9 @@ Meteor.methods({
     Meteor.defer(() => {
       Email.send({
         to: `${email}`,
-        from: `Common Democracy <info@commondemocracy.org>`,
-        subject: `Your request to be a ${type} has been approved`,
-        text: `An administrator has approved your request to be a ${type}. You can now log in as a ${type}.`,
+        from: TAPi18n.__('emails.send-approval.from', {name: Meteor.settings.private.deploymentName, email: Meteor.settings.private.fromEmail}),
+        subject: TAPi18n.__('emails.send-approval.subject', {type: type}),
+        text: TAPi18n.__('emails.send-approval.body', {type: type}),
       });
     });
   },
@@ -13,9 +13,9 @@ Meteor.methods({
     Meteor.defer(() => {
       Email.send({
         to: `${email}`,
-        from: `Common Democracy <info@commondemocracy.org>`,
-        subject: `our request to be a ${type} has been rejected`,
-        text: `An administrator has rejected your request to be a ${type}.`,
+        from: TAPi18n.__('emails.rejection-email.from', {name: Meteor.settings.private.deploymentName, email: Meteor.settings.private.fromEmail}),
+        subject: TAPi18n.__('emails.rejection-email.subject', {type: type}),
+        text: TAPi18n.__('emails.rejection-email.body', {type: type}),
       });
     });
   },
@@ -23,9 +23,9 @@ Meteor.methods({
     Meteor.defer(() => {
       Email.send({
         to: `${email}`,
-        from: `Common Democracy <info@commondemocracy.org>`,
-        subject: `Newsletter Signup Confirmation`,
-        text: `Thank you for signing up to our newsletter. We will be sure to keep you up to date.`,
+        from: TAPi18n.__('emails.newsletter-confirmation.from', {name: Meteor.settings.private.deploymentName, email: Meteor.settings.private.fromEmail}),
+        subject: TAPi18n.__('emails.newsletter-confirmation.subject'),
+        text: TAPi18n.__('emails.newsletter-confirmation.body', {type: type}),
       });
       console.log("sendNewsletterConfirmation sent");
     });

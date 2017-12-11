@@ -4,23 +4,21 @@
 	<header class="{{#if currentUser}}logged-in-header{{else}}logged-out-header{{/if}} mdl-layout__header">
 		<div class="header-inner mdl-layout__header-row">
 			{{#if currentUser}}
-			{{showHamburger}}
-			<span class="mdl-layout-title">
-				<!-- This should be the page title -->
-				{{_ "app_title"}}
-			</span>
+				{{showHamburger}}
+				<span class="mdl-layout-title">
+					<!-- This should be the page title -->
+					{{_ "layout.header.app_title"}}
+				</span>
 			{{else}}
-			{{hideHamburger}}
-			<a href="/">
-				<i class="material-icons">add</i>
-				<h5>Democracy 2018</h5>
+				{{hideHamburger}}
+				<a href="/">
+					<i class="material-icons">add</i>
+					<h5>{{_ "layout.header.home_title"}}</h5>
 			</a>
 			{{/if}}
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>
 			{{#if currentUser}}
-			<!-- Navigation. We hide it in small screens. -->
-			<nav class="mdl-navigation mdl-layout--large-screen-only">
 				<!-- Tag Search Field -->
 				<form action="#">
 					<div class="mdl-textfield mdl-js-textfield">
@@ -43,54 +41,57 @@
 					{{/if}}
 				</form>
 
-				<a class="mdl-navigation__link" href="/dash">{{_ "nav_dash"}}</a>
-				<a class="mdl-navigation__link" href="/delegate">Delegate</a>
-				<a class="mdl-navigation__link" href="/proposals">Vote</a>
-				<a class="mdl-navigation__link" href="/candidate">Nominate</a>
-				{{#unless currentUser}}
-				<a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
-				{{/unless}}
+				<!-- Navigation. We hide it in small screens. -->
+				<nav class="mdl-navigation mdl-layout--large-screen-only">
+					<a class="mdl-navigation__link" href="/dash">{{_ "layout.header.nav_dash"}}</a>
+					<a class="mdl-navigation__link" href="/delegate">{{_ "layout.header.nav_delegate"}}</a>
+					<a class="mdl-navigation__link" href="/proposals">{{_ "layout.header.nav_vote"}}</a>
+					<a class="mdl-navigation__link" href="/candidate">{{_ "layout.header.nav_nominate"}}</a>
+					{{#unless currentUser}}
+						<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
+					{{/unless}}
 
-				{{#if userHasMultipleRoles}}
-				<!-- Role Selection Menu -->
-				<a id="demo-menu-lower-left" class="mdl-navigation__link">
-					Switch Roles <i class="material-icons">arrow_drop_down</i>
-				</a>
+					{{#if userHasMultipleRoles}}
+						<!-- Role Selection Menu -->
+						<a id="demo-menu-lower-left" class="mdl-navigation__link">
+							Switch Roles <i class="material-icons">arrow_drop_down</i>
+						</a>
 
-				<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
-					{{#each roles}}
-					<li class="mdl-menu__item role-menu-item" data-role="{{this}}">
-						{{this}}
-						{{#if isCurrentRole this}}
-						<i class="material-icons small">check</i>
-						{{/if}}
-					</li>
-					{{/each}}
-				</ul>
-				{{/if}}
+						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
+							{{#each roles}}
+							<li class="mdl-menu__item role-menu-item" data-role="{{this}}">
+								{{this}}
+								{{#if isCurrentRole this}}
+								<i class="material-icons small">check</i>
+								{{/if}}
+							</li>
+							{{/each}}
+						</ul>
+					{{/if}}
 
-				<!-- Language Menu -->
-				<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
-					<i class="material-icons">language</i>
-				</button>
-				<small>{{ lang }}</small>
-				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-				for="demo-menu-lower-right">
-				<li class="mdl-menu__item lang-sel" id="en">{{_ "lang_en"}}</li>
-				<li class="mdl-menu__item lang-sel" id="sv">{{_ "lang_sv"}}</li>
-			</ul>
-		</nav>
-		{{else}}
-		<nav class="mdl-navigation">
-			<a class="mdl-navigation__link" href="/about">{{_ "nav_about"}}</a>
-			<a class="mdl-navigation__link" href="/contact">{{_ "nav_contact"}}</a>
-			{{#unless currentUser}}
-			<a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
-			{{/unless}}
-		</nav>
-		{{/if}}
-	</div>
-</header>
+					<!-- Language Menu -->
+					<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+						<i class="material-icons">language</i>
+					</button>
+					<small>{{ lang }}</small>
+					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+							for="demo-menu-lower-right">
+						<li class="mdl-menu__item lang-sel" id="en">{{_ "layout.header.lang_en"}}</li>
+						<li class="mdl-menu__item lang-sel" id="sv">{{_ "layout.header.lang_sv"}}</li>
+					</ul>
+				</nav>
+			{{else}}
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="/about">{{_ "layout.header.nav_about"}}</a>
+					<a class="mdl-navigation__link" href="/contact">{{_ "layout.header.nav_contact"}}</a>
+					{{#unless currentUser}}
+						<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
+					{{/unless}}
+				</nav>
+			{{/if}}
+		</div>
+	</header>
+
 </template>
 
 <template name="HomeHeader">
@@ -99,17 +100,17 @@
 		<div class="header-inner mdl-layout__header-row">
 			<a href="/">
 				<i class="material-icons">add</i>
-				<h5>Democracy 2018</h5>
+				<h5>{{_ "layout.header.home_title"}}</h5>
 			</a>
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>
-			<nav class="mdl-navigation">
-				<a class="mdl-navigation__link" href="/about">{{_ "nav_about"}}</a>
-				<a class="mdl-navigation__link" href="/contact">{{_ "nav_contact"}}</a>
-				{{#unless currentUser}}
-				<a class="mdl-navigation__link" href="/login">{{_ "header_nav_login"}}</a>
-				{{/unless}}
-			</nav>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="/about">{{_ "layout.header.nav_about"}}</a>
+					<a class="mdl-navigation__link" href="/contact">{{_ "layout.header.nav_contact"}}</a>
+					{{#unless currentUser}}
+						<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
+					{{/unless}}
+				</nav>
 		</div>
 	</header>
 </template>

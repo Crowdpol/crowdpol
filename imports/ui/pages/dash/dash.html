@@ -1,6 +1,6 @@
 <template name="Dash">
 	<div class="container">
-		<h1>{{_ "dash-title"}}</h1>
+		<h1>{{_ "pages.dashboard.heading"}}</h1>
 		<!-- NOTE: This will have to be updated later on the permissions tickets. FlowRouter groups can manage this -->
 		<div class="dashboard-wrap">
 			{{#if currentUser}}
@@ -11,18 +11,18 @@
 				<div class="dash-card mdl-card mdl-shadow--2dp">
 				{{#unless currentUser.emails.[0].verified}}
 					<div class="mdl-card__title">
-						<h2 class="mdl-card__title-text">{{_ "verify-account-message"}}</h2>
+						<h2 class="mdl-card__title-text">{{_ "pages.dashboard.verify-account-message"}}</h2>
 					</div>
 					<div class="dash-card-text mdl-card__supporting-text">
-						<span><a href="#" class="resend-verification-link">{{_ "verify-resend-link"}}</a></span>
+						<span><a href="#" class="resend-verification-link">{{_ "pages.dashboard.verify-resend-link"}}</a></span>
 					</div>
 				{{else}}
 					<div class="mdl-card__title">
-						<h2 class="mdl-card__title-text">{{_ "verify-success-message"}}</h2>
+						<h2 class="mdl-card__title-text">{{_ "pages.dashboard.verify-success-message"}}</h2>
 					</div>
 					{{#if isUnapprovedEntity}}
 						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text">{{_ "unapproved-entity-message"}}</h2>
+							<h2 class="mdl-card__title-text">{{_ "pages.dashboard.unapproved-entity-message"}}</h2>
 						</div>
 					{{/if}}
 				{{/unless}}
@@ -35,7 +35,7 @@
 			{{else}}
 				<div class="dash-card mdl-card mdl-shadow--2dp">
 					<div class="mdl-card__title">
-						<h2 class="mdl-card__title-text">{{_ "authentication-required-message"}}</h2>
+						<h2 class="mdl-card__title-text">{{_ "pages.dashboard.authentication-required-message"}}</h2>
 					</div>
 					<div class="mdl-card__actions">
 						<button id="log-in" class="primary-button mdl-button mdl-js-button mdl-button--raised">
@@ -51,14 +51,14 @@
 <template name="DashProposals">
 	<div class="dash-card mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
-			<h2 class="mdl-card__title-text">{{_"dash.card.proposals.heading"}}</h2>
+			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.proposals.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_"dash.card.proposals.text"}}
+			{{_ "pages.dashboard.card.proposals.text"}}
 		</div>
 		<div class="mdl-card__actions">
 			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/proposals">
-				{{_"dash.card.proposals.link"}}
+				{{_ "pages.dashboard.card.proposals.link"}}
 			</a>
 		</div>
 		<div class="mdl-card__menu">
@@ -72,14 +72,14 @@
 <template name="DashDelegates">
 	<div class="dash-card mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
-			<h2 class="mdl-card__title-text">{{_"dash.card.delegates.heading"}}</h2>
+			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.delegates.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_"dash.card.delegates.text"}}
+			{{_"pages.dashboard.card.delegates.text"}}
 		</div>
 		<div class="mdl-card__actions">
 			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/delegate">
-				{{_"dash.card.delegates.link"}}
+				{{_"pages.dashboard.card.delegates.link"}}
 			</a>
 		</div>
 		<div class="mdl-card__menu">
@@ -93,14 +93,14 @@
 <template name="DashCandidates">
 	<div class="dash-card mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
-			<h2 class="mdl-card__title-text">Candidates</h2>
+			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.candidates.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			Nominate candidates.
+			{{_"pages.dashboard.card.candidates.text"}}
 		</div>
 		<div class="mdl-card__actions">
 			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/candidate">
-				Nominate
+				{{_"pages.dashboard.card.candidates.link"}}
 			</a>
 		</div>
 		<div class="mdl-card__menu">

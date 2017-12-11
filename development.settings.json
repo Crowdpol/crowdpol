@@ -28,6 +28,9 @@
       }
     },
     "mailGun": "smtps://postmaster%40mg.commondemocracy.org:1bbade5a02f2baf06efc2da5b1d76cc6@smtp.mailgun.org:465",
+    "fromEmail": "info@commondemocracy.org",
+    "toEmail" : "info@commondemocracy.org",
+    "deploymentName" : "Common Democracy",
     "defaultUsers": [
       {
           "username": "admin_brett",

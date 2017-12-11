@@ -25,7 +25,7 @@ Template.recoverPassword.events({
             if (error) {
             	Bert.alert(error.reason, 'danger')
             } else {
-                Bert.alert(TAPi18n.__('reset-password-sent-message'), 'success')
+                Bert.alert(TAPi18n.__('pages.authenticate.reset-password.reset-password-sent-message'), 'success')
             }
         });
         

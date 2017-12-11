@@ -26,7 +26,7 @@ ServiceConfiguration.configurations.insert({
   service: 'google',
   clientId: Meteor.settings.private.oAuth.google.clientId,
   secret: Meteor.settings.private.oAuth.google.secret,
-  loginStyle: 'redirect',
+  //loginStyle: 'redirect',
 });
 
 ServiceConfiguration.configurations.insert({
