@@ -107,7 +107,7 @@ Template.Candidate.events({
     var ranks = Session.get('ranked');
     //console.log(ranks.length);
     if(ranks.length>=5){
-      Bert.alert("You can only have 5 candidates.", 'danger');
+      Bert.alert(TAPi18n.__('pages.candidates.alerts.candidate-limit'), 'danger');
       event.target.checked = false;
     }else{
       Meteor.call('addRank','candidate',candidateId,1,function(error,result){
@@ -172,7 +172,7 @@ function sortEventHandler(){
           Bert.alert("Ranking failed. " + error.reason, 'danger');
         }else{
           //console.log(result);
-          Bert.alert("Ranking updated.", 'success');
+          Bert.alert("pages.candidates.alerts.ranking-updated", 'success');
         }
       });
     }

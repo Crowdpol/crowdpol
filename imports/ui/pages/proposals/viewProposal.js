@@ -57,7 +57,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('success', function(e) {
     Bert.alert({
-      title: 'Link copied to clipboard',
+      title: TAPi18n.__('pages.proposals.alerts.copy-to-clipboard-success'),
       type: 'success',
       style: 'growl-bottom-right',
       icon: 'fa-link'
@@ -67,7 +67,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('error', function(e) {
     Bert.alert({
-      title: 'Could not copy to clipboard',
+      title: TAPi18n.__('pages.proposals.alerts.copy-to-clipboard-fail'),
       message: e.action + "; " + e.trigger,
       type: 'warning',
       style: 'growl-bottom-right',
@@ -86,7 +86,7 @@ Template.ViewProposal.events({
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Proposal submitted for admin approval', 'success');
+        Bert.alert(TAPi18n.__('pages.proposals.alerts.proposal-submitted'), 'success');
       }
     });
   },
@@ -100,7 +100,7 @@ Template.ViewProposal.events({
       if(error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Comment posted', 'success');
+        Bert.alert(TAPi18n.__('pages.proposals.alerts.comment-success'), 'success');
       }
     });
   },
@@ -274,7 +274,7 @@ function vote(voteString){
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Your vote has been cast', 'success');
+        Bert.alert(TAPi18n.__('pages.proposals.alerts.vote-success'), 'success');
       }
     });
   } else {
@@ -284,7 +284,7 @@ function vote(voteString){
       if (error){
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Your vote has been cast', 'success');
+        Bert.alert(TAPi18n.__('pages.proposals.alerts.vote-success'), 'success');
       }
     });
   }

@@ -7,16 +7,16 @@
 				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
 					<thead>
 						<tr>
-							<th>Date</th>
-							<th>Username</th>
+							<th>{{_"admin.approvals.date"}}</th>
+							<th>{{_"admin.approvals.username"}}</th>
 							<th>
 								{{_"admin.users.email"}}
 							</th>
 							<th>
 								{{_"admin.users.roles"}}
 							</th>
-							<th>Request Type</th>
-							<th>Request Status</th>
+							<th>{{_"admin.approvals.request-type"}}</th>
+							<th>{{_"admin.approvals.request-status"}}</th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -60,11 +60,11 @@
 					</tbody>
 				</table>
 			{{else}}
-				<p>There are no pending approval requests.</p>
+				<p>{{_"admin.approvals.approvals-waiting"}}</p>
 			{{/if}}
 		{{else}}
 		<p>
-			Loading...
+			{{_ "generic.loading"}}
 		</p>
 		{{/if}}
 	</div>

@@ -10,7 +10,6 @@ Meteor.methods({
       return userId;
     },
     isPublic: function (userId) {
-
       user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1,isParty: 1,isOrganisation: 1}});;
       //console.log("isPublic: " + user.isPublic);
       return user.isPublic;
@@ -50,24 +49,6 @@ Meteor.methods({
       check(isPublic, Boolean);
       Meteor.users.update({_id: userID}, {$set: {"isPublic": isPublic}});
     },
-    toggleParty: function (userID,isParty) {
-      check(userID, String);
-      check(isParty, Boolean);
-      Meteor.users.update({_id: userID}, {$set: {"isParty": isParty}});
-    },
-    toggleOrg: function (userID,isOrg) {
-      check(userID, String);
-      check(isOrg, Boolean);
-      Meteor.users.update({_id: userID}, {$set: {"isOrganisation": isOrg}});
-    },
-    addApproval: function(userID, approval) {
-      user = Meteor.call('getUser', userID);
-      if (!user.profile.approvals){
-        Meteor.users.update({_id: userID}, {$set: {"profile.approvals": [approval]}});
-      } else {
-        Meteor.users.update({_id: userID},{ $push: {"profile.approvals": approval}});
-      }
-    },
     addEntity: function(entity) {
       entityID = Accounts.createUser({
         'email': entity.email,
@@ -81,8 +62,8 @@ Meteor.methods({
       'phoneNumber': entity.phone,
       'contactPerson': entity.contact,
       'type': entity.profileType,
-      'username': generateUsername(entity.name),
-      'searchString': entity.name + ' ' + generateUsername(entity.name)
+      //'username': generateUs"approvals": {$exists: true}, $where : "this.approvals.length > 0"})ername(entity.name),
+      'searchString': entity.name //+ ' ' + generateUsername(entity.name)
       };
 
       Meteor.call('updateProfile', entityID, profile);
@@ -98,9 +79,9 @@ Meteor.methods({
     isApproved: function(userID) {
       user = Meteor.call('getUser', userID);
 
-      if (user.profile.approvals){
-        for (i = 0; i < user.profile.approvals.length; i++){
-          if (!user.profile.approvals[i].approved){
+      if (user.approvals){
+        for (i = 0; i < user.approvals.length; i++){
+          if (user.approvals[i].status != 'Approved'){
             return false;
           }
         }
@@ -112,10 +93,11 @@ Meteor.methods({
 
     },
     clearApprovals: function(userID){
-      Meteor.users.update({_id: userID}, {$set: {"profile.approvals": []}});
+      Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
     },
-    approveUser: function(userID, requestId,status,approverID){
-      user = Meteor.users.findOne({_id: userID,"approvals" : {$exists: true}, $where : "this.approvals.length > 0"});
+    approveUser: function(userID, requestId, status, approverID){
+      user = Meteor.users.findOne({_id: userID, "approvals": {$exists: true}, $where : "this.approvals.length > 0"});
+      
       approvals = user.approvals;
       var type = null;
       for (i=0; i<approvals.length; i++){
@@ -130,9 +112,6 @@ Meteor.methods({
       if(type&&status=='Approved'){
         Roles.addUsersToRoles(userID, type);
       }
-    },
-    'user.delete'(userId) {
-      Meteor.users.remove({_id:userId});
     },
     requestApproval: function (userID,type) {
       //get current user approvalReqeusts
@@ -172,7 +151,6 @@ Meteor.methods({
     updateUsernameIsUnique(username){
       var count = Meteor.users.find({"_id":{$ne: Meteor.userId()},"profile.username": {$eq: username}}).count();
       if(count > 0){
-        console.log('returning false')
         return false;
       }
       return true;
@@ -248,7 +226,7 @@ Meteor.methods({
       Meteor.users.update({_id: userId}, {$push: {'profile.tags': tag} });
     },
     removeTagFromProfile: function(userId, tag) {
-      Meteor.users.update({_id: proposalId}, {$pull: {'profile.tags': tag} });
+      Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
 });
 

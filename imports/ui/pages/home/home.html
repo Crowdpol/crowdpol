@@ -1,25 +1,25 @@
 <template name="Home">
 	<div class="banner-wrap">
-		<h1>Common <br />Democracy</h1>
-		<p>A liquid democracy platform for the Swedish Politcal system.</p>
+		<h1>{{_ "pages.home.heading"}}</h1>
+		<p>{{_ "pages.home.intro-text"}}</p>
 		<div class="hero-item-wrap">
 			<div class="hero-item">
 				<div class="hero-icon">
 					<i class="material-icons">face</i>
 				</div>
-				<h6>Delegate</h6>
+				<h6>{{_ "pages.home.hero.delegate"}}</h6>
 			</div>
 			<div class="hero-item">
 				<div class="hero-icon">
 					<i class="material-icons">lightbulb_outline</i>
 				</div>
-				<h6>Propose</h6>
+				<h6>{{_ "pages.home.hero.propose"}}</h6>
 			</div>
 			<div class="hero-item">
 				<div class="hero-icon">
 					<i class="material-icons">thumb_up</i>
 				</div>
-				<h6>Vote</h6>
+				<h6>{{_ "pages.home.hero.vote"}}</h6>
 			</div>
 		</div>
 		<div class="newsletter-form">
@@ -27,13 +27,13 @@
 			<form id="newletterSignupForm">
 				<div class="dark-textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<input class="mdl-textfield__input" type="text" id="signupEmail" name="signupEmail">
-					<label class="mdl-textfield__label" for="sample3">Get notified when the app is live</label>
+					<label class="mdl-textfield__label" for="sample3">{{_ "pages.home.newsletter-text"}}</label>
 				</div>
-				<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value='{{_ "signup-button"}}' id="submit-newsletter">
+				<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value='{{_ "form.signup"}}' id="submit-newsletter">
 			</form>
 		</div>
 	</div>
 	<div class="bottom-banner">
-		<h2>A new wave of democracy is coming to Sweeden</h2>
+		<h2>{{_ "pages.home.banner-text"}}</h2>
 	</div>
 </template>
