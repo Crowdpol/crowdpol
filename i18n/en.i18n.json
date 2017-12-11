@@ -336,7 +336,8 @@
 			"created": "Date created",
 			"approved": "Authorized",
 			"add-button": "Add",
-			"delete-button": "Delete"
+			"delete-button": "Delete",
+			"none-waiting": "There are currently no pending proposals."
 		},
 		"approvals": {
 			"heading": "Approvals",
