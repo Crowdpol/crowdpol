@@ -528,7 +528,9 @@
 					"commentPosted":"Comment posted"
 				},
 				"userNotFound":"User could not be found",
-				"anonymous": "Anonymous"
+				"anonymous": "Anonymous",
+				"delegatesFor": "Delegates For",
+				"delegatesAgainst": "DelegatesAgainst"
 			}
 		}
 
