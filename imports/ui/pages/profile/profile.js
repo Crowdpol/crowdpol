@@ -69,7 +69,7 @@ Template.Profile.events({
     }
   },  
   'click #profile-delegate-switch' (event, template) {
-    //Step 1: Check if person already is a delegate, if so remove role
+    // Check if person already is a delegate, if so remove role
     if (isInRole('delegate')) {
       if (window.confirm('Are you sure you want to stop being a delegate?')){
         Meteor.call('toggleRole', Meteor.userId(), 'delegate', false, function(error) {
@@ -82,11 +82,11 @@ Template.Profile.events({
         });
       }
     } else {
-      //Step 2: If person not delegate, check profile is complete before submission
-      //Step 3: Profile is complete, submit approval request
+      // Profile is complete, submit approval request
       Meteor.call('requestApproval', Meteor.userId(), 'delegate', function(error) {
         if (error) {
           Bert.alert(error.reason, 'danger');
+          updateDisplayedStatus('delegate', template)
         } else {
           var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
           Bert.alert(msg, 'success');
@@ -95,8 +95,8 @@ Template.Profile.events({
     }
   },
   'click #profile-candidate-switch' (event, template) {
-    //Step 1: Check if person already is a candidate, if so remove role
-    if (isRole('candidate')) {
+    // Check if person already is a candidate, if so remove role
+    if (isInRole('candidate')) {
       Meteor.call('toggleRole', Meteor.userId(), 'candidate', false, function(error) {
         if (error) {
           Bert.alert(error.reason, 'danger');
@@ -106,14 +106,13 @@ Template.Profile.events({
         }
       });
     } else {
-      //Step 2: If person not candidate, check profile is complete before submission
-      //NOTE: inomplete
-      //Step 3: Profile is complete, submit approval request
+      // Profile is complete, submit approval request
       Meteor.call('requestApproval', Meteor.userId(), 'candidate', function(error) {
         if (error) {
           Bert.alert(error.reason, 'danger');
+          updateDisplayedStatus('candidate', template)
         } else {
-          var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
+          var msg = TAPi18n.__('pages.profile.alerts.profile-candidate-requested');
           Bert.alert(msg, 'success');
         }
       });
@@ -165,16 +164,6 @@ Template.Profile.helpers({
   isCandidate: function(){
     return isInRole('candidate');
   },
-  publicDisabled: function(){
-    if(!publicReady()){
-      return 'disabled';
-    }
-  },
-  publicChecked: function(){
-    if(Meteor.user().isPublic){
-      return 'checked';
-    }
-  },
 });
 
 function isInRole(role){
@@ -183,6 +172,7 @@ function isInRole(role){
 
 function updateDisplayedStatus(type, template){
   var approvals = Meteor.user().approvals
+  if (approvals) {
     var currentApproval = approvals.find(approval => approval.type === type)
     if (currentApproval){
       var status = currentApproval.status
@@ -202,6 +192,7 @@ function updateDisplayedStatus(type, template){
       } 
       return status;
     }
+  }
 }
 
 function updatePublicSwitch(template){
