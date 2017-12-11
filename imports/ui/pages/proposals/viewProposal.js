@@ -19,6 +19,7 @@ Template.ViewProposal.onCreated(function(){
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
+        console.log(proposal);
         dict.set( 'title', proposal.title );
         dict.set( 'abstract', proposal.abstract );
         dict.set( 'body', proposal.body );
@@ -30,6 +31,8 @@ Template.ViewProposal.onCreated(function(){
         dict.set( 'status', proposal.status );
         dict.set( 'tags', proposal.tags );
         dict.set( 'signatures', proposal.signatures || [] );
+        dict.set( 'pointsFor', proposal.pointFor || [] );
+        dict.set( 'pointsAgainst', proposal.pointAgainst || [] );
       }
     })
   });
@@ -179,10 +182,25 @@ Template.ViewProposal.helpers({
   endDate: function() {
     return Template.instance().templateDictionary.get( 'endDate' );
   },
+  showPointsFor: function(){
+    results = Template.instance().templateDictionary.get( 'pointsFor' );
+    if(results.length > 0){
+      return true;
+    }
+    return false;
+  },
+  showPointsAgainst: function(){
+    results = Template.instance().templateDictionary.get( 'pointsAgainst' );
+    if(results.length > 0){
+      return true;
+    }
+    return false;
+  },
   pointsFor: function() {
     return Template.instance().templateDictionary.get( 'pointsFor' );
   },
   pointsAgainst: function() {
+    console.log(Template.instance().templateDictionary.get( 'pointsAgainst' ));
     return Template.instance().templateDictionary.get( 'pointsAgainst' );
   },
   isInvited: function() {

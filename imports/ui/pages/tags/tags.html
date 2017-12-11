@@ -5,9 +5,9 @@
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<!-- Tab Bars -->
 		<div class="mdl-tabs__tab-bar">
-			<a href="#tags-proposals-panel" class="mdl-tabs__tab is-active">{{_ "pages.tag-search.proposals"}}</a>
-			<a href="#tags-delegates-panel" class="mdl-tabs__tab">{{_ "pages.tag-search.delegates"}}</a>
-			<a href="#tags-candidates-panel" class="mdl-tabs__tab">{{_ "pages.tag-search.candidates"}}</a>
+			<a href="#tags-proposals-panel" class="mdl-tabs__tab is-active">{{_ "pages.tag-search.tabs.proposals"}}</a>
+			<a href="#tags-delegates-panel" class="mdl-tabs__tab">{{_ "pages.tag-search.tabs.delegates"}}</a>
+			<a href="#tags-candidates-panel" class="mdl-tabs__tab">{{_ "pages.tag-search.tabs.candidates"}}</a>
 		</div>
 
 		<div class="app-container">
@@ -16,7 +16,7 @@
 			<div class="mdl-tabs__panel is-active" id="tags-proposals-panel">
 
 				{{#if Template.subscriptionsReady}}
-						<h4>{{_ "pages.tag-search.proposals-heading"}}</h4>
+						<!--<h4>{{_ "pages.tag-search.proposals-heading"}}</h4>-->
 						<ul class="demo-list-control mdl-list">
 							{{#each proposals}}
 								{{> TaggedProposalCard }}
