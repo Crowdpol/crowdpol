@@ -2,6 +2,7 @@ import './editProposal.html'
 import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { setupTaggle } from '../../components/taggle/taggle.js'
+import "../../components/userSearch/userSearch.js"
 import "./styles.css"
 
 Template.EditProposal.onCreated(function(){
@@ -174,6 +175,9 @@ Template.EditProposal.events({
 	'mouseleave  .pointsListItem':  function(event, template){
 		string = "#" + event.currentTarget.id + " > button";
 		$(string).hide();
+	},
+	'keyup #invited':  function(event, template){
+		console.log(event.currentTarget.value);
 	}
 });
 
