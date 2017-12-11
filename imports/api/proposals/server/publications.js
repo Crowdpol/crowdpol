@@ -16,6 +16,29 @@ Meteor.publish('proposals.public', function(search) {
 	return Proposals.find(query);
 });
 
+//Proposals that are live and open to the public
+Meteor.publish('proposals.public.stats', function(search) {
+	let query = generateSearchQuery(search);
+	query.stage = 'live';
+	//return Proposals.find(query);
+	var self = this;
+	   Proposals
+	        .find( query)
+	        //loop through each match and add the ranking to the user object
+	        .forEach(function(proposal) {
+	            individualVotes = Meteor.call('getProposalIndividualVotes', proposal._id);
+	            delegateVotes = Meteor.call('getProposalDelegateVotes', proposal._id);
+	           	//console.log(proposal._id);
+	            //console.log(individualVotes);
+	            //console.log(delegateVotes);
+	            
+	            proposal["individualVotes"] = yesNoResults(individualVotes[0]);
+	            proposal["delegateVotes"] = yesNoResults(delegateVotes[0]);
+	            self.added("proposals", proposal._id, proposal);
+	        });
+	    self.ready();
+	});
+
 //Proposals that the user authored
 Meteor.publish('proposals.author', function(search) {
 	let query = generateSearchQuery(search);
@@ -55,4 +78,15 @@ function generateSearchQuery(searchTerm){
 		};
 	}
 	return query;
+}
+function yesNoResults(theseVotes){
+	var total = theseVotes.yesCount + theseVotes.noCount;
+	result = { 
+		"totalVotes":total,
+		"yesCount":theseVotes.yesCount,
+		"noCount":theseVotes.noCount,
+		"yesPercent":Math.round(theseVotes.yesCount * 100 / total),
+		"noPercent":Math.round(theseVotes.noCount * 100 / total)
+	};
+	return result;
 }

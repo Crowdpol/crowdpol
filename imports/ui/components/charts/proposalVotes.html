@@ -1,0 +1,35 @@
+<template name="DelegateVotes">
+	<div class="ct-chart-delegates ct-perfect-fourth"></div>
+</template>
+
+<template name="IndividualVotes">
+	<div id="proposalIndividualVotes" data-proposal-id="{{proposalId}}">
+		<div class="ct-chart-individuals ct-perfect-fourth"></div>
+	</div>
+</template>
+
+<template name="DelegateVoteBar">
+		<div id="delegateVoteBar" data-proposal-id="{{proposalId}}" data-show-totals="{{showTotals}}">
+			{{#if propertiesSet}}
+				<div id="resultBar" class="bar-container">
+					<div class="yes-bar bar-properties"  id="delegateYesBar">YES</div>
+					<div class="no-bar bar-properties"  id="delegateNoBar">NO</div>
+				</div>
+			{{else}}
+				loading...
+			{{/if}}
+		</div>
+</template>
+
+<template name="IndividualVoteBar">
+		<div id="individualVoteBar" data-proposal-id="{{proposalId}}" data-show-totals="{{showTotals}}">
+			{{#if propertiesSet}}
+				<div id="resultBar" class="bar-container">
+					<div class="yes-bar bar-properties" id="individualYesBar">YES</div>
+					<div class="no-bar bar-properties"  id="individualNoBar">NO</div>
+				</div>
+			{{else}}
+				loading...
+			{{/if}}
+		</div>
+</template>

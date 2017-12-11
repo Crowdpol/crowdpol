@@ -1,0 +1,83 @@
+<template name="ProposalStatsPage">
+		<div class="app-container proposal-container">
+			<h1 class="proposal-title">STATS: {{ title }}</h1>
+			<div class="proposal-wrap">
+				<div class="mdl-grid">
+			  	<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+						{{_ "proposals.view.voteStarts"}}&nbsp;{{ startDate }}
+					</div>
+			  	<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+			  		{{_ "proposals.view.voteEnds"}}&nbsp;{{ endDate }}
+			  	</div>
+			  </div>
+			</div>
+			<div id="hidden-content" style="display:none;">
+					<div class="proposal-wrap">
+						<h5>{{_ "proposals.view.abstract"}}</h5>
+						<p>{{ abstract }}</p>
+					</div>
+
+					<div class="proposal-wrap">
+						<h5>{{_ "proposals.view.proposal"}}</h5>
+						{{{ body }}}
+					</div>
+
+					<div class="proposal-wrap">
+						{{#each tags}}
+							<span class="mdl-chip">
+								<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
+							</span>
+						{{/each}}
+					</div>
+
+					<!-- Points for and against -->
+					<div class="proposal-wrap">
+						<div class="mdl-grid">
+			  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+			  				<p>{{_ "proposals.view.pointsFor"}}</p>
+								<ul id="points-for-list">
+									{{#each pointsFor}}
+										<li>{{this}}</li>
+									{{/each}}
+								</ul>
+			  			</div>
+			  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+			  				<p>{{_ "proposals.view.pointsAgainst"}}</p>
+								<ul id="points-against-list">
+									{{#each pointsAgainst}}
+										<li>{{this}}</li>
+									{{/each}}
+								</ul>
+			  			</div>
+			  			
+			  		</div>
+		  		</div>
+
+			</div>
+				<div class="proposal-wrap">
+					<center>
+						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect mdl-button--fab mdl-button--mini-fab" id="showHideButton">
+							<i class="material-icons" id="showHideIcon">keyboard_arrow_down</i>
+						</button>
+					</center>
+				</div>
+			<div class="proposal-wrap">
+				<div class="mdl-grid">
+			  	<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+			  		<h5>Individual Votes</h5>
+			  		{{> IndividualVotes proposalId=_id}}
+			  		<br>
+			  		{{> IndividualVoteBar proposalId=_id}}
+					</div>
+					<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+						<h5>Delegate Votes</h5>
+						{{> DelegateVotes}}
+						<br>
+						{{> DelegateVoteBar proposalId=_id}}
+					</div>
+				</div>
+			</div>
+
+		</div>
+	
+</template>
