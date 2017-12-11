@@ -1,4 +1,4 @@
-import "../../components/charts/proposalVotes.js"
+import "../../../components/charts/proposalVotes.js"
 import "./proposalStats.html"
 import "./styles.css"
 
