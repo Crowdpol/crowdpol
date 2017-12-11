@@ -207,7 +207,7 @@ Template.ViewProposal.helpers({
     return userIsInvited();
   },
   isVotingAsDelegate: function(){
-    return (Session.get('currentUserRole') == 'Delegate');
+    return (LocalStore.get('currentUserRole') == 'Delegate');
   },
   isAuthor: function() {
     return userIsAuthor();
@@ -233,7 +233,7 @@ Template.ViewProposal.helpers({
     var status = Template.instance().templateDictionary.get('status');
     var startDate = Template.instance().templateDictionary.get('startDate');
     var endDate = Template.instance().templateDictionary.get('endDate');
-    var isOpen = ((moment().isAfter(startDate, 'day')) && (moment().isBefore(endDate, 'day')))
+    var isOpen = ((moment().isAfter(startDate, 'minute')) && (moment().isBefore(endDate, 'minute')))
 
     //Should be live, approved and between the start and end dates
     if ((stage == 'live') && (status == 'approved') && (isOpen)) {
@@ -362,7 +362,7 @@ function transformComment(comment) {
 };
 
 function vote(voteString){
-  var currentRole = Session.get('currentUserRole');
+  var currentRole = LocalStore.get('currentUserRole');
 
   if (currentRole == 'Delegate'){
     // Vote as a delegate

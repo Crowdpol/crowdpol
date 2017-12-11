@@ -8,9 +8,9 @@ Template.Header.onCreated(function(){
   var user = Meteor.user();
 
   if (user && user.roles){
-    var currentRole = Session.get('currentUserRole');
+    var currentRole = LocalStore.get('currentUserRole');
     if (!currentRole){
-      Session.set('currentUserRole', Meteor.user().roles[0]);
+      LocalStore.set('currentUserRole', Meteor.user().roles[0]);
     }
   }
   self.availableTags = new ReactiveVar([]);
@@ -27,11 +27,9 @@ Template.Header.onCreated(function(){
 Template.Header.helpers({
   hideHamburger() {
     $(".mdl-layout__drawer-button").hide();
-    console.log("hamburger hidden");
   },
   showHamburger() {
     $(".mdl-layout__drawer-button").show();
-    console.log("hamburger shown");
   },
   lang() {
     var str = Session.get("i18n_lang")
@@ -56,11 +54,11 @@ Template.Header.helpers({
   },
 
   currentRole(){
-    return Session.get('currentUserRole');
+    return LocalStore.get('currentUserRole');
   },
 
   isCurrentRole(role){
-    return (role == Session.get('currentUserRole'));
+    return (role == LocalStore.get('currentUserRole'));
   },
   matchedTags(){
     return Template.instance().matchedTags.get();
@@ -78,7 +76,7 @@ Template.Header.events({
     Meteor.logout();
   },
   'click .role-menu-item' : function(){
-    Session.set('currentUserRole', event.target.dataset.role);
+    LocalStore.set('currentUserRole', event.target.dataset.role)
   },
   'keyup input' (event, template) {
     var input = event.target.value;
@@ -100,7 +98,6 @@ Template.Header.events({
 });
 
 function getMenuRoles(userRoles){
-  console.log(userRoles)
   var menuRoles = ['individual', 'delegate', 'candidate'];
   return _.intersection(userRoles, menuRoles);
 }
