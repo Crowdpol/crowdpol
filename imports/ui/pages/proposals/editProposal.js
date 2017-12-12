@@ -19,15 +19,15 @@ Template.EditProposal.onRendered(function(){
 		ignore: "",
 		rules: {
 			title: {
-				required: true,
+				required: false,
 				minlength: 5
 			},
 			abstract: {
-				required: true,
+				required: false,
 				minlength: 5
 			},
 			body: {
-				required: true,
+				required: false,
 				minlength: 50
 			},
 			startDate: {
@@ -174,7 +174,15 @@ Template.EditProposal.events({
 	'mouseleave  .pointsListItem':  function(event, template){
 		string = "#" + event.currentTarget.id + " > button";
 		$(string).hide();
-	}
+	},
+	'input textarea' : function( event , template){
+	    // Save user input after 3 seconds of not typing
+	    timer.clear();
+
+	    timer.set(function() { 
+	    	saveChanges(event, template, 'App.proposal.edit');  
+	   });
+	  },
 });
 
 Template.EditProposal.helpers({
@@ -183,8 +191,25 @@ Template.EditProposal.helpers({
   },
   pointsAgainst() {
     return Template.instance().pointsAgainst.get();
-  }
+  },
 });
+
+// Autosave timer
+var timer = function(){
+    var timer;
+
+    this.set = function(saveChanges) {
+      timer = Meteor.setTimeout(function() {
+    	saveChanges();
+      }, 3000)
+    };
+
+    this.clear = function() {
+      Meteor.clearInterval(timer);
+    };
+
+    return this;    
+  }();
 
 function saveChanges(event, template, returnTo){
 	Meteor.call('transformTags', template.taggle.get().getTagValues(), function(error, proposalTags){
@@ -207,13 +232,15 @@ function saveChanges(event, template, returnTo){
 
 		var proposalId = FlowRouter.getParam("id");
 
+		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: 'saving...'});
+
 		// If working on an existing proposal, save it, else create a new one
 		if (proposalId){
 			Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					Bert.alert(TAPi18n.__('pages.proposals.alerts.changes-saved'), 'success');
+					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.changes-saved')});
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
@@ -222,7 +249,7 @@ function saveChanges(event, template, returnTo){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					Bert.alert(TAPi18n.__('pages.proposals.alerts.proposal-created'), 'success');
+					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.proposal-created')});
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
