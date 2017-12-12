@@ -52,11 +52,13 @@ Meteor.methods({
       /*if a user has pending request for delegate/candidate approval
       and makes their profile private, remove the requests*/
       var user = Meteor.call('getUser', userID)
-      var pendingApprovals = user.approvals.find(approval => approval.status == 'Requested');
-      if (pendingApprovals){
-        Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
+      var approvals = user.approvals;
+      if (approvals) {
+        var pendingApprovals = approvals.find(approval => approval.status == 'Requested');
+        if (pendingApprovals){
+          Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
+        }
       }
-
     },
     addEntity: function(entity) {
       check(entity, { 
@@ -159,7 +161,7 @@ Meteor.methods({
         });
         Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
       } else {
-        Bert.alert('You can not apply to be a candidate or delegate if your profile is incomplete.', 'danger')
+        throw new Meteor.Error(422, TAPi18n.__('pages.profile.alerts.profile-incomplete'));
       }
       
     },
@@ -168,7 +170,6 @@ Meteor.methods({
       check(role, String);
       check(state, Boolean);
       if(state){
-        console.log("adding role: " + role);
         if ((role == 'delegate' || role == 'candidate')){
           if (Meteor.user().isPublic){
             Roles.addUsersToRoles(Meteor.userId(), role);
@@ -177,7 +178,6 @@ Meteor.methods({
           Roles.addUsersToRoles(Meteor.userId(), role);
         }
       }else{
-        console.log("removing role: " + role);
         Roles.removeUsersFromRoles(Meteor.userId(), role);
       }
     },
@@ -201,7 +201,6 @@ Meteor.methods({
     },
     //TODO: check approvals and roles and send appropriate message
     getApprovalStatus(userId,type){
-      console.log('getApprovalStatus being called')
       check(userId,String);
       check(type,String);
       var result = Meteor.users.aggregate([
@@ -220,14 +219,11 @@ Meteor.methods({
         { $limit : 1 }
       ]);
       if(result.length>0){
-        console.log(result[0].status)
-        console.log(result[0])
         return result[0].status;
       }
       return false;
     },
     getDelegateStatus(userId){
-      console.log('getDelegateStatus being called')
       check(userId,String);
       return Meteor.call('getApprovalStatus',userId,'delegate');
     },
@@ -237,8 +233,7 @@ Meteor.methods({
     },
     searchUsers(search){
       check(search,String);
-      var result = Meteor.users.find( { $text: { $search: search } } )
-      console.log(result);
+      var result = Meteor.users.find( { $text: { $search: search } } );
     },
     getUserSearchString(userId){
       check(userId,String);
@@ -326,7 +321,7 @@ function profileIsComplete(user){
   var isComplete = true;
   var profileFields = _.keys(profile);
   public = profile;
-  if (profile.tags.length < 5){
+  if (!profile.tags || profile.tags.length < 5){
     isComplete = false;
   } else {
     _.map(profileFields, function(field){
