@@ -94,6 +94,7 @@
       }
     ],
     "demoUsers": 50,
-    "defaultPhotoUrl": "https://www.commondemocracy.org/img/default-user-image.png"
+    "defaultPhotoUrl": "https://www.commondemocracy.org/img/default-user-image.png",
+    "defaultAutosaveTime": 3000
   }
 }

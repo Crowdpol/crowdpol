@@ -252,6 +252,7 @@
 				"add-tags": "Add some tags your proposal:"
 			},
 			"alerts": {
+				"saving": "Saving...",
 				"changes-saved": "Changes saved",
 				"proposal-created": "Proposal created",
 				"copy-to-clipboard-success": "Proposal link copied to clipboard",
@@ -529,6 +530,7 @@
 					"linkToClipboardSuccess": "Link copied to clipboard",
 					"linkToClipboardFailed": "Link copied to clipboard",
 					"proposalSubmitted":"Proposal submitted for admin approval",
+					"proposalIncomplete": "You must complete your proposal before submitting it.",
 					"commentPosted":"Comment posted"
 				},
 				"userNotFound":"User could not be found",
