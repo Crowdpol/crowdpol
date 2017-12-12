@@ -11,6 +11,13 @@
 				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
 					<i class="material-icons">share</i>
 				</button>
+				{{#if isLive}}
+					<div class="mdl-layout-spacer"></div>
+					<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="sign-proposal">
+						<i class="material-icons">{{ signatureIcon }}</i>
+					</button>
+					{{ signatureCount }}
+				{{/if}}
 			</div>
 
 			<div class="proposal-wrap">
@@ -35,20 +42,24 @@
 			<div class="proposal-wrap">
 				<div class="mdl-grid">
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-	  				<p>{{_ "proposals.view.pointsFor"}}</p>
-						<ul id="points-for-list">
-							{{#each pointsFor}}
-								<li>{{this}}</li>
-							{{/each}}
-						</ul>
+	  				{{#if showPointsFor}}
+		  				<p>{{_ "proposals.view.pointsFor"}}</p>
+							<ul id="points-for-list">
+								{{#each pointsFor}}
+									<li>{{this}}</li>
+								{{/each}}
+							</ul>
+						{{/if}}
 	  			</div>
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-	  				<p>{{_ "proposals.view.pointsAgainst"}}</p>
-						<ul id="points-against-list">
-							{{#each pointsAgainst}}
-								<li>{{this}}</li>
-							{{/each}}
-						</ul>
+						{{#if showPointsAgainst}}
+		  				<p>{{_ "proposals.view.pointsAgainst"}}</p>
+							<ul id="points-against-list">
+								{{#each pointsAgainst}}
+									<li>{{this}}</li>
+								{{/each}}
+							</ul>
+						{{/if}}
 	  			</div>
 	  			
 	  		</div>
@@ -98,7 +109,7 @@
 
 				<div class="mdl-grid delegateVoteGrid">
 				  <div class="mdl-cell mdl-cell--6-col">
-				  	<h5>{{_ "proposals.view.pointsFor"}}</h5>
+				  	<h5>{{_ "proposals.view.delegatesFor"}}</h5>
 				  	{{#if delegatesFor}}
 					  	<ul class="delegateVoteList demo-list-control mdl-list" >
 					  		{{#each delegatesFor}}
@@ -110,7 +121,7 @@
 				  	{{/if}}
 					</div>
 				  <div class="mdl-cell mdl-cell--6-col">
-				  	<h5>{{_ "proposals.view.pointsAgainst"}}</h5>
+				  	<h5>{{_ "proposals.view.delegatesAgainst"}}</h5>
 				  	{{#if delegatesAgainst}}
 					  	<ul class="demo-list-control mdl-list" >
 							{{#each delegatesAgainst}}

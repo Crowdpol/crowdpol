@@ -21,8 +21,23 @@
   background-color: $light-blue;
 }
 
-.proposal-item {
-  .mdl-list__item-secondary-action {
-    margin-right: $space;
+#sign-proposal {
+  border: 2px solid;
+  .proposal-item {
+    .mdl-list__item-secondary-action {
+      margin-right: $space;
+    }
   }
+}
+
+.proposal-status-chip {
+  margin-left: $space;
+}
+
+.delete-proposal-icon{
+  vertical-align: middle;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  cursor: pointer;
+  color: $light-grey-xdark;
 }

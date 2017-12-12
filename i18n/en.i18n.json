@@ -1,60 +1,278 @@
 {
-	"app_title": "Common Democracy",
-	"nav_home": "Home",
-	"nav_dash": "Dashboard",
-	"nav_about": "About",
-	"nav_contact": "Contact",
-	"nav_login": "Login",
-	"nav_logout": "Logout",
-	"header_nav_login" : "Login",
-	"drawer_nav_login" : "Log in",
-	"drawer_nav_logout": "Log out",
-	"drawer_nav_profile" : "Profile",
-	"drawer_nav_dash" : "Dashboard",
-	"drawer_nav_contact" : "Contact",
-	"drawer_nav_privacy" : "Privacy policy",
-	"drawer_nav_terms" : "Terms & conditions",
-	"drawer_nav_admin" : "Admin dashboard",
-	"home-title": "Home Page",
-	"dash-title": "Dashboard",
-	"login" : "Login",
-	"logout": "Log out",
-	"signup-button": "Sign Up",
-	"not-found_message": "Sorry, that page doesn't exist",
-	"not-found_home-link": "Go to home",
-	"lang_en": "English",
-	"lang_sv": "Swedish",
-	"email-address": "Email Address",
-	"password": "Password",
-	"login-title": "Login to get started:",
-	"signup-title": "No account yet? Sign up below:",
-	"logged-in-title": "You are already logged in",
-	"verify-account-message": "Please verify your email address before continuing.",
-	"unapproved-entity-message": "Your account has not yet been approved by an admin.",
-	"verify-resend-link": "Resend Verification Link",
-	"verify-success-message": "Verified! You can do things!",
-	"verify-success-alert": "Verification successful.",
-	"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",
-	"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",
-	"new-password": "New password",
-	"recovery-email": "Recovery email",
-	"submit": "Submit",
-	"recover-password-message": "Enter your email to receive instructions for resetting your password." ,
-	"reset-password-sent-message": "An email with password recovery instructions has been sent.",
-	"password-changed": "Your password has been changed successfully.",
-	"forgot-password-link": "Forgot your password?",
-
-	"emails": {
-		"verify-email": {
-			"subject": "Common Democracy: Please Verify Your Email",
-			"body": "To verify your email address __emailAddress__ visit the following link:\n\n __url__ \n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+	"layout": {
+		"header": {
+			"app_title": "Common Democracy",
+			"home_title": "Democracy 2018",
+			"nav_home": "Home",
+			"nav_dash": "Dashboard",
+			"nav_delegate" : "Delegate",
+			"nav_vote": "Vote",
+			"nav_nominate": "Nominate",
+			"nav_about": "About",
+			"nav_contact": "Contact",
+			"nav_login": "Login",
+			"nav_logout": "Logout",
+			"lang_en": "English",
+			"lang_sv": "Swedish",
+			"role_selector": "Switch Roles"
 		},
-		"reset-password": {
-			"subject": "Common Democracy: Reset Your Password",
-			"body": "To reset your password, simply click the link below: \n\n __url__ \n\n If you did not request to change your password, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+		"drawer": {
+			"nav_login" : "Log in",
+			"nav_logout": "Log out",
+			"nav_profile" : "Profile",
+			"nav_dash" : "Dashboard",
+			"nav_contact" : "Contact",
+			"nav_privacy" : "Privacy policy",
+			"nav_terms" : "Terms & conditions",
+			"nav_admin_dash" : "Admin dashboard",
+			"right_about" : "About"
+		},
+		"body":{},
+		"footer": {
+			"delegate": "Delegate",
+			"vote": "Vote",
+			"nominate": "Nominate"
 		}
 	},
-
+	"generic": {
+		"login": "Login",
+		"logout": "Logout",
+		"signup": "Sign Up",
+		"read-more": "Read More",
+		"preview": "Preview",
+		"loading": "Loading...",
+		"not-found_message": "Sorry, that page doesn't exist",
+		"not-found_home-link": "Go to home",
+		"alerts": {
+			"welcome": "Welcome"
+		}
+	},
+	"form": {
+		"email": "Email address",
+		"password": "Password",
+		"name": "Name",
+		"firstname": "First name",
+		"lastname": "Last name",
+		"username": "Username",
+		"bio": "About",
+		"website": "Website",
+		"phone": "Phone number",
+		"subject": "Subject",
+		"contact": "Contact person",
+		"message": "Your message",
+		"save": "Save",
+		"submit": "Submit"
+	},
+	"pages": {
+		"home": {
+			"heading": "Common Democracy",
+			"intro-text": "A liquid democracy platform for the Swedish Politcal system.",
+			"hero": {
+				"delegate": "Delegate",
+				"propose": "Propose",
+				"vote": "Vote"
+			},
+			"newsletter-text": "Get notified when the app is live.",
+			"banner-text": "A new wave of democracy is coming to Sweden.",
+			"alerts": {
+				"mailing-list-signup-success": "Thank you. You have been added to the mailing list."
+			}
+		},
+		"about": {
+			"heading": "What’s all this about then?",
+			"subtitle": "The (r)evolution explained",
+			"section": {
+				"project": {
+					"heading": "The project",
+					"paragraph-1": "Democracy 2018 is an open project that invites all Swedish citizens to explore the potential of so called liquid democracy and use this platform to select the issues and proposals most important to them. The ten most popular proposals will be presented to the new parliament after the election in September 2018. The purpose is in part to test a modernized version of our democratic system, but also to encourage the population to learn more about the issues this election year as well as find out where the various political parties stand on them. Finally the goal is to inform the members of parliaments and other political elites of how a hopefully representative cross-section of the population feel about various topics, in an effort to create dialogue and trust.",
+    				"paragraph-2": "The project opens on January first and concludes on September 15, Global Democracy Day, after which the results will be tallied and presented to the Minister of Democracy."
+				},
+				"liquid-democracy": {
+					"heading": "Liquid Democracy",
+					"paragraph-1": "Liquid democracy is a voting system that incorporates the benefit of representative democracy with the benefits of direct democracy, yet avoids the pitfalls of both. The system uses delegation, much like traditional delegation of the individual vote through electing a political party or representative, but with a few modernizing tweaks. Through liquid democracy it is possible not only to delegate to a political party but to any organisation or individual that signs up to the system as a delegate. This means that a party, organisation or individual can have political clout without actually holding political office. It is also quite possible for the voter to select several delegates, not merely a single party, and to unselect or change a delegate at any time. Thus the liquid like feature of the democratic system.",
+    				"paragraph-2": "The role of the delegate is to vote on issues on the individuals behalf that he or she does not have time or inclination to delve deeper into, much like the role of the traditional political representative. Unlike the latter the delegate is in effect only an advisor to the individual voter, who must ultimately sign off on each issue. Herein lies the connection to direct democracy. The voter can at any time actively vote on any issue, which will automatically override any vote by a preselected delegate",
+    				"paragraph-3": "The benefits are numerous. The system allows for a customized political platform with almost infinite possibilities as voters can potentially write and submit their own proposals to the scrutiny and potential support of their peers. Voters can also change their minds at any point in time if their selected delegates fall short of expectations, adding fluidity to the system. Delegates who do not live up to their promises will soon find they have lost much of their support, a powerful incentive against corruption. The immediacy of direct voting is tempered by the option of using delegation for more complex issues, avoiding the pitfall of uniformed decision making to a far greater degree than pure direct democracy can provide. The system of delegates allows for a far greater range of organisations and individuals to have direct influence over the political scene without having to hold office. Opening up completely new alleys of influence, provided they have sufficient support of the voting public. To name a few."
+				},
+				"how-it-works": {
+					"heading": "How it works",
+					"paragraph-1": "In our particular project the voter is first invited to join through a social media account or an email. Once the account is confirmed, the voter is presented with a number of political parties, organisations and individuals that act as delegates. The voter selects the delegates of her or his choice, and is then invited to rank them. A more highly ranked delegate will count before a less high one when the delegates voting preferences are calculated. The voter can however easily see which delegate voted in which way on each issue as all delegated votes are completely open.",
+    				"paragraph-2": "Then the voter will be directed to the second step, which is to vote on the issues. The project will start with ten proposals, but will add on average two new proposals per week for the duration of the project. For practical purposes these proposals will be selected by an editorial board. Each proposal will be indicated with a supporting or a rejecting indication, depending on the choices of the selected delegates. The voter will then be invited to confirm the preselected vote, or to vote differently. The voter can change his or her vote, as well as delegates, as any time until the deadline at midnight of 15 September 2018, or the conclusion of this particular project.",
+    				"paragraph-3": "Voters who wish to engage more can become members. Members will be able to write their own proposals, comment on each other’s proposals and vote for which proposals the editorial board should submit to the general public next.",
+    				"paragraph-4":"Individuals and organisations can also register as delegates. This is free of charge but will require proof of identity, in the form of a national ID for individuals or an email address linked to the organisations official webpage."
+				},
+				"about-us": {
+					"heading": "About Us",
+					"paragraph-1": "Democracy 2018 is a project run in cooperation with Common Democracy Sweden and a number of local individuals, companies and organisations."
+				}
+			}
+		},
+		"terms": {
+			"heading": "Terms & Conditions",
+			"subtitle": "Coming soon..."
+		},
+		"privacy": {
+			"heading": "Privacy Policy",
+			"subtitle": "Coming soon..."
+		},
+		"authenticate":{
+			"logged-in-title": "You are already logged in",
+			"logout": "Log out",
+			"tab": {
+				"individual": "Individuals",
+				"entities": "Organisations/Political Parties"
+			},
+			"links": {
+				"login": "Already have an account? Log in",
+				"register": "Don't have an account? Register",
+				"forgot": "Forgot your password?"
+			},
+			"individual": {
+				"register": {
+					"title": "Signup"
+				},	
+				"login": {
+					"title": "Login"
+				}
+			},
+			"entity": {
+				"register": {
+					"title": "Register as Organisation/Party"
+				},	
+				"login": {
+					"title": "Login as Organisation/Party"
+				}
+			},
+			"new-passowrd":{
+				"heading": "Enter new password",
+				"new-password": "New password",
+				"alerts": {
+					"password-changed": "Your password has been changed successfully."
+				}
+			},
+			"recover-password":{
+				"heading": "Enter your email to receive instructions for resetting your password.",
+				"recovery-email": "Recovery email",
+				"alerts": {
+					"reset-password-sent-message": "An email with password recovery instructions has been sent."
+				}
+			}
+		},
+		"login":{},
+		"signup":{},
+		"entitySignup":{
+			"type": "Entity Type"
+		},
+		"contact":{
+			"heading": "Contact Us",
+			"alerts": {
+				"contact-message-sent": "Your contact message has been sent."
+			}
+		},
+		"dashboard": {
+			"heading" : "Dashboard",
+			"card": {
+				"proposals": {
+					"heading": "Proposals",
+					"text": "View proposals.",
+					"link": "Vote"
+				},
+				"delegates": {
+					"heading": "Delegates",
+					"text": "Select your delegates",
+					"link": "Delegate"
+				},
+				"candidates": {
+					"heading": "Candidates",
+					"text": "Select your candidates",
+					"link": "Nominate"
+				}
+			},
+			"verify-account-message": "Please verify your email address before continuing.",
+			"unapproved-entity-message": "Your account has not yet been approved by an admin.",
+			"verify-resend-link": "Resend Verification Link",
+			"verify-success-message": "Verified! You can do things!",
+			"verify-success-alert": "Verification successful.",
+			"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",
+			"alerts": {
+				"verification-email-sent": "Verification sent to __email__"
+			}
+		},
+		"profile": {
+			"heading": "Profile",
+			"photo" : "Profile photo path",
+			"public" : "Public Profile",
+			"private" : "Private Profile",
+			"delegate" : "Delegate",
+			"candidate" : "Candidate",
+			"alerts": {
+				"profile-updated": "Profile updated.",
+				"profile-private": "Profile is now private.",
+				"profile-public": "Profile is now public.",
+				"profile-delegate-removed" : "Delegate Role removed.",
+				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-candidate-removed" : "Candidate Role removed.",
+				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete."
+			}
+		},
+		"delegates": {
+			"heading": "Delegates",
+			"alerts": {
+				"delegate-limit": "You can only have 5 delegates",
+				"ranking-updated": "Delegate ranking updated"
+			}
+		},
+		"candidates": {
+			"heading": "Candidates",
+			"alerts": {
+				"candidate-limit": "You can only have 5 candidates",
+				"ranking-updated": "Candidate ranking updated"
+			}
+		},
+		"proposals": {
+			"heading": "Proposals",
+			"tabs": {
+				"vote-proposals": "Vote Proposals",
+				"my-proposals": "My Proposals"
+			},
+			"open-closed-switch": "Open/Closed",
+			"created-invited-switch": "Created/Invited",
+			"open-proposals": "Open Proposals",
+			"close-proposals": "Closed Proposals",
+			"my-proposals": "My proposals",
+			"contributed-prosals": "Proposals I contribute to",
+			"proposal-expires": "Expires",
+			"edit": {
+				"heading": "Write your proposal",
+				"title": "Title",
+				"abstract": "Summarise your proposal",
+				"startDate": "Start date for voting",
+				"endDate": "Closing date for voting",
+				"invited": "Invite others to collaborate by entering their usernames, separated by commas",
+				"add-tags": "Add some tags your proposal:"
+			},
+			"alerts": {
+				"changes-saved": "Changes saved",
+				"proposal-created": "Proposal created",
+				"copy-to-clipboard-success": "Proposal link copied to clipboard",
+				"copy-to-clipboard-fail": "Could not copy to clipboard",
+				"proposal-submitted": "Proposal submitted for admin approval",
+				"comment-success": "Comment posted",
+				"vote-success": "Your vote has been cast"
+			}
+		},
+		"tag-search":{
+			"heading": "Tagged",
+			"tabs": {
+				"proposals": "Proposals",
+				"delegates": "Delegates",
+				"candidates": "Candidates",
+				"proposals-heading": "Proposals",
+				"delegates-heading": "Delegates",
+				"candidates-heading": "Candidates"
+			}
+		}
+	},
 	"admin":{
 		"dash":{
 			"heading" : "Admin Dashboard",
@@ -105,6 +323,16 @@
 			"reject-button": "Reject",
 			"invite-role": "User Role"
 		},
+		"proposals":{
+			"heading": "Proposals",
+			"date": "Date",
+			"author": "Author",
+			"contributors": "Contributors",
+			"title": "Title",
+			"none-waiting": "There are no new proposals awaiting approval.",
+			"approve-button": "Approve",
+			"reject-button": "Reject"
+		},
 		"tags": {
 			"heading": "Manage Tags",
 			"text": "Text",
@@ -114,12 +342,28 @@
 			"created": "Date created",
 			"approved": "Authorized",
 			"add-button": "Add",
-			"delete-button": "Delete"
+			"delete-button": "Delete",
+			"none-waiting": "There are currently no pending proposals."
 		},
 		"approvals": {
 			"heading": "Approvals",
 			"approve-button": "Approve",
-			"reject-button": "Reject"
+			"reject-button": "Reject",
+			"date": "Date",
+			"username":"Username",
+			"request-type":"Request Type",
+			"request-status":"Request Status",
+			"approvals-waiting":"There are no pending approval requests."
+		},
+		"alerts": {
+			"user-approved": "User approved",
+			"user-rejected": "User rejected",
+			"proposal-approved": "Proposal approved",
+			"proposal-rejected": "Proposal rejected",
+			"tag-updated": "Tag Updated",
+			"tag-added": "Tag Added",
+			"tag-deleted": "Tag Deleted",
+			"verification-email-sent": "Verification sent to "
 		},
 		"stats": {
 			"proposals":{
@@ -130,7 +374,36 @@
 			}
 		}
 	},
-
+	"emails": {
+		"verify-email": {
+			"subject": "Common Democracy: Please Verify Your Email",
+			"body": "To verify your email address __emailAddress__ visit the following link:\n\n __url__ \n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+		},
+		"reset-password": {
+			"subject": "Common Democracy: Reset Your Password",
+			"body": "To reset your password, simply click the link below: \n\n __url__ \n\n If you did not request to change your password, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+		},
+		"rejection-email": {
+			"from": "__name__ __fromEmail__",
+			"subject": "Your request to be a __type__ has been rejected",
+			"body": "An administrator has rejected your request to be a __type__ user."
+		},
+		"newsletter-confirmation":{
+			"from": "__name__ __fromEmail__",
+			"subject": "Newsletter Signup Confirmation",
+			"body": "Thank you for signing up to our newsletter. We will be sure to keep you up to date."
+		},
+		"send-approval": {
+			"from": "__name__ __fromEmail__",
+			"subject": "Your request to be a __type__ user has been approved",
+			"body": "An administrator has approved your request to be a __type__. You can now log in as a __type__."
+		},
+		"send-invite": {
+			"from": "__name__ __fromEmail__",
+			"subject": "Invitation to Common Democracy",
+			"body": "You have been invited to participate in Common Democracy as a __role__. Click the link to register: __url__"
+		}
+	},
 	"roles":{
 		"voter": "Voter",
 		"individual-delegate": "Individual Delegate",
@@ -138,7 +411,6 @@
 		"party-delegate": "Party Delegate",
 		"candidate": "Candidate"
 	},
-
 	"signup":{
 		"tab": {
 			"individual": "Individuals",
@@ -173,65 +445,6 @@
 			}
 		}
 	},
-
-	"proposals": {
-		"list": {
-			"tabs":{
-				"allProposals": "All Proposals",
-				"myProposals": "My Proposals",
-				"writeProposals": "Write Proposals"
-			},
-			"headings":{
-				"openProposals": "Open Proposals",
-				"closedProposals": "Closed Proposals",
-				"myProposals": "My proposals"
-			},
-			"cards":{
-				"expires": "Expires",
-				"read": "Read More",
-				"vote": "and vote"
-			},
-			"openClosedSwitch": "Open/Closed",
-			"createdInvitedSwitch": "Created/Invited"
-		},
-		"edit": {
-			"heading": "Write your proposal",
-			"title": "Title",
-			"abstract": "Summarise your proposal",
-			"startDate": "Start date for voting",
-			"endDate": "Closing date for voting",
-			"invited": "Invite others to collaborate by entering their usernames, separated by commas",
-			"tags": "Add some tags your proposal:",
-			"pointFor": "Points For:",
-			"pointAgainst": "Points Agaist:"
-		},
-		"view":{
-			"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
-			"voteCast": "Your vote has been cast",
-			"editProposal": "Edit Proposal",
-			"submitProposal": "Submit Proposal",
-			"pointsFor": "Points For:",
-			"pointsAgainst": "Points Against",
-			"noDelegatesVoted": "None of your delegates voted against this issue",
-			"proposalUnvailable": "Sorry, this proposal is not yet visible to the public.",
-			"noDelegateReason": "This delegate did not provide a reason for their voting choice.",
-			"addComment": "Add a comment",
-			"voteHeading": "Vote on this proposal",
-			"voteStarts": "Voting starts on:",
-			"voteEnds": "Voting ends on: ",
-			"abstract": "Abstract",
-			"proposal": "Proposal",
-			"alerts": {
-				"linkToClipboardSuccess": "Link copied to clipboard",
-				"linkToClipboardFailed": "Link copied to clipboard",
-				"proposalSubmitted":"Proposal submitted for admin approval",
-				"commentPosted":"Comment posted"
-			},
-			"userNotFound":"User could not be found",
-			"anonymous": "Anonymous"
-		}
-	},
-
 	"name": "Name",
 	"subject": "Subject",
 	"contact-message": "Your message:",
@@ -269,5 +482,73 @@
 				"link": "Delegate"
 			}
 		}
-	}
+	},
+	"routes": {
+		"alerts": {
+			"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",
+			"login-to-view": "You must log in to access that page."
+		}
+	},
+	"proposals": {
+			"list": {
+				"deletedMessage": "Your proposal has been deleted.",
+				"confirmDelete": "Are you sure you want to permanently delete this proposal?",
+				"tabs":{
+					"allProposals": "All Proposals",
+					"myProposals": "My Proposals",
+					"writeProposals": "Write Proposals"
+				},
+				"headings":{
+					"openProposals": "Open Proposals",
+					"closedProposals": "Closed Proposals",
+					"myProposals": "My proposals"
+				},
+				"cards":{
+					"expires": "Expires",
+					"read": "Read More",
+					"vote": "and vote"
+				},
+				"openClosedSwitch": "Open/Closed",
+				"createdInvitedSwitch": "Created/Invited"
+			},
+			"edit": {
+				"heading": "Write your proposal",
+				"title": "Title",
+				"abstract": "Summarise your proposal",
+				"startDate": "Start date for voting",
+				"endDate": "Closing date for voting",
+				"invited": "Invite others to collaborate by entering their usernames, separated by commas",
+				"tags": "Add some tags your proposal:",
+				"pointFor": "Points For:",
+				"pointAgainst": "Points Against:"
+			},
+			"view":{
+				"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
+				"voteCast": "Your vote has been cast",
+				"editProposal": "Edit Proposal",
+				"submitProposal": "Submit Proposal",
+				"pointsFor": "Points For:",
+				"pointsAgainst": "Points Against:",
+				"noDelegatesVoted": "None of your delegates voted against this issue",
+				"proposalUnvailable": "Sorry, this proposal is not yet visible to the public.",
+				"noDelegateReason": "This delegate did not provide a reason for their voting choice.",
+				"addComment": "Add a comment",
+				"voteHeading": "Vote on this proposal",
+				"voteStarts": "Voting starts on:",
+				"voteEnds": "Voting ends on: ",
+				"abstract": "Abstract",
+				"proposal": "Proposal",
+				"alerts": {
+					"linkToClipboardSuccess": "Link copied to clipboard",
+					"linkToClipboardFailed": "Link copied to clipboard",
+					"proposalSubmitted":"Proposal submitted for admin approval",
+					"commentPosted":"Comment posted"
+				},
+				"userNotFound":"User could not be found",
+				"anonymous": "Anonymous",
+				"delegatesFor": "Delegates For",
+				"delegatesAgainst": "DelegatesAgainst"
+			}
+		}
+
 }

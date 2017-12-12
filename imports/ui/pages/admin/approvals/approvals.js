@@ -33,8 +33,8 @@ Template.AdminApprovals.events({
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				//Meteor.call('sendApproval', email, type);
-				Bert.alert("User approved", 'success');//TAPi18n.__('profile-msg-private');
+				Meteor.call('sendApproval', email, type);
+				Bert.alert(TAPi18n.__('pages.admin.alerts.user-approved'), 'success');//TAPi18n.__('profile-msg-private');
 			}
 		});  
 		//
@@ -64,8 +64,8 @@ Template.AdminApprovals.events({
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				//Meteor.call('sendRejection', email, type);
-				Bert.alert("User rejected", 'success');//TAPi18n.__('profile-msg-private');
+				Meteor.call('sendRejection', email, type);
+				Bert.alert(TAPi18n.__('pages.admin.alerts.user-rejected'), 'success');//TAPi18n.__('profile-msg-private');
 			}
 		}); 
 	}*/
