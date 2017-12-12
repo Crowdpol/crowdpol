@@ -296,6 +296,11 @@
 					"heading": "Proposals",
 					"text": "Review proposals submitted by users.",
 					"link": "Manage Proposals"
+				},
+				"stats":{
+					"heading": "Statistics",
+					"text": "Review various statistcs of the site",
+					"link": "View Stats"
 				}
 			}
 		},
@@ -359,6 +364,14 @@
 			"tag-added": "Tag Added",
 			"tag-deleted": "Tag Deleted",
 			"verification-email-sent": "Verification sent to "
+		},
+		"stats": {
+			"proposals":{
+				"tabs": {
+					"overview" : "Overview",
+					"proposalList" : "Proposal Stats"
+				}
+			}
 		}
 	},
 	"emails": {
