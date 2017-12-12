@@ -78,6 +78,11 @@
 					"heading": "Proposals",
 					"text": "Review proposals submitted by users.",
 					"link": "Manage Proposals"
+				},
+				"stats":{
+					"heading": "Statistics",
+					"text": "Review various statistcs of the site",
+					"link": "View Stats"
 				}
 			}
 		},
