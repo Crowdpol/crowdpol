@@ -96,6 +96,15 @@ FlowRouter.route('/about', {
   },
 });
 
+//USER SEARCH
+FlowRouter.route('/search/users', {
+  name: 'App.search.users',
+  action() {
+    BlazeLayout.render('App_body', { main: 'UserSearch' });
+  },
+});
+
+
 //STATISTICS 
 FlowRouter.route('/stats', {
   name: 'App.stats',

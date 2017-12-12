@@ -167,3 +167,29 @@ Meteor.publish('simpleSearch', function(search,type) {
     self.ready();
   //return Meteor.users.find( query, projection );
 });
+
+Meteor.publish('userSearch', function(search) {
+  check( search, Match.OneOf( String, null, undefined ) );
+  /*if (!search) {
+    return Meteor.users.find({roles: type});
+  }*/
+  let query      = {roles: { $nin: [ "demo" ] }},
+      projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
+
+  if ( search ) {
+    let regex = new RegExp( search, 'i' );
+
+    query = {$and: [
+      {$or: [
+        { "profile.firstName": regex },
+        { "profile.lastName": regex },
+        { "profile.userName": regex },
+        { "emails.address": regex}
+      ]},
+      { roles: { $nin: [ "demo" ] }}
+    ]};
+
+    projection.limit = 100;
+  }
+  return Meteor.users.find( query, projection );
+});

@@ -175,9 +175,6 @@ Template.EditProposal.events({
 	'mouseleave  .pointsListItem':  function(event, template){
 		string = "#" + event.currentTarget.id + " > button";
 		$(string).hide();
-	},
-	'keyup #invited':  function(event, template){
-		console.log(event.currentTarget.value);
 	}
 });
 

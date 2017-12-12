@@ -3,4 +3,22 @@
     <label class="mdl-textfield__label">{{_ "pages.proposals.edit.invited"}}</label>
     <input type="text" id="invited" class="mdl-textfield__input">
   </div>
+  <div id="userMatches">
+  <ul class="demo-list-two mdl-list">
+	  {{#each userMatches}}
+			<li class="mdl-list__item mdl-list__item--two-line">
+		    <span class="mdl-list__item-primary-content">
+		      <img src="{{profile.photo}}" class="material-icons mdl-list__item-avatar">
+		      <span>{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+		      <span class="mdl-list__item-sub-title">({{profile.username}})</span>
+		    </span>
+		    <span class="mdl-list__item-secondary-action">
+		      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{index}}">
+		        <input type="checkbox" id="list-checkbox-{{index}}" class="mdl-checkbox__input" checked />
+		      </label>
+		    </span>
+		  </li>
+	  {{/each}}
+		</ul>
+  </div>
 </template>
