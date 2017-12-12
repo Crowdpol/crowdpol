@@ -21,7 +21,10 @@ describe('Proposal publications', function () {
           endDate: new Date(),
           authorId: userId,
           invited: ['invitedGuy', 'otherInvitedGuy'],
-          tags: [{text: tag.text, keyword: tag.keyword, _id: tag._id, url: tag.url}]
+          tags: [{text: tag.text, keyword: tag.keyword, _id: tag._id, url: tag.url}],
+          pointsFor: ['point1','point2'],
+          pointsAgainst: ['point1','point2'],
+          references: ['ref1','ref2'],
         }
         
         propsalId = Meteor.call('createProposal', proposal);

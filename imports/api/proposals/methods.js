@@ -29,9 +29,23 @@ Meteor.methods({
       check(proposalId, String);
       return Proposals.findOne({_id: proposalId});
     },
-    deleteProposal: function (proposalId) {
+    deleteProposal: function(proposalId) {
       check(proposalId, String);
+      var user = Meteor.user();
+
+      var proposal = Proposals.findOne(proposalId);
+      // user must be logged in
+      if (!user)
+        throw new Meteor.Error(401, "You need to login to delete your proposal.");
+      // proposal must exist
+      if (!proposal)
+        throw new Meteor.Error(422, "Proposal does not exist.");
+      // user must be the author of the proposal
+      if (!proposal.authorId == Meteor.userId())
+        throw new Meteor.Error(422, "Only the author of a proposal can delete it.");
+      
       Proposals.remove(proposalId);
+      
     },
     rejectProposal: function (proposalId) {
       check(proposalId, String);
@@ -98,4 +112,72 @@ Meteor.methods({
   addPointFor: function(proposalId, text) {
     Proposals.update({_id: proposalId}, { $push: { pointsFor: text } });
   },
+  getProposalsPublishedStats: function() {
+      result = Proposals.aggregate([
+      { $group: {
+            "_id": "$proposalId",
+            "draftUnreviewedCount": {
+                "$sum": {$cond: [ {$and : [ { $eq: [ "$stage", "draft"  ] },{ $eq: [ "$status", "unreviewed" ] }]}, 1, 0 ]}
+            },
+            "draftApprovedCount": {
+                "$sum": {
+                    $cond: [ {$and : [ { $eq: [ "$stage", "draft"  ] },
+                                       { $eq: [ "$status", "approved" ] }
+                                     ]}, 1, 0 ]
+                }
+            },
+            "draftRejectedCount": {
+                "$sum": {
+                    $cond: [ {$and : [ { $eq: [ "$stage", "draft"  ] },
+                                       { $eq: [ "$status", "rejected" ] }
+                                     ]}, 1, 0 ]
+                }
+            },
+            "submittedReviewedCount": {
+                "$sum": {
+                    $cond: [ {$and : [ { $eq: [ "$stage", "submitted"  ] },
+                                       { $eq: [ "$status", "unreviewed" ] }
+                                     ]}, 1, 0 ]
+                }
+            },
+            "submittedApprovedCount": {
+                "$sum": {
+                    $cond: [ {$and : [ { $eq: [ "$stage", "submitted"  ] },
+                                       { $eq: [ "$status", "approved" ] }
+                                     ]}, 1, 0 ]
+                }
+            },
+            "submittedRejectedCount": {
+                "$sum": {
+                    $cond: [ {$and : [ { $eq: [ "$stage", "submitted"  ] },
+                                       { $eq: [ "$status", "rejected" ] }
+                                     ]}, 1, 0 ]
+                }
+            },
+            "liveUnreviewedCount": {
+                "$sum": {
+                    $cond: [ {$and : [ { $eq: [ "$stage", "live"  ] },
+                                       { $eq: [ "$status", "unreviewed" ] }
+                                     ]}, 1, 0 ]
+                }
+            },
+            "liveApprovedCount": {
+                "$sum": {
+                    $cond: [ {$and : [ { $eq: [ "$stage", "live"  ] },
+                                       { $eq: [ "$status", "approved" ] }
+                                     ]}, 1, 0 ]
+                }
+            },
+            "liveRejectedCount": {
+                "$sum": {
+                    $cond: [ {$and : [ { $eq: [ "$stage", "live"  ] },
+                                       { $eq: [ "$status", "rejected" ] }
+                                     ]}, 1, 0 ]
+                }
+            },
+        }},
+      ]);
+      //console.log(result);
+      return result;
+    }
 });

@@ -22,7 +22,10 @@ if (Meteor.isServer) {
           body: 'I hereby propose a proposal to test the proposals so that others, too, may propose proposals.',
           startDate: new Date(),
           endDate: new Date(),
-          authorId: '213924230'
+          authorId: '213924230',
+          pointsFor: ['point1','point2'],
+          pointsAgainst: ['point1','point2'],
+          references: ['ref1','ref2'],
         }
         
         id = Meteor.call('createProposal', proposalData);

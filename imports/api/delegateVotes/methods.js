@@ -36,13 +36,25 @@ Meteor.methods({
     check(voteId, String);
     DelegateVotes.remove(voteId);
   },
-  getAllDelegateVotes: function(proposalId){
+  getProposalDelegateVotes: function(proposalId){
     check(proposalId, String);
     results = DelegateVotes.aggregate([
-      { $match: {"proposalId" : "GqXEii9qmfJ7vai6K"}},
-      { $group: {_id: "$vote", total : { $sum : 1 } }}
+      { $match: {"proposalId" : proposalId}},
+      { $group: {
+            "_id": "$proposalId",
+            "yesCount": {
+                "$sum": {
+                    $cond: [ { $eq: [ "$vote", "yes" ] }, 1, 0 ]
+                }
+            },
+            "noCount": {
+                "$sum": {
+                    $cond: [ { $eq: [ "$vote", "no" ] }, 1, 0 ]
+                }
+            }
+        }},
     ]);
-    console.log(results);
+    //console.log(results);
     return results;
   },
   getDelegateVote: function(voteId){
@@ -75,3 +87,4 @@ Meteor.methods({
     }
   }
 });
+

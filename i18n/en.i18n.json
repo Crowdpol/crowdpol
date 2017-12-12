@@ -211,7 +211,8 @@
 				"profile-delegate-removed" : "Delegate Role removed.",
 				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
 				"profile-candidate-removed" : "Candidate Role removed.",
-				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed."
+				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete."
 			}
 		},
 		"delegates": {
@@ -295,6 +296,11 @@
 					"heading": "Proposals",
 					"text": "Review proposals submitted by users.",
 					"link": "Manage Proposals"
+				},
+				"stats":{
+					"heading": "Statistics",
+					"text": "Review various statistcs of the site",
+					"link": "View Stats"
 				}
 			}
 		},
@@ -358,6 +364,14 @@
 			"tag-added": "Tag Added",
 			"tag-deleted": "Tag Deleted",
 			"verification-email-sent": "Verification sent to "
+		},
+		"stats": {
+			"proposals":{
+				"tabs": {
+					"overview" : "Overview",
+					"proposalList" : "Proposal Stats"
+				}
+			}
 		}
 	},
 	"emails": {
@@ -477,6 +491,8 @@
 	},
 	"proposals": {
 			"list": {
+				"deletedMessage": "Your proposal has been deleted.",
+				"confirmDelete": "Are you sure you want to permanently delete this proposal?",
 				"tabs":{
 					"allProposals": "All Proposals",
 					"myProposals": "My Proposals",
