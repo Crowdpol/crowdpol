@@ -173,7 +173,7 @@ Meteor.publish('userSearch', function(search) {
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  let query      = {roles: { $nin: [ "demo" ] }},
+  let query      = {$and: [{roles: { $nin: [ "demo" ] }},{"isPublic" : true}]},
       projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
@@ -186,7 +186,8 @@ Meteor.publish('userSearch', function(search) {
         { "profile.userName": regex },
         { "emails.address": regex}
       ]},
-      { roles: { $nin: [ "demo" ] }}
+      { roles: { $nin: [ "demo" ] }},
+      {"isPublic" : true}
     ]};
 
     projection.limit = 100;

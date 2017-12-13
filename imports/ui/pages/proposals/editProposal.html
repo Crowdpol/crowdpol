@@ -90,9 +90,30 @@
 			</div> -->
 			{{_ "proposals.edit.tags"}}
 			{{> taggle }}
-
-			{{> UserSearch}}
-
+			<div class="form-group">
+				{{> UserSearch}}
+			</div>
+			<div class="form-group">
+				<div id="invited-users">
+					{{#each selectedInvites}}
+						<span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
+					    <img class="mdl-chip__contact" src="{{profile.photo}}">
+					    <span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+					    <a href="#" class="mdl-chip__action remove-invite" data-user-id="{{_id}}"><i class="material-icons">cancel</i></a>
+						</span>
+					{{/each}}
+				</div>
+				<div id="invited-users-email">
+					{{#each value in emailedInvites}}
+						<span class="mdl-chip mdl-chip--contact">
+					    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons email-invites">mail</i></span>
+					    <span class="mdl-chip__text">{{value}}</span>
+					    <a href="#" class="mdl-chip__action remove-invite-email" data-array-index="{{@index}}"><i class="material-icons">cancel</i></a>
+						</span>
+					{{/each}}
+				</div>
+			</div>
+			<br>
 			<div class="form-group">
 				<input type="submit" id="save-proposal" class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" value='{{_ "form.save"}}'>
 				<input id="preview-proposal" class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" value='{{_ "generic.preview"}}'>

@@ -258,7 +258,8 @@
 				"copy-to-clipboard-fail": "Could not copy to clipboard",
 				"proposal-submitted": "Proposal submitted for admin approval",
 				"comment-success": "Comment posted",
-				"vote-success": "Your vote has been cast"
+				"vote-success": "Your vote has been cast",
+				"bad-email": "Invalid email address"
 			}
 		},
 		"tag-search":{
@@ -517,7 +518,7 @@
 				"abstract": "Summarise your proposal",
 				"startDate": "Start date for voting",
 				"endDate": "Closing date for voting",
-				"invited": "Invite others to collaborate by entering their usernames, separated by commas",
+				"invited": "Invite others to collaborate by entering their usernames. If not found, enter an email address.",
 				"tags": "Add some tags your proposal:",
 				"pointFor": "Points For:",
 				"pointAgainst": "Points Against:"

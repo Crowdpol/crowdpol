@@ -10,6 +10,8 @@ Template.EditProposal.onCreated(function(){
 	var self = this;
 	Template.instance().pointsFor = new ReactiveVar([]);
   	Template.instance().pointsAgainst = new ReactiveVar([]);
+  	Session.set('invited',[]);
+  	Session.set('emailInvites',[]);
 });
 
 Template.EditProposal.onRendered(function(){
@@ -69,6 +71,9 @@ Template.EditProposal.onRendered(function(){
 			},*/
 		}
 	});
+	var top = $("#invited-users").position().top + 40;
+	var left = $("#invited").position().left + 15;
+  	//$("#autosuggest-results").css({top: top, left: left});
 
 	// Initialise Quill editor
 	editor = new Quill('#body-editor', {
@@ -87,6 +92,7 @@ Template.EditProposal.onRendered(function(){
   	self.taggle = new ReactiveVar(taggle);
 
   	self.autorun(function(){
+  		//self.subscribe("users.all");
 		proposalId = FlowRouter.getParam("id");
 		
 		if (proposalId){
@@ -175,6 +181,12 @@ Template.EditProposal.events({
 	'mouseleave  .pointsListItem':  function(event, template){
 		string = "#" + event.currentTarget.id + " > button";
 		$(string).hide();
+	},
+	'click .remove-invite': function(e,t){
+    	removeUserInvite($(e.currentTarget).attr("data-user-id"));
+	},
+	'click .remove-invite-email': function(e,t){
+	    removeUserEmail($(e.currentTarget).attr("data-array-index"));
 	}
 });
 
@@ -184,6 +196,12 @@ Template.EditProposal.helpers({
   },
   pointsAgainst() {
     return Template.instance().pointsAgainst.get();
+  },
+  selectedInvites: function() {
+    return Meteor.users.find({ _id : { $in :  Session.get('invited')} })
+  },
+  emailedInvites: function() {
+    return Session.get('emailInvites');
   }
 });
 
@@ -233,3 +251,14 @@ function saveChanges(event, template, returnTo){
 	
 	
 };
+function removeUserInvite(id){
+  invited = Session.get("invited");
+  var index = invited.indexOf(id);
+  invited.splice(index, 1);
+  Session.set("invited",invited);
+}
+function removeUserEmail(index){
+  emails = Session.get('emailInvites');
+  emails.splice(index, 1);
+  Session.set('emailInvites',emails);
+}
