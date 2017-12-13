@@ -42,10 +42,10 @@
 						</button>
 					  </div>
 					  
-					<ul id="points-for-list" class="pointsList">
+					<ul id="points-for-list" class="pointsList mdl-list">
 						{{#each pointsFor}}
-							<li id="point-for-{{@index}}" class="pointsListItem">
-								{{this}}
+							<li id="point-for-{{@index}}" class="pointsListItem mdl-list__item"><span class="mdl-list__item-primary-content">
+								{{this}}</span>
 								<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="remove-point-for" data-id="{{@index}}" style="position: relative; float: right; display: none;">
 									<i class="material-icons">remove</i>
 								</button>

@@ -28,3 +28,6 @@
 .proposal-container{
 	padding: 0px;
 }
+#inputPointFor, #inputPointAgainst {
+	    max-height: 83px;
+}

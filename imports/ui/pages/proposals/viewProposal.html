@@ -30,17 +30,17 @@
 			    </span>
 			  </li>
 			</ul>
-			<div class="form-group">
-				<h6><small>{{_ "proposals.view.colloborators"}}</small></h6>
-				{{#each selectedInvites}}
-					<img class="mdl-chip__contact" src="{{profile.photo}}">
-					<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
-				{{/each}}
-			</div>
-			
-			<br>
-
-			<h1 class="proposal-title">{{ title }}<small>{{_ "proposals.view.colloborators"}}</small></h1>
+			{{#if selectedInvites.count}}
+				<div class="form-group">
+					<h6><small>{{_ "proposals.view.colloborators"}}</small></h6>
+					{{#each selectedInvites}}
+						<img class="mdl-chip__contact" src="{{profile.photo}}">
+						<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+					{{/each}}
+				</div>
+				<br>
+			{{/if}}
+			<h1 class="proposal-title">{{ title }}</h1>
 
 			<div class="proposal-wrap">
 				<h5>{{_ "proposals.view.abstract"}}</h5>
@@ -66,9 +66,9 @@
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 	  				{{#if showPointsFor}}
 		  				<p>{{_ "proposals.view.pointsFor"}}</p>
-							<ul id="points-for-list">
+							<ul id="points-for-list" class="mdl-list">
 								{{#each pointsFor}}
-									<li>{{this}}</li>
+									<li class="mdl-list__item"><span class="mdl-list__item-primary-content">{{this}}</span></li>
 								{{/each}}
 							</ul>
 						{{/if}}
@@ -128,7 +128,7 @@
 					</div>
 				{{/if}}
 				<hr>
-
+				{{#if delegatesFor.count }}
 				<div class="mdl-grid delegateVoteGrid">
 				  <div class="mdl-cell mdl-cell--6-col">
 				  	<h5>{{_ "proposals.view.delegatesFor"}}</h5>

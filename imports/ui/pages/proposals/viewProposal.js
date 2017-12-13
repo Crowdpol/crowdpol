@@ -149,12 +149,10 @@ Template.ViewProposal.helpers({
     return moment(Template.instance().templateDictionary.get('createdAt')).format('MMMM Do YYYY');
   },
   author: function(){
-    console.log(Template.instance().templateDictionary.get('authorId'));
     result = Meteor.users.findOne({ _id : Template.instance().templateDictionary.get('authorId')})
     return result
   },
   selectedInvites: function() {
-    console.log(Template.instance().templateDictionary.get('invited'));
     result = Meteor.users.find({ _id : { $in :  Template.instance().templateDictionary.get('invited')} })
     return result;
   },
@@ -201,6 +199,7 @@ Template.ViewProposal.helpers({
   },
   showPointsFor: function(){
     results = Template.instance().templateDictionary.get( 'pointsFor' );
+    console.log(results);
     if(results.length > 0){
       return true;
     }
