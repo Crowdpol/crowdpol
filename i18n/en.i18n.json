@@ -548,7 +548,9 @@
 				"userNotFound":"User could not be found",
 				"anonymous": "Anonymous",
 				"delegatesFor": "Delegates For",
-				"delegatesAgainst": "DelegatesAgainst"
+				"delegatesAgainst": "DelegatesAgainst",
+				"colloborators": "Collaborators",
+				"author": "Author"
 			}
 		}
 

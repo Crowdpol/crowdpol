@@ -5,20 +5,42 @@
 	{{#if Template.subscriptionsReady}}
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
-			<h1 class="proposal-title">{{ title }}</h1>
-
-			<div class="mdl-card__menu">
-				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
-					<i class="material-icons">share</i>
-				</button>
-				{{#if isLive}}
-					<div class="mdl-layout-spacer"></div>
-					<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="sign-proposal">
-						<i class="material-icons">{{ signatureIcon }}</i>
-					</button>
-					{{ signatureCount }}
-				{{/if}}
+			<ul class="demo-list-two mdl-list">
+			  <li class="mdl-list__item mdl-list__item--two-line proposal-author">
+			    <span class="mdl-list__item-primary-content">
+			      <img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
+			      <span>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</span>
+			      <span class="mdl-list__item-sub-title">
+			      	{{createdAt}}
+			      </span>
+			    </span>
+			    <span class="mdl-list__item-secondary-content">
+			      <span class="mdl-list__item-secondary-info">
+			      	<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+								<i class="material-icons">share</i>
+							</button>
+							{{#if isLive}}
+								<div class="mdl-layout-spacer"></div>
+								<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="sign-proposal">
+									<i class="material-icons">{{ signatureIcon }}</i>
+								</button>
+								{{ signatureCount }}
+							{{/if}}
+			      </span>
+			    </span>
+			  </li>
+			</ul>
+			<div class="form-group">
+				<h6><small>{{_ "proposals.view.colloborators"}}</small></h6>
+				{{#each selectedInvites}}
+					<img class="mdl-chip__contact" src="{{profile.photo}}">
+					<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+				{{/each}}
 			</div>
+			
+			<br>
+
+			<h1 class="proposal-title">{{ title }}<small>{{_ "proposals.view.colloborators"}}</small></h1>
 
 			<div class="proposal-wrap">
 				<h5>{{_ "proposals.view.abstract"}}</h5>
@@ -64,7 +86,7 @@
 	  			
 	  		</div>
   		</div>
-			<!-- References & Links -->
+
 
 			<small>{{_ "proposals.view.voteStarts"}}&nbsp;{{ startDate }}</small>
 			<br />
@@ -133,6 +155,7 @@
 				  	{{/if}}
 				  </div>
 				</div>
+				
 			{{/if}}
 
 			<hr>
