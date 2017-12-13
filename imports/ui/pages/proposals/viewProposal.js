@@ -19,10 +19,9 @@ Template.ViewProposal.onCreated(function(){
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
-        console.log(proposal);
-        dict.set( 'title', proposal.title );
-        dict.set( 'abstract', proposal.abstract );
-        dict.set( 'body', proposal.body );
+        dict.set( 'title', proposal.title || '');
+        dict.set( 'abstract', proposal.abstract || '');
+        dict.set( 'body', proposal.body || '');
         dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') );
         dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') );
         dict.set( 'invited', proposal.invited );
@@ -93,16 +92,21 @@ Template.ViewProposal.events({
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
   'click #submit-proposal' (event, template){
-    if (window.confirm(TAPi18n.__('proposals.view.confirmSubmit'))){
-      Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
-        if (error){
-          Bert.alert(error.reason, 'danger');
-        } else {
-          Bert.alert(TAPi18n.__('proposals.view.alerts.proposalSubmitted'), 'success');
-          FlowRouter.go('App.proposals');
-        }
-      });
+    if (proposalIsComplete(proposalId)){
+      if (window.confirm(TAPi18n.__('proposals.view.confirmSubmit'))){
+        Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
+          if (error){
+            Bert.alert(error.reason, 'danger');
+          } else {
+            Bert.alert(TAPi18n.__('proposals.view.alerts.proposalSubmitted'), 'success');
+            FlowRouter.go('App.proposals');
+          }
+        });
+      }
+    } else {
+      Bert.alert(TAPi18n.__('proposals.view.alerts.proposalIncomplete'), 'danger');
     }
+    
   },
 
   'submit #comment-form' (event, template){
@@ -200,7 +204,6 @@ Template.ViewProposal.helpers({
     return Template.instance().templateDictionary.get( 'pointsFor' );
   },
   pointsAgainst: function() {
-    console.log(Template.instance().templateDictionary.get( 'pointsAgainst' ));
     return Template.instance().templateDictionary.get( 'pointsAgainst' );
   },
   isInvited: function() {
@@ -313,6 +316,30 @@ Template.delegateVoteListItem.helpers({
     }
   }
 })
+
+function proposalIsComplete(proposalId) {
+
+  proposal = Proposals.findOne(proposalId);
+  
+  if (!proposal.title){
+    return false;
+  }
+  if (!proposal.abstract){
+    return false;
+  }
+  if (!proposal.body){
+    return false;
+  }
+  if (!proposal.startDate){
+    return false;
+  }  
+  if (!proposal.endDate){
+    return false;
+  }  
+
+  return true;
+
+}
 
 function userIsAuthor(){
   if (Meteor.userId() == Template.instance().templateDictionary.get( 'authorId' )){

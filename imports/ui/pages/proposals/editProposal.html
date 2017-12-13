@@ -7,6 +7,7 @@
 
 	<div class="app-container">
 		<h3>{{_ "pages.proposals.edit.heading"}}</h3>
+	
 		<form id="edit-proposal-form">
 			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<label class="mdl-textfield__label">{{_ "pages.proposals.edit.title"}}</label>
@@ -102,6 +103,13 @@
 			</div>
 		</form>
 	</div>
+
+	<!-- Toast to show autosave progress -->
+	<div id="autosave-toast-container" class="mdl-js-snackbar mdl-snackbar">
+	  <div class="mdl-snackbar__text"></div>
+	  <button class="mdl-snackbar__action" type="button"></button>
+	</div>
+
 {{/if}}
 </template>
 

@@ -6,9 +6,9 @@ Meteor.methods({
   createProposal: function (proposal) {
       //try{
         check(proposal, { 
-          title: String, 
-          abstract: String, 
-          body: String, 
+          title: Match.Maybe(String), 
+          abstract: Match.Maybe(String), 
+          body: Match.Maybe(String), 
           startDate: Date, 
           endDate: Date, 
           authorId: String,
