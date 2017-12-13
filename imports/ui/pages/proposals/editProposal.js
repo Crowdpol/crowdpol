@@ -202,13 +202,12 @@ function autosave(event, template) {
 
 // Autosave timer
 var timer = function(){
-	thing = Meteor.settings;
     var timer;
 
     this.set = function(saveChanges) {
       timer = Meteor.setTimeout(function() {
     	saveChanges();
-      }, 3000)//.private.defaultAutosaveTime)
+      }, Meteor.settings.public.defaultAutosaveTime)
     };
 
     this.clear = function() {
