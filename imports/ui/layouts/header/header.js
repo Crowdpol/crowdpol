@@ -102,7 +102,16 @@ Template.Header.events({
     var keyword = template.find('#header-tag-search').value;
     var url = Tags.findOne({keyword: keyword}).url
     FlowRouter.go(url)
-  }
+  },
+  'click #notifications-menu-icon, click #notifications-menu-close': function(event, template){
+    if($('#notifications-menu').hasClass('active')){       
+        $('#notifications-menu').removeClass('active'); 
+     }
+     else{
+        $('#notifications-menu').addClass('active'); 
+     }
+  },
+
 });
 
 function getMenuRoles(userRoles){

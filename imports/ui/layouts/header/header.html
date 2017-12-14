@@ -74,16 +74,36 @@
 
 					<!-- Notification Menu -->
 					<div id="notifications-menu-icon" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ notificationCount }}">notifications</div>
-					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect notifications-menu"
-							for="notifications-menu-icon">
-							{{#if notifications}}
-								{{#each notifications}}
-									<li class="mdl-menu__item" id="en">{{ message }}</li>
-								{{/each}}
-							{{else}}
-								<li class="mdl-menu__item" id="en">{{_ "layout.header.no_notifications"}}</li>
-							{{/if}}
-					</ul>
+
+					<div class="mdl-layout__drawer-right" id="notifications-menu">
+						<span class="mdl-layout-title">
+							<small>Notifications</small>
+							<i class="material-icons" id="notifications-menu-close">close</i>
+						</span>
+						{{#if notifications}}
+							<ul class="demo-list-three mdl-list notifications-list">
+							  {{#each notifications}}
+							  <li class="mdl-list__item mdl-list__item--three-line">
+							  	<small>{{ message }}</small>
+							  </li>
+								  <!-- <li class="mdl-list__item mdl-list__item- -three-line">
+								    <span class="mdl-list__item-primary-content">
+								      <span class="mdl-list__item-text-body">
+								        {{ message }}
+								      </span>
+								    </span>
+								    <span class="mdl-list__item-secondary-content">
+								      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+								    </span>
+								  </li> -->
+							  {{/each}}
+							</ul>
+						{{else}}
+						<small>{{_ "no_notifications"}}</small>
+						{{/if}}
+					</div>
+
+					<div class="mdl-layout__obfuscator-right"></div>
 
 					<!-- Language Menu -->
 					<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
