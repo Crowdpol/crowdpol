@@ -71,6 +71,20 @@
 						</ul>
 					{{/if}}
 
+
+					<!-- Notification Menu -->
+					<div id="notifications-menu-icon" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ notificationCount }}">notifications</div>
+					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect notifications-menu"
+							for="notifications-menu-icon">
+							{{#if notifications}}
+								{{#each notifications}}
+									<li class="mdl-menu__item lang-sel" id="en">{{ message }}</li>
+								{{/each}}
+							{{else}}
+								<li class="mdl-menu__item lang-sel" id="en">{{_ "layout.header.no_notifications"}}</li>
+							{{/if}}
+					</ul>
+
 					<!-- Language Menu -->
 					<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
 						<i class="material-icons">language</i>

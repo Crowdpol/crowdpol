@@ -2,6 +2,7 @@ import { Session } from 'meteor/session';
 
 import './header.html';
 import { Tags } from '../../../api/tags/Tags.js'
+import { Notifications } from '../../../api/notifications/Notifications.js'
 
 Template.Header.onCreated(function(){
   var self = this;
@@ -19,6 +20,7 @@ Template.Header.onCreated(function(){
   self.autorun(function(){
     //subscribe to list of existing tags
     self.subscribe('tags.all');
+    self.subscribe('notifications.forUser', Meteor.userId());
     self.availableTags.set(Tags.find().pluck('keyword'));
   });
 
@@ -62,6 +64,12 @@ Template.Header.helpers({
   },
   matchedTags(){
     return Template.instance().matchedTags.get();
+  },
+  notifications(){
+    return Notifications.find().fetch();
+  },
+  notificationCount(){
+    return Notifications.find().count();
   }
 });
 

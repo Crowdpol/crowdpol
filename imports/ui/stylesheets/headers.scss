@@ -51,6 +51,16 @@
     }
   }
 
+  .material-icons.mdl-badge.mdl-badge--overlap{
+    color: $blue;
+    cursor: pointer;
+  }
+
+  .material-icons.mdl-badge[data-badge]::after,
+  .material-label.mdl-badge[data-badge]::after{
+    background-color: $yellow;
+  }
+
 }
 
 .mdl-layout__drawer-button i {
