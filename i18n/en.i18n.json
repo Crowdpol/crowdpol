@@ -548,8 +548,9 @@
 				},
 				"userNotFound":"User could not be found",
 				"anonymous": "Anonymous",
-				"delegatesFor": "Delegates For",
-				"delegatesAgainst": "DelegatesAgainst"
+				"delegatesFor": "Delegates For:",
+				"delegatesAgainst": "Delegates Against:",
+				"delegateVotingClosed": "Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date."
 			}
 		}
 

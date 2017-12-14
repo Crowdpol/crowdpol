@@ -94,7 +94,11 @@
 				<hr>
 				<h5>{{_ "proposals.view.voteHeading"}}</h5>
 				{{#if isVotingAsDelegate}}
-					{{> delegateVoteButtons}}
+					{{#if isVotableForDelegates}}
+						{{> delegateVoteButtons}}
+					{{else}}
+						<small>{{_"proposals.view.delegateVotingClosed"}}</small>
+					{{/if}}
 				{{else}}
 					<div class="vote-actions">
 						<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userYesClass}} {{delegateYesClass}}" id="vote-yes">

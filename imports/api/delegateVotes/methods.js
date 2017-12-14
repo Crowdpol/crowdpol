@@ -8,6 +8,9 @@ Meteor.methods({
     check(voteData, { vote: String, proposalId: String, reason: Match.Maybe(String)});
     var delegate = Meteor.user();
     var proposal = Proposals.findOne(voteData.proposalId);
+    var startDate = moment(proposal.startDate);
+    var endDate = moment(proposal.endDate);
+    var now = new Date();
 
     if (!delegate)
       throw new Meteor.Error(401, "You need to login to vote");
@@ -17,6 +20,8 @@ Meteor.methods({
       throw new Meteor.Error(422, 'You must vote on a proposal');
     if (!Roles.userIsInRole(delegate._id, 'delegate'))
       throw new Meteor.Error(422, 'You must be a delegate to vote as one.');
+    if (endDate.subtract(2,'weeks').isBefore(now) || startDate.isAfter(now))
+      throw new Meteor.Error(422, 'Voting has closed for delegates.');
     vote = {
       vote: voteData.vote,
       proposalId: voteData.proposalId,
