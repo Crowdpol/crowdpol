@@ -325,9 +325,13 @@ function profileIsComplete(user){
     isComplete = false;
   } else {
     _.map(profileFields, function(field){
-      if (profile[field].length == 0){
+      if (profile[field]){
+        if (profile[field].length == 0) {
+          isComplete = false;
+        }
+      } else {
         isComplete = false;
-      } 
+      }
     });
   }
   return isComplete;
