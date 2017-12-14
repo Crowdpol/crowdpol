@@ -92,7 +92,7 @@ Template.EditProposal.onRendered(function(){
   	self.taggle = new ReactiveVar(taggle);
 
   	self.autorun(function(){
-  		//self.subscribe("users.all");
+  		self.subscribe("users.all");
 		proposalId = FlowRouter.getParam("id");
 		
 		if (proposalId){
