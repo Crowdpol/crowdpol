@@ -73,33 +73,35 @@
 
 
 					<!-- Notification Menu -->
-					<div id="notifications-menu-icon" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ notificationCount }}">notifications</div>
+					<div id="notifications-menu-icon" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ unreadNotificationCount }}">notifications</div>
 
 					<div class="mdl-layout__drawer-right" id="notifications-menu">
 						<span class="mdl-layout-title">
-							<small>Notifications</small>
-							<i class="material-icons" id="notifications-menu-close">close</i>
+							<small> See All Notifications ({{ notificationCount }})</small>
 						</span>
 						{{#if notifications}}
 							<ul class="demo-list-three mdl-list notifications-list">
 							  {{#each notifications}}
-							  <li class="mdl-list__item mdl-list__item--three-line">
-							  	<small>{{ message }}</small>
-							  </li>
-								  <!-- <li class="mdl-list__item mdl-list__item- -three-line">
+								  <li class="mdl-list__item mdl-list__item--three-line">
 								    <span class="mdl-list__item-primary-content">
-								      <span class="mdl-list__item-text-body">
+								      <span class="mdl-list__item-text-body notification-item-text" id="wrap-span">
 								        {{ message }}
 								      </span>
 								    </span>
 								    <span class="mdl-list__item-secondary-content">
-								      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+								      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons notification-read-icon">{{#if read}}star_outline{{else}}star{{/if}}</i></a>
 								    </span>
-								  </li> -->
+								  </li>
 							  {{/each}}
 							</ul>
 						{{else}}
-						<small>{{_ "no_notifications"}}</small>
+						<li class="mdl-list__item mdl-list__item--three-line">
+							<span class="mdl-list__item-primary-content">
+								<span class="mdl-list__item-text-body notification-item-text">
+									{{_ "layout.header.no_notifications"}}
+								</span>
+							</span>
+						</li>
 						{{/if}}
 					</div>
 

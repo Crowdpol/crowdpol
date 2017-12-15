@@ -18,7 +18,8 @@ NotificationsSchema = new SimpleSchema({
   },
   read: {
     type: Boolean,
-    defaultValue: false
+    defaultValue: false,
+    optional: false
   },
   createdAt: {
     type: Date,

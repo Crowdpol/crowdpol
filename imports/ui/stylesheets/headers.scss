@@ -51,8 +51,6 @@
     }
   }
 
-  // Notifications
-
   .material-icons.mdl-badge.mdl-badge--overlap{
     color: $blue;
     cursor: pointer;
@@ -69,6 +67,9 @@
   }
 
   .notifications-list{
+    .notification-read-icon {
+      font-size: $small-font-size;
+    }
     .mdl-list__item{
       cursor: pointer;
       padding-top: $space/4;

@@ -1,6 +1,7 @@
 import { Session } from 'meteor/session';
 
 import './header.html';
+import './clamp.min.js'
 import { Tags } from '../../../api/tags/Tags.js'
 import { Notifications } from '../../../api/notifications/Notifications.js'
 
@@ -68,6 +69,9 @@ Template.Header.helpers({
   notifications(){
     return Notifications.find().fetch();
   },
+  unreadNotificationCount(){
+    return Notifications.find({read: false}).count();
+  },
   notificationCount(){
     return Notifications.find().count();
   }
@@ -103,7 +107,10 @@ Template.Header.events({
     var url = Tags.findOne({keyword: keyword}).url
     FlowRouter.go(url)
   },
-  'click #notifications-menu-icon, click #notifications-menu-close': function(event, template){
+  'click #notifications-menu-icon': function(event, template){
+    var items = document.getElementsByClassName('mdl-list__item-text-body notification-item-text')
+    _.map(items, function(el){$clamp(el, {clamp: 3});})
+
     if($('#notifications-menu').hasClass('active')){       
         $('#notifications-menu').removeClass('active'); 
      }
