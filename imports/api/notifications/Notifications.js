@@ -16,6 +16,10 @@ NotificationsSchema = new SimpleSchema({
     type: String,
     optional: false
   },
+  icon: {
+    type: String,
+    optional: true
+  },
   read: {
     type: Boolean,
     defaultValue: false,
@@ -23,9 +27,11 @@ NotificationsSchema = new SimpleSchema({
   },
   createdAt: {
     type: Date,
-    autoValue: function() {
-      return new Date();
-    }
+      autoValue() {
+        if (this.isInsert) {
+          return new Date();
+        }
+      },
   },
 
 });

@@ -67,13 +67,28 @@ Template.Header.helpers({
     return Template.instance().matchedTags.get();
   },
   notifications(){
-    return Notifications.find().fetch();
+    return Notifications.find({},{sort: {createdAt: -1}}).fetch();
   },
   unreadNotificationCount(){
     return Notifications.find({read: false}).count();
   },
   notificationCount(){
     return Notifications.find().count();
+  },
+  notificationItemClass(read) {
+    if (read){
+      return 'read'
+    } else {
+      return 'unread'
+    }
+  },
+  notificationDate(createdAt) {
+    return moment(createdAt).fromNow();
+  },
+  unreadClass(){
+    if (Notifications.find({read: false}).count() == 0){ 
+      return 'noUnreads'
+    }
   }
 });
 
@@ -108,7 +123,18 @@ Template.Header.events({
     FlowRouter.go(url)
   },
   'click #notifications-menu-icon': function(event, template){
-    var items = document.getElementsByClassName('mdl-list__item-text-body notification-item-text')
+    toggleNotificationsDrawer();
+  },
+  'click .notification-item': function(event, template){
+    FlowRouter.go(event.target.dataset.url);
+    location.reload();
+    Meteor.call('readNotification', event.target.dataset.id);
+  }
+
+});
+
+function toggleNotificationsDrawer(){
+  var items = document.getElementsByClassName('mdl-list__item-text-body notification-item-text')
     _.map(items, function(el){$clamp(el, {clamp: 3});})
 
     if($('#notifications-menu').hasClass('active')){       
@@ -117,9 +143,7 @@ Template.Header.events({
      else{
         $('#notifications-menu').addClass('active'); 
      }
-  },
-
-});
+}
 
 function getMenuRoles(userRoles){
   var menuRoles = ['individual', 'delegate', 'candidate'];

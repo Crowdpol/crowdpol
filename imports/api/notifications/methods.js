@@ -4,7 +4,7 @@ import { Notifications } from './Notifications.js'
 
 Meteor.methods({
   createNotification: function(notification) {
-    check(notification, {message: String, userId: String, url: String});
+    check(notification, {message: String, userId: String, url: String, icon: Match.Maybe(String)});
     return Notifications.insert(notification);
   },
   deleteNotification: function(notificationId) {
