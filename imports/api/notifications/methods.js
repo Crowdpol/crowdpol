@@ -18,5 +18,9 @@ Meteor.methods({
   readNotification: function(notificationId){
     check(notificationId, String);
     Notifications.update({_id: notificationId}, {$set: {"read": true}});
+  },
+  markAllAsRead: function(userId){
+    check(userId, String);
+    Notifications.update({userId: userId}, {$set: {"read": true}}, { multi: true });
   }
 });

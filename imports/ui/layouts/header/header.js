@@ -114,21 +114,24 @@ Template.Header.events({
     template.find('#header-tag-search').value = event.target.dataset.keyword;
     template.matchedTags.set([]);
   },
-  'focusout input' (event, template){
+  'focusout input' (event, template) {
    template.matchedTags.set([]);
   },
-  'submit form, click #search-button' (event, template){
+  'submit form, click #search-button' (event, template) {
     var keyword = template.find('#header-tag-search').value;
     var url = Tags.findOne({keyword: keyword}).url
     FlowRouter.go(url)
   },
-  'click #notifications-menu-icon': function(event, template){
+  'click #notifications-menu-icon': function(event, template) {
     toggleNotificationsDrawer();
   },
-  'click .notification-item': function(event, template){
+  'click .notification-item': function(event, template) {
     FlowRouter.go(event.target.dataset.url);
     location.reload();
     Meteor.call('readNotification', event.target.dataset.id);
+  },
+  'click #mark-as-read': function(event, template) {
+    Meteor.call('markAllAsRead', Meteor.userId());
   }
 
 });

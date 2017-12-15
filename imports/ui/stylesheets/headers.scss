@@ -71,6 +71,12 @@
       small {
         color: white;
       }
+
+      #mark-as-read {
+        color: white;
+        cursor: pointer;
+        font-size: $xsmall-font-size;
+      }
     }
 
   .notifications-list{
