@@ -10,6 +10,7 @@ Template.EditProposal.onCreated(function(){
 	var self = this;
 	Template.instance().pointsFor = new ReactiveVar([]);
   	Template.instance().pointsAgainst = new ReactiveVar([]);
+  	Template.instance().invites = new ReactiveVar(null);
   	Session.set('invited',[]);
   	Session.set('emailInvites',[]);
 });
@@ -92,7 +93,8 @@ Template.EditProposal.onRendered(function(){
   	self.taggle = new ReactiveVar(taggle);
 
   	self.autorun(function(){
-  		self.subscribe("users.all");
+  		//self.subscribe("users.all");
+  		
 		proposalId = FlowRouter.getParam("id");
 		
 		if (proposalId){
@@ -113,6 +115,7 @@ Template.EditProposal.onRendered(function(){
 				if (proposal.pointsAgainst != null){
 					self.pointsAgainst.set(proposal.pointsAgainst);
 				}
+				var temp = Meteor.users.find({ _id : { $in :  Session.get('invited')} });
 			});
 		}
 	});
@@ -198,7 +201,11 @@ Template.EditProposal.helpers({
     return Template.instance().pointsAgainst.get();
   },
   selectedInvites: function() {
-    return Meteor.users.find({ _id : { $in :  Session.get('invited')} })
+    //result = Meteor.users.find({ _id : { $in :  Session.get('invited')} });
+    //Template.instance().invites.set(result);
+    //console.log(Template.instance().invites.get());
+    console.log(Session.get('invited'));
+    return Session.get('invited');
   },
   emailedInvites: function() {
     return Session.get('emailInvites');
