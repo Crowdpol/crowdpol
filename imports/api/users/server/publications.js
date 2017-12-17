@@ -178,7 +178,7 @@ Meteor.publish('userSearch', function(search) {
 
   if ( search ) {
     let regex = new RegExp( search, 'i' );
-
+    console.log(regex);
     query = {$and: [
       {$or: [
         { "profile.firstName": regex },
@@ -189,7 +189,7 @@ Meteor.publish('userSearch', function(search) {
       { roles: { $nin: [ "demo" ] }},
       {"isPublic" : true}
     ]};
-
+    console.log(query);
     projection.limit = 100;
   }
   return Meteor.users.find( query, projection );

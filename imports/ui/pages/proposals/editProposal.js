@@ -12,6 +12,7 @@ Template.EditProposal.onCreated(function(){
   	Template.instance().pointsAgainst = new ReactiveVar([]);
   	Template.instance().invites = new ReactiveVar(null);
   	Session.set('invited',[]);
+  	Session.set('invitedUsers',null);
   	Session.set('emailInvites',[]);
 });
 
@@ -115,7 +116,7 @@ Template.EditProposal.onRendered(function(){
 				if (proposal.pointsAgainst != null){
 					self.pointsAgainst.set(proposal.pointsAgainst);
 				}
-				var temp = Meteor.users.find({ _id : { $in :  Session.get('invited')} });
+				
 			});
 		}
 	});
@@ -201,11 +202,11 @@ Template.EditProposal.helpers({
     return Template.instance().pointsAgainst.get();
   },
   selectedInvites: function() {
-    //result = Meteor.users.find({ _id : { $in :  Session.get('invited')} });
+    result = Meteor.users.find({ _id : { $in :  Session.get('invited')} });
     //Template.instance().invites.set(result);
     //console.log(Template.instance().invites.get());
     console.log(Session.get('invited'));
-    return Session.get('invited');
+    return result;
   },
   emailedInvites: function() {
     return Session.get('emailInvites');
