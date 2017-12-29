@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Proposals } from '../proposals/Proposals.js'
+import { Ranks } from '../ranking/Ranks.js'
 import { DelegateVotes } from './DelegateVotes.js'
 
 Meteor.methods({
@@ -71,9 +72,41 @@ Meteor.methods({
     check(delegateId, String);
     return DelegateVotes.findOne({proposalId: proposalId, delegateId: delegateId});
   },
+  getDelegateVotes: function(userId){
+
+    /* Returns the delegate votes for the current user's ranked delegates 
+    that voted for/against, sorted */
+
+    if (!userId) {
+      userId = Meteor.userId();
+    }
+
+    return Ranks.aggregate([
+      {
+        $match: {
+          supporterId: userId, entityType: 'delegate'
+        }
+      },
+      {
+        $lookup:{
+          from: "delegateVotes",localField: "entityId",foreignField: "delegateId",as: "vote_info"
+        }
+      },
+      {
+        $lookup:{
+          from: "users",localField: "entityId",foreignField: "_id",as: "user_info"
+        }
+      }, 
+      {
+        $project: {ranking: 1, 'vote_info.vote': 1, 'vote_info.reason':1, 'user_info.profile.firstName':1, 'user_info.profile.lastName':1, 'user_info.profile.username':1, 'user_info.profile.photo':1, 'user_info._id':1}
+      },
+      {$sort: {ranking: 1}}
+    ])
+  },
   getUserDelegateVote: function(proposalId){
     /* Returns null if the user has already voted, else returns the vote of the 
     current user's first-ranked delegate*/
+
     var userVote = Meteor.call('getUserVoteFor', proposalId, Meteor.userId());
 
     if (!userVote){
@@ -90,6 +123,34 @@ Meteor.methods({
     } else {
       return false;
     }
+  },
+  getUserDelegateInfoForProposal: function(proposalId, userId){
+
+    /* Returns vote and id for the user's top delegate for a given propsal
+       Used in 'prepareVotesForTally' method to get vote and delegateId
+       for users who have not voted.
+       Returns false if the top delegate did not vote
+     */
+
+      var rankedDelegates = Meteor.call('getDelegateVotes', userId);
+      console.log('ranked delegates for user ' + userId);
+      console.log(rankedDelegates)
+      var voteInfo;
+
+      if (rankedDelegates){
+        for (i=0; i<rankedDelegates.length; i++){
+          if (rankedDelegates[i]){
+            voteInfo = rankedDelegates[i].vote_info[0]
+          }
+          if (voteInfo) {
+            return {vote: voteInfo.vote, id: rankedDelegates[i].user_info[0]._id}
+          }
+        }
+      }
+
+      // If no ranked delegates, or no delegates have voted
+      return false;
   }
+
 });
 
