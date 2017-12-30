@@ -119,9 +119,12 @@ Meteor.methods({
       Finds all expired proposals that have not yet been prepared for voting
       and returns an array of their ids
     */
+    console.log('function is running')
     var now = moment().toDate();
-    var proposals = Proposals.find({ $and: [ { endDate: { $gte: now } }, { readyToTally: false } ] } );
-    var proposalIds = proposals.pluck('_id');
+    var proposals = Proposals.find({ $and: [ { endDate: { $lte: now } }, { readyToTally: false } ] } );
+    var ids = proposals.pluck('_id');
+    console.log(ids)
+    return ids
 
   },
   prepareVotesForTally: function(proposalIds) {
