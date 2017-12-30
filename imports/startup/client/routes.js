@@ -256,3 +256,10 @@ adminRoutes.route('/proposals', {
     BlazeLayout.render('App_body', {main: 'AdminProposals'});
   }
 });
+
+adminRoutes.route('/voting', {
+  name: 'App.admin.voting',
+  action() {
+    BlazeLayout.render('App_body', {main: 'AdminVoting'});
+  }
+});

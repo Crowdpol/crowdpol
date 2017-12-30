@@ -2,6 +2,7 @@ import './users/users.js';
 import './tags/tags.js';
 import './approvals/approvals.js';
 import './proposals/proposals.js';
+import './voting/voting.js';
 import './stats/stats.js';
 import './dash.html';
 

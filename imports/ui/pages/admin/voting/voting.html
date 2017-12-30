@@ -1,0 +1,55 @@
+<template name="AdminVoting">
+	{{#if currentUserIsAdmin}}
+	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
+	<div class="container">
+		<h3>{{_"admin.voting.heading"}}</h3>
+		<h3>{{ tallyInProgress }}</h3>
+		{{#if Template.subscriptionsReady}}
+			{{#if proposals.count}}
+				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+						<thead>
+								<tr>
+										<th>{{_"admin.voting.endDate"}}</th>
+										<th>{{_"admin.voting.author"}}</th>
+										<th>{{_"admin.voting.title"}}</th>
+										<th>{{_"admin.voting.results"}}</th>
+										<th></th>
+								</tr>
+						</thead>
+						<tbody>
+								{{#each proposals}}
+								<tr>
+										<td>{{endDate}}</td>
+										<td>{{authorId}}</td>
+										<td> <a href="/proposals/view/{{_id}}">{{title}}</a></td>
+										{{ #if readyToTally }}
+											<td> 
+												{{_'admin.voting.yes-votes'}}: {{ yesCount _id }} <br/>
+												{{_'admin.voting.no-votes'}}: {{ noCount _id }} <br/>
+												{{_'admin.voting.total-votes'}}: {{ voteCount _id }} 
+											</td>
+										{{else}}
+										<td>
+												<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" id="tally-votes-button">
+														<i class="material-icons">assignment</i>
+														{{_'admin.voting.tally-votes'}}
+												</button>
+										</td>
+										{{/if}}
+								</tr>
+								{{/each}}
+						</tbody>
+				</table>
+			{{else}}
+				<p>
+					{{_"admin.tags.none-waiting"}}
+				</p>
+			{{/if}}
+		{{else}}
+			<p>
+				{{_ "generic.loading"}}
+			</p>
+		{{/if}}
+	</div>
+	{{/if}}
+</template>

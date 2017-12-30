@@ -258,6 +258,7 @@ if (Meteor.isServer) {
           Meteor.call('prepareVotesForTally', [proposalToTallyId]);
           expect(Votes.find({vote: 'yes', proposalId: proposalToTallyId}).count()).to.equal(5);
           expect(Votes.find({vote: 'no', proposalId: proposalToTallyId}).count()).to.equal(2);
+          expect(Proposals.findOne({_id: proposalToTallyId}).readyToTally).to.equal(true);
           done();
         } catch (err) {
           console.log(err);
