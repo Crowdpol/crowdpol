@@ -132,6 +132,7 @@ if (Meteor.isServer) {
     describe("Prepares Votes for Tally", () => {
 
       beforeEach(function(){
+        resetDatabase(null);
         // Create an expired proposal
         proposalId = Proposals.insert({
           title: 'title', 
@@ -215,7 +216,6 @@ if (Meteor.isServer) {
         Votes.insert({proposalId: proposalId, vote: 'no', voterHash: voters[3]})
 
         // voters 4,5,6,7 did not vote
-        console.log('nonvoters: ' + [voters[4], voters[5], voters[6], voters[7]])
 
         // Create delegate votes
         // delegates 0, 1, 2 did not vote
@@ -229,16 +229,11 @@ if (Meteor.isServer) {
       });
 
       // Normal Case
-      it("Can do the thing", (done) => {
+      it("Can create votes when users delegated votes", (done) => {
         try {
-          console.log('the voters are: ' + voters)
           Meteor.call('prepareVotesForTally', [proposalId]);
-          console.log('yes:  ' + Votes.find({vote: 'yes'}).count())
-          console.log('no:  ' + Votes.find({vote: 'no'}).count())
-          console.log('the votes are:')
-          console.log(Votes.find({}).fetch())
-          a = 1
-          expect(a).to.equal(1);
+          expect(Votes.find({vote: 'yes', proposalId: proposalId}).count()).to.equal(5);
+          expect(Votes.find({vote: 'no', proposalId: proposalId}).count()).to.equal(2);
           done();
         } catch (err) {
           console.log(err);
@@ -247,6 +242,27 @@ if (Meteor.isServer) {
       });
 
       // No one voted
+      it("Does not break if no one voted", (done) => {
+        try {
+          unvotedProposalId = Proposals.insert({
+            title: 'title', 
+            abstract: 'abstract', 
+            body: 'this proposal has not yet been voted on',
+            startDate: moment().subtract(3, 'days').toDate(),
+            endDate: moment().subtract(1, 'days').toDate(),
+            stage: 'live',
+            status: 'approved',
+            authorId: '1234'
+          });
+          Meteor.call('prepareVotesForTally', [unvotedProposalId]);
+          expect(Votes.find({vote: 'yes', proposalId: unvotedProposalId}).count()).to.equal(0);
+          expect(Votes.find({vote: 'no', proposalId: unvotedProposalId}).count()).to.equal(0);
+          done();
+        } catch (err) {
+          console.log(err);
+          assert.fail();
+        }
+      });
 
       // Multiple expired proposals?
 

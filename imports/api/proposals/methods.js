@@ -131,24 +131,17 @@ Meteor.methods({
       The votes can then be tallied by a single query to the Votes table.
     */
 
-    console.log('preparing votes for tallying now')
-
     // For each proposal found:
     for (i=0; i < proposalIds.length; i++){
       var proposalId = proposalIds[i];
-      console.log('inside the loop with proposal ' + proposalId)
       // Find users who did not vote
       var voterIds = Votes.find({proposalId: proposalId}).pluck('voterHash');
-      console.log('voters: ' + voterIds)  
       var nonVoterIds = Meteor.users.find({ _id: { $nin: voterIds }}).pluck('_id');
-      console.log('nonVoterIds: ' + nonVoterIds)
 
       // For each user who did not vote, get their top delegate vote
       for (j=0; j < nonVoterIds.length; j++) {
         var userId = nonVoterIds[j];
         var delegateInfo = Meteor.call('getUserDelegateInfoForProposal', proposalId, userId);
-        console.log('delegate info for: ' + userId)
-        console.log(delegateInfo)
         if (delegateInfo){
           // Create Vote for user with delegateId
           Votes.insert({

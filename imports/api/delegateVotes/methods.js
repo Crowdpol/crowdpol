@@ -72,7 +72,7 @@ Meteor.methods({
     check(delegateId, String);
     return DelegateVotes.findOne({proposalId: proposalId, delegateId: delegateId});
   },
-  getDelegateVotes: function(userId){
+  getDelegateVotes: function(proposalId, userId){
 
     /* Returns the delegate votes for the current user's ranked delegates 
     that voted for/against, sorted */
@@ -93,6 +93,11 @@ Meteor.methods({
         }
       },
       {
+        $match: {
+          proposalId: proposalId
+        }
+      },
+      {
         $lookup:{
           from: "users",localField: "entityId",foreignField: "_id",as: "user_info"
         }
@@ -110,7 +115,7 @@ Meteor.methods({
     var userVote = Meteor.call('getUserVoteFor', proposalId, Meteor.userId());
 
     if (!userVote){
-      var rankedDelegates = Meteor.call('getDelegateVotes');
+      var rankedDelegates = Meteor.call('getDelegateVotes', Meteor.userId(), proposalId);
       var voteInfo;
       if (rankedDelegates[0]){
         voteInfo = rankedDelegates[0].vote_info[0]
@@ -132,9 +137,7 @@ Meteor.methods({
        Returns false if the top delegate did not vote
      */
 
-      var rankedDelegates = Meteor.call('getDelegateVotes', userId);
-      console.log('ranked delegates for user ' + userId);
-      console.log(rankedDelegates)
+      var rankedDelegates = Meteor.call('getDelegateVotes', proposalId, userId);
       var voteInfo;
 
       if (rankedDelegates){
