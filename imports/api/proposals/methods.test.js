@@ -56,11 +56,35 @@ if (Meteor.isServer) {
 
     it("Delete proposal", (done) => {
       try {
-        Meteor.call('deleteProposal', proposalId);
-        var proposal = Meteor.call('getProposal', proposalId);
+        // create a fake user
+        Factory.define('user', Meteor.users, schema.User);
+        const userId = Factory.create('user')._id
+        const user = Meteor.call('getUser', userId);
+        // create a proposal belonging to the author
+        var proposalData = {
+          title: 'Test Proposal',
+          abstract: 'This proposal will test the proposals',
+          body: 'I hereby propose a proposal to test the proposals so that others, too, may propose proposals.',
+          startDate: new Date(),
+          endDate: new Date(),
+          authorId: userId,
+          pointsFor: ['point1','point2'],
+          pointsAgainst: ['point1','point2'],
+          references: ['ref1','ref2'],
+        }
+        
+        var deletableProposalId = Meteor.call('createProposal', proposalData);
+        // stub Meteor's user method to simulate a logged in user
+        stub = sinon.stub(Meteor, 'user');
+        stub.returns(user);
+
+        Meteor.call('deleteProposal', deletableProposalId);
+        var proposal = Meteor.call('getProposal', deletableProposalId);
         expect(proposal).to.not.exist;
         done();
+        sinon.restore(Meteor, 'user');
       } catch (err) {
+        sinon.restore(Meteor, 'user');
         console.log(err);
         assert.fail();
       }
@@ -134,7 +158,7 @@ if (Meteor.isServer) {
       beforeEach(function(){
         resetDatabase(null);
         // Create an expired proposal
-        proposalId = Proposals.insert({
+        proposalToTallyId = Proposals.insert({
           title: 'title', 
           abstract: 'abstract', 
           body: 'body',
@@ -208,32 +232,33 @@ if (Meteor.isServer) {
         
         // Create user votes
         // voters 0, 1, 2 voted yes
-        Votes.insert({proposalId: proposalId, vote: 'yes', voterHash: voters[0]})
-        Votes.insert({proposalId: proposalId, vote: 'yes', voterHash: voters[1]})
-        Votes.insert({proposalId: proposalId, vote: 'yes', voterHash: voters[2]})
+        Votes.insert({proposalId: proposalToTallyId, vote: 'yes', voterHash: voters[0]})
+        Votes.insert({proposalId: proposalToTallyId, vote: 'yes', voterHash: voters[1]})
+        Votes.insert({proposalId: proposalToTallyId, vote: 'yes', voterHash: voters[2]})
 
         // voter 3 voted no
-        Votes.insert({proposalId: proposalId, vote: 'no', voterHash: voters[3]})
+        Votes.insert({proposalId: proposalToTallyId, vote: 'no', voterHash: voters[3]})
 
         // voters 4,5,6,7 did not vote
 
         // Create delegate votes
         // delegates 0, 1, 2 did not vote
         // delegates 3, 4 voted yes
-        DelegateVotes.insert({proposalId: proposalId, vote: 'yes', delegateId: delegates[3]})
-        DelegateVotes.insert({proposalId: proposalId, vote: 'yes', delegateId: delegates[4]})
+        DelegateVotes.insert({proposalId: proposalToTallyId, vote: 'yes', delegateId: delegates[3]})
+        DelegateVotes.insert({proposalId: proposalToTallyId, vote: 'yes', delegateId: delegates[4]})
         // delegates 5, 6, 7 voted no 
-        DelegateVotes.insert({proposalId: proposalId, vote: 'no', delegateId: delegates[5]})
-        DelegateVotes.insert({proposalId: proposalId, vote: 'no', delegateId: delegates[6]})
-        DelegateVotes.insert({proposalId: proposalId, vote: 'no', delegateId: delegates[7]})
+        DelegateVotes.insert({proposalId: proposalToTallyId, vote: 'no', delegateId: delegates[5]})
+        DelegateVotes.insert({proposalId: proposalToTallyId, vote: 'no', delegateId: delegates[6]})
+        DelegateVotes.insert({proposalId: proposalToTallyId, vote: 'no', delegateId: delegates[7]})
       });
 
       // Normal Case
       it("Can create votes when users delegated votes", (done) => {
         try {
-          Meteor.call('prepareVotesForTally', [proposalId]);
-          expect(Votes.find({vote: 'yes', proposalId: proposalId}).count()).to.equal(5);
-          expect(Votes.find({vote: 'no', proposalId: proposalId}).count()).to.equal(2);
+          console.log(DelegateVotes.find().fetch())
+          Meteor.call('prepareVotesForTally', [proposalToTallyId]);
+          expect(Votes.find({vote: 'yes', proposalId: proposalToTallyId}).count()).to.equal(5);
+          //expect(Votes.find({vote: 'no', proposalId: proposalToTallyId}).count()).to.equal(2);
           done();
         } catch (err) {
           console.log(err);

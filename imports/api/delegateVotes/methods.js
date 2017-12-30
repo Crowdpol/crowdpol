@@ -94,7 +94,7 @@ Meteor.methods({
       },
       {
         $match: {
-          proposalId: proposalId
+          'vote_info.proposalId': proposalId
         }
       },
       {
