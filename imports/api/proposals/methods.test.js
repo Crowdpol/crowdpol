@@ -255,10 +255,9 @@ if (Meteor.isServer) {
       // Normal Case
       it("Can create votes when users delegated votes", (done) => {
         try {
-          console.log(DelegateVotes.find().fetch())
           Meteor.call('prepareVotesForTally', [proposalToTallyId]);
           expect(Votes.find({vote: 'yes', proposalId: proposalToTallyId}).count()).to.equal(5);
-          //expect(Votes.find({vote: 'no', proposalId: proposalToTallyId}).count()).to.equal(2);
+          expect(Votes.find({vote: 'no', proposalId: proposalToTallyId}).count()).to.equal(2);
           done();
         } catch (err) {
           console.log(err);

@@ -36,7 +36,7 @@ Template.ViewProposal.onCreated(function(){
     })
   });
 
-  Meteor.call("getDelegateVotes", function(error, result){
+  Meteor.call("getDelegateVotes", proposalId, Meteor.userId(), function(error, result){
     if (error){
       Bert.alert(error.reason, 'danger');
     } else {
