@@ -19,7 +19,7 @@ Template.ProfileForm.onRendered(function(){
 
 Template.ProfileForm.onCreated(function() {
   var self = this;
-  self.type = new ReactiveVar("Waiting for response from server...");
+  //self.type = new ReactiveVar("Waiting for response from server...");
   self.autorun(function() {
     self.subscribe('user.current');
   });
@@ -56,7 +56,7 @@ Template.ProfileForm.events({
     Session.set('profileIsComplete', checkProfileIsComplete())
   },
   'submit form' (event, template) {
-    console.log("submit clicked");
+    //console.log("submit clicked");
     event.preventDefault();
   },
 
@@ -355,6 +355,9 @@ Template.ProfileForm.helpers({
     //return Template.instance().templateDictionary.get('type');
     return Template.instance().templateDictionary.get('type');
   },
+  isProfileComplete: function(){
+    return publicReady();
+  },
   isPublicChecked: function() {
     var isPublic = Template.instance().templateDictionary.get('isPublic');
     //console.log("isPublicChecked: " + isPublic);
@@ -449,6 +452,7 @@ publicReady = function() {
     console.log("no website");
     ready = false;
   }
+<<<<<<< HEAD
 }
 
 $.validator.addMethod('usernameCheck', (username) => {
