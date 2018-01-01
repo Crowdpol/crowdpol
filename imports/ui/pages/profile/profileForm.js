@@ -56,7 +56,7 @@ Template.ProfileForm.events({
     Session.set('profileIsComplete', checkProfileIsComplete())
   },
   'submit form' (event, template) {
-    //console.log("submit clicked");
+    console.log("submit clicked");
     event.preventDefault();
   },
 
