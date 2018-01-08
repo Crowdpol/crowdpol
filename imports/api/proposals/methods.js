@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Proposals } from './Proposals.js';
+import { Votes } from '../votes/Votes.js';
+import { Ranks } from '../ranking/Ranks.js';
 
 Meteor.methods({
   createProposal: function (proposal) {
@@ -111,6 +113,55 @@ Meteor.methods({
   },
   addPointFor: function(proposalId, text) {
     Proposals.update({_id: proposalId}, { $push: { pointsFor: text } });
+  },
+  findExpiredProposals: function(){
+    /*  
+      Finds all expired proposals that have not yet been prepared for voting
+      and returns an array of their ids
+    */
+    console.log('function is running')
+    var now = moment().toDate();
+    var proposals = Proposals.find({ $and: [ { endDate: { $lte: now } }, { readyToTally: false } ] } );
+    var ids = proposals.pluck('_id');
+    console.log(ids)
+    return ids
+
+  },
+  prepareVotesForTally: function(proposalIds) {
+    /*
+      This method is called within a cron job that runs every 24 hours, at midnight
+      It takes an array of proposal ids and creates votes for all users who delegated their votes
+      The votes can then be tallied by a single query to the Votes table.
+    */
+
+    // For each proposal found:
+    for (i=0; i < proposalIds.length; i++){
+      var proposalId = proposalIds[i];
+      // Find users who did not vote
+      var voterIds = Votes.find({proposalId: proposalId}).pluck('voterHash');
+      var nonVoterIds = Meteor.users.find({ _id: { $nin: voterIds }}).pluck('_id');
+
+      // For each user who did not vote, get their top delegate vote
+      for (j=0; j < nonVoterIds.length; j++) {
+        var userId = nonVoterIds[j];
+        var delegateInfo = Meteor.call('getUserDelegateInfoForProposal', proposalId, userId);
+        if (delegateInfo){
+          // Create Vote for user with delegateId
+          Votes.insert({
+            proposalId: proposalId, 
+            vote: delegateInfo.vote, 
+            voterHash: userId, 
+            delegateId: delegateInfo.id
+          });
+        }
+
+      }// End of nonVoterIds loop
+
+      // Update proposal readyToTally flag
+      Proposals.update({_id: proposalId}, {$set: {readyToTally: true}});
+
+    } // End proposalIds loop
+
   },
   getProposalsPublishedStats: function() {
       result = Proposals.aggregate([

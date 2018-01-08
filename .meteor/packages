@@ -70,3 +70,4 @@ underscore
 liberation:collection-pluck
 coffeescript
 mfpierre:chartist-js
+percolate:synced-cron

@@ -105,6 +105,14 @@ ProposalSchema = new SimpleSchema({
     'references.$': {
         type: String
     },
+    readyToTally: {
+        type: Boolean,
+        autoValue() {
+          if (this.isInsert) {
+            return false;
+          }
+        },
+    }
 });
 
 Proposals.attachSchema(ProposalSchema);
