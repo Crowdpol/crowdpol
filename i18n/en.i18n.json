@@ -14,7 +14,8 @@
 			"nav_logout": "Logout",
 			"lang_en": "English",
 			"lang_sv": "Swedish",
-			"role_selector": "Switch Roles"
+			"role_selector": "Switch Roles",
+			"no_notifications": "You don't have any notifications yet."
 		},
 		"drawer": {
 			"nav_login" : "Log in",
@@ -504,6 +505,23 @@
 		"alerts": {
 			"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",
 			"login-to-view": "You must log in to access that page."
+		}
+	},
+	"notifications": {
+		"approvals": {
+			"candidate": {
+				"rejected": "Your request to be a candidate has been rejected.",
+				"approved": "Your request to be a candidate has been approved."
+			},
+			"delegate": {
+				"rejected": "Your request to be a delegate has been rejected.",
+				"approved": "Your request to be a delegate has been approved."
+			}
+		},
+		"proposals": {
+			"approved": "The proposal you submitted has been approved.",
+			"rejected": "The proposal you submitted has been rejected.",
+			"comments": "There is a new comment on your proposal."
 		}
 	},
 	"proposals": {

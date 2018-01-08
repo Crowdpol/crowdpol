@@ -34,7 +34,7 @@ Template.AdminApprovals.events({
 				Bert.alert(error.reason, 'danger');
 			} else {
 				Meteor.call('sendApproval', email, type);
-				Bert.alert(TAPi18n.__('pages.admin.alerts.user-approved'), 'success');//TAPi18n.__('profile-msg-private');
+				Bert.alert(TAPi18n.__('admin.alerts.user-approved'), 'success');//TAPi18n.__('profile-msg-private');
 			}
 		});  
 		//

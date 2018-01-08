@@ -136,6 +136,19 @@ Meteor.methods({
       if(type&&status=='Approved'){
         Roles.addUsersToRoles(userID, type);
       }
+
+      // Create user notification
+      var message;
+      var icon;
+      if (status=='Approved') {
+        message = TAPi18n.__('notifications.approvals.' + type + '.approved');
+        icon = 'check';
+      } else if (status=='Rejected') {
+        message = TAPi18n.__('notifications.approvals.' + type + '.rejected')
+        icon = 'do_not_disturb';
+      }
+
+      Meteor.call('createNotification', {message: message, userId: userID, url: '/profile', icon: icon})
     },
     requestApproval: function (userId, type) {
       check(userId, String);
@@ -300,9 +313,13 @@ function profileIsComplete(user){
     isComplete = false;
   } else {
     _.map(profileFields, function(field){
-      if (profile[field].length == 0){
+      if (profile[field]){
+        if (profile[field].length == 0) {
+          isComplete = false;
+        }
+      } else {
         isComplete = false;
-      } 
+      }
     });
   }
   return isComplete;

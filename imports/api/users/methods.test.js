@@ -10,20 +10,25 @@ import { Factory } from 'meteor/dburles:factory';
 import { fakerSchema } from '../../utils/test-utils/faker-schema/';
 import { sinon } from 'meteor/practicalmeteor:sinon';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
+import '../../../i18n/en.i18n.json';
 
 const { schema, generateDoc } = fakerSchema;
 Factory.define('user', Meteor.users, schema.User);
 
 // Test data and other messy stuff
 
+tag = {keyword: 'text', url: '', _id: '1234'}
+
 updateProfile = {
+  username: "username",
   firstName: "Test",
   lastName: "User Updates",
   gender: "Other",
   organization: "Test Org Updated",
   website: "http://testuser.com/update",
   bio: "I am a test user, my profile has been updated",
-  picture: "/img/default-user-image.png",
+  photo: "/img/default-user-image.png",
+  tags: [tag, tag, tag, tag, tag],
   credentials : [
     {
       "source" : "default",
@@ -239,6 +244,7 @@ if (Meteor.isServer) {
 
       beforeEach( ()=> {
         testEntityId = Meteor.call('addEntity', entityData);
+        Meteor.call('updateProfile', testEntityId, updateProfile);
         // stub Meteor's user method to simulate the entity being logged in
         var testEntity = Meteor.call('getUser', testEntityId)
         var userStub = sinon.stub(Meteor, 'user');

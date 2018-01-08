@@ -51,10 +51,15 @@ Meteor.methods({
     },
     rejectProposal: function (proposalId) {
       check(proposalId, String);
+      var userId = Proposals.findOne(proposalId).authorId;
       Proposals.update({_id: proposalId}, {$set: {"status": "rejected"}});
+      var message = TAPi18n.__('notifications.proposals.rejected');
+      var url = '/proposals/view/' + proposalId;
+      Meteor.call('createNotification', {message: message, userId: userId, url: url, icon: 'do_not_disturb'})
     },
     approveProposal: function(proposalId){
       check(proposalId, String);
+      var userId = Proposals.findOne(proposalId).authorId;
       Proposals.update({_id: proposalId}, {$set: {"stage": "live"}});
       Proposals.update({_id: proposalId}, {$set: {"status": "approved"}});
       /* This should be removed after September 2018: 
@@ -62,6 +67,11 @@ Meteor.methods({
       Eventually custom dates should be set by the author.
       */
       Proposals.update({_id: proposalId}, {$set: {"startDate": new Date()}});
+
+      // Create notification
+      var message = TAPi18n.__('notifications.proposals.approved');
+      var url = '/proposals/view/' + proposalId;
+      Meteor.call('createNotification', {message: message, userId: userId, url: url, icon: 'check'});
     },
     updateProposalStage: function(proposalId, stage){
       check(proposalId, String);
