@@ -149,7 +149,7 @@ function toggleNotificationsDrawer(){
 }
 
 function getMenuRoles(userRoles){
-  var menuRoles = ['individual', 'delegate', 'candidate'];
+  var menuRoles = ['individual', 'delegate'];
   return _.intersection(userRoles, menuRoles);
 }
 
