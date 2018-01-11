@@ -17,7 +17,10 @@ if (Meteor.isServer) {
   describe('DelegateVote methods', () => {
     beforeEach(function () {
       // create a fake proposal
-      const proposal = Factory.create('proposal', generateDoc(schema.Proposal));
+      var endDate = moment().add(3, 'weeks').toDate();
+      var proposal = Factory.create('proposal', generateDoc(schema.Proposal));
+      Proposals.update({_id: proposal._id}, {$set: {endDate: endDate}});
+      proposal = Proposals.findOne(proposal._id);
       // create a fake user
       Factory.define('user', Meteor.users, generateDoc(schema.User));
       const userId = Factory.create('user')._id
@@ -25,8 +28,10 @@ if (Meteor.isServer) {
       Roles.addUsersToRoles(userId, 'delegate');
       const user = Meteor.call('getUser', userId);
       stub = sinon.stub(Meteor, 'user');
-      stub.returns(user)
-      testVoteId = Meteor.call('voteAsDelegate', {vote: 'yes', proposalId: proposal._id});
+      stub.returns(user);
+      idStub = sinon.stub(Meteor, 'userId');
+      idStub.returns(user._id); 
+      testVoteId = Meteor.call('voteAsDelegate', {vote: 'yes', proposalId: proposal._id, reason: ''});
     });
     afterEach(function () {
       // restores Meteor's user method
@@ -36,6 +41,22 @@ if (Meteor.isServer) {
     it("Lets delegate vote", (done) => {
       try {
         expect(testVoteId).to.exist;
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Closes the delegate vote two weeks before the proposal expires", (done) => {
+        try {
+        var endDate = moment().add(1, 'weeks').toDate();
+        var closedProposal = Factory.create('proposal', generateDoc(schema.Proposal));
+        Proposals.update({_id: closedProposal._id}, {$set: {endDate: endDate}});
+        closedProposal = Proposals.findOne(closedProposal._id);
+        assert.throws(() => {
+          Meteor.call('voteAsDelegate', {vote: 'yes', proposalId: closedProposal._id, reason: ''});
+        }, Meteor.Error, 422);
         done();
       } catch (err) {
         console.log(err);

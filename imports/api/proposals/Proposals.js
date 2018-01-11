@@ -11,12 +11,15 @@ if ( Meteor.isServer ) {
 ProposalSchema = new SimpleSchema({
     title: {
         type: String,
+        optional: true
     },
     abstract: {
         type: String,
+        optional: true
     },
     body: {
         type: String,
+        optional: true
     },
     createdAt: {
         type: Date,
@@ -102,6 +105,14 @@ ProposalSchema = new SimpleSchema({
     'references.$': {
         type: String
     },
+    readyToTally: {
+        type: Boolean,
+        autoValue() {
+          if (this.isInsert) {
+            return false;
+          }
+        },
+    }
 });
 
 Proposals.attachSchema(ProposalSchema);

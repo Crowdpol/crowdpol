@@ -1,16 +1,18 @@
 import { Session } from 'meteor/session';
 
 import './header.html';
+import './clamp.min.js'
 import { Tags } from '../../../api/tags/Tags.js'
+import { Notifications } from '../../../api/notifications/Notifications.js'
 
 Template.Header.onCreated(function(){
   var self = this;
   var user = Meteor.user();
 
   if (user && user.roles){
-    var currentRole = Session.get('currentUserRole');
+    var currentRole = LocalStore.get('currentUserRole');
     if (!currentRole){
-      Session.set('currentUserRole', Meteor.user().roles[0]);
+      LocalStore.set('currentUserRole', Meteor.user().roles[0]);
     }
   }
   self.availableTags = new ReactiveVar([]);
@@ -19,6 +21,7 @@ Template.Header.onCreated(function(){
   self.autorun(function(){
     //subscribe to list of existing tags
     self.subscribe('tags.all');
+    self.subscribe('notifications.forUser', Meteor.userId());
     self.availableTags.set(Tags.find().pluck('keyword'));
   });
 
@@ -27,11 +30,9 @@ Template.Header.onCreated(function(){
 Template.Header.helpers({
   hideHamburger() {
     $(".mdl-layout__drawer-button").hide();
-    console.log("hamburger hidden");
   },
   showHamburger() {
     $(".mdl-layout__drawer-button").show();
-    console.log("hamburger shown");
   },
   lang() {
     var str = Session.get("i18n_lang")
@@ -56,14 +57,38 @@ Template.Header.helpers({
   },
 
   currentRole(){
-    return Session.get('currentUserRole');
+    return LocalStore.get('currentUserRole');
   },
 
   isCurrentRole(role){
-    return (role == Session.get('currentUserRole'));
+    return (role == LocalStore.get('currentUserRole'));
   },
   matchedTags(){
     return Template.instance().matchedTags.get();
+  },
+  notifications(){
+    return Notifications.find({},{sort: {createdAt: -1}}).fetch();
+  },
+  unreadNotificationCount(){
+    return Notifications.find({read: false}).count();
+  },
+  notificationCount(){
+    return Notifications.find().count();
+  },
+  notificationItemClass(read) {
+    if (read){
+      return 'read'
+    } else {
+      return 'unread'
+    }
+  },
+  notificationDate(createdAt) {
+    return moment(createdAt).fromNow();
+  },
+  unreadClass(){
+    if (Notifications.find({read: false}).count() == 0){ 
+      return 'noUnreads'
+    }
   }
 });
 
@@ -78,7 +103,7 @@ Template.Header.events({
     Meteor.logout();
   },
   'click .role-menu-item' : function(){
-    Session.set('currentUserRole', event.target.dataset.role);
+    LocalStore.set('currentUserRole', event.target.dataset.role)
   },
   'keyup input' (event, template) {
     var input = event.target.value;
@@ -89,19 +114,42 @@ Template.Header.events({
     template.find('#header-tag-search').value = event.target.dataset.keyword;
     template.matchedTags.set([]);
   },
-  'focusout input' (event, template){
+  'focusout input' (event, template) {
    template.matchedTags.set([]);
   },
-  'submit form, click #search-button' (event, template){
+  'submit form, click #search-button' (event, template) {
     var keyword = template.find('#header-tag-search').value;
     var url = Tags.findOne({keyword: keyword}).url
     FlowRouter.go(url)
+  },
+  'click #notifications-menu-icon': function(event, template) {
+    toggleNotificationsDrawer();
+  },
+  'click .notification-item': function(event, template) {
+    FlowRouter.go(event.target.dataset.url);
+    location.reload();
+    Meteor.call('readNotification', event.target.dataset.id);
+  },
+  'click #mark-as-read': function(event, template) {
+    Meteor.call('markAllAsRead', Meteor.userId());
   }
+
 });
 
+function toggleNotificationsDrawer(){
+  var items = document.getElementsByClassName('mdl-list__item-text-body notification-item-text')
+    _.map(items, function(el){$clamp(el, {clamp: 3});})
+
+    if($('#notifications-menu').hasClass('active')){       
+        $('#notifications-menu').removeClass('active'); 
+     }
+     else{
+        $('#notifications-menu').addClass('active'); 
+     }
+}
+
 function getMenuRoles(userRoles){
-  console.log(userRoles)
-  var menuRoles = ['individual', 'delegate', 'candidate'];
+  var menuRoles = ['individual', 'delegate'];
   return _.intersection(userRoles, menuRoles);
 }
 

@@ -19,10 +19,9 @@ Template.ViewProposal.onCreated(function(){
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
-        console.log(proposal);
-        dict.set( 'title', proposal.title );
-        dict.set( 'abstract', proposal.abstract );
-        dict.set( 'body', proposal.body );
+        dict.set( 'title', proposal.title || '');
+        dict.set( 'abstract', proposal.abstract || '');
+        dict.set( 'body', proposal.body || '');
         dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') );
         dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') );
         dict.set( 'invited', proposal.invited );
@@ -37,11 +36,12 @@ Template.ViewProposal.onCreated(function(){
     })
   });
 
-  Meteor.call("getDelegateVotes", function(error, result){
+  Meteor.call("getDelegateVotes", proposalId, Meteor.userId(), function(error, result){
     if (error){
       Bert.alert(error.reason, 'danger');
     } else {
       self.delegates.set(result);
+      thing = result
     }
   });
 
@@ -93,16 +93,21 @@ Template.ViewProposal.events({
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
   'click #submit-proposal' (event, template){
-    if (window.confirm(TAPi18n.__('proposals.view.confirmSubmit'))){
-      Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
-        if (error){
-          Bert.alert(error.reason, 'danger');
-        } else {
-          Bert.alert(TAPi18n.__('proposals.view.alerts.proposalSubmitted'), 'success');
-          FlowRouter.go('App.proposals');
-        }
-      });
+    if (proposalIsComplete(proposalId)){
+      if (window.confirm(TAPi18n.__('proposals.view.confirmSubmit'))){
+        Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
+          if (error){
+            Bert.alert(error.reason, 'danger');
+          } else {
+            Bert.alert(TAPi18n.__('proposals.view.alerts.proposalSubmitted'), 'success');
+            FlowRouter.go('App.proposals');
+          }
+        });
+      }
+    } else {
+      Bert.alert(TAPi18n.__('proposals.view.alerts.proposalIncomplete'), 'danger');
     }
+    
   },
 
   'submit #comment-form' (event, template){
@@ -200,14 +205,23 @@ Template.ViewProposal.helpers({
     return Template.instance().templateDictionary.get( 'pointsFor' );
   },
   pointsAgainst: function() {
-    console.log(Template.instance().templateDictionary.get( 'pointsAgainst' ));
     return Template.instance().templateDictionary.get( 'pointsAgainst' );
   },
   isInvited: function() {
     return userIsInvited();
   },
   isVotingAsDelegate: function(){
-    return (Session.get('currentUserRole') == 'Delegate');
+    return (LocalStore.get('currentUserRole') == 'Delegate');
+  },
+  isVotableForDelegates: function() {
+    var startDate = moment(Template.instance().templateDictionary.get( 'startDate' ));
+    var endDate = moment(Template.instance().templateDictionary.get( 'endDate' ));
+    var now = moment();
+    if (endDate.subtract(2,'weeks').isAfter(now) && startDate.isBefore(now)){
+      return true;
+    } else {
+      return false;
+    }
   },
   isAuthor: function() {
     return userIsAuthor();
@@ -233,7 +247,7 @@ Template.ViewProposal.helpers({
     var status = Template.instance().templateDictionary.get('status');
     var startDate = Template.instance().templateDictionary.get('startDate');
     var endDate = Template.instance().templateDictionary.get('endDate');
-    var isOpen = ((moment().isAfter(startDate, 'day')) && (moment().isBefore(endDate, 'day')))
+    var isOpen = ((moment().isAfter(startDate, 'minute')) && (moment().isBefore(endDate, 'minute')))
 
     //Should be live, approved and between the start and end dates
     if ((stage == 'live') && (status == 'approved') && (isOpen)) {
@@ -314,6 +328,30 @@ Template.delegateVoteListItem.helpers({
   }
 })
 
+function proposalIsComplete(proposalId) {
+
+  proposal = Proposals.findOne(proposalId);
+  
+  if (!proposal.title){
+    return false;
+  }
+  if (!proposal.abstract){
+    return false;
+  }
+  if (!proposal.body){
+    return false;
+  }
+  if (!proposal.startDate){
+    return false;
+  }  
+  if (!proposal.endDate){
+    return false;
+  }  
+
+  return true;
+
+}
+
 function userIsAuthor(){
   if (Meteor.userId() == Template.instance().templateDictionary.get( 'authorId' )){
       return true;
@@ -362,7 +400,7 @@ function transformComment(comment) {
 };
 
 function vote(voteString){
-  var currentRole = Session.get('currentUserRole');
+  var currentRole = LocalStore.get('currentUserRole');
 
   if (currentRole == 'Delegate'){
     // Vote as a delegate

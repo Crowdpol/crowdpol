@@ -43,5 +43,62 @@ Meteor.methods({
     check(proposalId, String);
     check(voterHash, String);
     return Votes.findOne({proposalId: proposalId, voterHash: voterHash});
-  }
+  },
+  getProposalIndividualVotes: function(proposalId){
+    check(proposalId, String);
+    results = Votes.aggregate([
+      { $match: {"proposalId" : proposalId}},
+      { $group: {
+            "_id": "$proposalId",
+            "yesCount": {
+                "$sum": {
+                    $cond: [ { $eq: [ "$vote", "yes" ] }, 1, 0 ]
+                }
+            },
+            "noCount": {
+                "$sum": {
+                    $cond: [ { $eq: [ "$vote", "no" ] }, 1, 0 ]
+                }
+            }
+        }},
+    ]);
+    //console.log(results);
+    return results;
+  },
 });
+
+/* MONGO QUERIES IN USE:
+GET TOTAL INDIVIDUAL VOTES FOR ALL PROPOSALS
+db.votes.aggregate([
+  { $group: {
+        "_id": "$proposalId",
+        "yesCount": {
+            "$sum": {
+                $cond: [ { $eq: [ "$vote", "yes" ] }, 1, 0 ]
+            }
+        },
+        "noCount": {
+            "$sum": {
+                $cond: [ { $eq: [ "$vote", "no" ] }, 1, 0 ]
+            }
+        }
+    }},
+]);
+GET ALL DELEGATE VOTES FOR SINGLE PROPOSAL
+db.votes.aggregate([
+  { $match: {"proposalId" : "GqXEii9qmfJ7vai6K"}},
+  { $group: {
+        "_id": "$proposalId",
+        "yesCount": {
+            "$sum": {
+                $cond: [ { $eq: [ "$vote", "yes" ] }, 1, 0 ]
+            }
+        },
+        "noCount": {
+            "$sum": {
+                $cond: [ { $eq: [ "$vote", "no" ] }, 1, 0 ]
+            }
+        }
+    }},
+]);
+*/

@@ -53,6 +53,7 @@ themeteorchef:jquery-validation # form validation
 meteorhacks:aggregate			# allows for mongo db aggregate function
 zenorocha:clipboard				# lets users copy text with one click
 http@1.3.0 							# allows for HTTP: GET, POST, PUT & DELETE
+frozeman:storage				# Reactive wrapper for localstorage
 
 #-- dev tools --
 meteortoys:allthings
@@ -69,3 +70,4 @@ underscore
 liberation:collection-pluck
 coffeescript
 mfpierre:chartist-js
+percolate:synced-cron
