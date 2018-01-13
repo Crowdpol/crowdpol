@@ -81,7 +81,7 @@ Meteor.methods({
       userId = Meteor.userId();
     }
 
-    return Ranks.aggregate([
+    thing = Ranks.aggregate([
       {
         $match: {
           supporterId: userId, entityType: 'delegate'
@@ -103,10 +103,23 @@ Meteor.methods({
         }
       }, 
       {
-        $project: {ranking: 1, 'vote_info.vote': 1, 'vote_info.reason':1, 'user_info.profile.firstName':1, 'user_info.profile.lastName':1, 'user_info.profile.username':1, 'user_info.profile.photo':1, 'user_info._id':1}
+        $project: {ranking: 1, 
+          vote_info: 
+          {
+            $filter: 
+            { 
+              input: "$vote_info", 
+              as: "single_vote", 
+              cond: { $eq: [ "$$single_vote.proposalId", proposalId ] } 
+            } 
+          },
+          'user_info.profile.firstName':1, 'user_info.profile.lastName':1, 'user_info.profile.username':1, 'user_info.profile.photo':1, 'user_info._id':1}
       },
       {$sort: {ranking: 1}}
     ])
+
+    console.log('running')
+    return thing
   },
   getUserDelegateVote: function(proposalId){
     /* Returns null if the user has already voted, else returns the vote of the 

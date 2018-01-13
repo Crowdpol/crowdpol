@@ -41,6 +41,7 @@ Template.ViewProposal.onCreated(function(){
       Bert.alert(error.reason, 'danger');
     } else {
       self.delegates.set(result);
+      thing = result
     }
   });
 
