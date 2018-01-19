@@ -30,8 +30,8 @@ Template.ViewProposal.onCreated(function(){
         dict.set( 'status', proposal.status );
         dict.set( 'tags', proposal.tags );
         dict.set( 'signatures', proposal.signatures || [] );
-        dict.set( 'pointsFor', proposal.pointFor || [] );
-        dict.set( 'pointsAgainst', proposal.pointAgainst || [] );
+        dict.set( 'pointsFor', proposal.pointsFor || [] );
+        dict.set( 'pointsAgainst', proposal.pointsAgainst || [] );
       }
     })
   });
