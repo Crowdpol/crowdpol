@@ -32,7 +32,8 @@
 		"footer": {
 			"delegate": "Delegate",
 			"vote": "Vote",
-			"nominate": "Nominate"
+			"nominate": "Nominate",
+			"write": "Write"
 		}
 	},
 	"generic": {
