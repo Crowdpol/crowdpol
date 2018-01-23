@@ -17,6 +17,13 @@
     color: $blue;
   }
 
+  #header-tag-search-form {
+      display: none;
+      @include breakpoint($laptop) {
+        display: block;
+      }
+  }
+
   .mdl-textfield--expandable{
     padding-top: 0px;
     padding-bottom: 20px;
