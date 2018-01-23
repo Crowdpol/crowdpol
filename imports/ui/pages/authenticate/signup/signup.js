@@ -38,13 +38,13 @@ Template.Signup.events({
 				Bert.alert(error.reason, 'danger');
 			} else {
 				FlowRouter.go('/dash');
-				Meteor.call('sendVerificationLink', (error, response) => {
+				/*Meteor.call('sendVerificationLink', (error, response) => {
 					if (error){
 						Bert.alert(error.reason, 'danger');
 					} else {
 						Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
 					}
-				});
+				});*/
 			}
 		});
 	}

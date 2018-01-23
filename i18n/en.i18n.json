@@ -174,13 +174,13 @@
 			"heading" : "Dashboard",
 			"card": {
 				"proposals": {
-					"heading": "Proposals",
-					"text": "View proposals.",
+					"heading": "Vote",
+					"text": "Vote on Proposals.",
 					"link": "Vote"
 				},
 				"delegates": {
-					"heading": "Delegates",
-					"text": "Select your delegates",
+					"heading": "Delegate",
+					"text": "Select your delegates.",
 					"link": "Delegate"
 				},
 				"candidates": {

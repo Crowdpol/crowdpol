@@ -21,6 +21,10 @@
   background-color: $light-blue;
 }
 
+.proposal-list-item-link {
+  text-decoration: none;
+}
+
 #sign-proposal {
   border: 2px solid;
   .proposal-item {
