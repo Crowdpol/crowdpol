@@ -32,7 +32,8 @@
 		"footer": {
 			"delegate": "Delegate",
 			"vote": "Vote",
-			"nominate": "Nominate"
+			"nominate": "Nominate",
+			"write": "Write"
 		}
 	},
 	"generic": {
@@ -173,13 +174,13 @@
 			"heading" : "Dashboard",
 			"card": {
 				"proposals": {
-					"heading": "Proposals",
-					"text": "View proposals.",
+					"heading": "Vote",
+					"text": "Vote on Proposals.",
 					"link": "Vote"
 				},
 				"delegates": {
-					"heading": "Delegates",
-					"text": "Select your delegates",
+					"heading": "Delegate",
+					"text": "Select your delegates.",
 					"link": "Delegate"
 				},
 				"candidates": {
@@ -201,7 +202,7 @@
 		"profile": {
 			"heading": "Profile",
 			"photo" : "Profile photo path",
-			"public" : "Public Profile",
+			"public" : "Public",
 			"private" : "Private Profile",
 			"delegate" : "Delegate",
 			"candidate" : "Candidate",
