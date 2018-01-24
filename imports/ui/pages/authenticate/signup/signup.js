@@ -37,7 +37,7 @@ Template.Signup.events({
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				FlowRouter.go('/dash');
+				FlowRouter.go('/proposals');
 				/*Meteor.call('sendVerificationLink', (error, response) => {
 					if (error){
 						Bert.alert(error.reason, 'danger');
