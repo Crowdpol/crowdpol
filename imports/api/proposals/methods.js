@@ -66,7 +66,7 @@ Meteor.methods({
       Voting opens from the day the proposal is approved.
       Eventually custom dates should be set by the author.
       */
-      Proposals.update({_id: proposalId}, {$set: {"startDate": new Date()}});
+      //Proposals.update({_id: proposalId}, {$set: {"startDate": new Date()}});
 
       // Create notification
       var message = TAPi18n.__('notifications.proposals.approved');
