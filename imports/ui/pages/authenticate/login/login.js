@@ -36,7 +36,7 @@ Template.Login.events({
 				if (Roles.userIsInRole(Meteor.userId(), ['admin', 'superadmin'])){
 					FlowRouter.go('/admin/dash');
 				} else {
-					FlowRouter.go('/dash');
+					FlowRouter.go('/proposals');
 				}	
 			}
 		});

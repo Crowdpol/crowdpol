@@ -59,12 +59,12 @@ Template.EditProposal.onRendered(function(){
 				body: 'Please provide a body for your proposal.',
 				minlength: "Use at least 50 characters."
 			},
-			/*startDate: {
+			startDate: {
 				required: 'Please indicate when voting will open for this proposal.'
 			},
 			endDate: {
 				required: 'Please indicate when voting will close for this proposal.'
-			},*/
+			},
 		}
 	});
 
@@ -88,6 +88,8 @@ Template.EditProposal.onRendered(function(){
 
   	self.autorun(function(){
 		proposalId = FlowRouter.getParam("id");
+		var defaultStartDate = moment().format('YYYY-MM-DD');
+		var defaultEndDate = moment().add(1, 'week').format('YYYY-MM-DD');
 		
 		if (proposalId){
 			// Edit an existing proposal
@@ -97,8 +99,8 @@ Template.EditProposal.onRendered(function(){
 				self.find('#abstract').value = proposal.abstract || '';
 				self.find('.ql-editor').innerHTML = proposal.body || '';
 				self.find('#body').value = proposal.body || '';
-				//self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
-				//self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
+				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate;
+				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate;
 				self.find('#invited').value = proposal.invited.join(',');
 				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
 				if (proposal.pointsFor != null){
@@ -108,6 +110,9 @@ Template.EditProposal.onRendered(function(){
 					self.pointsAgainst.set(proposal.pointsAgainst);
 				}
 			});
+		} else {
+			self.find('#startDate').value = defaultStartDate;
+			self.find('#endDate').value = defaultEndDate;
 		}
 	});
 });
@@ -226,10 +231,10 @@ function saveChanges(event, template, returnTo){
 			title: template.find('#title').value,
 			abstract: template.find('#abstract').value,
 			body: template.find('#body').value,
-			startDate: new Date(2018, 8, 1),//new Date(template.find('#startDate').value),
-			endDate: new Date(2018, 8, 1),//new Date(template.find('#endDate').value),
+			startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),//
+			endDate: new Date(template.find('#endDate').value),//new Date(2018, 8, 1),
 			authorId: Meteor.userId(),
-			invited: template.find('#invited').value.split(','),
+			//invited: template.find('#invited').value.split(','),
 			tags: proposalTags,
 			pointsFor: template.pointsFor.get(),
 			pointsAgainst: template.pointsAgainst.get(),
