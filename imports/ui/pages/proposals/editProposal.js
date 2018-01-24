@@ -99,7 +99,7 @@ Template.EditProposal.onRendered(function(){
 				self.find('#body').value = proposal.body || '';
 				//self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
 				//self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
-				self.find('#invited').value = proposal.invited.join(',');
+				//self.find('#invited').value = proposal.invited.join(',');
 				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
 				if (proposal.pointsFor != null){
 					self.pointsFor.set(proposal.pointsFor);
@@ -229,7 +229,7 @@ function saveChanges(event, template, returnTo){
 			startDate: new Date(2018, 8, 1),//new Date(template.find('#startDate').value),
 			endDate: new Date(2018, 8, 1),//new Date(template.find('#endDate').value),
 			authorId: Meteor.userId(),
-			invited: template.find('#invited').value.split(','),
+			//invited: template.find('#invited').value.split(','),
 			tags: proposalTags,
 			pointsFor: template.pointsFor.get(),
 			pointsAgainst: template.pointsAgainst.get(),
