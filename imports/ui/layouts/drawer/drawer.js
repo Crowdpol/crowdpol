@@ -5,6 +5,10 @@ Template.Drawer.events({
 		event.preventDefault();
 		Meteor.logout();
 	},
+	'click .side-nav-link' (event, template){
+		$('.side-nav').removeClass('is-visible'); 
+		$('.mdl-layout__obfuscator').removeClass('is-visible'); 
+	}
 });
 
 Template.RightDrawer.helpers({
