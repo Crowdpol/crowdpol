@@ -81,12 +81,6 @@
 					<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
 						{{_ "proposals.view.submitProposal"}}
 					</button>
-				{{else}}
-					<span class="mdl-chip">
-						<span class="mdl-chip__text">
-							{{ status }}
-						</span>
-					</span>
 				{{/if}}
 			</div>
 
@@ -100,12 +94,13 @@
 						<small>{{_"proposals.view.delegateVotingClosed"}}</small>
 					{{/if}}
 				{{else}}
+				<small>{{_"proposals.view.voteInstructions"}}</small>
 					<div class="vote-actions">
 						<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userYesClass}} {{delegateYesClass}}" id="vote-yes">
-							Yes
+							{{_"proposals.view.yes"}}
 						</button>
 						<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userNoClass}} {{delegateNoClass}}" id="vote-no">
-							No
+							{{_"proposals.view.no"}}
 						</button>
 					</div>
 				{{/if}}

@@ -246,8 +246,10 @@
 			"proposal-expires": "Expires",
 			"edit": {
 				"heading": "Write your proposal",
-				"title": "Title",
+				"title": "Give your proposal a descriptive title.",
 				"abstract": "Summarise your proposal",
+				"body": "Expand on your proposal. Provide as much detail as possible, and include links or references where appropriate.",
+				"forAndAgainst": "Every proposal has its pros and cons. Add some brief arguments for and against your proposal by entering them into the fields below and clicking the button.",
 				"startDate": "Start date for voting",
 				"endDate": "Closing date for voting",
 				"invited": "Invite others to collaborate by entering their usernames, separated by commas",
@@ -549,7 +551,7 @@
 			},
 			"edit": {
 				"heading": "Write your proposal",
-				"title": "Title",
+				"title": "Give your proposal a title",
 				"abstract": "Summarise your proposal",
 				"startDate": "Start date for voting",
 				"endDate": "Closing date for voting",
@@ -572,8 +574,11 @@
 				"voteHeading": "Vote on this proposal",
 				"voteStarts": "Voting starts on:",
 				"voteEnds": "Voting ends on: ",
-				"abstract": "Abstract",
+				"abstract": "Summary",
 				"proposal": "Proposal",
+				"yes": "For",
+				"no": "Against",
+				"voteInstructions": "Click the buttons below to cast your vote. If you do not vote, your vote will go to your highest-ranking delegate who has voted. However, you may override your delegate's vote at any point.",
 				"alerts": {
 					"linkToClipboardSuccess": "Link copied to clipboard",
 					"linkToClipboardFailed": "Link copied to clipboard",
@@ -585,7 +590,11 @@
 				"anonymous": "Anonymous",
 				"delegatesFor": "Delegates For:",
 				"delegatesAgainst": "Delegates Against:",
-				"delegateVotingClosed": "Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date."
+				"delegateVotingClosed": "Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date.",
+				"tooltips": {
+					"clipboard": "Copy a link to this proposal to your clipboard.",
+					"endorse": "Show your support by endorsing this proposal."
+				}
 			}
 		}
 
