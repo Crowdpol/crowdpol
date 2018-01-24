@@ -39,7 +39,7 @@ FlowRouter.route('/verify-email/:token',{
         } else {
           Bert.alert(TAPi18n.__('routes.alerts.verify-success-alert-entity'), 'success');
         }
-        FlowRouter.go('App.dash')
+        FlowRouter.go('App.proposals')
 			}
 		});
 	}
@@ -63,7 +63,7 @@ FlowRouter.route('/login', {
     if (!Meteor.user()){
       BlazeLayout.render('App_body', { main: 'Authenticate' });
     }else{
-      BlazeLayout.render('App_body', { main: 'Dash' });
+      BlazeLayout.render('App_body', { main: 'ProposalsList' });
     }
   },
 });
@@ -154,12 +154,12 @@ loggedInRoutes.route('/profile/:id', {
 });
 
 
-loggedInRoutes.route('/dash', {
+/*loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
     BlazeLayout.render('App_body', { main: 'Dash' });
   },
-});
+});*/
 
 loggedInRoutes.route('/tag/:keyword', {
   name: 'App.tag',
