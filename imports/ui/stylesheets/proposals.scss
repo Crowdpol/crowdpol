@@ -27,6 +27,30 @@
 
 .proposal-item {
   cursor: pointer;
+
+  .mdl-card__actions {
+    background-color: white;
+  }
+
+  .proposal-vote-progress-bar {
+    background-color: $light-blue;
+    height:24px;
+  }
+
+  .proposal-vote-yes-bar {
+    background-color: $bright-blue;
+    height:24px;
+  }
+
+  .proposal-percentage-text-left {
+    font-size: $xsmall-font-size;
+  }
+
+  .proposal-percentage-text-right {
+    float: right;
+    font-size: $xsmall-font-size;
+  }
+
 }
 
 #sign-proposal {

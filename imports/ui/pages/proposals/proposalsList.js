@@ -1,5 +1,6 @@
 import './proposalsList.html'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import { Votes } from '../../../api/votes/Votes.js'
 
 Template.ProposalsList.onCreated(function () {
   var self = this;
@@ -43,7 +44,7 @@ Template.ProposalsList.helpers({
   },
   authorSelected: function(){
     return Template.instance().authorProposals.get();
-  }
+  },
 });
 
 Template.ProposalsList.events({
@@ -78,6 +79,13 @@ function transformProposal(proposal) {
   return proposal;
 };
 
+Template.ProposalCard.onCreated(function () {
+  var self = this;
+  self.autorun(function(){
+    self.subscribe('votes.all');
+  })
+});
+
 Template.ProposalCard.helpers({
   canVote: function() {
     return Session.get("canVote");
@@ -99,6 +107,24 @@ Template.ProposalCard.helpers({
   userIsAuthor: function(proposalId) {
     var proposal = Proposals.findOne(proposalId);
     return proposal.authorId == Meteor.userId();
+  },
+  yesPercentage: function(proposalId) {
+    var yesCount = Votes.find({proposalId: proposalId, vote: 'yes'}).count();
+    var totalCount = Votes.find({proposalId: proposalId}).count();
+    if (totalCount > 0) {
+      return yesCount/totalCount * 100;
+    } else {
+      return 0;
+    }
+  },
+ noPercentage: function(proposalId) {
+    var yesCount = Votes.find({proposalId: proposalId, vote: 'no'}).count();
+    var totalCount = Votes.find({proposalId: proposalId}).count();
+    if (totalCount > 0) {
+      return yesCount/totalCount * 100;
+    } else {
+      return 0;
+    }
   }
 });
 
@@ -114,8 +140,6 @@ Template.ProposalCard.events({
           Bert.alert(TAPi18n.__('proposals.list.deletedMessage'), 'success');
         }
       });
-    }
-    
+    } 
   },
-
 });
