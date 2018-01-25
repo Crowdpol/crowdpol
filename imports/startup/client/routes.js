@@ -39,7 +39,7 @@ FlowRouter.route('/verify-email/:token',{
         } else {
           Bert.alert(TAPi18n.__('routes.alerts.verify-success-alert-entity'), 'success');
         }
-        FlowRouter.go('App.proposals')
+        FlowRouter.go('App.dash')
 			}
 		});
 	}
@@ -153,13 +153,14 @@ loggedInRoutes.route('/profile/:id', {
   },
 });
 
+/* NOTE: This routes to the proposals list for now, as replacement for a dashboard */
 
-/*loggedInRoutes.route('/dash', {
+loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
-    BlazeLayout.render('App_body', { main: 'Dash' });
+    BlazeLayout.render('App_body', { main: 'ProposalsList' });
   },
-});*/
+});
 
 loggedInRoutes.route('/tag/:keyword', {
   name: 'App.tag',
