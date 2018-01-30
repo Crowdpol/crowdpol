@@ -1,7 +1,13 @@
 <template name='ViewProposal'>
-	{{> backButton text="Back to Proposals" url="/proposals"}}
+
+	{{> SignInModal}}
+
+	{{#if currentUser }}
+		{{> backButton text="Back to Proposals" url="/proposals"}}
+	{{/if}}
 	
 	{{#if Template.subscriptionsReady}}
+
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
 			<h1 class="proposal-title">{{ title }}</h1>
