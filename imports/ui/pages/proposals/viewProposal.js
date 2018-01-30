@@ -116,38 +116,57 @@ Template.ViewProposal.events({
 
   'submit #comment-form' (event, template){
     event.preventDefault();
-    var comment = {
-      message: template.find('#comment-message').value,
-      proposalId: proposalId}
-    Meteor.call('comment', comment, function(error){
-      if(error){
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert(TAPi18n.__('proposals.view.alerts.commentPosted'), 'success');
-        template.find('#comment-message').value = "";
-      }
-    });
+
+    if (Meteor.user()){
+      var comment = {
+        message: template.find('#comment-message').value,
+        proposalId: proposalId}
+      Meteor.call('comment', comment, function(error){
+        if(error){
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert(TAPi18n.__('proposals.view.alerts.commentPosted'), 'success');
+          template.find('#comment-message').value = "";
+        }
+      });
+    }  else {
+      openSignInModal();
+    }
+    
+
   },
 
   'click #vote-yes' (event, template){
-    vote('yes');
-    template.templateDictionary.set('userVote', 'yes');
+    if (Meteor.user()){
+      vote('yes');
+      template.templateDictionary.set('userVote', 'yes');
+    } else {
+      openSignInModal();
+    }
   },
 
   'click #vote-no' (event, template){
-    vote('no');
-    template.templateDictionary.set('userVote', 'no');
+     if (Meteor.user()){
+        vote('no');
+        template.templateDictionary.set('userVote', 'no');
+      } else {
+        openSignInModal();
+      }
   },
 
   'click #sign-proposal' (event, template){
-    Meteor.call('toggleSignProposal', proposalId, function(error){
-      if (error){
-        Bert.alert(error.reason, 'danger');
-      } else {
-        template.templateDictionary.set('signatures', Proposals.findOne({_id: proposalId}).signatures)
-      }
-    });
-    
+    if (Meteor.user()) {
+      Meteor.call('toggleSignProposal', proposalId, function(error){
+        if (error){
+          Bert.alert(error.reason, 'danger');
+        } else {
+          template.templateDictionary.set('signatures', Proposals.findOne({_id: proposalId}).signatures)
+        }
+      });
+    } else {
+      openSignInModal();
+    }
+
   }
 });
 

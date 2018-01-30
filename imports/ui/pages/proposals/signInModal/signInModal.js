@@ -1,25 +1,19 @@
 import './signInModal.html'
 
 Template.SignInModal.events({
-  'click .fab' (event, template){
-    openFAB(event, template);
-  },
-  'click #cancel' (event, template){
-    closeFAB(event, template);
-  },
   'click #overlay' (event, template){
-    closeFAB(event, template);
+    closeSignInModal();
   },
 });
 
-function openFAB(event, template) {
+ openSignInModal = function(event) {
   if (event) event.preventDefault();
   $(".fab").addClass('active');
   $("#overlay").addClass('dark-overlay');
 
 }
 
-function closeFAB(event, template) {
+closeSignInModal = function(event) {
   if (event) {
     event.preventDefault();
     event.stopImmediatePropagation();
