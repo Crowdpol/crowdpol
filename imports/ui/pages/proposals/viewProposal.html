@@ -1,7 +1,6 @@
 <template name='ViewProposal'>
 	{{> backButton text="Back to Proposals" url="/proposals"}}
 	
-	{{#if currentUser}}
 	{{#if Template.subscriptionsReady}}
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
@@ -161,7 +160,6 @@
 	</div>
 	{{else}}
 		{{> loader}}
-	{{/if}}
 	{{/if}}
 </template>
 

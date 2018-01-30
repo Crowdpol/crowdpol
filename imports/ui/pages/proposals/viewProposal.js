@@ -36,30 +36,33 @@ Template.ViewProposal.onCreated(function(){
     })
   });
 
-  Meteor.call("getDelegateVotes", proposalId, Meteor.userId(), function(error, result){
-    if (error){
-      Bert.alert(error.reason, 'danger');
-    } else {
-      self.delegates.set(result);
-      thing = result
-    }
-  });
-
-  Meteor.call('getUserDelegateVote', proposalId, function(error, result){
-    if (error){
-      Bert.alert(error.reason, 'danger');
-    } else {
-      self.delegateVote.set(result);
-    }
-  })
-  
-   Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
-      if (result){
-        dict.set( 'userVote', result.vote );
+  if (Meteor.user()) {
+    Meteor.call("getDelegateVotes", proposalId, Meteor.userId(), function(error, result){
+      if (error){
+        Bert.alert(error.reason, 'danger');
       } else {
-        dict.set( 'userVote', '' );
+        self.delegates.set(result);
+        thing = result
       }
     });
+
+    Meteor.call('getUserDelegateVote', proposalId, function(error, result){
+      if (error){
+        Bert.alert(error.reason, 'danger');
+      } else {
+        self.delegateVote.set(result);
+      }
+    })
+    
+     Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
+        if (result){
+          dict.set( 'userVote', result.vote );
+        } else {
+          dict.set( 'userVote', '' );
+        }
+      });
+    }
+  
 });
 
 Template.ViewProposal.onRendered(function(){
