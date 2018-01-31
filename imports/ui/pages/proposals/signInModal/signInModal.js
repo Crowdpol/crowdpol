@@ -12,7 +12,7 @@ Template.SignInModal.events({
 
  openSignInModal = function(event) {
   if (event) event.preventDefault();
-  $(".fab").addClass('active');
+  $(".sign-in-modal").addClass('active');
   $("#overlay").addClass('dark-overlay');
 
 }
@@ -23,7 +23,7 @@ closeSignInModal = function(event) {
     event.stopImmediatePropagation();
   }
 
-  $(".fab").removeClass('active');
+  $(".sign-in-modal").removeClass('active');
   $("#overlay").removeClass('dark-overlay');
   
 }
