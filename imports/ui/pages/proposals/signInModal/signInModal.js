@@ -4,6 +4,10 @@ Template.SignInModal.events({
   'click #overlay' (event, template){
     closeSignInModal();
   },
+  'click #sign-up-button' (event, template){
+    LocalStore.set('signUpRedirectURL', window.location.href);
+    FlowRouter.go('/login');
+  }
 });
 
  openSignInModal = function(event) {
