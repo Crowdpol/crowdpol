@@ -2,8 +2,6 @@ import './delegateVoteList.html'
 
 Template.delegateVoteList.onCreated(function(){
 	self = this;
-	var dict = new ReactiveDict();
-	this.templateDictionary = dict;
 	self.delegates = new ReactiveVar([]);
 	proposalId = FlowRouter.getParam("id");
 	if (Meteor.user()) {

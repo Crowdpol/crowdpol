@@ -10,7 +10,7 @@ Template.voteButtons.onCreated(function(){
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				dict.set( 'delegateVote', result.vote );
+				dict.set( 'delegateVote', result );
 			}
 		})
 
