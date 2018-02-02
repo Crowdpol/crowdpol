@@ -1,0 +1,12 @@
+<template name='voteButtons'>
+
+ <small>{{_"proposals.view.voteInstructions"}}</small>
+ <div class="vote-actions">
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userYesClass}} {{delegateYesClass}}" id="vote-yes">
+        {{_"proposals.view.yes"}}
+    </button>
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userNoClass}} {{delegateNoClass}}" id="vote-no">
+        {{_"proposals.view.no"}}
+    </button>
+</div>
+</template>

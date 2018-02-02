@@ -41,6 +41,8 @@ import './pages/proposals/editProposal.js';
 import './pages/proposals/viewProposal.js';
 import './pages/proposals/signInModal/signInModal.js';
 import './pages/proposals/delegateVoteButtons.js';
+import './pages/proposals/voteButtons.js';
+import './pages/proposals/delegateVoteList.js';
 import './pages/proposals/proposalsList.js';
 import './pages/delegates/delegate.js';
 import './pages/candidates/candidates.js';
