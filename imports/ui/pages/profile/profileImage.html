@@ -3,7 +3,7 @@
 	<a href="#" id="change-photo-button">
 		<i class="material-icons">camera_alt</i>
 	</a>
-	<div class="mdl-grid profile-grid" id="change-photo" style="display:none; background-color: #e9ebee">
+	<div class="mdl-grid profile-grid" id="change-photo" style="display:none; background-color: rgb(246,246,246);">
 		<div class="mdl-cell mdl-cell--12-col">
 			<form id="profile-photo-form" class="profile">
 				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
@@ -31,15 +31,9 @@
 					  {{/with}}
 					</div>
 					<span id="valid-photo-path"></span>
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="photo-save" style="float: right;">
-					  {{_ "form.save"}}
-					</button>
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="photo-cancel" style="float: right;">
-					  {{_ "form.cancel"}}
-					</button>
 				</div>
 			</form>
 		</div>
 	</div>
-	<input type="hidden" name="profilePhotoPath" id="profile-photo-path" class="mdl-textfield__input" value="{{profilePic}}">
+	
 </template>
