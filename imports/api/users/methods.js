@@ -174,6 +174,7 @@ Meteor.methods({
         });
         Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
       } else {
+        console.log("profileIsComplete() has failed");
         throw new Meteor.Error(422, TAPi18n.__('pages.profile.alerts.profile-incomplete'));
       }
       
@@ -297,6 +298,7 @@ Meteor.methods({
 });
 
 function profileIsComplete(user){
+  console.log("function started");
   var profile = {
     username: user.profile.username,
     firstName: user.profile.firstName,
@@ -320,6 +322,7 @@ function profileIsComplete(user){
           console.log(profile[field] + " has no length");
         }
       } else {
+        console.log("no fields");
         isComplete = false;
       }
     });

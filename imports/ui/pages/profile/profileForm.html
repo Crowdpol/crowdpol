@@ -11,7 +11,7 @@
     </div>
 		<div id="public-form-details">
 			<div class="mdl-grid profile-grid">
-				<input type="hidden" name="profilePhotoPath" id="profile-photo-path" value="{{profilePic}}">
+				<input type="text" name="profilePhotoPath" id="profile-photo-path" value="{{profilePic}}">
 	      <div class="mdl-cell mdl-cell--12-col">
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="mdl-textfield__label" for="profile-firstname">{{_ "form.firstname"}}</label>
@@ -50,6 +50,22 @@
 				<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
 	      	<h5>Profile Settings<small class="center">{{pages.profile.type}}</small></h5>
 	      </div>
+	      <div class="mdl-cell mdl-cell--12-col">
+				<div id="p1" class="mdl-progress mdl-js-progress"></div>
+				Profile status: {{completedScore}}/{{totalScore}} completed.
+				<a href="#" id="profile-status-link">More</a>
+				<div id="profile-status-complete" style="display:none;">
+					<ol>
+						<li>Profile picture: {{#if photoCompleted}}&#10003;{{else}}no{{/if}}</li>
+						<li>Username: {{#if usernameCompleted}}&#10003;{{else}}no{{/if}}</li>
+  					<li>First name: {{#if firstnameCompleted}}&#10003;{{else}}no{{/if}}</li>
+  					<li>Last name: {{#if lastnameCompleted}}&#10003;{{else}}no{{/if}}</li>
+  					<li>Website: {{#if urlCompleted}}&#10003;{{else}}no{{/if}}</li>
+  					<li>About: {{#if bioCompleted}}&#10003;{{else}}no{{/if}}</li>
+  					<li>Interests: {{tagsCompleted}} of 5</li>
+					</ol>
+				</div>
+			</div>
 	      <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
 	      	<p>Make your profile visible to others. Requires completed profile form. Required become a delegate.</p>
 	      </div>

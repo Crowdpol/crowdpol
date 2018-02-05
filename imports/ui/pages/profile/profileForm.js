@@ -16,14 +16,15 @@ Template.ProfileForm.onRendered(function(){
     if (isReady){
       // Set public/private switch
       updatePublicSwitch(self);
+      updateProfileProgress();
       // Set approval statuses and switches
       self.delegateStatus.set(updateDisplayedStatus('delegate', self));
-      self.candidateStatus.set(updateDisplayedStatus('candidate', self));
+      //self.candidateStatus.set(updateDisplayedStatus('candidate', self));
     }
   });
 
   Session.set('profileIsComplete', checkProfileIsComplete(self))
-
+  Session.set('showCompleteStatus', false);
   Meteor.call('getUserTags', Meteor.userId(), function(error, result){
     if (error){
       Bert.alert(error.reason, 'danger');
@@ -42,6 +43,7 @@ Template.ProfileForm.onCreated(function() {
     self.subscribe('user.current');
   });
   var dict = new ReactiveDict();
+  dict.set('completeScore', 0);
 
   Meteor.call('getProfile', Meteor.userId(), function(error, result) {
     if (error) {
@@ -65,12 +67,13 @@ Template.ProfileForm.onCreated(function() {
       }
     }
   });
+
   this.templateDictionary = dict;
 });
 
 Template.ProfileForm.events({
   'keyup input, keyup textarea' (event, template){
-    Session.set('profileIsComplete', checkProfileIsComplete(template))
+    //Session.set('profileIsComplete', checkProfileIsComplete(template))
   },
   'click #show-settings' (event, template) {
     event.preventDefault();
@@ -90,9 +93,12 @@ Template.ProfileForm.events({
         if (result) {
           //$('#submitProfile').removeAttr('disabled', 'disabled');
           //$('form').unbind('submit');
+          template.templateDictionary.set('completeScore',Template.instance().templateDictionary.get('completeScore')+1);
           $("#valid-username").html("&#10003;");
+
         } else {
           $("#valid-username").text("Username exists");
+          template.templateDictionary.set('completeScore',Template.instance().templateDictionary.get('completeScore')-1);
           //$('#submitProfile').attr('disabled', 'disabled');
           //$('form').bind('submit',function(e){e.preventDefault();});
         }
@@ -185,7 +191,17 @@ Template.ProfileForm.events({
     console.log("submit clicked");
     event.preventDefault();
   },
-  
+  'click #profile-status-link' (){
+    event.preventDefault();
+    if(Session.get('showCompleteStatus')){
+      $( "#profile-status-complete" ).hide();
+      $( "#profile-status-link" ).text("More");
+    }else{
+      $( "#profile-status-complete" ).show();
+       $( "#profile-status-link" ).text("Less");
+    }
+    Session.set('showCompleteStatus',!Session.get('showCompleteStatus'));
+  }
 });
 
 Template.ProfileForm.onRendered(function() {
@@ -216,10 +232,10 @@ Template.ProfileForm.onRendered(function() {
           Bert.alert(error, 'reason');
         } else {
           var profile = {
-            username: Template.instance().templateDictionary.get('username'),//template.find('[name="profileUsername"]').value,
+            username: template.find('[name="profileUsername"]').value,
             firstName: template.find('[name="profileFirstName"]').value,
             lastName: template.find('[name="profileLastName"]').value,
-            photo: Template.instance().templateDictionary.get('photo'),//template.find('[name="profilePhotoPath"]').value,
+            photo: template.find('[name="profilePhotoPath"]').value,
             bio: template.find('[name="profileBio"]').value,
             website: template.find('[name="profileWebsite"]').value,
             credentials: template.templateDictionary.get('credentials'),
@@ -244,6 +260,36 @@ Template.ProfileForm.onRendered(function() {
 });
 
 Template.ProfileForm.helpers({
+  totalScore: function(){
+    //remember to check if type is entity as only uses firstname (thus return 6), individual requires firstname and lastname (thus 7)
+    return 7;
+  },
+  photoCompleted: function(){
+    return true;
+  },
+  usernameCompleted: function(){
+    return true;
+  },
+  firstnameCompleted: function(){
+    //remember to check if type is entity as only uses firstname, individual requires firstname and lastname
+    return true;
+  },
+  lastnameCompleted: function(){
+    //remember to check if type is entity as only uses firstname, individual requires firstname and lastname
+    return true;
+  },
+  urlCompleted: function(){
+    return true;
+  },
+  bioCompleted: function(){
+    return true;
+  },
+  tagsCompleted: function(){
+    return 2;
+  },
+  completedScore: function(){
+    return 6;//Template.instance().templateDictionary.get('completeScore');
+  },
   profile: function() {
     user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1, roles: 1, isPublic: 1, isParty: 1, isOrganisation: 1 } });
     console.log(user);
@@ -365,15 +411,17 @@ function checkProfileIsComplete(template){
   var profileFields = _.keys(profile);
   public = profile;
   if (profile.tags.length < 5){
+    console.log("not enough tags");
     isComplete = false;
   } else {
     _.map(profileFields, function(field){
       if (profile[field].length == 0){
         isComplete = false;
+        console.log("empty field: " + profile[field]);
       } 
     });
   }
-
+  console.log("checkProfileIsComplete is good");
   return isComplete;
 }
 
@@ -443,4 +491,10 @@ function togglePublic(isPublic){
               Bert.alert(msg, 'success');
             }
           });
+}
+
+function updateProfileProgress(){
+  document.querySelector('#p1').addEventListener('mdl-componentupgraded', function() {
+    this.MaterialProgress.setProgress(100);
+  });
 }
