@@ -3,8 +3,8 @@ import { setupTaggle } from '../../components/taggle/taggle.js'
 
 Template.ProfileForm.onRendered(function(){
   var self = this;
-  self.delegateStatus = new ReactiveVar('');
-  self.candidateStatus = new ReactiveVar('');
+  self.delegateStatus = new ReactiveVar(false);
+  self.candidateStatus = new ReactiveVar(false);
 
   self.taggle = new ReactiveVar(setupTaggle());
 
@@ -22,7 +22,7 @@ Template.ProfileForm.onRendered(function(){
     }
   });
 
-  Session.set('profileIsComplete', checkProfileIsComplete())
+  Session.set('profileIsComplete', checkProfileIsComplete(self))
 
   Meteor.call('getUserTags', Meteor.userId(), function(error, result){
     if (error){
@@ -70,7 +70,7 @@ Template.ProfileForm.onCreated(function() {
 
 Template.ProfileForm.events({
   'keyup input, keyup textarea' (event, template){
-    Session.set('profileIsComplete', checkProfileIsComplete())
+    Session.set('profileIsComplete', checkProfileIsComplete(template))
   },
   'click #show-settings' (event, template) {
     event.preventDefault();
@@ -82,6 +82,7 @@ Template.ProfileForm.events({
     Session.set('showSettings',!Session.get('showSettings'))
   },
   'blur #profile-username' (event, template) {
+    //TO DO: make sure current user name is excluded from search on serverside
     Meteor.call('updateUsernameIsUnique', event.currentTarget.value, function(error, result) {
       if (error) {
         console.log(error);
@@ -154,6 +155,7 @@ Template.ProfileForm.events({
       });
     }
   },
+  /* Candidate feature disable for now
   'click #profile-candidate-switch' (event, template) {
     // Check if person already is a candidate, if so remove role
     if (isInRole('candidate')) {
@@ -178,6 +180,7 @@ Template.ProfileForm.events({
       });
     }
   },
+  */
   'submit form' (event, template) {
     console.log("submit clicked");
     event.preventDefault();
@@ -241,16 +244,6 @@ Template.ProfileForm.onRendered(function() {
 });
 
 Template.ProfileForm.helpers({
-  isEntity: function() {
-    var type = Template.instance().type.get();
-    console.log(type);
-    if (type == 'Entity') {
-      console.log("should be hidden");
-      return true;
-    }
-    console.log("show lastname");
-    return false;
-  },
   profile: function() {
     user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1, roles: 1, isPublic: 1, isParty: 1, isOrganisation: 1 } });
     console.log(user);
@@ -278,12 +271,18 @@ Template.ProfileForm.helpers({
     //return Template.instance().templateDictionary.get('type');
     return Template.instance().type.get();
   },
-  isPublicChecked: function() {
-    var isPublic = Template.instance().templateDictionary.get('isPublic');
-    console.log("isPublicChecked: " + isPublic);
-    if (isPublic) {
-      return "checked";
+  isEntity: function() {
+    var type = Template.instance().type.get();
+    console.log(type);
+    if (type == 'Entity') {
+      console.log("should be hidden");
+      return true;
     }
+    console.log("show lastname");
+    return false;
+  },
+  isPublic: function() {
+    return Meteor.user().isPublic;
   },
   saveDisabled: function(){
     if (Meteor.user().isPublic && !Session.get('profileIsComplete')){
@@ -350,8 +349,8 @@ function hasOwnProperty(obj, prop) {
     (!(prop in proto) || proto[prop] !== obj[prop]);
 }
 
-function checkProfileIsComplete(){
-  var template = Template.instance();
+function checkProfileIsComplete(template){
+  //var template = Template.instance();
   var profile = {
     firstName: template.find('[name="profileFirstName"]').value,
     lastName: template.find('[name="profileLastName"]').value,
@@ -373,6 +372,8 @@ function checkProfileIsComplete(){
       } 
     });
   }
+  var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch
+
   return isComplete;
 }
 
@@ -406,17 +407,28 @@ function updateDisplayedStatus(type, template){
 }
 
 function updatePublicSwitch(template){
-  var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch
-      if (isInRole('candidate') || isInRole('delegate')){
-        publicSwitch.disable();
-      } else {
-        publicSwitch.enable();
-      }
-      if( Meteor.user().isPublic) {
-        publicSwitch.on();
-      } else {
-        publicSwitch.off();
-      }
+  var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch;
+  if(!checkProfileIsComplete(template)){
+    console.log("profile is incomplete, disabling public toggle");
+    publicSwitch.disable();
+    //var delegateSwitch = template.find('#profile-delegate-switch-label').MaterialSwitch;
+    //delegateSwitch.disable();
+    return;
+  }
+  if (isInRole('candidate') || isInRole('delegate')){
+    console.log("user is delegate/candidate, disabling public toggle");
+    publicSwitch.disable();
+  } else {
+    console.log("enabling public toggle");
+    publicSwitch.enable();
+  }
+  if( Meteor.user().isPublic) {
+    console.log("user isPublic, turning toggle on");
+    publicSwitch.on();
+  } else {
+    console.log("user isPublic, turning toggle off");
+    publicSwitch.off();
+  }
 }
 
 function togglePublic(isPublic){

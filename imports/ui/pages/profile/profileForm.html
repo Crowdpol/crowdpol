@@ -9,79 +9,96 @@
 				</div>
 			</div>
     </div>
-
-		<div class="mdl-grid profile-grid" id="public-form-details">
-      <div class="mdl-cell mdl-cell--12-col">
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label class="mdl-textfield__label" for="profile-firstname">{{_ "form.firstname"}}</label>
-					<input type="text" name="profileFirstName" class="mdl-textfield__input" value="{{firstName}}">
-				</div>
-				<!-- NOTE: Please be aware of the script that hide this input if necessary -->
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity}}hidden{{/if}}">
-					<label class="mdl-textfield__label" for="profile-lastname">{{_ "form.lastname"}}</label>
-					<input type="text" name="profileLastName" class="mdl-textfield__input" value="{{lastName}}">
-				</div>
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label class="mdl-textfield__label" for="profile-website">{{_ "form.website"}}</label>
-					<input type="text" name="profileWebsite" class="mdl-textfield__input" value="{{website}}">
-				</div>
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio">{{bio}}</textarea>
-					<label class="mdl-textfield__label" for="profile-bio">{{_ "form.bio"}}</label>
-				</div>
-				<label class="custom-label">{{_ "profile-tags"}}</label>
-				{{> taggle}}
-			</div>
-			<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-      	<h5>Profile Settings<small class="center">{{pages.profile.type}}</small></h5>
-      </div>
-      <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
-      	<p>Once public, other users can see your profile. You are required to be a public user in order to become a delegate.</p>
-      </div>
-      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
-      	<label id="profile-public-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-					<input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
-					<span class="mdl-switch__label">{{_ "pages.profile.public"}}</span>
-				</label>
-				<div class="mdl-tooltip mdl-tooltip--large" for="profile-public-switch-label">
-						{{_ "pages.profile.tooltips.publicSwitch"}}
+		<div id="public-form-details">
+			<div class="mdl-grid profile-grid">
+				<input type="hidden" name="profilePhotoPath" id="profile-photo-path" value="{{profilePic}}">
+	      <div class="mdl-cell mdl-cell--12-col">
+					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label class="mdl-textfield__label" for="profile-firstname">{{_ "form.firstname"}}</label>
+						<input type="text" name="profileFirstName" class="mdl-textfield__input" value="{{firstName}}">
 					</div>
-      </div>
-			<div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
-				<p>By being a delegate you allow other users who trust you to ask you to vote on their behalf.</p>
+					<!-- NOTE: Please be aware of the script that hide this input if necessary -->
+					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity}}hidden{{/if}}">
+						<label class="mdl-textfield__label" for="profile-lastname">{{_ "form.lastname"}}</label>
+						<input type="text" name="profileLastName" class="mdl-textfield__input" value="{{lastName}}">
+					</div>
+					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label class="mdl-textfield__label" for="profile-website">{{_ "form.website"}}</label>
+						<input type="text" name="profileWebsite" class="mdl-textfield__input" value="{{website}}">
+					</div>
+					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio">{{bio}}</textarea>
+						<label class="mdl-textfield__label" for="profile-bio">{{_ "form.bio"}}</label>
+					</div>
+					<label class="custom-label">{{_ "profile-tags"}}</label>
+					{{> taggle}}
+				</div>
 			</div>
-      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
-				<label id='profile-delegate-switch-label' class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
-						<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
+		</div>
+		<div class="mdl-grid profile-grid">
+			<div class="mdl-cell mdl-cell--12-col">
+				<div class="form-group">
+					<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.save"}}' id="submitProfile" {{saveDisabled}} style="float: right;">
+					<button class="mdl-button mdl-js-button" id="show-settings" style="float: right;">
+						{{settingsText}}&nbsp;Full Profile
+					</button>
+				</div>
+				<br>
+			</div>
+		</div>
+		<div class="mdl-grid profile-grid">
+				<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+	      	<h5>Profile Settings<small class="center">{{pages.profile.type}}</small></h5>
+	      </div>
+	      <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
+	      	<p>Make your profile visible to others. Requires completed profile form. Required become a delegate.</p>
+	      </div>
+	      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
+	      	<label id="profile-public-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
+						<input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
+						<span class="mdl-switch__label">{{_ "pages.profile.public"}}</span>
 					</label>
-					<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
-						{{_ "pages.profile.tooltips.delegateSwitch"}}
+					<div class="mdl-tooltip mdl-tooltip--large" for="profile-public-switch-label">
+							{{_ "pages.profile.tooltips.publicSwitch"}}
+						</div>
+	      </div>
+				<div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
+					<p>By being a delegate you allow other users who trust you to ask you to vote on their behalf.</p>
+				</div>
+	      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
+					<label id='profile-delegate-switch-label' class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+							<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
+							<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
+						</label>
+						<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
+							{{_ "pages.profile.tooltips.delegateSwitch"}}
+						</div>
+				</div>
+				<!--
+				<div class="mdl-cell mdl-cell-10-col mdl-cell-10-col-tablet mdl-cell-12-col-phone">
+					<p>By being a Candidate you allow be eligible for nomination.</p>
+				</div>
+	      <div class="mdl-cell mdl-cell-2-col mdl-cell-2-col-table mdl-cell-12-col-phone">
+		      <div class="mdl-cell mdl-cell-2-col mdl-cell-2-col-table mdl-cell-12-col-phone">
+						<label id="profile-candidate-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
+						<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input">
+						<span class="mdl-switch__label">{{_ "pages.profile.candidate"}} {{candidateStatus}}</span>
+					</label> 
 					</div>
+				</div>
+				-->
 			</div>
-			<!--
-			<div class="mdl-cell mdl-cell-10-col mdl-cell-10-col-tablet mdl-cell-12-col-phone">
-				<p>Would you like to be a included as a candidate for nomination?
-			</div>
-      <div class="mdl-cell mdl-cell-2-col mdl-cell-2-col-table mdl-cell-12-col-phone">
-				<label id="profile-candidate-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
-				<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input">
-				<span class="mdl-switch__label">{{_ "pages.profile.candidate"}} {{candidateStatus}}</span>
-			</label> 
-			</div>
-			-->
-		</div>
-
-		<div class="form-group">
-
-			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.save"}}' id="submitProfile" {{saveDisabled}} style="float: right;">
-			<button class="mdl-button mdl-js-button" id="show-settings" style="float: right;">
-				{{settingsText}}&nbsp;Settings
-			</button>
-		</div>
 	</form>
-	<!-- Helper list: Don't delete, useful for testing
-	isEntity: |{{isEntity}}|<br>
-	isProfileComplete: |{{isProfileComplete}}|
-	-->
+			<!-- Helper list: Don't delete, useful for testing 
+			isEntity: |{{isEntity}}|<br>
+			profilePic: |{{profilePic}}|<br>
+			type: |{{type}}|<br>
+			isPublic: |{{isPublic}}|<br>
+			saveDisabled: |{{saveDisabled}}|<br>
+			candidateStatus: |{{candidateStatus}}|<br>
+			isOrganisation: |{{isOrganisation}}|<br>
+			isParty: |{{isParty}}|<br>
+			isDelegate: |{{isDelegate}}|<br>
+			isCandidate: |{{isCandidate}}|<br>
+			-->
 </template>

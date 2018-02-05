@@ -30,7 +30,7 @@ Template.ProfileImage.events({
   },
 
   'keyup #profile-photo-path, paste #profile-photo-path, keydown #profile-photo-path, blur #profile-photo-path' (event, template) {
-    var path = $("input#profile-photo-path").val();
+    var path = $("input#profile-change-photo-path").val();
     var obj = new Image();
     obj.src = path;
 
@@ -40,7 +40,7 @@ Template.ProfileImage.events({
         $("#valid-photo-path").html("");
     } else {
         //alert('doesnt work');
-        path = $('[name="profilePhotoPath"]').val();
+        path = $('[name="profile-change-photo-path"]').val();
         $("#valid-photo-path").html("Invalid photo path");
         //$('img#profile-pic').prop('src', path);
     }
