@@ -1,0 +1,7 @@
+.profile-grid {
+	padding: 0px;
+}
+
+.profile-grid > .mdl-cell {
+	border: 0;
+}

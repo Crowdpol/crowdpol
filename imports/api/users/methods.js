@@ -39,7 +39,7 @@ Meteor.methods({
       return users[0].profile.tags;
     },
     updateProfile: function (userID, profile) {
-      //console.log(profile);
+      console.log(profile);
       check(userID, String);
       searchString = profile.firstName + " " + profile.lastName + " " + profile.username;
       profile["searchString"] = searchString;

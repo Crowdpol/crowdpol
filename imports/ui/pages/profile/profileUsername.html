@@ -1,0 +1,20 @@
+<template name="ProfileUsername">
+	<div class="mdl-grid profile-grid">
+		<div class="mdl-cell mdl-cell--12-col">
+			<form name="profile-username">
+				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
+					<input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
+					<span id="valid-username" class="valid-username"></span>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.update"}}' id="submitProfile" {{saveDisabled}}  style="float: right;">
+					<button class="mdl-button mdl-js-button" id="show-settings" style="float: right;">
+					  {{settingsText}}&nbsp;Settings
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<br>
+</template>

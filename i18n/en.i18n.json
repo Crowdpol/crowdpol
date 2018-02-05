@@ -63,7 +63,9 @@
 		"contact": "Contact person",
 		"message": "Your message",
 		"save": "Save",
-		"submit": "Submit"
+		"submit": "Submit",
+		"update": "Update",
+		"cancel": "Cancel"
 	},
 	"pages": {
 		"home": {
