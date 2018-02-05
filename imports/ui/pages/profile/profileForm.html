@@ -1,18 +1,13 @@
 <template name="ProfileForm">
 	<form id="profile-form" class="profile">
 		<div class="mdl-grid profile-grid ">
-      <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
-      	<h5>Profile Settings<small class="center">{{pages.profile.type}}</small></h5>
-      </div>
-      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
-      	<label id="profile-public-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-					<input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
-					<span class="mdl-switch__label">{{_ "pages.profile.public"}}</span>
-				</label>
-				<div class="mdl-tooltip mdl-tooltip--large" for="profile-public-switch-label">
-						{{_ "pages.profile.tooltips.publicSwitch"}}
-					</div>
-      </div>
+			<div class="mdl-cell mdl-cell--12-col">
+				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
+					<input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
+					<span id="valid-username" class="valid-username"></span>
+				</div>
+			</div>
     </div>
 
 		<div class="mdl-grid profile-grid" id="public-form-details">
@@ -37,6 +32,21 @@
 				<label class="custom-label">{{_ "profile-tags"}}</label>
 				{{> taggle}}
 			</div>
+			<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+      	<h5>Profile Settings<small class="center">{{pages.profile.type}}</small></h5>
+      </div>
+      <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
+      	<p>Once public, other users can see your profile. You are required to be a public user in order to become a delegate.</p>
+      </div>
+      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
+      	<label id="profile-public-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
+					<input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
+					<span class="mdl-switch__label">{{_ "pages.profile.public"}}</span>
+				</label>
+				<div class="mdl-tooltip mdl-tooltip--large" for="profile-public-switch-label">
+						{{_ "pages.profile.tooltips.publicSwitch"}}
+					</div>
+      </div>
 			<div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
 				<p>By being a delegate you allow other users who trust you to ask you to vote on their behalf.</p>
 			</div>
@@ -64,8 +74,10 @@
 
 		<div class="form-group">
 
-			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.save"}}' id="submitProfile" {{saveDisabled}}>
-
+			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.save"}}' id="submitProfile" {{saveDisabled}} style="float: right;">
+			<button class="mdl-button mdl-js-button" id="show-settings" style="float: right;">
+				{{settingsText}}&nbsp;Settings
+			</button>
 		</div>
 	</form>
 	<!-- Helper list: Don't delete, useful for testing

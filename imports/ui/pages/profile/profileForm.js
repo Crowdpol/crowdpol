@@ -72,8 +72,32 @@ Template.ProfileForm.events({
   'keyup input, keyup textarea' (event, template){
     Session.set('profileIsComplete', checkProfileIsComplete())
   },
-
-  
+  'click #show-settings' (event, template) {
+    event.preventDefault();
+    if(Session.get('showSettings')){
+      $( "#public-form-details" ).hide();
+    }else{
+      $( "#public-form-details" ).show();
+    }
+    Session.set('showSettings',!Session.get('showSettings'))
+  },
+  'blur #profile-username' (event, template) {
+    Meteor.call('updateUsernameIsUnique', event.currentTarget.value, function(error, result) {
+      if (error) {
+        console.log(error);
+      } else {
+        if (result) {
+          //$('#submitProfile').removeAttr('disabled', 'disabled');
+          //$('form').unbind('submit');
+          $("#valid-username").html("&#10003;");
+        } else {
+          $("#valid-username").text("Username exists");
+          //$('#submitProfile').attr('disabled', 'disabled');
+          //$('form').bind('submit',function(e){e.preventDefault();});
+        }
+      }
+    });
+  },
   'click #profile-public-switch' (event, template) {
     event.preventDefault();
     //var shown = Template.instance().templateDictionary.get('showPublic');
@@ -311,6 +335,13 @@ Template.ProfileForm.helpers({
   isCandidate: function(){
     return isInRole('candidate');
   },
+  settingsText: function() {
+    if(Session.get('showSettings')){
+      return "Hide";
+    }
+    return "Show";
+  }
+
 });
 
 function hasOwnProperty(obj, prop) {

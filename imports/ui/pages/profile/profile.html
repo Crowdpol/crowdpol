@@ -5,10 +5,7 @@
 		{{#if Template.subscriptionsReady}}
 			<h3>{{_ "pages.profile.heading"}}</h3>
 			{{> ProfileImage}}
-			{{> ProfileUsername}}
-			{{#if showSettings}}
-				{{> ProfileForm}}
-			{{/if}}
+			{{> ProfileForm}}
 			<div class="switches-wrap">
 				{{#if isPublic}}
 					<label id='profile-delegate-switch-label' class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">

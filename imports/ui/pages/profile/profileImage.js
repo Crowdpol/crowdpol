@@ -12,6 +12,7 @@ Template.ProfileImage.helpers({
   }
 });
 Template.ProfileImage.events({
+	//show image change form
 	'click #change-photo-button' (event, template) {
     event.preventDefault();
     var shown = Template.instance().templateDictionary.get('change-photo');
@@ -22,10 +23,12 @@ Template.ProfileImage.events({
     }
     Template.instance().templateDictionary.set('change-photo',!shown);
   },
+  //hige image change form
   'click #photo-cancel' (event, template) {
   	event.preventDefault();
   	$( "#change-photo" ).hide();
   },
+
   'keyup #profile-photo-path, paste #profile-photo-path, keydown #profile-photo-path, blur #profile-photo-path' (event, template) {
     var path = $("input#profile-photo-path").val();
     var obj = new Image();
@@ -42,6 +45,7 @@ Template.ProfileImage.events({
         //$('img#profile-pic').prop('src', path);
     }
   },
+
   'change #fileInput': function (e, template) {
     //try{
       if (e.currentTarget.files && e.currentTarget.files[0]) {
@@ -91,9 +95,7 @@ Template.ProfileImage.events({
      // Bert.alert(e.reason,"danger");
     //}
   },
-  'onchange #profile-photo-path' (event, template) {
-    $('img#photo-preview').prop('src', this.value);
-  },
+  
 });
 /*      if(result.profile.hasOwnProperty("photo")){
         dict.set('photo', result.profile.photo );

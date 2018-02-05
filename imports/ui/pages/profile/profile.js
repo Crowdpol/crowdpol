@@ -1,5 +1,4 @@
 import "./profileImage.js"
-import "./profileUsername.js"
 import "./profileForm.js"
 import "./profile.html"
 import "./profile.css"
