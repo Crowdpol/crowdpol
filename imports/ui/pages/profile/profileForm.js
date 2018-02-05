@@ -18,7 +18,7 @@ Template.ProfileForm.onRendered(function(){
       updatePublicSwitch(self);
       // Set approval statuses and switches
       self.delegateStatus.set(updateDisplayedStatus('delegate', self));
-      self.candidateStatus.set(updateDisplayedStatus('candidate', self));
+      //self.candidateStatus.set(updateDisplayedStatus('candidate', self));
     }
   });
 
@@ -116,15 +116,16 @@ Template.ProfileForm.events({
           togglePublic(false);
         }
     }else{
+      togglePublic(true);
       //False - check if form is complete
-      if(Session.get('profileIsComplete')){
+      /*if(Session.get('profileIsComplete')){
         //enable delegate button
         togglePublic(true);
       }else{
         //profile incomplete message
         msg = "Profile is incomplete";
         Bert.alert(msg, 'danger');
-      }
+      }*/
 
     }
 
@@ -299,7 +300,7 @@ Template.ProfileForm.helpers({
     if(isInRole('delegate')){
       status = "Approved";
     } else {
-      status = Template.instance().delegateStatus.get()
+      status = false;//Template.instance().delegateStatus.get()
       if (status == 'Approved'){
         /*if the status is approved, but the user is not in the role, then
         they were previously approved, but revoked the role themselves*/ 
@@ -382,6 +383,7 @@ function isInRole(role){
 }
 
 function updateDisplayedStatus(type, template){
+  console.log('updateDisplayedStatus is running with type ' + type)
   var approvals = Meteor.user().approvals
   if (approvals) {
     var currentApproval = approvals.find(approval => approval.type === type)
@@ -408,11 +410,11 @@ function updateDisplayedStatus(type, template){
 
 function updatePublicSwitch(template){
   var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch;
+  var delegateSwitch = template.find('#profile-delegate-switch-label').MaterialSwitch;
   if(!checkProfileIsComplete(template)){
     console.log("profile is incomplete, disabling public toggle");
     publicSwitch.disable();
-    //var delegateSwitch = template.find('#profile-delegate-switch-label').MaterialSwitch;
-    //delegateSwitch.disable();
+    delegateSwitch.disable();
     return;
   }
   if (isInRole('candidate') || isInRole('delegate')){
@@ -425,9 +427,11 @@ function updatePublicSwitch(template){
   if( Meteor.user().isPublic) {
     console.log("user isPublic, turning toggle on");
     publicSwitch.on();
+    delegateSwitch.enable();
   } else {
     console.log("user isPublic, turning toggle off");
     publicSwitch.off();
+    delegateSwitch.disable();
   }
 }
 
