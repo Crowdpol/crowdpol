@@ -352,14 +352,15 @@ function hasOwnProperty(obj, prop) {
 function checkProfileIsComplete(template){
   //var template = Template.instance();
   var profile = {
+    username: template.find('[name="profileUsername"]').value,
     firstName: template.find('[name="profileFirstName"]').value,
     lastName: template.find('[name="profileLastName"]').value,
+    photo: template.find('[name="profilePhotoPath"]').value,
     bio: template.find('[name="profileBio"]').value,
     website: template.find('[name="profileWebsite"]').value,
     tags: template.taggle.get().getTagValues()
   };
-  //photo: template.find('[name="profilePhotoPath"]').value,
-  //username: template.find('[name="profileUsername"]').value,
+
   var isComplete = true;
   var profileFields = _.keys(profile);
   public = profile;
@@ -372,7 +373,6 @@ function checkProfileIsComplete(template){
       } 
     });
   }
-  var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch
 
   return isComplete;
 }

@@ -311,11 +311,13 @@ function profileIsComplete(user){
   public = profile;
   if (!profile.tags || profile.tags.length < 5){
     isComplete = false;
+    console.log("less than 5 tags");
   } else {
     _.map(profileFields, function(field){
       if (profile[field]){
         if (profile[field].length == 0) {
           isComplete = false;
+          console.log(profile[field] + " has no length");
         }
       } else {
         isComplete = false;
