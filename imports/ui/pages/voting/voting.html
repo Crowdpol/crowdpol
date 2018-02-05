@@ -1,0 +1,71 @@
+<template name="Voting">
+	{{#if currentUser}}
+	<!-- MDL Tab Container -->
+
+		<div class="app-container">
+			<div class="search-input input-wrap mdl-textfield mdl-js-textfield">
+				<label class="mdl-button mdl-js-button mdl-button--icon" for="proposal-search">
+				<i class="material-icons">search</i>
+			</label>
+				<input class="mdl-textfield__input" type="text"  id="proposal-search">
+				<label class="mdl-textfield__label" for="proposal-search"></label>
+			</div>
+
+			<!-- MDL tab panels, is-active to denote currently active -->
+			<div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
+
+				{{#if Template.subscriptionsReady}}
+						<h4>{{_ "pages.voting.heading"}}</h4>
+						<ul class="demo-list-control mdl-list">
+							{{#each openProposals}}
+								{{> VotingCard}}
+							{{/each}}
+						</ul>
+
+				{{else}}
+					{{> loader}}
+				{{/if}}
+			</div>
+		</div>
+		{{/if}}
+</template>
+
+<template name="VotingCard">
+	<a href="/proposals/view/{{_id}}" class="proposal-list-item-link">
+	<li class="proposal-item mdl-list__item">
+		<div class="card-main-wrap">
+			<span class="card-main mdl-list__item-primary-content">
+				<h6>
+					{{ title }}
+				</h6>
+				
+			</span><!-- 
+			<span class="mdl-list__item-secondary-action">
+				<small class="proposal-date">{{_ "proposals.list.cards.expires"}} {{ endDate }}</small>
+			</span> -->
+		</div>
+		<div class="card-secondary-wrap">
+			<p class="proposal-abstract">{{ abstract }}</p>
+		</div>
+
+		{{#if readyToTally}}
+			<div class="mdl-card__actions">
+				{{#if yesPercentage _id}}
+					<span class="proposal-percentage-text-left"> For: {{ yesPercentage _id }}% </span>
+					<span class="proposal-percentage-text-right"> Against: {{ noPercentage _id }}% </span>
+					<div class="proposal-vote-progress-bar">
+					  <div class="proposal-vote-yes-bar" style="width:{{ yesPercentage _id }}%"></div>
+				  	</div>
+				  	{{else}}
+						<small class="proposal-percentage-text-left"> No users voted on this proposal. </small>
+					{{/if}}
+					
+		  	</div>
+		{{/if}}
+		
+		<!-- <a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
+			{{_ "proposals.list.cards.read"}}&nbsp;{{#if canVote}}{{_ "proposals.list.cards.vote"}}{{/if}}
+		</a> -->
+	</li>
+</a>
+</template>
