@@ -4,10 +4,9 @@ Template.delegateVoteButtons.onCreated(function(){
 	self = this;
 	self.vote = new ReactiveVar();
 	self.charCount = new ReactiveVar(0);
-	var proposalId = FlowRouter.getParam("id");
-
+	self.proposalId = Template.currentData().proposalId;
 	self.autorun(function(){
-		Meteor.call('getDelegateVoteFor', proposalId, Meteor.userId(), function(error, result){
+		Meteor.call('getDelegateVoteFor', self.proposalId, Meteor.userId(), function(error, result){
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
@@ -50,9 +49,8 @@ Template.delegateVoteButtons.events({
 	'click #final-vote': function(event, template){
 		if (template.charCount.get() <= 160){
 			var reason = template.find('#delegate-reason').value;
-			var proposalId = FlowRouter.getParam("id");
 			var vote = template.vote.get()
-			Meteor.call('voteAsDelegate', {vote: vote, reason: reason, proposalId: proposalId}, function(error){
+			Meteor.call('voteAsDelegate', {vote: vote, reason: reason, proposalId: template.proposalId}, function(error){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {

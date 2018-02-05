@@ -81,32 +81,18 @@ function transformProposal(proposal) {
 
 Template.VotingCard.onCreated(function () {
   var self = this;
+  self.showVotingInfo = new ReactiveVar(false);
   self.autorun(function(){
     self.subscribe('votes.all');
   })
 });
 
 Template.VotingCard.helpers({
-  canVote: function() {
-    return Session.get("canVote");
+  isVotingAsDelegate: function(){
+    return (LocalStore.get('currentUserRole') == 'Delegate');
   },
-  proposalStatus: function(proposal) {
-    // If looking at public proposals, show open/closed
-    if (Session.get('allProposals')){
-      if (new Date(proposal.endDate) > new Date()){
-        return 'Open';
-      } else {
-        return 'Closed';
-      }
-      // If looking at own proposals, show draft/submitted/live
-    } else if (Session.get('myProposals')){
-      var stage = proposal.stage;
-      return stage.charAt(0).toUpperCase() + stage.slice(1);
-    }
-  },
-  userIsAuthor: function(proposalId) {
-    var proposal = Proposals.findOne(proposalId);
-    return proposal.authorId == Meteor.userId();
+  showVotingInfo: function() {
+    return Template.instance().showVotingInfo.get();
   },
   yesPercentage: function(proposalId) {
     var yesCount = Votes.find({proposalId: proposalId, vote: 'yes'}).count();
@@ -129,17 +115,9 @@ Template.VotingCard.helpers({
 });
 
 Template.VotingCard.events({
-  'click .delete-proposal-button': function(event, template){
-    var proposalId = event.target.dataset.proposalId;
-
-    if (window.confirm(TAPi18n.__('proposals.list.confirmDelete'))){
-      Meteor.call('deleteProposal', proposalId, function(error){
-        if (error){
-          Bert.alert(error.reason, 'danger');
-        } else {
-          Bert.alert(TAPi18n.__('proposals.list.deletedMessage'), 'success');
-        }
-      });
-    } 
+  'click #toggle-voting-info': function(event, template){
+     var showVotingInfo = template.showVotingInfo.get();
+     template.showVotingInfo.set(!showVotingInfo);
+     console.log(template.showVotingInfo.get())
   },
 });

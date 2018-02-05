@@ -19,6 +19,7 @@ Template.ViewProposal.onCreated(function(){
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
+        dict.set( '_id', proposal._id);
         dict.set( 'title', proposal.title || '');
         dict.set( 'abstract', proposal.abstract || '');
         dict.set( 'body', proposal.body || '');
@@ -125,7 +126,6 @@ Template.ViewProposal.events({
 });
 
 Template.ViewProposal.helpers({
-
   comments: function() {
     return Comments.find({proposalId: proposalId},{transform: transformComment, sort: {createdAt: -1}});
   },
@@ -142,6 +142,9 @@ Template.ViewProposal.helpers({
         }
       }
     });
+  },
+  _id: function() {
+    return Template.instance().templateDictionary.get( '_id' );
   },
   title: function() {
     return Template.instance().templateDictionary.get( 'title' );

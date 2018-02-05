@@ -4,9 +4,10 @@ Template.voteButtons.onCreated(function(){
 	self = this;
 	var dict = new ReactiveDict();
 	self.templateDictionary = dict;
+	self.proposalId = Template.currentData().proposalId;
 
 	if (Meteor.user()) {
-		Meteor.call('getUserDelegateVote', proposalId, function(error, result){
+		Meteor.call('getUserDelegateVote', self.proposalId, function(error, result){
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
@@ -14,7 +15,7 @@ Template.voteButtons.onCreated(function(){
 			}
 		})
 
-		Meteor.call('getUserVoteFor', proposalId, Meteor.userId(), function(error, result){
+		Meteor.call('getUserVoteFor', self.proposalId, Meteor.userId(), function(error, result){
 			if (result){
 				dict.set( 'userVote', result.vote );
 			} else {
@@ -50,7 +51,7 @@ Template.voteButtons.helpers({
 Template.voteButtons.events({
 	'click #vote-yes' (event, template){
 		if (Meteor.user()){
-			vote('yes');
+			vote('yes', template.proposalId);
 			template.templateDictionary.set('userVote', 'yes');
 		} else {
 			openSignInModal();
@@ -59,7 +60,7 @@ Template.voteButtons.events({
 
 	'click #vote-no' (event, template){
 		if (Meteor.user()){
-			vote('no');
+			vote('no', template.proposalId);
 			template.templateDictionary.set('userVote', 'no');
 		} else {
 			openSignInModal();
@@ -67,12 +68,12 @@ Template.voteButtons.events({
 	},
 });
 
-function vote(voteString){
+function vote(voteString, proposalId){
 	var currentRole = LocalStore.get('currentUserRole');
 
 	if (currentRole == 'Delegate'){
     // Vote as a delegate
-    var delegateVote = {vote: voteString, proposalId: FlowRouter.getParam("id")};
+    var delegateVote = {vote: voteString, proposalId: proposalId};
     Meteor.call('voteAsDelegate', delegateVote, function(error){
     	if (error){
     		Bert.alert(error.reason, 'danger');
@@ -82,7 +83,7 @@ function vote(voteString){
     });
 } else {
     // Vote as an individual voter
-    var vote = {vote: voteString, proposalId: FlowRouter.getParam("id"), delegateId: ''};
+    var vote = {vote: voteString, proposalId: proposalId, delegateId: ''};
     Meteor.call('vote', vote, function(error){
     	if (error){
     		Bert.alert(error.reason, 'danger');
