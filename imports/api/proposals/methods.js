@@ -124,20 +124,20 @@ Meteor.methods({
   addPointFor: function(proposalId, text) {
     Proposals.update({_id: proposalId}, { $push: { pointsFor: text } });
   },
-  findExpiredProposals: function(){
+  findProposalsForCronJob: function(){
     /*  
-      Finds all expired proposals that have not yet been prepared for voting
+      Finds all expired proposals that have not yet been finalised for vote counting
       and returns an array of their ids
     */
-    console.log('function is running')
     var now = moment().toDate();
-    var proposals = Proposals.find({ $and: [ { endDate: { $lte: now } }, { readyToTally: false } ] } );
+    var proposals = Proposals.find({ $and: [ { endDate: { $lte: now } }, { votesFinalised: false } ] } );
     var ids = proposals.pluck('_id');
     console.log(ids)
     return ids
 
   },
   prepareVotesForTally: function(proposalIds) {
+    console.log('Preparing votes for tally')
     /*
       This method is called within a cron job that runs every 24 hours, at midnight
       It takes an array of proposal ids and creates votes for all users who delegated their votes
@@ -167,8 +167,12 @@ Meteor.methods({
 
       }// End of nonVoterIds loop
 
-      // Update proposal readyToTally flag
-      Proposals.update({_id: proposalId}, {$set: {readyToTally: true}});
+      // Update proposal votesFinalised flag
+      // If the proposal is expired, the votes are finalised.
+      var now = moment().toDate();
+      if (Proposals.findOne(proposalId).endDate > now){
+        Proposals.update({_id: proposalId}, {$set: {votesFinalised: true}});
+      }
 
     } // End proposalIds loop
 

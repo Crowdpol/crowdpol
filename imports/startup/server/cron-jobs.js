@@ -7,7 +7,7 @@ SyncedCron.add({
   },
   job: function() {
     console.log('jobbing')
-    var proposalIds = Meteor.call('findExpiredProposals');
+    var proposalIds = Meteor.call('findProposalsForCronJob');
     Meteor.call('prepareVotesForTally', proposalIds);
   }
 });
