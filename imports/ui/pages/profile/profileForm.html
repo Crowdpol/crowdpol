@@ -27,7 +27,7 @@
 						<input type="text" name="profileWebsite" class="mdl-textfield__input" value="{{website}}">
 					</div>
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio">{{bio}}</textarea>
+						<textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio" id="profile-bio">{{bio}}</textarea>
 						<label class="mdl-textfield__label" for="profile-bio">{{_ "form.bio"}}</label>
 					</div>
 					<label class="custom-label">{{_ "profile-tags"}}</label>
@@ -56,13 +56,17 @@
 				<a href="#" id="profile-status-link">More</a>
 				<div id="profile-status-complete" style="display:none;">
 					<ol>
-						<li>Profile picture: {{#if photoCompleted}}&#10003;{{else}}no{{/if}}</li>
-						<li>Username: {{#if usernameCompleted}}&#10003;{{else}}no{{/if}}</li>
-  					<li>First name: {{#if firstnameCompleted}}&#10003;{{else}}no{{/if}}</li>
-  					<li>Last name: {{#if lastnameCompleted}}&#10003;{{else}}no{{/if}}</li>
-  					<li>Website: {{#if urlCompleted}}&#10003;{{else}}no{{/if}}</li>
-  					<li>About: {{#if bioCompleted}}&#10003;{{else}}no{{/if}}</li>
-  					<li>Interests: {{tagsCompleted}} of 5</li>
+						<li>Profile picture: <i class="material-icons">{{#if photoCompleted}}check{{else}}error{{/if}}</i></li>
+						<li>Username: <i class="material-icons">{{#if usernameCompleted}}check{{else}}error{{/if}}</i></li>
+						{{#if isEntity}}
+							<li>Entity name: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i></li>
+						{{else}}
+  						<li>First name: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i></li>
+  						<li>Last name: <i class="material-icons">{{#if lastnameCompleted}}check{{else}}error{{/if}}</i></li>
+  					{{/if}}
+  					<li>Website: <i class="material-icons">{{#if urlCompleted}}check{{else}}error{{/if}}</i></li>
+  					<li>About: {{bioCount}} characters (min: 50, max: 160) <i class="material-icons">{{#if bioCompleted}}check{{else}}error{{/if}}</i></li>
+  					<li>Interests: {{tagsCount}} of 5 <i class="material-icons">{{#if tagsCompleted}}check{{else}}error{{/if}}</i></li>
 					</ol>
 				</div>
 			</div>

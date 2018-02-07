@@ -43,7 +43,17 @@ Template.ProfileForm.onCreated(function() {
     self.subscribe('user.current');
   });
   var dict = new ReactiveDict();
-  dict.set('completeScore', 0);
+  dict.set('completedScore', 0);
+  dict.set('photoCompleted', true);
+  dict.set('usernameCompleted', true);
+  dict.set('firstnameCompleted', true);
+  dict.set('lastnameCompleted', false);
+  dict.set('urlCompleted', false);
+  dict.set('bioCompleted', false);
+  dict.set('bioCount', 0);
+  dict.set('tagsCompleted', false);
+  dict.set('tagsCount', 0);
+  
 
   Meteor.call('getProfile', Meteor.userId(), function(error, result) {
     if (error) {
@@ -59,6 +69,7 @@ Template.ProfileForm.onCreated(function() {
       dict.set('type', result.profile.type);
       dict.set('credentials', result.profile.credentials);
       dict.set('showPublic', result.isPublic);
+      dict.set('profileType', result.profile.type);
       self.type.set(result.profile.type);
       if (result.profile.hasOwnProperty("photo")) {
         dict.set('photo', result.profile.photo);
@@ -73,7 +84,7 @@ Template.ProfileForm.onCreated(function() {
 
 Template.ProfileForm.events({
   'keyup input, keyup textarea' (event, template){
-    //Session.set('profileIsComplete', checkProfileIsComplete(template))
+    Session.set('profileIsComplete', checkProfileIsComplete(template))
   },
   'click #show-settings' (event, template) {
     event.preventDefault();
@@ -93,12 +104,12 @@ Template.ProfileForm.events({
         if (result) {
           //$('#submitProfile').removeAttr('disabled', 'disabled');
           //$('form').unbind('submit');
-          template.templateDictionary.set('completeScore',Template.instance().templateDictionary.get('completeScore')+1);
+          template.templateDictionary.set('usernameCompleted',true);
           $("#valid-username").html("&#10003;");
 
         } else {
           $("#valid-username").text("Username exists");
-          template.templateDictionary.set('completeScore',Template.instance().templateDictionary.get('completeScore')-1);
+          template.templateDictionary.set('usernameCompleted',false);
           //$('#submitProfile').attr('disabled', 'disabled');
           //$('form').bind('submit',function(e){e.preventDefault();});
         }
@@ -263,33 +274,42 @@ Template.ProfileForm.onRendered(function() {
 Template.ProfileForm.helpers({
   totalScore: function(){
     //remember to check if type is entity as only uses firstname (thus return 6), individual requires firstname and lastname (thus 7)
+    if(Template.instance().type.get()=='Entity'){
+      return 6;
+    }
     return 7;
   },
   photoCompleted: function(){
-    return true;
+    return Template.instance().templateDictionary.get('photoCompleted');
   },
   usernameCompleted: function(){
-    return true;
+    return Template.instance().templateDictionary.get('usernameCompleted');
   },
   firstnameCompleted: function(){
     //remember to check if type is entity as only uses firstname, individual requires firstname and lastname
-    return true;
+    return Template.instance().templateDictionary.get('firstnameCompleted');
   },
   lastnameCompleted: function(){
     //remember to check if type is entity as only uses firstname, individual requires firstname and lastname
-    return true;
+    return Template.instance().templateDictionary.get('lastnameCompleted');
   },
   urlCompleted: function(){
-    return true;
+    return Template.instance().templateDictionary.get('urlCompleted');
   },
   bioCompleted: function(){
-    return true;
+    return Template.instance().templateDictionary.get('bioCompleted');
+  },
+  bioCount: function(){
+    return Template.instance().templateDictionary.get('bioCount');
   },
   tagsCompleted: function(){
-    return 2;
+    return Template.instance().templateDictionary.get('tagsCompleted');
+  },
+  tagsCount: function(){
+    return Template.instance().templateDictionary.get('tagsCount');
   },
   completedScore: function(){
-    return 6;//Template.instance().templateDictionary.get('completeScore');
+    return Template.instance().templateDictionary.get('completedScore');
   },
   profile: function() {
     user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1, roles: 1, isPublic: 1, isParty: 1, isOrganisation: 1 } });
@@ -320,12 +340,12 @@ Template.ProfileForm.helpers({
   },
   isEntity: function() {
     var type = Template.instance().type.get();
-    console.log(type);
+    //console.log(type);
     if (type == 'Entity') {
-      console.log("should be hidden");
+      //console.log("should be hidden");
       return true;
     }
-    console.log("show lastname");
+    //console.log("show lastname");
     return false;
   },
   isPublic: function() {
@@ -397,6 +417,9 @@ function hasOwnProperty(obj, prop) {
 }
 
 function checkProfileIsComplete(template){
+  var completedScore = 0;
+  var isComplete = true;
+  
   //var template = Template.instance();
   var profile = {
     username: template.find('[name="profileUsername"]').value,
@@ -407,12 +430,83 @@ function checkProfileIsComplete(template){
     website: template.find('[name="profileWebsite"]').value,
     tags: template.taggle.get().getTagValues()
   };
-
-  var isComplete = true;
+  
   var profileFields = _.keys(profile);
   public = profile;
+  var bio = event.currentTarget.value;
+
+  //1. Check username: NOT NECESSARY as username will be valid on load, and checked when changed
+  //if(profile.username.length){
+  //  template.templateDictionary.set('usernameCompleted',true);
+  //}
+  //2. Check Firstname
+  if(profile.firstName.length){
+    template.templateDictionary.set('firstNameCompleted',true);
+    completedScore++;
+  }else{
+    template.templateDictionary.set('firstNameCompleted',false);
+  }
+  //3. Check if Individual: check lastname
+  if(profile.firstName.length){
+    template.templateDictionary.set('lastnameCompleted',true);
+    completedScore++;
+  }else{
+    template.templateDictionary.set('lastnameCompleted',false);
+  }
+  //4. Check photo: MAY NOT BE NECCESSARY
+  if(profile.photo.length){
+    template.templateDictionary.set('photoCompleted',true);
+    completedScore++;
+  }else{
+    template.templateDictionary.set('photoCompleted',false);
+  }
+  //5. Check bio: ADD CHECK FOR GREATER THAN 50 LESS THAN 100
+  template.templateDictionary.set('bioCount',profile.bio.length);
+  if((profile.bio.length >= 50)&&(profile.bio.length <=160)){
+    template.templateDictionary.set('bioCompleted',true);
+    completedScore++;
+  }else{
+    template.templateDictionary.set('bioCompleted',false);
+  }
+  //6. Check website: ADD CHECK FOR VALID URL
+  if(profile.website.length){
+    template.templateDictionary.set('urlCompleted',true);
+    completedScore++;
+  }else{
+    template.templateDictionary.set('urlCompleted',false);
+  }
+  //7. Check tags
+  console.log(profile.tags);
+  console.log(template.taggle.get().getTagValues());
+  template.templateDictionary.set('tagsCount',profile.tags.length);
+  if (profile.tags.length >= 5){
+    template.templateDictionary.set('tagsCompleted',true);
+    completedScore++;
+  }else{
+    template.templateDictionary.set('tagsCompleted',false);
+  }
+  template.templateDictionary.set('completedScore',completedScore);
+
+  var profileType = template.templateDictionary.get('profileType');
+  console.log("profileType: " + profileType);
+
+  /*
+  dict.set('photoCompleted', true);
+  dict.set('usernameCompleted', true);
+  dict.set('firstnameCompleted', true);
+  dict.set('lastnameCompleted', true);
+  dict.set('urlCompleted', false);
+  dict.set('bioCompleted', false);
+  if(bio.length > 50){
+    template.templateDictionary.set('bioCompleted',true);
+  }
+  dict.set('tagsCompleted', 0);
+  
+  
+  template.templateDictionary.set('tagsCompleted', profile.tags.length);
   if (profile.tags.length < 5){
     console.log("not enough tags");
+
     isComplete = false;
   } else {
     _.map(profileFields, function(field){
@@ -422,6 +516,7 @@ function checkProfileIsComplete(template){
       } 
     });
   }
+  */
   console.log("checkProfileIsComplete is good");
   return isComplete;
 }

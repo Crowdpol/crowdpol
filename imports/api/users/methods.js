@@ -61,6 +61,7 @@ Meteor.methods({
       }
     },
     addEntity: function(entity) {
+      console.log(entity);
       check(entity, { 
         email: String, 
         password: String, 
@@ -69,7 +70,10 @@ Meteor.methods({
         profileType: Match.Maybe(String), 
         name: String, 
         website: Match.Maybe(String),
-        roles: Match.Maybe(String) });
+        roles: Match.Maybe([String]),
+        isParty: Boolean,
+        isOrganisation: Boolean
+      });
 
       entityID = Accounts.createUser({
         'email': entity.email,
