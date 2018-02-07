@@ -105,7 +105,8 @@ ProposalSchema = new SimpleSchema({
     'references.$': {
         type: String
     },
-    readyToTally: {
+    votesFinalised: {
+        /* If a proposal is expired and the votes have been prepared for tallying */
         type: Boolean,
         autoValue() {
           if (this.isInsert) {

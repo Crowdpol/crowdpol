@@ -115,7 +115,6 @@
 			<p class="proposal-abstract">{{ abstract }}</p>
 		</div>
 
-		{{#if readyToTally}}
 			<div class="mdl-card__actions">
 				{{#if yesPercentage _id}}
 					<span class="proposal-percentage-text-left"> For: {{ yesPercentage _id }}% </span>
@@ -128,7 +127,6 @@
 					{{/if}}
 					
 		  	</div>
-		{{/if}}
 		
 		<!-- <a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
 			{{_ "proposals.list.cards.read"}}&nbsp;{{#if canVote}}{{_ "proposals.list.cards.vote"}}{{/if}}

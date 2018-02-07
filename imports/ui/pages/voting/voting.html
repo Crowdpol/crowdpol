@@ -1,0 +1,97 @@
+<template name="Voting">
+	{{#if currentUser}}
+	<!-- MDL Tab Container -->
+
+	<div class="app-container">
+		<div class="search-input input-wrap mdl-textfield mdl-js-textfield">
+			<label class="mdl-button mdl-js-button mdl-button--icon" for="proposal-search">
+				<i class="material-icons">search</i>
+			</label>
+			<input class="mdl-textfield__input" type="text"  id="proposal-search">
+			<label class="mdl-textfield__label" for="proposal-search"></label>
+		</div>
+
+		<!-- MDL tab panels, is-active to denote currently active -->
+		<div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
+
+			{{#if Template.subscriptionsReady}}
+			<h4>{{_ "pages.voting.heading"}}</h4>
+			<ul class="demo-list-control mdl-list">
+				{{#each openProposals}}
+				{{> VotingCard}}
+				{{/each}}
+			</ul>
+
+			{{else}}
+			{{> loader}}
+			{{/if}}
+		</div>
+	</div>
+	{{/if}}
+</template>
+
+<template name="VotingCard">
+
+
+	<div class="voting-card mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title mdl-card--expand">
+			<a href="/proposals/view/{{_id}}" class="proposal-list-item-link"><h6>{{ title }}</h6></a>
+		</div>
+		<div class="mdl-card__supporting-text">
+			<p class="proposal-abstract">{{ abstract }}</p>
+		</div>
+
+		<div class="mdl-card__actions mdl-card--border">
+			<!-- Show More/Less Button -->
+			<a id="toggle-voting-info" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				{{#if showVotingInfo}}
+					{{_ "pages.voting.show-less"}} <i class="material-icons">expand_less</i>
+				{{else}}
+					{{_ "pages.voting.show-more"}} <i class="material-icons">expand_more</i>
+				{{/if}}
+			</a>
+
+			{{#if showVotingInfo}}
+				<div id="voting-info" class="expandable">
+
+				<!-- Vote Tallies -->
+
+					<div class="mdl-card__actions">
+					{{#if yesPercentage _id}}
+						<span class="proposal-percentage-text-left"> For: {{ yesPercentage _id }}% </span>
+						<span class="proposal-percentage-text-right"> Against: {{ noPercentage _id }}% </span>
+						<div class="proposal-vote-progress-bar">
+							<div class="proposal-vote-yes-bar" style="width:{{ yesPercentage _id }}%"></div>
+						</div>
+					{{else}}
+						<small class="proposal-percentage-text-left"> No users voted on this proposal. </small>
+					{{/if}}
+
+					</div>
+					<hr>
+
+				<!-- Vote buttons and Delegates List -->
+				
+					{{#if isVotingAsDelegate}}
+					<div class="voting-card-buttons">
+					<h6>Vote as a Delegate:</h6>
+					{{> delegateVoteButtons proposalId=_id}}
+					</div>
+				{{else}}
+					<div class="voting-card-buttons">
+					<h6>Cast your vote:</h6>
+					{{> voteButtons proposalId=_id}}
+					</div>
+					<!-- How user's delegates voted -->
+					{{> delegateVoteList proposalId=_id}}
+				{{/if}}
+				
+
+			</div>
+
+			{{/if}}
+		</div>
+
+	</div>
+
+</template>

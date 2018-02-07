@@ -3,9 +3,9 @@ import './delegateVoteList.html'
 Template.delegateVoteList.onCreated(function(){
 	self = this;
 	self.delegates = new ReactiveVar([]);
-	proposalId = FlowRouter.getParam("id");
+	self.proposalId = Template.currentData().proposalId;
 	if (Meteor.user()) {
-	    Meteor.call("getDelegateVotes", proposalId, Meteor.userId(), function(error, result){
+	    Meteor.call("getDelegateVotes", self.proposalId, Meteor.userId(), function(error, result){
 	      if (error){
 	        Bert.alert(error.reason, 'danger');
 	      } else {

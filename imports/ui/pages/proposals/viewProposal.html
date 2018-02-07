@@ -100,16 +100,17 @@
 				<h5>{{_ "proposals.view.voteHeading"}}</h5>
 				{{#if isVotingAsDelegate}}
 					{{#if isVotableForDelegates}}
-						{{> delegateVoteButtons}}
+						{{> delegateVoteButtons proposalId=_id}}
 					{{else}}
 						<small>{{_"proposals.view.delegateVotingClosed"}}</small>
 					{{/if}}
 				{{else}}
-					{{> voteButtons}}
+					<small>{{_"proposals.view.voteInstructions"}}</small>
+					{{> voteButtons proposalId=_id}}
 				{{/if}}
 				<hr>
 
-				{{> delegateVoteList}}
+				{{> delegateVoteList proposalId=_id}}
 
 			{{/if}}
 

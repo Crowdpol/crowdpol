@@ -14,7 +14,7 @@ Template.AdminVoting.onCreated(function() {
 Template.AdminVoting.helpers({
   proposals: function() {
   	// only display expired proposals that are public
-  	return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}, {sort: {endDate: -1}});
+  	return Proposals.find({stage: "live"}, {sort: {endDate: -1}});
   },
   tallyInProgress: function(){
   	return Template.instance().tallyInProgress.get();

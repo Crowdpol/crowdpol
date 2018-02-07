@@ -169,6 +169,13 @@ loggedInRoutes.route('/tag/:keyword', {
   }
 });
 
+loggedInRoutes.route('/voting', {
+  name: 'App.voting',
+  action() {
+    BlazeLayout.render('App_body', {main: 'Voting'});
+  }
+});
+
 loggedInRoutes.route('/proposals', {
   name: 'App.proposals',
   action() {

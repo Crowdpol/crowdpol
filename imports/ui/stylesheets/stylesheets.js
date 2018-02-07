@@ -18,4 +18,5 @@ import './proposals.scss'
 import './modal.scss'
 import './back-button.scss'
 import './signInModal.scss'
+import './voting.scss'
 
