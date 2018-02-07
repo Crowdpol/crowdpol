@@ -39,7 +39,6 @@ Meteor.methods({
       return users[0].profile.tags;
     },
     updateProfile: function (userID, profile) {
-      console.log(profile);
       check(userID, String);
       searchString = profile.firstName + " " + profile.lastName + " " + profile.username;
       profile["searchString"] = searchString;
@@ -61,7 +60,6 @@ Meteor.methods({
       }
     },
     addEntity: function(entity) {
-      console.log(entity);
       check(entity, { 
         email: String, 
         password: String, 
@@ -302,7 +300,6 @@ Meteor.methods({
 });
 
 function profileIsComplete(user){
-  console.log("function started");
   var profile = {
     username: user.profile.username,
     firstName: user.profile.firstName,
@@ -317,16 +314,13 @@ function profileIsComplete(user){
   public = profile;
   if (!profile.tags || profile.tags.length < 5){
     isComplete = false;
-    console.log("less than 5 tags");
   } else {
     _.map(profileFields, function(field){
       if (profile[field]){
         if (profile[field].length == 0) {
           isComplete = false;
-          console.log(profile[field] + " has no length");
         }
       } else {
-        console.log("no fields");
         isComplete = false;
       }
     });

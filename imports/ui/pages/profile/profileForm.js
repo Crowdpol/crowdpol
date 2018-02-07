@@ -16,7 +16,6 @@ Template.ProfileForm.onRendered(function(){
     if (isReady){
       // Set public/private switch
       updatePublicSwitch(self);
-      updateProfileProgress();
       // Set approval statuses and switches
       self.delegateStatus.set(updateDisplayedStatus('delegate', self));
       //self.candidateStatus.set(updateDisplayedStatus('candidate', self));
@@ -53,7 +52,6 @@ Template.ProfileForm.onCreated(function() {
   dict.set('bioCount', 0);
   dict.set('tagsCompleted', false);
   dict.set('tagsCount', 0);
-  
 
   Meteor.call('getProfile', Meteor.userId(), function(error, result) {
     if (error) {
@@ -95,6 +93,20 @@ Template.ProfileForm.events({
     }
     Session.set('showSettings',!Session.get('showSettings'))
   },
+  'blur #profile-website' (event, template) {
+        if (validateUrl(event.currentTarget.value)) {
+          //$('#submitProfile').removeAttr('disabled', 'disabled');
+          //$('form').unbind('submit');
+          template.templateDictionary.set('usernameCompleted',true);
+          $("#valid-url").html('<i class="material-icons">check</i>');
+
+        } else {
+          $("#valid-url").text("");
+          template.templateDictionary.set('usernameCompleted',false);
+          //$('#submitProfile').attr('disabled', 'disabled');
+          //$('form').bind('submit',function(e){e.preventDefault();});
+        }
+  },
   'blur #profile-username' (event, template) {
     //TO DO: make sure current user name is excluded from search on serverside
     Meteor.call('updateUsernameIsUnique', event.currentTarget.value, function(error, result) {
@@ -104,12 +116,12 @@ Template.ProfileForm.events({
         if (result) {
           //$('#submitProfile').removeAttr('disabled', 'disabled');
           //$('form').unbind('submit');
-          template.templateDictionary.set('usernameCompleted',true);
-          $("#valid-username").html("&#10003;");
+          template.templateDictionary.set('urlCompleted',true);
+          $("#valid-username").html('<i class="material-icons">check</i>');
 
         } else {
           $("#valid-username").text("Username exists");
-          template.templateDictionary.set('usernameCompleted',false);
+          template.templateDictionary.set('urlCompleted',false);
           //$('#submitProfile').attr('disabled', 'disabled');
           //$('form').bind('submit',function(e){e.preventDefault();});
         }
@@ -207,10 +219,10 @@ Template.ProfileForm.events({
     event.preventDefault();
     if(Session.get('showCompleteStatus')){
       $( "#profile-status-complete" ).hide();
-      $( "#profile-status-link" ).text("More");
+      $( "#profile-status-link" ).html('<i class="material-icons">expand_more</i>');
     }else{
       $( "#profile-status-complete" ).show();
-       $( "#profile-status-link" ).text("Less");
+       $( "#profile-status-link" ).html('<i class="material-icons">expand_less</i>');
     }
     Session.set('showCompleteStatus',!Session.get('showCompleteStatus'));
   }
@@ -435,10 +447,11 @@ function checkProfileIsComplete(template){
   public = profile;
   var bio = event.currentTarget.value;
 
-  //1. Check username: NOT NECESSARY as username will be valid on load, and checked when changed
-  //if(profile.username.length){
-  //  template.templateDictionary.set('usernameCompleted',true);
-  //}
+  //1. Check username: 
+  if(template.templateDictionary.get('firstNameCompleted')){
+    completedScore++;
+  }
+
   //2. Check Firstname
   if(profile.firstName.length){
     template.templateDictionary.set('firstNameCompleted',true);
@@ -446,6 +459,7 @@ function checkProfileIsComplete(template){
   }else{
     template.templateDictionary.set('firstNameCompleted',false);
   }
+
   //3. Check if Individual: check lastname
   if(profile.firstName.length){
     template.templateDictionary.set('lastnameCompleted',true);
@@ -453,6 +467,7 @@ function checkProfileIsComplete(template){
   }else{
     template.templateDictionary.set('lastnameCompleted',false);
   }
+
   //4. Check photo: MAY NOT BE NECCESSARY
   if(profile.photo.length){
     template.templateDictionary.set('photoCompleted',true);
@@ -460,7 +475,8 @@ function checkProfileIsComplete(template){
   }else{
     template.templateDictionary.set('photoCompleted',false);
   }
-  //5. Check bio: ADD CHECK FOR GREATER THAN 50 LESS THAN 100
+
+  //5. Check bio: 
   template.templateDictionary.set('bioCount',profile.bio.length);
   if((profile.bio.length >= 50)&&(profile.bio.length <=160)){
     template.templateDictionary.set('bioCompleted',true);
@@ -475,9 +491,10 @@ function checkProfileIsComplete(template){
   }else{
     template.templateDictionary.set('urlCompleted',false);
   }
-  //7. Check tags
-  console.log(profile.tags);
-  console.log(template.taggle.get().getTagValues());
+
+  //7. Check tags: NOTE! Something a bit iffy with template.taggle.get().getTagValues()
+  //console.log(profile.tags);
+  //console.log(template.taggle.get().getTagValues());
   template.templateDictionary.set('tagsCount',profile.tags.length);
   if (profile.tags.length >= 5){
     template.templateDictionary.set('tagsCompleted',true);
@@ -487,22 +504,17 @@ function checkProfileIsComplete(template){
   }
   template.templateDictionary.set('completedScore',completedScore);
 
+  //8. Calculate score total based on profile type (individual = 7, entity = 6)
   var profileType = template.templateDictionary.get('profileType');
-  console.log("profileType: " + profileType);
-
-  /*
-  dict.set('photoCompleted', true);
-  dict.set('usernameCompleted', true);
-  dict.set('firstnameCompleted', true);
-  dict.set('lastnameCompleted', true);
-  dict.set('urlCompleted', false);
-  dict.set('bioCompleted', false);
-  if(bio.length > 50){
-    template.templateDictionary.set('bioCompleted',true);
+  var totalScore = 7;
+  if(profileType == 'Entity'){
+    totalScore = 6;
   }
-  dict.set('tagsCompleted', 0);
   
-  
+  //9. Update progress bar
+  var percentage = completedScore * 100 / totalScore + '%';
+  $('#progress-status').width(percentage);
+  /*
   template.templateDictionary.set('tagsCompleted', profile.tags.length);
   if (profile.tags.length < 5){
     console.log("not enough tags");
@@ -517,7 +529,8 @@ function checkProfileIsComplete(template){
     });
   }
   */
-  console.log("checkProfileIsComplete is good");
+
+  
   return isComplete;
 }
 
@@ -592,8 +605,8 @@ function togglePublic(isPublic){
           });
 }
 
-function updateProfileProgress(){
-  document.querySelector('#p1').addEventListener('mdl-componentupgraded', function() {
-    this.MaterialProgress.setProgress(100);
-  });
+
+function validateUrl(url){
+  var regExp = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+  return regExp.test(url);
 }
