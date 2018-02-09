@@ -37,7 +37,15 @@ Template.Signup.events({
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				FlowRouter.go('/proposals');
+				/* Check if redirect route saved */
+				var redirect = LocalStore.get('signUpRedirectURL');
+				LocalStore.set('signUpRedirectURL', '');
+				if (redirect) {
+					window.location.href = redirect;
+				} else {
+					FlowRouter.go('/proposals');
+				}
+				
 				/*Meteor.call('sendVerificationLink', (error, response) => {
 					if (error){
 						Bert.alert(error.reason, 'danger');

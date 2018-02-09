@@ -1,0 +1,51 @@
+<template name='delegateVoteList'>
+	<div class="mdl-grid delegateVoteGrid">
+		<div class="mdl-cell mdl-cell--6-col">
+			<h6>{{_ "proposals.view.delegatesFor"}}</h6>
+			{{#if delegatesFor}}
+				<ul class="delegateVoteList demo-list-control mdl-list" >
+					{{#each delegatesFor}}
+					{{> delegateVoteListItem}}
+					{{/each}}
+				</ul>
+			{{else}}
+				<small>{{_ "proposals.view.noDelegatesVoted"}}</small>
+			{{/if}}
+		</div>
+		<div class="mdl-cell mdl-cell--6-col">
+			<h6>{{_ "proposals.view.delegatesAgainst"}}</h6>
+			{{#if delegatesAgainst}}
+				<ul class="demo-list-control mdl-list" >
+					{{#each delegatesAgainst}}
+					{{> delegateVoteListItem}}
+					{{/each}}
+				</ul>
+			{{else}}
+				<small>{{_ "proposals.view.noDelegatesVoted"}}</small>
+			{{/if}}
+		</div>
+	</div>
+
+
+</template>
+
+<!--============ Single delegate item ============-->
+
+<template name="delegateVoteListItem">
+	<li class="selected mdl-list__item delegate-vote-list-item" id="{{_id}}">
+		<div class="card-main-wrap">
+			<span class="card-main mdl-list__item-primary-content">
+				<i class="material-icons">{{voteIcon vote_info.[0].vote}}</i> &nbsp;
+				<img src={{user_info.[0].profile.photo}} class="mdl-list__item-avatar">
+				#{{ranking}}&nbsp; {{user_info.[0].profile.firstName}}&nbsp;{{user_info.[0].profile.lastName}} ({{user_info.[0].profile.username}})
+			</span>
+		</div>
+	</li>
+	<div class="mdl-tooltip" for="{{_id}}">
+		{{#if vote_info.[0].reason}}
+			{{vote_info.[0].reason}}
+		{{else}}
+			{{_ "proposals.view.noDelegateReason"}}
+		{{/if}}
+	</div>
+</template>

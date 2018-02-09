@@ -169,6 +169,13 @@ loggedInRoutes.route('/tag/:keyword', {
   }
 });
 
+loggedInRoutes.route('/voting', {
+  name: 'App.voting',
+  action() {
+    BlazeLayout.render('App_body', {main: 'Voting'});
+  }
+});
+
 loggedInRoutes.route('/proposals', {
   name: 'App.proposals',
   action() {
@@ -183,7 +190,9 @@ loggedInRoutes.route('/proposals/edit/:id?', {
   }
 });
 
-loggedInRoutes.route('/proposals/view/:id', {
+/* Users without an account can see individual proposals */
+
+FlowRouter.route('/proposals/view/:id', {
   name: 'App.proposal.view',
   action() {
     BlazeLayout.render('App_body', {main: 'ViewProposal'});

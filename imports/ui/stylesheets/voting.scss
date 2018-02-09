@@ -1,0 +1,27 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+.voting-card {
+  margin-top: $base-line-height;
+  margin-bottom: $base-line-height;
+  width: auto;
+
+  .mdl-button--colored#toggle-voting-info{
+    color: $light-blue-dark;
+  }
+
+  .mdl-card__actions.mdl-card--border{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+#voting-info.expandable {
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.voting-card-buttons{
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  padding-right: 16px;
+  padding-left: 16px;
+}
