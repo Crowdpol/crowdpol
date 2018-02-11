@@ -39,7 +39,6 @@ Meteor.methods({
       return users[0].profile.tags;
     },
     updateProfile: function (userID, profile) {
-      //console.log(profile);
       check(userID, String);
       searchString = profile.firstName + " " + profile.lastName + " " + profile.username;
       profile["searchString"] = searchString;
@@ -69,7 +68,10 @@ Meteor.methods({
         profileType: Match.Maybe(String), 
         name: String, 
         website: Match.Maybe(String),
-        roles: Match.Maybe(String) });
+        roles: Match.Maybe([String]),
+        isParty: Boolean,
+        isOrganisation: Boolean
+      });
 
       entityID = Accounts.createUser({
         'email': entity.email,
@@ -174,6 +176,7 @@ Meteor.methods({
         });
         Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
       } else {
+        console.log("profileIsComplete() has failed");
         throw new Meteor.Error(422, TAPi18n.__('pages.profile.alerts.profile-incomplete'));
       }
       

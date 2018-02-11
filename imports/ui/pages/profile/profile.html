@@ -3,18 +3,10 @@
 	{{> backButton text="Back to Dashboard" url="/dash"}}
 	<div class="container narrow-container">
 		{{#if Template.subscriptionsReady}}
+			<h3>{{_ "pages.profile.heading"}}</h3>
+			{{> ProfileImage}}
 			{{> ProfileForm}}
-
 			<div class="switches-wrap">
-
-				<label id="profile-public-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-					<input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
-					<span class="mdl-switch__label">{{_ "pages.profile.public"}}</span>
-				</label>
-				<div class="mdl-tooltip mdl-tooltip--large" for="profile-public-switch-label">
-						{{_ "pages.profile.tooltips.publicSwitch"}}
-					</div>
-
 				{{#if isPublic}}
 					<label id='profile-delegate-switch-label' class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
 						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
@@ -32,10 +24,7 @@
 				{{/if}}
 			</div>
 
-
-			<!--{{> Dialogue}} -->
-
-			<!-- Helper list: Don't delete, useful for testing
+			<!-- Helper list: Don't delete, useful for testing 
 			user: |{{user}}|<br>
 			delegateStatus: |{{delegateStatus}}|<br>
 			candidateStatus: |{{candidateStatus}}|<br>
@@ -56,24 +45,3 @@
 	{{/if}}
 </template>
 
-<template name="Dialogue">
-	<button class="mdl-button mdl-button--raised mdl-js-button dialog-button">Show Dialog</button>
-	<p>
-		Remember that the Dialog component requires the <a href="https://github.com/GoogleChrome/dialog-polyfill">Dialog polyfill</a> in order to function.
-		It takes advantage of the native dialog element to provide the most robust experience possible.
-	</p>
-
-	<dialog id="dialog" class="mdl-dialog">
-		<h3 class="mdl-dialog__title">MDL Dialog</h3>
-		<div class="mdl-dialog__content">
-			<p>
-				This is an example of the Material Design Lite dialog component.
-				Please use responsibly.
-			</p>
-		</div>
-		<div class="mdl-dialog__actions">
-			<button type="button" class="mdl-button">Close</button>
-			<button type="button" class="mdl-button" disabled>Disabled action</button>
-		</div>
-	</dialog>
-</template>
