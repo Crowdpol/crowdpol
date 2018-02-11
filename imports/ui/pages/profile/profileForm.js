@@ -142,10 +142,10 @@ Template.ProfileForm.events({
             Bert.alert("Remove delegate role before going private", 'danger');
         }else{
           //false - make user private
-          togglePublic(false);
+          togglePublic(false, template);
         }
     }else{
-      togglePublic(true);
+      togglePublic(true,template);
       //False - check if form is complete
       /*if(Session.get('profileIsComplete')){
         //enable delegate button
@@ -530,9 +530,10 @@ function checkProfileIsComplete(template){
   }
   */
   if(completedScore==totalScore){
+
     isComplete = true;
   }
-  
+  console.log("completedScore: " + completedScore + " totalScore: " + totalScore + " isComplete");
   return isComplete;
 }
 
@@ -571,36 +572,40 @@ function updatePublicSwitch(template){
   var delegateSwitch = template.find('#profile-delegate-switch-label').MaterialSwitch;
   if(!checkProfileIsComplete(template)){
     //console.log("profile is incomplete, disabling public toggle");
-    publicSwitch.disable();
+    //publicSwitch.disable();
     delegateSwitch.disable();
     return;
   }
   if (isInRole('candidate') || isInRole('delegate')){
-    //console.log("user is delegate/candidate, disabling public toggle");
+    console.log("user is delegate/candidate, disabling public toggle");
     publicSwitch.disable();
   } else {
-    //console.log("enabling public toggle");
+    console.log("enabling public toggle");
     publicSwitch.enable();
   }
   if( Meteor.user().isPublic) {
-    //console.log("user isPublic, turning toggle on");
+    console.log("user isPublic, turning toggle on");
     publicSwitch.on();
     delegateSwitch.enable();
   } else {
-    //console.log("user isPublic, turning toggle off");
+    console.log("user isPublic, turning toggle off");
     publicSwitch.off();
     delegateSwitch.disable();
   }
 }
 
-function togglePublic(isPublic){
+function togglePublic(isPublic,template){
+  var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch;
   Meteor.call('togglePublic', Meteor.userId(), isPublic, function(error) {
             if (error) {
               Bert.alert(error.reason, 'danger');
+              publicSwitch.off();
             } else {
               var msg = TAPi18n.__('pages.profile.alerts.profile-private');
-              if (event.target.checked) {
+              publicSwitch.off();
+              if (Meteor.user().isPublic) {
                 msg = TAPi18n.__('pages.profile.alerts.profile-public');
+                publicSwitch.on();
               }
               Bert.alert(msg, 'success');
             }
