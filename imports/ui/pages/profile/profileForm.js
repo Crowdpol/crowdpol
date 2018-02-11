@@ -212,7 +212,6 @@ Template.ProfileForm.events({
   },
   */
   'submit form' (event, template) {
-    console.log("submit clicked");
     event.preventDefault();
   },
   'click #profile-status-link' (){
@@ -325,7 +324,6 @@ Template.ProfileForm.helpers({
   },
   profile: function() {
     user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1, roles: 1, isPublic: 1, isParty: 1, isOrganisation: 1 } });
-    console.log(user);
     return user.profile;
   },
   profilePic: function() {
@@ -376,10 +374,10 @@ Template.ProfileForm.helpers({
   delegateStatus: function() {
     var status;
     if(isInRole('delegate')){
-      status = "Approved";
+      status = TAPi18n.__('generic.approved');
     } else {
       status = false;//Template.instance().delegateStatus.get()
-      if (status == 'Approved'){
+      if (status == TAPi18n.__('generic.approved')){
         /*if the status is approved, but the user is not in the role, then
         they were previously approved, but revoked the role themselves*/ 
         status = '';
@@ -390,10 +388,10 @@ Template.ProfileForm.helpers({
   candidateStatus: function() {
     var status;
     if(isInRole('candidate')){
-      status = "Approved";
+      status = TAPi18n.__('generic.approved');
     } else {
       status = Template.instance().candidateStatus.get()
-      if (status == 'Approved'){
+      if (status == TAPi18n.__('generic.approved')){
         /*if the status is approved, but the user is not in the role, then
         they were previously approved, but revoked the role themselves*/ 
         status = '';
@@ -415,9 +413,9 @@ Template.ProfileForm.helpers({
   },
   settingsText: function() {
     if(Session.get('showSettings')){
-      return "Hide";
+      return TAPi18n.__('generic.show-less');
     }
-    return "Show";
+    return TAPi18n.__('generic.show-more');;
   }
 
 });
@@ -430,7 +428,7 @@ function hasOwnProperty(obj, prop) {
 
 function checkProfileIsComplete(template){
   var completedScore = 0;
-  var isComplete = true;
+  var isComplete = false;
   
   //var template = Template.instance();
   var profile = {
@@ -448,7 +446,7 @@ function checkProfileIsComplete(template){
   var bio = event.currentTarget.value;
 
   //1. Check username: 
-  if(template.templateDictionary.get('firstNameCompleted')){
+  if(template.templateDictionary.get('usernameCompleted')){
     completedScore++;
   }
 
@@ -514,6 +512,8 @@ function checkProfileIsComplete(template){
   //9. Update progress bar
   var percentage = completedScore * 100 / totalScore + '%';
   $('#progress-status').width(percentage);
+
+
   /*
   template.templateDictionary.set('tagsCompleted', profile.tags.length);
   if (profile.tags.length < 5){
@@ -529,7 +529,9 @@ function checkProfileIsComplete(template){
     });
   }
   */
-
+  if(completedScore==totalScore){
+    isComplete = true;
+  }
   
   return isComplete;
 }
@@ -539,7 +541,7 @@ function isInRole(role){
 }
 
 function updateDisplayedStatus(type, template){
-  console.log('updateDisplayedStatus is running with type ' + type)
+  //console.log('updateDisplayedStatus is running with type ' + type)
   var approvals = Meteor.user().approvals
   if (approvals) {
     var currentApproval = approvals.find(approval => approval.type === type)
@@ -568,24 +570,24 @@ function updatePublicSwitch(template){
   var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch;
   var delegateSwitch = template.find('#profile-delegate-switch-label').MaterialSwitch;
   if(!checkProfileIsComplete(template)){
-    console.log("profile is incomplete, disabling public toggle");
+    //console.log("profile is incomplete, disabling public toggle");
     publicSwitch.disable();
     delegateSwitch.disable();
     return;
   }
   if (isInRole('candidate') || isInRole('delegate')){
-    console.log("user is delegate/candidate, disabling public toggle");
+    //console.log("user is delegate/candidate, disabling public toggle");
     publicSwitch.disable();
   } else {
-    console.log("enabling public toggle");
+    //console.log("enabling public toggle");
     publicSwitch.enable();
   }
   if( Meteor.user().isPublic) {
-    console.log("user isPublic, turning toggle on");
+    //console.log("user isPublic, turning toggle on");
     publicSwitch.on();
     delegateSwitch.enable();
   } else {
-    console.log("user isPublic, turning toggle off");
+    //console.log("user isPublic, turning toggle off");
     publicSwitch.off();
     delegateSwitch.disable();
   }

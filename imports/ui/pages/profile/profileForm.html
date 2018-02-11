@@ -33,9 +33,9 @@
 					</div>
 					<div style="float: right;">
 					{{#if bioCompleted}}
-						<span style="color: grey; font-size: 10px">{{bioCount}} characters (min 50, max 160)</span>
+						<span style="color: grey; font-size: 10px">{{bioCount}} {{_ "pages.profile.characters"}} ({{_ "pages.profile.min"}} 50, {{_ "pages.profile.max"}} 160)</span>
 					{{else}}
-						<span style="color: red; font-size: 10px">{{bioCount}} characters (min 50, max 160)</span>
+						<span style="color: red; font-size: 10px">{{_ "pages.profile.bio-count" bioCount=bioCount}}</span>
 					{{/if}}
 					</div>
 					<br>
@@ -49,7 +49,7 @@
 				<div class="form-group">
 					<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.save"}}' id="submitProfile" {{saveDisabled}} style="float: right;">
 					<button class="mdl-button mdl-js-button" id="show-settings" style="float: right;">
-						{{settingsText}}&nbsp;Full Profile
+						{{settingsText}}
 					</button>
 				</div>
 				<br>
@@ -57,7 +57,7 @@
 		</div>
 		<div class="mdl-grid profile-grid">
 			<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-	      <h5>Profile Settings<small class="center">{{pages.profile.type}}</small></h5>
+	      <h5>{{_ "pages.profile.settings"}}<small class="center">{{pages.profile.type}}</small></h5>
 	    </div>
 	    <div class="mdl-cell mdl-cell--12-col">
 	    	<div id="progress-header">
@@ -65,29 +65,29 @@
 					  <div class="progress-status" id="progress-status" style=""></div>
 					</div>
 					<p>
-					Profile status: {{completedScore}}/{{totalScore}} completed.
+					{{_ "pages.profile.status" completedScore=completedScore totalScore=totalScore}}
 					<a href="#" id="profile-status-link"><i class="material-icons">expand_more</i></a>
 					</p>
 					
 				</div>
 				<div id="profile-status-complete" style="display:none;">
 					<ol id="progress-list">
-						<li>Profile picture: <i class="material-icons">{{#if photoCompleted}}check{{else}}error{{/if}}</i></li>
-						<li>Username: <i class="material-icons">{{#if usernameCompleted}}check{{else}}error{{/if}}</i></li>
+						<li>{{_ "profile-photo"}}: <i class="material-icons">{{#if photoCompleted}}check{{else}}error{{/if}}</i></li>
+						<li>{{_ "form.username"}}: <i class="material-icons">{{#if usernameCompleted}}check{{else}}error{{/if}}</i></li>
 						{{#if isEntity}}
 							<li>Entity name: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i></li>
 						{{else}}
-  						<li>First name: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i></li>
-  						<li>Last name: <i class="material-icons">{{#if lastnameCompleted}}check{{else}}error{{/if}}</i></li>
+  						<li>{{_ "form.firstname"}}: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i></li>
+  						<li>{{_ "form.lastname"}}: <i class="material-icons">{{#if lastnameCompleted}}check{{else}}error{{/if}}</i></li>
   					{{/if}}
-  					<li>Website: <i class="material-icons">{{#if urlCompleted}}check{{else}}error{{/if}}</i></li>
-  					<li>About: {{bioCount}} characters (min: 50, max: 160) <i class="material-icons">{{#if bioCompleted}}check{{else}}error{{/if}}</i></li>
-  					<li>Interests: {{tagsCount}} of 5 <i class="material-icons">{{#if tagsCompleted}}check{{else}}error{{/if}}</i></li>
+  					<li>{{_ "form.website"}}: <i class="material-icons">{{#if urlCompleted}}check{{else}}error{{/if}}</i></li>
+  					<li>{{_ "form.bio"}}: {{bioCount}} characters (min: 50, max: 160) <i class="material-icons">{{#if bioCompleted}}check{{else}}error{{/if}}</i></li>
+  					<li>{{_ "pages.profile.interests"}}: {{tagsCount}} of 5 <i class="material-icons">{{#if tagsCompleted}}check{{else}}error{{/if}}</i></li>
 					</ol>
 				</div>
 			</div>
 	      <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
-	      	<p>Make your profile visible to others. Requires completed profile form. Required become a delegate.</p>
+	      	<p>{{_ "pages.profile.public-switch-description"}}</p>
 	      </div>
 	      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
 	      	<label id="profile-public-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
@@ -99,7 +99,7 @@
 						</div>
 	      </div>
 				<div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
-					<p>By being a delegate you allow other users who trust you to ask you to vote on their behalf.</p>
+					<p>{{_ "pages.profile.delegate-switch-description"}}</p>
 				</div>
 	      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
 					<label id='profile-delegate-switch-label' class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
