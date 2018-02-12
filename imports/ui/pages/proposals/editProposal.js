@@ -198,7 +198,7 @@ Template.EditProposal.events({
 	},
 	'click .remove-invite-email': function(e,t){
 	    removeUserEmail($(e.currentTarget).attr("data-array-index"));
-	}
+	},
 	'input textarea, input input' : function( event , template){
 		autosave(event, template);
   	},
