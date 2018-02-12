@@ -8,8 +8,8 @@
 				{{> DashProposals}}
 				<!--{{> DashCandidates}}-->
 
-				<div class="dash-card mdl-card mdl-shadow--2dp">
-				{{#unless currentUser.emails.[0].verified}}
+				<!--<div class="dash-card mdl-card mdl-shadow- -2dp">
+				 {{#unless currentUser.emails.[0].verified}}
 					<div class="mdl-card__title">
 						<h2 class="mdl-card__title-text">{{_ "pages.dashboard.verify-account-message"}}</h2>
 					</div>
@@ -25,13 +25,8 @@
 							<h2 class="mdl-card__title-text">{{_ "pages.dashboard.unapproved-entity-message"}}</h2>
 						</div>
 					{{/if}}
-				{{/unless}}
-					<div class="mdl-card__actions">
-						<button id="log-out" class="mdl-button">
-							{{_ "logout"}}
-						</button>
-					</div>
-				</div>
+				{{/unless}} 
+				</div>-->
 			{{else}}
 				<div class="dash-card mdl-card mdl-shadow--2dp">
 					<div class="mdl-card__title">

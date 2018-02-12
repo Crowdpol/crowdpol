@@ -17,6 +17,13 @@
     color: $blue;
   }
 
+  #header-tag-search-form {
+      display: none;
+      @include breakpoint($laptop) {
+        display: block;
+      }
+  }
+
   .mdl-textfield--expandable{
     padding-top: 0px;
     padding-bottom: 20px;
@@ -47,6 +54,63 @@
     }
       span {
         font-size: $small-font-size;
+      }
+    }
+  }
+
+  .material-icons.mdl-badge.mdl-badge--overlap{
+    color: $blue;
+    cursor: pointer;
+  }
+
+  .material-icons.mdl-badge[data-badge]::after,
+  .material-label.mdl-badge[data-badge]::after{
+    background-color: $yellow;
+  }
+
+  .material-icons.mdl-badge[data-badge].noUnreads::after,
+  .material-label.mdl-badge[data-badge].noUnreads::after{
+    visibility: hidden;
+  }
+
+  #notifications-title{
+      background-color: $blue;
+      small {
+        color: white;
+      }
+
+      #mark-as-read {
+        color: white;
+        cursor: pointer;
+        font-size: $xsmall-font-size;
+      }
+    }
+
+  .notifications-list{
+    margin-top: 0px;
+    padding-top: 0px;
+  
+    .notification-time{
+      font-size: $xsmall-font-size;
+    }
+    .mdl-list__item-secondary-content {
+      margin-left: 0px;
+    }
+    
+    .notification-item{
+      border-bottom: 1px solid $light-grey-dark;
+      padding-top: 0 !important;
+      padding-bottom: 1.4rem !important;
+      cursor: pointer;
+      padding-top: $space/4;
+      padding-bottom: $space/4;
+
+      &.unread {
+        background: $light-grey-light;
+      }
+
+      &:hover {
+        background: $light-grey-mid;
       }
     }
   }

@@ -63,7 +63,7 @@ FlowRouter.route('/login', {
     if (!Meteor.user()){
       BlazeLayout.render('App_body', { main: 'Authenticate' });
     }else{
-      BlazeLayout.render('App_body', { main: 'Dash' });
+      BlazeLayout.render('App_body', { main: 'ProposalsList' });
     }
   },
 });
@@ -162,11 +162,12 @@ loggedInRoutes.route('/profile/:id', {
   },
 });
 
+/* NOTE: This routes to the proposals list for now, as replacement for a dashboard */
 
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
-    BlazeLayout.render('App_body', { main: 'Dash' });
+    BlazeLayout.render('App_body', { main: 'ProposalsList' });
   },
 });
 
@@ -174,6 +175,13 @@ loggedInRoutes.route('/tag/:keyword', {
   name: 'App.tag',
   action() {
     BlazeLayout.render('App_body', {main: 'TagSearch'});
+  }
+});
+
+loggedInRoutes.route('/voting', {
+  name: 'App.voting',
+  action() {
+    BlazeLayout.render('App_body', {main: 'Voting'});
   }
 });
 
@@ -191,7 +199,9 @@ loggedInRoutes.route('/proposals/edit/:id?', {
   }
 });
 
-loggedInRoutes.route('/proposals/view/:id', {
+/* Users without an account can see individual proposals */
+
+FlowRouter.route('/proposals/view/:id', {
   name: 'App.proposal.view',
   action() {
     BlazeLayout.render('App_body', {main: 'ViewProposal'});
@@ -263,5 +273,12 @@ adminRoutes.route('/proposals', {
   name: 'App.admin.proposals',
   action() {
     BlazeLayout.render('App_body', {main: 'AdminProposals'});
+  }
+});
+
+adminRoutes.route('/voting', {
+  name: 'App.admin.voting',
+  action() {
+    BlazeLayout.render('App_body', {main: 'AdminVoting'});
   }
 });

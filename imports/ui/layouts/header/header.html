@@ -20,7 +20,7 @@
 			<div class="mdl-layout-spacer"></div>
 			{{#if currentUser}}
 				<!-- Tag Search Field -->
-				<form action="#">
+				<form action="#" id="header-tag-search-form">
 					<div class="mdl-textfield mdl-js-textfield">
 						<input class="mdl-textfield__input" type="text" id="header-tag-search" placeholder="Search for tags...">
 					</div>
@@ -43,9 +43,10 @@
 
 				<!-- Navigation. We hide it in small screens. -->
 				<nav class="mdl-navigation mdl-layout--large-screen-only">
-					<a class="mdl-navigation__link" href="/dash">{{_ "layout.header.nav_dash"}}</a>
+					<!-- <a class="mdl-navigation__link" href="/dash">{{_ "layout.header.nav_dash"}}</a> -->
 					<a class="mdl-navigation__link" href="/delegate">{{_ "layout.header.nav_delegate"}}</a>
-					<a class="mdl-navigation__link" href="/proposals">{{_ "layout.header.nav_vote"}}</a>
+					<a class="mdl-navigation__link" href="/proposals">{{_ "layout.header.nav_proposals"}}</a>
+					<a class="mdl-navigation__link" href="/voting">{{_ "layout.header.nav_vote"}}</a>
 					<!--
 					<a class="mdl-navigation__link" href="/candidate">{{_ "layout.header.nav_nominate"}}</a>
 					-->
@@ -70,6 +71,44 @@
 							{{/each}}
 						</ul>
 					{{/if}}
+
+
+					<!-- Notification Menu -->
+					<div id="notifications-menu-icon" class="material-icons mdl-badge mdl-badge--overlap {{ unreadClass }}" data-badge="{{ unreadNotificationCount }}">notifications</div>
+
+					<div class="mdl-layout__drawer-right" id="notifications-menu">
+						<span class="mdl-layout-title" id="notifications-title">
+							<small> Notifications ({{ notificationCount }})</small> <br/>
+							<span id="mark-as-read"> Mark all as read</span>
+						</span>
+						{{#if notifications}}
+							<ul class="demo-list-three mdl-list notifications-list">
+							  {{#each notifications}}
+								  <li class="mdl-list__item mdl-list__item--three-line notification-item {{ notificationItemClass read}}" data-url="{{ url }}" data-id="{{_id}}">
+								    <span class="mdl-list__item-primary-content" data-url="{{ url }}" data-id="{{_id}}">
+								    	<span class="notification-time">{{ notificationDate createdAt }}</span>
+								      <span class="mdl-list__item-text-body notification-item-text" id="wrap-span" data-url="{{ url }}" data-id="{{_id}}">
+								        {{ message }}
+								      </span>
+								    </span>
+								    <span class="mdl-list__item-secondary-content">
+								      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">{{ icon }}</i></a>
+								    </span>
+								  </li>
+							  {{/each}}
+							</ul>
+						{{else}}
+						<li class="mdl-list__item mdl-list__item--three-line">
+							<span class="mdl-list__item-primary-content">
+								<span class="mdl-list__item-text-body notification-item-text">
+									{{_ "layout.header.no_notifications"}}
+								</span>
+							</span>
+						</li>
+						{{/if}}
+					</div>
+
+					<div class="mdl-layout__obfuscator-right"></div>
 
 					<!-- Language Menu -->
 					<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">

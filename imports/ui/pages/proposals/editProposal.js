@@ -6,7 +6,6 @@ import "../../components/userSearch/userSearch.js"
 import "./styles.css"
 
 Template.EditProposal.onCreated(function(){
-	console.log("created started");
 	var self = this;
 	Template.instance().pointsFor = new ReactiveVar([]);
   	Template.instance().pointsAgainst = new ReactiveVar([]);
@@ -24,15 +23,15 @@ Template.EditProposal.onRendered(function(){
 		ignore: "",
 		rules: {
 			title: {
-				required: true,
+				required: false,
 				minlength: 5
 			},
 			abstract: {
-				required: true,
+				required: false,
 				minlength: 5
 			},
 			body: {
-				required: true,
+				required: false,
 				minlength: 50
 			},
 			startDate: {
@@ -65,12 +64,12 @@ Template.EditProposal.onRendered(function(){
 				body: 'Please provide a body for your proposal.',
 				minlength: "Use at least 50 characters."
 			},
-			/*startDate: {
+			startDate: {
 				required: 'Please indicate when voting will open for this proposal.'
 			},
 			endDate: {
 				required: 'Please indicate when voting will close for this proposal.'
-			},*/
+			},
 		}
 	});
 	var top = $("#invited-users").position().top + 40;
@@ -87,6 +86,8 @@ Template.EditProposal.onRendered(function(){
   		// Copy quill editor's contents to hidden input for validation
 		var bodyText = self.find('.ql-editor').innerHTML;
 		self.find('#body').value = bodyText;
+		// Call Autosave
+		autosave(this, self)
 	});
 	// Set values of components once rendered
 	// (quill editor must be initialised before content is set)
@@ -97,17 +98,20 @@ Template.EditProposal.onRendered(function(){
   		//self.subscribe("users.all");
   		
 		proposalId = FlowRouter.getParam("id");
+		var defaultStartDate = moment().format('YYYY-MM-DD');
+		var defaultEndDate = moment().add(1, 'week').format('YYYY-MM-DD');
 		
 		if (proposalId){
 			// Edit an existing proposal
 			self.subscribe('proposals.one', proposalId, function(){
 				proposal = Proposals.findOne({_id: proposalId});
-				self.find('#title').value = proposal.title;
-				self.find('#abstract').value = proposal.abstract;
-				self.find('.ql-editor').innerHTML = proposal.body;
-				self.find('#body').value = proposal.body;
-				//self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD');
-				//self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD');
+				self.find('#title').value = proposal.title || '';
+				self.find('#abstract').value = proposal.abstract || '';
+				self.find('.ql-editor').innerHTML = proposal.body || '';
+				self.find('#body').value = proposal.body || '';
+				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate;
+				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate;
+				self.find('#invited').value = proposal.invited.join(',');
 				Session.set('invited',proposal.invited);
 				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
 				if (proposal.pointsFor != null){
@@ -118,6 +122,9 @@ Template.EditProposal.onRendered(function(){
 				}
 				
 			});
+		} else {
+			self.find('#startDate').value = defaultStartDate;
+			self.find('#endDate').value = defaultEndDate;
 		}
 	});
 });
@@ -192,6 +199,9 @@ Template.EditProposal.events({
 	'click .remove-invite-email': function(e,t){
 	    removeUserEmail($(e.currentTarget).attr("data-array-index"));
 	}
+	'input textarea, input input' : function( event , template){
+		autosave(event, template);
+  	},
 });
 
 Template.EditProposal.helpers({
@@ -213,6 +223,33 @@ Template.EditProposal.helpers({
   }
 });
 
+// Autosave function
+function autosave(event, template) {
+	// Save user input after 3 seconds of not typing
+	timer.clear();
+
+	timer.set(function() { 
+		saveChanges(event, template, 'App.proposal.edit');  
+	});
+}
+
+// Autosave timer
+var timer = function(){
+    var timer;
+
+    this.set = function(saveChanges) {
+      timer = Meteor.setTimeout(function() {
+    	saveChanges();
+      }, Meteor.settings.public.defaultAutosaveTime)
+    };
+
+    this.clear = function() {
+      Meteor.clearInterval(timer);
+    };
+
+    return this;    
+  }();
+
 function saveChanges(event, template, returnTo){
 	Meteor.call('transformTags', template.taggle.get().getTagValues(), function(error, proposalTags){
 		if (error){
@@ -222,8 +259,8 @@ function saveChanges(event, template, returnTo){
 			title: template.find('#title').value,
 			abstract: template.find('#abstract').value,
 			body: template.find('#body').value,
-			startDate: new Date(2018, 8, 1),//new Date(template.find('#startDate').value),
-			endDate: new Date(2018, 8, 1),//new Date(template.find('#endDate').value),
+			startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),//
+			endDate: new Date(template.find('#endDate').value),//new Date(2018, 8, 1),
 			authorId: Meteor.userId(),
 			invited: Session.get('invited'),
 			tags: proposalTags,
@@ -234,13 +271,15 @@ function saveChanges(event, template, returnTo){
 
 		var proposalId = FlowRouter.getParam("id");
 
+		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.saving')});
+
 		// If working on an existing proposal, save it, else create a new one
 		if (proposalId){
 			Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					Bert.alert(TAPi18n.__('pages.proposals.alerts.changes-saved'), 'success');
+					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.changes-saved')});
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
@@ -249,7 +288,7 @@ function saveChanges(event, template, returnTo){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					Bert.alert(TAPi18n.__('pages.proposals.alerts.proposal-created'), 'success');
+					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.proposal-created')});
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});

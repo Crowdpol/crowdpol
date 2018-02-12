@@ -7,6 +7,7 @@
 			"nav_dash": "Dashboard",
 			"nav_delegate" : "Delegate",
 			"nav_vote": "Vote",
+			"nav_proposals": "Proposals",
 			"nav_nominate": "Nominate",
 			"nav_about": "About",
 			"nav_contact": "Contact",
@@ -14,7 +15,8 @@
 			"nav_logout": "Logout",
 			"lang_en": "English",
 			"lang_sv": "Swedish",
-			"role_selector": "Switch Roles"
+			"role_selector": "Switch Roles",
+			"no_notifications": "You don't have any notifications yet."
 		},
 		"drawer": {
 			"nav_login" : "Log in",
@@ -30,8 +32,9 @@
 		"body":{},
 		"footer": {
 			"delegate": "Delegate",
-			"vote": "Vote",
-			"nominate": "Nominate"
+			"propose": "Propose",
+			"nominate": "Nominate",
+			"vote": "Vote"
 		}
 	},
 	"generic": {
@@ -45,7 +48,10 @@
 		"not-found_home-link": "Go to home",
 		"alerts": {
 			"welcome": "Welcome"
-		}
+		},
+		"show-more": "Show More",
+		"show-less": "Show Less",
+		"approved": "Approved"
 	},
 	"form": {
 		"email": "Email address",
@@ -61,7 +67,9 @@
 		"contact": "Contact person",
 		"message": "Your message",
 		"save": "Save",
-		"submit": "Submit"
+		"submit": "Submit",
+		"update": "Update",
+		"cancel": "Cancel"
 	},
 	"pages": {
 		"home": {
@@ -172,13 +180,13 @@
 			"heading" : "Dashboard",
 			"card": {
 				"proposals": {
-					"heading": "Proposals",
-					"text": "View proposals.",
+					"heading": "Vote",
+					"text": "Vote on Proposals.",
 					"link": "Vote"
 				},
 				"delegates": {
-					"heading": "Delegates",
-					"text": "Select your delegates",
+					"heading": "Delegate",
+					"text": "Select your delegates.",
 					"link": "Delegate"
 				},
 				"candidates": {
@@ -200,7 +208,7 @@
 		"profile": {
 			"heading": "Profile",
 			"photo" : "Profile photo path",
-			"public" : "Public Profile",
+			"public" : "Public",
 			"private" : "Private Profile",
 			"delegate" : "Delegate",
 			"candidate" : "Candidate",
@@ -213,10 +221,27 @@
 				"profile-candidate-removed" : "Candidate Role removed.",
 				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
 				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete."
-			}
+			},
+			"tooltips": {
+				"delegateSwitch": "Apply to be a delegate. This will allow other users to let you vote on their behalf.",
+				"publicSwitch": "Make your profile visible to the public, or hide it."
+			},
+			"characters": "characters",
+			"min": "min",
+			"max": "max",
+			"settings": "Profile Settings",
+			"status": "Profile status: __completedScore__/__totalScore__ completed.",
+			"completed": "completed",
+			"interests": "interests",
+			"public-switch-description": "Make your profile visible to others. Requires completed profile form. Required become a delegate.",
+			"delegate-switch-description": "By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
+			"bio-count": "__bioCount__ characters (min 50, max 160)"
 		},
 		"delegates": {
 			"heading": "Delegates",
+			"instructions-1": "Below is a list of users to whom you may delegate your vote.",
+			"instructions-2": "If you do not vote on a proposal, your vote will automatically go to your highest-ranking delegate who voted. However, you can override your delegate's vote at any time.",
+			"instructions-3": "You can select up to five delegates. You can reorder your list of chosen delegates by dragging and dropping them into place once you have selected them.",
 			"alerts": {
 				"delegate-limit": "You can only have 5 delegates",
 				"ranking-updated": "Delegate ranking updated"
@@ -244,14 +269,17 @@
 			"proposal-expires": "Expires",
 			"edit": {
 				"heading": "Write your proposal",
-				"title": "Title",
+				"title": "Give your proposal a descriptive title.",
 				"abstract": "Summarise your proposal",
+				"body": "Expand on your proposal. Provide as much detail as possible, and include links or references where appropriate.",
+				"forAndAgainst": "Every proposal has its pros and cons. Add some brief arguments for and against your proposal by entering them into the fields below and clicking the button.",
 				"startDate": "Start date for voting",
 				"endDate": "Closing date for voting",
 				"invited": "Invite others to collaborate by entering their usernames, separated by commas",
 				"add-tags": "Add some tags your proposal:"
 			},
 			"alerts": {
+				"saving": "Saving...",
 				"changes-saved": "Changes saved",
 				"proposal-created": "Proposal created",
 				"copy-to-clipboard-success": "Proposal link copied to clipboard",
@@ -272,6 +300,13 @@
 				"delegates-heading": "Delegates",
 				"candidates-heading": "Candidates"
 			}
+		},
+		"voting": {
+			"heading": "Voting",
+			"description": "The following proposals are all available to vote on. Click on a proposal to read more, or expand the proposal to see how your delegates voted, or to cast your own vote.",
+			"not-ready": "The votes for this proposal have not yet been tallied. Results are updated every 24 hours.",
+			"show-more": "Show More",
+			"show-less": "Show Less"
 		}
 	},
 	"admin":{
@@ -297,6 +332,11 @@
 					"heading": "Proposals",
 					"text": "Review proposals submitted by users.",
 					"link": "Manage Proposals"
+				},
+				"voting": {
+					"heading": "Voting",
+					"text": "See voting results and prepare votes for tallying in closed proposals.",
+					"link": "View Voting"
 				},
 				"stats":{
 					"heading": "Statistics",
@@ -333,6 +373,17 @@
 			"none-waiting": "There are no new proposals awaiting approval.",
 			"approve-button": "Approve",
 			"reject-button": "Reject"
+		},
+		"voting":{
+			"heading": "Voting",
+			"endDate": "Expiry Date",
+			"author": "Author",
+			"title": "Title",
+			"tally-votes": "Refresh Votes",
+			"results": "Results",
+			"yes-votes": "Yes Votes",
+			"no-votes": "No Votes",
+			"total-votes": "Total Votes"
 		},
 		"tags": {
 			"heading": "Manage Tags",
@@ -490,6 +541,23 @@
 			"login-to-view": "You must log in to access that page."
 		}
 	},
+	"notifications": {
+		"approvals": {
+			"candidate": {
+				"rejected": "Your request to be a candidate has been rejected.",
+				"approved": "Your request to be a candidate has been approved."
+			},
+			"delegate": {
+				"rejected": "Your request to be a delegate has been rejected.",
+				"approved": "Your request to be a delegate has been approved."
+			}
+		},
+		"proposals": {
+			"approved": "The proposal you submitted has been approved.",
+			"rejected": "The proposal you submitted has been rejected.",
+			"comments": "There is a new comment on your proposal."
+		}
+	},
 	"proposals": {
 			"list": {
 				"deletedMessage": "Your proposal has been deleted.",
@@ -514,7 +582,7 @@
 			},
 			"edit": {
 				"heading": "Write your proposal",
-				"title": "Title",
+				"title": "Give your proposal a title",
 				"abstract": "Summarise your proposal",
 				"startDate": "Start date for voting",
 				"endDate": "Closing date for voting",
@@ -524,6 +592,12 @@
 				"pointAgainst": "Points Against:"
 			},
 			"view":{
+				"signInModal": {
+					"header": "Join the discussion",
+					"paragraph-1":"Want to vote on this proposal?",
+					"paragraph-2": "Creating an account is simple, and will allow you to join others in writing proposals, voting and choosing delegates.",
+					"button": "Sign Up"
+				},
 				"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
 				"voteCast": "Your vote has been cast",
 				"editProposal": "Edit Proposal",
@@ -537,20 +611,29 @@
 				"voteHeading": "Vote on this proposal",
 				"voteStarts": "Voting starts on:",
 				"voteEnds": "Voting ends on: ",
-				"abstract": "Abstract",
+				"abstract": "Summary",
 				"proposal": "Proposal",
+				"yes": "For",
+				"no": "Against",
+				"voteInstructions": "Click the buttons below to cast your vote. If you do not vote, your vote will go to your highest-ranking delegate who has voted. However, you may override your delegate's vote at any point.",
 				"alerts": {
 					"linkToClipboardSuccess": "Link copied to clipboard",
 					"linkToClipboardFailed": "Link copied to clipboard",
 					"proposalSubmitted":"Proposal submitted for admin approval",
+					"proposalIncomplete": "You must complete your proposal before submitting it.",
 					"commentPosted":"Comment posted"
 				},
 				"userNotFound":"User could not be found",
 				"anonymous": "Anonymous",
-				"delegatesFor": "Delegates For",
-				"delegatesAgainst": "DelegatesAgainst",
 				"colloborators": "Collaborators",
-				"author": "Author"
+				"author": "Author",
+				"delegatesFor": "Delegates For:",
+				"delegatesAgainst": "Delegates Against:",
+				"delegateVotingClosed": "Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date.",
+				"tooltips": {
+					"share": "Copy a link to this proposal to your clipboard.",
+					"sign": "Show your support by signing this proposal. Note that this does not constitute a vote."
+				}
 			}
 		}
 

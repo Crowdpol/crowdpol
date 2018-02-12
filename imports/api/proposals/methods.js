@@ -1,14 +1,16 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Proposals } from './Proposals.js';
+import { Votes } from '../votes/Votes.js';
+import { Ranks } from '../ranking/Ranks.js';
 
 Meteor.methods({
   createProposal: function (proposal) {
       //try{
         check(proposal, { 
-          title: String, 
-          abstract: String, 
-          body: String, 
+          title: Match.Maybe(String), 
+          abstract: Match.Maybe(String), 
+          body: Match.Maybe(String), 
           startDate: Date, 
           endDate: Date, 
           authorId: String,
@@ -49,17 +51,27 @@ Meteor.methods({
     },
     rejectProposal: function (proposalId) {
       check(proposalId, String);
+      var userId = Proposals.findOne(proposalId).authorId;
       Proposals.update({_id: proposalId}, {$set: {"status": "rejected"}});
+      var message = TAPi18n.__('notifications.proposals.rejected');
+      var url = '/proposals/view/' + proposalId;
+      Meteor.call('createNotification', {message: message, userId: userId, url: url, icon: 'do_not_disturb'})
     },
     approveProposal: function(proposalId){
       check(proposalId, String);
+      var userId = Proposals.findOne(proposalId).authorId;
       Proposals.update({_id: proposalId}, {$set: {"stage": "live"}});
       Proposals.update({_id: proposalId}, {$set: {"status": "approved"}});
       /* This should be removed after September 2018: 
       Voting opens from the day the proposal is approved.
       Eventually custom dates should be set by the author.
       */
-      Proposals.update({_id: proposalId}, {$set: {"startDate": new Date()}});
+      //Proposals.update({_id: proposalId}, {$set: {"startDate": new Date()}});
+
+      // Create notification
+      var message = TAPi18n.__('notifications.proposals.approved');
+      var url = '/proposals/view/' + proposalId;
+      Meteor.call('createNotification', {message: message, userId: userId, url: url, icon: 'check'});
     },
     updateProposalStage: function(proposalId, stage){
       check(proposalId, String);
@@ -111,6 +123,59 @@ Meteor.methods({
   },
   addPointFor: function(proposalId, text) {
     Proposals.update({_id: proposalId}, { $push: { pointsFor: text } });
+  },
+  findProposalsForCronJob: function(){
+    /*  
+      Finds all expired proposals that have not yet been finalised for vote counting
+      and returns an array of their ids
+    */
+    var now = moment().toDate();
+    var proposals = Proposals.find({ $and: [ { endDate: { $lte: now } }, { votesFinalised: false } ] } );
+    var ids = proposals.pluck('_id');
+    console.log(ids)
+    return ids
+
+  },
+  prepareVotesForTally: function(proposalIds) {
+    console.log('Preparing votes for tally')
+    /*
+      This method is called within a cron job that runs every 24 hours, at midnight
+      It takes an array of proposal ids and creates votes for all users who delegated their votes
+      The votes can then be tallied by a single query to the Votes table.
+    */
+
+    // For each proposal found:
+    for (i=0; i < proposalIds.length; i++){
+      var proposalId = proposalIds[i];
+      // Find users who did not vote
+      var voterIds = Votes.find({proposalId: proposalId}).pluck('voterHash');
+      var nonVoterIds = Meteor.users.find({ _id: { $nin: voterIds }}).pluck('_id');
+
+      // For each user who did not vote, get their top delegate vote
+      for (j=0; j < nonVoterIds.length; j++) {
+        var userId = nonVoterIds[j];
+        var delegateInfo = Meteor.call('getUserDelegateInfoForProposal', proposalId, userId);
+        if (delegateInfo){
+          // Create Vote for user with delegateId
+          Votes.insert({
+            proposalId: proposalId, 
+            vote: delegateInfo.vote, 
+            voterHash: userId, 
+            delegateId: delegateInfo.id
+          });
+        }
+
+      }// End of nonVoterIds loop
+
+      // Update proposal votesFinalised flag
+      // If the proposal is expired, the votes are finalised.
+      var now = moment().toDate();
+      if (Proposals.findOne(proposalId).endDate > now){
+        Proposals.update({_id: proposalId}, {$set: {votesFinalised: true}});
+      }
+
+    } // End proposalIds loop
+
   },
   getProposalsPublishedStats: function() {
       result = Proposals.aggregate([

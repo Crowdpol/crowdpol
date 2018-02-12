@@ -1,6 +1,5 @@
 <template name="ProposalsList">
 	{{#if currentUser}}
-	{{> backButton text="Back to Dashboard" url="/dash"}}
 	<!-- MDL Tab Container -->
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<!-- Tab Bars -->
@@ -94,6 +93,7 @@
 </template>
 
 <template name="ProposalCard">
+	<a href="/proposals/view/{{_id}}" class="proposal-list-item-link">
 	<li class="proposal-item mdl-list__item">
 		<div class="card-main-wrap">
 			<span class="card-main mdl-list__item-primary-content">
@@ -106,19 +106,31 @@
 					{{/if}}
 				</h6>
 				
-			</span>
+			</span><!-- 
 			<span class="mdl-list__item-secondary-action">
 				<small class="proposal-date">{{_ "proposals.list.cards.expires"}} {{ endDate }}</small>
-			</span>
-			<span class="mdl-chip proposal-status-chip">
-			    <span class="mdl-chip__text">{{ proposalStatus this }}</span>
-			</span>
+			</span> -->
 		</div>
 		<div class="card-secondary-wrap">
 			<p class="proposal-abstract">{{ abstract }}</p>
 		</div>
-		<a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
+
+			<div class="mdl-card__actions">
+				{{#if yesPercentage _id}}
+					<span class="proposal-percentage-text-left"> For: {{ yesPercentage _id }}% </span>
+					<span class="proposal-percentage-text-right"> Against: {{ noPercentage _id }}% </span>
+					<div class="proposal-vote-progress-bar">
+					  <div class="proposal-vote-yes-bar" style="width:{{ yesPercentage _id }}%"></div>
+				  	</div>
+				  	{{else}}
+						<small class="proposal-percentage-text-left"> No users voted on this proposal. </small>
+					{{/if}}
+					
+		  	</div>
+		
+		<!-- <a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
 			{{_ "proposals.list.cards.read"}}&nbsp;{{#if canVote}}{{_ "proposals.list.cards.vote"}}{{/if}}
-		</a>
+		</a> -->
 	</li>
+</a>
 </template>

@@ -37,14 +37,22 @@ Template.Signup.events({
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				FlowRouter.go('/dash');
-				Meteor.call('sendVerificationLink', (error, response) => {
+				/* Check if redirect route saved */
+				var redirect = LocalStore.get('signUpRedirectURL');
+				LocalStore.set('signUpRedirectURL', '');
+				if (redirect) {
+					window.location.href = redirect;
+				} else {
+					FlowRouter.go('/proposals');
+				}
+				
+				/*Meteor.call('sendVerificationLink', (error, response) => {
 					if (error){
 						Bert.alert(error.reason, 'danger');
 					} else {
 						Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
 					}
-				});
+				});*/
 			}
 		});
 	}

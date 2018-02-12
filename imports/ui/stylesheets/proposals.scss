@@ -21,12 +21,50 @@
   background-color: $light-blue;
 }
 
+.proposal-list-item-link {
+  text-decoration: none;
+}
+
+.proposal-vote-progress-bar {
+    background-color: $light-blue;
+    height:24px;
+  }
+
+.proposal-vote-yes-bar {
+  background-color: $bright-blue;
+  height:24px;
+}
+
+.proposal-percentage-text-left {
+  font-size: $xsmall-font-size;
+}
+
+.proposal-percentage-text-right {
+  float: right;
+  font-size: $xsmall-font-size;
+}
+
+.proposal-item {
+  cursor: pointer;
+
+  .mdl-card__actions {
+    background-color: white;
+  }
+
+}
+
 #sign-proposal {
   border: 2px solid;
   .proposal-item {
     .mdl-list__item-secondary-action {
       margin-right: $space;
     }
+  }
+}
+
+#proposal-body-wrap {
+  img {
+    width: 300px;
   }
 }
 

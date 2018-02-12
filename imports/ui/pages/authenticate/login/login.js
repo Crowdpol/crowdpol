@@ -36,7 +36,14 @@ Template.Login.events({
 				if (Roles.userIsInRole(Meteor.userId(), ['admin', 'superadmin'])){
 					FlowRouter.go('/admin/dash');
 				} else {
-					FlowRouter.go('/dash');
+          /* Check if redirect route saved */
+          var redirect = LocalStore.get('signUpRedirectURL');
+          LocalStore.set('signUpRedirectURL', '');
+          if (redirect) {
+            window.location.href = redirect;
+          } else {
+            FlowRouter.go('/proposals');
+          }
 				}	
 			}
 		});

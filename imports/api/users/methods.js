@@ -39,7 +39,6 @@ Meteor.methods({
       return users[0].profile.tags;
     },
     updateProfile: function (userID, profile) {
-      //console.log(profile);
       check(userID, String);
       searchString = profile.firstName + " " + profile.lastName + " " + profile.username;
       profile["searchString"] = searchString;
@@ -69,7 +68,10 @@ Meteor.methods({
         profileType: Match.Maybe(String), 
         name: String, 
         website: Match.Maybe(String),
-        roles: Match.Maybe(String) });
+        roles: Match.Maybe([String]),
+        isParty: Boolean,
+        isOrganisation: Boolean
+      });
 
       entityID = Accounts.createUser({
         'email': entity.email,
@@ -136,6 +138,19 @@ Meteor.methods({
       if(type&&status=='Approved'){
         Roles.addUsersToRoles(userID, type);
       }
+
+      // Create user notification
+      var message;
+      var icon;
+      if (status=='Approved') {
+        message = TAPi18n.__('notifications.approvals.' + type + '.approved');
+        icon = 'check';
+      } else if (status=='Rejected') {
+        message = TAPi18n.__('notifications.approvals.' + type + '.rejected')
+        icon = 'do_not_disturb';
+      }
+
+      Meteor.call('createNotification', {message: message, userId: userID, url: '/profile', icon: icon})
     },
     requestApproval: function (userId, type) {
       check(userId, String);
@@ -161,6 +176,7 @@ Meteor.methods({
         });
         Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
       } else {
+        console.log("profileIsComplete() has failed");
         throw new Meteor.Error(422, TAPi18n.__('pages.profile.alerts.profile-incomplete'));
       }
       
@@ -281,31 +297,6 @@ Meteor.methods({
         _id: String });
       Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
-    getDelegateVotes: function(vote){
-      /* Returns the delegate votes for the current user's ranked delegates 
-      that voted for/against, sorted */
-      return Ranks.aggregate([
-        {
-          $match: {
-            supporterId: Meteor.userId(), entityType: 'delegate'
-          }
-        },
-        {
-          $lookup:{
-            from: "delegateVotes",localField: "entityId",foreignField: "delegateId",as: "vote_info"
-          }
-        },
-        {
-          $lookup:{
-            from: "users",localField: "entityId",foreignField: "_id",as: "user_info"
-          }
-        }, 
-        {
-          $project: {ranking: 1, 'vote_info.vote': 1, 'vote_info.reason':1, 'user_info.profile.firstName':1, 'user_info.profile.lastName':1, 'user_info.profile.username':1, 'user_info.profile.photo':1}
-        },
-        {$sort: {ranking: 1}}
-      ])
-    }
 });
 
 function profileIsComplete(user){
@@ -325,9 +316,13 @@ function profileIsComplete(user){
     isComplete = false;
   } else {
     _.map(profileFields, function(field){
-      if (profile[field].length == 0){
+      if (profile[field]){
+        if (profile[field].length == 0) {
+          isComplete = false;
+        }
+      } else {
         isComplete = false;
-      } 
+      }
     });
   }
   return isComplete;

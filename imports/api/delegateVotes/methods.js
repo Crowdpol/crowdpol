@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Proposals } from '../proposals/Proposals.js'
+import { Ranks } from '../ranking/Ranks.js'
 import { DelegateVotes } from './DelegateVotes.js'
 
 Meteor.methods({
@@ -8,6 +9,9 @@ Meteor.methods({
     check(voteData, { vote: String, proposalId: String, reason: Match.Maybe(String)});
     var delegate = Meteor.user();
     var proposal = Proposals.findOne(voteData.proposalId);
+    var startDate = moment(proposal.startDate);
+    var endDate = moment(proposal.endDate);
+    var now = new Date();
 
     if (!delegate)
       throw new Meteor.Error(401, "You need to login to vote");
@@ -17,6 +21,8 @@ Meteor.methods({
       throw new Meteor.Error(422, 'You must vote on a proposal');
     if (!Roles.userIsInRole(delegate._id, 'delegate'))
       throw new Meteor.Error(422, 'You must be a delegate to vote as one.');
+    if (endDate.subtract(2,'weeks').isBefore(now) || startDate.isAfter(now))
+      throw new Meteor.Error(422, 'Voting has closed for delegates.');
     vote = {
       vote: voteData.vote,
       proposalId: voteData.proposalId,
@@ -66,25 +72,93 @@ Meteor.methods({
     check(delegateId, String);
     return DelegateVotes.findOne({proposalId: proposalId, delegateId: delegateId});
   },
+  getDelegateVotes: function(proposalId, userId){
+
+    /* Returns the delegate votes for the current user's ranked delegates 
+    that voted for/against, sorted */
+
+    if (!userId) {
+      userId = Meteor.userId();
+    }
+
+    thing = Ranks.aggregate([
+      {
+        $match: {
+          supporterId: userId, entityType: 'delegate'
+        }
+      },
+      {
+        $lookup:{
+          from: "delegateVotes",localField: "entityId",foreignField: "delegateId",as: "vote_info"
+        }
+      },
+      {
+        $match: {
+          'vote_info.proposalId': proposalId
+        }
+      },
+      {
+        $lookup:{
+          from: "users",localField: "entityId",foreignField: "_id",as: "user_info"
+        }
+      }, 
+      {
+        $project: {ranking: 1, 
+          vote_info: 
+          {
+            $filter: 
+            { 
+              input: "$vote_info", 
+              as: "single_vote", 
+              cond: { $eq: [ "$$single_vote.proposalId", proposalId ] } 
+            } 
+          },
+          'user_info.profile.firstName':1, 'user_info.profile.lastName':1, 'user_info.profile.username':1, 'user_info.profile.photo':1, 'user_info._id':1}
+      },
+      {$sort: {ranking: 1}}
+    ])
+
+    console.log('running')
+    return thing
+  },
   getUserDelegateVote: function(proposalId){
     /* Returns null if the user has already voted, else returns the vote of the 
-    current user's first-ranked delegate*/
+    current user's first-ranked delegate for a given proposal */
+
     var userVote = Meteor.call('getUserVoteFor', proposalId, Meteor.userId());
 
     if (!userVote){
-      var rankedDelegates = Meteor.call('getDelegateVotes');
-      var voteInfo;
-      if (rankedDelegates[0]){
-        voteInfo = rankedDelegates[0].vote_info[0]
-      }
-      if (voteInfo) {
-        return voteInfo.vote
-      } else {
-        return false;
-      }
+      delegateInfo = Meteor.call('getUserDelegateInfoForProposal', proposalId, Meteor.userId());
+      return delegateInfo.vote;
     } else {
       return false;
     }
+  },
+  getUserDelegateInfoForProposal: function(proposalId, userId){
+
+    /* Returns vote and id for the user's top delegate for a given propsal
+       Used in 'prepareVotesForTally' method to get vote and delegateId
+       for users who have not voted.
+       Returns false if the top delegate did not vote
+     */
+
+      var rankedDelegates = Meteor.call('getDelegateVotes', proposalId, userId);
+      var voteInfo;
+
+      if (rankedDelegates){
+        for (i=0; i<rankedDelegates.length; i++){
+          if (rankedDelegates[i]){
+            voteInfo = rankedDelegates[i].vote_info[0]
+          }
+          if (voteInfo) {
+            return {vote: voteInfo.vote, id: rankedDelegates[i].user_info[0]._id}
+          }
+        }
+      }
+
+      // If no ranked delegates, or no delegates have voted
+      return false;
   }
+
 });
 

@@ -7,6 +7,7 @@
 
 	<div class="app-container">
 		<h3>{{_ "pages.proposals.edit.heading"}}</h3>
+	
 		<form id="edit-proposal-form">
 			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<label class="mdl-textfield__label">{{_ "pages.proposals.edit.title"}}</label>
@@ -18,12 +19,15 @@
 				<label class="mdl-textfield__label">{{_ "pages.proposals.edit.abstract"}}</label>
 			</div>
 
+			<small>{{_ "pages.proposals.edit.body"}}</small>
+
 			<!-- Toolbar for the quill editor -->
 			<div id="toolbar">
 				<button class="ql-bold">Bold</button>
 				<button class="ql-italic">Italic</button>
 				<button class="ql-link">Link</button>
 				<button class="ql-blockquote">Blockquote</button>
+				<button class="ql-image">Image</button>
 			</div>
 
 			<!-- Quill editor container -->
@@ -31,8 +35,12 @@
 			</div>
 			<input type="hidden" name="body" id="body" class="mdl-textfield__input">
 			
+			<br/>
+
 			<!-- Points for and against -->
+
 			<div class="mdl-grid">
+			<small>{{_ "pages.proposals.edit.forAndAgainst"}}</small>
   			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pointsForWrap">
 					    <textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointFor" name="inputPointFor"></textarea>
@@ -75,9 +83,9 @@
   			</div>
   			
   		</div>
-			<!-- References & Links -->
-			<!-- NOT SURE IF THESE SHOULD BE LINKS OR TEXT FIELD? ADDED BLOCKQUOTE AND LINKS TO QUILL EDITOR? -->
-			<!--<div class="small-inputs-wrap">
+  			<!-- Start and end dates -->
+
+			<div class="small-inputs-wrap">
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield- -floating-label">
 					<label class="mdl-textfield__label">{{_ "proposals.edit.startDate"}}</label>
 					<input type="date" name="startDate" id="startDate" class="mdl-textfield__input">
@@ -87,9 +95,11 @@
 					<label class="mdl-textfield__label">{{_ "proposals.edit.endDate"}}</label>
 					<input type="date" name="endDate" id="endDate" class="mdl-textfield__input">
 				</div>
-			</div> -->
-			{{_ "proposals.edit.tags"}}
+			</div>
+			<small>{{_ "proposals.edit.tags"}}</small>
 			{{> taggle }}
+			
+	<!-- User invitation field -->
 			<div class="form-group">
 				{{> UserSearch}}
 			</div>
@@ -120,6 +130,13 @@
 			</div>
 		</form>
 	</div>
+
+	<!-- Toast to show autosave progress -->
+	<div id="autosave-toast-container" class="mdl-js-snackbar mdl-snackbar">
+	  <div class="mdl-snackbar__text"></div>
+	  <button class="mdl-snackbar__action" type="button"></button>
+	</div>
+
 {{/if}}
 </template>
 
