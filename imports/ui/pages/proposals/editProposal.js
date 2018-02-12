@@ -211,10 +211,8 @@ Template.EditProposal.helpers({
     return Template.instance().pointsAgainst.get();
   },
   selectedInvites: function() {
+  	//Make the query non-reactive so that the selected invites don't get updated with a new search
     var users = Meteor.users.find({ _id : { $in :  Session.get('invited')} },{reactive: false});
-    //Store the user info in a hash instead of in a cursor
-    //So that it doesn't disappear when the userSearch subscription changes
-
     return users;
   },
   emailedInvites: function() {

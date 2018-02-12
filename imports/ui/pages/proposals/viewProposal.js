@@ -316,13 +316,8 @@ function userIsInvited(){
   } else {
     invited = Template.instance().templateDictionary.get( 'invited' );
     if (invited) {
-      for (i=0; i<invited.length; i++){
-        if (Meteor.user().profile.username == invited[i]) {
-          return true;
-        }
-      }
+     return _.contains(invited, Meteor.userId());
     }
-    return false;
   }
 };
 
