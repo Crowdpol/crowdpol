@@ -14,6 +14,7 @@ Template.ProfileImage.helpers({
 Template.ProfileImage.events({
 	//show image change form
 	'click #change-photo-button' (event, template) {
+    console.log("profileImage.html");
     event.preventDefault();
     var shown = Template.instance().templateDictionary.get('change-photo');
     if(shown){
@@ -28,21 +29,23 @@ Template.ProfileImage.events({
   	event.preventDefault();
   	$( "#change-photo" ).hide();
   },
-
-  'keyup #profile-photo-path, paste #profile-photo-path, keydown #profile-photo-path, blur #profile-photo-path' (event, template) {
-    var path = $("input#profile-change-photo-path").val();
+  'keyup #field' (event, template){
+    console.log("field event");
+  },
+  'keyup #profilePhoto, paste #profilePhoto, blur #profilePhoto' (event, template){
+    var path = $("input#profilePhoto").val();
     var obj = new Image();
     obj.src = path;
-
+    console.log(path);
     if (obj.complete) {
-        //alert('worked');
+        console.log('valid path, updating preview');
         $('img#profile-pic').prop('src', path);
         $("#valid-photo-path").html("");
+        $('#profile-photo-path').val(path);
     } else {
-        //alert('doesnt work');
-        path = $('[name="profile-change-photo-path"]').val();
+        console.log('invalid path');
+        //path = $('[name="profilePhoto"]').val();
         $("#valid-photo-path").html("Invalid photo path");
-        //$('img#profile-pic').prop('src', path);
     }
   },
 
