@@ -32,7 +32,7 @@ Template.UserSearch.events({
     var key = event.keyCode;
     var list = document.querySelector("#autosuggest-results");
     var listItems = document.getElementById("autosuggest-results").getElementsByTagName("li");
-    //console.log(listItems);
+
     // down (40), up (38)
     if ((key == 40 || key == 38) && list.innerHTML) {
       var selectedIndex = $('#autosuggest-results li.selected').index();
@@ -83,10 +83,12 @@ Template.UserSearch.events({
 
 Template.UserSearch.helpers({
   userMatches: function() {
-    result = Meteor.users.find({ $and: [ 
+   result = Meteor.users.find({ $and: [ 
       { _id : { $nin : Session.get('invited')}},
       { _id : { $ne: Meteor.userId()} }
-    ]});
+    ]}).fetch();
+    console.log('user matches:')
+    console.log(result)
     //result = Meteor.users.find();
     //console.log(result.collection.queries);
     return result;

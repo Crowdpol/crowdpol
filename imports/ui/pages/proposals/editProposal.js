@@ -111,7 +111,6 @@ Template.EditProposal.onRendered(function(){
 				self.find('#body').value = proposal.body || '';
 				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate;
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate;
-				self.find('#invited').value = proposal.invited.join(',');
 				Session.set('invited',proposal.invited);
 				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
 				if (proposal.pointsFor != null){
@@ -212,11 +211,11 @@ Template.EditProposal.helpers({
     return Template.instance().pointsAgainst.get();
   },
   selectedInvites: function() {
-    result = Meteor.users.find({ _id : { $in :  Session.get('invited')} });
-    //Template.instance().invites.set(result);
-    //console.log(Template.instance().invites.get());
-    console.log(Session.get('invited'));
-    return result;
+    var users = Meteor.users.find({ _id : { $in :  Session.get('invited')} },{reactive: false});
+    //Store the user info in a hash instead of in a cursor
+    //So that it doesn't disappear when the userSearch subscription changes
+
+    return users;
   },
   emailedInvites: function() {
     return Session.get('emailInvites');

@@ -169,12 +169,14 @@ Meteor.publish('simpleSearch', function(search,type) {
 });
 
 Meteor.publish('userSearch', function(search) {
+
+  console.log('search string is ' + search)
   check( search, Match.OneOf( String, null, undefined ) );
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  let query      = {$and: [{roles: { $nin: [ "demo" ] }},{"isPublic" : true}]},
-      projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
+  let query      = {$and: [{roles: { $nin: [ "demo" ] }}]},
+      projection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
     let regex = new RegExp( search, 'i' );
@@ -192,5 +194,6 @@ Meteor.publish('userSearch', function(search) {
     console.log(query);
     projection.limit = 100;
   }
+
   return Meteor.users.find( query, projection );
 });
