@@ -48,7 +48,10 @@
 		"not-found_home-link": "Go to home",
 		"alerts": {
 			"welcome": "Welcome"
-		}
+		},
+		"show-more": "Show More",
+		"show-less": "Show Less",
+		"approved": "Approved"
 	},
 	"form": {
 		"email": "Email address",
@@ -64,7 +67,9 @@
 		"contact": "Contact person",
 		"message": "Your message",
 		"save": "Save",
-		"submit": "Submit"
+		"submit": "Submit",
+		"update": "Update",
+		"cancel": "Cancel"
 	},
 	"pages": {
 		"home": {
@@ -220,7 +225,17 @@
 			"tooltips": {
 				"delegateSwitch": "Apply to be a delegate. This will allow other users to let you vote on their behalf.",
 				"publicSwitch": "Make your profile visible to the public, or hide it."
-			}
+			},
+			"characters": "characters",
+			"min": "min",
+			"max": "max",
+			"settings": "Profile Settings",
+			"status": "Profile status: __completedScore__/__totalScore__ completed.",
+			"completed": "completed",
+			"interests": "interests",
+			"public-switch-description": "Make your profile visible to others. Requires completed profile form. Required become a delegate.",
+			"delegate-switch-description": "By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
+			"bio-count": "__bioCount__ characters (min 50, max 160)"
 		},
 		"delegates": {
 			"heading": "Delegates",
