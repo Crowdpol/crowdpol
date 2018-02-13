@@ -20,8 +20,20 @@ Meteor.methods({
           pointsAgainst: Match.Maybe([String]),
           references: Match.Maybe([String])
         });
-        result = Proposals.insert(proposal);
-        return result;
+        proposalId = Proposals.insert(proposal);
+        //Create notifications for collaborators
+        if (proposal.invited) {
+          for (i=0; i < proposal.invited.length; i++) {
+            var notification = {
+              message: TAPi18n.__('notifications.proposals.invite'), 
+              userId: proposal.invited[i], 
+              url: '/proposals/view/' + proposalId, 
+              icon: 'people'
+            }
+            Meteor.call('createNotification', notification);
+          }
+        }
+        return proposalId;
       //} catch (err) {
         //console.log(err);
         //return err;
@@ -80,6 +92,28 @@ Meteor.methods({
     },
     saveProposalChanges: function (proposalId, proposal) {
       check(proposalId, String);
+
+      // Find if new collaborators have been added
+      var oldInvites = Proposals.findOne(proposalId).invited;
+      var newInvites = proposal.invited;
+
+      if (oldInvites && newInvites) {
+        // Only send new invites if new collaborators have been added
+        var newCollaborators = _.difference(newInvites, oldInvites);
+        if (newCollaborators) {
+          // Create notification for each new collaborator
+          for (i=0; i<newCollaborators.length; i++) {
+            var notification = {
+              message: TAPi18n.__('notifications.proposals.invite'), 
+              userId: newCollaborators[i], 
+              url: '/proposals/view/' + proposalId, 
+              icon: 'people'
+            }
+            Meteor.call('createNotification', notification);
+          }
+        } 
+      }
+
       Proposals.update({_id: proposalId}, {$set: proposal });
     },
     addTagToProposal: function(proposalId, tag) {

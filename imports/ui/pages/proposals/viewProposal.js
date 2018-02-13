@@ -2,6 +2,7 @@ import './viewProposal.html'
 import './signInModal/signInModal.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import "./styles.css";
 
 Template.ViewProposal.onCreated(function(){
 
@@ -19,6 +20,7 @@ Template.ViewProposal.onCreated(function(){
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
+        dict.set( 'createdAt', proposal.createdAt );
         dict.set( '_id', proposal._id);
         dict.set( 'title', proposal.title || '');
         dict.set( 'abstract', proposal.abstract || '');
@@ -126,6 +128,20 @@ Template.ViewProposal.events({
 });
 
 Template.ViewProposal.helpers({
+  createdAt: function(){
+    return moment(Template.instance().templateDictionary.get('createdAt')).format('MMMM Do YYYY');
+  },
+  author: function(){
+    result = Meteor.users.findOne({ _id : Template.instance().templateDictionary.get('authorId')})
+    return result
+  },
+  selectedInvites: function() {
+    result = Meteor.users.find({ _id : { $in :  Template.instance().templateDictionary.get('invited')} })
+    return result;
+  },
+  emailedInvites: function() {
+    return Template.instance().templateDictionary.get( 'emailInvites');
+  },
   comments: function() {
     return Comments.find({proposalId: proposalId},{transform: transformComment, sort: {createdAt: -1}});
   },
@@ -298,13 +314,8 @@ function userIsInvited(){
   } else {
     invited = Template.instance().templateDictionary.get( 'invited' );
     if (invited) {
-      for (i=0; i<invited.length; i++){
-        if (Meteor.user().profile.username == invited[i]) {
-          return true;
-        }
-      }
+     return _.contains(invited, Meteor.userId());
     }
-    return false;
   }
 };
 

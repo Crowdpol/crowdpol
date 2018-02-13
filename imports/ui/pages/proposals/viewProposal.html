@@ -10,26 +10,42 @@
 
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
-			<h1 class="proposal-title">{{ title }}</h1>
-
-			<div class="mdl-card__menu">
-				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
-					<i class="material-icons">share</i>
-				</button>
-				<div class="mdl-tooltip mdl-tooltip--large" for="copy-proposal-link">
-					{{_ "proposals.view.tooltips.share"}}
+			<ul class="demo-list-two mdl-list">
+			  <li class="mdl-list__item mdl-list__item--two-line proposal-author">
+			    <span class="mdl-list__item-primary-content">
+			      <img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
+			      <span>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</span>
+			      <span class="mdl-list__item-sub-title">
+			      	{{createdAt}}
+			      </span>
+			    </span>
+			    <span class="mdl-list__item-secondary-content">
+			      <span class="mdl-list__item-secondary-info">
+			      	<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+								<i class="material-icons">share</i>
+							</button>
+							{{#if isLive}}
+								<div class="mdl-layout-spacer"></div>
+								<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="sign-proposal">
+									<i class="material-icons">{{ signatureIcon }}</i>
+								</button>
+								{{ signatureCount }}
+							{{/if}}
+			      </span>
+			    </span>
+			  </li>
+			</ul>
+			{{#if selectedInvites.count}}
+				<div class="form-group">
+					<h6><small>{{_ "proposals.view.colloborators"}}</small></h6>
+					{{#each selectedInvites}}
+						<img class="mdl-chip__contact" src="{{profile.photo}}">
+						<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+					{{/each}}
 				</div>
-				{{#if isLive}}
-					<div class="mdl-layout-spacer"></div>
-					<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="sign-proposal">
-						<i class="material-icons" id="proposal-sign-link">{{ signatureIcon }}</i>
-					</button>
-					{{ signatureCount }}
-					<div class="mdl-tooltip mdl-tooltip--large" for="sign-proposal">
-						{{_ "proposals.view.tooltips.sign"}}
-					</div>
-				{{/if}}
-			</div>
+				<br>
+			{{/if}}
+			<h1 class="proposal-title">{{ title }}</h1>
 
 			<div class="proposal-wrap">
 				<h5>{{_ "proposals.view.abstract"}}</h5>
@@ -55,9 +71,9 @@
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 	  				{{#if showPointsFor}}
 		  				<p>{{_ "proposals.view.pointsFor"}}</p>
-							<ul id="points-for-list">
+							<ul id="points-for-list" class="mdl-list">
 								{{#each pointsFor}}
-									<li>{{this}}</li>
+									<li class="mdl-list__item"><span class="mdl-list__item-primary-content">{{this}}</span></li>
 								{{/each}}
 							</ul>
 						{{/if}}
@@ -75,7 +91,7 @@
 	  			
 	  		</div>
   		</div>
-			<!-- References & Links -->
+
 
 			<small>{{_ "proposals.view.voteStarts"}}&nbsp;{{ startDate }}</small>
 			<br />
