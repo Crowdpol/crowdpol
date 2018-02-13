@@ -22,11 +22,11 @@ Meteor.methods({
         });
         proposalId = Proposals.insert(proposal);
         //Create notifications for collaborators
-        if (invited) {
-          for (i=0; i<invited.length; i++) {
+        if (proposal.invited) {
+          for (i=0; i < proposal.invited.length; i++) {
             var notification = {
               message: TAPi18n.__('notifications.proposals.invite'), 
-              userId: invited[i], 
+              userId: proposal.invited[i], 
               url: '/proposals/view/' + proposalId, 
               icon: 'people'
             }
@@ -94,8 +94,8 @@ Meteor.methods({
       check(proposalId, String);
 
       // Find if new collaborators have been added
-      var oldInvites = Proposals.findOne(proposalId).invites;
-      var newInvites = proposal.invites;
+      var oldInvites = Proposals.findOne(proposalId).invited;
+      var newInvites = proposal.invited;
 
       if (oldInvites && newInvites) {
         // Only send new invites if new collaborators have been added
@@ -105,7 +105,7 @@ Meteor.methods({
           for (i=0; i<newCollaborators.length; i++) {
             var notification = {
               message: TAPi18n.__('notifications.proposals.invite'), 
-              userId: invited[i], 
+              userId: newCollaborators[i], 
               url: '/proposals/view/' + proposalId, 
               icon: 'people'
             }
