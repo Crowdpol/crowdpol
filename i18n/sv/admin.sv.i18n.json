@@ -1,0 +1,119 @@
+{
+	"admin":{
+		"dash":{
+			"heading" : "Admin Dashboard",
+			"card": {
+				"users": {
+					"heading": "Users",
+					"text": "Add/Edit/Delete users, invite new people, change user roles.",
+					"link": "Manage Users"
+				},
+				"tags": {
+					"heading": "Tags",
+					"text": "Add/Edit/Delete tags used for filtering content.",
+					"link": "Manage Tags"
+				},
+				"approvals": {
+					"heading": "Approvals",
+					"text": "Approve or reject user requests to be delegates, organisations or political parties.",
+					"link": "Manage Approvals"
+				},
+				"proposals": {
+					"heading": "Proposals",
+					"text": "Review proposals submitted by users.",
+					"link": "Manage Proposals"
+				},
+				"voting": {
+					"heading": "Voting",
+					"text": "See voting results and prepare votes for tallying in closed proposals.",
+					"link": "View Voting"
+				},
+				"stats":{
+					"heading": "Statistics",
+					"text": "Review various statistcs of the site",
+					"link": "View Stats"
+				}
+			}
+		},
+		"users": {
+			"heading": "All Users",
+			"name": "Full Name",
+			"email": "Email Address",
+			"roles": "Roles",
+			"public": "Public",
+			"delete-button": "Delete",
+			"delete-message": "Are you sure you want to delete this user?",
+			"delete-title":"Permanently delete a user",
+			"delete-yes":"Yes",
+			"delete-no":"No",
+			"invite-heading": "Invite a New User:",
+			"invite-message": "Enter a user's email to send them an invitation to join.",
+			"invite-button": "Send Invite",
+			"invite-role": "User Role",
+			"approve-button": "Approve",
+			"reject-button": "Reject",
+			"invite-role": "User Role"
+		},
+		"proposals":{
+			"heading": "Proposals",
+			"date": "Date",
+			"author": "Author",
+			"contributors": "Contributors",
+			"title": "Title",
+			"none-waiting": "There are no new proposals awaiting approval.",
+			"approve-button": "Approve",
+			"reject-button": "Reject"
+		},
+		"voting":{
+			"heading": "Voting",
+			"endDate": "Expiry Date",
+			"author": "Author",
+			"title": "Title",
+			"tally-votes": "Refresh Votes",
+			"results": "Results",
+			"yes-votes": "Yes Votes",
+			"no-votes": "No Votes",
+			"total-votes": "Total Votes"
+		},
+		"tags": {
+			"heading": "Manage Tags",
+			"text": "Text",
+			"keyword": "Keyword",
+			"url": "URL",
+			"delete": "Delete",
+			"created": "Date created",
+			"approved": "Authorized",
+			"add-button": "Add",
+			"delete-button": "Delete",
+			"none-waiting": "There are currently no pending proposals."
+		},
+		"approvals": {
+			"heading": "Approvals",
+			"approve-button": "Approve",
+			"reject-button": "Reject",
+			"date": "Date",
+			"username":"Username",
+			"request-type":"Request Type",
+			"request-status":"Request Status",
+			"approvals-waiting":"There are no pending approval requests."
+		},
+		"alerts": {
+			"user-approved": "User approved",
+			"user-rejected": "User rejected",
+			"proposal-approved": "Proposal approved",
+			"proposal-rejected": "Proposal rejected",
+			"tag-updated": "Tag Updated",
+			"tag-added": "Tag Added",
+			"tag-deleted": "Tag Deleted",
+			"verification-email-sent": "Verification sent to "
+		},
+		"stats": {
+			"proposals":{
+				"tabs": {
+					"overview" : "Overview",
+					"proposalList" : "Proposal Stats"
+				}
+			}
+		}
+	}
+}

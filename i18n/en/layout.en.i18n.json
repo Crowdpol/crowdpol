@@ -1,0 +1,40 @@
+{
+	"layout": {
+		"header": {
+			"app_title": "Common Democracy",
+			"home_title": "Democracy 2018",
+			"nav_home": "Home",
+			"nav_dash": "Dashboard",
+			"nav_delegate" : "Delegate",
+			"nav_vote": "Vote",
+			"nav_proposals": "Proposals",
+			"nav_nominate": "Nominate",
+			"nav_about": "About",
+			"nav_contact": "Contact",
+			"nav_login": "Login",
+			"nav_logout": "Logout",
+			"lang_en": "English",
+			"lang_sv": "Swedish",
+			"role_selector": "Switch Roles",
+			"no_notifications": "You don't have any notifications yet."
+		},
+		"drawer": {
+			"nav_login" : "Log in",
+			"nav_logout": "Log out",
+			"nav_profile" : "Profile",
+			"nav_dash" : "Dashboard",
+			"nav_contact" : "Contact",
+			"nav_privacy" : "Privacy policy",
+			"nav_terms" : "Terms & conditions",
+			"nav_admin_dash" : "Admin dashboard",
+			"right_about" : "About"
+		},
+		"body":{},
+		"footer": {
+			"delegate": "Delegate",
+			"propose": "Propose",
+			"nominate": "Nominate",
+			"vote": "Vote"
+		}
+	}
+}
