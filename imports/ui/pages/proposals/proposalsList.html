@@ -4,9 +4,9 @@
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<!-- Tab Bars -->
 		<div class="mdl-tabs__tab-bar">
-			<a href="#vote-proposals-panel" id="vote-proposals-tab" class="mdl-tabs__tab is-active">{{_ "proposals.list.tabs.allProposals"}}</a>
-			<a href="#my-proposals-panel" id="my-proposals-tab" class="mdl-tabs__tab">{{_ "proposals.list.tabs.myProposals"}}</a>
-			<a href="/proposals/edit" class="mdl-tabs__tab">{{_ "proposals.list.tabs.writeProposals"}}</a>
+			<a href="#vote-proposals-panel" id="vote-proposals-tab" class="mdl-tabs__tab is-active">{{_ "pages.proposals.list.tabs.allProposals"}}</a>
+			<a href="#my-proposals-panel" id="my-proposals-tab" class="mdl-tabs__tab">{{_ "pages.proposals.list.tabs.myProposals"}}</a>
+			<a href="/proposals/edit" class="mdl-tabs__tab">{{_ "pages.proposals.list.tabs.writeProposals"}}</a>
 		</div>
 
 		<div class="app-container">
@@ -26,20 +26,20 @@
 				<div class="switch-wrap">
 					<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="open-closed-switch">
 						<input type="checkbox" id="open-closed-switch" class="mdl-switch__input" checked>
-						<span class="mdl-switch__label">{{_ "proposals.list.openClosedSwitch"}}</span>
+						<span class="mdl-switch__label">{{_ "pages.proposals.list.openClosedSwitch"}}</span>
 					</label>
 				</div>
 
 				{{#if Template.subscriptionsReady}}
 					{{#if openSelected}}
-						<h4>{{_ "proposals.list.headings.openProposals"}}</h4>
+						<h4>{{_ "pages.proposals.list.headings.openProposals"}}</h4>
 						<ul class="demo-list-control mdl-list">
 							{{#each openProposals}}
 								{{> ProposalCard}}
 							{{/each}}
 						</ul>
 					{{else}}
-						<h4>{{_ "proposals.list.headings.closedProposals"}}</h4>
+						<h4>{{_ "pages.proposals.list.headings.closedProposals"}}</h4>
 						<ul class="demo-list-control mdl-list">
 							{{#each closedProposals}}
 								{{> ProposalCard}}
@@ -62,12 +62,12 @@
 					<div class="switch-wrap">
 						<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="author-invited-switch">
 							<input type="checkbox" id="author-invited-switch" class="mdl-switch__input" checked>
-							<span class="mdl-switch__label">{{_ "proposals.list.createdInvitedSwitch"}}</span>
+							<span class="mdl-switch__label">{{_ "pages.proposals.list.createdInvitedSwitch"}}</span>
 						</label>
 					</div>
 
 					{{#if authorSelected}}
-						<h4>{{_ "proposals.list.headings.myProposals"}}</h4>
+						<h4>{{_ "pages.proposals.list.headings.myProposals"}}</h4>
 						<ul class="demo-list-control mdl-list">
 							{{#each myProposals}}
 								{{> ProposalCard}}
@@ -75,7 +75,7 @@
 						</ul>
 
 					{{else}}
-						<h4>{{_ "pages.proposals.contributed-prosals"}}</h4>
+						<h4>{{_ "pages.proposals.list.headings.notMyProposals"}}</h4>
 						<ul class="demo-list-control mdl-list">
 							{{#each invitedProposals}}
 								{{> ProposalCard}}

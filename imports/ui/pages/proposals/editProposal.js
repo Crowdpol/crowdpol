@@ -268,7 +268,7 @@ function saveChanges(event, template, returnTo){
 
 		var proposalId = FlowRouter.getParam("id");
 
-		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.saving')});
+		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
 
 		// If working on an existing proposal, save it, else create a new one
 		if (proposalId){
@@ -276,7 +276,7 @@ function saveChanges(event, template, returnTo){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.changes-saved')});
+					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
@@ -285,7 +285,7 @@ function saveChanges(event, template, returnTo){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.proposal-created')});
+					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});

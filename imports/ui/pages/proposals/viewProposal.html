@@ -37,7 +37,7 @@
 			</ul>
 			{{#if selectedInvites.count}}
 				<div class="form-group">
-					<h6><small>{{_ "proposals.view.colloborators"}}</small></h6>
+					<h6><small>{{_ "pages.proposals.view.collaborators"}}</small></h6>
 					{{#each selectedInvites}}
 						<img class="mdl-chip__contact" src="{{profile.photo}}">
 						<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
@@ -48,12 +48,12 @@
 			<h1 class="proposal-title">{{ title }}</h1>
 
 			<div class="proposal-wrap">
-				<h5>{{_ "proposals.view.abstract"}}</h5>
+				<h5>{{_ "pages.proposals.view.abstract"}}</h5>
 				<p>{{ abstract }}</p>
 			</div>
 
 			<div class="proposal-wrap" id="proposal-body-wrap">
-				<h5>{{_ "proposals.view.proposal"}}</h5>
+				<h5>{{_ "pages.proposals.view.proposal"}}</h5>
 				{{{ body }}}
 			</div>
 
@@ -70,7 +70,7 @@
 				<div class="mdl-grid">
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 	  				{{#if showPointsFor}}
-		  				<p>{{_ "proposals.view.pointsFor"}}</p>
+		  				<p>{{_ "pages.proposals.view.pointsFor"}}</p>
 							<ul id="points-for-list" class="mdl-list">
 								{{#each pointsFor}}
 									<li class="mdl-list__item"><span class="mdl-list__item-primary-content">{{this}}</span></li>
@@ -80,7 +80,7 @@
 	  			</div>
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 						{{#if showPointsAgainst}}
-		  				<p>{{_ "proposals.view.pointsAgainst"}}</p>
+		  				<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
 							<ul id="points-against-list">
 								{{#each pointsAgainst}}
 									<li>{{this}}</li>
@@ -93,35 +93,35 @@
   		</div>
 
 
-			<small>{{_ "proposals.view.voteStarts"}}&nbsp;{{ startDate }}</small>
+			<small>{{_ "pages.proposals.view.voteStarts"}}&nbsp;{{ startDate }}</small>
 			<br />
-			<small>{{_ "proposals.view.voteEnds"}}&nbsp;{{ endDate }}</small>
+			<small>{{_ "pages.proposals.view.voteEnds"}}&nbsp;{{ endDate }}</small>
 
 			<div class="proposal-actions">
 				{{#if isEditable }}
 					<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
-						{{_ "proposals.view.editProposal"}}
+						{{_ "pages.proposals.view.editProposal"}}
 					</button>
 				{{/if}}
 
 				{{#if isSubmittable }}
 					<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
-						{{_ "proposals.view.submitProposal"}}
+						{{_ "pages.proposals.view.submitProposal"}}
 					</button>
 				{{/if}}
 			</div>
 
 			{{#if isVotable}}
 				<hr>
-				<h5>{{_ "proposals.view.voteHeading"}}</h5>
+				<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
 				{{#if isVotingAsDelegate}}
 					{{#if isVotableForDelegates}}
 						{{> delegateVoteButtons proposalId=_id}}
 					{{else}}
-						<small>{{_"proposals.view.delegateVotingClosed"}}</small>
+						<small>{{_"pages.proposals.view.delegateVotingClosed"}}</small>
 					{{/if}}
 				{{else}}
-					<small>{{_"proposals.view.voteInstructions"}}</small>
+					<small>{{_"pages.proposals.view.voteInstructions"}}</small>
 					{{> voteButtons proposalId=_id}}
 				{{/if}}
 				<hr>
@@ -146,7 +146,7 @@
 				{{> loader}}
 			{{/if}}
 		{{else}}
-			<h3>{{_ "proposals.view.proposalUnvailable"}}</h3>
+			<h3>{{_ "pages.proposals.view.proposalUnvailable"}}</h3>
 		{{/if}}
 	</div>
 	{{else}}
@@ -161,7 +161,7 @@
 	<form class="comment-form" id="comment-form">
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<textarea class="mdl-textfield__input" type="text" rows= "3" id="comment-message" ></textarea>
-			<label class="mdl-textfield__label">{{_ "proposals.view.addComment"}}</label>
+			<label class="mdl-textfield__label">{{_ "pages.proposals.view.addComment"}}</label>
 		</div>
 		<div class="form-group">
 			<input class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" type="submit" value='{{_ "submit"}}'>

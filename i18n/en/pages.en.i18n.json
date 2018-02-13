@@ -201,7 +201,8 @@
 				"headings":{
 					"openProposals": "Open Proposals",
 					"closedProposals": "Closed Proposals",
-					"myProposals": "My proposals"
+					"myProposals": "My proposals",
+					"notMyProposals": "Collaborative Proposals"
 				},
 				"cards":{
 					"expires": "Expires",
@@ -220,7 +221,13 @@
 				"invited": "Invite others to collaborate by entering their usernames. If not found, enter an email address.",
 				"tags": "Add some tags your proposal:",
 				"pointFor": "Points For:",
-				"pointAgainst": "Points Against:"
+				"pointAgainst": "Points Against:",
+				"alerts": {
+					"saving": "Saving...",
+					"changes-saved": "Changes Saved",
+					"proposal-created": "Proposal Created",
+					"bad-email": "Not a valid email format."
+				}
 			},
 			"view":{
 				"signInModal": {
@@ -256,7 +263,7 @@
 				},
 				"userNotFound":"User could not be found",
 				"anonymous": "Anonymous",
-				"colloborators": "Collaborators",
+				"collaborators": "Collaborators",
 				"author": "Author",
 				"delegatesFor": "Delegates For:",
 				"delegatesAgainst": "Delegates Against:",

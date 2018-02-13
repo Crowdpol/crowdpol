@@ -78,7 +78,7 @@ function vote(voteString, proposalId){
     	if (error){
     		Bert.alert(error.reason, 'danger');
     	} else {
-    		Bert.alert(TAPi18n.__('proposals.view.voteCast'), 'success');
+    		Bert.alert(TAPi18n.__('pages.proposals.view.voteCast'), 'success');
     	}
     });
 } else {
@@ -88,7 +88,7 @@ function vote(voteString, proposalId){
     	if (error){
     		Bert.alert(error.reason, 'danger');
     	} else {
-    		Bert.alert(TAPi18n.__('proposals.view.voteCast'), 'success');
+    		Bert.alert(TAPi18n.__('pages.proposals.view.voteCast'), 'success');
     	}
     });
 }
