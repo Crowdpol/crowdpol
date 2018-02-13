@@ -555,7 +555,8 @@
 		"proposals": {
 			"approved": "The proposal you submitted has been approved.",
 			"rejected": "The proposal you submitted has been rejected.",
-			"comments": "There is a new comment on your proposal."
+			"comments": "There is a new comment on your proposal.",
+			"invite": "You have been invited to collaborate on a proposal."
 		}
 	},
 	"proposals": {
