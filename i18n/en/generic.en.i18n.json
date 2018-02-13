@@ -14,5 +14,23 @@
 		"show-more": "Show More",
 		"show-less": "Show Less",
 		"approved": "Approved"
+	},
+	"form": {
+		"email": "Email address",
+		"password": "Password",
+		"name": "Name",
+		"firstname": "First name",
+		"lastname": "Last name",
+		"username": "Username",
+		"bio": "About",
+		"website": "Website",
+		"phone": "Phone number",
+		"subject": "Subject",
+		"contact": "Contact person",
+		"message": "Your message",
+		"save": "Save",
+		"submit": "Submit",
+		"update": "Update",
+		"cancel": "Cancel"
 	}
 }

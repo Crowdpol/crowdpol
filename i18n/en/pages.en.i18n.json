@@ -214,8 +214,10 @@
 			},
 			"edit": {
 				"heading": "Write your proposal",
-				"title": "Give your proposal a title",
+				"title": "Give your proposal a descriptive title.",
 				"abstract": "Summarise your proposal",
+				"body": "Expand on your proposal. Provide as much detail as possible, and include links or references where appropriate.",
+				"forAndAgainst": "Every proposal has its pros and cons. Add some brief arguments for and against your proposal by entering them into the fields below and clicking the button.",
 				"startDate": "Start date for voting",
 				"endDate": "Closing date for voting",
 				"invited": "Invite others to collaborate by entering their usernames. If not found, enter an email address.",
