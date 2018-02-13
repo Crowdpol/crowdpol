@@ -20,7 +20,6 @@ Template.ViewProposal.onCreated(function(){
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
-        console.log(proposal);
         dict.set( 'createdAt', proposal.createdAt );
         dict.set( '_id', proposal._id);
         dict.set( 'title', proposal.title || '');
@@ -186,7 +185,6 @@ Template.ViewProposal.helpers({
   },
   showPointsFor: function(){
     results = Template.instance().templateDictionary.get( 'pointsFor' );
-    console.log(results);
     if(results.length > 0){
       return true;
     }

@@ -36,28 +36,21 @@ Template.UserSearch.events({
     // down (40), up (38)
     if ((key == 40 || key == 38) && list.innerHTML) {
       var selectedIndex = $('#autosuggest-results li.selected').index();
-      //console.log("selectedIndex: " + selectedIndex + " listItems.length: "+ listItems.length);
       if((key == 40)&&((selectedIndex+1)==listItems.length)||(key == 38)&&(selectedIndex==0)){
-        console.log("nowhere to go");
         return false;
       }
       if(listItems.length = 1){
         listItems[0].className += ' selected';
       }
       if (selectedIndex == -1) {
-        //console.log("match not found");
         next = (key == 40) ? listItems[0]: listItems[listItems.length - 1]; // first : last
         next.className += ' selected';
-        //console.log(next.getAttribute('data-user-id'));
-        //template.currentTarget.val = next.getAttribute('data-user-id');
-        //that.value = next.getAttribute('data-val');
       }else{
         next = (key == 40) ? listItems[selectedIndex+1]: listItems[selectedIndex - 1]; // first : last
         $('#autosuggest-results li.selected').toggleClass("selected")
         next.className += ' selected';
       }
       if (selectedIndex == listItems[listItems.length - 1]) {
-        //console.log("end of the road");
       }
     }
     if(key == 27){
@@ -87,10 +80,6 @@ Template.UserSearch.helpers({
       { _id : { $nin : Session.get('invited')}},
       { _id : { $ne: Meteor.userId()} }
     ]}).fetch();
-    console.log('user matches:')
-    console.log(result)
-    //result = Meteor.users.find();
-    //console.log(result.collection.queries);
     return result;
   }
 });

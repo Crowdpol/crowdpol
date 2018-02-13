@@ -170,7 +170,6 @@ Meteor.publish('simpleSearch', function(search,type) {
 
 Meteor.publish('userSearch', function(search) {
 
-  console.log('search string is ' + search)
   check( search, Match.OneOf( String, null, undefined ) );
   /*if (!search) {
     return Meteor.users.find({roles: type});
@@ -180,7 +179,6 @@ Meteor.publish('userSearch', function(search) {
 
   if ( search ) {
     let regex = new RegExp( search, 'i' );
-    console.log(regex);
     query = {$and: [
       {$or: [
         { "profile.firstName": regex },
@@ -191,7 +189,6 @@ Meteor.publish('userSearch', function(search) {
       { roles: { $nin: [ "demo" ] }},
       {"isPublic" : true}
     ]};
-    console.log(query);
     projection.limit = 100;
   }
 
