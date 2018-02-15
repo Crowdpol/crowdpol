@@ -1,7 +1,7 @@
 <template name='delegateVoteList'>
 	<div class="mdl-grid delegateVoteGrid">
 		<div class="mdl-cell mdl-cell--6-col">
-			<h6>{{_ "proposals.view.delegatesFor"}}</h6>
+			<h6>{{_ "pages.proposals.view.delegatesFor"}}</h6>
 			{{#if delegatesFor}}
 				<ul class="delegateVoteList demo-list-control mdl-list" >
 					{{#each delegatesFor}}
@@ -9,11 +9,11 @@
 					{{/each}}
 				</ul>
 			{{else}}
-				<small>{{_ "proposals.view.noDelegatesVoted"}}</small>
+				<small>{{_ "pages.proposals.view.noDelegatesVoted"}}</small>
 			{{/if}}
 		</div>
 		<div class="mdl-cell mdl-cell--6-col">
-			<h6>{{_ "proposals.view.delegatesAgainst"}}</h6>
+			<h6>{{_ "pages.proposals.view.delegatesAgainst"}}</h6>
 			{{#if delegatesAgainst}}
 				<ul class="demo-list-control mdl-list" >
 					{{#each delegatesAgainst}}
@@ -21,7 +21,7 @@
 					{{/each}}
 				</ul>
 			{{else}}
-				<small>{{_ "proposals.view.noDelegatesVoted"}}</small>
+				<small>{{_ "pages.proposals.view.noDelegatesVoted"}}</small>
 			{{/if}}
 		</div>
 	</div>
@@ -45,7 +45,7 @@
 		{{#if vote_info.[0].reason}}
 			{{vote_info.[0].reason}}
 		{{else}}
-			{{_ "proposals.view.noDelegateReason"}}
+			{{_ "pages.proposals.view.noDelegateReason"}}
 		{{/if}}
 	</div>
 </template>

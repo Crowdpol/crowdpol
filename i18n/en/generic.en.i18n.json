@@ -1,0 +1,36 @@
+{
+	"generic": {
+		"login": "Login",
+		"logout": "Logout",
+		"signup": "Sign Up",
+		"read-more": "Read More",
+		"preview": "Preview",
+		"loading": "Loading...",
+		"not-found_message": "Sorry, that page doesn't exist",
+		"not-found_home-link": "Go to home",
+		"alerts": {
+			"welcome": "Welcome"
+		},
+		"show-more": "Show More",
+		"show-less": "Show Less",
+		"approved": "Approved"
+	},
+	"form": {
+		"email": "Email address",
+		"password": "Password",
+		"name": "Name",
+		"firstname": "First name",
+		"lastname": "Last name",
+		"username": "Username",
+		"bio": "About",
+		"website": "Website",
+		"phone": "Phone number",
+		"subject": "Subject",
+		"contact": "Contact person",
+		"message": "Your message",
+		"save": "Save",
+		"submit": "Submit",
+		"update": "Update",
+		"cancel": "Cancel"
+	}
+}

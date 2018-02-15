@@ -47,7 +47,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('success', function(e) {
     Bert.alert({
-      title: TAPi18n.__('proposals.view.alerts.linkToClipboardSuccess'),
+      title: TAPi18n.__('pages.proposals.view.alerts.linkToClipboardSuccess'),
       type: 'success',
       style: 'growl-bottom-right',
       icon: 'fa-link'
@@ -57,7 +57,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('error', function(e) {
     Bert.alert({
-      title: TAPi18n.__('proposals.view.alerts.linkToClipboardFailed'),
+      title: TAPi18n.__('pages.proposals.view.alerts.linkToClipboardFailed'),
       message: e.action + "; " + e.trigger,
       type: 'warning',
       style: 'growl-bottom-right',
@@ -73,18 +73,18 @@ Template.ViewProposal.events({
   },
   'click #submit-proposal' (event, template){
     if (proposalIsComplete(proposalId)){
-      if (window.confirm(TAPi18n.__('proposals.view.confirmSubmit'))){
+      if (window.confirm(TAPi18n.__('pages.proposals.view.confirmSubmit'))){
         Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
           if (error){
             Bert.alert(error.reason, 'danger');
           } else {
-            Bert.alert(TAPi18n.__('proposals.view.alerts.proposalSubmitted'), 'success');
+            Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalSubmitted'), 'success');
             FlowRouter.go('App.proposals');
           }
         });
       }
     } else {
-      Bert.alert(TAPi18n.__('proposals.view.alerts.proposalIncomplete'), 'danger');
+      Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalIncomplete'), 'danger');
     }
     
   },
@@ -100,7 +100,7 @@ Template.ViewProposal.events({
         if(error){
           Bert.alert(error.reason, 'danger');
         } else {
-          Bert.alert(TAPi18n.__('proposals.view.alerts.commentPosted'), 'success');
+          Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentPosted'), 'success');
           template.find('#comment-message').value = "";
         }
       });
@@ -148,13 +148,13 @@ Template.ViewProposal.helpers({
   commentUsername: function(userId){
     Meteor.call('getProfile', userId, function(error, result){
       if (error){
-        return TAPi18n.__('proposals.view.userNotFound');
+        return TAPi18n.__('pages.proposals.view.userNotFound');
       } else {
         profile = result.profile;
         if (profile){
           return profile.username;
         } else {
-          return TAPi18n.__('proposals.view.anonymous');
+          return TAPi18n.__('pages.proposals.view.anonymous');
         }
       }
     });
