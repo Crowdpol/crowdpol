@@ -10,7 +10,6 @@ import { Factory } from 'meteor/dburles:factory';
 import { fakerSchema } from '../../utils/test-utils/faker-schema/';
 import { sinon } from 'meteor/practicalmeteor:sinon';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
-import '../../../i18n/en.i18n.json';
 
 const { schema, generateDoc } = fakerSchema;
 Factory.define('user', Meteor.users, schema.User);
