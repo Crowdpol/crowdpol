@@ -2,6 +2,7 @@ import './viewProposal.html'
 import './signInModal/signInModal.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import "./styles.css";
 
 Template.ViewProposal.onCreated(function(){
 
@@ -19,6 +20,7 @@ Template.ViewProposal.onCreated(function(){
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
+        dict.set( 'createdAt', proposal.createdAt );
         dict.set( '_id', proposal._id);
         dict.set( 'title', proposal.title || '');
         dict.set( 'abstract', proposal.abstract || '');
@@ -45,7 +47,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('success', function(e) {
     Bert.alert({
-      title: TAPi18n.__('proposals.view.alerts.linkToClipboardSuccess'),
+      title: TAPi18n.__('pages.proposals.view.alerts.linkToClipboardSuccess'),
       type: 'success',
       style: 'growl-bottom-right',
       icon: 'fa-link'
@@ -55,7 +57,7 @@ Template.ViewProposal.onRendered(function(){
 
   clipboard.on('error', function(e) {
     Bert.alert({
-      title: TAPi18n.__('proposals.view.alerts.linkToClipboardFailed'),
+      title: TAPi18n.__('pages.proposals.view.alerts.linkToClipboardFailed'),
       message: e.action + "; " + e.trigger,
       type: 'warning',
       style: 'growl-bottom-right',
@@ -71,18 +73,18 @@ Template.ViewProposal.events({
   },
   'click #submit-proposal' (event, template){
     if (proposalIsComplete(proposalId)){
-      if (window.confirm(TAPi18n.__('proposals.view.confirmSubmit'))){
+      if (window.confirm(TAPi18n.__('pages.proposals.view.confirmSubmit'))){
         Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
           if (error){
             Bert.alert(error.reason, 'danger');
           } else {
-            Bert.alert(TAPi18n.__('proposals.view.alerts.proposalSubmitted'), 'success');
+            Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalSubmitted'), 'success');
             FlowRouter.go('App.proposals');
           }
         });
       }
     } else {
-      Bert.alert(TAPi18n.__('proposals.view.alerts.proposalIncomplete'), 'danger');
+      Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalIncomplete'), 'danger');
     }
     
   },
@@ -98,7 +100,7 @@ Template.ViewProposal.events({
         if(error){
           Bert.alert(error.reason, 'danger');
         } else {
-          Bert.alert(TAPi18n.__('proposals.view.alerts.commentPosted'), 'success');
+          Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentPosted'), 'success');
           template.find('#comment-message').value = "";
         }
       });
@@ -126,19 +128,33 @@ Template.ViewProposal.events({
 });
 
 Template.ViewProposal.helpers({
+  createdAt: function(){
+    return moment(Template.instance().templateDictionary.get('createdAt')).format('MMMM Do YYYY');
+  },
+  author: function(){
+    result = Meteor.users.findOne({ _id : Template.instance().templateDictionary.get('authorId')})
+    return result
+  },
+  selectedInvites: function() {
+    result = Meteor.users.find({ _id : { $in :  Template.instance().templateDictionary.get('invited')} })
+    return result;
+  },
+  emailedInvites: function() {
+    return Template.instance().templateDictionary.get( 'emailInvites');
+  },
   comments: function() {
     return Comments.find({proposalId: proposalId},{transform: transformComment, sort: {createdAt: -1}});
   },
   commentUsername: function(userId){
     Meteor.call('getProfile', userId, function(error, result){
       if (error){
-        return TAPi18n.__('proposals.view.userNotFound');
+        return TAPi18n.__('pages.proposals.view.userNotFound');
       } else {
         profile = result.profile;
         if (profile){
           return profile.username;
         } else {
-          return TAPi18n.__('proposals.view.anonymous');
+          return TAPi18n.__('pages.proposals.view.anonymous');
         }
       }
     });
@@ -298,13 +314,8 @@ function userIsInvited(){
   } else {
     invited = Template.instance().templateDictionary.get( 'invited' );
     if (invited) {
-      for (i=0; i<invited.length; i++){
-        if (Meteor.user().profile.username == invited[i]) {
-          return true;
-        }
-      }
+     return _.contains(invited, Meteor.userId());
     }
-    return false;
   }
 };
 

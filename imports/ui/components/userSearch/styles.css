@@ -1,0 +1,14 @@
+.selected {
+	background: #b3d4fc;
+}
+.email-invites{
+	font-size: 20px;
+    line-height: 1.5;
+ }
+#autosuggest-results{
+ 	border: solid 1px;
+ 	position:absolute;
+  	z-index:999;
+  	padding: 0px;
+  	background: #fff;
+ }

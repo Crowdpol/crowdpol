@@ -2,12 +2,17 @@ import './editProposal.html'
 import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { setupTaggle } from '../../components/taggle/taggle.js'
+import "../../components/userSearch/userSearch.js"
 import "./styles.css"
 
 Template.EditProposal.onCreated(function(){
 	var self = this;
 	Template.instance().pointsFor = new ReactiveVar([]);
   	Template.instance().pointsAgainst = new ReactiveVar([]);
+  	Template.instance().invites = new ReactiveVar(null);
+  	Session.set('invited',[]);
+  	Session.set('invitedUsers',null);
+  	Session.set('emailInvites',[]);
 });
 
 Template.EditProposal.onRendered(function(){
@@ -67,6 +72,9 @@ Template.EditProposal.onRendered(function(){
 			},
 		}
 	});
+	var top = $("#invited-users").position().top + 40;
+	var left = $("#invited").position().left + 15;
+  	//$("#autosuggest-results").css({top: top, left: left});
 
 	// Initialise Quill editor
 	editor = new Quill('#body-editor', {
@@ -87,6 +95,8 @@ Template.EditProposal.onRendered(function(){
   	self.taggle = new ReactiveVar(taggle);
 
   	self.autorun(function(){
+  		//self.subscribe("users.all");
+  		
 		proposalId = FlowRouter.getParam("id");
 		var defaultStartDate = moment().format('YYYY-MM-DD');
 		var defaultEndDate = moment().add(1, 'week').format('YYYY-MM-DD');
@@ -101,7 +111,7 @@ Template.EditProposal.onRendered(function(){
 				self.find('#body').value = proposal.body || '';
 				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate;
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate;
-				self.find('#invited').value = proposal.invited.join(',');
+				Session.set('invited',proposal.invited);
 				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
 				if (proposal.pointsFor != null){
 					self.pointsFor.set(proposal.pointsFor);
@@ -109,6 +119,7 @@ Template.EditProposal.onRendered(function(){
 				if (proposal.pointsAgainst != null){
 					self.pointsAgainst.set(proposal.pointsAgainst);
 				}
+				
 			});
 		} else {
 			self.find('#startDate').value = defaultStartDate;
@@ -181,6 +192,12 @@ Template.EditProposal.events({
 		string = "#" + event.currentTarget.id + " > button";
 		$(string).hide();
 	},
+	'click .remove-invite': function(e,t){
+    	removeUserInvite($(e.currentTarget).attr("data-user-id"));
+	},
+	'click .remove-invite-email': function(e,t){
+	    removeUserEmail($(e.currentTarget).attr("data-array-index"));
+	},
 	'input textarea, input input' : function( event , template){
 		autosave(event, template);
   	},
@@ -193,6 +210,14 @@ Template.EditProposal.helpers({
   pointsAgainst() {
     return Template.instance().pointsAgainst.get();
   },
+  selectedInvites: function() {
+  	//Make the query non-reactive so that the selected invites don't get updated with a new search
+    var users = Meteor.users.find({ _id : { $in :  Session.get('invited')} },{reactive: false});
+    return users;
+  },
+  emailedInvites: function() {
+    return Session.get('emailInvites');
+  }
 });
 
 // Autosave function
@@ -234,7 +259,7 @@ function saveChanges(event, template, returnTo){
 			startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),//
 			endDate: new Date(template.find('#endDate').value),//new Date(2018, 8, 1),
 			authorId: Meteor.userId(),
-			//invited: template.find('#invited').value.split(','),
+			invited: Session.get('invited'),
 			tags: proposalTags,
 			pointsFor: template.pointsFor.get(),
 			pointsAgainst: template.pointsAgainst.get(),
@@ -243,7 +268,7 @@ function saveChanges(event, template, returnTo){
 
 		var proposalId = FlowRouter.getParam("id");
 
-		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.saving')});
+		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
 
 		// If working on an existing proposal, save it, else create a new one
 		if (proposalId){
@@ -251,7 +276,7 @@ function saveChanges(event, template, returnTo){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.changes-saved')});
+					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
@@ -260,7 +285,7 @@ function saveChanges(event, template, returnTo){
 				if (error){
 					Bert.alert(error.reason, 'danger');
 				} else {
-					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.alerts.proposal-created')});
+					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
 			});
@@ -270,3 +295,14 @@ function saveChanges(event, template, returnTo){
 	
 	
 };
+function removeUserInvite(id){
+  invited = Session.get("invited");
+  var index = invited.indexOf(id);
+  invited.splice(index, 1);
+  Session.set("invited",invited);
+}
+function removeUserEmail(index){
+  emails = Session.get('emailInvites');
+  emails.splice(index, 1);
+  Session.set('emailInvites',emails);
+}

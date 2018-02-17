@@ -44,16 +44,16 @@
   			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pointsForWrap">
 					    <textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointFor" name="inputPointFor"></textarea>
-					    <label class="mdl-textfield__label" >{{_ "proposals.edit.pointFor"}}</label>
+					    <label class="mdl-textfield__label" >{{_ "pages.proposals.edit.pointFor"}}</label>
 					    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="add-point-for" style="position: relative; bottom: 40px; float: right;">
 						  <i class="material-icons">add</i>
 						</button>
 					  </div>
 					  
-					<ul id="points-for-list" class="pointsList">
+					<ul id="points-for-list" class="pointsList mdl-list">
 						{{#each pointsFor}}
-							<li id="point-for-{{@index}}" class="pointsListItem">
-								{{this}}
+							<li id="point-for-{{@index}}" class="pointsListItem mdl-list__item"><span class="mdl-list__item-primary-content">
+								{{this}}</span>
 								<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="remove-point-for" data-id="{{@index}}" style="position: relative; float: right; display: none;">
 									<i class="material-icons">remove</i>
 								</button>
@@ -65,7 +65,7 @@
 
 					  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pointsAgainstWrap">
 					    <textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointAgainst" name="inputPointAgainst"></textarea>
-					    <label class="mdl-textfield__label" for="inputPointAgainst">{{_ "proposals.edit.pointAgainst"}}</label>
+					    <label class="mdl-textfield__label" for="inputPointAgainst">{{_ "pages.proposals.edit.pointAgainst"}}</label>
 							<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="add-point-against" style="position: relative; bottom: 40px; float: right;">
 								<i class="material-icons">add</i>
 							</button>
@@ -87,25 +87,43 @@
 
 			<div class="small-inputs-wrap">
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield- -floating-label">
-					<label class="mdl-textfield__label">{{_ "proposals.edit.startDate"}}</label>
+					<label class="mdl-textfield__label">{{_ "pages.proposals.edit.startDate"}}</label>
 					<input type="date" name="startDate" id="startDate" class="mdl-textfield__input">
 				</div>
 			
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield- -floating-label">
-					<label class="mdl-textfield__label">{{_ "proposals.edit.endDate"}}</label>
+					<label class="mdl-textfield__label">{{_ "pages.proposals.edit.endDate"}}</label>
 					<input type="date" name="endDate" id="endDate" class="mdl-textfield__input">
 				</div>
 			</div>
-			<small>{{_ "proposals.edit.tags"}}</small>
+			<small>{{_ "pages.proposals.edit.tags"}}</small>
 			{{> taggle }}
-
-			<!-- User invitation field: removed for now, since this feature does not fully exist -->
-
-			<!-- <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield- -floating-label">
-				<label class="mdl-textfield__label">{{_ "pages.proposals.edit.invited"}}</label>
-				<input type="text" id="invited" class="mdl-textfield__input">
+			
+	<!-- User invitation field -->
+			<div class="form-group">
+				{{> UserSearch}}
 			</div>
- -->
+			<div class="form-group">
+				<div id="invited-users">
+					{{#each selectedInvites}}
+						<span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
+					    <img class="mdl-chip__contact" src="{{profile.photo}}">
+					    <span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+					    <a href="#" class="mdl-chip__action remove-invite" data-user-id="{{_id}}"><i class="material-icons">cancel</i></a>
+						</span>
+					{{/each}}
+				</div>
+				<div id="invited-users-email">
+					{{#each value in emailedInvites}}
+						<span class="mdl-chip mdl-chip--contact">
+					    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons email-invites">mail</i></span>
+					    <span class="mdl-chip__text">{{value}}</span>
+					    <a href="#" class="mdl-chip__action remove-invite-email" data-array-index="{{@index}}"><i class="material-icons">cancel</i></a>
+						</span>
+					{{/each}}
+				</div>
+			</div>
+			<br>
 			<div class="form-group">
 				<input type="submit" id="save-proposal" class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" value='{{_ "form.save"}}'>
 				<input id="preview-proposal" class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" value='{{_ "generic.preview"}}'>

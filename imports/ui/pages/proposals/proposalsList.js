@@ -132,12 +132,12 @@ Template.ProposalCard.events({
   'click .delete-proposal-button': function(event, template){
     var proposalId = event.target.dataset.proposalId;
 
-    if (window.confirm(TAPi18n.__('proposals.list.confirmDelete'))){
+    if (window.confirm(TAPi18n.__('pages.proposals.list.confirmDelete'))){
       Meteor.call('deleteProposal', proposalId, function(error){
         if (error){
           Bert.alert(error.reason, 'danger');
         } else {
-          Bert.alert(TAPi18n.__('proposals.list.deletedMessage'), 'success');
+          Bert.alert(TAPi18n.__('pages.proposals.list.deletedMessage'), 'success');
         }
       });
     } 
