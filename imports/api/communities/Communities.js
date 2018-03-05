@@ -29,7 +29,8 @@ Community = new SimpleSchema({
     subdomain: {
         /* e.g. the URL http://bangor.socialsystems.io has subdomain "bangor" */
         type: String,
-        optional: false
+        optional: false,
+        unique: true
     },
     createdAt: {
         type: Date,
