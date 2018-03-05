@@ -139,6 +139,10 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
+    communityId: {
+        type: String,
+        optional: true
+    }
     /*
     birthday: {
         type: Date,
@@ -256,10 +260,6 @@ Schema.User = new SimpleSchema({
     },
     'roles.$': {
         type: String
-    },
-    communityId: {
-        type: String,
-        optional: true
     },
     // In order to avoid an 'Exception in setInterval callback' from Meteor
     heartbeat: {

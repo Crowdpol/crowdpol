@@ -10,11 +10,15 @@ var publicRoutes = FlowRouter.group({
   name: 'public',
   triggersEnter: [function(context, redirect) {
     // Grab subdomain
+    var subdomain = window.location.host.split('.')[0]
+
+    if (subdomain){
+      LocalStore.set('currentCommunity', {_id: 'id', subdomain: subdomain})
+      thing = LocalStore.get('currentCommunity')
+    }
     // Check if community has already been set and matches the subdomain
     // Find community by subdomain
     // Set community id to be used in session
-    console.log('we have entered a public route')
-    console.log(window.location.host)
   }]
 });
 
