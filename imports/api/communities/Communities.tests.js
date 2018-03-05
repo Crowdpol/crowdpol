@@ -7,7 +7,7 @@ import { assert } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Factory } from 'meteor/dburles:factory';
 import { fakerSchema } from '../../utils/test-utils/faker-schema/';
-import { User } from './Users.js';
+import { Community } from './Communities.js';
 
 if (Meteor.isServer) {
   beforeEach(function () {
@@ -15,16 +15,16 @@ if (Meteor.isServer) {
   });
 
   const { schema, generateDoc } = fakerSchema;
-  Factory.define('user', Meteor.users, schema.User);
+  Factory.define('community', communities, schema.Community);
 
-  describe('User schema', function () {
-    it('insert correctly', function () {
-      const userId = Factory.create('user')._id
-      const added = Meteor.users.find({ _id: userId });
+  describe('Community schema', function () {
+    it('inserts correctly', function () {
+      const communityId = Factory.create('community')._id
+      const added = Communities.find({ _id: communityId });
       const collectionName = added._getCollectionName();
       const count = added.count();
 
-      assert.equal(collectionName, 'users');
+      assert.equal(collectionName, 'communities');
       assert.equal(count, 1);
     });
   });

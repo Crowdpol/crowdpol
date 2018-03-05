@@ -1,46 +1,26 @@
-// https://guide.meteor.com/testing.html
 import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import './publications.js';
+import { Factory } from 'meteor/dburles:factory';
+import { fakerSchema } from '../../../utils/test-utils/faker-schema/';
 
-describe('User publications', function () {
+const { schema, generateDoc } = fakerSchema;
+
+describe('Community publications', function () {
   beforeEach(function () {
-    Meteor.users.remove({});
-    Accounts.createUser({
-      email: 'test@test.test', 
-      password: 'test'
-    });
+    community = Factory.create('community', generateDoc(schema.Community))
+    communityId = Meteor.call('createCommunity', community);
   });
 
-  describe('users', function () {
-    it('sends all users without services', function (done) {
-      const collector = new PublicationCollector();
-      collector.collect('users', (collections) => {
-        assert.equal(collections.users.length, 1);
-        done();
-      });
-    });
-  });
+  describe('community', function () {
 
-  describe('users.all', function () {
-    it('sends all users', function (done) {
+    it('publishes all communities', function (done) {
       const collector = new PublicationCollector();
-      collector.collect('users.all', (collections) => {
-        assert.equal(collections.users.length, 1);
+      collector.collect('communities.all', (collections) => {
+        assert.equal(collections.communities.length, 1);
         done();
       });
     });
   });
-  /* function returns an object, not a collection
-  describe('user.current', function () {
-    it('get current user', function (done) {
-      const collector = new PublicationCollector();
-      collector.collect('user.current', (collections) => {
-        assert.equal(collections.users.length, 1);
-        done();
-      });
-    });
-  });
-  */
 });
