@@ -1,6 +1,6 @@
 import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
-import { Ranks } from '../ranking/Ranks.js'
+import { Communities } from './Communities.js'
 
 Meteor.methods({
     createCommunity: function (newCommunity) {
@@ -8,7 +8,7 @@ Meteor.methods({
           name: String, 
           subdomain: String
         });
-        communityId = Community.insert(newCommunity);
+        communityId = Communities.insert(newCommunity);
   		return communityId;
     }
 });

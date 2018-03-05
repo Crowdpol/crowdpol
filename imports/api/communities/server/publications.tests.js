@@ -10,7 +10,6 @@ const { schema, generateDoc } = fakerSchema;
 describe('Community publications', function () {
   beforeEach(function () {
     community = Factory.create('community', generateDoc(schema.Community))
-    communityId = Meteor.call('createCommunity', community);
   });
 
   describe('community', function () {

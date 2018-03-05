@@ -10,6 +10,7 @@ import { Factory } from 'meteor/dburles:factory';
 import { fakerSchema } from '../../utils/test-utils/faker-schema/';
 import { sinon } from 'meteor/practicalmeteor:sinon';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
+import { Communities } from './Communities.js'
 
 const { schema, generateDoc } = fakerSchema;
 
@@ -21,7 +22,7 @@ if (Meteor.isServer) {
 
       it("Creates a new community", (done) => {
         try {
-          var community = Factory.create('community', generateDoc(schema.Community));
+          var community = {name: "TestCommunity", subdomain: "testcommunity"}
           var id = Meteor.call('createCommunity', community);
           expect(Communities.find({_id: id}).count()).to.equal(1);
           done();

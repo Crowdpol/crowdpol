@@ -2,10 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { Tracker } from 'meteor/tracker';
 
-//NOTE: as recommended in https://github.com/aldeed/meteor-collection2-core#attach-a-schema-to-meteorusers
-const Schema = {};
+export const Communities = new Meteor.Collection('communities');
 
-Schema.CommunitySettings = new SimpleSchema({
+CommunitySettings = new SimpleSchema({
     /*
         These settings will include all customisable options: 
         colour scheme choice, logo and homepage images,
@@ -22,7 +21,7 @@ Schema.CommunitySettings = new SimpleSchema({
     }*/
 });
 
-Schema.Community = new SimpleSchema({
+Community = new SimpleSchema({
     name: {
         type: String,
         optional: false
@@ -41,12 +40,11 @@ Schema.Community = new SimpleSchema({
         },
     },
     settings: {
-        type: Schema.CommunitySettings,
+        type: CommunitySettings,
         optional: true
     }
 });
-
-Communities.attachSchema(Schema.Community);
+Communities.attachSchema(Community);
 
 Communities.allow({
   insert() {
