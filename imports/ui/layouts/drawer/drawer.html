@@ -42,16 +42,19 @@
 			<h6>{{user.profile.type}}</h6>
 		</div>
 		<div class="right-drawer-content">
-			<!-- <h4>Interests</h4> -->
 			<div class="user-tags-wrap">
-				{{#each user.profile.roles}}
+				{{#each user.profile.tags}}
 					<span class="mdl-chip">
-						<span class="mdl-chip__text">{{this}}</span>
+						<span class="mdl-chip__text">{{this.keyword}}</span>
 					</span>
 				{{/each}}
 			</div>
-			<h4>{{_ "layout.drawer.right_about"}}&nbsp;{{user.profile.firstName}} {{user.profile.lastName}}</h4>
+			<br>
+			<h6>{{_ "layout.drawer.right_about"}}</h6>
 			<p>{{user.profile.bio}}</p>
+			<br>
+			<h6>Website</h6>
+			<a href="{{user.profile.website}}">{{user.profile.website}}</a>
 		</div>
 	</div>
 </template>

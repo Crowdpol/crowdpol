@@ -5,10 +5,12 @@
 		<div class="header-inner mdl-layout__header-row">
 			{{#if currentUser}}
 				{{showHamburger}}
+				<a href="/dash" class="header-link-signed-in">
 				<span class="mdl-layout-title">
 					<!-- This should be the page title -->
 					{{_ "layout.header.app_title"}}
 				</span>
+				</a>
 			{{else}}
 				{{hideHamburger}}
 				<a href="/">

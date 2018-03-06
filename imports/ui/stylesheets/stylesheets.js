@@ -7,7 +7,6 @@ import './footer.scss';
 import './side-nav.scss';
 import './forms.scss';
 import './taggle.scss';
-
 import './home.scss';
 import './auth.scss';
 import './dashboard.scss';
