@@ -9,6 +9,9 @@ import '../../ui/main.js';
 var publicRoutes = FlowRouter.group({
   name: 'public',
   triggersEnter: [function(context, redirect) {
+
+    Meteor.call('getCommunityBySubdomain', 'arg')
+
     // Grab subdomain
     var subdomain = window.location.host.split('.')[0]
     if (subdomain){
