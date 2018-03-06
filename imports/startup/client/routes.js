@@ -4,27 +4,43 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 // Import needed templates
 import '../../ui/main.js';
 
-// Public Routes:
+// Public Routes (no need to log in):
+
+var publicRoutes = FlowRouter.group({
+  name: 'public',
+  triggersEnter: [function(context, redirect) {
+
+    Meteor.call('getCommunityBySubdomain', 'arg')
+
+    // Grab subdomain
+    var subdomain = window.location.host.split('.')[0]
+    if (subdomain){
+      LocalStore.set('subdomain', subdomain);
+    } else {
+      Bert.alert(TAPi18n.__('routes.alerts.no-subdomain'), 'danger');
+    }
+  }]
+});
 
 Accounts.onLogout(function() {
 	FlowRouter.go('App.home');
 });
 
-FlowRouter.route('/', {
+publicRoutes.route('/', {
   name: 'App.home',
   action() {
     BlazeLayout.render('App_body', { main: 'Home' });
   },
 });
 
-FlowRouter.notFound = {
+publicRoutes.notFound = {
   action() {
     BlazeLayout.render('App_body', { main: 'App_notFound' });
   },
 };
 
 // Email Verification
-FlowRouter.route('/verify-email/:token',{
+publicRoutes.route('/verify-email/:token',{
 	name: 'verify-email',
 	action(params) {
 		Accounts.verifyEmail(params.token, (error) => {
@@ -45,7 +61,7 @@ FlowRouter.route('/verify-email/:token',{
 	}
 });
 
-FlowRouter.route('/reset-password/:token?', {
+publicRoutes.route('/reset-password/:token?', {
   name: 'App.password-recovery',
   action(params) {
     if (params.token) {
@@ -57,7 +73,7 @@ FlowRouter.route('/reset-password/:token?', {
   }
 });
 
-FlowRouter.route('/login', {
+publicRoutes.route('/login', {
   name: 'App.login',
   action() {
     if (!Meteor.user()){
@@ -68,28 +84,28 @@ FlowRouter.route('/login', {
   },
 });
 
-FlowRouter.route('/contact', {
+publicRoutes.route('/contact', {
   name: 'App.contact',
   action() {
     BlazeLayout.render('App_body', { main: 'contact' });
   },
 });
 
-FlowRouter.route('/privacy', {
+publicRoutes.route('/privacy', {
   name: 'App.privcay',
   action() {
     BlazeLayout.render('App_body', { main: 'Privacy' });
   },
 });
 
-FlowRouter.route('/terms', {
+publicRoutes.route('/terms', {
   name: 'App.terms',
   action() {
     BlazeLayout.render('App_body', { main: 'Terms' });
   },
 });
 
-FlowRouter.route('/about', {
+publicRoutes.route('/about', {
   name: 'App.about',
   action() {
     BlazeLayout.render('App_body', { main: 'About' });

@@ -6,3 +6,7 @@ import { Communities } from '../Communities.js';
 Meteor.publish('communities.all', function() {
   return Communities.find({});
 });
+
+Meteor.publish('communities.subdomain', function(subdomain) {
+  return Communities.find({subdomain: subdomain});
+});

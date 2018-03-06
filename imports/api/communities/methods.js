@@ -8,8 +8,16 @@ Meteor.methods({
           name: String, 
           subdomain: String
         });
-        communityId = Communities.insert(newCommunity);
-  		return communityId;
+      	// Check if subdomain is unique
+      	var existing = Communities.findOne({subdomain: subdomain});
+      	if (existing) {
+  			throw new Meteor.Error(422, 'A community with that subdomain already exists!');
+      	}
+	    return Communities.insert(newCommunity);
+    },
+
+    getCommunityBySubdomain: function(subdomain) {
+    	return Communities.findOne({subdomain: subdomain});
     }
 });
 
