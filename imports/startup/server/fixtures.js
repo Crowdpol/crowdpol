@@ -3,9 +3,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { Proposals } from '../../api/proposals/Proposals.js'
+import { Communities } from '../../api/communities/Communities.js'
 
 Meteor.startup(() => {
   //register administrators
+  devCommunityId = createDevCommunity();
   createDemoTags();
   registerAdmins();
   registerDemoUsers(Meteor.settings.private.demoUsers);
@@ -20,8 +22,6 @@ function registerAdmins(){
 }
 
 createAdmins= function (admin) {
-	//var usernameFound = checkUsernameExists();
-	//var usernameFound = checkUserEmailExists();
 	try{
 		var id = Accounts.createUser({
 			username: admin.username,
@@ -29,6 +29,7 @@ createAdmins= function (admin) {
 			password : "123456",
 			isPublic: admin.isPublic,
 			profile: {
+				communityId: devCommunityId,
 				username: admin.profile.username,
 				firstName: admin.profile.firstName,
 				lastName: admin.profile.lastName,
@@ -133,6 +134,7 @@ function createDemoUsers(users){
 				password : "123456",
 				isPublic: true,
 				profile: {
+					communityId: devCommunityId,
 					username: users[x].login.username,
 					firstName: users[x].name.first,
 					lastName: users[x].name.last,
@@ -216,4 +218,16 @@ function createDemoProposal(userId){
 
 		Proposals.insert(proposal);
 	}
+}
+
+function createDevCommunity(){
+	var existing = Communities.findOne({subdomain: 'dev'})
+	if (!existing){
+		console.log('Creating community');
+		return Communities.insert({name: 'Development', subdomain: 'dev'})
+	} else {
+		console.log('Community already exists.')
+		return existing._id;
+	}
+	
 }
