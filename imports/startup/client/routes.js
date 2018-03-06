@@ -11,14 +11,11 @@ var publicRoutes = FlowRouter.group({
   triggersEnter: [function(context, redirect) {
     // Grab subdomain
     var subdomain = window.location.host.split('.')[0]
-
     if (subdomain){
-      LocalStore.set('currentCommunity', {_id: 'id', subdomain: subdomain})
-      thing = LocalStore.get('currentCommunity')
+      LocalStore.set('subdomain', subdomain);
+    } else {
+      Bert.alert(TAPi18n.__('routes.alerts.no-subdomain'), 'danger');
     }
-    // Check if community has already been set and matches the subdomain
-    // Find community by subdomain
-    // Set community id to be used in session
   }]
 });
 
