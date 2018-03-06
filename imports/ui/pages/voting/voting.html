@@ -15,7 +15,14 @@
 		<div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
 
 			{{#if Template.subscriptionsReady}}
-			<h4>{{_ "pages.voting.heading"}}</h4>
+			{{#if isVotingAsDelegate}}
+				<h4>{{_ "pages.voting.heading"}} as Delegate</h4>
+				<span><strong>Please note:</strong> You are now voting on behalf of users who have delegated their vote to you.</span>
+			{{else}}
+				<h4>{{_ "pages.voting.heading"}} as Individual</h4>
+				<span>You are now voting on issues as you see fit. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour.</span>
+			{{/if}}
+			
 			<ul class="demo-list-control mdl-list">
 				{{#each openProposals}}
 				{{> VotingCard}}
@@ -72,7 +79,7 @@
 
 				<!-- Vote buttons and Delegates List -->
 				
-					{{#if isVotingAsDelegate}}
+				{{#if isVotingAsDelegate}}
 					<div class="voting-card-buttons">
 					<h6>Vote as a Delegate:</h6>
 					{{> delegateVoteButtons proposalId=_id}}

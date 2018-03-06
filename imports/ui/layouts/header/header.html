@@ -48,7 +48,7 @@
 					<!-- <a class="mdl-navigation__link" href="/dash">{{_ "layout.header.nav_dash"}}</a> -->
 					<a class="mdl-navigation__link" href="/delegate">{{_ "layout.header.nav_delegate"}}</a>
 					<a class="mdl-navigation__link" href="/proposals">{{_ "layout.header.nav_proposals"}}</a>
-					<a class="mdl-navigation__link" href="/voting">{{_ "layout.header.nav_vote"}}</a>
+					
 					<!--
 					<a class="mdl-navigation__link" href="/candidate">{{_ "layout.header.nav_nominate"}}</a>
 					-->
@@ -58,20 +58,22 @@
 
 					{{#if userHasMultipleRoles}}
 						<!-- Role Selection Menu -->
-						<a id="demo-menu-lower-left" class="mdl-navigation__link">
-							Switch Roles <i class="material-icons">arrow_drop_down</i>
+						<a id="demo-menu-lower-left" class="mdl-navigation__link" href="/voting">
+							Vote as {{currentRole}}<i class="material-icons">arrow_drop_down</i>
 						</a>
 
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
 							{{#each roles}}
 							<li class="mdl-menu__item role-menu-item" data-role="{{this}}">
-								{{this}}
+								Vote as {{this}}
 								{{#if isCurrentRole this}}
 								<i class="material-icons small">check</i>
 								{{/if}}
 							</li>
 							{{/each}}
 						</ul>
+					{{else}}
+						<a class="mdl-navigation__link" href="/voting">{{_ "layout.header.nav_vote"}}</a>
 					{{/if}}
 
 
