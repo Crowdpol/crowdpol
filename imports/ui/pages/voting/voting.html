@@ -16,11 +16,11 @@
 
 			{{#if Template.subscriptionsReady}}
 			{{#if isVotingAsDelegate}}
-				<h4>{{_ "pages.voting.heading"}} as Delegate</h4>
-				<span><strong>Please note:</strong> You are now voting on behalf of users who have delegated their vote to you.</span>
+				<h4>{{_ "pages.voting.heading.delegate"}}</h4>
+				<span>{{_ "pages.voting.delegate-description"}}</span>
 			{{else}}
-				<h4>{{_ "pages.voting.heading"}} as Individual</h4>
-				<span>You are now voting on issues as you see fit. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour.</span>
+				<h4>{{_ "pages.voting.heading.individual"}}</h4>
+				<span>{{_ "pages.voting.delegate-description"}}</span>
 			{{/if}}
 			
 			<ul class="demo-list-control mdl-list">
@@ -65,13 +65,13 @@
 
 					<div class="mdl-card__actions">
 					{{#if yesPercentage _id}}
-						<span class="proposal-percentage-text-left"> For: {{ yesPercentage _id }}% </span>
-						<span class="proposal-percentage-text-right"> Against: {{ noPercentage _id }}% </span>
+						<span class="proposal-percentage-text-left">{{_ "pages.voting.for"}} {{ yesPercentage _id }}% </span>
+						<span class="proposal-percentage-text-right">{{_ "pages.voting.against"}} {{ noPercentage _id }}% </span>
 						<div class="proposal-vote-progress-bar">
 							<div class="proposal-vote-yes-bar" style="width:{{ yesPercentage _id }}%"></div>
 						</div>
 					{{else}}
-						<small class="proposal-percentage-text-left"> No users voted on this proposal. </small>
+						<small class="proposal-percentage-text-left">{{_ "pages.voting.no-votes-used"}}</small>
 					{{/if}}
 
 					</div>
@@ -81,12 +81,12 @@
 				
 				{{#if isVotingAsDelegate}}
 					<div class="voting-card-buttons">
-					<h6>Vote as a Delegate:</h6>
+					<h6>{{_ "pages.voting.voting-card-heading.delegate"}}</h6>
 					{{> delegateVoteButtons proposalId=_id}}
 					</div>
 				{{else}}
 					<div class="voting-card-buttons">
-					<h6>Cast your vote:</h6>
+					<h6>{{_ "pages.voting.voting-card-heading.individual"}}</h6>
 					{{> voteButtons proposalId=_id}}
 					</div>
 					<!-- How user's delegates voted -->
