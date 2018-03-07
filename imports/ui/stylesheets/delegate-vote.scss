@@ -57,10 +57,6 @@
   height: $space * 1.5;
 }
 
-.proposal-date {
-  color: $light-blue;
-}
-
 // Proposal single view
 
 .proposal-container {
@@ -89,7 +85,6 @@
   bottom: $space * 3;
   right: $space;
   z-index: 2;
-  background-color: $bright-blue;
   color: $white;
 
   @include breakpoint($laptop) {

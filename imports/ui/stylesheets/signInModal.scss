@@ -77,7 +77,6 @@
 #modal-header {
   position: absolute;
   width: 100%;
-  background: $bright-blue;
 }
 
 #modal-header h3 {
@@ -102,10 +101,7 @@
 }
 
 .mdl-button--raised.mdl-button--colored {
-  background: $bright-blue;
-
   &:hover {
-    background: $bright-blue;
     opacity: 0.8;
   }
 

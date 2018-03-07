@@ -6,7 +6,7 @@
   padding: ($space * 2) $space;
   background-image: url('img/wave-bg.jpg');
   background-size: cover;
-  border-bottom: ($space / 2) solid $yellow;
+  border-bottom: ($space / 2) solid;
 
    @include breakpoint($laptop) {
      padding: $space * 2;
@@ -30,7 +30,6 @@
   p {
     max-width: 20rem;
     margin-bottom: $space * 2;
-    color: $yellow-light;
     font-style: italic;
     letter-spacing: 1px;
   }
@@ -60,7 +59,6 @@
 
     i {
       font-size: $space * 2;
-      color: $yellow-light;
     }
   }
 
@@ -69,7 +67,6 @@
     text-transform: uppercase;
     text-align: center;
     font-size: $small-font-size;
-    color: $yellow;
 
     @include breakpoint($tablet) {
       font-size: $base-font-size;
@@ -111,13 +108,12 @@
   padding: $space * 2;
   text-align: center;
   background-color: $bright-blue;
-  border-bottom: ($space / 2) solid $yellow;
+  border-bottom: ($space / 2) solid;
 
   h2 {
     margin-bottom: 0;
     font-family: $home-title-font;
     text-transform: uppercase;
     text-transform: uppercase;
-    color: $yellow-light;
   }
 }

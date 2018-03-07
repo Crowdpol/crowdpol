@@ -1,15 +1,12 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
-$project_color: #003399;
 $gray: #8a8a8a;
 
 ::selection {
-    background: $project_color;
     color: #fff;
 }
 
 ::-moz-selection {
-    background: $project_color;
     color: #fff;
 }
 
@@ -164,10 +161,6 @@ $gray: #8a8a8a;
     display: block;
 }
 
-.taggle_list .taggle .close:hover {
-    color: $project_color;
-}
-
 .taggle_placeholder {
     position: absolute;
     color: #CCC;
@@ -270,7 +263,6 @@ textarea.input {
 
 .ui-widget-content {
     background: #fff;
-    color: $project_color;
 }
 
 .ui-menu .ui-menu-item {
@@ -291,7 +283,6 @@ textarea.input {
 
     &:hover {
         color: #fff;
-        background: $project_color;
     }
 }
 
@@ -301,7 +292,6 @@ textarea.input {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-    background: $project_color;
     color: #fff !important;
 }
 
@@ -394,7 +384,6 @@ textarea.input {
     }
 
     .autocomplete-item:hover {
-        background: $light-blue-dark;
         cursor: pointer;
 
         .mdl-list__item-primary-content {
