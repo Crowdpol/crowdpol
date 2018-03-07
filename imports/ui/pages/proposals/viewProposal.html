@@ -3,17 +3,7 @@
 	{{> SignInModal}}
 
 	{{#if Template.subscriptionsReady}}
-	<div class="proposal-view-menu">
-			{{#if currentUser }}
-				{{> backButton text="Back to Proposals" url="/proposals"}}
-			{{/if}}
-			<div class="proposal-view-menu-buttons">
-				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
-					<i class="material-icons">share</i>
-				</button>
-			</div>
-			
-	</div>
+
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
 			<ul class="mdl-list" id="proposal-author">
@@ -52,26 +42,13 @@
 				  </li>
 			  {{/if}}
 			</ul>
-			<h1 class="proposal-title">{{ title }}</h1>
 			<div class="proposal-wrap">
-				{{#each tags}}
-					<span class="mdl-chip">
-						<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
-					</span>
-				{{/each}}
+				<h1 class="proposal-title">{{ title }}</h1>
+				<p class="proposal-abstract">{{ abstract }}</p>
 			</div>
-			<div class="proposal-wrap">
-				<h5>{{_ "pages.proposals.view.abstract"}}</h5>
-				<p>{{ abstract }}</p>
-			</div>
-
-			<div class="proposal-wrap" id="proposal-body-wrap">
-				<h5>{{_ "pages.proposals.view.proposal"}}</h5>
+			<div id="proposal-body-wrap">
 				{{{ body }}}
 			</div>
-
-			
-
 			<!-- Points for and against -->
 			<div class="proposal-wrap mdl-grid" id="proposal-points">
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
@@ -95,7 +72,13 @@
 						{{/if}}
 	  			</div>
   		</div>
-
+			<div class="proposal-wrap">
+				{{#each tags}}
+					<span class="mdl-chip">
+						<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
+					</span>
+				{{/each}}
+			</div>
 			<div class="proposal-wrap proposal-actions">
 				{{#if isEditable }}
 					<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
@@ -130,7 +113,7 @@
 				{{else}}
 					<center>
 						<h5>
-						<small>{{_ "pages.proposals.view.voteHeading"}}: {{_ "pages.proposals.view.voteStarts"}}&nbsp;{{ startDate }}&nbsp;-&nbsp;{{_ "pages.proposals.view.voteEnds"}}&nbsp;{{ endDate }}</small>
+						<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
 						</h5>
 					</center>
 				{{/if}}
@@ -153,6 +136,16 @@
 		{{else}}
 			<h3>{{_ "pages.proposals.view.proposalUnvailable"}}</h3>
 		{{/if}}
+	</div>
+	<div class="proposal-view-menu">
+			{{#if currentUser }}
+				{{> backButton text="Back to Proposals" url="/proposals"}}
+			{{/if}}
+			<div class="proposal-view-menu-buttons">
+				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+					<i class="material-icons">share</i>
+				</button>
+			</div>
 	</div>
 	{{else}}
 		{{> loader}}

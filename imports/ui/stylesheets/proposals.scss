@@ -30,6 +30,7 @@
     font-weight: 300;
     font-size: $xsmall-font-size;
     margin-top:$space;
+    margin-right: 50px;
   }
 
   
@@ -37,7 +38,7 @@
 
 .proposal-title {
   margin-top: $space;
-  margin-bottom: $space;
+  margin-bottom: 0;
 }
 
 .delegate-vote-list-item {
@@ -138,9 +139,23 @@
 
 .pointsButton {
   border: solid 1px #ccc;
-  
 }
-.pointsList{
-  font-size: 16px;
-    font-family: "Helvetica","Arial",sans-serif;
+
+#proposal-points{
+  margin: 0;
+  .mdl-cell{
+    margin-top: 0;
+    margin-bottom: 0;
+    p {
+      margin: 0px;
+    }
+    ul {
+      margin: 0;
+      li {
+        font-family: $body-font;
+        padding:0;
+        margin: 0;
+      }
+    }
+  }
 }
