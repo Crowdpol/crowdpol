@@ -79,7 +79,7 @@
 		  				<p>{{_ "pages.proposals.view.pointsFor"}}</p>
 							<ul id="points-for-list" class="points-list">
 								{{#each pointsFor}}
-									<li class="mdl-list__item"><span class="mdl-list__item-primary-content">{{this}}</span></li>
+									<li>{{this}}</li>
 								{{/each}}
 							</ul>
 						{{/if}}
@@ -123,7 +123,7 @@
 							<small>{{_"pages.proposals.view.delegateVotingClosed"}}</small>
 						{{/if}}
 					{{else}}
-						<small>{{_"pages.proposals.view.voteInstructions"}}</small>
+						<p>{{_"pages.proposals.view.voteInstructions"}}</p>
 						{{> voteButtons proposalId=_id}}
 					{{/if}}
 					{{> delegateVoteList proposalId=_id}}
