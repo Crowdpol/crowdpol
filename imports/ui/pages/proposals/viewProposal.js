@@ -2,7 +2,6 @@ import './viewProposal.html'
 import './signInModal/signInModal.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
-import "./styles.css";
 
 Template.ViewProposal.onCreated(function(){
 

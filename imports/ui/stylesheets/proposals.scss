@@ -1,5 +1,43 @@
 @import 'variables.scss';
 
+.proposal-view-menu {
+  position: relative;
+  float: left;
+}
+
+#proposal-author{
+  padding: 0;
+  margin: 0;
+
+  .mdl-list__item{
+    padding: 0;
+
+    .collab-author{
+      margin-right: 5px;
+
+      .mdl-chip__contact{
+        margin-right: 2px;
+      }
+    }
+  }
+
+  #collab-text{
+    min-height: 0;
+    color: $blue-xdark;
+    letter-spacing: 1px;
+    font-weight: 300;
+    font-size: $xsmall-font-size;
+    margin-top:$space;
+  }
+
+  
+}
+
+.proposal-title {
+  margin-top: $space;
+  margin-bottom: $space;
+}
+
 .delegate-vote-list-item {
   padding: 5px;
 
@@ -54,12 +92,16 @@
 }
 
 #sign-proposal {
-  border: 2px solid;
+  border: 1px solid;
   .proposal-item {
     .mdl-list__item-secondary-action {
       margin-right: $space;
     }
   }
+}
+
+#copy-proposal-link{
+  border: 1px solid;
 }
 
 #proposal-body-wrap {
@@ -78,4 +120,13 @@
   line-height: $base-line-height;
   cursor: pointer;
   color: $light-grey-xdark;
+}
+
+.pointsButton {
+  border: solid 1px #ccc;
+  
+}
+.pointsList{
+  font-size: 16px;
+    font-family: "Helvetica","Arial",sans-serif;
 }
