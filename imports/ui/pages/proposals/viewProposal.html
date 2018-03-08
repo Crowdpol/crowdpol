@@ -1,7 +1,9 @@
 <template name='ViewProposal'>
 
 	{{> SignInModal}}
-
+	{{#if currentUser }}
+		{{> backButton text="Back to Proposals" url="/proposals"}}
+	{{/if}}
 	{{#if Template.subscriptionsReady}}
 
 	<div class="app-container proposal-container">
@@ -19,9 +21,12 @@
 			      <span class="mdl-list__item-secondary-info">
 							{{#if isLive}}
 								<div class="mdl-layout-spacer"></div>
-								<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="sign-proposal">
+								<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
 									<i class="material-icons">fingerprint</i>
 								</button>
+								<div class="mdl-tooltip" data-mdl-for="sign-proposal">
+									{{_ "pages.proposals.view.signature-tooltip"}}
+								</div>
 								{{ signatureCount }}
 							{{/if}}
 			      </span>
@@ -44,7 +49,7 @@
 			</ul>
 			<div class="proposal-wrap">
 				<h1 class="proposal-title">{{ title }}</h1>
-				<p class="proposal-abstract">{{ abstract }}</p>
+				<p class="proposal-info">{{ abstract }}</p>
 			</div>
 			<div id="proposal-body-wrap">
 				{{{ body }}}
@@ -106,7 +111,7 @@
 							<small>{{_"pages.proposals.view.delegateVotingClosed"}}</small>
 						{{/if}}
 					{{else}}
-						<p>{{_"pages.proposals.view.voteInstructions"}}</p>
+						<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
 						{{> voteButtons proposalId=_id}}
 					{{/if}}
 					{{> delegateVoteList proposalId=_id}}
@@ -138,9 +143,7 @@
 		{{/if}}
 	</div>
 	<div class="proposal-view-menu">
-			{{#if currentUser }}
-				{{> backButton text="Back to Proposals" url="/proposals"}}
-			{{/if}}
+			
 			<div class="proposal-view-menu-buttons">
 				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
 					<i class="material-icons">share</i>

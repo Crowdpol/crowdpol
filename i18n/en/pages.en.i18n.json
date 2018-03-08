@@ -239,6 +239,7 @@
 					"paragraph-2": "Creating an account is simple, and will allow you to join others in writing proposals, voting and choosing delegates.",
 					"button": "Sign Up"
 				},
+				"signature-tooltip": "Show support for this proposal by signing it.",
 				"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
 				"voteCast": "Your vote has been cast",
 				"editProposal": "Edit Proposal",
