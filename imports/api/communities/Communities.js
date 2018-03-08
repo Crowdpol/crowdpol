@@ -6,19 +6,42 @@ export const Communities = new Meteor.Collection('communities');
 
 CommunitySettings = new SimpleSchema({
     /*
-        These settings will include all customisable options: 
-        colour scheme choice, logo and homepage images,
-        about page text, homepage text, default language, 
-        option to switch languages
+        These settings include all customisable options
     */
-    /*logoUrl: {
+    colorScheme: {
+        type: String,
+        optional: true,
+        allowedValues: ['default', 'greyscale'],
+        defaultValue: 'default'
+    },
+    logoUrl: {
         type: String,
         optional: true,
     },
-    imageUrl: {
+    homepageImageUrl: {
         type: String,
         optional: true
-    }*/
+    },
+    homepageText: {
+        type: String,
+        optional: true
+    },
+    homepageTagline: {
+        type: String,
+        optional: true
+    },
+    aboutText: {
+        type: String,
+        optional: true
+    },
+    languageSelector: {
+      type: Boolean,
+      autoValue() {
+          if (this.isInsert) {
+            return false;
+          }
+      }
+    }
 });
 
 Community = new SimpleSchema({

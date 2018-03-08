@@ -29,7 +29,9 @@
 			"nav_admin_dash" : "Admin dashboard",
 			"right_about" : "About"
 		},
-		"body":{},
+		"body":{
+			"no-styles": "The color scheme for your community could not be loaded."
+		},
 		"footer": {
 			"delegate": "Delegate",
 			"propose": "Propose",

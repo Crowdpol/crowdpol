@@ -23,12 +23,12 @@ Template.App_body.onCreated(function() {
   self.autorun(function(){
     self.subscribe('communities.subdomain', subdomain, function() {
       var community = Communities.findOne({subdomain: subdomain});
-      console.log('we are done, we have the community ' + community.name);
-      if (community.subdomain == 'dev') {
-        console.log('we are loading the stylesheet');
-        import '../../stylesheets/branding_default.scss';
-      } else {
-        console.log('we are not loading the stylesheet')
+      try {
+        var colorScheme = community.colorScheme;
+        import '../../stylesheets/color-schemes/${colorScheme}.scss';
+      } catch(err) {
+        import '../../stylesheets/color-schemes/default.scss';
+        Bert.alert(TAPi18n.__('pages.proposals.list.deletedMessage'), 'danger');
       }
     });
   })

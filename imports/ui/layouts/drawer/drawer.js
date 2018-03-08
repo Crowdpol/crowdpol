@@ -20,8 +20,6 @@ Template.RightDrawer.helpers({
 		} else {
 			return false;
 		}
-		
-		
 	}
 })
 
