@@ -22,13 +22,18 @@ Template.App_body.onCreated(function() {
 
   self.autorun(function(){
     self.subscribe('communities.subdomain', subdomain, function() {
+      // Load Styles based on community settings
       var community = Communities.findOne({subdomain: subdomain});
       try {
-        var colorScheme = community.colorScheme;
-        import '../../stylesheets/color-schemes/${colorScheme}.scss';
+        if (community.settings.colorScheme == 'greyscale') {
+          import '../../stylesheets/color-schemes/greyscale.scss';
+        } else {
+          import '../../stylesheets/color-schemes/default.scss';
+        }
       } catch(err) {
+        console.log(err)
         import '../../stylesheets/color-schemes/default.scss';
-        Bert.alert(TAPi18n.__('pages.proposals.list.deletedMessage'), 'danger');
+        Bert.alert(TAPi18n.__('layout.body.no-styles'), 'danger');
       }
     });
   })

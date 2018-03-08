@@ -7,8 +7,8 @@ import { Communities } from '../../api/communities/Communities.js'
 
 Meteor.startup(() => {
   //register administrators
-  devCommunityId = createCommunity('Development', 'dev');
-  createCommunity('Bangor', 'bangor');
+  devCommunityId = createCommunity('Development', 'dev', {colorScheme: 'default', languageSelector: false});
+  createCommunity('Bangor', 'bangor', {colorScheme: 'greyscale', languageSelector: false});
   createDemoTags();
   registerAdmins();
   registerDemoUsers(Meteor.settings.private.demoUsers);
@@ -221,11 +221,11 @@ function createDemoProposal(userId){
 	}
 }
 
-function createCommunity(name, subdomain){
+function createCommunity(name, subdomain, settings){
 	var existing = Communities.findOne({subdomain: subdomain})
 	if (!existing){
 		console.log('Creating community ' + name);
-		return Communities.insert({name: name, subdomain: subdomain})
+		return Communities.insert({name: name, subdomain: subdomain, settings: settings})
 	} else {
 		console.log(name + ' Community already exists.')
 		return existing._id;

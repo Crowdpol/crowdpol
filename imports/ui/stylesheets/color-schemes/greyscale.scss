@@ -11,40 +11,40 @@
 
 .title-underline {
   &::after {
-    background-color: $blue;
+    background-color: $grey;
   }
 }
 
 .primary-button {
-  background-color: $light-blue-dark;
+  background-color: $light-grey-dark;
   color: $white;
   &:hover {
-    background-color: $light-blue;
+    background-color: $light-grey;
   }
 }
 
 .secondary-button {
-  color: $light-blue;
+  color: $light-grey;
 }
 
 .switch-wrap {
   .switch {
     &.is-checked {
       .mdl-switch__thumb {
-        background-color: $light-blue;
+        background-color: $light-grey;
       }
       .mdl-switch__track {
-        background-color: rgba($light-blue, 0.5);
+        background-color: rgba($light-grey, 0.5);
       }
       span {
-        color: $light-blue;
+        color: $light-grey;
       }
     }
   }
 }
 
 .mdl-chip {
-  background-color: $light-blue;
+  background-color: $light-grey;
 }
 
 // Headers -------------------------------------------------
@@ -55,13 +55,13 @@
     i,
     a,
     small {
-      color: $blue;
+      color: $grey;
     }
   }
 
   // Tag Search:
   .mdl-textfield__input{
-    color: $blue;
+    color: $grey;
   }
 
   // Autocomplete
@@ -69,22 +69,22 @@
   #headerMatchedTagsList{
     .autocomplete-item{
       &:hover {
-        background: $light-blue-dark;
+        background: $light-grey-dark;
     }
     }
   }
 
   .material-icons.mdl-badge.mdl-badge--overlap{
-    color: $blue;
+    color: $grey;
   }
 
   .material-icons.mdl-badge[data-badge]::after,
   .material-label.mdl-badge[data-badge]::after{
-    background-color: $yellow;
+    background-color: $green;
   }
 
   #notifications-title{
-      background-color: $blue;
+      background-color: $grey;
     }
 }
 
@@ -92,17 +92,17 @@
   .header-inner {
 
     i {
-      color: $yellow;
+      color: $green;
     }
 
     h5 {
       @include breakpoint($tablet) {
-        color: $bright-blue;
+        color: $bright-grey;
       }
     }
 
     a {
-      color: $blue;
+      color: $grey;
     }
   }
 }
@@ -110,95 +110,96 @@
 // Home --------------------------------------------------
 
 .banner-wrap {
-  border-color: $yellow;
+  border-color: $green;
 }
 
 .hero-item-wrap {
   .hero-icon {
-    background-color: rgba($bright-blue, 0.6);
+    background-color: rgba($bright-grey, 0.6);
     i {
-      color: $yellow-light;
+      color: $green-light;
     }
   }
 
   h6 {
-      color: $yellow;
+      color: $green;
   }
 }
 
 .newsletter-form {
-  background-color: rgba($blue, 0.7);
+  background-color: rgba($grey, 0.7);
 
   .dark-textfield {
     label,
     &.is-focused label,
     &.is-dirty label {
-      color: $light-blue;
+      color: $light-grey;
 
       &::after {
-        background-color: $light-blue;
+        background-color: $light-grey;
       }
     }
 
     input {
-      color: $yellow-light;
-      border-bottom: 1px solid $light-blue;
+      color: $green-light;
+      border-bottom: 1px solid $light-grey;
     }
   }
 }
 
 .bottom-banner {
-  border-color: $yellow;
+  border-color: $green;
+  background-color: $bright-grey;
   h2 {
-    color: $yellow-light;
+    color: $green-light;
   }
 }
 
 // Proposals ---------------------------------------------
 
 .proposal-date {
-  color: $light-blue;
+  color: $light-grey;
 }
 
 .add-new-proposal {
-  background-color: $bright-blue;
+  background-color: $bright-grey;
 }
 
 .delegate-vote-list-item {
   .material-icons {
-    color: $light-blue;
+    color: $light-grey;
   }
 }
 
 .delegate-color {
-  background-color: $light-blue;
+  background-color: $light-grey;
 }
 
 .proposal-vote-progress-bar {
-    background-color: $light-blue;
+    background-color: $light-grey;
 }
 
 .proposal-vote-yes-bar {
-  background-color: $bright-blue;
+  background-color: $bright-grey;
 }
 
 // Side-Nav -----------------------------------------------
 
 .side-nav-header {
-  background-color: $blue;
+  background-color: $grey;
 }
 
 // SignInModal --------------------------------------------
 
 #modal-header {
-  background: $bright-blue;
+  background: $bright-grey;
 }
 
-.mdl-button--raised.mdl-button--colored {
-  background: $bright-blue;
+.mdl-button--raised.mdl-button--cologreen {
+  background: $bright-grey;
 
   &:hover {
-    background: $bright-blue;
+    background: $bright-grey;
   }
 
 }
@@ -206,20 +207,20 @@
 // Taggle -------------------------------------------------
 
 ::selection {
-    background: $taggle-blue;
+    background: $taggle-grey;
 }
 
 ::-moz-selection {
-    background: $taggle-blue;
+    background: $taggle-grey;
 }
 
 .ui-widget-content {
-    color: $taggle-blue;
+    color: $taggle-grey;
 }
 
 .ui-menu .ui-menu-item a {
     &:hover {
-        background: $taggle-blue;
+        background: $taggle-grey;
     }
 }
 
@@ -229,18 +230,18 @@
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-    background: $taggle-blue;
+    background: $taggle-grey;
 }
 
 
 #matchedTagsList{
     .autocomplete-item:hover {
-        background: $light-blue-dark;
+        background: $light-grey-dark;
     }
 }
 
 .taggle_list .taggle .close:hover {
-    color: $taggle-blue;
+    color: $taggle-grey;
 }
 
 // Typography ---------------------------------------
@@ -251,11 +252,11 @@ h3,
 h4,
 h5,
 h6 {
-  color: $blue-xdark;
+  color: $grey-xdark;
 }
 
 // Voting -------------------------------------------
 
-.mdl-button--colored#toggle-voting-info {
-    color: $light-blue-dark;
+.mdl-button--cologreen#toggle-voting-info {
+    color: $light-grey-dark;
 }

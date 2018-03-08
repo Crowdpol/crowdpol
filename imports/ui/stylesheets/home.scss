@@ -4,6 +4,7 @@
 .banner-wrap {
   min-height: 80vh;
   padding: ($space * 2) $space;
+  //background-image: url('img/wave-bg.jpg');
   background-image: url('img/wave-bg.jpg');
   background-size: cover;
   border-bottom: ($space / 2) solid;
@@ -108,7 +109,6 @@
 .bottom-banner {
   padding: $space * 2;
   text-align: center;
-  background-color: $bright-blue;
   border-bottom: ($space / 2) solid;
 
   h2 {
