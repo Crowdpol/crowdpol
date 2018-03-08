@@ -1,5 +1,7 @@
-// Colours
+// Colours: General
+
 $black: #061219;
+
 $dark-grey-xdark: #182528;
 $dark-grey-dark: #343f42;
 $dark-grey-mid: #50595b;
@@ -7,11 +9,14 @@ $dark-grey-light: #687175;
 $dark-grey-xlight: #7c8284;
 
 $white: #fff;
+
 $light-grey-xlight: #fcfcfa;
 $light-grey-light: #f4f4f4;
 $light-grey-mid: #e0e0de;
 $light-grey-dark: #c1c0bd;
 $light-grey-xdark: #b2b1b1;
+
+// Colours: Default Branding
 
 $blue-xdark: #0b2830;
 $blue: #143c56;
@@ -25,13 +30,6 @@ $taggle-blue: #003399;
 
 $yellow: #eebd45;
 $yellow-light: #faedc1;
-
-// Base Colors
-$primary: $blue;
-$secondary: $bright-blue;
-$highlight: $light-blue;
-$alternative: $yellow;
-$warning: $yellow;
 
 // Fonts
 $default-font: 'Roboto', sans-serif;

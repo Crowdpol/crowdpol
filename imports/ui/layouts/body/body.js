@@ -3,6 +3,7 @@ import '../header/header.js'
 import '../drawer/drawer.js'
 import '../footer/footer.js'
 import './styles.css'
+
 import { Communities } from '../../../api/communities/Communities.js'
 
 Template.App_body.onCreated(function() {
@@ -20,7 +21,16 @@ Template.App_body.onCreated(function() {
   var subdomain = LocalStore.get('subdomain');
 
   self.autorun(function(){
-    self.subscribe('communities.subdomain', subdomain);
+    self.subscribe('communities.subdomain', subdomain, function() {
+      var community = Communities.findOne({subdomain: subdomain});
+      console.log('we are done, we have the community ' + community.name);
+      if (community.subdomain == 'dev') {
+        console.log('we are loading the stylesheet');
+        import '../../stylesheets/branding_default.scss';
+      } else {
+        console.log('we are not loading the stylesheet')
+      }
+    });
   })
 });
 
