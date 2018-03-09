@@ -6,7 +6,6 @@ import { Proposals } from '../../api/proposals/Proposals.js'
 import { Communities } from '../../api/communities/Communities.js'
 
 Meteor.startup(() => {
-  //register administrators
   communityId = createCommunity('Merdemokrati', 'merdemokrati', {
   	colorScheme: 'default',
   	homepageImageUrl: 'img/waves-bg.jpg',
@@ -20,8 +19,8 @@ Meteor.startup(() => {
   		colorScheme: 'greyscale', 
   		homepageImageUrl: 'img/bangor.jpg', 
   		languageSelector: false,
-  		homepageBannerText: "A strong step towards innovation can start with the question 'What if?'",
-  		homepageIntroText: "A public presentation of four visions of a future High Street..",
+  		homepageBannerText: "Innovation can start with the question 'What if?'",
+  		homepageIntroText: "A public presentation of four visions of a future High Street.",
   		aboutText: "About the elop*10 project"
   	});
   createDemoTags();

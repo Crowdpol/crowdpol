@@ -37,7 +37,7 @@ import './pages/contact/contact.js';
 import './pages/admin/dash.js';
 import './pages/profile/profile.js';
 import './pages/tags/tags.js';
-import './pages/about.html';
+import './pages/about/about.js';
 import './pages/privacy.html';
 import './pages/terms.html';
 import './pages/proposals/editProposal.js';
