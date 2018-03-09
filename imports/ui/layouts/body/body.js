@@ -36,7 +36,7 @@ Template.App_body.onCreated(function() {
         Bert.alert(TAPi18n.__('layout.body.no-styles'), 'danger');
       }
     });
-  })
+  });
 });
 
 Template.App_body.helpers({

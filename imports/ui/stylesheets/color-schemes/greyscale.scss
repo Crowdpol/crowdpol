@@ -80,7 +80,7 @@
 
   .material-icons.mdl-badge[data-badge]::after,
   .material-label.mdl-badge[data-badge]::after{
-    background-color: $green;
+    background-color: $greyscale;
   }
 
   #notifications-title{
@@ -92,7 +92,7 @@
   .header-inner {
 
     i {
-      color: $green;
+      color: $greyscale;
     }
 
     h5 {
@@ -110,19 +110,19 @@
 // Home --------------------------------------------------
 
 .banner-wrap {
-  border-color: $green;
+  border-color: $greyscale;
 }
 
 .hero-item-wrap {
   .hero-icon {
     background-color: rgba($bright-grey, 0.6);
     i {
-      color: $green-light;
+      color: $greyscale-light;
     }
   }
 
   h6 {
-      color: $green;
+      color: $greyscale;
   }
 }
 
@@ -141,17 +141,17 @@
     }
 
     input {
-      color: $green-light;
+      color: $greyscale-light;
       border-bottom: 1px solid $light-grey;
     }
   }
 }
 
 .bottom-banner {
-  border-color: $green;
+  border-color: $greyscale;
   background-color: $bright-grey;
   h2 {
-    color: $green-light;
+    color: $greyscale-light;
   }
 }
 
@@ -195,7 +195,7 @@
   background: $bright-grey;
 }
 
-.mdl-button--raised.mdl-button--cologreen {
+.mdl-button--raised.mdl-button--cologreyscale {
   background: $bright-grey;
 
   &:hover {
@@ -257,6 +257,6 @@ h6 {
 
 // Voting -------------------------------------------
 
-.mdl-button--cologreen#toggle-voting-info {
+.mdl-button--cologreyscale#toggle-voting-info {
     color: $light-grey-dark;
 }

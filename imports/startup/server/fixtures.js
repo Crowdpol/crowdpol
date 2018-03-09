@@ -7,8 +7,17 @@ import { Communities } from '../../api/communities/Communities.js'
 
 Meteor.startup(() => {
   //register administrators
-  devCommunityId = createCommunity('Development', 'dev', {colorScheme: 'default', languageSelector: false});
-  createCommunity('Bangor', 'bangor', {colorScheme: 'greyscale', languageSelector: false});
+  devCommunityId = createCommunity('Development', 'dev', {
+  	colorScheme: 'default',
+  	homepageImageUrl: 'img/waves-bg.jpg',
+  	languageSelector: false
+  });
+  createCommunity('Bangor', 'bangor', 
+  	{
+  		colorScheme: 'greyscale', 
+  		homepageImageUrl: 'img/bangor.jpg', 
+  		languageSelector: false
+  	});
   createDemoTags();
   registerAdmins();
   registerDemoUsers(Meteor.settings.private.demoUsers);
