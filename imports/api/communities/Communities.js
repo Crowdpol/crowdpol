@@ -22,11 +22,11 @@ CommunitySettings = new SimpleSchema({
         type: String,
         optional: true
     },
-    homepageText: {
+    homepageBannerText: {
         type: String,
         optional: true
     },
-    homepageTagline: {
+    homepageIntroText: {
         type: String,
         optional: true
     },

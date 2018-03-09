@@ -4,30 +4,37 @@ import { Communities } from '../../../api/communities/Communities.js'
 
 Template.Home.onCreated(function() {
   var self = this;
+  self.community = new ReactiveVar();
 
   // Get subdomain from LocalStore and subscribe to community
   var subdomain = LocalStore.get('subdomain');
 
   self.autorun(function(){
-    self.subscribe('communities.subdomain', subdomain, function() {
-      // Load homepage background image based on community settings
-      var community = Communities.findOne({subdomain: subdomain});
-      try {
-        var homepageImage = community.settings.homepageImageUrl;
-        self.find('.banner-wrap').style.backgroundImage = "url('" + homepageImage + "')";
-      } catch(err) {
-        console.log(err)
-        self.find('.banner-wrap').style.backgroundImage = "url('img/wave-bg.jpg')";
-        Bert.alert(TAPi18n.__('pages.home.alerts.no-image'), 'danger');
-      }
+    self.subscribe('communities.subdomain', subdomain, function(){
+    	self.community.set(Communities.findOne({subdomain: subdomain}))
     });
   });
+});
+
+Template.Home.helpers({
+	backgroundImage: function() {
+		var imagePath = Template.instance().community.get().settings.homepageImageUrl;
+		return "url('" + imagePath + "')"
+	},
+	heading: function() {
+		return Template.instance().community.get().name;
+	},
+	introText: function() {
+		return Template.instance().community.get().settings.homepageIntroText;
+	},
+	bannerText: function() {
+		return Template.instance().community.get().settings.homepageBannerText;
+	},
 });
 
 Template.Home.events({
 	'submit #newletterSignupForm' (event, template){
 		event.preventDefault();
-
 	},
 	'keyup #signupEmail' (event, template){
 	  $("#newletterSignupForm").validate({

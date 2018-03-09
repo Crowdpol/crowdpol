@@ -7,16 +7,22 @@ import { Communities } from '../../api/communities/Communities.js'
 
 Meteor.startup(() => {
   //register administrators
-  devCommunityId = createCommunity('Development', 'dev', {
+  communityId = createCommunity('Merdemokrati', 'merdemokrati', {
   	colorScheme: 'default',
   	homepageImageUrl: 'img/waves-bg.jpg',
-  	languageSelector: false
+  	languageSelector: true,
+  	homepageBannerText: "A new wave of democracy is coming to Sweden.",
+  	homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
+  	aboutText: "About the merdemokrati project"
   });
-  createCommunity('Bangor', 'bangor', 
+  createCommunity('elop*10', 'bangor', 
   	{
   		colorScheme: 'greyscale', 
   		homepageImageUrl: 'img/bangor.jpg', 
-  		languageSelector: false
+  		languageSelector: false,
+  		homepageBannerText: "A strong step towards innovation can start with the question 'What if?'",
+  		homepageIntroText: "A public presentation of four visions of a future High Street..",
+  		aboutText: "About the elop*10 project"
   	});
   createDemoTags();
   registerAdmins();
@@ -39,7 +45,7 @@ createAdmins= function (admin) {
 			password : "123456",
 			isPublic: admin.isPublic,
 			profile: {
-				communityId: devCommunityId,
+				communityId: communityId,
 				username: admin.profile.username,
 				firstName: admin.profile.firstName,
 				lastName: admin.profile.lastName,
@@ -144,7 +150,7 @@ function createDemoUsers(users){
 				password : "123456",
 				isPublic: true,
 				profile: {
-					communityId: devCommunityId,
+					communityId: communityId,
 					username: users[x].login.username,
 					firstName: users[x].name.first,
 					lastName: users[x].name.last,

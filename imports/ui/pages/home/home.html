@@ -1,39 +1,43 @@
 <template name="Home">
-	<div class="banner-wrap">
-		<h1>{{_ "pages.home.heading"}}</h1>
-		<p>{{_ "pages.home.intro-text"}}</p>
-		<div class="hero-item-wrap">
-			<div class="hero-item">
-				<div class="hero-icon">
-					<i class="material-icons">face</i>
+	{{#if Template.subscriptionsReady}}
+		<div class="banner-wrap" style="background-image: {{ backgroundImage }}">
+			<h1 id="homepage-heading">{{ heading }}</h1>
+			<p id="homepage-intro">{{ introText }}</p>
+			<div class="hero-item-wrap">
+				<div class="hero-item">
+					<div class="hero-icon">
+						<i class="material-icons">face</i>
+					</div>
+					<h6>{{_ "pages.home.hero.delegate"}}</h6>
 				</div>
-				<h6>{{_ "pages.home.hero.delegate"}}</h6>
+				<div class="hero-item">
+					<div class="hero-icon">
+						<i class="material-icons">lightbulb_outline</i>
+					</div>
+					<h6>{{_ "pages.home.hero.propose"}}</h6>
+				</div>
+				<div class="hero-item">
+					<div class="hero-icon">
+						<i class="material-icons">thumb_up</i>
+					</div>
+					<h6>{{_ "pages.home.hero.vote"}}</h6>
+				</div>
 			</div>
-			<div class="hero-item">
-				<div class="hero-icon">
-					<i class="material-icons">lightbulb_outline</i>
-				</div>
-				<h6>{{_ "pages.home.hero.propose"}}</h6>
-			</div>
-			<div class="hero-item">
-				<div class="hero-icon">
-					<i class="material-icons">thumb_up</i>
-				</div>
-				<h6>{{_ "pages.home.hero.vote"}}</h6>
+			<div class="newsletter-form">
+				<!--This form needs to be hooked in, it is only a placeholder at the moment  -->
+				<form id="newletterSignupForm">
+					<div class="dark-textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="signupEmail" name="signupEmail">
+						<label class="mdl-textfield__label" for="sample3">{{_ "pages.home.newsletter-text"}}</label>
+					</div>
+					<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value='{{_ "form.signup"}}' id="submit-newsletter">
+				</form>
 			</div>
 		</div>
-		<div class="newsletter-form">
-			<!--This form needs to be hooked in, it is only a placeholder at the moment  -->
-			<form id="newletterSignupForm">
-				<div class="dark-textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<input class="mdl-textfield__input" type="text" id="signupEmail" name="signupEmail">
-					<label class="mdl-textfield__label" for="sample3">{{_ "pages.home.newsletter-text"}}</label>
-				</div>
-				<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value='{{_ "form.signup"}}' id="submit-newsletter">
-			</form>
+		<div class="bottom-banner">
+			<h2 id="homepage-banner-text">{{ bannerText }}</h2>
 		</div>
-	</div>
-	<div class="bottom-banner">
-		<h2>{{_ "pages.home.banner-text"}}</h2>
-	</div>
+	{{else}}
+		{{> loader}}
+	{{/if}}
 </template>
