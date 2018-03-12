@@ -120,17 +120,14 @@ function normalizeSignupUser(profile, user) {
     URL: 'http://www.commondemocracy.org/',
     validated: false,
   });
-  const userProfile = {
+  const userProfile = _.extend(profile, {
     photo: Meteor.settings.private.defaultPhotoUrl,
     username: generateUsername("anonymous"),
     firstName: "Anonymous",
     lastName: "User",
     isPublic: false,
-    type: 'Individual',
-    communityId: profile.communityId,
-    communitySubdomain: profile.communitySubdomain
-    //searchString: "Anonymous anonymous";
-  };
+    type: 'Individual'
+  });
   Meteor.call('profiles.initiate', user._id,userProfile,(error) => {
         if(error){
           Bert.alert({

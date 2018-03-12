@@ -50,7 +50,6 @@ Template.Signup.events({
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				console.log(Meteor.userId())
 				/* Check if redirect route saved */
 				var redirect = LocalStore.get('signUpRedirectURL');
 				LocalStore.set('signUpRedirectURL', '');
