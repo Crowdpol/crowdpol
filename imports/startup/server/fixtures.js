@@ -6,14 +6,15 @@ import { Proposals } from '../../api/proposals/Proposals.js'
 import { Communities } from '../../api/communities/Communities.js'
 
 Meteor.startup(() => {
-  communityId = createCommunity('Merdemokrati', 'merdemokrati', {
-  	colorScheme: 'default',
-  	homepageImageUrl: 'img/waves-bg.jpg',
-  	languageSelector: true,
-  	homepageBannerText: "A new wave of democracy is coming to Sweden.",
-  	homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
-  	aboutText: "About the merdemokrati project"
-  });
+	communitySubdomain = 'merdemokrati'
+	communityId = createCommunity('Merdemokrati', 'merdemokrati', {
+	  	colorScheme: 'default',
+	  	homepageImageUrl: 'img/waves-bg.jpg',
+	  	languageSelector: true,
+	  	homepageBannerText: "A new wave of democracy is coming to Sweden.",
+	  	homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
+	  	aboutText: "About the merdemokrati project"
+	  });
   createCommunity('elop*10', 'bangor', 
   	{
   		colorScheme: 'greyscale', 
@@ -45,6 +46,7 @@ createAdmins= function (admin) {
 			isPublic: admin.isPublic,
 			profile: {
 				communityId: communityId,
+				communitySubdomain: communitySubdomain,
 				username: admin.profile.username,
 				firstName: admin.profile.firstName,
 				lastName: admin.profile.lastName,
@@ -150,6 +152,7 @@ function createDemoUsers(users){
 				isPublic: true,
 				profile: {
 					communityId: communityId,
+					communitySubdomain: communitySubdomain,
 					username: users[x].login.username,
 					firstName: users[x].name.first,
 					lastName: users[x].name.last,

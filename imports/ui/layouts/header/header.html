@@ -8,14 +8,20 @@
 				<a href="/dash" class="header-link-signed-in">
 				<span class="mdl-layout-title">
 					<!-- This should be the page title -->
-					{{ title }}
+					{{#if Template.subscriptionsReady}}
+						{{ title }}
+					{{/if}}
 				</span>
 				</a>
 			{{else}}
 				{{hideHamburger}}
 				<a href="/">
 					<i class="material-icons">add</i>
-					<h5>{{ title }}</h5>
+					<h5>
+						{{#if Template.subscriptionsReady}}
+							{{ title }}
+						{{/if}}
+					</h5>
 			</a>
 			{{/if}}
 			<!-- Add spacer, to align navigation to the right -->

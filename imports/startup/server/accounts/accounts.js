@@ -113,8 +113,7 @@ function normalizeTwitterUser(profile, user) {
   });
 }
 
-function normalizeSignupUser(user) {
-  //console.log("0.2 normalizeSignupUser");
+function normalizeSignupUser(profile, user) {
   const credential =[];
   credential.push({
     source: 'signup',
@@ -128,6 +127,8 @@ function normalizeSignupUser(user) {
     lastName: "User",
     isPublic: false,
     type: 'Individual',
+    communityId: profile.communityId,
+    communitySubdomain: profile.communitySubdomain
     //searchString: "Anonymous anonymous";
   };
   Meteor.call('profiles.initiate', user._id,userProfile,(error) => {
@@ -221,10 +222,10 @@ Accounts.onCreateUser((options, user) => {
   const profile = options.profile;
   if (profile) {
     if (user.services.facebook) {
-      normalizeFacebookUser(profile, user);
+      return normalizeFacebookUser(profile, user);
     }
     if (user.services.google) {
-      normalizeGoogleUser(profile, user);
+      return normalizeGoogleUser(profile, user);
     }
     if (profile.demo) {
       normalizeDemoUser(profile, user);
@@ -243,13 +244,13 @@ Accounts.onCreateUser((options, user) => {
     if (user.services.twitter) {
       return normalizeTwitterUser(profile, user);
     }
-    if(options.profile.credentials[0].source == "default"){
-      normalizeScriptUser(profile, user);
+    if(options.profile.credentials) {
+      if(options.profile.credentials[0].source == "default"){
+        normalizeScriptUser(profile, user);
+      }
     }
-
-  }else{
-    normalizeSignupUser(user); 
   }
+  normalizeSignupUser(profile, user); 
   generateSearchString(user);
   return user;
 });

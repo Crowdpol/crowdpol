@@ -141,7 +141,11 @@ Schema.UserProfile = new SimpleSchema({
     },
     communityId: {
         type: String,
-        optional: true
+        optional: false
+    },
+    communitySubdomain: {
+        type: String,
+        optional: false
     }
     /*
     birthday: {
