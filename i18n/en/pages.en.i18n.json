@@ -289,11 +289,23 @@
 			}
 		},
 		"voting": {
-			"heading": "Voting",
+			"heading": {
+				"delegate": "Voting as Delegate",
+				"individual": "Voting as an Individual"
+			},
 			"description": "The following proposals are all available to vote on. Click on a proposal to read more, or expand the proposal to see how your delegates voted, or to cast your own vote.",
 			"not-ready": "The votes for this proposal have not yet been tallied. Results are updated every 24 hours.",
 			"show-more": "Show More",
-			"show-less": "Show Less"
+			"show-less": "Show Less",
+			"delegate-description": "Please note: You are now voting on behalf of users who have delegated their vote to you. Delegate votes are public.",
+			"individual-description": "You are now voting on issues as you see fit. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Individual votes are private.",
+			"voting-card-heading": {
+				"delegate": "Vote as a Delegate:",
+				"individual": "Cast your Individual vote:"
+			},
+			"no-votes-used": "No users voted on this proposal.",
+			"for": "For:",
+			"against": "Against:"
 		},
 		"profile": {
 			"name": "Name",

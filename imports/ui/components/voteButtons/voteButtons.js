@@ -28,12 +28,12 @@ Template.voteButtons.onCreated(function(){
 Template.voteButtons.helpers({
 	userYesClass: function(){
 		if(Template.instance().templateDictionary.get('userVote') == 'yes'){
-			return "mdl-button--colored";
+			return "mdl-button--colored-yes";
 		}
 	},
 	userNoClass: function(){
 		if(Template.instance().templateDictionary.get('userVote') == 'no'){
-			return "mdl-button--colored";
+			return "mdl-button--colored-no";
 		}
 	},
 	delegateYesClass: function(){

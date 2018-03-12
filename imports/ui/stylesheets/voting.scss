@@ -5,6 +5,16 @@
   margin-top: $base-line-height;
   margin-bottom: $base-line-height;
   width: auto;
+  
+  .mdl-button--colored-yes{
+    background-color: $yes-button;
+    color: white;
+  }
+
+  .mdl-button--colored-no{
+    background-color: $no-button;
+    color: white;
+  }
 
   .mdl-card__actions.mdl-card--border{
     padding-left: 0px;

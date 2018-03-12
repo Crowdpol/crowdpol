@@ -45,6 +45,9 @@ Template.Voting.helpers({
   authorSelected: function(){
     return Template.instance().authorProposals.get();
   },
+  isVotingAsDelegate: function(){
+    return (LocalStore.get('currentUserRole') == 'Delegate');
+  },
 });
 
 Template.Voting.events({
