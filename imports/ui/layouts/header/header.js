@@ -27,7 +27,7 @@ Template.Header.onCreated(function(){
     self.subscribe('notifications.forUser', Meteor.userId());
     self.availableTags.set(Tags.find().pluck('keyword'));
     self.subscribe('communities.subdomain', subdomain, function(){
-      self.community.set(Communities.findOne({subdomain: subdomain}))
+      self.community.set(Communities.findOne({subdomain: subdomain}));
     });
   });
 
