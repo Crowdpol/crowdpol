@@ -4,10 +4,12 @@ import './header.html';
 import './clamp.min.js'
 import { Tags } from '../../../api/tags/Tags.js'
 import { Notifications } from '../../../api/notifications/Notifications.js'
+import { Communities } from '../../../api/communities/Communities.js'
 
 Template.Header.onCreated(function(){
   var self = this;
   var user = Meteor.user();
+  var subdomain = LocalStore.get('subdomain');
 
   if (user && user.roles){
     var currentRole = LocalStore.get('currentUserRole');
@@ -17,17 +19,24 @@ Template.Header.onCreated(function(){
   }
   self.availableTags = new ReactiveVar([]);
   self.matchedTags = new ReactiveVar([]);
+  self.community = new ReactiveVar();
 
   self.autorun(function(){
     //subscribe to list of existing tags
     self.subscribe('tags.all');
     self.subscribe('notifications.forUser', Meteor.userId());
     self.availableTags.set(Tags.find().pluck('keyword'));
+    self.subscribe('communities.subdomain', subdomain, function(){
+      self.community.set(Communities.findOne({subdomain: subdomain}));
+    });
   });
 
 });
 
 Template.Header.helpers({
+  title: function() {
+    return Template.instance().community.get().name;
+  },
   hideHamburger() {
     $(".mdl-layout__drawer-button").hide();
   },

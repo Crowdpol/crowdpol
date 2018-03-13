@@ -1,0 +1,262 @@
+@import '../variables.scss';
+@import '../breakpoint.scss';
+
+/* 
+  This file contains the default colour scheme.
+  Only styles specifying a colour (not including white or greys) should be included here.
+*/
+
+
+// Global --------------------------------------
+
+.title-underline {
+  &::after {
+    background-color: $blue;
+  }
+}
+
+.primary-button {
+  background-color: $light-blue-dark;
+  color: $white;
+  &:hover {
+    background-color: $light-blue;
+  }
+}
+
+.secondary-button {
+  color: $light-blue;
+}
+
+.switch-wrap {
+  .switch {
+    &.is-checked {
+      .mdl-switch__thumb {
+        background-color: $light-blue;
+      }
+      .mdl-switch__track {
+        background-color: rgba($light-blue, 0.5);
+      }
+      span {
+        color: $light-blue;
+      }
+    }
+  }
+}
+
+.mdl-chip {
+  background-color: $light-blue;
+}
+
+// Headers -------------------------------------------------
+
+.logged-in-header {
+
+  .header-inner {
+    i,
+    a,
+    small {
+      color: $blue;
+    }
+  }
+
+  // Tag Search:
+  .mdl-textfield__input{
+    color: $blue;
+  }
+
+  // Autocomplete
+
+  #headerMatchedTagsList{
+    .autocomplete-item{
+      &:hover {
+        background: $light-blue-dark;
+    }
+    }
+  }
+
+  .material-icons.mdl-badge.mdl-badge--overlap{
+    color: $blue;
+  }
+
+  .material-icons.mdl-badge[data-badge]::after,
+  .material-label.mdl-badge[data-badge]::after{
+    background-color: $yellow;
+  }
+
+  #notifications-title{
+      background-color: $blue;
+    }
+}
+
+.logged-out-header {
+  .header-inner {
+
+    i {
+      color: $yellow;
+    }
+
+    h5 {
+      @include breakpoint($tablet) {
+        color: $bright-blue;
+      }
+    }
+
+    a {
+      color: $blue;
+    }
+  }
+}
+
+// Home --------------------------------------------------
+
+.banner-wrap {
+  border-color: $yellow;
+}
+
+.hero-item-wrap {
+  .hero-icon {
+    background-color: rgba($bright-blue, 0.6);
+    i {
+      color: $yellow-light;
+    }
+  }
+
+  h6 {
+      color: $yellow;
+  }
+}
+
+.newsletter-form {
+  background-color: rgba($blue, 0.7);
+
+  .dark-textfield {
+    label,
+    &.is-focused label,
+    &.is-dirty label {
+      color: $light-blue;
+
+      &::after {
+        background-color: $light-blue;
+      }
+    }
+
+    input {
+      color: $yellow-light;
+      border-bottom: 1px solid $light-blue;
+    }
+  }
+}
+
+.bottom-banner {
+  border-color: $yellow;
+  background-color: $bright-blue;
+  h2 {
+    color: $yellow-light;
+  }
+}
+
+// Proposals ---------------------------------------------
+
+.proposal-date {
+  color: $light-blue;
+}
+
+.add-new-proposal {
+  background-color: $bright-blue;
+}
+
+.delegate-vote-list-item {
+  .material-icons {
+    color: $light-blue;
+  }
+}
+
+.delegate-color {
+  background-color: $light-blue;
+}
+
+.proposal-vote-progress-bar {
+    background-color: $light-blue;
+}
+
+.proposal-vote-yes-bar {
+  background-color: $bright-blue;
+}
+
+// Side-Nav -----------------------------------------------
+
+.side-nav-header {
+  background-color: $blue;
+}
+
+// SignInModal --------------------------------------------
+
+#modal-header {
+  background: $bright-blue;
+}
+
+.mdl-button--raised.mdl-button--colored {
+  background: $bright-blue;
+
+  &:hover {
+    background: $bright-blue;
+  }
+
+}
+
+// Taggle -------------------------------------------------
+
+::selection {
+    background: $taggle-blue;
+}
+
+::-moz-selection {
+    background: $taggle-blue;
+}
+
+.ui-widget-content {
+    color: $taggle-blue;
+}
+
+.ui-menu .ui-menu-item a {
+    &:hover {
+        background: $taggle-blue;
+    }
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    background: $taggle-blue;
+}
+
+
+#matchedTagsList{
+    .autocomplete-item:hover {
+        background: $light-blue-dark;
+    }
+}
+
+.taggle_list .taggle .close:hover {
+    color: $taggle-blue;
+}
+
+// Typography ---------------------------------------
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $blue-xdark;
+}
+
+// Voting -------------------------------------------
+
+.mdl-button--colored#toggle-voting-info {
+    color: $light-blue-dark;
+}

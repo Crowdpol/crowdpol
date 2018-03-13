@@ -6,8 +6,24 @@ import { Proposals } from '../../api/proposals/Proposals.js'
 import { Communities } from '../../api/communities/Communities.js'
 
 Meteor.startup(() => {
-  //register administrators
-  devCommunityId = createDevCommunity();
+	communitySubdomain = 'merdemokrati'
+	communityId = createCommunity('Merdemokrati', 'merdemokrati', {
+	  	colorScheme: 'default',
+	  	homepageImageUrl: 'img/waves-bg.jpg',
+	  	languageSelector: true,
+	  	homepageBannerText: "A new wave of democracy is coming to Sweden.",
+	  	homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
+	  	aboutText: "About the merdemokrati project"
+	  });
+  createCommunity('elop*10', 'bangor', 
+  	{
+  		colorScheme: 'greyscale', 
+  		homepageImageUrl: 'img/bangor.jpg', 
+  		languageSelector: false,
+  		homepageBannerText: "Innovation can start with the question 'What if?'",
+  		homepageIntroText: "A public presentation of four visions of a future High Street.",
+  		aboutText: "About the elop*10 project"
+  	});
   createDemoTags();
   registerAdmins();
   registerDemoUsers(Meteor.settings.private.demoUsers);
@@ -29,7 +45,8 @@ createAdmins= function (admin) {
 			password : "123456",
 			isPublic: admin.isPublic,
 			profile: {
-				communityId: devCommunityId,
+				communityId: communityId,
+				communitySubdomain: communitySubdomain,
 				username: admin.profile.username,
 				firstName: admin.profile.firstName,
 				lastName: admin.profile.lastName,
@@ -134,7 +151,8 @@ function createDemoUsers(users){
 				password : "123456",
 				isPublic: true,
 				profile: {
-					communityId: devCommunityId,
+					communityId: communityId,
+					communitySubdomain: communitySubdomain,
 					username: users[x].login.username,
 					firstName: users[x].name.first,
 					lastName: users[x].name.last,
@@ -220,13 +238,13 @@ function createDemoProposal(userId){
 	}
 }
 
-function createDevCommunity(){
-	var existing = Communities.findOne({subdomain: 'dev'})
+function createCommunity(name, subdomain, settings){
+	var existing = Communities.findOne({subdomain: subdomain})
 	if (!existing){
-		console.log('Creating community');
-		return Communities.insert({name: 'Development', subdomain: 'dev'})
+		console.log('Creating community ' + name);
+		return Communities.insert({name: name, subdomain: subdomain, settings: settings})
 	} else {
-		console.log('Community already exists.')
+		console.log(name + ' Community already exists.')
 		return existing._id;
 	}
 	
