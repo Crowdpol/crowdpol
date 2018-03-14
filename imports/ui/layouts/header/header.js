@@ -128,8 +128,13 @@ Template.Header.events({
   },
   'submit form, click #search-button' (event, template) {
     var keyword = template.find('#header-tag-search').value;
-    var url = Tags.findOne({keyword: keyword}).url
-    FlowRouter.go(url)
+    var tag = Tags.findOne({keyword: keyword});
+    if (tag) {
+      var url = tag.url;
+      FlowRouter.go(url);
+    } else {
+      FlowRouter.go('/tag/' + keyword);
+    }
   },
   'click #notifications-menu-icon': function(event, template) {
     toggleNotificationsDrawer();

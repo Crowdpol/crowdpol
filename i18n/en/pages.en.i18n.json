@@ -280,6 +280,8 @@
 		},
 		"tag-search":{
 			"heading": "Tagged",
+			"no-delegates": "There are no delegates with this tags.",
+			"no-proposals": "There are no proposals with this tags.",
 			"tabs": {
 				"proposals": "Proposals",
 				"delegates": "Delegates",

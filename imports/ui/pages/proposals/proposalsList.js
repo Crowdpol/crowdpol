@@ -12,11 +12,10 @@ Template.ProposalsList.onCreated(function () {
   // Indicate active tab
   Session.set("allProposals",true);
   Session.set("myProposals",false);
-  var communityId = Meteor.user().profile.communityId;
   self.autorun(function(){
-    self.subscribe('proposals.public', self.searchQuery.get(), communityId);
+    self.subscribe('proposals.public', self.searchQuery.get());
     self.subscribe('proposals.author', self.searchQuery.get());
-    self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
+    self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get());
   })
 });
 

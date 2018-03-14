@@ -245,16 +245,17 @@ function createDemoProposal(communityId, subdomain){
 	if (Proposals.find({title: title}).count() < 1){
 		var user = Accounts.findUserByEmail("trudie+" + subdomain + "@socialsystems.io");
 		var proposal = {
-			title: 'Demo Proposal',
+			title: title,
 			abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ante ligula, tempor et risus feugiat, posuere semper enim. Etiam eleifend lacus a libero blandit, a placerat felis aliquam.',
 			body: 'Praesent at laoreet risus. Mauris eleifend nunc quis orci venenatis vestibulum. Nam ante elit, bibendum sed tempus sed, bibendum eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
-			startDate: new Date(),
-			endDate: new Date(),
+			startDate: moment().subtract(3, 'days').toDate(),
+			endDate: moment().add(1, 'years').toDate(),
 			tags: tagObjects,
 			authorId: user._id,
-			communityId: communityId
+			communityId: communityId,
+			stage: 'live',
+			status: 'approved'
 		};
-
 		Proposals.insert(proposal);
 	}
 }
