@@ -6,42 +6,63 @@ import { Proposals } from '../../api/proposals/Proposals.js'
 import { Communities } from '../../api/communities/Communities.js'
 
 Meteor.startup(() => {
-	communitySubdomain = 'merdemokrati'
-	communityId = createCommunity('Merdemokrati', 'merdemokrati', {
-	  	colorScheme: 'default',
-	  	homepageImageUrl: 'img/waves-bg.jpg',
-	  	languageSelector: true,
-	  	homepageBannerText: "A new wave of democracy is coming to Sweden.",
-	  	homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
-	  	aboutText: "About the merdemokrati project"
-	  });
-  createCommunity('elop*10', 'bangor', 
-  	{
-  		colorScheme: 'greyscale', 
-  		homepageImageUrl: 'img/bangor.jpg', 
-  		languageSelector: false,
-  		homepageBannerText: "Innovation can start with the question 'What if?'",
-  		homepageIntroText: "A public presentation of four visions of a future High Street.",
-  		aboutText: "About the elop*10 project"
-  	});
-  createDemoTags(communityId);
-  registerAdmins();
-  registerDemoUsers(Meteor.settings.private.demoUsers);
-  createDemoProposal();
+	/* Create two communities */;
+	mdSubdomain = 'merdemokrati'
+	mdId = createCommunity('Merdemokrati', mdSubdomain, {
+		colorScheme: 'default',
+		homepageImageUrl: 'img/waves-bg.jpg',
+		languageSelector: true,
+		homepageBannerText: "A new wave of democracy is coming to Sweden.",
+		homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
+		aboutText: "About the merdemokrati project"
+	});
+	bgSubdomain = 'bangor';
+	bgId = createCommunity('elop*10', 'bangor', {
+		colorScheme: 'greyscale', 
+		homepageImageUrl: 'img/bangor.jpg', 
+		languageSelector: false,
+		homepageBannerText: "Innovation can start with the question 'What if?'",
+		homepageIntroText: "A public presentation of four visions of a future High Street.",
+		aboutText: "About the elop*10 project"
+	});
+
+	/* Register admins for each community */
+	registerAdmins(mdId, mdSubdomain);
+	registerAdmins(bgId, bgSubdomain);
+
+	/* Create demo tags for each community */
+	createDemoTags(mdId);
+	createDemoTags(bgId);
+
+	/* Create demo users if in dev environment */
+	if (Meteor.isDevelopment) {
+		registerDemoUsers(Meteor.settings.private.demoUsers, mdId, mdSubdomain);
+		registerDemoUsers(Meteor.settings.private.demoUsers, bgId, bgSubdomain);
+	}
+	
+	/* Create demo proposals if in dev environment */
+	if (Meteor.isDevelopment) {
+		createDemoProposal(mdId);
+		createDemoProposal(bgId);
+	}
+	
 });
 
-function registerAdmins(){
-	var admins = Meteor.settings.private.defaultUsers;
+function registerAdmins(communityId, subdomain){
+	console.log('Registering admins for ' + subdomain);
+	var admins = Meteor.settings.private.admins;
 	for(var x = 0; x < admins.length; x++){
-		createAdmins(admins[x]);
+		createAdmins(admins[x], communityId, subdomain);
 	}
 }
 
-createAdmins= function (admin) {
-	try{
+createAdmins = function (admin, communityId, communitySubdomain) {
+	var email = admin.email.split('@')
+	email = email[0] + '+' + communitySubdomain + '@' + email[1];
+	if (!Accounts.findUserByEmail(email)){
 		var id = Accounts.createUser({
 			username: admin.username,
-			email : admin.email,
+			email : email,
 			password : "123456",
 			isPublic: admin.isPublic,
 			profile: {
@@ -52,23 +73,23 @@ createAdmins= function (admin) {
 				lastName: admin.profile.lastName,
 				photo: admin.profile.photo,
 				credentials : [
-					{
-						"source" : "default",
-						"URL" : "https://www.commondemocracy.org/",
-						"validated" : true
-					}
+				{
+					"source" : "default",
+					"URL" : "https://www.commondemocracy.org/",
+					"validated" : true
+				}
 				]
 			}
 		});
 
 		if (admin.roles.length > 0) {
-	    // Need _id of existing user record so this call must come
-	    // after `Accounts.createUser` or `Accounts.onCreate`
-	    Roles.addUsersToRoles(id, admin.roles);
-	  }
-	} catch (e) {
-		//throw new Meteor.Error(e);
-		console.log("[" + e.error + "] " + admin.email + ": " + e.reason);
+		    // Need _id of existing user record so this call must come
+		    // after `Accounts.createUser` or `Accounts.onCreate`
+		    Roles.addUsersToRoles(id, admin.roles);
+		}
+		console.log('Created admin ' + email);
+	} else {
+		console.log('Admin with email ' + email + ' already exists.')
 	}
 };
 
@@ -82,10 +103,10 @@ function createDemoTags(communityId){
 
 }
 
-function createDemoUsers(users){
+function createDemoUsers(users, communityId, subdomain){
 	var successCount = 0;
 	for(var x = 0; x < users.length; x++){
-		try{
+	
 			//generate random number between 1 and 8
 			var num = getRandomInt(0,8);
 			var type = '';
@@ -132,7 +153,7 @@ function createDemoUsers(users){
 			    	keywords = ['environment','gender']
 			        break;
 			    case 8:
-			    	roles = ["delegate,candidate,individual","demo"];
+			    	roles = ["delegate" ,"candidate","individual","demo"];
 			    	type = 'Individual';
 			    	keywords = ['environment']
 			        break;
@@ -152,7 +173,7 @@ function createDemoUsers(users){
 				isPublic: true,
 				profile: {
 					communityId: communityId,
-					communitySubdomain: communitySubdomain,
+					communitySubdomain: subdomain,
 					username: users[x].login.username,
 					firstName: users[x].name.first,
 					lastName: users[x].name.last,
@@ -174,21 +195,17 @@ function createDemoUsers(users){
 		    }
 		    Meteor.call('togglePublic', id, true);
 		    successCount+=1;
-		} catch (e) {
-			//throw new Meteor.Error(e);
-			console.log("[" + e.error + "] " + e.reason);
-		}
+		
 	}
 	console.log(successCount + " demo users generated.");
 }
-function registerDemoUsers(numUsers){
+function registerDemoUsers(numUsers, communityId, subdomain){
 	let demoUserCount = Roles.getUsersInRole('demo').count();
 	if(demoUserCount>=numUsers){
-		console.log("Already " + demoUserCount + "demo users");
+		console.log("Already " + demoUserCount + " demo users");
 	}else{
 		let url = 'https://randomuser.me/api/?nat=gb&results=' + numUsers;
 		let response = [];
-		try{
 			HTTP.call( 'GET', url, {}, function( error, response ) {
 			  if ( error ) {
 			    console.log( error );
@@ -204,23 +221,20 @@ function registerDemoUsers(numUsers){
 			     }
 			    */
 			    console.log("Generating " + response.data.results.length + " demo users...");
-			    response= response.data.results;
-				createDemoUsers(response);
+			    response = response.data.results;
+				createDemoUsers(response, communityId, subdomain);
 			  }
 			});
-		} catch (e) {
-			console.log(e);
-			return false;
-		}
+		
 	}
 }
 
-function createDemoProposal(userId){
+function createDemoProposal(communityId){
 
 	var tagObjects = _.map(['environment', 'gender'], function(keyword){
-			 	var tag = Meteor.call('getTagByKeyword', keyword);
-			 	return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
-			 })
+		var tag = Meteor.call('getTagByKeyword', keyword);
+		return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
+	})
 
 	if (Proposals.find({title: 'Demo Proposal'}).count() < 1){
 		var user = Accounts.findUserByEmail("tspangenberg1@gmail.com");
@@ -231,7 +245,8 @@ function createDemoProposal(userId){
 			startDate: new Date(),
 			endDate: new Date(),
 			tags: tagObjects,
-			authorId: user._id
+			authorId: user._id,
+			communityId: communityId
 		};
 
 		Proposals.insert(proposal);
