@@ -7,7 +7,7 @@ Meteor.methods({
     addTag: function (keyword, communityId) {
       check(keyword, String);
       check(communityId, String);
-      var existingTag = Tags.findOne({keyword: convertToSlug(keyword)});
+      var existingTag = Tags.findOne({keyword: convertToSlug(keyword), communityId: communityId});
       if (!existingTag){
         return Tags.insert({ keyword: keyword, communityId: communityId });
       } else {

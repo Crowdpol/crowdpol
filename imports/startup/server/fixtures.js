@@ -42,10 +42,9 @@ Meteor.startup(() => {
 	
 	/* Create demo proposals if in dev environment */
 	if (Meteor.isDevelopment) {
-		createDemoProposal(mdId);
-		createDemoProposal(bgId);
+		createDemoProposal(mdId, mdSubdomain);
+		createDemoProposal(bgId, bgSubdomain);
 	}
-	
 });
 
 function registerAdmins(communityId, subdomain){
@@ -105,7 +104,7 @@ function createDemoTags(communityId){
 
 function registerDemoUsers(numUsers, communityId, subdomain){
 	let demoUserCount = Roles.getUsersInRole('demo').count();
-	if(!demoUserCount>=numUsers){
+	if(demoUserCount>=numUsers){
 		console.log("Already created demo users for " + subdomain);
 	}else{
 		let url = 'https://randomuser.me/api/?nat=gb&results=' + numUsers;
@@ -196,8 +195,6 @@ function createDemoUsers(users, communityId, subdomain){
 			 	return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
 			 })
 
-			 console.log('about to create a user')
-
 			try {
 				var id = Accounts.createUser({
 				username: Random.id(),
@@ -226,8 +223,6 @@ function createDemoUsers(users, communityId, subdomain){
 				console.log("[" + e.error + "] " + e.reason);
 			}
 
-			console.log('done')
-
 			if (roles.length>0) {
 		    	Roles.addUsersToRoles(id, roles);
 		    }
@@ -238,15 +233,17 @@ function createDemoUsers(users, communityId, subdomain){
 	console.log(successCount + " demo users generated.");
 }
 
-function createDemoProposal(communityId){
+function createDemoProposal(communityId, subdomain){
 
 	var tagObjects = _.map(['environment', 'gender'], function(keyword){
 		var tag = Meteor.call('getTagByKeyword', keyword);
 		return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
 	})
 
-	if (Proposals.find({title: 'Demo Proposal'}).count() < 1){
-		var user = Accounts.findUserByEmail("tspangenberg1@gmail.com");
+	var title = 'Demo Proposal for ' + subdomain;
+
+	if (Proposals.find({title: title}).count() < 1){
+		var user = Accounts.findUserByEmail("trudie+" + subdomain + "@socialsystems.io");
 		var proposal = {
 			title: 'Demo Proposal',
 			abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ante ligula, tempor et risus feugiat, posuere semper enim. Etiam eleifend lacus a libero blandit, a placerat felis aliquam.',
