@@ -103,6 +103,36 @@ function createDemoTags(communityId){
 
 }
 
+function registerDemoUsers(numUsers, communityId, subdomain){
+	let demoUserCount = Roles.getUsersInRole('demo').count();
+	if(!demoUserCount>=numUsers){
+		console.log("Already created demo users for " + subdomain);
+	}else{
+		let url = 'https://randomuser.me/api/?nat=gb&results=' + numUsers;
+		let response = [];
+			HTTP.call( 'GET', url, {}, function( error, response ) {
+			  if ( error ) {
+			    console.log( error );
+			    return false;
+			  } else {
+			    /*
+			     This will return the HTTP response object that looks something like this:
+			     {
+			       content: "String of content...",
+			       data: Array[100], <-- Our actual data lives here. 
+			       headers: {  Object containing HTTP response headers }
+			       statusCode: 200
+			     }
+			    */
+			    console.log("Generating " + response.data.results.length + " demo users...");
+			    response = response.data.results;
+				createDemoUsers(response, communityId, subdomain);
+			  }
+			});
+		
+	}
+}
+
 function createDemoUsers(users, communityId, subdomain){
 	var successCount = 0;
 	for(var x = 0; x < users.length; x++){
@@ -166,7 +196,10 @@ function createDemoUsers(users, communityId, subdomain){
 			 	return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
 			 })
 
-			var id = Accounts.createUser({
+			 console.log('about to create a user')
+
+			try {
+				var id = Accounts.createUser({
 				username: Random.id(),
 				email : users[x].email,
 				password : "123456",
@@ -189,6 +222,11 @@ function createDemoUsers(users, communityId, subdomain){
 					]
 				}
 			});
+			} catch (e) {
+				console.log("[" + e.error + "] " + e.reason);
+			}
+
+			console.log('done')
 
 			if (roles.length>0) {
 		    	Roles.addUsersToRoles(id, roles);
@@ -198,35 +236,6 @@ function createDemoUsers(users, communityId, subdomain){
 		
 	}
 	console.log(successCount + " demo users generated.");
-}
-function registerDemoUsers(numUsers, communityId, subdomain){
-	let demoUserCount = Roles.getUsersInRole('demo').count();
-	if(demoUserCount>=numUsers){
-		console.log("Already " + demoUserCount + " demo users");
-	}else{
-		let url = 'https://randomuser.me/api/?nat=gb&results=' + numUsers;
-		let response = [];
-			HTTP.call( 'GET', url, {}, function( error, response ) {
-			  if ( error ) {
-			    console.log( error );
-			    return false;
-			  } else {
-			    /*
-			     This will return the HTTP response object that looks something like this:
-			     {
-			       content: "String of content...",
-			       data: Array[100], <-- Our actual data lives here. 
-			       headers: {  Object containing HTTP response headers }
-			       statusCode: 200
-			     }
-			    */
-			    console.log("Generating " + response.data.results.length + " demo users...");
-			    response = response.data.results;
-				createDemoUsers(response, communityId, subdomain);
-			  }
-			});
-		
-	}
 }
 
 function createDemoProposal(communityId){
