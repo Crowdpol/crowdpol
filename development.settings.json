@@ -52,7 +52,7 @@
       {
           "username": "admin_trudie",
           "email":"trudie@socialsystems.io",
-          "roles":["admin","individual"],
+          "roles":["admin","individual", "delegate"],
           "isPublic": false,
           "profile": {
             "username": "admin_trudie",

@@ -134,7 +134,8 @@ Meteor.publish('simpleSearch', function(search,type) {
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  let query      = {$and: [{roles: type},{ roles: { $nin: [ "demo" ] }}]},
+  var communityId = Meteor.user().profile.communityId;
+  let query      = {'profile.communityId': communityId, $and: [{roles: type},{ roles: { $in: [ "demo" ] }}]},
       projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {

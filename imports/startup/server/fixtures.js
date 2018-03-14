@@ -60,7 +60,7 @@ createAdmins = function (admin, communityId, communitySubdomain) {
 	email = email[0] + '+' + communitySubdomain + '@' + email[1];
 	if (!Accounts.findUserByEmail(email)){
 		var id = Accounts.createUser({
-			username: admin.username,
+			username: admin.username + '_' + communitySubdomain,
 			email : email,
 			password : "123456",
 			isPublic: admin.isPublic,
@@ -135,7 +135,6 @@ function registerDemoUsers(numUsers, communityId, subdomain){
 function createDemoUsers(users, communityId, subdomain){
 	var successCount = 0;
 	for(var x = 0; x < users.length; x++){
-	
 			//generate random number between 1 and 8
 			var num = getRandomInt(0,8);
 			var type = '';
@@ -205,7 +204,7 @@ function createDemoUsers(users, communityId, subdomain){
 					communityId: communityId,
 					communitySubdomain: subdomain,
 					username: users[x].login.username,
-					firstName: users[x].name.first,
+					firstName: users[x].name.first + ' ' + subdomain,
 					lastName: users[x].name.last,
 					photo: users[x].picture.large,
 					type: type,
