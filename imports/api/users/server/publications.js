@@ -58,11 +58,14 @@ Meteor.publish('users.delegates', function () {
 
 Meteor.publish('users.delegatesWithTag', function (keyword) {
   var tag = Meteor.call('getTagByKeyword', keyword)
+  var communityId = Meteor.user().profile.communityId;
   if (tag){
     return Meteor.users.find(
     {
       roles: 'delegate', 
-      'profile.tags': { $elemMatch: {_id: tag._id}}
+      roles: { $nin: [ "demo" ] },
+      'profile.tags': { $elemMatch: {_id: tag._id}},
+      'profile.communityId': communityId
     },
     defaultUserProjection);
   }
@@ -135,12 +138,13 @@ Meteor.publish('simpleSearch', function(search,type) {
     return Meteor.users.find({roles: type});
   }*/
   var communityId = Meteor.user().profile.communityId;
-  let query      = {'profile.communityId': communityId, $and: [{roles: type},{ roles: { $in: [ "demo" ] }}]},
+  let query      = {'profile.communityId': communityId, $and: [{roles: type},{ roles: { $nin: [ "demo" ] }}]},
       projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
     let regex = new RegExp( search, 'i' );
-
+    console.log('REGEX')
+    console.log(regex)
     query = {$and: [
       {$or: [
         { "profile.firstName": regex },
