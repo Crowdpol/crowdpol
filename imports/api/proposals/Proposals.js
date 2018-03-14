@@ -113,7 +113,11 @@ ProposalSchema = new SimpleSchema({
             return false;
           }
         },
-    }
+    },
+    communityId: {
+        type: String,
+        optional: false
+    },
 });
 
 Proposals.attachSchema(ProposalSchema);

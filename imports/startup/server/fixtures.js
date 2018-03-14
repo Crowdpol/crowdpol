@@ -24,7 +24,7 @@ Meteor.startup(() => {
   		homepageIntroText: "A public presentation of four visions of a future High Street.",
   		aboutText: "About the elop*10 project"
   	});
-  createDemoTags();
+  createDemoTags(communityId);
   registerAdmins();
   registerDemoUsers(Meteor.settings.private.demoUsers);
   createDemoProposal();
@@ -76,9 +76,9 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function createDemoTags(){
+function createDemoTags(communityId){
 	var tags = ['Environment', 'Economics', 'Gender', 'Food-security', 'Technology'];
-	_.each(tags, function(text){ Meteor.call('addTag', text) });
+	_.each(tags, function(text){ Meteor.call('addTag', text, communityId) });
 
 }
 

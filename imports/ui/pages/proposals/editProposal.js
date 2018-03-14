@@ -248,7 +248,7 @@ var timer = function(){
   }();
 
 function saveChanges(event, template, returnTo){
-	Meteor.call('transformTags', template.taggle.get().getTagValues(), function(error, proposalTags){
+	Meteor.call('transformTags', template.taggle.get().getTagValues(), Meteor.user().profile.communityId, function(error, proposalTags){
 		if (error){
 			Bert.alert(error, 'reason');
 		} else {
@@ -263,7 +263,8 @@ function saveChanges(event, template, returnTo){
 			tags: proposalTags,
 			pointsFor: template.pointsFor.get(),
 			pointsAgainst: template.pointsAgainst.get(),
-			references: ['']
+			references: [''],
+			communityId: Meteor.user().profile.communityId
 		};
 
 		var proposalId = FlowRouter.getParam("id");
