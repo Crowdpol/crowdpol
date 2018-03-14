@@ -35,15 +35,16 @@ Meteor.publish(null, function() {
   return Meteor.users.find({_id: Meteor.userId()}, defaultUserProjection);
 });
 
-Meteor.publish('users.candidates', function () {
+/*Meteor.publish('users.candidates', function () {
   return Meteor.users.find({roles: "candidate"}, defaultUserProjection);
-});
+});*/
 
 Meteor.publish('users.delegates', function () {
-  return Meteor.users.find({roles: "delegate"}, defaultUserProjection);
+  var communityId = Meteor.user().profile.communityId;
+  return Meteor.users.find({roles: "delegate", 'profile.communityId': communityId}, defaultUserProjection);
 });
 
-Meteor.publish('users.candidatesWithTag', function (keyword) {
+/*Meteor.publish('users.candidatesWithTag', function (keyword) {
   var tag = Meteor.call('getTagByKeyword', keyword)
   if (tag){
     return Meteor.users.find(
@@ -53,7 +54,7 @@ Meteor.publish('users.candidatesWithTag', function (keyword) {
     },
     defaultUserProjection);
   }
-});
+});*/
 
 Meteor.publish('users.delegatesWithTag', function (keyword) {
   var tag = Meteor.call('getTagByKeyword', keyword)

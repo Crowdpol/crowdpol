@@ -38,11 +38,12 @@ Meteor.methods({
       const users = Meteor.users.find({_id: userID},{fields: {profile: 1}}).fetch();
       return users[0].profile.tags;
     },
-    updateProfile: function (userID, profile) {
-      check(userID, String);
+    updateProfile: function (profile) {
       searchString = profile.firstName + " " + profile.lastName + " " + profile.username;
       profile["searchString"] = searchString;
-      Meteor.users.update({_id: userID}, {$set: {"profile": profile}});
+      var oldProfile = Meteor.user().profile;
+      var newProfile = _.extend(oldProfile, profile);
+      Meteor.users.update({_id: Meteor.userId()}, {$set: {"profile": newProfile}});
     },
     togglePublic: function (userID,isPublic) {
       check(userID, String);

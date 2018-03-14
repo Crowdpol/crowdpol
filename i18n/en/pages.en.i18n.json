@@ -311,31 +311,37 @@
 			"against": "Against:"
 		},
 		"profile": {
-			"name": "Name",
-			"subject": "Subject",
-			"contact-message": "Your message:",
-			"login-social": "Log in with Social Media",
-			"title" : "Profile",
+			"profile-tags" : "Fill in at least five of your interests",
+			"heading": "Profile",
 			"photo" : "Profile photo path",
-			"username" : "Username",
-			"firstname" : "First name",
-			"lastname" : "Last name",
-			"public" : "Public Profile",
+			"public" : "Public",
 			"private" : "Private Profile",
 			"delegate" : "Delegate",
 			"candidate" : "Candidate",
-			"bio" : "About",
-			"website" : "Website",
-			"tags" : "Fill in at least five of your interests",
 			"alerts": {
-				"public": "Profile is now public.",
-				"private": "Profile is now private.",
-				"updated": "Profile updated.",
-				"delegate-removed" : "Delegate Role removed.",
-				"delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
-				"candidate-removed" : "Candidate Role removed.",
-				"candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed."
-			}
+				"profile-updated": "Profile updated.",
+				"profile-private": "Profile is now private.",
+				"profile-public": "Profile is now public.",
+				"profile-delegate-removed" : "Delegate Role removed.",
+				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-candidate-removed" : "Candidate Role removed.",
+				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete."
+			},
+			"tooltips": {
+				"delegateSwitch": "Apply to be a delegate. This will allow other users to let you vote on their behalf.",
+				"publicSwitch": "Make your profile visible to the public, or hide it."
+			},
+			"characters": "characters",
+			"min": "min",
+			"max": "max",
+			"settings": "Profile Settings",
+			"status": "Profile status: __completedScore__/__totalScore__ completed.",
+			"completed": "completed",
+			"interests": "interests",
+			"public-switch-description": "Make your profile visible to others. Requires completed profile form. Required become a delegate.",
+			"delegate-switch-description": "By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
+			"bio-count": "__bioCount__ characters (min 50, max 160)"
 		},
 		"routes": {
 			"alerts": {
@@ -344,6 +350,7 @@
 				"no-subdomain": "Please ensure that you've entered a valid URL."
 			}
 		}
+
 
 	}
 }

@@ -6,10 +6,9 @@ Template.taggle.onCreated(function(){
   var self = this;
   self.availableTags = new ReactiveVar([]);
   self.matchedTags = new ReactiveVar([]);
-  var communityId = Meteor.user().profile.communityId;
   self.autorun(function(){
     //subscribe to list of existing tags
-    self.subscribe('tags.community', communityId);
+    self.subscribe('tags.community');
     self.availableTags.set(Tags.find().pluck('keyword'));
   });
 });

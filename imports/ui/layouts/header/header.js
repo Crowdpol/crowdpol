@@ -23,7 +23,7 @@ Template.Header.onCreated(function(){
 
   self.autorun(function(){
     //subscribe to list of existing tags
-    self.subscribe('tags.all');
+    self.subscribe('tags.community');
     self.subscribe('notifications.forUser', Meteor.userId());
     self.availableTags.set(Tags.find().pluck('keyword'));
     self.subscribe('communities.subdomain', subdomain, function(){
