@@ -98,6 +98,9 @@ Template.Header.helpers({
     if (Notifications.find({read: false}).count() == 0){ 
       return 'noUnreads'
     }
+  },
+  showLanguages(){
+    return Template.instance().community.get().settings.languageSelector
   }
 });
 

@@ -6,15 +6,23 @@ import { Proposals } from '../../api/proposals/Proposals.js'
 import { Communities } from '../../api/communities/Communities.js'
 
 Meteor.startup(() => {
+	/* About text for the communities */
+	bgAbout = `Our High Street is facing decline and we need to innovate. A strong step towards innovation can start with the question 'What if?'
+Elop has brought together twenty bright young minds from all over the world to ask that question. Taking on trends in living and working in the digital age, absorbing local information and the culture of the place. Multidisciplinary teams, made up of Architects and Sociologists, Engineers and Psychologists have put together four visions of what the High Street could be, based in the reality of what is here and now.
+At the core of each vision are the people who will live and work on a thriving High Street in a future Bangor. Taking Wellness and coliving as key principles for the brief, with a sprinkling of autonomous transport. Centred on specific sites in the City centre, acting as kernels for regeneration, pushing out towards a realistic future.`
+
+	mdAbout = `Democracy 2018 is an open project that invites all Swedish citizens to explore the potential of so called liquid democracy and use this platform to select the issues and proposals most important to them. The ten most popular proposals will be presented to the new parliament after the election in September 2018. The purpose is in part to test a modernized version of our democratic system, but also to encourage the population to learn more about the issues this election year as well as find out where the various political parties stand on them. Finally the goal is to inform the members of parliaments and other political elites of how a hopefully representative cross-section of the population feel about various topics, in an effort to create dialogue and trust.
+The project opens on January first and concludes on September 15, Global Democracy Day, after which the results will be tallied and presented to the Minister of Democracy.`
+	
 	/* Create two communities */;
 	mdSubdomain = 'merdemokrati'
 	mdId = createCommunity('Merdemokrati', mdSubdomain, {
 		colorScheme: 'default',
-		homepageImageUrl: 'img/waves-bg.jpg',
+		homepageImageUrl: 'img/wave-bg.jpg',
 		languageSelector: true,
 		homepageBannerText: "A new wave of democracy is coming to Sweden.",
 		homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
-		aboutText: "About the merdemokrati project"
+		aboutText: mdAbout
 	});
 	bgSubdomain = 'bangor';
 	bgId = createCommunity('elop*10', 'bangor', {
@@ -23,7 +31,7 @@ Meteor.startup(() => {
 		languageSelector: false,
 		homepageBannerText: "Innovation can start with the question 'What if?'",
 		homepageIntroText: "A public presentation of four visions of a future High Street.",
-		aboutText: "About the elop*10 project"
+		aboutText: bgAbout
 	});
 
 	/* Register admins for each community */

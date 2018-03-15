@@ -121,15 +121,19 @@
 					<div class="mdl-layout__obfuscator-right"></div>
 
 					<!-- Language Menu -->
-					<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
-						<i class="material-icons">language</i>
-					</button>
-					<small>{{ lang }}</small>
-					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-							for="demo-menu-lower-right">
-						<li class="mdl-menu__item lang-sel" id="en">{{_ "layout.header.lang_en"}}</li>
-						<li class="mdl-menu__item lang-sel" id="sv">{{_ "layout.header.lang_sv"}}</li>
-					</ul>
+					{{#if Template.subscriptionsReady}}
+						{{#if showLanguages}}
+							<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+								<i class="material-icons">language</i>
+							</button>
+							<small>{{ lang }}</small>
+							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+									for="demo-menu-lower-right">
+								<li class="mdl-menu__item lang-sel" id="en">{{_ "layout.header.lang_en"}}</li>
+								<li class="mdl-menu__item lang-sel" id="sv">{{_ "layout.header.lang_sv"}}</li>
+							</ul>
+						{{/if}}
+					{{/if}}
 				</nav>
 			{{else}}
 				<nav class="mdl-navigation">
