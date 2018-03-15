@@ -180,7 +180,8 @@ Meteor.publish('userSearch', function(search) {
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  let query      = {$and: [{roles: { $nin: [ "demo" ] }}]},
+  var communityId = Meteor.user().profile.communityId;
+  let query      = {'profile.communityId': communityId, $and: [{roles: { $nin: [ "demo" ] }}]},
       projection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
