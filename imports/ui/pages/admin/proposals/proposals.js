@@ -4,7 +4,7 @@ import { Proposals } from '../../../../api/proposals/Proposals.js'
 Template.AdminProposals.onCreated(function() {
   var self = this;
   self.autorun(function() {
-    self.subscribe('proposals.all');
+    self.subscribe('proposals.community');
   });
 });
 

@@ -5,7 +5,7 @@ import "./tags.html";
 Template.AdminTagsTable.onCreated(function() {
   var self = this;
   self.autorun(function() {
-    Meteor.subscribe('tags.all');
+    Meteor.subscribe('tags.community');
   });
   Session.set("tagIndex",-1);
 });

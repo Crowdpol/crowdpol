@@ -6,8 +6,9 @@ import { Ranks } from '../../ranking/Ranks.js';
 // The info we usually want to publish for users
 defaultUserProjection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 
-Meteor.publish('users.all', function() {
-  return Meteor.users.find({}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
+Meteor.publish('users.community', function() {
+  var communityId = Meteor.user().profile.communityId;
+  return Meteor.users.find({"profile.communityId" : communityId, roles: {$nin: ["demo"]}}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
 });
 
 Meteor.publish('user.profile', function(userId) {
@@ -17,8 +18,10 @@ Meteor.publish('user.profile', function(userId) {
 
 // Publish approvals to list 
 Meteor.publish('users.pendingApprovals', function() {
+  var communityId = Meteor.user().profile.communityId;
 	return Meteor.users.find(
     {
+      "profile.communityId" : communityId,
       "approvals" : {$exists: true}, 
       $where : "this.approvals.length > 0"
     }, 
@@ -71,48 +74,14 @@ Meteor.publish('users.delegatesWithTag', function (keyword) {
   }
 });
 
-Meteor.publish("user.search", function(searchValue) {
-  if (!searchValue) {
-    return Meteor.users.find({roles: "delegate"});
-  }
-  searchKey = "/.*" + searchValue + ".*/";
-  
-  //console.log("searchValue " + searchValue);
-  var result = false;
-  try{
-
-    result = Meteor.users.aggregate([
-      { $text: {$search: searchValue} },
-      {
-        // `fields` is where we can add MongoDB projections. Here we're causing
-        // each document published to include a property named `score`, which
-        // contains the document's search rank, a numerical value, with more
-        // relevant documents having a higher score.
-        fields: {
-          score: { $meta: "textScore" }
-        },
-        // This indicates that we wish the publication to be sorted by the
-        // `score` property specified in the projection fields above.
-        sort: {
-          score: { $meta: "textScore" }
-        }
-      }
-    ]);
-    //var result = Meteor.users.find({"profile.searchString": searchKey});
-  } catch(e) {
-    console.log(e.name + " " + e.message);
-  }
-  return result;
-});
-
-Meteor.publish("user.ranks", function(userId,type) {
+/*Meteor.publish("user.ranks", function(userId,type) {
   results = Ranks.aggregate([
         { $match: {"supporterId" : "ayekMtRQgoj3PAchM","entityType" : "delegate"}},
         {$project:{"_id": 0,"entityId" :1}}
   ]).map(function(el) { return el.entityId });
   console.log(results);
   return Meteor.users.find( {_id : {$in : result}}, defaultUserProjection );
-  /*
+  
   check(userId, String);
   check(type, String);
   console.log("ranks.type: userId: " + userId + " type: " + type);
@@ -129,8 +98,8 @@ Meteor.publish("user.ranks", function(userId,type) {
         return users;
       }
   });
-  */
-});
+  
+});*/
 
 Meteor.publish('simpleSearch', function(search,type) {
   check( search, Match.OneOf( String, null, undefined ) );
