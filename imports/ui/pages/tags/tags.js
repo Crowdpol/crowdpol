@@ -4,10 +4,11 @@ import { Proposals } from '../../../api/proposals/Proposals.js'
 Template.TagSearch.onCreated(function(){	   
 	var self = this;
 	var keyword = FlowRouter.getParam('keyword');
+	var communityId = LocalStore.get('communityId');
 	self.autorun(function() {
-		Meteor.subscribe('proposals.public');
-		Meteor.subscribe('proposals.author');
-		Meteor.subscribe('proposals.invited');
+		Meteor.subscribe('proposals.public', communityId);
+		Meteor.subscribe('proposals.author', communityId);
+		Meteor.subscribe('proposals.invited', communityId);
 		Meteor.subscribe('users.delegatesWithTag', keyword);
 		//Meteor.subscribe('users.candidatesWithTag', keyword, communityId);
 	});

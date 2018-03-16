@@ -3,8 +3,9 @@ import { Proposals } from '../../../../api/proposals/Proposals.js'
 
 Template.AdminProposals.onCreated(function() {
   var self = this;
+  var communityId = LocalStorage.get('communityId')
   self.autorun(function() {
-    self.subscribe('proposals.community');
+    self.subscribe('proposals.community', communityId);
   });
 });
 

@@ -4,8 +4,9 @@ import "./tags.html";
 
 Template.AdminTagsTable.onCreated(function() {
   var self = this;
+  var communityId = LocalStore.get('communityId')
   self.autorun(function() {
-    Meteor.subscribe('tags.community');
+    Meteor.subscribe('tags.community', communityId);
   });
   Session.set("tagIndex",-1);
 });
