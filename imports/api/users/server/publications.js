@@ -6,8 +6,7 @@ import { Ranks } from '../../ranking/Ranks.js';
 // The info we usually want to publish for users
 defaultUserProjection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 
-Meteor.publish('users.community', function() {
-  var communityId = Meteor.user().profile.communityId;
+Meteor.publish('users.community', function(communityId) {
   return Meteor.users.find({"profile.communityId" : communityId, roles: {$nin: ["demo"]}}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
 });
 
@@ -17,8 +16,7 @@ Meteor.publish('user.profile', function(userId) {
 });
 
 // Publish approvals to list 
-Meteor.publish('users.pendingApprovals', function() {
-  var communityId = Meteor.user().profile.communityId;
+Meteor.publish('users.pendingApprovals', function(communityId) {
 	return Meteor.users.find(
     {
       "profile.communityId" : communityId,
@@ -42,8 +40,7 @@ Meteor.publish(null, function() {
   return Meteor.users.find({roles: "candidate"}, defaultUserProjection);
 });*/
 
-Meteor.publish('users.delegates', function () {
-  var communityId = Meteor.user().profile.communityId;
+Meteor.publish('users.delegates', function (communityId) {
   return Meteor.users.find({roles: "delegate", 'profile.communityId': communityId}, defaultUserProjection);
 });
 
@@ -59,9 +56,8 @@ Meteor.publish('users.delegates', function () {
   }
 });*/
 
-Meteor.publish('users.delegatesWithTag', function (keyword) {
+Meteor.publish('users.delegatesWithTag', function (keyword, communityId) {
   var tag = Meteor.call('getTagByKeyword', keyword)
-  var communityId = Meteor.user().profile.communityId;
   if (tag){
     return Meteor.users.find(
     {
@@ -101,12 +97,11 @@ Meteor.publish('users.delegatesWithTag', function (keyword) {
   
 });*/
 
-Meteor.publish('simpleSearch', function(search,type) {
+Meteor.publish('simpleSearch', function(search, type, communityId) {
   check( search, Match.OneOf( String, null, undefined ) );
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  var communityId = Meteor.user().profile.communityId;
   let query      = {'profile.communityId': communityId, $and: [{roles: type},{ roles: { $nin: [ "demo" ] }}]},
       projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
 
@@ -143,13 +138,12 @@ Meteor.publish('simpleSearch', function(search,type) {
   //return Meteor.users.find( query, projection );
 });
 
-Meteor.publish('userSearch', function(search) {
+Meteor.publish('userSearch', function(search, communityId) {
 
   check( search, Match.OneOf( String, null, undefined ) );
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  var communityId = Meteor.user().profile.communityId;
   let query      = {'profile.communityId': communityId, $and: [{roles: { $nin: [ "demo" ] }}]},
       projection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 

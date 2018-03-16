@@ -4,8 +4,9 @@ import "./styles.css"
 Template.UserSearch.onCreated(function() {
   Session.set('searchPhrase', '');
   var self = this;
+  var communityId = LocalStore.get('communityId');
   self.autorun(function() {
-    self.subscribe("userSearch", Session.get('searchPhrase'));
+    self.subscribe("userSearch", Session.get('searchPhrase'), communityId);
   });
 });
 

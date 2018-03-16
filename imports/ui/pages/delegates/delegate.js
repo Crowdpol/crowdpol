@@ -7,8 +7,9 @@ Template.Delegate.onCreated(function () {
   
   var self = this;
   self.ranks = new ReactiveVar([]);
+  var communityId = LocalStore.get('communityId');
   self.autorun(function() {
-    self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate");
+    self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
     self.subscribe('ranks.all');
     results = ReactiveMethod.call("getRanks", Meteor.userId(), "delegate");
     //console.log(results);

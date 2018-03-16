@@ -9,7 +9,7 @@ Template.TagSearch.onCreated(function(){
 		Meteor.subscribe('proposals.public', communityId);
 		Meteor.subscribe('proposals.author', communityId);
 		Meteor.subscribe('proposals.invited', communityId);
-		Meteor.subscribe('users.delegatesWithTag', keyword);
+		Meteor.subscribe('users.delegatesWithTag', keyword, communityId);
 		//Meteor.subscribe('users.candidatesWithTag', keyword, communityId);
 	});
 });
