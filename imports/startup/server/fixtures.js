@@ -246,7 +246,7 @@ function createDemoProposal(communityId, subdomain){
 	var title = 'Demo Proposal for ' + subdomain;
 
 	if (Proposals.find({title: title}).count() < 1){
-		var user = Accounts.findUserByEmail("trudie+" + subdomain + "@socialsystems.io");
+		var user = Accounts.findUserByEmail("trudie@socialsystems.io");
 		var proposal = {
 			title: title,
 			abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ante ligula, tempor et risus feugiat, posuere semper enim. Etiam eleifend lacus a libero blandit, a placerat felis aliquam.',

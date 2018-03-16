@@ -62,7 +62,7 @@ Meteor.publish('proposals.withTag', function (keyword, communityId) {
 
 function generateSearchQuery(searchTerm, communityId){
 	check(searchTerm, Match.OneOf(String, null, undefined));
-	check(searchTerm, String);
+	check(communityId, String);
 	let query = {}
 	query.communityId = communityId;
 

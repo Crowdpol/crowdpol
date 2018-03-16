@@ -14,9 +14,9 @@ Template.ProposalsList.onCreated(function () {
   Session.set("myProposals",false);
   var communityId = LocalStore.get('communityId');
   self.autorun(function(){
-    self.subscribe('proposals.public', self.searchQuery.get(), communityId);
+    //self.subscribe('proposals.public', self.searchQuery.get(), communityId);
     self.subscribe('proposals.author', self.searchQuery.get(), communityId);
-    self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
+    //self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
   })
 });
 

@@ -144,8 +144,6 @@ statsRoutes.route('/proposals/:id', {
 var loggedInRoutes = FlowRouter.group({
   name: 'loggedIn',
   triggersEnter: [function(context, redirect) {
-    console.log('user communities ' + Meteor.user().profile.communityIds)
-    console.log('we are currently on ' + LocalStore.get('communityId') + ' ' + LocalStore.get('subdomain'))
     if ((!Meteor.user()) || (!_.contains(Meteor.user().profile.communityIds, LocalStore.get('communityId')))){
     FlowRouter.go('App.home');
     Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
