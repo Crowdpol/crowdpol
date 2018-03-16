@@ -4,23 +4,12 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 // Import needed templates
 import '../../ui/main.js';
 
+// Global onEnter trigger to save communityInfo in LocalStore
+
+
 // Public Routes (no need to log in):
 
-var publicRoutes = FlowRouter.group({
-  name: 'public',
-  triggersEnter: [function(context, redirect) {
-
-    Meteor.call('getCommunityBySubdomain', 'arg')
-
-    // Grab subdomain
-    var subdomain = window.location.host.split('.')[0]
-    if (subdomain){
-      LocalStore.set('subdomain', subdomain);
-    } else {
-      Bert.alert(TAPi18n.__('routes.alerts.no-subdomain'), 'danger');
-    }
-  }]
-});
+var publicRoutes = FlowRouter.group({name: 'public'});
 
 Accounts.onLogout(function() {
 	FlowRouter.go('App.home');
@@ -298,3 +287,23 @@ adminRoutes.route('/voting', {
     BlazeLayout.render('App_body', {main: 'AdminVoting'});
   }
 });
+
+function loadCommunityInfo() {
+  // Grab subdomain
+  var oldSubdomain = LocalStore.get('subdomain');
+  var subdomain = window.location.host.split('.')[0]
+
+  // if the subdomain has changed, reset LocalStorage info
+  if ((subdomain) && (subdomain != oldSubdomain)){
+    LocalStore.set('subdomain', subdomain);
+    Meteor.call('getCommunityBySubdomain', subdomain, function(err, result) {
+      if (err) {
+        Bert.alert(err.reason, 'danger');
+      } else {
+        LocalStore.set('communityId', result._id);
+      }
+    })
+  } else {
+    Bert.alert(TAPi18n.__('routes.alerts.no-subdomain'), 'danger');
+  }
+}

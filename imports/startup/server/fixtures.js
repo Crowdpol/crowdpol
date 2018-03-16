@@ -34,9 +34,8 @@ The project opens on January first and concludes on September 15, Global Democra
 		aboutText: bgAbout
 	});
 
-	/* Register admins for each community */
-	registerAdmins(mdId, mdSubdomain);
-	registerAdmins(bgId, bgSubdomain);
+	/* Register admins for both communities */
+	registerAdmins([mdId, bgId]);
 
 	/* Create demo tags for each community */
 	createDemoTags(mdId);
@@ -44,8 +43,8 @@ The project opens on January first and concludes on September 15, Global Democra
 
 	/* Create demo users if in dev environment */
 	if (Meteor.isDevelopment) {
-		registerDemoUsers(Meteor.settings.private.demoUsers, mdId, mdSubdomain);
-		registerDemoUsers(Meteor.settings.private.demoUsers, bgId, bgSubdomain);
+		registerDemoUsers(Meteor.settings.private.demoUsers, [mdId], mdSubdomain);
+		registerDemoUsers(Meteor.settings.private.demoUsers, [bgId], bgSubdomain);
 	}
 	
 	/* Create demo proposals if in dev environment */
@@ -55,26 +54,24 @@ The project opens on January first and concludes on September 15, Global Democra
 	}
 });
 
-function registerAdmins(communityId, subdomain){
-	console.log('Registering admins for ' + subdomain);
+function registerAdmins(communityIds){
+	console.log('Registering admins');
 	var admins = Meteor.settings.private.admins;
 	for(var x = 0; x < admins.length; x++){
-		createAdmins(admins[x], communityId, subdomain);
+		createAdmins(admins[x], communityIds);
 	}
 }
 
-createAdmins = function (admin, communityId, communitySubdomain) {
-	var email = admin.email.split('@')
-	email = email[0] + '+' + communitySubdomain + '@' + email[1];
+createAdmins = function (admin, communityIds) {
 	if (!Accounts.findUserByEmail(email)){
 		var id = Accounts.createUser({
-			username: admin.username + '_' + communitySubdomain,
-			email : email,
+			username: admin.username,
+			email : admin.email,
 			password : "123456",
 			isPublic: admin.isPublic,
 			profile: {
-				communityId: communityId,
-				communitySubdomain: communitySubdomain,
+				communityIds: communityIds,
+				adminCommunities: communityIds,
 				username: admin.profile.username,
 				firstName: admin.profile.firstName,
 				lastName: admin.profile.lastName,
@@ -110,7 +107,7 @@ function createDemoTags(communityId){
 
 }
 
-function registerDemoUsers(numUsers, communityId, subdomain){
+function registerDemoUsers(numUsers, communityIds, subdomain){
 	let demoUserCount = Roles.getUsersInRole('demo').count();
 	if(demoUserCount>=numUsers){
 		console.log("Already created demo users for " + subdomain);
@@ -133,14 +130,14 @@ function registerDemoUsers(numUsers, communityId, subdomain){
 			    */
 			    console.log("Generating " + response.data.results.length + " demo users...");
 			    response = response.data.results;
-				createDemoUsers(response, communityId, subdomain);
+				createDemoUsers(response, communityIds, subdomain);
 			  }
 			});
 		
 	}
 }
 
-function createDemoUsers(users, communityId, subdomain){
+function createDemoUsers(users, communityIds, subdomain){
 	var successCount = 0;
 	for(var x = 0; x < users.length; x++){
 			//generate random number between 1 and 8
@@ -209,8 +206,7 @@ function createDemoUsers(users, communityId, subdomain){
 				password : "123456",
 				isPublic: true,
 				profile: {
-					communityId: communityId,
-					communitySubdomain: subdomain,
+					communityIds: communityIds,
 					username: users[x].login.username,
 					firstName: users[x].name.first + ' ' + subdomain,
 					lastName: users[x].name.last,

@@ -62,20 +62,6 @@
             "bio": "Systems administrator",
             "photo": "/img/default-user-image.png"
           }
-      },
-      {
-          "username": "admin_tim",
-          "email":"tim@socialsystems.io",
-          "roles":["admin","individual"],
-          "isPublic": false,
-          "profile": {
-            "username": "admin_tim",
-            "firstName": "Tim",
-            "lastName": "Olsen",
-            "organization": "Social Systems Labs",
-            "bio": "Systems administrator",
-            "photo": "/img/default-user-image.png"
-          }
       }
     ],
     "demoUsers": 25,
