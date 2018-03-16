@@ -6,9 +6,10 @@ Template.taggle.onCreated(function(){
   var self = this;
   self.availableTags = new ReactiveVar([]);
   self.matchedTags = new ReactiveVar([]);
+  var communityId = LocalStore.get('communityId')
   self.autorun(function(){
     //subscribe to list of existing tags
-    self.subscribe('tags.community');
+    self.subscribe('tags.community', communityId);
     self.availableTags.set(Tags.find().pluck('keyword'));
   });
 });

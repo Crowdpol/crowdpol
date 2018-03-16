@@ -10,6 +10,7 @@ Template.Header.onCreated(function(){
   var self = this;
   var user = Meteor.user();
   var subdomain = LocalStore.get('subdomain');
+  var communityId = LocalStore.get('communityId')
 
   if (user && user.roles){
     var currentRole = LocalStore.get('currentUserRole');
@@ -23,7 +24,7 @@ Template.Header.onCreated(function(){
 
   self.autorun(function(){
     //subscribe to list of existing tags
-    self.subscribe('tags.community');
+    self.subscribe('tags.community', communityId);
     self.subscribe('notifications.forUser', Meteor.userId());
     self.availableTags.set(Tags.find().pluck('keyword'));
     self.subscribe('communities.subdomain', subdomain, function(){
