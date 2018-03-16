@@ -76,7 +76,7 @@
 				},	
 				"login": {
 					"title": "Login",
-					"wrong-community": "You can not log into this community. Redirecting to the correct community..."
+					"wrong-community": "You can not log into this community."
 				}
 			},
 			"entity": {

@@ -5,7 +5,7 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import '../../ui/main.js';
 
 // Global onEnter trigger to save communityInfo in LocalStore
-
+FlowRouter.triggers.enter([loadCommunityInfo]);
 
 // Public Routes (no need to log in):
 
@@ -144,9 +144,11 @@ statsRoutes.route('/proposals/:id', {
 var loggedInRoutes = FlowRouter.group({
   name: 'loggedIn',
   triggersEnter: [function(context, redirect) {
-    if (!Meteor.user()){
+    console.log('user communities ' + Meteor.user().profile.communityIds)
+    console.log('we are currently on ' + LocalStore.get('communityId') + ' ' + LocalStore.get('subdomain'))
+    if ((!Meteor.user()) || (!_.contains(Meteor.user().profile.communityIds, LocalStore.get('communityId')))){
     FlowRouter.go('App.home');
-    Bert.alert(TAPi18n.__('routes.alerts.login-to-view'), 'danger');
+    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
   }
   }]
 });
@@ -293,17 +295,17 @@ function loadCommunityInfo() {
   var oldSubdomain = LocalStore.get('subdomain');
   var subdomain = window.location.host.split('.')[0]
 
-  // if the subdomain has changed, reset LocalStorage info
-  if ((subdomain) && (subdomain != oldSubdomain)){
-    LocalStore.set('subdomain', subdomain);
-    Meteor.call('getCommunityBySubdomain', subdomain, function(err, result) {
-      if (err) {
-        Bert.alert(err.reason, 'danger');
-      } else {
-        LocalStore.set('communityId', result._id);
-      }
-    })
+  // set LocalStorage info
+  if (subdomain){
+      LocalStore.set('subdomain', subdomain);
+      Meteor.call('getCommunityBySubdomain', subdomain, function(err, result) {
+        if (err) {
+          Bert.alert(err.reason, 'danger');
+        } else {
+          LocalStore.set('communityId', result._id);
+        }
+      });
   } else {
-    Bert.alert(TAPi18n.__('routes.alerts.no-subdomain'), 'danger');
+    Bert.alert(TAPi18n.__('pages.routes.alerts.no-subdomain'), 'danger');
   }
 }

@@ -63,7 +63,7 @@ function registerAdmins(communityIds){
 }
 
 createAdmins = function (admin, communityIds) {
-	if (!Accounts.findUserByEmail(email)){
+	if (!Accounts.findUserByEmail(admin.email)){
 		var id = Accounts.createUser({
 			username: admin.username,
 			email : admin.email,
@@ -91,9 +91,9 @@ createAdmins = function (admin, communityIds) {
 		    // after `Accounts.createUser` or `Accounts.onCreate`
 		    Roles.addUsersToRoles(id, admin.roles);
 		}
-		console.log('Created admin ' + email);
+		console.log('Created admin ' + admin.email);
 	} else {
-		console.log('Admin with email ' + email + ' already exists.')
+		console.log('Admin with email ' + admin.email + ' already exists.')
 	}
 };
 

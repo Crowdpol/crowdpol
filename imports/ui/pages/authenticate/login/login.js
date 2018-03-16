@@ -34,15 +34,15 @@ Template.Login.events({
 				Bert.alert(error.reason, 'danger');
 			} else {
         /* Check if subdomain matches user's community */
-          var subdomain = LocalStore.get('subdomain');
-          var userSubdomain = Meteor.user().profile.communitySubdomain;
-          if (subdomain != userSubdomain) {
+          var communityId = LocalStore.get('communityId');
+          var userCommunities = Meteor.user().profile.communityIds;
+          if (!_.contains(userCommunities, communityId)) {
             // log them out and redirect to their community
             Bert.alert(TAPi18n.__('pages.authenticate.individual.login.wrong-community'), 'danger');
             Meteor.logout();
-            window.location.replace('https://' + userSubdomain + '.' + Meteor.settings.public.domain + '/login');            
+            FlowRouter.go('/login');
           } else {
-            if (Roles.userIsInRole(Meteor.userId(), ['admin', 'superadmin'])){
+            if (Roles.userIsInRole(Meteor.userId(), ['admin'])){
               FlowRouter.go('/admin/dash');
             } else {
               /* Check if redirect route saved */

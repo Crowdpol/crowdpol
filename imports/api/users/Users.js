@@ -145,11 +145,11 @@ Schema.UserProfile = new SimpleSchema({
     },
     'communityIds.$': {
         type: String,
-        optional: true,
+        optional: false,
     },
     adminCommunities: {
         type: Array,
-        optional: false,
+        optional: true,
     },
     'adminCommunities.$': {
         type: String,

@@ -250,7 +250,7 @@ Template.ProfileForm.onRendered(function() {
       },
     },
     submitHandler() {
-      var communityId = Meteor.user().profile.communityId;
+      var communityId = LocalStore.get('communityId');
       Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
         if (error){
           Bert.alert(error, 'reason');

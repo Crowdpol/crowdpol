@@ -42,8 +42,7 @@ Template.Signup.events({
 		let user = {
 			email: template.find('[name="emailAddress"]').value,
 			password: template.find('[name="password"]').value,
-			communityId: communityId,
-			profile: {communityId: communityId, communitySubdomain: LocalStore.get('subdomain')}
+			profile: {communityIds: [communityId]}
 		};
 
 		Accounts.createUser(user, (error) => {
