@@ -47,9 +47,9 @@ Meteor.publish('proposals.author', function(search, communityId) {
 });
 
 //Proposals that the user is invited to collaborate on
-Meteor.publish('proposals.invited', function(username, search, communityId) {
+Meteor.publish('proposals.invited', function(userId, search, communityId) {
 	let query = generateSearchQuery(search, communityId);
-	query.invited = username;
+	query.invited = userId;
 	return Proposals.find(query);
 });
 

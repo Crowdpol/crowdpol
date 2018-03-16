@@ -6,9 +6,9 @@ Template.TagSearch.onCreated(function(){
 	var keyword = FlowRouter.getParam('keyword');
 	var communityId = LocalStore.get('communityId');
 	self.autorun(function() {
-		Meteor.subscribe('proposals.public', communityId);
-		Meteor.subscribe('proposals.author', communityId);
-		Meteor.subscribe('proposals.invited', communityId);
+		Meteor.subscribe('proposals.public', '', communityId);
+		Meteor.subscribe('proposals.author', '', communityId);
+		Meteor.subscribe('proposals.invited', Meteor.userId(), '', communityId);
 		Meteor.subscribe('users.delegatesWithTag', keyword, communityId);
 		//Meteor.subscribe('users.candidatesWithTag', keyword, communityId);
 	});

@@ -7,7 +7,7 @@ import { Ranks } from '../../ranking/Ranks.js';
 defaultUserProjection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 
 Meteor.publish('users.community', function(communityId) {
-  return Meteor.users.find({"profile.communityId" : communityId, roles: {$nin: ["demo"]}}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
+  return Meteor.users.find({"profile.communityIds" : communityId, roles: {$nin: ["demo"]}}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
 });
 
 Meteor.publish('user.profile', function(userId) {
@@ -19,7 +19,7 @@ Meteor.publish('user.profile', function(userId) {
 Meteor.publish('users.pendingApprovals', function(communityId) {
 	return Meteor.users.find(
     {
-      "profile.communityId" : communityId,
+      "profile.communityIds" : communityId,
       "approvals" : {$exists: true}, 
       $where : "this.approvals.length > 0"
     }, 
@@ -41,7 +41,7 @@ Meteor.publish(null, function() {
 });*/
 
 Meteor.publish('users.delegates', function (communityId) {
-  return Meteor.users.find({roles: "delegate", 'profile.communityId': communityId}, defaultUserProjection);
+  return Meteor.users.find({roles: "delegate", 'profile.communityIds': communityId}, defaultUserProjection);
 });
 
 /*Meteor.publish('users.candidatesWithTag', function (keyword) {
@@ -57,14 +57,14 @@ Meteor.publish('users.delegates', function (communityId) {
 });*/
 
 Meteor.publish('users.delegatesWithTag', function (keyword, communityId) {
-  var tag = Meteor.call('getTagByKeyword', keyword)
+  var tag = Meteor.call('getTagByKeyword', keyword, communityId)
   if (tag){
     return Meteor.users.find(
     {
       roles: 'delegate', 
       roles: { $nin: [ "demo" ] },
       'profile.tags': { $elemMatch: {_id: tag._id}},
-      'profile.communityId': communityId
+      'profile.communityIds': communityId
     },
     defaultUserProjection);
   }
@@ -102,21 +102,20 @@ Meteor.publish('simpleSearch', function(search, type, communityId) {
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  let query      = {'profile.communityId': communityId, $and: [{roles: type},{ roles: { $nin: [ "demo" ] }}]},
+  let query      = {'profile.communityIds': communityId, $and: [{roles: type},{ roles: { $in: [ "demo" ] }}]},
       projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
     let regex = new RegExp( search, 'i' );
-    console.log('REGEX')
-    console.log(regex)
     query = {$and: [
       {$or: [
         { "profile.firstName": regex },
         { "profile.lastName": regex },
         { "profile.userName": regex }
       ]},
+      {'profile.communityIds': communityId},
       {roles: type},
-      { roles: { $nin: [ "demo" ] }}
+      { roles: { $in: [ "demo" ] }}
     ]};
 
     projection.limit = 100;
@@ -144,7 +143,7 @@ Meteor.publish('userSearch', function(search, communityId) {
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  let query      = {'profile.communityId': communityId, $and: [{roles: { $nin: [ "demo" ] }}]},
+  let query      = {'profile.communityIds': communityId, $and: [{roles: { $nin: [ "demo" ] }}]},
       projection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
@@ -154,7 +153,8 @@ Meteor.publish('userSearch', function(search, communityId) {
         { "profile.firstName": regex },
         { "profile.lastName": regex },
         { "profile.userName": regex },
-        { "emails.address": regex}
+        { "emails.address": regex},
+        {'profile.communityIds': communityId}
       ]},
       { roles: { $nin: [ "demo" ] }},
       {"isPublic" : true}

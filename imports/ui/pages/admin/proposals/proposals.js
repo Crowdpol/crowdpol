@@ -3,7 +3,7 @@ import { Proposals } from '../../../../api/proposals/Proposals.js'
 
 Template.AdminProposals.onCreated(function() {
   var self = this;
-  var communityId = LocalStorage.get('communityId')
+  var communityId = LocalStore.get('communityId')
   self.autorun(function() {
     self.subscribe('proposals.community', communityId);
   });
@@ -23,7 +23,7 @@ Template.AdminProposals.events({
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert(TAPi18n.__('pages.admin.alerts.proposal-approved'), 'success');
+				Bert.alert(TAPi18n.__('admin.alerts.proposal-approved'), 'success');
 			}
 		}); 
 		
@@ -34,7 +34,7 @@ Template.AdminProposals.events({
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert(TAPi18n.__('pages.admin.alerts.proposal-rejected'), 'success');
+				Bert.alert(TAPi18n.__('admin.alerts.proposal-rejected'), 'success');
 			}
 		}); 
 	}

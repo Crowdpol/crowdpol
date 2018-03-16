@@ -195,7 +195,7 @@ function createDemoUsers(users, communityIds, subdomain){
 			 }
 
 			 var tagObjects = _.map(keywords, function(keyword){
-			 	var tag = Meteor.call('getTagByKeyword', keyword);
+			 	var tag = Meteor.call('getTagByKeyword', keyword, communityIds[0]);
 			 	return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
 			 })
 
@@ -239,7 +239,7 @@ function createDemoUsers(users, communityIds, subdomain){
 function createDemoProposal(communityId, subdomain){
 
 	var tagObjects = _.map(['environment', 'gender'], function(keyword){
-		var tag = Meteor.call('getTagByKeyword', keyword);
+		var tag = Meteor.call('getTagByKeyword', keyword, communityId);
 		return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
 	})
 
