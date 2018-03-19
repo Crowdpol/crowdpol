@@ -38,10 +38,12 @@
           </div>
         </div>
         {{#if selectedInvites.count}}
-        <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
-        	<div id="collab-text">
+        <div>
+        	<span id="collab-text">
 						{{_ "pages.proposals.view.collaborators"}}
-			  	</div>
+			  	</span>
+			  </div>
+			  <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
         	{{#each selectedInvites}}
         		<div class="collab-author">
 								<img class="mdl-chip__contact" src="{{profile.photo}}">
@@ -105,9 +107,20 @@
 			<div class="proposal-wrap proposal-vote">
 				<hr>
 				{{#if isVotable}}
-					<h5>{{_ "pages.proposals.view.voteHeading"}}
-						<small>{{_ "pages.proposals.view.voteStarts"}}&nbsp;{{ startDate }}&nbsp;-&nbsp;{{_ "pages.proposals.view.voteEnds"}}&nbsp;{{ endDate }}</small>
-					</h5>
+					<div class="mdl-card mdl-cell mdl-cell--12-col vote-details">
+		      	<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+		        	<div>
+		        		<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
+		          </div>
+		          <div class="section-spacer"></div>
+		          
+		          <div class="signature-count">
+								{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
+		          </div>
+		          <div class="signature-count"><i class="material-icons">date_range</i></div>
+		        </div>
+      		</div>
+      		<div class="voting-content">
 					{{#if isVotingAsDelegate}}
 						{{#if isVotableForDelegates}}
 							{{> delegateVoteButtons proposalId=_id}}
@@ -119,6 +132,7 @@
 						{{> voteButtons proposalId=_id}}
 					{{/if}}
 					{{> delegateVoteList proposalId=_id}}
+					</div>
 				{{else}}
 					<center>
 						<h5>

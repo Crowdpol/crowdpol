@@ -7,34 +7,6 @@
   top: 15px;
 }
 
-#proposal-author{
-  padding: 0;
-  margin: 0;
-
-  .mdl-list__item{
-    padding: 0;
-
-    .collab-author{
-      margin-right: 5px;
-
-      .mdl-chip__contact{
-        margin-right: 2px;
-      }
-    }
-  }
-  #collab-text{
-    min-height: 0;
-    color: $blue-xdark;
-    letter-spacing: 1px;
-    font-weight: 300;
-    font-size: $xsmall-font-size;
-    margin-top:$space;
-    margin-right: 50px;
-  }
-  
-
-  
-}
 
 #collab-text{
     min-height: 0;
@@ -45,7 +17,13 @@
     margin-top:$space;
     margin-right: 50px;
   }
+.collab-author{
+      margin-right: 5px;
 
+      .mdl-chip__contact{
+        margin-right: 2px;
+      }
+    }
 .proposal-title {
   margin-top: $space;
   margin-bottom: 0;
@@ -167,7 +145,6 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  min-height: 360px;
 }
 
 .proposal-container .mdl-card__supporting-text {
@@ -245,4 +222,17 @@
 .proposal-container .signature-button {
   margin-left:5px;
   margin-right: 2px;
+}
+.proposal-container .mdl-card .vote-details{
+  min-height: 0px;
+  margin: 0px;
+}
+.vote-details{
+  min-height: 0px;
+  .meta{
+    padding: 0px;
+  }
+}
+.voting-content {
+  margin: 8px;
 }
