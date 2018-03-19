@@ -36,11 +36,7 @@ CommunitySettings = new SimpleSchema({
     },
     languageSelector: {
       type: Boolean,
-      autoValue() {
-          if (this.isInsert) {
-            return false;
-          }
-      }
+      optional: false
     }
 });
 

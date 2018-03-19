@@ -52,7 +52,11 @@ const TagSchema = new SimpleSchema({
         return true;
       }
     }
-  }
+  },
+  communityId: {
+        type: String,
+        optional: false
+    },
 });
 
 Tags.attachSchema(TagSchema);

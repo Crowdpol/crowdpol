@@ -5,8 +5,9 @@ import { Votes } from '../../../../api/votes/Votes.js'
 Template.AdminVoting.onCreated(function() {
   var self = this;
   self.tallyInProgress = new ReactiveVar(false);
+  var communityId = LocalStore.get('communityId');
   self.autorun(function() {
-    self.subscribe('proposals.public');
+    self.subscribe('proposals.public', communityId);
     self.subscribe('votes.all');
   });
 });

@@ -2,8 +2,9 @@ import './approvals.html';
 
 Template.AdminApprovals.onCreated(function() {
   var self = this;
+  var communityId = LocalStore.get('communityId');
   self.autorun(function() {
-    self.subscribe('users.pendingApprovals');
+    self.subscribe('users.pendingApprovals', communityId);
   });
 });
 

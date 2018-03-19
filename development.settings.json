@@ -34,69 +34,37 @@
     "fromEmail": "info@commondemocracy.org",
     "toEmail" : "info@commondemocracy.org",
     "deploymentName" : "Common Democracy",
-    "defaultUsers": [
+    "admins": [
       {
           "username": "admin_brett",
-          "email":"brett@commondemocracy.org",
-          "roles":["superadmin","admin","normal"],
+          "email":"brett@socialsystems.io",
+          "roles":["admin","individual"],
           "isPublic": false,
           "profile": {
             "username": "admin_brett",
             "firstName": "Brett",
             "lastName": "Jackman",
-            "organization": "Common Democracy",
-            "website": "http://www.commondemocracy.org",
+            "organization": "Social Systems Labs",
             "bio": "Systems administrator",
             "photo": "/img/default-user-image.png"
           }
       },
       {
           "username": "admin_trudie",
-          "email":"tspangenberg1@gmail.com",
-          "roles":["superadmin","admin","normal"],
+          "email":"trudie@socialsystems.io",
+          "roles":["admin","individual", "delegate"],
           "isPublic": false,
           "profile": {
             "username": "admin_trudie",
             "firstName": "Trudie",
             "lastName": "Spangenberg",
-            "organization": "Common Democracy",
-            "website": "http://www.commondemocracy.org",
-            "bio": "Systems administrator",
-            "photo": "/img/default-user-image.png"
-          }
-      },
-      {
-          "username": "admin_tim",
-          "email":"tim@commondemocracy.org",
-          "roles":["superadmin","admin","normal"],
-          "isPublic": false,
-          "profile": {
-            "username": "admin_tim",
-            "firstName": "Tim",
-            "lastName": "Olsen",
-            "organization": "Common Democracy",
-            "website": "http://www.commondemocracy.org",
-            "bio": "Systems administrator",
-            "photo": "/img/default-user-image.png"
-          }
-      },
-      {
-          "username": "admin_sol",
-          "email":"solwicher@gmail.com",
-          "roles":["superadmin","admin","normal"],
-          "isPublic": false,
-          "profile": {
-            "username": "admin_sol",
-            "firstName": "Sol",
-            "lastName": "Wicher",
-            "organization": "Common Democracy",
-            "website": "http://www.commondemocracy.org",
+            "organization": "Social Systems Labs",
             "bio": "Systems administrator",
             "photo": "/img/default-user-image.png"
           }
       }
     ],
-    "demoUsers": 50,
+    "demoUsers": 25,
     "defaultPhotoUrl": "https://www.commondemocracy.org/img/default-user-image.png"
   }
 }

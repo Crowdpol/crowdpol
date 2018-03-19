@@ -4,23 +4,12 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 // Import needed templates
 import '../../ui/main.js';
 
+// Global onEnter trigger to save communityInfo in LocalStore
+FlowRouter.triggers.enter([loadCommunityInfo]);
+
 // Public Routes (no need to log in):
 
-var publicRoutes = FlowRouter.group({
-  name: 'public',
-  triggersEnter: [function(context, redirect) {
-
-    Meteor.call('getCommunityBySubdomain', 'arg')
-
-    // Grab subdomain
-    var subdomain = window.location.host.split('.')[0]
-    if (subdomain){
-      LocalStore.set('subdomain', subdomain);
-    } else {
-      Bert.alert(TAPi18n.__('routes.alerts.no-subdomain'), 'danger');
-    }
-  }]
-});
+var publicRoutes = FlowRouter.group({name: 'public'});
 
 Accounts.onLogout(function() {
 	FlowRouter.go('App.home');
@@ -155,9 +144,9 @@ statsRoutes.route('/proposals/:id', {
 var loggedInRoutes = FlowRouter.group({
   name: 'loggedIn',
   triggersEnter: [function(context, redirect) {
-    if (!Meteor.user()){
+    if ((!Meteor.user()) || (!_.contains(Meteor.user().profile.communityIds, LocalStore.get('communityId')))){
     FlowRouter.go('App.home');
-    Bert.alert(TAPi18n.__('routes.alerts.login-to-view'), 'danger');
+    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
   }
   }]
 });
@@ -298,3 +287,23 @@ adminRoutes.route('/voting', {
     BlazeLayout.render('App_body', {main: 'AdminVoting'});
   }
 });
+
+function loadCommunityInfo() {
+  // Grab subdomain
+  var oldSubdomain = LocalStore.get('subdomain');
+  var subdomain = window.location.host.split('.')[0]
+
+  // set LocalStorage info
+  if (subdomain){
+      LocalStore.set('subdomain', subdomain);
+      Meteor.call('getCommunityBySubdomain', subdomain, function(err, result) {
+        if (err) {
+          Bert.alert(err.reason, 'danger');
+        } else {
+          LocalStore.set('communityId', result._id);
+        }
+      });
+  } else {
+    Bert.alert(TAPi18n.__('pages.routes.alerts.no-subdomain'), 'danger');
+  }
+}

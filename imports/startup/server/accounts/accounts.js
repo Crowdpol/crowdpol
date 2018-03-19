@@ -243,7 +243,7 @@ Accounts.onCreateUser((options, user) => {
     }
     if(options.profile.credentials) {
       if(options.profile.credentials[0].source == "default"){
-        normalizeScriptUser(profile, user);
+        return normalizeScriptUser(profile, user);
       }
     }
   }

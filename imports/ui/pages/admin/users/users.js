@@ -2,8 +2,9 @@ import './users.html';
 
 Template.AdminUsers.onCreated(function() {
   var self = this;
+  var communityId = LocalStore.get('communityId');
   self.autorun(function() {
-    self.subscribe('users.all');
+    self.subscribe('users.community', communityId);
   });
 });
 
