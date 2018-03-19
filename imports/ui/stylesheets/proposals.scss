@@ -22,7 +22,6 @@
       }
     }
   }
-
   #collab-text{
     min-height: 0;
     color: $blue-xdark;
@@ -32,9 +31,20 @@
     margin-top:$space;
     margin-right: 50px;
   }
+  
 
   
 }
+
+#collab-text{
+    min-height: 0;
+    color: $blue-xdark;
+    letter-spacing: 1px;
+    font-weight: 300;
+    font-size: $xsmall-font-size;
+    margin-top:$space;
+    margin-right: 50px;
+  }
 
 .proposal-title {
   margin-top: $space;
@@ -151,4 +161,88 @@
       }
     }
   }
+}
+
+.proposal-container .mdl-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 360px;
+}
+
+.proposal-container .mdl-card__supporting-text {
+  width: 100%;
+  padding: 16px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+}
+.proposal-container .mdl-card__supporting-text strong {
+  font-weight: 400;
+}
+.proposal-container .mdl-card__media ~ .mdl-card__supporting-text {
+  min-height: 64px;
+}
+.proposal-container .mdl-card__supporting-text:not(:last-child) {
+  box-sizing: border-box;
+  min-height: 76px;
+}
+.proposal-container:not(.demo-blog--blogpost) .mdl-card__supporting-text ~ .mdl-card__supporting-text {
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+.proposal-container .meta {
+  box-sizing: border-box;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+}
+.proposal-container .meta > .meta__favorites{
+  flex-direction: row;
+  margin: 0 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.proposal-container .meta > .meta__favorites .material-icons {
+  font-size: 2em;
+  cursor: pointer;
+  margin-left: 12px;
+}
+.proposal-container .mdl-card .meta.meta--fill {
+  justify-content: space-between;
+}
+.proposal-container .meta > *:first-child {
+  margin-right: 16px;
+}
+.proposal-container .meta > * {
+  display: flex;
+  flex-direction: column;
+}
+.proposal-container  .section-spacer {
+  flex-grow: 1;
+}
+
+.proposal-author{
+    strong {
+      font-size: $small-font-size;
+      
+    }
+    span {
+      font-size: $xsmall-font-size;
+      color: $dark-grey-xlight;
+    }
+}
+.proposal-container .proposal-details {
+  min-height: 0px;
+  margin: 0px;
+}
+.proposal-container .signature-count {
+  font-size: $xsmall-font-size;
+  color: $dark-grey-xlight;
+}
+.proposal-container .signature-button {
+  margin-left:5px;
+  margin-right: 2px;
 }

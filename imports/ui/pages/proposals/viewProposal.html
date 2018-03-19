@@ -8,45 +8,49 @@
 
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
-			<ul class="mdl-list" id="proposal-author">
-			  <li class="mdl-list__item mdl-list__item--two-line">
-			    <span class="mdl-list__item-primary-content">
-			      <img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
-			      <span>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</span>
-			      <span class="mdl-list__item-sub-title">
-			      	{{createdAt}}
-			      </span>
-			    </span>
-			    <span class="mdl-list__item-secondary-content">
-			      <span class="mdl-list__item-secondary-info">
-							{{#if isLive}}
-								<div class="mdl-layout-spacer"></div>
-								<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
+
+			<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
+      	<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+        	<div class="minilogo">
+          	<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
+          </div>
+          <div class="proposal-author">
+          	<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
+          	<span>{{createdAt}}</span>
+          </div>
+          <div class="section-spacer"></div>
+          <div>
+						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+							<i class="material-icons">share</i>
+						</button>
+          </div>
+          <div class="signature-button">
+						<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
 									<i class="material-icons">fingerprint</i>
-								</button>
-								<div class="mdl-tooltip" data-mdl-for="sign-proposal">
-									{{_ "pages.proposals.view.signature-tooltip"}}
-								</div>
-								{{ signatureCount }}
-							{{/if}}
-			      </span>
-			    </span>
-			  </li>
-			  {{#if selectedInvites.count}}
-			  	<li class="mdl-list__item" id="collab-text">
+						</button>
+						<div class="mdl-tooltip" data-mdl-for="sign-proposal">
+							{{_ "pages.proposals.view.signature-tooltip"}}
+						</div>
+								
+          </div>
+          <div class="signature-count">
+						{{ signatureCount }}
+          </div>
+        </div>
+        {{#if selectedInvites.count}}
+        <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+        	<div id="collab-text">
 						{{_ "pages.proposals.view.collaborators"}}
-			  	</li>
-				  <li class="mdl-list__item">
-						
-						{{#each selectedInvites}}
-							<div class="collab-author">
+			  	</div>
+        	{{#each selectedInvites}}
+        		<div class="collab-author">
 								<img class="mdl-chip__contact" src="{{profile.photo}}">
 								<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
 							</div>
-						{{/each}}
-				  </li>
-			  {{/if}}
-			</ul>
+					{{/each}}
+        </div>
+        {{/if}}
+      </div>
 			<div class="proposal-wrap">
 				<h1 class="proposal-title">{{ title }}</h1>
 				<p class="proposal-info">{{ abstract }}</p>
