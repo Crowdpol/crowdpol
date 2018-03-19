@@ -3,7 +3,6 @@ import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { setupTaggle } from '../../components/taggle/taggle.js'
 import "../../components/userSearch/userSearch.js"
-import "./styles.css"
 
 Template.EditProposal.onCreated(function(){
 	var self = this;

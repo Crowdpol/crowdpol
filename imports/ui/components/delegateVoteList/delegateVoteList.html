@@ -1,27 +1,26 @@
 <template name='delegateVoteList'>
-	<div class="mdl-grid delegateVoteGrid">
-		<div class="mdl-cell mdl-cell--6-col">
-			<h6>{{_ "pages.proposals.view.delegatesFor"}}</h6>
+	<center><p class="proposal-info">{{_ "pages.proposals.view.delegatesVoteHeading"}}</p></center>
+	<div class="mdl-grid delegate-vote-grid">
+		<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 			{{#if delegatesFor}}
-				<ul class="delegateVoteList demo-list-control mdl-list" >
+				<ul class="mdl-list" >
 					{{#each delegatesFor}}
 					{{> delegateVoteListItem}}
 					{{/each}}
 				</ul>
 			{{else}}
-				<small>{{_ "pages.proposals.view.noDelegatesVoted"}}</small>
+				<center><h6><small>{{_ "pages.proposals.view.noDelegatesFor"}}</small></h6></center>
 			{{/if}}
 		</div>
-		<div class="mdl-cell mdl-cell--6-col">
-			<h6>{{_ "pages.proposals.view.delegatesAgainst"}}</h6>
+		<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 			{{#if delegatesAgainst}}
-				<ul class="demo-list-control mdl-list" >
+				<ul class="mdl-list" >
 					{{#each delegatesAgainst}}
 					{{> delegateVoteListItem}}
 					{{/each}}
 				</ul>
 			{{else}}
-				<small>{{_ "pages.proposals.view.noDelegatesVoted"}}</small>
+				<center><h6><small>{{_ "pages.proposals.view.noDelegatesAgainst"}}</small></h6></center>
 			{{/if}}
 		</div>
 	</div>

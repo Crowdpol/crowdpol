@@ -2,7 +2,6 @@ import './viewProposal.html'
 import './signInModal/signInModal.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
-import "./styles.css";
 
 Template.ViewProposal.onCreated(function(){
 
@@ -35,6 +34,7 @@ Template.ViewProposal.onCreated(function(){
         dict.set( 'signatures', proposal.signatures || [] );
         dict.set( 'pointsFor', proposal.pointsFor || [] );
         dict.set( 'pointsAgainst', proposal.pointsAgainst || [] );
+        dict.set( 'signatures', proposal.signatures || []);
       }
     })
   });
@@ -161,6 +161,10 @@ Template.ViewProposal.helpers({
   },
   _id: function() {
     return Template.instance().templateDictionary.get( '_id' );
+  },
+  isSigned: function(){
+    var signatures = Template.instance().templateDictionary.get( 'signatures' );
+    return signatures.indexOf( Meteor.userId()) > -1;
   },
   title: function() {
     return Template.instance().templateDictionary.get( 'title' );

@@ -1,79 +1,73 @@
 <template name='ViewProposal'>
 
 	{{> SignInModal}}
-
 	{{#if currentUser }}
 		{{> backButton text="Back to Proposals" url="/proposals"}}
 	{{/if}}
-	
 	{{#if Template.subscriptionsReady}}
 
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
-			<ul class="demo-list-two mdl-list">
-			  <li class="mdl-list__item mdl-list__item--two-line proposal-author">
-			    <span class="mdl-list__item-primary-content">
-			      <img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
-			      <span>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</span>
-			      <span class="mdl-list__item-sub-title">
-			      	{{createdAt}}
-			      </span>
-			    </span>
-			    <span class="mdl-list__item-secondary-content">
-			      <span class="mdl-list__item-secondary-info">
-			      	<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
-								<i class="material-icons">share</i>
-							</button>
-							{{#if isLive}}
-								<div class="mdl-layout-spacer"></div>
-								<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="sign-proposal">
-									<i class="material-icons">{{ signatureIcon }}</i>
-								</button>
-								{{ signatureCount }}
-							{{/if}}
-			      </span>
-			    </span>
-			  </li>
-			</ul>
-			{{#if selectedInvites.count}}
-				<div class="form-group">
-					<h6><small>{{_ "pages.proposals.view.collaborators"}}</small></h6>
-					{{#each selectedInvites}}
-						<img class="mdl-chip__contact" src="{{profile.photo}}">
-						<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+
+			<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
+      	<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+        	<div class="minilogo">
+          	<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
+          </div>
+          <div class="proposal-author">
+          	<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
+          	<span>{{createdAt}}</span>
+          </div>
+          <div class="section-spacer"></div>
+          <div>
+						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+							<i class="material-icons">share</i>
+						</button>
+          </div>
+          <div class="signature-button">
+						<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
+									<i class="material-icons">fingerprint</i>
+						</button>
+						<div class="mdl-tooltip" data-mdl-for="sign-proposal">
+							{{_ "pages.proposals.view.signature-tooltip"}}
+						</div>
+								
+          </div>
+          <div class="signature-count">
+						{{ signatureCount }}
+          </div>
+        </div>
+        {{#if selectedInvites.count}}
+        <div>
+        	<span id="collab-text">
+						{{_ "pages.proposals.view.collaborators"}}
+			  	</span>
+			  </div>
+			  <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+        	{{#each selectedInvites}}
+        		<div class="collab-author">
+								<img class="mdl-chip__contact" src="{{profile.photo}}">
+								<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+							</div>
 					{{/each}}
-				</div>
-				<br>
-			{{/if}}
-			<h1 class="proposal-title">{{ title }}</h1>
-
+        </div>
+        {{/if}}
+      </div>
 			<div class="proposal-wrap">
-				<h5>{{_ "pages.proposals.view.abstract"}}</h5>
-				<p>{{ abstract }}</p>
+				<h1 class="proposal-title">{{ title }}</h1>
+				<p class="proposal-info">{{ abstract }}</p>
 			</div>
-
-			<div class="proposal-wrap" id="proposal-body-wrap">
-				<h5>{{_ "pages.proposals.view.proposal"}}</h5>
+			<div id="proposal-body-wrap">
 				{{{ body }}}
 			</div>
-
-			<div class="proposal-wrap">
-				{{#each tags}}
-					<span class="mdl-chip">
-						<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
-					</span>
-				{{/each}}
-			</div>
-
 			<!-- Points for and against -->
-			<div class="proposal-wrap">
-				<div class="mdl-grid">
+			<div class="proposal-wrap mdl-grid" id="proposal-points">
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 	  				{{#if showPointsFor}}
 		  				<p>{{_ "pages.proposals.view.pointsFor"}}</p>
-							<ul id="points-for-list" class="mdl-list">
+							<ul id="points-for-list" class="points-list">
 								{{#each pointsFor}}
-									<li class="mdl-list__item"><span class="mdl-list__item-primary-content">{{this}}</span></li>
+									<li>{{this}}</li>
 								{{/each}}
 							</ul>
 						{{/if}}
@@ -81,23 +75,22 @@
 	  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 						{{#if showPointsAgainst}}
 		  				<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
-							<ul id="points-against-list">
+							<ul id="points-against-list" class="points-list">
 								{{#each pointsAgainst}}
 									<li>{{this}}</li>
 								{{/each}}
 							</ul>
 						{{/if}}
 	  			</div>
-	  			
-	  		</div>
   		</div>
-
-
-			<small>{{_ "pages.proposals.view.voteStarts"}}&nbsp;{{ startDate }}</small>
-			<br />
-			<small>{{_ "pages.proposals.view.voteEnds"}}&nbsp;{{ endDate }}</small>
-
-			<div class="proposal-actions">
+			<div class="proposal-wrap">
+				{{#each tags}}
+					<span class="mdl-chip">
+						<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
+					</span>
+				{{/each}}
+			</div>
+			<div class="proposal-wrap proposal-actions">
 				{{#if isEditable }}
 					<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
 						{{_ "pages.proposals.view.editProposal"}}
@@ -111,26 +104,44 @@
 				{{/if}}
 			</div>
 
-			{{#if isVotable}}
+			<div class="proposal-wrap proposal-vote">
 				<hr>
-				<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
-				{{#if isVotingAsDelegate}}
-					{{#if isVotableForDelegates}}
-						{{> delegateVoteButtons proposalId=_id}}
+				{{#if isVotable}}
+					<div class="mdl-card mdl-cell mdl-cell--12-col vote-details">
+		      	<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+		        	<div>
+		        		<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
+		          </div>
+		          <div class="section-spacer"></div>
+		          
+		          <div class="signature-count">
+								{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
+		          </div>
+		          <div class="signature-count"><i class="material-icons">date_range</i></div>
+		        </div>
+      		</div>
+      		<div class="voting-content">
+					{{#if isVotingAsDelegate}}
+						{{#if isVotableForDelegates}}
+							{{> delegateVoteButtons proposalId=_id}}
+						{{else}}
+							<small>{{_"pages.proposals.view.delegateVotingClosed"}}</small>
+						{{/if}}
 					{{else}}
-						<small>{{_"pages.proposals.view.delegateVotingClosed"}}</small>
+						<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
+						{{> voteButtons proposalId=_id}}
 					{{/if}}
+					{{> delegateVoteList proposalId=_id}}
+					</div>
 				{{else}}
-					<small>{{_"pages.proposals.view.voteInstructions"}}</small>
-					{{> voteButtons proposalId=_id}}
+					<center>
+						<h5>
+						<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
+						</h5>
+					</center>
 				{{/if}}
 				<hr>
-
-				{{> delegateVoteList proposalId=_id}}
-
-			{{/if}}
-
-			<hr>
+			</div>
 
 			{{#if isInvited }}
 				{{> CommentForm}}
@@ -148,6 +159,14 @@
 		{{else}}
 			<h3>{{_ "pages.proposals.view.proposalUnvailable"}}</h3>
 		{{/if}}
+	</div>
+	<div class="proposal-view-menu">
+			
+			<div class="proposal-view-menu-buttons">
+				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+					<i class="material-icons">share</i>
+				</button>
+			</div>
 	</div>
 	{{else}}
 		{{> loader}}
