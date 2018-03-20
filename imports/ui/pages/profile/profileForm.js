@@ -95,16 +95,12 @@ Template.ProfileForm.events({
   },
   'blur #profile-website' (event, template) {
         if (validateUrl(event.currentTarget.value)) {
-          //$('#submitProfile').removeAttr('disabled', 'disabled');
-          //$('form').unbind('submit');
-          template.templateDictionary.set('usernameCompleted',true);
+          template.templateDictionary.set('urlCompleted',true);
           $("#valid-url").html('<i class="material-icons">check</i>');
 
         } else {
+          template.templateDictionary.set('urlCompleted',false);
           $("#valid-url").text("");
-          template.templateDictionary.set('usernameCompleted',false);
-          //$('#submitProfile').attr('disabled', 'disabled');
-          //$('form').bind('submit',function(e){e.preventDefault();});
         }
   },
   'blur #profile-username' (event, template) {
@@ -114,16 +110,14 @@ Template.ProfileForm.events({
         console.log(error);
       } else {
         if (result) {
-          //$('#submitProfile').removeAttr('disabled', 'disabled');
-          //$('form').unbind('submit');
-          template.templateDictionary.set('urlCompleted',true);
+          console.log('ran updateUsernameIsUnique and got true')
+          template.templateDictionary.set('usernameCompleted',true);
           $("#valid-username").html('<i class="material-icons">check</i>');
 
         } else {
+          console.log('ran updateUsernameIsUnique and got false')
           $("#valid-username").text("Username exists");
-          template.templateDictionary.set('urlCompleted',false);
-          //$('#submitProfile').attr('disabled', 'disabled');
-          //$('form').bind('submit',function(e){e.preventDefault();});
+          template.templateDictionary.set('usernameCompleted',false);
         }
       }
     });
@@ -244,10 +238,13 @@ Template.ProfileForm.onRendered(function() {
     },
     messages: {
       profileUsername: {
-        required: "Username required.",
-        minlength: "Minimum of 5 characters",
-        maxlength: "Maximum of 16 characters",
+        required: TAPi18n.__('pages.profile.alerts.username'),
+        minlength: TAPi18n.__('pages.profile.alerts.username-min'),
+        maxlength: TAPi18n.__('pages.profile.alerts.username-max'),
       },
+      profileWebsite: {
+        url: TAPi18n.__('pages.profile.alerts.valid-url')
+      }
     },
     submitHandler() {
       var communityId = LocalStore.get('communityId');

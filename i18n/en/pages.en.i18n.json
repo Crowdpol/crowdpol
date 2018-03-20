@@ -324,6 +324,10 @@
 			"delegate" : "Delegate",
 			"candidate" : "Candidate",
 			"alerts": {
+				"valid-url": "Please enter a valid url, starting with 'http' or 'https'.",
+				"username": "Username required.",
+				"username-min": "Minimum of 5 characters",
+				"username-max": "Maximum of 16 characters",
 				"profile-updated": "Profile updated.",
 				"profile-private": "Profile is now private.",
 				"profile-public": "Profile is now public.",
