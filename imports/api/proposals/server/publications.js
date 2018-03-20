@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Proposals } from '../Proposals.js';
 
-Meteor.publish('proposals.all', function() {
-	return Proposals.find();
+Meteor.publish('proposals.community', function(communityId) {
+	return Proposals.find({communityId: communityId});
 });
 
 Meteor.publish('proposals.one', function(id) {
@@ -10,15 +10,15 @@ Meteor.publish('proposals.one', function(id) {
 });
 
 //Proposals that are live and open to the public
-Meteor.publish('proposals.public', function(search) {
-	let query = generateSearchQuery(search);
+Meteor.publish('proposals.public', function(search, communityId) {
+	let query = generateSearchQuery(search, communityId);
 	query.stage = 'live';
 	return Proposals.find(query);
 });
 
 //Proposals that are live and open to the public
-Meteor.publish('proposals.public.stats', function(search) {
-	let query = generateSearchQuery(search);
+Meteor.publish('proposals.public.stats', function(search, communityId) {
+	let query = generateSearchQuery(search, communityId);
 	query.stage = 'live';
 	//return Proposals.find(query);
 	var self = this;
@@ -40,42 +40,42 @@ Meteor.publish('proposals.public.stats', function(search) {
 	});
 
 //Proposals that the user authored
-Meteor.publish('proposals.author', function(search) {
-	let query = generateSearchQuery(search);
-	console.log(this.userId)
+Meteor.publish('proposals.author', function(search, communityId) {
+	let query = generateSearchQuery(search, communityId);
 	query.authorId = this.userId;
 	return Proposals.find(query);
 });
 
 //Proposals that the user is invited to collaborate on
-Meteor.publish('proposals.invited', function(username, search) {
-	let query = generateSearchQuery(search);
-	query.invited = username;
+Meteor.publish('proposals.invited', function(userId, search, communityId) {
+	let query = generateSearchQuery(search, communityId);
+	query.invited = userId;
 	return Proposals.find(query);
 });
 
-Meteor.publish('proposals.withTag', function (keyword) {
+Meteor.publish('proposals.withTag', function (keyword, communityId) {
   var tag = Meteor.call('getTagByKeyword', keyword)
   if (tag){
     return Proposals.find({tags: { $elemMatch: {_id: tag._id}}});
   }
 });
 
-function generateSearchQuery(searchTerm){
+function generateSearchQuery(searchTerm, communityId){
 	check(searchTerm, Match.OneOf(String, null, undefined));
-
+	check(communityId, String);
 	let query = {}
+	query.communityId = communityId;
 
 	if (searchTerm) {
 		let regex = new RegExp(searchTerm, 'i');
 
 		query = {
 			$or: [
-			{ title: regex },
-			{ abstract: regex },
-			{ body: regex }
-			]
-		};
+				{ title: regex },
+				{ abstract: regex },
+				{ body: regex }
+				]
+			};
 	}
 	return query;
 }

@@ -4,8 +4,9 @@ import "./styles.css"
 Template.UserSearch.onCreated(function() {
   Session.set('searchPhrase', '');
   var self = this;
+  var communityId = LocalStore.get('communityId');
   self.autorun(function() {
-    self.subscribe("userSearch", Session.get('searchPhrase'));
+    self.subscribe("userSearch", Session.get('searchPhrase'), communityId);
   });
 });
 
@@ -96,7 +97,7 @@ function validateEmail(mail){
     return (true)  
   }  
     Bert.alert({
-      title: TAPi18n.__('pages.edit.proposals.alerts.bad-email'),
+      title: TAPi18n.__('pages.proposals.edit.alerts.bad-email'),
       type: 'danger',
       style: 'growl-bottom-right',
       icon: 'fa-exclamation-triangle'

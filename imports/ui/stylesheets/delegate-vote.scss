@@ -57,22 +57,18 @@
   height: $space * 1.5;
 }
 
-.proposal-date {
-  color: $light-blue;
-}
-
 // Proposal single view
 
 .proposal-container {
-  padding-top: $space * 2;
+  padding-top: 0;
 }
 
 .proposal-wrap,
 .proposal-title {
-  margin-bottom: $space * 2;
+  margin-bottom: $space;
 }
 
-.proposal-abstract {
+.proposal-info {
   margin-bottom: 0;
   font-family: $default-font;
   line-height: $base-line-height;
@@ -89,7 +85,6 @@
   bottom: $space * 3;
   right: $space;
   z-index: 2;
-  background-color: $bright-blue;
   color: $white;
 
   @include breakpoint($laptop) {
@@ -117,9 +112,22 @@
 .vote-actions {
   display: flex;
   justify-content: space-around;
-  margin: $space 0;
-
+  margin: $space/2 0;
   button {
     flex-basis: 30%;
   }
 }
+
+.delegate-vote-grid {
+  padding-top: 0;
+  padding-bottom: 0;
+  .mdl-cell{
+    margin-top: 0;
+    margint-bottom: 0;
+    .mdl-list{
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+

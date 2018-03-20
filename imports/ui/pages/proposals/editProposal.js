@@ -3,7 +3,6 @@ import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { setupTaggle } from '../../components/taggle/taggle.js'
 import "../../components/userSearch/userSearch.js"
-import "./styles.css"
 
 Template.EditProposal.onCreated(function(){
 	var self = this;
@@ -248,7 +247,8 @@ var timer = function(){
   }();
 
 function saveChanges(event, template, returnTo){
-	Meteor.call('transformTags', template.taggle.get().getTagValues(), function(error, proposalTags){
+	var communityId = LocalStore.get('communityId');
+	Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
 		if (error){
 			Bert.alert(error, 'reason');
 		} else {
@@ -263,7 +263,8 @@ function saveChanges(event, template, returnTo){
 			tags: proposalTags,
 			pointsFor: template.pointsFor.get(),
 			pointsAgainst: template.pointsAgainst.get(),
-			references: ['']
+			references: [''],
+			communityId: LocalStore.get('communityId')
 		};
 
 		var proposalId = FlowRouter.getParam("id");

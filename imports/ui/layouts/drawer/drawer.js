@@ -14,9 +14,12 @@ Template.Drawer.events({
 Template.RightDrawer.helpers({
 	user: function(template) {
 		userId = Session.get('drawerId');
-		user = Meteor.users.findOne({_id: userId});
-		//console.log(user)
-		return user;
+		if (userId) {
+			user = Meteor.users.findOne({_id: userId});
+			return user;
+		} else {
+			return false;
+		}
 	}
 })
 

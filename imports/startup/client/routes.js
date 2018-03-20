@@ -4,27 +4,32 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 // Import needed templates
 import '../../ui/main.js';
 
-// Public Routes:
+// Global onEnter trigger to save communityInfo in LocalStore
+FlowRouter.triggers.enter([loadCommunityInfo]);
+
+// Public Routes (no need to log in):
+
+var publicRoutes = FlowRouter.group({name: 'public'});
 
 Accounts.onLogout(function() {
 	FlowRouter.go('App.home');
 });
 
-FlowRouter.route('/', {
+publicRoutes.route('/', {
   name: 'App.home',
   action() {
     BlazeLayout.render('App_body', { main: 'Home' });
   },
 });
 
-FlowRouter.notFound = {
+publicRoutes.notFound = {
   action() {
     BlazeLayout.render('App_body', { main: 'App_notFound' });
   },
 };
 
 // Email Verification
-FlowRouter.route('/verify-email/:token',{
+publicRoutes.route('/verify-email/:token',{
 	name: 'verify-email',
 	action(params) {
 		Accounts.verifyEmail(params.token, (error) => {
@@ -45,7 +50,7 @@ FlowRouter.route('/verify-email/:token',{
 	}
 });
 
-FlowRouter.route('/reset-password/:token?', {
+publicRoutes.route('/reset-password/:token?', {
   name: 'App.password-recovery',
   action(params) {
     if (params.token) {
@@ -57,7 +62,7 @@ FlowRouter.route('/reset-password/:token?', {
   }
 });
 
-FlowRouter.route('/login', {
+publicRoutes.route('/login', {
   name: 'App.login',
   action() {
     if (!Meteor.user()){
@@ -68,28 +73,28 @@ FlowRouter.route('/login', {
   },
 });
 
-FlowRouter.route('/contact', {
+publicRoutes.route('/contact', {
   name: 'App.contact',
   action() {
     BlazeLayout.render('App_body', { main: 'contact' });
   },
 });
 
-FlowRouter.route('/privacy', {
+publicRoutes.route('/privacy', {
   name: 'App.privcay',
   action() {
     BlazeLayout.render('App_body', { main: 'Privacy' });
   },
 });
 
-FlowRouter.route('/terms', {
+publicRoutes.route('/terms', {
   name: 'App.terms',
   action() {
     BlazeLayout.render('App_body', { main: 'Terms' });
   },
 });
 
-FlowRouter.route('/about', {
+publicRoutes.route('/about', {
   name: 'App.about',
   action() {
     BlazeLayout.render('App_body', { main: 'About' });
@@ -139,9 +144,9 @@ statsRoutes.route('/proposals/:id', {
 var loggedInRoutes = FlowRouter.group({
   name: 'loggedIn',
   triggersEnter: [function(context, redirect) {
-    if (!Meteor.user()){
+    if ((!Meteor.user()) || (!_.contains(Meteor.user().profile.communityIds, LocalStore.get('communityId')))){
     FlowRouter.go('App.home');
-    Bert.alert(TAPi18n.__('routes.alerts.login-to-view'), 'danger');
+    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
   }
   }]
 });
@@ -282,3 +287,23 @@ adminRoutes.route('/voting', {
     BlazeLayout.render('App_body', {main: 'AdminVoting'});
   }
 });
+
+function loadCommunityInfo() {
+  // Grab subdomain
+  var oldSubdomain = LocalStore.get('subdomain');
+  var subdomain = window.location.host.split('.')[0]
+
+  // set LocalStorage info
+  if (subdomain){
+      LocalStore.set('subdomain', subdomain);
+      Meteor.call('getCommunityBySubdomain', subdomain, function(err, result) {
+        if (err) {
+          Bert.alert(err.reason, 'danger');
+        } else {
+          LocalStore.set('communityId', result._id);
+        }
+      });
+  } else {
+    Bert.alert(TAPi18n.__('pages.routes.alerts.no-subdomain'), 'danger');
+  }
+}

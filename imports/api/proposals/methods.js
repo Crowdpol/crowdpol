@@ -18,7 +18,8 @@ Meteor.methods({
           tags: Match.Maybe([Object]),
           pointsFor: Match.Maybe([String]),
           pointsAgainst: Match.Maybe([String]),
-          references: Match.Maybe([String])
+          references: Match.Maybe([String]),
+          communityId: String
         });
         proposalId = Proposals.insert(proposal);
         //Create notifications for collaborators

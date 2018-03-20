@@ -250,7 +250,8 @@ Template.ProfileForm.onRendered(function() {
       },
     },
     submitHandler() {
-      Meteor.call('transformTags', template.taggle.get().getTagValues(), function(error, proposalTags){
+      var communityId = LocalStore.get('communityId');
+      Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
         if (error){
           Bert.alert(error, 'reason');
         } else {
@@ -266,7 +267,7 @@ Template.ProfileForm.onRendered(function() {
             tags: proposalTags
           };
 
-          Meteor.call('updateProfile', Meteor.userId(), profile, function(error) {
+          Meteor.call('updateProfile', profile, function(error) {
             if (error) {
               Bert.alert(error.reason, 'danger');
             } else {

@@ -18,7 +18,8 @@
 			"newsletter-text": "Get notified when the app is live.",
 			"banner-text": "A new wave of democracy is coming to Sweden.",
 			"alerts": {
-				"mailing-list-signup-success": "Thank you. You have been added to the mailing list."
+				"mailing-list-signup-success": "Thank you. You have been added to the mailing list.",
+				"no-image": "The image for your community could not be loaded."
 			}
 		},
 		"about": {
@@ -74,7 +75,8 @@
 					"title": "Signup"
 				},	
 				"login": {
-					"title": "Login"
+					"title": "Login",
+					"wrong-community": "You can not log into this community."
 				}
 			},
 			"entity": {
@@ -220,6 +222,7 @@
 				"forAndAgainst": "Every proposal has its pros and cons. Add some brief arguments for and against your proposal by entering them into the fields below and clicking the button.",
 				"startDate": "Start date for voting",
 				"endDate": "Closing date for voting",
+
 				"invited": "Invite others to collaborate by entering their usernames. If not found, enter an email address.",
 				"tags": "Add some tags your proposal:",
 				"pointFor": "Points For:",
@@ -238,19 +241,22 @@
 					"paragraph-2": "Creating an account is simple, and will allow you to join others in writing proposals, voting and choosing delegates.",
 					"button": "Sign Up"
 				},
+				"signature-tooltip": "Show support for this proposal by signing it.",
 				"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
 				"voteCast": "Your vote has been cast",
 				"editProposal": "Edit Proposal",
 				"submitProposal": "Submit Proposal",
 				"pointsFor": "Points For:",
 				"pointsAgainst": "Points Against:",
-				"noDelegatesVoted": "None of your delegates voted against this issue",
+				"noDelegatesFor": "None of your delegates voted for this issue",
+				"noDelegatesAgainst": "None of your delegates voted against this issue",
 				"proposalUnvailable": "Sorry, this proposal is not yet visible to the public.",
 				"noDelegateReason": "This delegate did not provide a reason for their voting choice.",
 				"addComment": "Add a comment",
 				"voteHeading": "Vote on this proposal",
-				"voteStarts": "Voting starts on:",
-				"voteEnds": "Voting ends on: ",
+				"voteStarts": "Starts:",
+				"voteEnds": "Ends: ",
+				"inactive-vote-message": "Voting on this proposal runs from __startDate__ to __endDate__",
 				"abstract": "Summary",
 				"proposal": "Proposal",
 				"yes": "For",
@@ -267,6 +273,7 @@
 				"anonymous": "Anonymous",
 				"collaborators": "Collaborators",
 				"author": "Author",
+				"delegatesVoteHeading": "How your delegates voted",
 				"delegatesFor": "Delegates For:",
 				"delegatesAgainst": "Delegates Against:",
 				"delegateVotingClosed": "Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date.",
@@ -278,6 +285,8 @@
 		},
 		"tag-search":{
 			"heading": "Tagged",
+			"no-delegates": "There are no delegates with this tags.",
+			"no-proposals": "There are no proposals with this tags.",
 			"tabs": {
 				"proposals": "Proposals",
 				"delegates": "Delegates",
@@ -288,45 +297,65 @@
 			}
 		},
 		"voting": {
-			"heading": "Voting",
+			"heading": {
+				"delegate": "Voting as Delegate",
+				"individual": "Voting as an Individual"
+			},
 			"description": "The following proposals are all available to vote on. Click on a proposal to read more, or expand the proposal to see how your delegates voted, or to cast your own vote.",
 			"not-ready": "The votes for this proposal have not yet been tallied. Results are updated every 24 hours.",
 			"show-more": "Show More",
-			"show-less": "Show Less"
+			"show-less": "Show Less",
+			"delegate-description": "Please note: You are now voting on behalf of users who have delegated their vote to you. Delegate votes are public.",
+			"individual-description": "You are now voting on issues as you see fit. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Individual votes are private.",
+			"voting-card-heading": {
+				"delegate": "Vote as a Delegate:",
+				"individual": "Cast your Individual vote:"
+			},
+			"no-votes-used": "No users voted on this proposal.",
+			"for": "For:",
+			"against": "Against:"
 		},
 		"profile": {
-			"name": "Name",
-			"subject": "Subject",
-			"contact-message": "Your message:",
-			"login-social": "Log in with Social Media",
-			"title" : "Profile",
+			"profile-tags" : "Fill in at least five of your interests",
+			"heading": "Profile",
 			"photo" : "Profile photo path",
-			"username" : "Username",
-			"firstname" : "First name",
-			"lastname" : "Last name",
-			"public" : "Public Profile",
+			"public" : "Public",
 			"private" : "Private Profile",
 			"delegate" : "Delegate",
 			"candidate" : "Candidate",
-			"bio" : "About",
-			"website" : "Website",
-			"tags" : "Fill in at least five of your interests",
 			"alerts": {
-				"public": "Profile is now public.",
-				"private": "Profile is now private.",
-				"updated": "Profile updated.",
-				"delegate-removed" : "Delegate Role removed.",
-				"delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
-				"candidate-removed" : "Candidate Role removed.",
-				"candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed."
-			}
+				"profile-updated": "Profile updated.",
+				"profile-private": "Profile is now private.",
+				"profile-public": "Profile is now public.",
+				"profile-delegate-removed" : "Delegate Role removed.",
+				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-candidate-removed" : "Candidate Role removed.",
+				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete."
+			},
+			"tooltips": {
+				"delegateSwitch": "Apply to be a delegate. This will allow other users to let you vote on their behalf.",
+				"publicSwitch": "Make your profile visible to the public, or hide it."
+			},
+			"characters": "characters",
+			"min": "min",
+			"max": "max",
+			"settings": "Profile Settings",
+			"status": "Profile status: __completedScore__/__totalScore__ completed.",
+			"completed": "completed",
+			"interests": "interests",
+			"public-switch-description": "Make your profile visible to others. Requires completed profile form. Required become a delegate.",
+			"delegate-switch-description": "By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
+			"bio-count": "__bioCount__ characters (min 50, max 160)"
 		},
 		"routes": {
 			"alerts": {
 				"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",
-				"login-to-view": "You must log in to access that page."
+				"login-to-view": "You must log in to access that page.",
+				"no-subdomain": "Please ensure that you've entered a valid URL."
 			}
 		}
+
 
 	}
 }

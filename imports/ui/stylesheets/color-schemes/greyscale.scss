@@ -1,0 +1,262 @@
+@import '../variables.scss';
+@import '../breakpoint.scss';
+
+/* 
+  This file contains the default colour scheme.
+  Only styles specifying a colour (not including white or greys) should be included here.
+*/
+
+
+// Global --------------------------------------
+
+.title-underline {
+  &::after {
+    background-color: $grey;
+  }
+}
+
+.primary-button {
+  background-color: $light-grey-dark;
+  color: $white;
+  &:hover {
+    background-color: $light-grey;
+  }
+}
+
+.secondary-button {
+  color: $light-grey;
+}
+
+.switch-wrap {
+  .switch {
+    &.is-checked {
+      .mdl-switch__thumb {
+        background-color: $light-grey;
+      }
+      .mdl-switch__track {
+        background-color: rgba($light-grey, 0.5);
+      }
+      span {
+        color: $light-grey;
+      }
+    }
+  }
+}
+
+.mdl-chip {
+  background-color: $light-grey;
+}
+
+// Headers -------------------------------------------------
+
+.logged-in-header {
+
+  .header-inner {
+    i,
+    a,
+    small {
+      color: $grey;
+    }
+  }
+
+  // Tag Search:
+  .mdl-textfield__input{
+    color: $grey;
+  }
+
+  // Autocomplete
+
+  #headerMatchedTagsList{
+    .autocomplete-item{
+      &:hover {
+        background: $light-grey-dark;
+    }
+    }
+  }
+
+  .material-icons.mdl-badge.mdl-badge--overlap{
+    color: $grey;
+  }
+
+  .material-icons.mdl-badge[data-badge]::after,
+  .material-label.mdl-badge[data-badge]::after{
+    background-color: $greyscale;
+  }
+
+  #notifications-title{
+      background-color: $grey;
+    }
+}
+
+.logged-out-header {
+  .header-inner {
+
+    i {
+      color: $greyscale;
+    }
+
+    h5 {
+      @include breakpoint($tablet) {
+        color: $bright-grey;
+      }
+    }
+
+    a {
+      color: $grey;
+    }
+  }
+}
+
+// Home --------------------------------------------------
+
+.banner-wrap {
+  border-color: $greyscale;
+}
+
+.hero-item-wrap {
+  .hero-icon {
+    background-color: rgba($bright-grey, 0.6);
+    i {
+      color: $greyscale-light;
+    }
+  }
+
+  h6 {
+      color: $greyscale;
+  }
+}
+
+.newsletter-form {
+  background-color: rgba($grey, 0.7);
+
+  .dark-textfield {
+    label,
+    &.is-focused label,
+    &.is-dirty label {
+      color: $light-grey;
+
+      &::after {
+        background-color: $light-grey;
+      }
+    }
+
+    input {
+      color: $greyscale-light;
+      border-bottom: 1px solid $light-grey;
+    }
+  }
+}
+
+.bottom-banner {
+  border-color: $greyscale;
+  background-color: $bright-grey;
+  h2 {
+    color: $greyscale-light;
+  }
+}
+
+// Proposals ---------------------------------------------
+
+.proposal-date {
+  color: $light-grey;
+}
+
+.add-new-proposal {
+  background-color: $bright-grey;
+}
+
+.delegate-vote-list-item {
+  .material-icons {
+    color: $light-grey;
+  }
+}
+
+.delegate-color {
+  background-color: $light-grey;
+}
+
+.proposal-vote-progress-bar {
+    background-color: $light-grey;
+}
+
+.proposal-vote-yes-bar {
+  background-color: $bright-grey;
+}
+
+// Side-Nav -----------------------------------------------
+
+.side-nav-header {
+  background-color: $grey;
+}
+
+// SignInModal --------------------------------------------
+
+#modal-header {
+  background: $bright-grey;
+}
+
+.mdl-button--raised.mdl-button--cologreyscale {
+  background: $bright-grey;
+
+  &:hover {
+    background: $bright-grey;
+  }
+
+}
+
+// Taggle -------------------------------------------------
+
+::selection {
+    background: $taggle-grey;
+}
+
+::-moz-selection {
+    background: $taggle-grey;
+}
+
+.ui-widget-content {
+    color: $taggle-grey;
+}
+
+.ui-menu .ui-menu-item a {
+    &:hover {
+        background: $taggle-grey;
+    }
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    background: $taggle-grey;
+}
+
+
+#matchedTagsList{
+    .autocomplete-item:hover {
+        background: $light-grey-dark;
+    }
+}
+
+.taggle_list .taggle .close:hover {
+    color: $taggle-grey;
+}
+
+// Typography ---------------------------------------
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $grey-xdark;
+}
+
+// Voting -------------------------------------------
+
+.mdl-button--cologreyscale#toggle-voting-info {
+    color: $light-grey-dark;
+}

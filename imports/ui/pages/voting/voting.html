@@ -15,7 +15,14 @@
 		<div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
 
 			{{#if Template.subscriptionsReady}}
-			<h4>{{_ "pages.voting.heading"}}</h4>
+			{{#if isVotingAsDelegate}}
+				<h4>{{_ "pages.voting.heading.delegate"}}</h4>
+				<span>{{_ "pages.voting.delegate-description"}}</span>
+			{{else}}
+				<h4>{{_ "pages.voting.heading.individual"}}</h4>
+				<span>{{_ "pages.voting.delegate-description"}}</span>
+			{{/if}}
+			
 			<ul class="demo-list-control mdl-list">
 				{{#each openProposals}}
 				{{> VotingCard}}
@@ -58,13 +65,13 @@
 
 					<div class="mdl-card__actions">
 					{{#if yesPercentage _id}}
-						<span class="proposal-percentage-text-left"> For: {{ yesPercentage _id }}% </span>
-						<span class="proposal-percentage-text-right"> Against: {{ noPercentage _id }}% </span>
+						<span class="proposal-percentage-text-left">{{_ "pages.voting.for"}} {{ yesPercentage _id }}% </span>
+						<span class="proposal-percentage-text-right">{{_ "pages.voting.against"}} {{ noPercentage _id }}% </span>
 						<div class="proposal-vote-progress-bar">
 							<div class="proposal-vote-yes-bar" style="width:{{ yesPercentage _id }}%"></div>
 						</div>
 					{{else}}
-						<small class="proposal-percentage-text-left"> No users voted on this proposal. </small>
+						<small class="proposal-percentage-text-left">{{_ "pages.voting.no-votes-used"}}</small>
 					{{/if}}
 
 					</div>
@@ -72,14 +79,14 @@
 
 				<!-- Vote buttons and Delegates List -->
 				
-					{{#if isVotingAsDelegate}}
+				{{#if isVotingAsDelegate}}
 					<div class="voting-card-buttons">
-					<h6>Vote as a Delegate:</h6>
+					<h6>{{_ "pages.voting.voting-card-heading.delegate"}}</h6>
 					{{> delegateVoteButtons proposalId=_id}}
 					</div>
 				{{else}}
 					<div class="voting-card-buttons">
-					<h6>Cast your vote:</h6>
+					<h6>{{_ "pages.voting.voting-card-heading.individual"}}</h6>
 					{{> voteButtons proposalId=_id}}
 					</div>
 					<!-- How user's delegates voted -->

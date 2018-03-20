@@ -49,26 +49,12 @@
     height: 1px;
     left: 40%;
     right: 40%;
-    background-color: $blue;
   }
 }
 
 .p-subtitle {
   font-style: italic;
   max-block-size: $space * 2;
-}
-
-.primary-button {
-  background-color: $light-blue-dark;
-  color: $white;
-
-  &:hover {
-    background-color: $light-blue;
-  }
-}
-
-.secondary-button {
-  color: $light-blue;
 }
 
 .switch-wrap {
@@ -101,19 +87,17 @@
   }
 }
 
-.mdl-chip {
-  background-color: $light-blue;
-
-  .mdl-chip__text {
-    color: $white;
-  }
-}
-
 .mdl-data-table {
   white-space: initial;
   width: 100%;
 
   th {
     text-align: left;
+  }
+}
+
+.mdl-chip {
+  .mdl-chip__text {
+    color: $white;
   }
 }

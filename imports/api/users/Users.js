@@ -139,6 +139,22 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
+    communityIds: {
+        type: Array,
+        optional: false,
+    },
+    'communityIds.$': {
+        type: String,
+        optional: false,
+    },
+    adminCommunities: {
+        type: Array,
+        optional: true,
+    },
+    'adminCommunities.$': {
+        type: String,
+        optional: true,
+    },
     /*
     birthday: {
         type: Date,

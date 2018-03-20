@@ -12,11 +12,12 @@ Template.Voting.onCreated(function () {
   // Indicate active tab
   Session.set("allProposals",true);
   Session.set("myProposals",false);
+  var communityId = LocalStore.get('communityId');
 
   self.autorun(function(){
-    self.subscribe('proposals.public', self.searchQuery.get());
-    self.subscribe('proposals.author', self.searchQuery.get());
-    self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get());
+    self.subscribe('proposals.public', self.searchQuery.get(), communityId);
+    self.subscribe('proposals.author', self.searchQuery.get(), communityId);
+    self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
   })
 });
 
@@ -44,6 +45,9 @@ Template.Voting.helpers({
   },
   authorSelected: function(){
     return Template.instance().authorProposals.get();
+  },
+  isVotingAsDelegate: function(){
+    return (LocalStore.get('currentUserRole') == 'Delegate');
   },
 });
 
