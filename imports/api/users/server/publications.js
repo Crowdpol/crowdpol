@@ -15,6 +15,10 @@ Meteor.publish('user.profile', function(userId) {
   return Meteor.users.find({_id: userId}, defaultUserProjection);
 });
 
+Meteor.publish('users.usernames', function() {
+  return Meteor.users.find({}, {fields: {'profile.username': 1}});
+});
+
 // Publish approvals to list 
 Meteor.publish('users.pendingApprovals', function(communityId) {
 	return Meteor.users.find(

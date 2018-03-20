@@ -40,6 +40,7 @@ Template.ProfileForm.onCreated(function() {
   
   self.autorun(function() {
     self.subscribe('user.current');
+    self.subscribe('users.usernames');
   });
   var dict = new ReactiveDict();
   dict.set('completedScore', 0);
@@ -103,29 +104,8 @@ Template.ProfileForm.events({
           $("#valid-url").text("");
         }
   },
-  'blur #profile-username' (event, template) {
-    //TO DO: make sure current user name is excluded from search on serverside
-    Meteor.call('updateUsernameIsUnique', event.currentTarget.value, function(error, result) {
-      if (error) {
-        console.log(error);
-      } else {
-        if (result) {
-          console.log('ran updateUsernameIsUnique and got true')
-          template.templateDictionary.set('usernameCompleted',true);
-          $("#valid-username").html('<i class="material-icons">check</i>');
-
-        } else {
-          console.log('ran updateUsernameIsUnique and got false')
-          $("#valid-username").text("Username exists");
-          template.templateDictionary.set('usernameCompleted',false);
-        }
-      }
-    });
-  },
   'click #profile-public-switch' (event, template) {
     event.preventDefault();
-    //var shown = Template.instance().templateDictionary.get('showPublic');
-    //Template.instance().templateDictionary.set('showPublic',!shown);
     
     //Check if user is public
     if( Meteor.user().isPublic) {
@@ -140,15 +120,6 @@ Template.ProfileForm.events({
         }
     }else{
       togglePublic(true,template);
-      //False - check if form is complete
-      /*if(Session.get('profileIsComplete')){
-        //enable delegate button
-        togglePublic(true);
-      }else{
-        //profile incomplete message
-        msg = "Profile is incomplete";
-        Bert.alert(msg, 'danger');
-      }*/
 
     }
 
@@ -179,32 +150,6 @@ Template.ProfileForm.events({
       });
     }
   },
-  /* Candidate feature disable for now
-  'click #profile-candidate-switch' (event, template) {
-    // Check if person already is a candidate, if so remove role
-    if (isInRole('candidate')) {
-      Meteor.call('toggleRole', Meteor.userId(), 'candidate', false, function(error) {
-        if (error) {
-          Bert.alert(error.reason, 'danger');
-        } else {
-          var msg = TAPi18n.__('pages.profile.alerts.profile-candidate-removed');
-          Bert.alert(msg, 'success');
-        }
-      });
-    } else {
-      // Profile is complete, submit approval request
-      Meteor.call('requestApproval', Meteor.userId(), 'candidate', function(error) {
-        if (error) {
-          Bert.alert(error.reason, 'danger');
-          updateDisplayedStatus('candidate', template)
-        } else {
-          var msg = TAPi18n.__('pages.profile.alerts.profile-candidate-requested');
-          Bert.alert(msg, 'success');
-        }
-      });
-    }
-  },
-  */
   'submit form' (event, template) {
     event.preventDefault();
   },
@@ -224,12 +169,18 @@ Template.ProfileForm.events({
 Template.ProfileForm.onRendered(function() {
   let template = Template.instance();
 
+  $.validator.addMethod('usernameUnique', (username) => {
+    let exists = Meteor.users.findOne({"_id":{$ne: Meteor.userId()},"profile.username": username});
+    return exists ? false : true;
+  });
+
   $("#profile-form").validate({
     rules: {
       profileUsername: {
         required: true,
         minlength: 5,
         maxlength: 16,
+        usernameUnique: true
         
       },
       profileWebsite: {
@@ -241,6 +192,7 @@ Template.ProfileForm.onRendered(function() {
         required: TAPi18n.__('pages.profile.alerts.username'),
         minlength: TAPi18n.__('pages.profile.alerts.username-min'),
         maxlength: TAPi18n.__('pages.profile.alerts.username-max'),
+        usernameUnique: TAPi18n.__('pages.profile.alerts.username-unique')
       },
       profileWebsite: {
         url: TAPi18n.__('pages.profile.alerts.valid-url')
@@ -268,7 +220,6 @@ Template.ProfileForm.onRendered(function() {
             if (error) {
               Bert.alert(error.reason, 'danger');
             } else {
-              //template.find('#profile-form').reset();
               Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
             }
           });
@@ -361,8 +312,10 @@ Template.ProfileForm.helpers({
   },
   saveDisabled: function(){
     if (Meteor.user().isPublic && !Session.get('profileIsComplete')){
+      console.log('save is now disabled')
       return 'disabled';
     } else {
+      console.log('save is no longer disabled')
       return '';
     }
   },

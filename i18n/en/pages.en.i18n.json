@@ -328,6 +328,7 @@
 				"username": "Username required.",
 				"username-min": "Minimum of 5 characters",
 				"username-max": "Maximum of 16 characters",
+				"username-unique": "Username already exists.",
 				"profile-updated": "Profile updated.",
 				"profile-private": "Profile is now private.",
 				"profile-public": "Profile is now public.",
