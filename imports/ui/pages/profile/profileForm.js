@@ -312,10 +312,8 @@ Template.ProfileForm.helpers({
   },
   saveDisabled: function(){
     if (Meteor.user().isPublic && !Session.get('profileIsComplete')){
-      console.log('save is now disabled')
       return 'disabled';
     } else {
-      console.log('save is no longer disabled')
       return '';
     }
   },
@@ -498,7 +496,6 @@ function updateDisplayedStatus(type, template){
     if (currentApproval){
       var status = currentApproval.status
       var statusSwitch = template.find('#profile-' + type + '-switch-label').MaterialSwitch;
-      console.log(status)
       if (statusSwitch) {
         if(status=='Requested'){
           statusSwitch.disable();

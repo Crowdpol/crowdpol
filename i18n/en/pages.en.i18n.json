@@ -222,7 +222,7 @@
 				"forAndAgainst": "Every proposal has its pros and cons. Add some brief arguments for and against your proposal by entering them into the fields below and clicking the button.",
 				"startDate": "Start date for voting",
 				"endDate": "Closing date for voting",
-
+				"confirm-back": "Are you sure you want to go back? Any unsaved changes will be lost.",
 				"invited": "Invite others to collaborate by entering their usernames. If not found, enter an email address.",
 				"tags": "Add some tags your proposal:",
 				"pointFor": "Points For:",
