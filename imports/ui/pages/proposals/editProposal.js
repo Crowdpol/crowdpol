@@ -132,7 +132,11 @@ Template.EditProposal.events({
 		event.preventDefault();
 		saveChanges(event, template, 'App.proposal.edit');
 	},
-
+	'click #back-button' (event, template) {
+		if (!window.confirm(TAPi18n.__('pages.proposals.edit.confirm-back'))){ 
+			event.preventDefault();
+		}
+	},
 	'click #preview-proposal': function(event, template){
 		event.preventDefault();
 		saveChanges(event, template, 'App.proposal.view');
