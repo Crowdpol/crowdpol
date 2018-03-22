@@ -132,7 +132,7 @@ Template.ProfileForm.events({
           if (error) {
             Bert.alert(error.reason, 'danger');
           } else {
-            var msg = TAPi18n.__('profile-msg-delegate-removed');
+            var msg = TAPi18n.__('pages.profile.alerts.profile-msg-delegate-removed');
             Bert.alert(msg, 'success');
           }
         });
@@ -327,7 +327,7 @@ Template.ProfileForm.helpers({
     if(isInRole('delegate')){
       status = TAPi18n.__('generic.approved');
     } else {
-      status = false;//Template.instance().delegateStatus.get()
+      status = false;
       if (status == TAPi18n.__('generic.approved')){
         /*if the status is approved, but the user is not in the role, then
         they were previously approved, but revoked the role themselves*/ 
@@ -492,13 +492,13 @@ function isInRole(role){
 }
 
 function updateDisplayedStatus(type, template){
-  //console.log('updateDisplayedStatus is running with type ' + type)
   var approvals = Meteor.user().approvals
   if (approvals) {
     var currentApproval = approvals.find(approval => approval.type === type)
     if (currentApproval){
       var status = currentApproval.status
       var statusSwitch = template.find('#profile-' + type + '-switch-label').MaterialSwitch;
+      console.log(status)
       if (statusSwitch) {
         if(status=='Requested'){
           statusSwitch.disable();
@@ -522,7 +522,7 @@ function updatePublicSwitch(template){
   var delegateSwitch = template.find('#profile-delegate-switch-label').MaterialSwitch;
   if(!checkProfileIsComplete(template)){
     //console.log("profile is incomplete, disabling public toggle");
-    //publicSwitch.disable();
+    publicSwitch.disable();
     delegateSwitch.disable();
     return;
   }

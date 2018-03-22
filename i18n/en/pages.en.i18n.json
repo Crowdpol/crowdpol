@@ -340,7 +340,7 @@
 			},
 			"tooltips": {
 				"delegateSwitch": "Apply to be a delegate. This will allow other users to let you vote on their behalf.",
-				"publicSwitch": "Make your profile visible to the public, or hide it."
+				"publicSwitch": "Make your profile visible to the public, or hide it. Your profile must be complete to be public."
 			},
 			"characters": "characters",
 			"min": "min",
