@@ -8,7 +8,7 @@ Template.Delegate.onCreated(function () {
   // Set user's ranked delegates
   Meteor.call('getRanks', Meteor.userId(), "delegate", function(error, result){
     if(error) {
-      Bert.aler(error.reason, 'danger');
+      Bert.alert(error.reason, 'danger');
     } else {
       Session.set('ranked', result);
     }
