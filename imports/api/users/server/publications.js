@@ -7,12 +7,16 @@ import { Ranks } from '../../ranking/Ranks.js';
 defaultUserProjection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 
 Meteor.publish('users.community', function(communityId) {
-  return Meteor.users.find({"profile.communityIds" : communityId, roles: {$nin: ["demo"]}}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
+  return Meteor.users.find({"profile.communityIds" : communityId}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
 });
 
 Meteor.publish('user.profile', function(userId) {
   check(userId,String);
   return Meteor.users.find({_id: userId}, defaultUserProjection);
+});
+
+Meteor.publish('users.usernames', function() {
+  return Meteor.users.find({}, {fields: {'profile.username': 1}});
 });
 
 // Publish approvals to list 
@@ -62,7 +66,6 @@ Meteor.publish('users.delegatesWithTag', function (keyword, communityId) {
     return Meteor.users.find(
     {
       roles: 'delegate', 
-      roles: { $nin: [ "demo" ] },
       'profile.tags': { $elemMatch: {_id: tag._id}},
       'profile.communityIds': communityId
     },
@@ -102,7 +105,7 @@ Meteor.publish('simpleSearch', function(search, type, communityId) {
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  let query      = {'profile.communityIds': communityId, $and: [{roles: type},{ roles: { $nin: [ "demo" ] }}]},
+  let query      = {'profile.communityIds': communityId, roles: type},
       projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
@@ -114,8 +117,7 @@ Meteor.publish('simpleSearch', function(search, type, communityId) {
         { "profile.userName": regex }
       ]},
       {'profile.communityIds': communityId},
-      {roles: type},
-      { roles: { $nin: [ "demo" ] }}
+      {roles: type}
     ]};
 
     projection.limit = 100;
@@ -143,7 +145,7 @@ Meteor.publish('userSearch', function(search, communityId) {
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  let query      = {'profile.communityIds': communityId, $and: [{roles: { $nin: [ "demo" ] }}]},
+  let query      = {'profile.communityIds': communityId},
       projection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
@@ -153,10 +155,9 @@ Meteor.publish('userSearch', function(search, communityId) {
         { "profile.firstName": regex },
         { "profile.lastName": regex },
         { "profile.userName": regex },
-        { "emails.address": regex},
-        {'profile.communityIds': communityId}
+        { "emails.address": regex}
       ]},
-      { roles: { $nin: [ "demo" ] }},
+      {'profile.communityIds': communityId},
       {"isPublic" : true}
     ]};
     projection.limit = 100;

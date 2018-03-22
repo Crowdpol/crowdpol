@@ -40,6 +40,7 @@ Template.ProfileForm.onCreated(function() {
   
   self.autorun(function() {
     self.subscribe('user.current');
+    self.subscribe('users.usernames');
   });
   var dict = new ReactiveDict();
   dict.set('completedScore', 0);
@@ -95,43 +96,16 @@ Template.ProfileForm.events({
   },
   'blur #profile-website' (event, template) {
         if (validateUrl(event.currentTarget.value)) {
-          //$('#submitProfile').removeAttr('disabled', 'disabled');
-          //$('form').unbind('submit');
-          template.templateDictionary.set('usernameCompleted',true);
+          template.templateDictionary.set('urlCompleted',true);
           $("#valid-url").html('<i class="material-icons">check</i>');
 
         } else {
-          $("#valid-url").text("");
-          template.templateDictionary.set('usernameCompleted',false);
-          //$('#submitProfile').attr('disabled', 'disabled');
-          //$('form').bind('submit',function(e){e.preventDefault();});
-        }
-  },
-  'blur #profile-username' (event, template) {
-    //TO DO: make sure current user name is excluded from search on serverside
-    Meteor.call('updateUsernameIsUnique', event.currentTarget.value, function(error, result) {
-      if (error) {
-        console.log(error);
-      } else {
-        if (result) {
-          //$('#submitProfile').removeAttr('disabled', 'disabled');
-          //$('form').unbind('submit');
-          template.templateDictionary.set('urlCompleted',true);
-          $("#valid-username").html('<i class="material-icons">check</i>');
-
-        } else {
-          $("#valid-username").text("Username exists");
           template.templateDictionary.set('urlCompleted',false);
-          //$('#submitProfile').attr('disabled', 'disabled');
-          //$('form').bind('submit',function(e){e.preventDefault();});
+          $("#valid-url").text("");
         }
-      }
-    });
   },
   'click #profile-public-switch' (event, template) {
     event.preventDefault();
-    //var shown = Template.instance().templateDictionary.get('showPublic');
-    //Template.instance().templateDictionary.set('showPublic',!shown);
     
     //Check if user is public
     if( Meteor.user().isPublic) {
@@ -146,15 +120,6 @@ Template.ProfileForm.events({
         }
     }else{
       togglePublic(true,template);
-      //False - check if form is complete
-      /*if(Session.get('profileIsComplete')){
-        //enable delegate button
-        togglePublic(true);
-      }else{
-        //profile incomplete message
-        msg = "Profile is incomplete";
-        Bert.alert(msg, 'danger');
-      }*/
 
     }
 
@@ -167,7 +132,7 @@ Template.ProfileForm.events({
           if (error) {
             Bert.alert(error.reason, 'danger');
           } else {
-            var msg = TAPi18n.__('profile-msg-delegate-removed');
+            var msg = TAPi18n.__('pages.profile.alerts.profile-msg-delegate-removed');
             Bert.alert(msg, 'success');
           }
         });
@@ -185,32 +150,6 @@ Template.ProfileForm.events({
       });
     }
   },
-  /* Candidate feature disable for now
-  'click #profile-candidate-switch' (event, template) {
-    // Check if person already is a candidate, if so remove role
-    if (isInRole('candidate')) {
-      Meteor.call('toggleRole', Meteor.userId(), 'candidate', false, function(error) {
-        if (error) {
-          Bert.alert(error.reason, 'danger');
-        } else {
-          var msg = TAPi18n.__('pages.profile.alerts.profile-candidate-removed');
-          Bert.alert(msg, 'success');
-        }
-      });
-    } else {
-      // Profile is complete, submit approval request
-      Meteor.call('requestApproval', Meteor.userId(), 'candidate', function(error) {
-        if (error) {
-          Bert.alert(error.reason, 'danger');
-          updateDisplayedStatus('candidate', template)
-        } else {
-          var msg = TAPi18n.__('pages.profile.alerts.profile-candidate-requested');
-          Bert.alert(msg, 'success');
-        }
-      });
-    }
-  },
-  */
   'submit form' (event, template) {
     event.preventDefault();
   },
@@ -230,12 +169,18 @@ Template.ProfileForm.events({
 Template.ProfileForm.onRendered(function() {
   let template = Template.instance();
 
+  $.validator.addMethod('usernameUnique', (username) => {
+    let exists = Meteor.users.findOne({"_id":{$ne: Meteor.userId()},"profile.username": username});
+    return exists ? false : true;
+  });
+
   $("#profile-form").validate({
     rules: {
       profileUsername: {
         required: true,
         minlength: 5,
         maxlength: 16,
+        usernameUnique: true
         
       },
       profileWebsite: {
@@ -244,10 +189,14 @@ Template.ProfileForm.onRendered(function() {
     },
     messages: {
       profileUsername: {
-        required: "Username required.",
-        minlength: "Minimum of 5 characters",
-        maxlength: "Maximum of 16 characters",
+        required: TAPi18n.__('pages.profile.alerts.username'),
+        minlength: TAPi18n.__('pages.profile.alerts.username-min'),
+        maxlength: TAPi18n.__('pages.profile.alerts.username-max'),
+        usernameUnique: TAPi18n.__('pages.profile.alerts.username-unique')
       },
+      profileWebsite: {
+        url: TAPi18n.__('pages.profile.alerts.valid-url')
+      }
     },
     submitHandler() {
       var communityId = LocalStore.get('communityId');
@@ -271,7 +220,6 @@ Template.ProfileForm.onRendered(function() {
             if (error) {
               Bert.alert(error.reason, 'danger');
             } else {
-              //template.find('#profile-form').reset();
               Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
             }
           });
@@ -377,7 +325,7 @@ Template.ProfileForm.helpers({
     if(isInRole('delegate')){
       status = TAPi18n.__('generic.approved');
     } else {
-      status = false;//Template.instance().delegateStatus.get()
+      status = false;
       if (status == TAPi18n.__('generic.approved')){
         /*if the status is approved, but the user is not in the role, then
         they were previously approved, but revoked the role themselves*/ 
@@ -542,7 +490,6 @@ function isInRole(role){
 }
 
 function updateDisplayedStatus(type, template){
-  //console.log('updateDisplayedStatus is running with type ' + type)
   var approvals = Meteor.user().approvals
   if (approvals) {
     var currentApproval = approvals.find(approval => approval.type === type)
@@ -572,7 +519,7 @@ function updatePublicSwitch(template){
   var delegateSwitch = template.find('#profile-delegate-switch-label').MaterialSwitch;
   if(!checkProfileIsComplete(template)){
     //console.log("profile is incomplete, disabling public toggle");
-    //publicSwitch.disable();
+    publicSwitch.disable();
     delegateSwitch.disable();
     return;
   }
