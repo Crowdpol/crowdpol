@@ -102,7 +102,7 @@ Meteor.publish('simpleSearch', function(search, type, communityId) {
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-  let query      = {'profile.communityIds': communityId, $and: [{roles: type},{ roles: { $nin: [ "demo" ] }}]},
+  let query      = {'profile.communityIds': communityId,roles: type},
       projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
@@ -115,7 +115,6 @@ Meteor.publish('simpleSearch', function(search, type, communityId) {
       ]},
       {'profile.communityIds': communityId},
       {roles: type},
-      { roles: { $nin: [ "demo" ] }}
     ]};
 
     projection.limit = 100;
