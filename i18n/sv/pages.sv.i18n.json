@@ -328,6 +328,11 @@
 			"delegate" : "Delegat",
 			"candidate" : "Kandidat",
 			"alerts": {
+				"invalid-url": "TODO Please enter a valid url, starting with 'http' or 'https'.",
+				"username": "TODO Username required.",
+				"username-min": "TODO Minimum of 5 characters",
+				"username-max": "TODO Maximum of 16 characters",
+				"username-unique": "TODO Username already exists.",
 				"profile-updated": "Profilen updaterad.",
 				"profile-private": "Din profil är nu privat.",
 				"profile-public": "Din profil är nu offentlig.",

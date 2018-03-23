@@ -195,7 +195,7 @@ Template.ProfileForm.onRendered(function() {
         usernameUnique: TAPi18n.__('pages.profile.alerts.username-unique')
       },
       profileWebsite: {
-        url: TAPi18n.__('pages.profile.alerts.valid-url')
+        url: TAPi18n.__('pages.profile.alerts.invalid-url')
       }
     },
     submitHandler() {
