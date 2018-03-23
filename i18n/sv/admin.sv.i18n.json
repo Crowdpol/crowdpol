@@ -4,114 +4,114 @@
 			"heading" : "Admin Dashboard",
 			"card": {
 				"users": {
-					"heading": "Users",
-					"text": "Add/Edit/Delete users, invite new people, change user roles.",
-					"link": "Manage Users"
+					"heading": "Användare",
+					"text": "Lägg till/Ändra/Ta bort användare, bjud in nya användare, ändra användares roll.",
+					"link": "Hantera Användare"
 				},
 				"tags": {
-					"heading": "Tags",
-					"text": "Add/Edit/Delete tags used for filtering content.",
-					"link": "Manage Tags"
+					"heading": "Taggar",
+					"text": "Lägg till/Ändra/Ta bort taggar som används för filtrering av innehåll.",
+					"link": "Hantera Taggar"
 				},
 				"approvals": {
-					"heading": "Approvals",
-					"text": "Approve or reject user requests to be delegates, organisations or political parties.",
-					"link": "Manage Approvals"
+					"heading": "Godkännanden",
+					"text": "Godkänn eller avvisa användares önskemål om att bli delegater, som individ, organisation eller politiskt parti.",
+					"link": "Hantera Godkännanden"
 				},
 				"proposals": {
-					"heading": "Proposals",
-					"text": "Review proposals submitted by users.",
-					"link": "Manage Proposals"
+					"heading": "Motioner",
+					"text": "Granska motioner som användare lämnat in.",
+					"link": "Hantera Motioner"
 				},
 				"voting": {
-					"heading": "Voting",
-					"text": "See voting results and prepare votes for tallying in closed proposals.",
-					"link": "View Voting"
+					"heading": "Röstning",
+					"text": "Se resultat av omröstning och förbered röster i stängda motioner för sammanräkning.",
+					"link": "Se Röstresultat"
 				},
 				"stats":{
-					"heading": "Statistics",
-					"text": "Review various statistcs of the site",
-					"link": "View Stats"
+					"heading": "Statistik",
+					"text": "Granska webbsajtens statistik",
+					"link": "Se Statistik"
 				}
 			}
 		},
 		"users": {
-			"heading": "All Users",
-			"name": "Full Name",
-			"email": "Email Address",
-			"roles": "Roles",
-			"public": "Public",
-			"delete-button": "Delete",
-			"delete-message": "Are you sure you want to delete this user?",
-			"delete-title":"Permanently delete a user",
-			"delete-yes":"Yes",
-			"delete-no":"No",
-			"invite-heading": "Invite a New User:",
-			"invite-message": "Enter a user's email to send them an invitation to join.",
-			"invite-button": "Send Invite",
-			"invite-role": "User Role",
-			"approve-button": "Approve",
-			"reject-button": "Reject",
-			"invite-role": "User Role"
+			"heading": "Alla Användare",
+			"name": "Fullständigt Namn",
+			"email": "Epostadress",
+			"roles": "Roller",
+			"public": "Offentlig",
+			"delete-button": "Radera",
+			"delete-message": "Är du säker på att du vill radera denna användare?",
+			"delete-title":"Radera användare permanent",
+			"delete-yes":"Ja",
+			"delete-no":"Nej",
+			"invite-heading": "Bjud in en Ny Användare a New Användare:",
+			"invite-message": "Fyll i en användares epost för att skicka dem en inbjudan att gå med.",
+			"invite-button": "Skicka Inbjudan",
+			"invite-role": "Användares Roll",
+			"approve-button": "Godkän",
+			"reject-button": "Avslå",
+			"invite-role": "Användares Roll"
 		},
 		"proposals":{
-			"heading": "Proposals",
-			"date": "Date",
-			"author": "Author",
-			"contributors": "Contributors",
-			"title": "Title",
-			"none-waiting": "There are no new proposals awaiting approval.",
-			"approve-button": "Approve",
-			"reject-button": "Reject"
+			"heading": "Motioner",
+			"date": "Datum",
+			"author": "Författare",
+			"contributors": "Bidragsgivare",
+			"title": "Titl",
+			"none-waiting": "Det finns inga nya motioner som inväntar godkännande.",
+			"approve-button": "Godkänn",
+			"reject-button": "Avslå"
 		},
 		"voting":{
-			"heading": "Voting",
-			"endDate": "Expiry Date",
-			"author": "Author",
-			"title": "Title",
-			"tally-votes": "Refresh Votes",
-			"results": "Results",
-			"yes-votes": "Yes Votes",
-			"no-votes": "No Votes",
-			"total-votes": "Total Votes"
+			"heading": "Röstning",
+			"endDate": "Slutdatum",
+			"author": "Författare",
+			"title": "Titel",
+			"tally-votes": "Uppdatera Röster",
+			"results": "Resultat",
+			"yes-votes": "Bifallande Röster",
+			"no-votes": "Avslående Röster",
+			"total-votes": "Totalt Antal Röster"
 		},
 		"tags": {
-			"heading": "Manage Tags",
+			"heading": "Hantera Taggar",
 			"text": "Text",
-			"keyword": "Keyword",
+			"keyword": "Nyckelord",
 			"url": "URL",
-			"delete": "Delete",
-			"created": "Date created",
-			"approved": "Authorized",
-			"add-button": "Add",
-			"delete-button": "Delete",
-			"none-waiting": "There are currently no pending proposals."
+			"delete": "Radera",
+			"created": "Datum skapad",
+			"approved": "Godkänd",
+			"add-button": "Lägg till",
+			"delete-button": "Radera",
+			"none-waiting": "För dillfället finns det inga motioner som väntar på att granskas."
 		},
 		"approvals": {
-			"heading": "Approvals",
-			"approve-button": "Approve",
-			"reject-button": "Reject",
-			"date": "Date",
-			"username":"Username",
-			"request-type":"Request Type",
-			"request-status":"Request Status",
-			"approvals-waiting":"There are no pending approval requests."
+			"heading": "Godkännanden",
+			"approve-button": "Godkänn",
+			"reject-button": "Avvisa",
+			"date": "Datum",
+			"username":"Användarnamn",
+			"request-type":"Typ av Begäran",
+			"request-status":"Status på Begäran",
+			"approvals-waiting":"Det finns inga väntande önskemål om godkännande."
 		},
 		"alerts": {
-			"user-approved": "User approved",
-			"user-rejected": "User rejected",
-			"proposal-approved": "Proposal approved",
-			"proposal-rejected": "Proposal rejected",
-			"tag-updated": "Tag Updated",
-			"tag-added": "Tag Added",
-			"tag-deleted": "Tag Deleted",
-			"verification-email-sent": "Verification sent to "
+			"user-approved": "Användare Godkänd",
+			"user-rejected": "Användare Avvisad",
+			"proposal-approved": "Motion Godkänd",
+			"proposal-rejected": "Motion Avvisad",
+			"tag-updated": "Tagg Uppdaterad",
+			"tag-added": "Tagg Tillagd",
+			"tag-deleted": "Tagd Raderad",
+			"verification-email-sent": "Verifications epost skickad till "
 		},
 		"stats": {
 			"proposals":{
 				"tabs": {
-					"overview" : "Overview",
-					"proposalList" : "Proposal Stats"
+					"overview" : "Översikt",
+					"proposalList" : "Statistik Motioner"
 				}
 			}
 		}

@@ -1,18 +1,36 @@
 {
 	"generic": {
-		"login": "Login",
-		"logout": "Logout",
-		"signup": "Sign Up",
-		"read-more": "Read More",
-		"preview": "Preview",
-		"loading": "Loading...",
-		"not-found_message": "Sorry, that page doesn't exist",
-		"not-found_home-link": "Go to home",
+		"login": "Logga in",
+		"logout": "Logga ut",
+		"signup": "Gå Med",
+		"read-more": "Läs Mer",
+		"preview": "Förhandsvisning",
+		"loading": "Läser in...",
+		"not-found_message": "Sidan existerar tyvärr inte",
+		"not-found_home-link": "Tillbaka hem",
 		"alerts": {
-			"welcome": "Welcome"
+			"welcome": "Välkommen"
 		},
-		"show-more": "Show More",
-		"show-less": "Show Less",
-		"approved": "Approved"
+		"show-more": "Visa Mer",
+		"show-less": "Visa Mindre",
+		"approved": "Godkännd"
+	},
+	"form": {
+		"email": "E-postadress",
+		"password": "Lösenord",
+		"name": "Namn",
+		"firstname": "Förnamn",
+		"lastname": "Efternamn",
+		"username": "Användarnamn",
+		"bio": "Om",
+		"website": "Webbsida",
+		"phone": "Telefonnummer",
+		"subject": "Ämne",
+		"contact": "Kontaktperson",
+		"message": "Ditt meddelande",
+		"save": "Spara",
+		"submit": "Sänd",
+		"update": "Uppdatera",
+		"cancel": "Avbryt"
 	}
 }

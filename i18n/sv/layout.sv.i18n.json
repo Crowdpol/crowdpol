@@ -1,40 +1,42 @@
 {
 	"layout": {
 		"header": {
-			"app_title": "Common Democracy",
-			"home_title": "Democracy 2018",
-			"nav_home": "Home",
-			"nav_dash": "Dashboard",
-			"nav_delegate" : "Delegate",
-			"nav_vote": "Vote",
-			"nav_proposals": "Proposals",
-			"nav_nominate": "Nominate",
-			"nav_about": "About",
-			"nav_contact": "Contact",
-			"nav_login": "Login",
-			"nav_logout": "Logout",
+			"app_title": "Mer Demokrati",
+			"home_title": "Mer Demokrati",
+			"nav_home": "Hem",
+			"nav_dash": "Instrumentpanel",
+			"nav_delegate" : "Delegera",
+			"nav_vote": "Rösta",
+			"nav_proposals": "Motionera",
+			"nav_nominate": "Nominera",
+			"nav_about": "Om",
+			"nav_contact": "Kontakt",
+			"nav_login": "Logga in",
+			"nav_logout": "Logga ut",
 			"lang_en": "English",
-			"lang_sv": "Swedish",
-			"role_selector": "Switch Roles",
-			"no_notifications": "You don't have any notifications yet."
+			"lang_sv": "Svenska",
+			"role_selector": "Byt Roll",
+			"no_notifications": "Du har inga meddelanden."
 		},
 		"drawer": {
-			"nav_login" : "Log in",
-			"nav_logout": "Log out",
-			"nav_profile" : "Profile",
-			"nav_dash" : "Dashboard",
-			"nav_contact" : "Contact",
-			"nav_privacy" : "Privacy policy",
-			"nav_terms" : "Terms & conditions",
-			"nav_admin_dash" : "Admin dashboard",
-			"right_about" : "About"
+			"nav_login" : "Logga in",
+			"nav_logout": "Logga ut",
+			"nav_profile" : "Profil",
+			"nav_dash" : "Instrumentpanel",
+			"nav_contact" : "Kontakt",
+			"nav_privacy" : "Sekretesspolicy",
+			"nav_terms" : "Användarvillkor",
+			"nav_admin_dash" : "Adminpanel",
+			"right_about" : "Om"
 		},
-		"body":{},
+		"body":{
+			"no-styles": "Färgschemat för din webbsida kunde inte laddas upp."
+		},
 		"footer": {
-			"delegate": "Delegate",
-			"propose": "Propose",
-			"nominate": "Nominate",
-			"vote": "Vote"
+			"delegate": "Delegera",
+			"propose": "Motionera",
+			"nominate": "Nominera",
+			"vote": "Rösta"
 		}
 	}
 }

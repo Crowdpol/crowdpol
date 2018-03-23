@@ -2,19 +2,19 @@
 	"notifications": {
 		"approvals": {
 			"candidate": {
-				"rejected": "Your request to be a candidate has been rejected.",
-				"approved": "Your request to be a candidate has been approved."
+				"rejected": "Din begäran att bli en kandidat har avvisats.",
+				"approved": "Din begäran att bli en kandidat har godkännts."
 			},
 			"delegate": {
-				"rejected": "Your request to be a delegate has been rejected.",
-				"approved": "Your request to be a delegate has been approved."
+				"rejected": "Din begäran att bli en delegat har avvisats.",
+				"approved": "Din begäran att bli en delegat har godkännts."
 			}
 		},
 		"proposals": {
-			"approved": "The proposal you submitted has been approved.",
-			"rejected": "The proposal you submitted has been rejected.",
-			"comments": "There is a new comment on your proposal.",
-			"invite": "You have been invited to collaborate on a proposal."
+			"approved": "Motionen du lämnade har godkännts.",
+			"rejected": "Motionen du lämnade har avvisats.",
+			"comments": "Det finns en ny kommentar på din motion.",
+			"invite": "Du har blivit inbjuden till att samarbeta på en motion."
 		}
 	}
 }
