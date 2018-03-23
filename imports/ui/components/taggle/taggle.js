@@ -36,7 +36,8 @@ Template.taggle.helpers({
 })
 
 export function setupTaggle(){
-  taggle = new Taggle('tags', {placeholder: 'Add some tags', duplicateTagClass: 'bounce'});
+  var placeholder = TAPi18n.__('components.taggle.placeholder')
+  taggle = new Taggle('tags', {placeholder: placeholder, duplicateTagClass: 'bounce'});
 
   var container = taggle.getContainer();
   var input = taggle.getInput();

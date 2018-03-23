@@ -1,0 +1,13 @@
+{
+	"components" :{
+		"delegateVoteButtons":{
+			"instructions-1": " TODO Please note that you are voting as a delegate. Your vote wil be public.",
+			"instructions-2": "TODO To switch to voting as an individual, click the 'Roles' menu.",
+			"reason-message": "TODO Give a brief (optional) reason for your choice. This will be visible to your supporters.",
+			"finished": "TODO Finished"
+		},
+		"taggle": {
+			"placeholder": "TODO Add some tags..."
+		}
+	}
+}
