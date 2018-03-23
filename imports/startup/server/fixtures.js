@@ -22,7 +22,8 @@ The project opens on January first and concludes on September 15, Global Democra
 		languageSelector: true,
 		homepageBannerText: "A new wave of democracy is coming to Sweden.",
 		homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
-		aboutText: mdAbout
+		aboutText: mdAbout,
+		defaultLanguage: 'sv'
 	});
 	bgSubdomain = 'bangor';
 	bgId = createCommunity('elop*10', 'bangor', {
@@ -31,7 +32,8 @@ The project opens on January first and concludes on September 15, Global Democra
 		languageSelector: false,
 		homepageBannerText: "Innovation can start with the question 'What if?'",
 		homepageIntroText: "A public presentation of four visions of a future High Street.",
-		aboutText: bgAbout
+		aboutText: bgAbout,
+		defaultLanguage: 'en'
 	});
 
 	/* Register admins for both communities */
