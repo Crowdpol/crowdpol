@@ -16,7 +16,10 @@
 			"lang_en": "English",
 			"lang_sv": "Svenska",
 			"role_selector": "Byt Roll",
-			"no_notifications": "Du har inga meddelanden."
+			"no_notifications": "Du har inga meddelanden.",
+			"search_tags": "TODO Search for tags...",
+			"vote_as_individual": "TODO Vote as Individual",
+			"vote_as_delegate": "TODO Vote as Delegate"
 		},
 		"drawer": {
 			"nav_login" : "Logga in",

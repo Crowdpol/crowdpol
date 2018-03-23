@@ -102,6 +102,12 @@ Template.Header.helpers({
   },
   showLanguages(){
     return Template.instance().community.get().settings.languageSelector
+  },
+  voteDropdownText(){
+    var str = "layout.header.vote_as_" + LocalStore.get('currentUserRole').toLowerCase();
+    console.log(str)
+    console.log(TAPi18n.__(str))
+    return TAPi18n.__(str);
   }
 });
 
