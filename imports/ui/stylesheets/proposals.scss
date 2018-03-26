@@ -207,6 +207,7 @@
 
 .pointsList{
   margin: 0px;
+  padding: 20px;
   li{
     font-size: $small-font-size;
   }
@@ -216,5 +217,7 @@
   border: solid 1px #ccc;
 }
 
-
+#title-error{
+  font-size: $small-font-size;
+}
 
