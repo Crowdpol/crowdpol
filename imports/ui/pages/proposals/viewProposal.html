@@ -2,7 +2,7 @@
 
 	{{> SignInModal}}
 	{{#if currentUser }}
-		{{> backButton text="Back to Proposals" url="/proposals"}}
+		{{> backButton text="generic.back-to-proposals" url="/dash"}}
 	{{/if}}
 	{{#if Template.subscriptionsReady}}
 
@@ -183,7 +183,7 @@
 			<label class="mdl-textfield__label">{{_ "pages.proposals.view.addComment"}}</label>
 		</div>
 		<div class="form-group">
-			<input class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" type="submit" value='{{_ "submit"}}'>
+			<input class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" type="submit" value='{{_ "form.submit"}}'>
 		</div>
 	</form>
 </template>

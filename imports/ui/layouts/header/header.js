@@ -29,6 +29,10 @@ Template.Header.onCreated(function(){
     self.availableTags.set(Tags.find().pluck('keyword'));
     self.subscribe('communities.subdomain', subdomain, function(){
       self.community.set(Communities.findOne({subdomain: subdomain}));
+      //set default language for community is none is selected
+      var lang = Communities.findOne({subdomain: subdomain}).settings.defaultLanguage;
+      Session.set("i18n_lang",lang)
+      TAPi18n.setLanguage(lang);
     });
   });
 
@@ -102,6 +106,10 @@ Template.Header.helpers({
   },
   showLanguages(){
     return Template.instance().community.get().settings.languageSelector
+  },
+  voteDropdownText(){
+    var str = "layout.header.vote_as_" + LocalStore.get('currentUserRole').toLowerCase();
+    return TAPi18n.__(str);
   }
 });
 

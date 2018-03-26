@@ -37,6 +37,12 @@ CommunitySettings = new SimpleSchema({
     languageSelector: {
       type: Boolean,
       optional: false
+    },
+    defaultLanguage: {
+      type: String,
+      optional: false,
+      allowedValues: ['en', 'sv'],
+      defaultValue: 'en'
     }
 });
 

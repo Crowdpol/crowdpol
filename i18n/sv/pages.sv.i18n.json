@@ -1,323 +1,370 @@
 {
 	"pages": {
 		"roles":{
-			"voter": "Voter",
-			"individual-delegate": "Individual Delegate",
-			"organisation-delegate": "Organisation Delegate",
-			"party-delegate": "Party Delegate",
-			"candidate": "Candidate"
+			"voter": "Väljare",
+			"individual-delegate": "Individuell Delegat",
+			"organisation-delegate": "Organisationsdelegat",
+			"party-delegate": "Politiskt Parti",
+			"candidate": "Kandidat"
 		},
 		"home": {
-			"heading": "Common Democracy",
-			"intro-text": "A liquid democracy platform for the Swedish Politcal system.",
+			"heading": "Mer Demokrati",
+			"intro-text": "Ditt Personliga Val.",
 			"hero": {
-				"delegate": "Delegate",
-				"propose": "Propose",
-				"vote": "Vote"
+				"delegate": "Delegera",
+				"propose": "Motionera",
+				"vote": "Rösta"
 			},
-			"newsletter-text": "Get notified when the app is live.",
-			"banner-text": "A new wave of democracy is coming to Sweden.",
+			"newsletter-text": "Få Vårt Nyhetsbrev.",
+			"banner-text": "Ditt Personliga Val.",
 			"alerts": {
-				"mailing-list-signup-success": "Thank you. You have been added to the mailing list."
+				"mailing-list-signup-success": "Tack. Du har lagts till vår mailinglista.",
+				"no-image": "Din bakgrundsbild kunde inte laddas upp."
 			}
 		},
 		"about": {
-			"heading": "What’s all this about then?",
-			"subtitle": "The (r)evolution explained",
+			"heading": "Vad handlar det här om då?",
+			"subtitle": "En Inbjudan till Demokratiska (r)Evolutionärer",
 			"section": {
 				"project": {
-					"heading": "The project",
-					"paragraph-1": "Democracy 2018 is an open project that invites all Swedish citizens to explore the potential of so called liquid democracy and use this platform to select the issues and proposals most important to them. The ten most popular proposals will be presented to the new parliament after the election in September 2018. The purpose is in part to test a modernized version of our democratic system, but also to encourage the population to learn more about the issues this election year as well as find out where the various political parties stand on them. Finally the goal is to inform the members of parliaments and other political elites of how a hopefully representative cross-section of the population feel about various topics, in an effort to create dialogue and trust.",
-    				"paragraph-2": "The project opens on January first and concludes on September 15, Global Democracy Day, after which the results will be tallied and presented to the Minister of Democracy."
+					"heading": "Projektet",
+					"paragraph-1": "Mer Demokrati är ett projekt öppet för alla politik- och samhällsintresserade människor som vill skapa en personlig politisk plattform inför valet 2018 och se hur den stämmer överens med olika partiers. För att göra detta använder vi så kallad flytande demokrati där besökare kan välja att delegera sin röst till någon annan eller själv rösta direkt på ett antal motioner, eller en kombination av de båda. För den som har förslag på motioner går det även att skriva egna och skicka in dem till vår redaktion som kommer lägga ut två nya motioner i veckan. Projektet löper fram till Internatuonella Demokratidagen den 15e september i år.",
+    				"paragraph-2": "Målet är att ge väljarna en upplevelse om hur demokrati skulle kunna fungera i vårt moderan, digitala samhälle, men även att bjuda in till en djupare analys och förståelse av de utmaningar samhället står inför detta valår, samt hur våra politiska partier ställer sig till dem. Slutligen är målet att informera våra riksdagsledamöter om hur ett förhoppningsvis representativt axplock av sveriges medborgare ställer sig till diverse olika politiska områden i hopp om att skapa en djupare dialog och ett fördjupat förtroende.",
+    				"paragraph-3":"Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att presenteras för demokratiministern men även riksdagens ledamöter kommer individuellt att bjudas in för att kommentera och ta ställning."
+    			
 				},
 				"liquid-democracy": {
-					"heading": "Liquid Democracy",
-					"paragraph-1": "Liquid democracy is a voting system that incorporates the benefit of representative democracy with the benefits of direct democracy, yet avoids the pitfalls of both. The system uses delegation, much like traditional delegation of the individual vote through electing a political party or representative, but with a few modernizing tweaks. Through liquid democracy it is possible not only to delegate to a political party but to any organisation or individual that signs up to the system as a delegate. This means that a party, organisation or individual can have political clout without actually holding political office. It is also quite possible for the voter to select several delegates, not merely a single party, and to unselect or change a delegate at any time. Thus the liquid like feature of the democratic system.",
-    				"paragraph-2": "The role of the delegate is to vote on issues on the individuals behalf that he or she does not have time or inclination to delve deeper into, much like the role of the traditional political representative. Unlike the latter the delegate is in effect only an advisor to the individual voter, who must ultimately sign off on each issue. Herein lies the connection to direct democracy. The voter can at any time actively vote on any issue, which will automatically override any vote by a preselected delegate",
-    				"paragraph-3": "The benefits are numerous. The system allows for a customized political platform with almost infinite possibilities as voters can potentially write and submit their own proposals to the scrutiny and potential support of their peers. Voters can also change their minds at any point in time if their selected delegates fall short of expectations, adding fluidity to the system. Delegates who do not live up to their promises will soon find they have lost much of their support, a powerful incentive against corruption. The immediacy of direct voting is tempered by the option of using delegation for more complex issues, avoiding the pitfall of uniformed decision making to a far greater degree than pure direct democracy can provide. The system of delegates allows for a far greater range of organisations and individuals to have direct influence over the political scene without having to hold office. Opening up completely new alleys of influence, provided they have sufficient support of the voting public. To name a few."
+					"heading": "Flytande Demokrati",
+					"paragraph-1": "Flytande Demokrati är ett valsystem som kombinerar fördelarna hos traditionell representativ demokrati med de bästa sidorna hos direktdemokrati, men undviker de bådas begränsningar. Systemet använder så kallade delegater, ungefär samma förfarande som vid delegering av den individuella rösten till ett politiskt parti eller annan representant, men har ett antal mer eller mindre revolutionerande aspekter. Åtminstone för den röstande individen som kan skapa en betydligt mer personlig platform än den paketlösning det befintliga demokratiska systemet erdjuder. Genom flytande demokrati blir det exempelvis möjligt att inte bara delegera sin röst till ett etablerat politikskt parti men även till en organisation eller en person som en har förtroende för. Allt som krävs är att organisationen eller personen i fråga själva använder systemet i egensakp av delegater. Detta kan om systemet användas fullt ut innebära att ett parti, en organisation eller en individ kan få ett direkt politiskt inflytande utan att själva ha ett politiskt uppdrag. Det blir även fullt möjligt för väljaren att anförtro sin röst till fler delegater, inte bara en representant, liksom att ändra delegater närsomhelst. Det är från denna rörliga, flexibla aspekt som det demokratiska systemt fått epitetet flytande.",
+    				"paragraph-2": "Delegatens roll är att rösta åt väljaren i de fall väljaren själv inte anser sig ha tiden, kompetensen eller intresset av att fördjupa sig tillräckligt djupt i en fråga för att fatta ett eget beslut, i stort den roll dagens traditionella demokratiskt valda representanter har. Till skillnad från det senare har en delegate dock bara en rådgivande roll, den individuella väljaren måste i slutändan ändå godkänna alla beslut. I detta ligger kopplingen till den direktdemokratiska traditionen. Väljaren kan närsomhelst aktivt gå in och rösta i valfritt ärende och denna röst kommer alltid att räknas framför delegatens förvalda alternativ.",
+    				"paragraph-3": "Fördelarna med ett flytande demokratisk system är flera. Det tillåter användaren en närmast obegränsad valfrihet att komponera sin egna politiska profil och agenda i enlighet med privata övertygelser, istället för att välja mellan ett mindre antal färdiga paketlösningar. Fokus på sakfrågor framför ideologi skapar nya möjligheter till diskussion och praktiska lösningar med brett politiskt stöd. Saknar väljaren konkreta politiska förslag går det dessutom att bidra med egna motioner som andra väljare och delegater kan stödja.      Väljaren får genom flytande demokrati möjligheten att ändra uppfattning och röst närsomhelst, något som kan vara praktiskt om exempelvis en delegat inte lever upp till förväntning. Delegater i sin tur riskerar att förlora sitt stöd om de inte håller vad de lovat, ett starkt incitament mot korruption och till öppen och ärlig kommunikation eftersom. Omedelbarheten hos röstandet med de risker som denna impulsivitet kan leda till vägs upp av utnyttjandet av mer erfarna och välinformerade delegater i mer komplexa frågor. Detta skapar en betydligt mer stabil politisk struktur än ren direktdemokrati med dess potentiellt i sakfrågor oinformerade väljare. Systemet med flytande demokrati och dess delegater utanför de traditionella politiska kanalerna tillåter en betydligt bredare åsiktskorridor och helt nya perspektiv och lösningar på sociala utmaningar, förutsatt att delegaterna i fråga får tillräckligt stort stöd av den röstadne allmängheten. Flytande demokrati skapar därför även helt nya möjligheter inte bara i fråga om demokratisk struktur men även i det demokratiska innehållet. För att nämna några fördelar."
 				},
 				"how-it-works": {
-					"heading": "How it works",
-					"paragraph-1": "In our particular project the voter is first invited to join through a social media account or an email. Once the account is confirmed, the voter is presented with a number of political parties, organisations and individuals that act as delegates. The voter selects the delegates of her or his choice, and is then invited to rank them. A more highly ranked delegate will count before a less high one when the delegates voting preferences are calculated. The voter can however easily see which delegate voted in which way on each issue as all delegated votes are completely open.",
-    				"paragraph-2": "Then the voter will be directed to the second step, which is to vote on the issues. The project will start with ten proposals, but will add on average two new proposals per week for the duration of the project. For practical purposes these proposals will be selected by an editorial board. Each proposal will be indicated with a supporting or a rejecting indication, depending on the choices of the selected delegates. The voter will then be invited to confirm the preselected vote, or to vote differently. The voter can change his or her vote, as well as delegates, as any time until the deadline at midnight of 15 September 2018, or the conclusion of this particular project.",
-    				"paragraph-3": "Voters who wish to engage more can become members. Members will be able to write their own proposals, comment on each other’s proposals and vote for which proposals the editorial board should submit to the general public next.",
-    				"paragraph-4":"Individuals and organisations can also register as delegates. This is free of charge but will require proof of identity, in the form of a national ID for individuals or an email address linked to the organisations official webpage."
+					"heading": "Hur det fungerar",
+					"paragraph-1": "För att bli användare måste du först skapa ett konto. Det gör du genom att registrera dig genom socialt media eller epost. När du registrerat et konto får du först välja delegater mellan ett antal politiska partier, organisationer och individer. Du kan i dagsläget välja upp till fem delegater, och du behöver inte välja några alls om du inte vill. Det är upp till dig. Det är liksom hela poängen.",
+    				"paragraph-2": "Om du valt ett antal delegater kommer du sedan att få rangordna dem. Den delegat du placerar högst kommer att räknas först och den du placerar längst ner räknas sist när delegaternas rådgivande röster sammanräknas. I vår grundinställning så placeras individer först, sedan organisationer och till sist politiska partier. Detta då individuella delegater oftast fokuserar på specifika frågor, organisationer har ett bredare intresseområde och partier av nödvändighet behöver täcka alla områden. Som väljare kan du dock enkelt se hur dina delegater röstar, oavsett vilken du placerar högst, eftersom alla delegatröster måste vara offentliga.",
+    				"paragraph-3": "Efter val och rangordning av delegater är det dags att rösta i sakfrågorna, i detta fall de motioner som redaktionen har valt att lägga upp. Mer Demokrati kommer att börja med tio motioner och planerar att lagga upp ytterliggare två motioner i veckan fram till slutet av kampanjen i september. Varje enskild motion kommer ha ett  förvalt alternativ, forutsatt att du har delegerat din röst och någon av dina delegater har en åsikt om motionen. Har flera delegater en åsikt i frågan kommer alla dessa att synas under motionen, inklusive kortare kommentarer. Du som väljare kan antingen bekräfta din delegats val eller rösta annorlunda. Som väljare kan du ändra din röst eller ditt val av delegater närsomhelst fram till projektet Mer Demokratis slutdatum, midnatt den 15 september 2018.",
+    					"paragraph-4": "Som registrerad användare i Mer Demokrati kommer du även att kunna föreslå egna motioner. Redaktionen kommer att granska de förslag vi får in och de som möter våra kriterier kommer att publiceras under projektets gång, i mån av utrymme och relevans. Du kan skriva en motion själv eller bjuda in andra användare och skriva en motion tillsammans. Eftersom vi har begränsat med resursder kommer vi först att titta på motioner som kommer in från delegater, sedan gemensamt författade motioner och sist på de motioner som en individ har skrivit själv. Mer informatio om detta hittar du på sidan Motionera.",
+    				"paragraph-5": "Vem som helst kan skapa ett konto för att rösta i Mer Demokrati, men för att bli delegat krävs verifiering av identiteten. Representerar du en organisation som vill agera delegat i projektet behöver du kontakta oss via organisationens epost samt lämna telegonnummer för verifiering. Är du en privatperson som vill bli delegat behöver du verifiera din identitet på liknande sätt. Vi kommer dock att prioritera individer med ett större antal följare i sociala media av naturliga skäl, varför sådan information är viktig att förmedla och verifiera i samband med ansökan.",
+    				"paragraph-6":"Mer Demokrati är ett ideellt projekt där ingen av oss i redaktionen får ekonomisk ersättning för vårt engagemang. Detta innebär att det kan ta en stund att svara på ansökningar samt läsa förslag på motioner."
 				},
 				"about-us": {
-					"heading": "About Us",
-					"paragraph-1": "Democracy 2018 is a project run in cooperation with Common Democracy Sweden and a number of local individuals, companies and organisations."
+					"heading": "Om Oss",
+					"paragraph-1": "Mer Demokrati är ett ideellt projekt som i dagsläget drivs av Demokratiskolan tillsammans med Social Systems Lab samt ett antal volontärer. Vi är ett partipolitiskt obundet projekt med målet att utvekla det demokratiska samtalet i samhället och de strukturer som en levande demokrati behöver med hjälp av modern teknik och frivilligt engagemang."
 				}
 			}
 		},
 		"terms": {
-			"heading": "Terms & Conditions",
-			"subtitle": "Coming soon..."
+			"heading": "Villkor",
+			"subtitle": "Kommer snart..."
 		},
 		"privacy": {
-			"heading": "Privacy Policy",
-			"subtitle": "Coming soon..."
+			"heading": "Integritetspolicy",
+			"subtitle": "Kommer snart..."
 		},
 		"authenticate":{
-			"logged-in-title": "You are already logged in",
-			"logout": "Log out",
+			"logged-in-title": "Du är redan inloggad",
+			"logout": "Logga ut",
 			"tab": {
-				"individual": "Individuals",
-				"entities": "Organisations/Political Parties"
+				"individual": "Individ",
+				"entities": "Organisation/Politiskt Parti"
 			},
 			"links": {
-				"login": "Already have an account? Log in",
-				"register": "Don't have an account? Register",
-				"forgot": "Forgot your password?"
+				"login": "Har du redan ett konto? Logga in",
+				"register": "Har du inget konto? Skapa ett",
+				"forgot": "Glömt lösenordet?"
 			},
 			"individual": {
 				"register": {
-					"title": "Signup"
+					"title": "Bli medlem"
 				},	
 				"login": {
-					"title": "Login"
+					"title": "Login",
+					"wrong-community": "Du har inte behörighet för att logga in."
 				}
 			},
 			"entity": {
 				"register": {
-					"title": "Register as Organisation/Party"
+					"title": "Registera som Organisation/Parti"
 				},	
 				"login": {
-					"title": "Login as Organisation/Party"
+					"title": "Logga in som Organisation/Parti"
 				}
 			},
 			"new-passowrd":{
-				"heading": "Enter new password",
-				"new-password": "New password",
+				"heading": "Skapa nytt lösenord",
+				"new-password": "Nytt lösenord",
 				"alerts": {
-					"password-changed": "Your password has been changed successfully."
+					"password-changed": "Ditt löseonord har ändrats."
 				}
 			},
 			"recover-password":{
-				"heading": "Enter your email to receive instructions for resetting your password.",
-				"recovery-email": "Recovery email",
+				"heading": "Fyll i din epostadress för att ta emot instruktioner för att återställa ditt lösenord.",
+				"recovery-email": "Återställning av lösenord epost",
 				"alerts": {
-					"reset-password-sent-message": "An email with password recovery instructions has been sent."
+					"reset-password-sent-message": "En epost med instuktioner för återställning av ditt lösenord har skickats."
 				}
 			}
 		},
 		"signup":{
 			"tab": {
-				"individual": "Individuals",
-				"entities": "Organisations/Political Parties"
+				"individual": "Individ",
+				"entities": "Organisation/Politiskt Parti"
 			},
 			"links": {
-				"login": "Already have an account? Log in",
-				"register": "Don't have an account? Register",
-				"forgot": "Forgot your password?"
+				"login": "Har du redan ett konto? Logga in",
+				"register": "Har du inget konto? Bli medlem",
+				"forgot": "Glömt ditt lösenord?"
 			},
 			"individual": {
 				"register": {
-					"title": "Signup"
+					"title": "Bli Medlem"
 				},	
 				"login": {
 					"title": "Login"
 				}
 			},
 			"entity": {
-				"name": "Name of Entity",
-				"website": "Website",
-				"phone-number": "Phone number",
-				"contact-person": "Contact Person",
-				"type": "Entity Type",
+				"name": "Namn",
+				"website": "Webbsida",
+				"phone-number": "Telefonnummer",
+				"contact-person": "Kontaktperson",
+				"type": "Typ av organisation",
 				"register": {
-					"title": "Signup",
-					"loginlink": "Already have an account? Log in"
+					"title": "Registrera",
+					"loginlink": "Har organisationen ett konto? Logga in"
 				},	
 				"login": {
 					"title": "Login",
-					"signuplink": "Don't have an account? Register"
+					"signuplink": "Har organisationen inget konto ännu? Registera ett"
 				}
 			}
 		},
 		"entitySignup":{
-			"type": "Entity Type"
+			"type": "Typ av organisation"
 		},
 		"contact":{
-			"heading": "Contact Us",
+			"heading": "Kontacta Oss",
 			"alerts": {
-				"contact-message-sent": "Your contact message has been sent."
+				"contact-message-sent": "Ditt meddelande har skickats."
 			}
 		},
 		"dashboard": {
-			"heading" : "Dashboard",
+			"heading" : "Instrumentpanel",
 			"card": {
 				"proposals": {
-					"heading": "Vote",
-					"text": "Vote on Proposals.",
-					"link": "Vote"
+					"heading": "Rösta",
+					"text": "Rösta på motioner.",
+					"link": "Rösta"
 				},
 				"delegates": {
 					"heading": "Delegate",
-					"text": "Select your delegates.",
-					"link": "Delegate"
+					"text": "Välj dina delegater.",
+					"link": "Delegera"
 				},
 				"candidates": {
-					"heading": "Candidates",
-					"text": "Select your candidates",
-					"link": "Nominate"
+					"heading": "Kandidater",
+					"text": "Välj dina kandidater",
+					"link": "Nominera"
 				}
 			},
-			"verify-account-message": "Please verify your email address before continuing.",
-			"unapproved-entity-message": "Your account has not yet been approved by an admin.",
-			"verify-resend-link": "Resend Verification Link",
-			"verify-success-message": "Verified! You can do things!",
-			"verify-success-alert": "Verification successful.",
-			"authentication-required-message": "You do not have access to this page. Please login or signup for an account.",
+			"verify-account-message": "Verifiera din epost adress innan du fortsätter.",
+			"unapproved-entity-message": "Ditt konto har inte bekräftats as en admin ännu.",
+			"verify-resend-link": "Skicka Verifikationslänken Igen",
+			"verify-success-message": "Verifierad! Du kan göra saker!",
+			"verify-success-alert": "Verifikationen lyckades.",
+			"authentication-required-message": "Du har inte tillgång till denna sida. Var vänlig och logga in eller registrera dig för att skapa ett konto",
 			"alerts": {
-				"verification-email-sent": "Verification sent to __email__"
+				"verification-email-sent": "Verifikation skickat till __email__"
 			}
 		},
 		"delegates": {
-			"heading": "Delegates",
-			"instructions-1": "Below is a list of users to whom you may delegate your vote.",
-			"instructions-2": "If you do not vote on a proposal, your vote will automatically go to your highest-ranking delegate who voted. However, you can override your delegate's vote at any time.",
-			"instructions-3": "You can select up to five delegates. You can reorder your list of chosen delegates by dragging and dropping them into place once you have selected them.",
+			"heading": "Delegater",
+			"instructions-1": "Nedanför finns en lista på användare som du kan delegera din röst till.",
+			"instructions-2": "Om du inte röstar själv på en motion kommer din röst automatiskt att gå till din högst rankade delegat som röstade. Du kan dock ändra din delegats röst närsomhelst eftersom din aktiva röst räknas först.",
+			"instructions-3": "Du kan välja upp till fem delegater. Nar du har valt dina delegater ändrar du deras inbördes ordning genom att dra och släppa dem på lämplig plats.",
 			"alerts": {
-				"delegate-limit": "You can only have 5 delegates",
-				"ranking-updated": "Delegate ranking updated"
+				"delegate-limit": "Du får välja max fem delegater",
+				"ranking-updated": "Delegaters inbördes ordning uppdaterad"
 			}
 		},
 		"candidates": {
-			"heading": "Candidates",
+			"heading": "Kandidater",
 			"alerts": {
-				"candidate-limit": "You can only have 5 candidates",
-				"ranking-updated": "Candidate ranking updated"
+				"candidate-limit": "Då får välja max fem kandidater",
+				"ranking-updated": "Kandidaters inbördes ordning uppdaterad"
 			}
 		},
 		"proposals": {
 			"list": {
-				"deletedMessage": "Your proposal has been deleted.",
-				"confirmDelete": "Are you sure you want to permanently delete this proposal?",
+				"deletedMessage": "Din motion har raderats.",
+				"confirmDelete": "Är du säker på att du vill radera denna motion permanent?",
 				"tabs":{
-					"allProposals": "All Proposals",
-					"myProposals": "My Proposals",
-					"writeProposals": "Write Proposals"
+					"allProposals": "Alla Motioner",
+					"myProposals": "Mina Motioner",
+					"writeProposals": "Skriv Motion"
 				},
 				"headings":{
-					"openProposals": "Open Proposals",
-					"closedProposals": "Closed Proposals",
-					"myProposals": "My proposals"
+					"openProposals": "Öppna Motioner",
+					"closedProposals": "Stängda Motioner",
+					"myProposals": "Mina motioner",
+					"notMyProposals": "Gemensamma Motioner"
 				},
 				"cards":{
-					"expires": "Expires",
-					"read": "Read More",
-					"vote": "and vote"
+					"expires": "Löper ut",
+					"read": "Läs Mer",
+					"vote": "och rösta"
 				},
-				"openClosedSwitch": "Open/Closed",
-				"createdInvitedSwitch": "Created/Invited"
+				"openClosedSwitch": "Öppen/Stängd",
+				"createdInvitedSwitch": "Egen/Gemensam"
 			},
 			"edit": {
-				"heading": "Write your proposal",
-				"title": "Give your proposal a title",
-				"abstract": "Summarise your proposal",
-				"startDate": "Start date for voting",
-				"endDate": "Closing date for voting",
-				"invited": "Invite others to collaborate by entering their usernames. If not found, enter an email address.",
-				"tags": "Add some tags your proposal:",
-				"pointFor": "Points For:",
-				"pointAgainst": "Points Against:"
+				"heading": "Skriv din motion",
+				"title": "Ge din motion en beskrivande titel.",
+				"abstract": "Sammanfatta din motion",
+				"body": "Beskriv din motion mer utförligt. Inkludera de viktigaste argumenten, relevanta detaljer, länkar och referenser.",
+				"forAndAgainst": "Alla motioner har för- och motargument. Lägg till några argument som stödjer din motion liksom några argument som bestrider den i respektive fält nedan.",
+				"startDate": "Startdatum",
+				"endDate": "Slutdatum",
+				"confirm-back": "Är du säker på att du vill lämna sidan? Alla osparade ändringar kommer att förloras.",
+				"invited": "Bjud in andra till att samarbeta genom att fylla i deras användarnamn. Saknar du användarnamn går det även att fylla i deras epost adress.",
+				"tags": "Tagga din motion:",
+				"pointFor": "Argument För:",
+				"pointAgainst": "Argument Emot:",
+				"alerts": {
+					"saving": "Sparar...",
+					"changes-saved": "Ändringar Sparade",
+					"proposal-created": "Motion Skapad",
+					"bad-email": "Det här verkar inte vara en epost adress."
+				}
 			},
 			"view":{
 				"signInModal": {
-					"header": "Join the discussion",
-					"paragraph-1":"Want to vote on this proposal?",
-					"paragraph-2": "Creating an account is simple, and will allow you to join others in writing proposals, voting and choosing delegates.",
-					"button": "Sign Up"
+					"header": "Gå med i diskussionen",
+					"paragraph-1":"Vill du rösta på den här motionen?",
+					"paragraph-2": "Att skapa ett konto är enkelt, och tillpter dig att välja delegater, rösta på motioner och samarbeta med andra om att skriva egna.",
+					"button": "Skapa Konto"
 				},
-				"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
-				"voteCast": "Your vote has been cast",
-				"editProposal": "Edit Proposal",
-				"submitProposal": "Submit Proposal",
-				"pointsFor": "Points For:",
-				"pointsAgainst": "Points Against:",
-				"noDelegatesVoted": "None of your delegates voted against this issue",
-				"proposalUnvailable": "Sorry, this proposal is not yet visible to the public.",
-				"noDelegateReason": "This delegate did not provide a reason for their voting choice.",
-				"addComment": "Add a comment",
-				"voteHeading": "Vote on this proposal",
-				"voteStarts": "Voting starts on:",
-				"voteEnds": "Voting ends on: ",
-				"abstract": "Summary",
-				"proposal": "Proposal",
-				"yes": "For",
-				"no": "Against",
-				"voteInstructions": "Click the buttons below to cast your vote. If you do not vote, your vote will go to your highest-ranking delegate who has voted. However, you may override your delegate's vote at any point.",
+				"signature-tooltip": "Visa ditt stöd för denna motion genom att signera den.",
+				"confirmSubmit": "Är du helt säker på att du vill skicka in din motion? När du väl har skickat in den kan den inte ändras, bara raderas.",
+				"voteCast": "Din röst har lagts",
+				"editProposal": "Ändra Motion",
+				"submitProposal": "Skicka in Motion",
+				"pointsFor": "Argument För:",
+				"pointsAgainst": "Argument Emot:",
+				"noDelegatesFor": "Ingen av dina delegater röstade för denna motion",
+				"noDelegatesAgainst": "Ingen av dina delegater röstade emot denna motion",
+				"proposalUnvailable": "Denna motion är tyvärr inte soffentlig ännu.",
+				"noDelegateReason": "Den här delegaten lämade ingen kommentar till sitt val.",
+				"addComment": "Lägg till en kommentar",
+				"voteHeading": "Rösta på denna motion",
+				"voteStarts": "Börjar:",
+				"voteEnds": "Slutar: ",
+				"inactive-vote-message": "Den här motionen är öppen för omröstning från __startDate__ till __endDate__",
+				"abstract": "Sammanfattning",
+				"proposal": "Motion",
+				"yes": "Ja",
+				"no": "Nej",
+				"voteInstructions": "Klicka på valfri knapp för att rösta. Om du inte röstar kommer din röst att gå till din högst rankade delegat som har röstat i motionen. Skulle du vilja rösta själv vid ett senare tillfälle kommer din röst dock alltid att räknas före din delegats röst.",
 				"alerts": {
-					"linkToClipboardSuccess": "Link copied to clipboard",
-					"linkToClipboardFailed": "Link copied to clipboard",
-					"proposalSubmitted":"Proposal submitted for admin approval",
-					"proposalIncomplete": "You must complete your proposal before submitting it.",
-					"commentPosted":"Comment posted"
+					"linkToClipboardSuccess": "Länk kopierad till urklipp",
+					"linkToClipboardFailed": "Kopiering av länk till urklipp misslyckdes",
+					"proposalSubmitted":"Motion inlämnad till redaktionen",
+					"proposalIncomplete": "Du måste fylla i alla fält innan du kan lämna in en motion.",
+					"commentPosted":"Kommentar upplagd"
 				},
-				"userNotFound":"User could not be found",
-				"anonymous": "Anonymous",
-				"colloborators": "Collaborators",
-				"author": "Author",
-				"delegatesFor": "Delegates For:",
-				"delegatesAgainst": "Delegates Against:",
-				"delegateVotingClosed": "Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date.",
+				"userNotFound":"Användaren kunde inte hittas",
+				"anonymous": "Anonym",
+				"collaborators": "Medskapare",
+				"author": "Skapare",
+				"delegatesVoteHeading": "Hur dina delegater röstade",
+				"delegatesFor": "Delegater För:",
+				"delegatesAgainst": "Delegater Emot:",
+				"delegateVotingClosed": "Röstning på denna motion är nu stängd för delegater. Delegaters möjlighet att rösta upphör två veckor innan motionens slutdatum.",
 				"tooltips": {
-					"share": "Copy a link to this proposal to your clipboard.",
-					"sign": "Show your support by signing this proposal. Note that this does not constitute a vote."
+					"share": "Kopiera en länk till denna motion till dina urklipp.",
+					"sign": "Visa ditt stöd genom att signera denna motion. Notera att detta inte är en röst på motionen."
 				}
 			}
 		},
 		"tag-search":{
-			"heading": "Tagged",
+			"heading": "Taggad",
+			"no-delegates": "Det finns ingen delegat med denna tagg.",
+			"no-proposals": "Det finns inga motioner med denna tagg.",
 			"tabs": {
-				"proposals": "Proposals",
-				"delegates": "Delegates",
-				"candidates": "Candidates",
-				"proposals-heading": "Proposals",
-				"delegates-heading": "Delegates",
-				"candidates-heading": "Candidates"
+				"proposals": "Motioner",
+				"delegates": "Delegater",
+				"candidates": "Kandidater",
+				"proposals-heading": "Motioner",
+				"delegates-heading": "Delegater",
+				"candidates-heading": "Kandidater"
 			}
 		},
 		"voting": {
-			"heading": "Voting",
-			"description": "The following proposals are all available to vote on. Click on a proposal to read more, or expand the proposal to see how your delegates voted, or to cast your own vote.",
-			"not-ready": "The votes for this proposal have not yet been tallied. Results are updated every 24 hours.",
-			"show-more": "Show More",
-			"show-less": "Show Less"
+			"heading": {
+				"delegate": "Röstar som Delegat",
+				"individual": "Röstar som Individ"
+			},
+			"description": "Följande motioner går att rösta på. Klicka på en motion för att läsa mer eller expandera motionen för att se hur dina delegater har röstat och för att rösta själv.",
+			"not-ready": "Rösterna för denna motion har inte räknats ännu. Resultatet uppdateras en gång per dygn.",
+			"show-more": "Visa Mer",
+			"show-less": "Visa Mindre",
+			"delegate-description": "OBS: Du röstar nu som delegat åt de användare som valt att ge sin röst till dig. Som delegat ör dina val offentliga.",
+			"individual-description": "Du röstar nu som individ och din röst är bara synlig för dig. Skulle du välja att inte rösta på en specifik motion kommer din högst rankade delagat att räknas i ditt ställe.",
+			"voting-card-heading": {
+				"delegate": "Rösta som Delegat:",
+				"individual": "Rösta som Individuell Medlem:"
+			},
+			"no-votes-used": "Inga användare har röstat på denna motion.",
+			"for": "För:",
+			"against": "Emot:"
 		},
 		"profile": {
-			"name": "Name",
-			"subject": "Subject",
-			"contact-message": "Your message:",
-			"login-social": "Log in with Social Media",
-			"title" : "Profile",
-			"photo" : "Profile photo path",
-			"username" : "Username",
-			"firstname" : "First name",
-			"lastname" : "Last name",
-			"public" : "Public Profile",
-			"private" : "Private Profile",
-			"delegate" : "Delegate",
-			"candidate" : "Candidate",
-			"bio" : "About",
-			"website" : "Website",
-			"tags" : "Fill in at least five of your interests",
+			"profile-tags" : "Fyll i minst fem intressen",
+			"heading": "Profil",
+			"photo" : "Profilfotos sökväg",
+			"public" : "Offentlig Profil",
+			"private" : "Privat Profil",
+			"delegate" : "Delegat",
+			"candidate" : "Kandidat",
 			"alerts": {
-				"public": "Profile is now public.",
-				"private": "Profile is now private.",
-				"updated": "Profile updated.",
-				"delegate-removed" : "Delegate Role removed.",
-				"delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
-				"candidate-removed" : "Candidate Role removed.",
-				"candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed."
-			}
+				"invalid-url": "Lägg till en fungerande url, som börjar med ‘http’ eller ‘https’.",
+				"username": "Användarnamn är ett måste.",
+				"username-min": "Minst 5 tecken",
+				"username-max": "Maximalt 16 tecken",
+				"username-unique": "Det användarnamnet är tyvärr upptaget.",
+				"profile-updated": "Profilen updaterad.",
+				"profile-private": "Din profil är nu privat.",
+				"profile-public": "Din profil är nu offentlig.",
+				"profile-delegate-removed" : "Delegat Roll Borttagen.",
+				"profile-delegate-requested" : "Delegatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats.",
+				"profile-candidate-removed" : "Kandidat Roll Borttagen.",
+				"profile-candidate-requested" : "Kandidatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats..",
+				"profile-incomplete" : "Du behöver en fullständig profil för att ansöka om att bli delegat."
+			},
+			"tooltips": {
+				"delegateSwitch": "Ansök för att bli delegat. Detta kommer tillåta andra användare att låta dig rösta i deras ställe.",
+				"publicSwitch": "Gör din profil synlig för allmänheten, eller håll den privat."
+			},
+			"characters": "tecken",
+			"min": "min",
+			"max": "max",
+			"settings": "Profilinställningar",
+			"status": "Profil status: __completedScore__/__totalScore__ fullständig.",
+			"completed": "fullständig",
+			"interests": "intressen",
+			"public-switch-description": "Gör din profil synlig för andra. Detta kräver en fullständig profil. En synlig profil krävs för den som vill bli delegat.",
+			"delegate-switch-description": "Genom att vara en delegat gör du det möjligt för andra som litar på dig att anförtro dig med deras röst.",
+			"bio-count": "__bioCount__ tecken (min 50, max 160)"
 		},
 		"routes": {
 			"alerts": {
-				"verify-success-alert-entity": "Verification successful. Your account is pending approval by our admins.",
-				"login-to-view": "You must log in to access that page."
+				"verify-success-alert-entity": "Verifiering lyckades. Ditt konto väntar på godkännande av våra admins.",
+				"login-to-view": "Du måste logga in för att få tillgång till denna sida.",
+				"no-subdomain": "Kolla att URLen du skrev in stämmer."
 			}
 		}
+
 
 	}
 }
