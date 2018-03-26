@@ -109,29 +109,6 @@
   color: $light-grey-xdark;
 }
 
-.pointsButton {
-  border: solid 1px #ccc;
-}
-
-#proposal-points{
-  margin: 0;
-  .mdl-cell{
-    margin-top: 0;
-    margin-bottom: 0;
-    p {
-      margin: 0px;
-    }
-    ul {
-      margin: 0;
-      li {
-        font-family: $body-font;
-        padding:0;
-        margin: 0;
-      }
-    }
-  }
-}
-
 .proposal-container .mdl-card {
   display: flex;
   flex-direction: column;
@@ -227,3 +204,17 @@
 .voting-content {
   margin: 8px;
 }
+
+.pointsList{
+  margin: 0px;
+  li{
+    font-size: $small-font-size;
+  }
+}
+
+.pointsButton {
+  border: solid 1px #ccc;
+}
+
+
+
