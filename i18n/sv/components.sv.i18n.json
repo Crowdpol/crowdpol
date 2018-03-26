@@ -1,13 +1,13 @@
 {
 	"components" :{
 		"delegateVoteButtons":{
-			"instructions-1": " TODO Please note that you are voting as a delegate. Your vote wil be public.",
-			"instructions-2": "TODO To switch to voting as an individual, click the 'Roles' menu.",
-			"reason-message": "TODO Give a brief (optional) reason for your choice. This will be visible to your supporters.",
-			"finished": "TODO Finished"
+			"instructions-1": "Observera att du röstar som delegat. Din röst kommer att vara offentlig.",
+			"instructions-2": "Klicka på ‘Roller’ menyn för att byta tillbaka till att rösta som en anonym väljare.",
+			"reason-message": "Lämna en kortfattad (frivillig) anledning till ditt val. Denna kommer att vara synlig för de som delegerat till dig.",
+			"finished": "Färdig"
 		},
 		"taggle": {
-			"placeholder": "TODO Add some tags..."
+			"placeholder": "Lägg till några taggar..."
 		}
 	}
 }

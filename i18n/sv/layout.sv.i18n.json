@@ -17,9 +17,9 @@
 			"lang_sv": "Svenska",
 			"role_selector": "Byt Roll",
 			"no_notifications": "Du har inga meddelanden.",
-			"search_tags": "TODO Search for tags...",
-			"vote_as_individual": "TODO Vote as Individual",
-			"vote_as_delegate": "TODO Vote as Delegate"
+			"search_tags": "Sök efter taggar...",
+			"vote_as_individual": "Rösta som Individ",
+			"vote_as_delegate": "Rösta som Delegat"
 		},
 		"drawer": {
 			"nav_login" : "Logga in",
