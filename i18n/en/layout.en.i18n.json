@@ -7,7 +7,7 @@
 			"nav_dash": "Dashboard",
 			"nav_delegate" : "Delegate",
 			"nav_vote": "Vote",
-			"nav_proposals": "Proposals",
+			"nav_proposals": "Propose",
 			"nav_nominate": "Nominate",
 			"nav_about": "About",
 			"nav_contact": "Contact",
@@ -16,7 +16,10 @@
 			"lang_en": "English",
 			"lang_sv": "Swedish",
 			"role_selector": "Switch Roles",
-			"no_notifications": "You don't have any notifications yet."
+			"no_notifications": "You don't have any notifications yet.",
+			"search_tags": "Search for tags...",
+			"vote_as_individual": "Vote as Individual",
+			"vote_as_delegate": "Vote as Delegate"
 		},
 		"drawer": {
 			"nav_login" : "Log in",

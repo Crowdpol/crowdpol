@@ -222,7 +222,7 @@
 				"forAndAgainst": "Every proposal has its pros and cons. Add some brief arguments for and against your proposal by entering them into the fields below and clicking the button.",
 				"startDate": "Start date for voting",
 				"endDate": "Closing date for voting",
-
+				"confirm-back": "Are you sure you want to go back? Any unsaved changes will be lost.",
 				"invited": "Invite others to collaborate by entering their usernames. If not found, enter an email address.",
 				"tags": "Add some tags your proposal:",
 				"pointFor": "Points For:",
@@ -324,6 +324,11 @@
 			"delegate" : "Delegate",
 			"candidate" : "Candidate",
 			"alerts": {
+				"invalid-url": "Please enter a valid url, starting with 'http' or 'https'.",
+				"username": "Username required.",
+				"username-min": "Minimum of 5 characters",
+				"username-max": "Maximum of 16 characters",
+				"username-unique": "Username already exists.",
 				"profile-updated": "Profile updated.",
 				"profile-private": "Profile is now private.",
 				"profile-public": "Profile is now public.",
@@ -335,7 +340,7 @@
 			},
 			"tooltips": {
 				"delegateSwitch": "Apply to be a delegate. This will allow other users to let you vote on their behalf.",
-				"publicSwitch": "Make your profile visible to the public, or hide it."
+				"publicSwitch": "Make your profile visible to the public, or hide it. Your profile must be complete to be public."
 			},
 			"characters": "characters",
 			"min": "min",

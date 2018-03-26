@@ -1,32 +1,32 @@
 {
 	"emails": {
 		"verify-email": {
-			"subject": "Common Democracy: Please Verify Your Email",
-			"body": "To verify your email address __emailAddress__ visit the following link:\n\n __url__ \n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+			"subject": "Mer Demokrati: Bekräfta din epost",
+			"body": "Klicka på följande länk:\n\n __url__ \n\n för att verifera din epost adress __emailAddress__  Ignorera denna epost om du inte ansökt om att bekräfta din epostsadress hos oss. Om du har frågor eller misstänker att någon försöker använda din epostadress kontakta vår support: __supportEmail__."
 		},
 		"reset-password": {
-			"subject": "Common Democracy: Reset Your Password",
-			"body": "To reset your password, simply click the link below: \n\n __url__ \n\n If you did not request to change your password, please ignore this email. If you feel something is wrong, please contact our support team: __supportEmail__."
+			"subject": "Mer Demokrati: Återställ Ditt Lösenord",
+			"body": "För att återställa ditt lösenord behlöver du bara klicka på länken nedan: \n\n __url__ \n\n Om du inte begärde att få återställa ditt lösenord går det bra att ignorera detta meddelande. Om du har frågor eller misstänker att någon försöker komma åt ditt konto, kontakta vår support: __supportEmail__."
 		},
 		"rejection-email": {
 			"from": "__name__ __fromEmail__",
-			"subject": "Your request to be a __type__ has been rejected",
-			"body": "An administrator has rejected your request to be a __type__ user."
+			"subject": "Din ansökan om att blu en __type__ har avslagits",
+			"body": "Våra administratörer har avslagit din begäran att bli en __type__."
 		},
 		"newsletter-confirmation":{
 			"from": "__name__ __fromEmail__",
-			"subject": "Newsletter Signup Confirmation",
-			"body": "Thank you for signing up to our newsletter. We will be sure to keep you up to date."
+			"subject": "Bekräftelse av Prenumeration av Nyhetsbrev Newsletter",
+			"body": "Tack för att du vill få vårt nyhetsbrev. Vi kommer göra vårt bästa för att hålla dig uppdaterad kring vad som är på gång."
 		},
 		"send-approval": {
 			"from": "__name__ __fromEmail__",
-			"subject": "Your request to be a __type__ user has been approved",
-			"body": "An administrator has approved your request to be a __type__. You can now log in as a __type__."
+			"subject": "Din ansökan om att bli en __type__ har godkännts.",
+			"body": "Vår administration har godkänt din andökan om att bli en __type__. Du kan nu logga in som __type__."
 		},
 		"send-invite": {
 			"from": "__name__ __fromEmail__",
-			"subject": "Invitation to Common Democracy",
-			"body": "You have been invited to participate in Common Democracy as a __role__. Click the link to register: __url__"
+			"subject": "Inbjudan till Mer Demokrati",
+			"body": "Du är inbjuden att delta i Mer Demokrati som en __role__. Klicka på denna länk om du är intresserad av att gå med: __url__"
 		}
 	}
 }

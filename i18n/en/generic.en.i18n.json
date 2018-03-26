@@ -13,7 +13,8 @@
 		},
 		"show-more": "Show More",
 		"show-less": "Show Less",
-		"approved": "Approved"
+		"approved": "Approved",
+		"back-to-proposals": "Back to Proposals"
 	},
 	"form": {
 		"email": "Email address",

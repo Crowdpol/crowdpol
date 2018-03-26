@@ -30,7 +30,7 @@
 				<!-- Tag Search Field -->
 				<form action="#" id="header-tag-search-form">
 					<div class="mdl-textfield mdl-js-textfield">
-						<input class="mdl-textfield__input" type="text" id="header-tag-search" placeholder="Search for tags...">
+						<input class="mdl-textfield__input" type="text" id="header-tag-search" placeholder="{{_ 'layout.header.search_tags'}}">
 					</div>
 					<label class="mdl-button mdl-js-button mdl-button--icon" for="header-tag-search" id="search-button">
 				      <i class="material-icons">search</i>
@@ -65,7 +65,7 @@
 					{{#if userHasMultipleRoles}}
 						<!-- Role Selection Menu -->
 						<a id="demo-menu-lower-left" class="mdl-navigation__link" href="/voting">
-							Vote as {{currentRole}}<i class="material-icons">arrow_drop_down</i>
+							{{ voteDropdownText }}<i class="material-icons">arrow_drop_down</i>
 						</a>
 
 						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">

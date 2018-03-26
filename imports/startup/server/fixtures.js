@@ -11,9 +11,11 @@ Meteor.startup(() => {
 Elop has brought together twenty bright young minds from all over the world to ask that question. Taking on trends in living and working in the digital age, absorbing local information and the culture of the place. Multidisciplinary teams, made up of Architects and Sociologists, Engineers and Psychologists have put together four visions of what the High Street could be, based in the reality of what is here and now.
 At the core of each vision are the people who will live and work on a thriving High Street in a future Bangor. Taking Wellness and coliving as key principles for the brief, with a sprinkling of autonomous transport. Centred on specific sites in the City centre, acting as kernels for regeneration, pushing out towards a realistic future.`
 
-	mdAbout = `Democracy 2018 is an open project that invites all Swedish citizens to explore the potential of so called liquid democracy and use this platform to select the issues and proposals most important to them. The ten most popular proposals will be presented to the new parliament after the election in September 2018. The purpose is in part to test a modernized version of our democratic system, but also to encourage the population to learn more about the issues this election year as well as find out where the various political parties stand on them. Finally the goal is to inform the members of parliaments and other political elites of how a hopefully representative cross-section of the population feel about various topics, in an effort to create dialogue and trust.
-The project opens on January first and concludes on September 15, Global Democracy Day, after which the results will be tallied and presented to the Minister of Democracy.`
-	
+	mdAbout = `Mer Demokrati är ett projekt öppet för alla politik- och samhällsintresserade människor som vill skapa en personlig politisk plattform inför valet 2018 och se hur den stämmer överens med olika partiers. För att göra detta använder vi så kallad flytande demokrati där besökare kan välja att delegera sin röst till någon annan eller själv rösta direkt på ett antal motioner, eller en kombination av de båda. För den som har förslag på motioner går det även att skriva egna och skicka in dem till vår redaktion som kommer lägga ut två nya motioner i veckan. Projektet löper fram till Internatuonella Demokratidagen den 15e september i år.
+
+Målet är att ge väljarna en upplevelse om hur demokrati skulle kunna fungera i vårt moderan, digitala samhälle, men även att bjuda in till en djupare analys och förståelse av de utmaningar samhället står inför detta valår, samt hur våra politiska partier ställer sig till dem. Slutligen är målet att informera våra riksdagsledamöter om hur ett förhoppningsvis representativt axplock av sveriges medborgare ställer sig till diverse olika politiska områden i hopp om att skapa en djupare dialog och ett fördjupat förtroende.
+
+Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att presenteras för demokratiministern men även riksdagens ledamöter kommer individuellt att bjudas in för att kommentera och ta ställning.`
 	/* Create two communities */;
 	mdSubdomain = 'merdemokrati'
 	mdId = createCommunity('Merdemokrati', mdSubdomain, {
@@ -22,7 +24,8 @@ The project opens on January first and concludes on September 15, Global Democra
 		languageSelector: true,
 		homepageBannerText: "A new wave of democracy is coming to Sweden.",
 		homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
-		aboutText: mdAbout
+		aboutText: mdAbout,
+		defaultLanguage: 'sv'
 	});
 	bgSubdomain = 'bangor';
 	bgId = createCommunity('elop*10', 'bangor', {
@@ -31,7 +34,8 @@ The project opens on January first and concludes on September 15, Global Democra
 		languageSelector: false,
 		homepageBannerText: "Innovation can start with the question 'What if?'",
 		homepageIntroText: "A public presentation of four visions of a future High Street.",
-		aboutText: bgAbout
+		aboutText: bgAbout,
+		defaultLanguage: 'en'
 	});
 
 	/* Register admins for both communities */
