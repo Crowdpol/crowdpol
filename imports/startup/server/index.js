@@ -5,18 +5,56 @@ import './register-api.js';
 import './cron-jobs.js';
 import "./accounts/accounts.js";
 import "./accounts/configure-services.js";
+import Raven from 'raven';
+
+var sentryDSN = Meteor.settings.public.sentryPrivateDSN;
+Raven.config(sentryDSN).install();
+
+const wrapMethodHanderForErrors = function wrapMethodHanderForErrors(name, originalHandler, methodMap) {
+	methodMap[name] = function() {
+		try{
+			return originalHandler.apply(this, arguments);
+		} catch(ex) {
+			Raven.captureException(ex);
+			throw ex;
+		}
+	}
+};
+
+export const wrapMethods = function() {
+	var originalMeteorMethods = Meteor.methods;
+    // wrap future method handlers for capturing errors
+    Meteor.methods = function(methodMap) {
+    	Object.keys(methodMap)
+    	.map(name => ({
+    		handler: methodMap[name],
+    		name
+    	}))
+    	.forEach(function({handler, name}) {
+    		wrapMethodHanderForErrors(name, handler, methodMap);
+    	});
+    	originalMeteorMethods(methodMap);
+    };
+
+    // wrap existing method handlers for capturing errors
+    Object.keys(Meteor.default_server.method_handlers)
+    .map(name => ({
+    	handler: Meteor.default_server.method_handlers[name],
+    	name
+    }))
+    .forEach(function ({handler, name}) {
+    	wrapMethodHanderForErrors(name, handler, Meteor.default_server.method_handlers);
+    });
+};
+
 
 Meteor.startup(() => {
-	
   // code to run on server at startup
   console.log("Common Democracy: Sweden - started...");
-  //Meteor.call("createAdmins");
-  //Meteor.users._dropIndex( "text" ) 
-  //Meteor.users._ensureIndex({ 
-  //	"profile.searchString": "text"
-  //});
+  wrapMethods();
 });
 
 
 //http://blog.mailgun.com/25-465-587-what-port-should-i-use/
 process.env.MAIL_URL = Meteor.settings.private.mailGun;
+

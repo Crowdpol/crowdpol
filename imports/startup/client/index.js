@@ -18,11 +18,6 @@ Meteor.startup(function () {
   // Client startup method.
   Meteor.absoluteUrl.defaultOptions.rootUrl = 'http://www.commondemocracy.org/';
 
-  let sentryURL = 'https://c6e49c45d8d3483a9277ed5956d83f7a@sentry.io/624207'//'https://' + Meteor.settings.public.sentryPublicKey + "@sentry.io/" + Meteor.settings.public.sentryAppId;
-
-	ravenClient.config(sentryURL, {
-	    shouldSendCallback: function(data) {
-	        return true;//return Meteor.settings.public.environment !== "development";
-	    }
-	}).install();
+  var sentryDSN = Meteor.settings.public.sentryPublicDSN;
+  ravenClient.config(sentryDSN}).install();
 });
