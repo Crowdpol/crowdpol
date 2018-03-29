@@ -1,4 +1,5 @@
 import './approvals.html';
+import RavenClient from 'raven-js';
 
 Template.AdminApprovals.onCreated(function() {
   var self = this;
@@ -32,6 +33,7 @@ Template.AdminApprovals.events({
 		requestId = event.target.dataset.requestId;
 		Meteor.call('approveUser', userID,requestId,'Approved','',function(error){
 			if (error){
+				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
 				Meteor.call('sendApproval', email, type);
@@ -47,6 +49,7 @@ Template.AdminApprovals.events({
 		requestId = event.target.dataset.requestId;
 		Meteor.call('approveUser', userID,requestId,'Rejected','',function(error){
 			if (error){
+				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
 				//Meteor.call('sendApproval', email, type);

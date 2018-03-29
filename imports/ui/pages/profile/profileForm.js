@@ -1,5 +1,6 @@
 import "./profileForm.html"
 import { setupTaggle } from '../../components/taggle/taggle.js'
+import RavenClient from 'raven-js';
 
 Template.ProfileForm.onRendered(function(){
   var self = this;
@@ -26,6 +27,7 @@ Template.ProfileForm.onRendered(function(){
   Session.set('showCompleteStatus', false);
   Meteor.call('getUserTags', Meteor.userId(), function(error, result){
     if (error){
+      RavenClient.captureException(error);
       Bert.alert(error.reason, 'danger');
     } else {
       var keywords = _.map(result, function(tag){ return tag.keyword; });
@@ -56,6 +58,7 @@ Template.ProfileForm.onCreated(function() {
 
   Meteor.call('getProfile', Meteor.userId(), function(error, result) {
     if (error) {
+      RavenClient.captureException(error);
       Bert.alert(error.reason, 'danger');
     } else {
       dict.set('isPublic', result.isPublic);
@@ -130,6 +133,7 @@ Template.ProfileForm.events({
       if (window.confirm('Are you sure you want to stop being a delegate?')){
         Meteor.call('toggleRole', Meteor.userId(), 'delegate', false, function(error) {
           if (error) {
+            RavenClient.captureException(error);
             Bert.alert(error.reason, 'danger');
           } else {
             var msg = TAPi18n.__('pages.profile.alerts.profile-msg-delegate-removed');
@@ -141,6 +145,7 @@ Template.ProfileForm.events({
       // Profile is complete, submit approval request
       Meteor.call('requestApproval', Meteor.userId(), 'delegate', function(error) {
         if (error) {
+          RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
           updateDisplayedStatus('delegate', template)
         } else {
@@ -202,6 +207,7 @@ Template.ProfileForm.onRendered(function() {
       var communityId = LocalStore.get('communityId');
       Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
         if (error){
+          RavenClient.captureException(error);
           Bert.alert(error, 'reason');
         } else {
           var profile = {
@@ -218,6 +224,7 @@ Template.ProfileForm.onRendered(function() {
 
           Meteor.call('updateProfile', profile, function(error) {
             if (error) {
+              RavenClient.captureException(error);
               Bert.alert(error.reason, 'danger');
             } else {
               Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');

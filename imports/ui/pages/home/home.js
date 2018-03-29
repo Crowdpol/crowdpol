@@ -1,4 +1,5 @@
 import './home.html';
+import RavenClient from 'raven-js';
 
 import { Communities } from '../../../api/communities/Communities.js'
 
@@ -52,7 +53,7 @@ Template.Home.events({
 			let email = template.find('[name="signupEmail"]').value;
 			Meteor.call("signupNewsletter",email,function(error,result){
 				if (error){
-					//console.log(error);
+					RavenClient.captureException(error);
 					Bert.alert(error.message, 'danger');
 				} else {
 					//console.log("success");

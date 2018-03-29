@@ -7,8 +7,13 @@ import "./accounts/accounts.js";
 import "./accounts/configure-services.js";
 import Raven from 'raven';
 
-var sentryDSN = Meteor.settings.public.sentryPrivateDSN;
+var sentryDSN = Meteor.settings.private.sentryPrivateDSN;
 Raven.config(sentryDSN).install();
+
+/*
+    From a gist by Tom Fletcher: https://gist.github.com/TimFletcher/57e2b9b81501a9e5326cf4899ff010f5
+    Wraps all meteor method calls so that uncaught exceptions are logged to Sentry automatically.
+*/
 
 const wrapMethodHanderForErrors = function wrapMethodHanderForErrors(name, originalHandler, methodMap) {
 	methodMap[name] = function() {
@@ -46,6 +51,10 @@ export const wrapMethods = function() {
     	wrapMethodHanderForErrors(name, handler, Meteor.default_server.method_handlers);
     });
 };
+
+/*
+    Startup Function:
+*/
 
 
 Meteor.startup(() => {

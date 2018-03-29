@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import "./delegate.html"
 import { Ranks } from '../../../api/ranking/Ranks.js'
+import RavenClient from 'raven-js';
 
 Template.Delegate.onCreated(function () {
   Session.set('searchPhrase','');
@@ -8,6 +9,7 @@ Template.Delegate.onCreated(function () {
   // Set user's ranked delegates
   Meteor.call('getRanks', Meteor.userId(), "delegate", function(error, result){
     if(error) {
+      RavenClient.captureException(error);
       Bert.alert(error.reason, 'danger');
     } else {
       Session.set('ranked', result);
@@ -73,6 +75,7 @@ Template.Delegate.events({
     }else{
       Meteor.call('addRank','delegate',delegateId,(ranks.length +1),function(error,result){
         if (error) {
+          RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
           Session.set('ranked',result);
@@ -85,6 +88,7 @@ Template.Delegate.events({
     
       Meteor.call('removeRank','delegate',delegateId,function(error,result){
         if (error) {
+          RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
           Session.set('ranked',result);
@@ -110,6 +114,7 @@ function sortEventHandler(){
       var order = $(this).sortable('toArray');
       Meteor.call('updateRanks',order,'delegate', function(error,result){
         if(error){
+          RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         }else{
           Bert.alert(TAPi18n.__('pages.delegates.alerts.ranking-updated'), 'success');

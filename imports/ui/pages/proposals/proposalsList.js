@@ -1,6 +1,7 @@
 import './proposalsList.html'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Votes } from '../../../api/votes/Votes.js'
+import RavenClient from 'raven-js';
 
 Template.ProposalsList.onCreated(function () {
   var self = this;
@@ -130,11 +131,13 @@ Template.ProposalCard.helpers({
 
 Template.ProposalCard.events({
   'click .delete-proposal-button': function(event, template){
+    event.preventDefault();
     var proposalId = event.target.dataset.proposalId;
 
     if (window.confirm(TAPi18n.__('pages.proposals.list.confirmDelete'))){
       Meteor.call('deleteProposal', proposalId, function(error){
         if (error){
+          RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
           Bert.alert(TAPi18n.__('pages.proposals.list.deletedMessage'), 'success');

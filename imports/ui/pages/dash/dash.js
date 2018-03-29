@@ -1,4 +1,5 @@
 import './dash.html';
+import RavenClient from 'raven-js'
 
 Template.Dash.helpers({
 	isUnapprovedEntity: ()=> {
@@ -15,6 +16,7 @@ Template.Dash.events({
 	'click .resend-verification-link' (event, template){
 		Meteor.call('sendVerificationLink', (error, response) => {
 			if (error){
+				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
 				let email = Meteor.user().emails[0].address;

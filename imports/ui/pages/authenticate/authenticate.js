@@ -1,6 +1,7 @@
 import './authenticate.html';
 import './signup/signup.js';
 import './login/login.js';
+import RavenClient from 'raven-js';
 
 Template.Authenticate.events({
 	'click #log-out' (event, template){
@@ -12,7 +13,7 @@ Template.Authenticate.events({
 		event.preventDefault();
 		Meteor.loginWithFacebook({requestPermissions: ['public_profile', 'email']}, function(err){
 			if (err) {
-				console.log('Handle errors here: ', err);
+				RavenClient.captureException(err);
 				Bert.alert(err.reason, 'danger');
 			}else{
 				FlowRouter.go('/dash');
@@ -23,7 +24,7 @@ Template.Authenticate.events({
     event.preventDefault();
     Meteor.loginWithGoogle({}, function(err,response){
     	if (err) {
-      	console.log('Handle errors here: ', err);
+      	RavenClient.captureException(err);
         Bert.alert(err.reason, 'danger');
       }else{
 				FlowRouter.go('/dash');
@@ -34,7 +35,7 @@ Template.Authenticate.events({
 	    event.preventDefault();
 	    Meteor.loginWithTwitter({}, function(err,response){
 	    	if (err) {
-	      	console.log('Handle errors here: ', err);
+	      	RavenClient.captureException(err);
 	        Bert.alert(err.reason, 'danger');
 	      }else{
 					FlowRouter.go('/dash');

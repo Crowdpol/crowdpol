@@ -1,4 +1,5 @@
 import './users.html';
+import RavenClient from 'raven-js';
 
 Template.AdminUsers.onCreated(function() {
   var self = this;
@@ -24,6 +25,7 @@ Template.AdminUsers.events({
 
 		Meteor.call('sendInvite', email, role, url, function(error){
 			if (error){
+				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
 				Bert.alert('Message was sent!', 'success');
