@@ -290,7 +290,6 @@ adminRoutes.route('/voting', {
 
 function loadCommunityInfo() {
   // Grab subdomain
-  var oldSubdomain = LocalStore.get('subdomain');
   var subdomain = window.location.host.split('.')[0]
 
   // set LocalStorage info

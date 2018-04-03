@@ -16,7 +16,9 @@ Tracker.autorun(function() {
 
 Meteor.startup(function () {
   // Client startup method.
-  Meteor.absoluteUrl.defaultOptions.rootUrl = 'http://www.commondemocracy.org/';
+  var subdomain = window.location.host.split('.')[0]
+  var rootUrl = 'https://' + subdomain + Meteor.settings.public.domain;
+  process.env.ROOT_URL = rootUrl;
 
   var sentryDSN = Meteor.settings.public.sentryPublicDSN;
   RavenClient.config(sentryDSN).install();
