@@ -1,4 +1,5 @@
 import './entitySignup.html'
+import RavenClient from 'raven-js';
 
 Template.entitySignup.onRendered( function() {
   $( "#entity-signup-form" ).validate({
@@ -66,7 +67,8 @@ Template.entitySignup.events({
 		//Create entity on the server side so that a role can be assigned automatically
 		Meteor.call('addEntity', entity, function(error)	{
 			if (error) {
-					Bert.alert(error.reason, 'danger');
+				RavenClient.captureException(error);
+				Bert.alert(error.reason, 'danger');
 			} else {
 				//Step 1: Log the user in if entity creation was successful
 				Meteor.loginWithPassword(entity.email, entity.password);

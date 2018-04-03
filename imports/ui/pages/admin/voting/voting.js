@@ -1,6 +1,7 @@
 import './voting.html';
 import { Proposals } from '../../../../api/proposals/Proposals.js'
 import { Votes } from '../../../../api/votes/Votes.js'
+import RavenClient from 'raven-js';
 
 Template.AdminVoting.onCreated(function() {
   var self = this;
@@ -38,6 +39,7 @@ Template.AdminVoting.events({
 		template.tallyInProgress.set(true);
 		Meteor.call('prepareVotesForTally', [proposalId], function(error){
 			if (error){
+        RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			}
 			template.tallyInProgress.set(false);

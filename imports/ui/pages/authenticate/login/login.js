@@ -1,4 +1,5 @@
 import './login.html';
+import RavenClient from 'raven-js';
 
 Template.Login.onRendered( function() {
   $( "#login-form" ).validate({
@@ -31,6 +32,7 @@ Template.Login.events({
 
 		Meteor.loginWithPassword(email, password, (error) => {
 			if (error) {
+        RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
         /* Check if subdomain matches user's community */
@@ -39,6 +41,7 @@ Template.Login.events({
           if (!_.contains(userCommunities, communityId)) {
             // log them out and redirect to their community
             Bert.alert(TAPi18n.__('pages.authenticate.individual.login.wrong-community'), 'danger');
+            RavenClient.captureException(error);
             Meteor.logout();
             FlowRouter.go('/login');
           } else {

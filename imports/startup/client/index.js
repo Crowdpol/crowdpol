@@ -1,6 +1,7 @@
 // Import client startup through a single index entry point
 
 import './routes.js';
+import RavenClient from 'raven-js';
 
 
 /* makes FlowRouter wait until roles are initialised
@@ -16,4 +17,7 @@ Tracker.autorun(function() {
 Meteor.startup(function () {
   // Client startup method.
   Meteor.absoluteUrl.defaultOptions.rootUrl = 'http://www.commondemocracy.org/';
+
+  var sentryDSN = Meteor.settings.public.sentryPublicDSN;
+  RavenClient.config(sentryDSN).install();
 });
