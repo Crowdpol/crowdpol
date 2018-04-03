@@ -93,7 +93,6 @@ Meteor.methods({
     },
     saveProposalChanges: function (proposalId, proposal) {
       check(proposalId, String);
-
       // Find if new collaborators have been added
       var oldInvites = Proposals.findOne(proposalId).invited;
       var newInvites = proposal.invited;

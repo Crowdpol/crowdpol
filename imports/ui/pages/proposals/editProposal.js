@@ -3,6 +3,7 @@ import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { setupTaggle } from '../../components/taggle/taggle.js'
 import "../../components/userSearch/userSearch.js"
+import RavenClient from 'raven-js';
 
 Template.EditProposal.onCreated(function(){
 	var self = this;
@@ -254,6 +255,7 @@ function saveChanges(event, template, returnTo){
 	var communityId = LocalStore.get('communityId');
 	Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
 		if (error){
+			RavenClient.captureException(error);
 			Bert.alert(error, 'reason');
 		} else {
 			let newProposal = {
@@ -279,6 +281,7 @@ function saveChanges(event, template, returnTo){
 		if (proposalId){
 			Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
 				if (error){
+					RavenClient.captureException(error);
 					Bert.alert(error.reason, 'danger');
 				} else {
 					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
@@ -288,6 +291,7 @@ function saveChanges(event, template, returnTo){
 		} else {
 			Meteor.call('createProposal', newProposal, function(error, proposalId){
 				if (error){
+					RavenClient.captureException(error);
 					Bert.alert(error.reason, 'danger');
 				} else {
 					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});

@@ -2,6 +2,7 @@ import './viewProposal.html'
 import './signInModal/signInModal.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(){
 
@@ -16,6 +17,7 @@ Template.ViewProposal.onCreated(function(){
     self.subscribe('users.all');
     self.subscribe('proposals.one', proposalId, function(error){
       if (error){
+        RavenClient.captureException(error);
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
@@ -76,6 +78,7 @@ Template.ViewProposal.events({
       if (window.confirm(TAPi18n.__('pages.proposals.view.confirmSubmit'))){
         Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
           if (error){
+            RavenClient.captureException(error);
             Bert.alert(error.reason, 'danger');
           } else {
             Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalSubmitted'), 'success');
@@ -98,6 +101,7 @@ Template.ViewProposal.events({
         proposalId: proposalId}
       Meteor.call('comment', comment, function(error){
         if(error){
+          RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
           Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentPosted'), 'success');
@@ -115,6 +119,7 @@ Template.ViewProposal.events({
     if (Meteor.user()) {
       Meteor.call('toggleSignProposal', proposalId, function(error){
         if (error){
+          RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
           template.templateDictionary.set('signatures', Proposals.findOne({_id: proposalId}).signatures)

@@ -1,5 +1,6 @@
 import './proposals.html';
 import { Proposals } from '../../../../api/proposals/Proposals.js'
+import RavenClient from 'raven-js';
 
 Template.AdminProposals.onCreated(function() {
   var self = this;
@@ -21,6 +22,7 @@ Template.AdminProposals.events({
 		proposalId = event.target.dataset.proposalId;
 		Meteor.call('approveProposal', proposalId, function(error){
 			if (error){
+				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
 				Bert.alert(TAPi18n.__('admin.alerts.proposal-approved'), 'success');
@@ -32,6 +34,7 @@ Template.AdminProposals.events({
 		proposalId = event.target.dataset.proposalId;
 		Meteor.call('rejectProposal', proposalId,function(error){
 			if (error){
+				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
 				Bert.alert(TAPi18n.__('admin.alerts.proposal-rejected'), 'success');

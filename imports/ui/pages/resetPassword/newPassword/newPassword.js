@@ -1,4 +1,5 @@
 import './newPassword.html'
+import RavenClient from 'raven-js';
 
 Template.newPassword.onRendered( function() {
   $( "#new-password" ).validate({
@@ -23,6 +24,7 @@ Template.newPassword.events({
         var password = template.find('[name="new-password-password"]').value;
         Accounts.resetPassword(Accounts._resetPasswordToken, password, function(error) {
             if (error) {
+              RavenClient.captureException(error);
             	Bert.alert(error.reason, 'danger');
             } else {
                 Bert.alert(TAPi18n.__('pages.authenticate.recover-password.alerts.password-changed'), 'success');

@@ -1,6 +1,7 @@
 import './signup.html';
 import './entitySignup.js';
 import { Communities } from '../../../../api/communities/Communities.js'
+import RavenClient from 'raven-js'
 
 Template.Signup.onCreated(function() {
   var self = this;
@@ -47,6 +48,7 @@ Template.Signup.events({
 
 		Accounts.createUser(user, (error) => {
 			if (error) {
+				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
 				/* Check if redirect route saved */

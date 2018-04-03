@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import "./candidates.html"
 import { Ranks } from '../../../api/ranking/Ranks.js'
+import RavenClient from 'raven-js';
 
 Template.Candidate.onCreated(function () {
   Session.set('searchPhrase','');
@@ -15,10 +16,6 @@ Template.Candidate.onCreated(function () {
     Session.set('ranked',results);
     //console.log("autorun complete");
   });
-  
-	
-  
-  	//Meteor.subscribe('users.candidates');
 });
 
 Template.Candidate.onRendered(function () {
@@ -168,7 +165,7 @@ function sortEventHandler(){
       var order = $(this).sortable('toArray');
       Meteor.call('updateRanks',order,'candidate', function(error,result){
         if(error){
-          console.log(error)
+          RavenClient.captureException(error);
           Bert.alert("Ranking failed. " + error.reason, 'danger');
         }else{
           //console.log(result);

@@ -1,6 +1,7 @@
 import { Tags } from '/imports/api/tags/Tags.js';
 import { Meteor } from 'meteor/meteor';
 import "./tags.html";
+import RavenClient from 'raven-js';
 
 Template.AdminTagsTable.onCreated(function() {
   var self = this;
@@ -28,6 +29,7 @@ Template.AdminTagsTable.events({
 		event.preventDefault();
 		Meteor.call('toggleAuthorized', event.target.dataset.tagId,!event.target.dataset.tagAuthorized, function(error){
 			if (error){
+				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
 				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-updated'), 'success');
@@ -39,6 +41,7 @@ Template.AdminTagsTable.events({
 		event.preventDefault();
 		Meteor.call('deleteTag', event.target.dataset.tagId, function(error){
 			if (error){
+				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
 				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-added'), 'success');

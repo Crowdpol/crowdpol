@@ -1,4 +1,5 @@
 import './recoverPassword.html'
+import RavenClient from 'raven-js';
 
 Template.recoverPassword.onRendered( function() {
   $( "#recover-password" ).validate({
@@ -23,6 +24,7 @@ Template.recoverPassword.events({
             email: email
         }, function(error) {
             if (error) {
+              RavenClient.captureException(error);
             	Bert.alert(error.reason, 'danger')
             } else {
                 Bert.alert(TAPi18n.__('pages.authenticate.reset-password.reset-password-sent-message'), 'success')
