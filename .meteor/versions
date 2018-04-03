@@ -43,8 +43,6 @@ ejson@1.1.0
 email@1.2.3
 es5-shim@4.6.15
 facebook-oauth@1.4.0
-force-ssl@1.1.0
-force-ssl-common@1.1.0
 fortawesome:fontawesome@4.4.0_1
 fourseven:scss@4.5.4
 frozeman:storage@0.1.9
@@ -59,6 +57,7 @@ johanbrook:publication-collector@1.0.10
 jquery@1.11.10
 kadira:blaze-layout@2.3.0
 kadira:flow-router@2.12.1
+keyvan:my-force-ssl@0.0.1
 launch-screen@1.1.1
 liberation:collection-pluck@1.1.2
 livedata@1.0.18
