@@ -63,7 +63,6 @@ Meteor.startup(() => {
   wrapMethods();
 });
 
-process.env.ROOT_URL = "https://bangor.socialsystems.io";
 //http://blog.mailgun.com/25-465-587-what-port-should-i-use/
 process.env.MAIL_URL = Meteor.settings.private.mailGun;
 
