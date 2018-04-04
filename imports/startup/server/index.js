@@ -63,7 +63,6 @@ Meteor.startup(() => {
   wrapMethods();
 });
 
-
 //http://blog.mailgun.com/25-465-587-what-port-should-i-use/
 process.env.MAIL_URL = Meteor.settings.private.mailGun;
 
