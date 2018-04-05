@@ -41,7 +41,7 @@
       {
           "username": "admin_brett",
           "email":"brett@socialsystems.io",
-          "roles":["admin","individual"],
+          "roles":["superadmin", "admin","individual"],
           "isPublic": false,
           "profile": {
             "username": "admin_brett",
@@ -55,7 +55,7 @@
       {
           "username": "admin_trudie",
           "email":"trudie@socialsystems.io",
-          "roles":["admin","individual", "delegate"],
+          "roles":["superadmin","admin","individual", "delegate"],
           "isPublic": false,
           "profile": {
             "username": "admin_trudie",

@@ -288,6 +288,13 @@ adminRoutes.route('/voting', {
   }
 });
 
+adminRoutes.route('/communities', {
+  name: 'App.admin.communities',
+  action() {
+    BlazeLayout.render('App_body', {main: 'AdminCommunities'});
+  }
+});
+
 function loadCommunityInfo() {
   // Grab subdomain
   var subdomain = window.location.host.split('.')[0]

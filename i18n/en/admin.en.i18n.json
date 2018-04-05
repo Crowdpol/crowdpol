@@ -32,6 +32,11 @@
 					"heading": "Statistics",
 					"text": "Review various statistcs of the site",
 					"link": "View Stats"
+				},
+				"communities":{
+					"heading": "Communities",
+					"text": "See all communities, or add a new one.",
+					"link": "View Communities"
 				}
 			}
 		},
@@ -114,6 +119,13 @@
 					"proposalList" : "Proposal Stats"
 				}
 			}
+		},
+		"communities": {
+			"heading": "Communities",
+			"name": "Name",
+			"subdomain": "Subdomain",
+			"user-count": "Number of Users",
+			"none": "There are currently no communities."
 		}
 	}
 }

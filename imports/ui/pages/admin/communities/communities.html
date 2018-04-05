@@ -1,0 +1,38 @@
+<template name="AdminCommunities">
+	{{#if currentUserIsSuperAdmin}}
+	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
+	<div class="container">
+		<h3>{{_"admin.communities.heading"}}</h3>
+		{{#if Template.subscriptionsReady}}
+			{{#if communities.count}}
+				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+						<thead>
+								<tr>
+										<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.name"}}</th>
+										<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.subdomain"}}</th>
+										<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.user-count"}}</th>
+								</tr>
+						</thead>
+						<tbody>
+								{{#each communities}}
+								<tr>
+										<td class="mdl-data-table__cell--non-numeric">{{name}}</td>
+										<td class="mdl-data-table__cell--non-numeric">{{subdomain}}</td>
+										<td class="mdl-data-table__cell--non-numeric">{{userCount _id}}</td>
+								</tr>
+								{{/each}}
+						</tbody>
+				</table>
+			{{else}}
+				<p>
+					{{_"admin.communities.none"}}
+				</p>
+			{{/if}}
+		{{else}}
+			<p>
+				{{_ "generic.loading"}}
+			</p>
+		{{/if}}
+	</div>
+	{{/if}}
+</template>
