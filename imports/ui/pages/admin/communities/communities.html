@@ -3,9 +3,12 @@
 	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
 	<div class="container">
 
-		{{>AddNewCommunity}}
-
-		<hr>
+		<a href="#" id="new-community-link">Add a new community<i class="material-icons">{{expandIcon}}</i></a>
+		{{#if showForm}}
+			<div id="new-community-div">
+				{{>AddNewCommunity}}
+			</div>
+		{{/if}}
 
 		<h3>{{_"admin.communities.heading"}}</h3>
 		{{#if Template.subscriptionsReady}}
@@ -69,8 +72,8 @@
 			<label for="colorScheme" class="mdl-textfield__label">{{_'admin.communities.colorScheme.label'}}</label>
 			<ul for="colorScheme" class="mdl-menu mdl-menu--bottom-lef
 			t mdl-js-menu">
-				<li class="mdl-menu__item dropdown-item" data-val="default">{{_'admin.communities.colorScheme.default'}}</li>
-				<li class="mdl-menu__item dropdown-item" data-val="greyscale">{{_'admin.communities.colorScheme.greyscale'}}</li>
+				<li class="mdl-menu__item dropdown-item-colorScheme" data-val="default">{{_'admin.communities.colorScheme.default'}}</li>
+				<li class="mdl-menu__item dropdown-item-colorScheme" data-val="greyscale">{{_'admin.communities.colorScheme.greyscale'}}</li>
 			</ul>
 		</div>
 
@@ -98,12 +101,6 @@
 			<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.aboutText"}}</label>
 		</div>
 
-		<!-- languageSelector -->
-		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="languageSelector">
-			<input type="checkbox" id="languageSelector" class="mdl-checkbox__input" checked>
-			<span class="mdl-checkbox__label">{{_"admin.communities.languageSelector"}}</span>
-		</label>
-
 		<!-- defaultLanguage -->
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
 			<input class="mdl-textfield__input" type="text" id="defaultLanguage" data-val="en" value="en" readonly tabIndex="-1">
@@ -112,14 +109,22 @@
 			</label>
 			<label for="defaultLanguage" class="mdl-textfield__label">{{_'admin.communities.defaultLanguage'}}</label>
 			<ul for="defaultLanguage" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-				<li class="mdl-menu__item dropdown-item" data-val="en">en</li>
-				<li class="mdl-menu__item dropdown-item" data-val="sv">sv</li>
+				<li class="mdl-menu__item dropdown-item-defaultLanguage" data-val="en">en</li>
+				<li class="mdl-menu__item dropdown-item-defaultLanguage" data-val="sv">sv</li>
 			</ul>
 		</div>
+
+		<!-- languageSelector -->
+		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="languageSelector">
+			<input type="checkbox" id="languageSelector" class="mdl-checkbox__input" checked>
+			<span class="mdl-checkbox__label">{{_"admin.communities.languageSelector"}}</span>
+		</label>
 
 		<div class="form-group" style="margin-bottom: 2rem;">
 			<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='Submit'>
 		</div>
 	</form>
+
+	<hr>
 
 </template>
