@@ -6,6 +6,11 @@ import { Ranks } from '../../ranking/Ranks.js';
 // The info we usually want to publish for users
 defaultUserProjection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 
+Meteor.publish('users.all', function() {
+  /* to count how many users we have per community */
+  return Meteor.users.find({}, {fields: {"profile.communityIds": 1}});
+});
+
 Meteor.publish('users.community', function(communityId) {
   return Meteor.users.find({"profile.communityIds" : communityId}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
 });

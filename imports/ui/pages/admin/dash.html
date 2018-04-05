@@ -9,6 +9,9 @@
 			{{> AdminDashProposals}}
 			{{> AdminDashVoting}}
 			{{> AdminDashStats}}
+			{{#if currentUserIsSuperAdmin}}
+				{{> AdminDashCommunities}}
+			{{/if}}
 		</div>
 	</div>
 	{{/if}}
@@ -135,6 +138,27 @@
 	  <div class="mdl-card__menu">
 	    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
 	      <i class="material-icons">assessment</i>
+	    </button>
+	  </div>
+	</div>
+</template>
+
+<template name="AdminDashCommunities">
+	<div class="dash-card mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.communities.heading"}}</h2>
+	  </div>
+	  <div class="dash-card-text mdl-card__supporting-text">
+	    {{_"admin.dash.card.communities.text"}}
+	  </div>
+	  <div class="mdl-card__actions mdl-card--border">
+	    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/admin/communities">
+	      {{_"admin.dash.card.communities.link"}}
+	    </a>
+	  </div>
+	  <div class="mdl-card__menu">
+	    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+	      <i class="material-icons">home</i>
 	    </button>
 	  </div>
 	</div>

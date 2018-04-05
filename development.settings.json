@@ -11,7 +11,7 @@
   "public": {
     "defaultAutosaveTime": 3000,
     "domain": "socialsystems.io",
-    "sentryPublicDSN": "https://c6e49c45d8d3483a9277ed5956d83f7a@sentry.io/624207"
+    "sentryPublicDSN": ""
   },
   "private": {
     "oAuth": {
@@ -36,12 +36,12 @@
     "fromEmail": "info@commondemocracy.org",
     "toEmail" : "info@commondemocracy.org",
     "deploymentName" : "Common Democracy",
-    "sentryPrivateDSN": "https://c6e49c45d8d3483a9277ed5956d83f7a:d84bbe5c404f4863a1e144b1eb4d6f08@sentry.io/624207",
+    "sentryPrivateDSN": "",
     "admins": [
       {
           "username": "admin_brett",
           "email":"brett@socialsystems.io",
-          "roles":["admin","individual"],
+          "roles":["superadmin", "admin","individual"],
           "isPublic": false,
           "profile": {
             "username": "admin_brett",
@@ -55,7 +55,7 @@
       {
           "username": "admin_trudie",
           "email":"trudie@socialsystems.io",
-          "roles":["admin","individual", "delegate"],
+          "roles":["superadmin","admin","individual", "delegate"],
           "isPublic": false,
           "profile": {
             "username": "admin_trudie",
