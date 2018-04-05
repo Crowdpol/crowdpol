@@ -1,0 +1,14 @@
+@import 'variables.scss';
+
+/* Create new Community form */
+
+#new-community-form {
+  .mdl-textfield {
+    display: block;
+  }
+
+  .input-wrap {
+    width: 300px;
+    margin: inherit;
+}
+}

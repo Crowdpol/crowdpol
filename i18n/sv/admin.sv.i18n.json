@@ -32,6 +32,11 @@
 					"heading": "Statistik",
 					"text": "Granska webbsajtens statistik",
 					"link": "Se Statistik"
+				},
+				"communities":{
+					"heading": "TODO Communities",
+					"text": "TODO See all communities, or add a new one.",
+					"link": "TODO View Communities"
 				}
 			}
 		},
@@ -114,6 +119,13 @@
 					"proposalList" : "Statistik Motioner"
 				}
 			}
+		},
+		"communities": {
+			"heading": "TODO Communities",
+			"name": "TODO Name",
+			"subdomain": "TODO Subdomain",
+			"user-count": "TODO Number of Users",
+			"none": "TODO There are currently no communities."
 		}
 	}
 }
