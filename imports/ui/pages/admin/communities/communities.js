@@ -34,3 +34,23 @@ Template.AdminCommunities.events({
 		
 	}
 });
+
+Template.AddNewCommunity.events({
+
+	'submit form': function(event, template){
+		event.preventDefault();
+
+		let email = template.find("#invite-email").value;
+			role = template.find("#invite-role").value;
+			url = Meteor.absoluteUrl('login');
+
+		Meteor.call('sendInvite', email, role, url, function(error){
+			if (error){
+				RavenClient.captureException(error);
+				Bert.alert(error.reason, 'danger');
+			} else {
+				Bert.alert('Message was sent!', 'success');
+			}
+		});
+	},
+});

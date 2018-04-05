@@ -125,7 +125,18 @@
 			"name": "Name",
 			"subdomain": "Subdomain",
 			"user-count": "Number of Users",
-			"none": "There are currently no communities."
+			"none": "There are currently no communities.",
+			"colorScheme": {
+				"label": "Color Scheme",
+				"greyscale": "greyscale (black/white/grey)",
+				"default": "default (blue/yellow)"
+			},
+			"homepageImageUrl": "Homepage image URL",
+			"homepageBannerText": "Homepage banner text",
+			"homepageIntroText": "Homepage introduction text",
+			"aboutText": "About text",
+			"languageSelector": "Show language selector in header",
+			"defaultLanguage": "Default language"
 		}
 	}
 }
