@@ -355,7 +355,8 @@
 			"interests": "intressen",
 			"public-switch-description": "Gör din profil synlig för andra. Detta kräver en fullständig profil. En synlig profil krävs för den som vill bli delegat.",
 			"delegate-switch-description": "Genom att vara en delegat gör du det möjligt för andra som litar på dig att anförtro dig med deras röst.",
-			"bio-count": "__bioCount__ tecken (min 50, max 160)"
+			"bio-count": "__bioCount__ tecken (min 50, max 160)",
+			"photo-url": "Enter an image url"
 		},
 		"routes": {
 			"alerts": {
