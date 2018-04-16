@@ -25,7 +25,8 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		homepageBannerText: "A new wave of democracy is coming to Sweden.",
 		homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
 		aboutText: mdAbout,
-		defaultLanguage: 'sv'
+		defaultLanguage: 'sv',
+		languages: ['en', 'sv']
 	});
 	bgSubdomain = 'bangor';
 	bgId = createCommunity('elop*10', 'bangor', {
@@ -35,7 +36,8 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		homepageBannerText: "Innovation can start with the question 'What if?'",
 		homepageIntroText: "A public presentation of four visions of a future High Street.",
 		aboutText: bgAbout,
-		defaultLanguage: 'en'
+		defaultLanguage: 'en',
+		languages: ['en']
 	});
 
 	/* Register admins for both communities */
