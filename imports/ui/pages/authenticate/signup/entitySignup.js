@@ -1,5 +1,14 @@
 import './entitySignup.html'
 import RavenClient from 'raven-js';
+import { Communities } from '../../../../api/communities/Communities.js'
+
+Template.entitySignup.onCreated(function() {
+  var self = this;
+
+  self.autorun(function(){
+    self.subscribe('communities.subdomain', LocalStore.get('subdomain'));
+  });
+});
 
 Template.entitySignup.onRendered( function() {
   $( "#entity-signup-form" ).validate({
@@ -39,50 +48,44 @@ Template.entitySignup.onRendered( function() {
 Template.entitySignup.events({
 	'submit #entity-signup-form' (event, template){
 		event.preventDefault();
-		var type = template.find('#entity-type').dataset.val;
-		console.log("type: " + type);
-		var isParty = null;
-		var isOrganisation = null;
-		if(type=="party"){
-			isParty = true;
-			isOrganisation = false;
-		}
-		if(type=="organisation"){
-			isParty = false;
-			isOrganisation = true;
-		}
-		let entity = {
-			email: template.find('#entity-email').value,
-			password: template.find('#entity-password').value,
-			name: template.find('#entity-name').value,
-			website: template.find('#entity-website').value,
-			phone: template.find('#entity-phone').value,
-			contact: template.find('#entity-contact').value,
-			roles: [type],
-			profileType: "Entity",
-			isParty: isParty,
-			isOrganisation: isOrganisation,
-		};
+		role = template.find('#entity-type').dataset.val;
 
-		//Create entity on the server side so that a role can be assigned automatically
-		Meteor.call('addEntity', entity, function(error)	{
-			if (error) {
-				RavenClient.captureException(error);
-				Bert.alert(error.reason, 'danger');
-			} else {
-				//Step 1: Log the user in if entity creation was successful
-				Meteor.loginWithPassword(entity.email, entity.password);
-				//Step 2: Send verification email
-				/*Meteor.call('sendVerificationLink', (error, response) => {
-					if (error){
-						Bert.alert(error.reason, 'danger');
-					} else {
-						Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
-					}
-				});*/
-			}
-		});
-	},
+		communityId = Communities.findOne({subdomain: LocalStore.get('subdomain')})._id;
+
+		// Update profile
+    profile = {
+      'firstName': template.find('#entity-name').value,
+      'website': template.find('#entity-website').value,
+      'phoneNumber': template.find('#entity-phone').value,
+      'contactPerson': template.find('#entity-contact').value,
+      'type': 'Entity',
+      'communityIds': [communityId],
+      'roles': [role]
+    };
+
+    entity = {
+     'email': template.find('#entity-email').value,
+     'password': template.find('#entity-password').value,
+     'isPublic' : false,
+     profile: profile
+   };
+
+   Accounts.createUser(entity, (error) => {
+     if (error) {
+      RavenClient.captureException(error);
+      Bert.alert(error.reason, 'danger');
+    } else {
+      /* Check if redirect route saved */
+      var redirect = LocalStore.get('signUpRedirectURL');
+      LocalStore.set('signUpRedirectURL', '');
+      if (redirect) {
+       window.location.href = redirect;
+     } else {
+       FlowRouter.go('/proposals');
+     }
+   }
+ });
+ },
 
 	'click .dropdown-item': function(event, template){
 		template.find('#entity-type').dataset.val = event.target.dataset.val;
