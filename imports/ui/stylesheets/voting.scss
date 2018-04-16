@@ -2,10 +2,6 @@
 @import 'breakpoint.scss';
 
 .vote-actions {
-  margin-top: $base-line-height;
-  margin-bottom: $base-line-height;
-  width: auto;
-  
   .mdl-button--colored-yes{
     background-color: $yes-button;
     color: white;
@@ -15,11 +11,18 @@
     background-color: $no-button;
     color: white;
   }
+}
+
+.voting-card {
+  margin-top: $base-line-height;
+  margin-bottom: $base-line-height;
+  width: auto;
 
   .mdl-card__actions.mdl-card--border{
     padding-left: 0px;
     padding-right: 0px;
   }
+
 }
 
 #voting-info.expandable {
