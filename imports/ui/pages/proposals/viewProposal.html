@@ -1,5 +1,27 @@
 <template name='ViewProposal'>
 
+	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <div class="mdl-tabs__tab-bar">
+  	{{#each languages}}
+	  	<a href="#{{this}}-panel" class="mdl-tabs__tab is-active">{{this}}</a>
+  	{{/each}}
+      
+  </div>
+
+  {{#each languages}}
+  <div class="mdl-tabs__panel is-active" id="{{this}}-panel">
+    <ul>
+      <h3>{{this}}</h3>
+    </ul>
+  </div>
+  {{/each}}
+</div>
+	
+</template>
+
+<!--=========== Proposal Translations ========-->
+
+<template name="ViewProposalTranslation">
 	{{> SignInModal}}
 	{{#if currentUser }}
 		{{> backButton text="generic.back-to-proposals" url="/dash"}}

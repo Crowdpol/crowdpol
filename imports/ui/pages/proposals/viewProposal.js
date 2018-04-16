@@ -5,6 +5,24 @@ import { Proposals } from '../../../api/proposals/Proposals.js'
 import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(){
+  var self = this;
+  proposalId = FlowRouter.getParam("id");
+  self.autorun(function() {
+    self.subscribe('proposals.one', proposalId);
+  });
+});
+
+Template.ViewProposal.helpers({
+  languages: function() {
+    var content = Proposals.findOne(proposalId).content;
+    var languages = _.pluck(content, 'language');
+    console.log('helper')
+    console.log(languages)
+    return languages;
+  }
+});
+
+Template.ViewProposalTranslation.onCreated(function(){
 
   var self = this;
   
@@ -43,7 +61,7 @@ Template.ViewProposal.onCreated(function(){
   
 });
 
-Template.ViewProposal.onRendered(function(){
+Template.ViewProposalTranslation.onRendered(function(){
   var self = this;
   var clipboard = new Clipboard('#copy-proposal-link');
 
@@ -69,7 +87,7 @@ Template.ViewProposal.onRendered(function(){
 
 });
 
-Template.ViewProposal.events({
+Template.ViewProposalTranslation.events({
   'click #edit-proposal' (event, template){
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
@@ -132,7 +150,7 @@ Template.ViewProposal.events({
   }
 });
 
-Template.ViewProposal.helpers({
+Template.ViewProposalTranslation.helpers({
   createdAt: function(){
     return moment(Template.instance().templateDictionary.get('createdAt')).format('MMMM Do YYYY');
   },
