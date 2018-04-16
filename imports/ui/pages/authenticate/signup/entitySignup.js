@@ -60,13 +60,13 @@ Template.entitySignup.events({
       'contactPerson': template.find('#entity-contact').value,
       'type': 'Entity',
       'communityIds': [communityId],
-      'roles': [role]
+      'roles': [role, 'delegate']
     };
 
     entity = {
      'email': template.find('#entity-email').value,
      'password': template.find('#entity-password').value,
-     'isPublic' : false,
+     'isPublic' : true,
      profile: profile
    };
 
