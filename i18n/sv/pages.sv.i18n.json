@@ -50,7 +50,7 @@
 				},
 				"about-us": {
 					"heading": "Om Oss",
-					"paragraph-1": "Mer Demokrati är ett ideellt projekt som i dagsläget drivs av Demokratiskolan tillsammans med Social Systems Lab samt ett antal volontärer. Vi är ett partipolitiskt obundet projekt med målet att utvekla det demokratiska samtalet i samhället och de strukturer som en levande demokrati behöver med hjälp av modern teknik och frivilligt engagemang."
+					"paragraph-1": "Mer Demokrati är ett ideellt projekt som drivs av Demokratiskolan tillsammans med Social Systems Lab samt ett antal volontärer. Vi är ett partipolitiskt obundet projekt med målet att utvekla det demokratiska samtalet i samhället och de strukturer som en levande demokrati behöver med hjälp av modern teknik och frivilligt engagemang."
 				}
 			}
 		},
@@ -99,10 +99,10 @@
 				}
 			},
 			"recover-password":{
-				"heading": "Fyll i din epostadress för att ta emot instruktioner för att återställa ditt lösenord.",
-				"recovery-email": "Återställning av lösenord epost",
+				"heading": "Fyll i din epostadress för att ta emot instruktioner för hur du ska återställa ditt lösenord.",
+				"recovery-email": "E-post för återställning av lösenord",
 				"alerts": {
-					"reset-password-sent-message": "En epost med instuktioner för återställning av ditt lösenord har skickats."
+					"reset-password-sent-message": "En e-post med instuktioner för återställning av ditt lösenord har skickats."
 				}
 			}
 		},
@@ -144,7 +144,7 @@
 			"type": "Typ av organisation"
 		},
 		"contact":{
-			"heading": "Kontacta Oss",
+			"heading": "Kontakta Oss",
 			"alerts": {
 				"contact-message-sent": "Ditt meddelande har skickats."
 			}
@@ -168,7 +168,7 @@
 					"link": "Nominera"
 				}
 			},
-			"verify-account-message": "Verifiera din epost adress innan du fortsätter.",
+			"verify-account-message": "Verifiera din e-postadress innan du fortsätter.",
 			"unapproved-entity-message": "Ditt konto har inte bekräftats as en admin ännu.",
 			"verify-resend-link": "Skicka Verifikationslänken Igen",
 			"verify-success-message": "Verifierad! Du kan göra saker!",
@@ -180,33 +180,33 @@
 		},
 		"delegates": {
 			"heading": "Delegater",
-			"instructions-1": "Nedanför finns en lista på användare som du kan delegera din röst till.",
-			"instructions-2": "Om du inte röstar själv på en motion kommer din röst automatiskt att gå till din högst rankade delegat som röstade. Du kan dock ändra din delegats röst närsomhelst eftersom din aktiva röst räknas först.",
-			"instructions-3": "Du kan välja upp till fem delegater. Nar du har valt dina delegater ändrar du deras inbördes ordning genom att dra och släppa dem på lämplig plats.",
+			"instructions-1": "Här finner du alla individer, organisationer och partier om du i dagsläget kan delegera din röst till.",
+			"instructions-2": "En delegat är en slags representant som kommer att rösta åt dig i de frågor där du själv inte aktivt går in och röstar. Exempelvis för att du inte har tid att sätta dig in i frågan eller helt enkelt för att du litar mer på din delegats omdöme än dit eget i ett eller flera områden. I praktiken kommer din delegats röst dock aldrig vara mer än en rekommendation eftersom du närsomhelst kan gå in och rösta efter eget huvud. Din aktiva röst räknas med andra ord före din delegats röst. Ändrar du inte på din delegats röst kommer den dock att räknas som din egen.",
+			"instructions-3": "Du kan för närvarande endast välja upp till fem delegater. Dessa delegater behöver du sedan rangorda. Det gör du genom att dra och släppa dem i den ordning du föredrar. Den deleagt du placerat högst kommer att räknas först. Har den delegaten inte gjort ett val i en fråga går rösten vidare till nästa delegat i ordningen och så vidare. Du kommer dock kunna se hur samtliga dina delegater har röstat under varje fråga.",
 			"alerts": {
 				"delegate-limit": "Du får välja max fem delegater",
-				"ranking-updated": "Delegaters inbördes ordning uppdaterad"
+				"ranking-updated": "Dina delegaters inbördes ordning är uppdaterad"
 			}
 		},
 		"candidates": {
 			"heading": "Kandidater",
 			"alerts": {
 				"candidate-limit": "Då får välja max fem kandidater",
-				"ranking-updated": "Kandidaters inbördes ordning uppdaterad"
+				"ranking-updated": "Dina kandidaters inbördes ordning är uppdaterad"
 			}
 		},
 		"proposals": {
 			"list": {
 				"deletedMessage": "Din motion har raderats.",
-				"confirmDelete": "Är du säker på att du vill radera denna motion permanent?",
+				"confirmDelete": "Är du säker på att du vill radera denna motion? Du kan inte ändra dig efteråt.",
 				"tabs":{
 					"allProposals": "Alla Motioner",
 					"myProposals": "Mina Motioner",
-					"writeProposals": "Skriv Motion"
+					"writeProposals": "Skriv en Motion"
 				},
 				"headings":{
-					"openProposals": "Öppna Motioner",
-					"closedProposals": "Stängda Motioner",
+					"openProposals": "Pågående Motioner",
+					"closedProposals": "Avslutade Motioner",
 					"myProposals": "Mina motioner",
 					"notMyProposals": "Gemensamma Motioner"
 				},
@@ -215,46 +215,46 @@
 					"read": "Läs Mer",
 					"vote": "och rösta"
 				},
-				"openClosedSwitch": "Öppen/Stängd",
+				"openClosedSwitch": "Pågående/Avslutad",
 				"createdInvitedSwitch": "Egen/Gemensam"
 			},
 			"edit": {
-				"heading": "Skriv din motion",
-				"title": "Ge din motion en beskrivande titel.",
-				"abstract": "Sammanfatta din motion",
-				"body": "Beskriv din motion mer utförligt. Inkludera de viktigaste argumenten, relevanta detaljer, länkar och referenser.",
-				"forAndAgainst": "Alla motioner har för- och motargument. Lägg till några argument som stödjer din motion liksom några argument som bestrider den i respektive fält nedan.",
+				"heading": "Din motion",
+				"title": "Ge din motion en titel.",
+				"abstract": "Beskriv kortfattat vad din motion går ut på. Det är denna text som kommer att synas först så det är bra om det ger läsaren en tydlig överblick om vad motionen gpr ut på. ",
+				"body": "Beskriv din motion mer utförligt. Det är denna text som den som vill sätta sig djupare in i motionen kommer att läsa. Tänkt dock på att vara så kortfattad och tydlig som möjligt. Dels för att alla ska vilja läsa och dels för att alla ska vilja förstå vad de röstar på. Inkludera bakgrunden till motionen, de viktigaste argumenten för motionen, relevanta detaljer, länkar och referenser här. Det måste vara uppenbart för alla som röstar vad de röstar för eller emot. Om din motion inte möter dessa grandkrav kommer vi inte att kunna godkänna den, så ta dig gärna tiden att utveckla din motion ordentligt. Samarbete med andra rekommenderas varmt (och gör dessutom att din motion prioriteras av vår redaktion).    ",
+				"forAndAgainst": "Alla motioner har för- och nackdelar. Lägg till alla argument som stödjer din motion men även så många argument du kommer på som kan användas emot den i respektive fält nedan. Målet är en fördjupad förståelse och en balanserad bild av varje problem, för bästa möjliga och välinformarade beslut som väljare. ",
 				"startDate": "Startdatum",
 				"endDate": "Slutdatum",
 				"confirm-back": "Är du säker på att du vill lämna sidan? Alla osparade ändringar kommer att förloras.",
-				"invited": "Bjud in andra till att samarbeta genom att fylla i deras användarnamn. Saknar du användarnamn går det även att fylla i deras epost adress.",
+				"invited": "Samarbete brukar ge bästa resultat. Bjud in andra att hjälpa till med denna motion genom att fylla i deras användarnamn. Saknar du användarnamn går det även att fylla i deras e-postadress.",
 				"tags": "Tagga din motion:",
 				"pointFor": "Argument För:",
 				"pointAgainst": "Argument Emot:",
 				"alerts": {
 					"saving": "Sparar...",
-					"changes-saved": "Ändringar Sparade",
+					"changes-saved": "Dina Ändringar är Sparade",
 					"proposal-created": "Motion Skapad",
-					"bad-email": "Det här verkar inte vara en epost adress."
+					"bad-email": "Det här verkar inte vara en riktig e-postadress. Har du skrivit den rätt?"
 				}
 			},
 			"view":{
 				"signInModal": {
 					"header": "Gå med i diskussionen",
 					"paragraph-1":"Vill du rösta på den här motionen?",
-					"paragraph-2": "Att skapa ett konto är enkelt, och tillpter dig att välja delegater, rösta på motioner och samarbeta med andra om att skriva egna.",
+					"paragraph-2": "Att skapa ett konto är enkelt, och tillåter dig att välja delegater, rösta på motioner och samarbeta med andra om att skriva egna.",
 					"button": "Skapa Konto"
 				},
-				"signature-tooltip": "Visa ditt stöd för denna motion genom att signera den.",
-				"confirmSubmit": "Är du helt säker på att du vill skicka in din motion? När du väl har skickat in den kan den inte ändras, bara raderas.",
+				"signature-tooltip": "Visa ditt stöd för denna motion genom att signera den. Genom att signera den blir ditt ställningstagande offentligt.",
+				"confirmSubmit": "Är du helt säker på att du vill skicka in din motion? När du väl har skickat in den kan den inte ändras. Om den inte blir godkänd måste du dessutom börja om från blörjan. Bättre att först vara helt säker på att den är så bra som den kan bli med andra ord!",
 				"voteCast": "Din röst har lagts",
-				"editProposal": "Ändra Motion",
-				"submitProposal": "Skicka in Motion",
+				"editProposal": "Ändra Motionen",
+				"submitProposal": "Skicka in Motionen",
 				"pointsFor": "Argument För:",
 				"pointsAgainst": "Argument Emot:",
 				"noDelegatesFor": "Ingen av dina delegater röstade för denna motion",
 				"noDelegatesAgainst": "Ingen av dina delegater röstade emot denna motion",
-				"proposalUnvailable": "Denna motion är tyvärr inte soffentlig ännu.",
+				"proposalUnvailable": "Denna motion är inte offentlig ännu.",
 				"noDelegateReason": "Den här delegaten lämade ingen kommentar till sitt val.",
 				"addComment": "Lägg till en kommentar",
 				"voteHeading": "Rösta på denna motion",
@@ -265,7 +265,7 @@
 				"proposal": "Motion",
 				"yes": "Ja",
 				"no": "Nej",
-				"voteInstructions": "Klicka på valfri knapp för att rösta. Om du inte röstar kommer din röst att gå till din högst rankade delegat som har röstat i motionen. Skulle du vilja rösta själv vid ett senare tillfälle kommer din röst dock alltid att räknas före din delegats röst.",
+				"voteInstructions": "Klicka på Ja/Nej för att lägga din röst. Om du väljer att inte rösta kommer din röst att gå till din högst rankade delegat som har röstat i motionen. Du kan dock ändra din röst vid ett senare tillfälle.",
 				"alerts": {
 					"linkToClipboardSuccess": "Länk kopierad till urklipp",
 					"linkToClipboardFailed": "Kopiering av länk till urklipp misslyckdes",
@@ -277,13 +277,13 @@
 				"anonymous": "Anonym",
 				"collaborators": "Medskapare",
 				"author": "Skapare",
-				"delegatesVoteHeading": "Hur dina delegater röstade",
+				"delegatesVoteHeading": "Dina delegaters val",
 				"delegatesFor": "Delegater För:",
 				"delegatesAgainst": "Delegater Emot:",
 				"delegateVotingClosed": "Röstning på denna motion är nu stängd för delegater. Delegaters möjlighet att rösta upphör två veckor innan motionens slutdatum.",
 				"tooltips": {
 					"share": "Kopiera en länk till denna motion till dina urklipp.",
-					"sign": "Visa ditt stöd genom att signera denna motion. Notera att detta inte är en röst på motionen."
+					"sign": "Visa ditt stöd genom att signera denna motion. Notera att detta inte är en röst på motionen, men väl ett publikt visat stöd."
 				}
 			}
 		},
@@ -310,7 +310,7 @@
 			"show-more": "Visa Mer",
 			"show-less": "Visa Mindre",
 			"delegate-description": "OBS: Du röstar nu som delegat åt de användare som valt att ge sin röst till dig. Som delegat ör dina val offentliga.",
-			"individual-description": "Du röstar nu som individ och din röst är bara synlig för dig. Skulle du välja att inte rösta på en specifik motion kommer din högst rankade delagat att räknas i ditt ställe.",
+			"individual-description": "Du röstar nu som individ och din röst är bara synlig för dig. Skulle du välja att inte rösta på en specifik motion kommer din högst rankade delagats röst att räknas i ditt ställe.",
 			"voting-card-heading": {
 				"delegate": "Rösta som Delegat:",
 				"individual": "Rösta som Individuell Medlem:"
@@ -332,19 +332,19 @@
 				"username": "Användarnamn är ett måste.",
 				"username-min": "Minst 5 tecken",
 				"username-max": "Maximalt 16 tecken",
-				"username-unique": "Det användarnamnet är tyvärr upptaget.",
-				"profile-updated": "Profilen updaterad.",
+				"username-unique": "Det användarnamnet är tyvärr redan taget.",
+				"profile-updated": "Din profil är updaterad.",
 				"profile-private": "Din profil är nu privat.",
 				"profile-public": "Din profil är nu offentlig.",
-				"profile-delegate-removed" : "Delegat Roll Borttagen.",
-				"profile-delegate-requested" : "Delegatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats.",
-				"profile-candidate-removed" : "Kandidat Roll Borttagen.",
-				"profile-candidate-requested" : "Kandidatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats..",
-				"profile-incomplete" : "Du behöver en fullständig profil för att ansöka om att bli delegat."
+				"profile-delegate-removed" : "Delegatprofil Borttagen.",
+				"profile-delegate-requested" : "Delegatansökan skickad. Du kommer att få en bekräftelse per e-post när din ansökan har behandlats.",
+				"profile-candidate-removed" : "Kandidatprofil Borttagen.",
+				"profile-candidate-requested" : "Kandidatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats.",
+				"profile-incomplete" : "Du behöver en fullständig profil om du vill bli delegat."
 			},
 			"tooltips": {
 				"delegateSwitch": "Ansök för att bli delegat. Detta kommer tillåta andra användare att låta dig rösta i deras ställe.",
-				"publicSwitch": "Gör din profil synlig för allmänheten, eller håll den privat."
+				"publicSwitch": "Gör din profil synlig för allmänheten, eller välj att vara privat."
 			},
 			"characters": "tecken",
 			"min": "min",
@@ -354,9 +354,8 @@
 			"completed": "fullständig",
 			"interests": "intressen",
 			"public-switch-description": "Gör din profil synlig för andra. Detta kräver en fullständig profil. En synlig profil krävs för den som vill bli delegat.",
-			"delegate-switch-description": "Genom att vara en delegat gör du det möjligt för andra som litar på dig att anförtro dig med deras röst.",
-			"bio-count": "__bioCount__ tecken (min 50, max 160)",
-			"photo-url": "Enter an image url"
+			"delegate-switch-description": "Genom att ställa upp som delegat blir det möjligt för andra som litar på dig att anförtro dig med deras röst.",
+			"bio-count": "__bioCount__ tecken (min 50, max 160)"
 		},
 		"routes": {
 			"alerts": {
