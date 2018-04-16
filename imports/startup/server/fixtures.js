@@ -17,7 +17,8 @@ Målet är att ge väljarna en upplevelse om hur demokrati skulle kunna fungera 
 
 Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att presenteras för demokratiministern men även riksdagens ledamöter kommer individuellt att bjudas in för att kommentera och ta ställning.`
 	/* Create two communities */;
-	mdSubdomain = 'merdemokrati'
+	mdSubdomain = 'merdemokrati';
+	mdLanguages = ['en', 'sv'];
 	mdId = createCommunity('Merdemokrati', mdSubdomain, {
 		colorScheme: 'default',
 		homepageImageUrl: 'img/wave-bg.jpg',
@@ -26,9 +27,10 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
 		aboutText: mdAbout,
 		defaultLanguage: 'sv',
-		languages: ['en', 'sv']
+		languages: mdLanguages
 	});
 	bgSubdomain = 'bangor';
+	bgLanguages = ['en'];
 	bgId = createCommunity('elop*10', 'bangor', {
 		colorScheme: 'greyscale', 
 		homepageImageUrl: 'img/bangor.jpg', 
@@ -37,7 +39,7 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		homepageIntroText: "A public presentation of four visions of a future High Street.",
 		aboutText: bgAbout,
 		defaultLanguage: 'en',
-		languages: ['en']
+		languages: bgLanguages
 	});
 
 	/* Register admins for both communities */
@@ -55,8 +57,8 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 	
 	/* Create demo proposals if in dev environment */
 	if (Meteor.isDevelopment) {
-		createDemoProposal(mdId, mdSubdomain);
-		createDemoProposal(bgId, bgSubdomain);
+		createDemoProposal(mdId, mdSubdomain, mdLanguages);
+		createDemoProposal(bgId, bgSubdomain, bgLanguages);
 	}
 });
 
@@ -242,21 +244,31 @@ function createDemoUsers(users, communityIds, subdomain){
 	console.log(successCount + " demo users generated.");
 }
 
-function createDemoProposal(communityId, subdomain){
+function createDemoProposal(communityId, subdomain, languages){
 
 	var tagObjects = _.map(['environment', 'gender'], function(keyword){
 		var tag = Meteor.call('getTagByKeyword', keyword, communityId);
 		return {"_id": tag._id, "text": tag.text, "keyword": tag.keyword, "url": tag.url};
-	})
+	});
 
-	var title = 'Demo Proposal for ' + subdomain;
+	content = [];
 
+	languages.forEach( function (language) {
+		var translation = {
+			language: language,
+			title: language + ' Demo Proposal for ' + subdomain,
+			abstract: language + ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ante ligula, tempor et risus feugiat, posuere semper enim. Etiam eleifend lacus a libero blandit, a placerat felis aliquam.',
+			body: language + ' Praesent at laoreet risus. Mauris eleifend nunc quis orci venenatis vestibulum. Nam ante elit, bibendum sed tempus sed, bibendum eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+			tags: tagObjects
+		}
+		content.push(translation)
+	});
+
+	var title = languages[0] + ' Demo Proposal for ' + subdomain;
 	if (Proposals.find({title: title}).count() < 1){
 		var user = Accounts.findUserByEmail("trudie@socialsystems.io");
 		var proposal = {
-			title: title,
-			abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ante ligula, tempor et risus feugiat, posuere semper enim. Etiam eleifend lacus a libero blandit, a placerat felis aliquam.',
-			body: 'Praesent at laoreet risus. Mauris eleifend nunc quis orci venenatis vestibulum. Nam ante elit, bibendum sed tempus sed, bibendum eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+			content: content,
 			startDate: moment().subtract(3, 'days').toDate(),
 			endDate: moment().add(1, 'years').toDate(),
 			tags: tagObjects,
