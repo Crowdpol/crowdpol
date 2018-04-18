@@ -51,8 +51,8 @@
 			"delete-title":"Radera användare permanent",
 			"delete-yes":"Ja",
 			"delete-no":"Nej",
-			"invite-heading": "Bjud in en Ny Användare a New Användare:",
-			"invite-message": "Fyll i en användares epost för att skicka dem en inbjudan att gå med.",
+			"invite-heading": "Bjud in en Ny Användare:",
+			"invite-message": "Fyll i en användares e-post för att skicka dem en inbjudan att gå med.",
 			"invite-button": "Skicka Inbjudan",
 			"invite-role": "Användares Roll",
 			"approve-button": "Godkän",
@@ -90,7 +90,7 @@
 			"approved": "Godkänd",
 			"add-button": "Lägg till",
 			"delete-button": "Radera",
-			"none-waiting": "För dillfället finns det inga motioner som väntar på att granskas."
+			"none-waiting": "För tillfället finns det inga motioner som väntar på att granskas."
 		},
 		"approvals": {
 			"heading": "Godkännanden",

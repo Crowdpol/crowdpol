@@ -43,12 +43,12 @@ Template.EditProposal.onRendered(function(){
 			inputPointFor: {
 				required: false,
 				minlength: 1,
-				maxlength: 160
+				maxlength: 320
 			},
 			inputPointAgainst: {
 				required: false,
 				minlength: 1,
-				maxlength: 160
+				maxlength: 320
 			}
 		},
 		messages: {

@@ -60,44 +60,6 @@ Meteor.methods({
         }
       }
     },
-    addEntity: function(entity) {
-      check(entity, { 
-        email: String, 
-        password: String, 
-        phone: Match.Maybe(String), 
-        contact: Match.Maybe(String), 
-        profileType: Match.Maybe(String), 
-        name: String, 
-        website: Match.Maybe(String),
-        roles: Match.Maybe([String]),
-        isParty: Boolean,
-        isOrganisation: Boolean
-      });
-
-      entityID = Accounts.createUser({
-        'email': entity.email,
-        'password': entity.password,
-        'isPublic' : false
-        });
-
-      // Update profile
-      profile = {'firstName': entity.name,
-      'website': entity.website,
-      'phoneNumber': entity.phone,
-      'contactPerson': entity.contact,
-      'type': entity.profileType,
-      //'username': generateUs"approvals": {$exists: true}, $where : "this.approvals.length > 0"})ername(entity.name),
-      'searchString': entity.name //+ ' ' + generateUsername(entity.name)
-      };
-
-      Meteor.call('updateProfile', entityID, profile);
-
-      // Add entity to role
-      Roles.addUsersToRoles(entityID, entity.roles);
-
-      return entityID;
-
-    },
     isApproved: function(userID) {
       check(userID, String);
       user = Meteor.call('getUser', userID);

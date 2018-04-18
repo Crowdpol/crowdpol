@@ -9,7 +9,7 @@
   },
   "forceSSL": false,
   "public": {
-    "defaultAutosaveTime": 3000,
+    "defaultAutosaveTime": 10000,
     "domain": "socialsystems.io",
     "sentryPublicDSN": ""
   },
