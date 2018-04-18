@@ -1,11 +1,32 @@
 import './editProposal.html'
 import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import { Communities } from '../../../api/communities/Communities.js'
 import { setupTaggle } from '../../components/taggle/taggle.js'
 import "../../components/userSearch/userSearch.js"
 import RavenClient from 'raven-js';
 
 Template.EditProposal.onCreated(function(){
+	self = this;
+	self.autorun(function(){
+		self.subscribe('communities.all')
+	});
+});
+
+Template.EditProposal.helpers({
+	languages: function(){
+		var communityId = LocalStore.get('communityId');
+		return Communities.findOne({_id: communityId}).settings.languages;
+	},
+	activeClass: function(language){
+	    var currentLang = TAPi18n.getLanguage();
+	    if (language == currentLang){
+	      return 'is-active';
+	    }
+	}
+});
+
+Template.ProposalForm.onCreated(function(){
 	var self = this;
 	Template.instance().pointsFor = new ReactiveVar([]);
   	Template.instance().pointsAgainst = new ReactiveVar([]);
@@ -15,7 +36,7 @@ Template.EditProposal.onCreated(function(){
   	Session.set('emailInvites',[]);
 });
 
-Template.EditProposal.onRendered(function(){
+Template.ProposalForm.onRendered(function(){
 	var self = this;
 	// Form Validations
 	$( "#edit-proposal-form" ).validate({
@@ -77,8 +98,8 @@ Template.EditProposal.onRendered(function(){
   	//$("#autosuggest-results").css({top: top, left: left});
 
 	// Initialise Quill editor
-	editor = new Quill('#body-editor', {
-		modules: { toolbar: '#toolbar' },
+	editor = new Quill('#body-editor-sv', {
+		modules: { toolbar: '#toolbar-sv' },
 		theme: 'snow'
   	});
   	
@@ -128,7 +149,7 @@ Template.EditProposal.onRendered(function(){
 	});
 });
 
-Template.EditProposal.events({
+Template.ProposalForm.events({
 	'submit #edit-proposal-form' (event, template){
 		event.preventDefault();
 		saveChanges(event, template, 'App.proposal.edit');
@@ -207,7 +228,7 @@ Template.EditProposal.events({
   	},
 });
 
-Template.EditProposal.helpers({
+Template.ProposalForm.helpers({
   pointsFor() {
     return Template.instance().pointsFor.get();
   },
