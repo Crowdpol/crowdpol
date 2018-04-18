@@ -1,12 +1,4 @@
-<template name='ViewProposal'>
-	{{> ProposalContainer}}
-</template>
-
-<!--=========== Proposal Container ========-->
-
-<template name="ProposalContainer">
-	{{#if Template.subscriptionsReady}}
-	{{/if}}
+<template name="ViewProposal">
 	{{> SignInModal}}
 	{{#if currentUser }}
 		{{> backButton text="generic.back-to-proposals" url="/dash"}}
@@ -17,155 +9,157 @@
 		{{#if isVisible }}
 
 		<!-- Author things -->
-<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
-      	<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-        	<div class="minilogo">
-          	<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
-          </div>
-          <div class="proposal-author">
-          	<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
-          	<span>{{createdAt}}</span>
-          </div>
-          <div class="section-spacer"></div>
-          <div>
-						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
-							<i class="material-icons">share</i>
-						</button>
-          </div>
-          <div class="signature-button">
-						<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
-									<i class="material-icons">fingerprint</i>
-						</button>
-						<div class="mdl-tooltip" data-mdl-for="sign-proposal">
-							{{_ "pages.proposals.view.signature-tooltip"}}
-						</div>
-								
-          </div>
-          <div class="signature-count">
-						{{ signatureCount }}
-          </div>
-        </div>
-        {{#if selectedInvites.count}}
-        <div>
-        	<span id="collab-text">
-						{{_ "pages.proposals.view.collaborators"}}
-			  	</span>
-			  </div>
-			  <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
-        	{{#each selectedInvites}}
-        		<div class="collab-author">
-								<img class="mdl-chip__contact" src="{{profile.photo}}">
-								<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
-							</div>
-					{{/each}}
-        </div>
-        {{/if}}
-      </div>
+		<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
+			<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+				<div class="minilogo">
+					<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
+				</div>
+				<div class="proposal-author">
+					<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
+					<span>{{createdAt}}</span>
+				</div>
+				<div class="section-spacer"></div>
+				<div>
+					<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+						<i class="material-icons">share</i>
+					</button>
+				</div>
+				<div class="signature-button">
+					<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
+						<i class="material-icons">fingerprint</i>
+					</button>
+					<div class="mdl-tooltip" data-mdl-for="sign-proposal">
+						{{_ "pages.proposals.view.signature-tooltip"}}
+					</div>
 
-      <!-- end of author things -->
+				</div>
+				<div class="signature-count">
+					{{ signatureCount }}
+				</div>
+			</div>
+			{{#if selectedInvites.count}}
+			<div>
+				<span id="collab-text">
+					{{_ "pages.proposals.view.collaborators"}}
+				</span>
+			</div>
+			<div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+				{{#each selectedInvites}}
+				<div class="collab-author">
+					<img class="mdl-chip__contact" src="{{profile.photo}}">
+					<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+				</div>
+				{{/each}}
+			</div>
+			{{/if}}
+		</div>
 
-		<!-- Tabs -->
-
+		<!-- Tabs for translations -->
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-		<div class="mdl-tabs__tab-bar">
-			{{#each languages}}
+			<div class="mdl-tabs__tab-bar">
+				{{#each languages}}
 				<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
+				{{/each}}
+			</div>
+
+			{{#each languages}}
+			<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
+
+				{{> ProposalContent this}}
+
+			</div>
 			{{/each}}
 		</div>
 
-		{{#each languages}}
-		<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
-			
-				{{> ProposalContent this}}
-			
+		<!-- Edit and Submit Buttons -->
+		<div class="proposal-wrap proposal-actions">
+			{{#if isEditable }}
+			<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
+				{{_ "pages.proposals.view.editProposal"}}
+			</button>
+			{{/if}}
+
+			{{#if isSubmittable }}
+			<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
+				{{_ "pages.proposals.view.submitProposal"}}
+			</button>
+			{{/if}}
 		</div>
-		{{/each}}
-	</div>
-	<!-- end of tabs -->
-			
-			<div class="proposal-wrap proposal-actions">
-				{{#if isEditable }}
-					<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
-						{{_ "pages.proposals.view.editProposal"}}
-					</button>
-				{{/if}}
 
-				{{#if isSubmittable }}
-					<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
-						{{_ "pages.proposals.view.submitProposal"}}
-					</button>
-				{{/if}}
-			</div>
-
-			<div class="proposal-wrap proposal-vote">
-				<hr>
-				{{#if isVotable}}
-					<div class="mdl-card mdl-cell mdl-cell--12-col vote-details">
-		      	<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-		        	<div>
-		        		<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
-		          </div>
-		          <div class="section-spacer"></div>
-		          
-		          <div class="signature-count">
-								{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
-		          </div>
-		          <div class="signature-count"><i class="material-icons">date_range</i></div>
-		        </div>
-      		</div>
-      		<div class="voting-content">
-					{{#if isVotingAsDelegate}}
-						{{#if isVotableForDelegates}}
-							{{> delegateVoteButtons proposalId=_id}}
-						{{else}}
-							<small>{{_"pages.proposals.view.delegateVotingClosed"}}</small>
-						{{/if}}
-					{{else}}
-						<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
-						{{> voteButtons proposalId=_id}}
-					{{/if}}
-					{{> delegateVoteList proposalId=_id}}
+		<!-- Voting Buttons -->
+		<div class="proposal-wrap proposal-vote">
+			<hr>
+			{{#if isVotable}}
+			<div class="mdl-card mdl-cell mdl-cell--12-col vote-details">
+				<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+					<div>
+						<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
 					</div>
-				{{else}}
-					<center>
-						<h5>
-						<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
-						</h5>
-					</center>
-				{{/if}}
-				<hr>
-			</div>
+					<div class="section-spacer"></div>
 
-			<div class="proposal-wrap">
-				<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-            <div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments">
-            	{{#if isInvited }}
-								{{> CommentForm}}
-							{{/if}}
-							{{#if Template.subscriptionsReady}}
-								{{#each comments}}
-									{{> Comment}}
-								{{/each}}
-              
-              {{else}}
-								{{> loader}}
-							{{/if}}
-            </div>
-          </div>
+					<div class="signature-count">
+						{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
+					</div>
+					<div class="signature-count"><i class="material-icons">date_range</i></div>
+				</div>
 			</div>
+			<div class="voting-content">
+				{{#if isVotingAsDelegate}}
+				{{#if isVotableForDelegates}}
+				{{> delegateVoteButtons proposalId=_id}}
+				{{else}}
+				<small>{{_"pages.proposals.view.delegateVotingClosed"}}</small>
+				{{/if}}
+				{{else}}
+				<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
+				{{> voteButtons proposalId=_id}}
+				{{/if}}
+				{{> delegateVoteList proposalId=_id}}
+			</div>
+			{{else}}
+			<center>
+				<h5>
+					<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
+				</h5>
+			</center>
+			{{/if}}
+			<hr>
+		</div>
+
+		<!-- Commenting -->
+		<div class="proposal-wrap">
+			<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+				<div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments">
+					{{#if isInvited }}
+					{{> CommentForm}}
+					{{/if}}
+					{{#if Template.subscriptionsReady}}
+					{{#each comments}}
+					{{> Comment}}
+					{{/each}}
+
+					{{else}}
+					{{> loader}}
+					{{/if}}
+				</div>
+			</div>
+		</div>
+
 		{{else}}
-			<h3>{{_ "pages.proposals.view.proposalUnvailable"}}</h3>
+		<h3>{{_ "pages.proposals.view.proposalUnvailable"}}</h3>
 		{{/if}}
 	</div>
+
+	<!-- Sign and Share buttons -->
 	<div class="proposal-view-menu">
-			<div class="proposal-view-menu-buttons">
-				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
-					<i class="material-icons">share</i>
-				</button>
-			</div>
+		<div class="proposal-view-menu-buttons">
+			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+				<i class="material-icons">share</i>
+			</button>
+		</div>
 	</div>
 	{{else}}
-		{{> loader}}
+	{{> loader}}
 	{{/if}}
 </template>
 
@@ -173,50 +167,47 @@
 
 <template name="ProposalContent">
 
+	<!-- Main Content -->
+	<div class="proposal-wrap">
+		<h1 class="proposal-title">{{ title }}</h1>
+		<p class="proposal-info">{{ abstract }}</p>
+	</div>
+	<div id="proposal-body-wrap">
+		{{{ body }}}
+	</div>
 
-      <!-- Content -->
-      <div class="proposal-wrap">
-      	<h1 class="proposal-title">{{ title }}</h1>
-      	<p class="proposal-info">{{ abstract }}</p>
-      </div>
-      <div id="proposal-body-wrap">
-      	{{{ body }}}
-      </div>
-      <!-- end of Content -->
+	<!-- Points for and against -->
+	<div class="proposal-wrap mdl-grid" id="proposal-points">
+		<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+			{{#if showPointsFor}}
+			<p>{{_ "pages.proposals.view.pointsFor"}}</p>
+			<ul id="points-for-list" class="points-list">
+				{{#each pointsFor}}
+				<li>{{this}}</li>
+				{{/each}}
+			</ul>
+			{{/if}}
+		</div>
+		<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+			{{#if showPointsAgainst}}
+			<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
+			<ul id="points-against-list" class="points-list">
+				{{#each pointsAgainst}}
+				<li>{{this}}</li>
+				{{/each}}
+			</ul>
+			{{/if}}
+		</div>
+	</div>
 
-      <!-- Points for and against -->
-      <div class="proposal-wrap mdl-grid" id="proposal-points">
-      	<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-      		{{#if showPointsFor}}
-      		<p>{{_ "pages.proposals.view.pointsFor"}}</p>
-      		<ul id="points-for-list" class="points-list">
-      			{{#each pointsFor}}
-      			<li>{{this}}</li>
-      			{{/each}}
-      		</ul>
-      		{{/if}}
-      	</div>
-      	<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-      		{{#if showPointsAgainst}}
-      		<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
-      		<ul id="points-against-list" class="points-list">
-      			{{#each pointsAgainst}}
-      			<li>{{this}}</li>
-      			{{/each}}
-      		</ul>
-      		{{/if}}
-      	</div>
-      </div>
-  		<!-- end of points -->
-
-  		<!-- tags -->
-  		<div class="proposal-wrap">
-  			{{#each tags}}
-  			<span class="mdl-chip">
-  				<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
-  			</span>
-  			{{/each}}
-  		</div>
+	<!-- Tags -->
+	<div class="proposal-wrap">
+		{{#each tags}}
+		<span class="mdl-chip">
+			<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
+		</span>
+		{{/each}}
+	</div>
 	
 </template>
 
@@ -240,11 +231,11 @@
 <template name="Comment">
 	<div class="comment mdl-color-text--grey-700">
 		<header class="comment__header">
-    	<img src="{{avatar}}" class="comment__avatar">
-     	<div class="comment__author">
-      	<strong>{{ username }}</strong>
-     		<span>{{ date }}</span>
-    	</div>
+			<img src="{{avatar}}" class="comment__avatar">
+			<div class="comment__author">
+				<strong>{{ username }}</strong>
+				<span>{{ date }}</span>
+			</div>
 		</header>
 		<div class="comment__text">
 			{{ message }}

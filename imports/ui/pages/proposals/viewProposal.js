@@ -4,23 +4,7 @@ import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import RavenClient from 'raven-js';
 
-Template.ViewProposal.onCreated(function(){
-  var self = this;
-  proposalId = FlowRouter.getParam("id");
-  self.autorun(function() {
-    self.subscribe('proposals.one', proposalId);
-  });
-});
-
-Template.ViewProposal.onRendered(function(){
-  
-});
-
-Template.ViewProposal.helpers({
- 
-});
-
-Template.ProposalContainer.onCreated(function(language){
+Template.ViewProposal.onCreated(function(language){
   var self = this;
 
   var dict = new ReactiveDict();
@@ -51,7 +35,7 @@ Template.ProposalContainer.onCreated(function(language){
   }); 
 });
 
-Template.ProposalContainer.onRendered(function(language){
+Template.ViewProposal.onRendered(function(language){
   var self = this;
   var clipboard = new Clipboard('#copy-proposal-link');
 
@@ -77,7 +61,7 @@ Template.ProposalContainer.onRendered(function(language){
 
 });
 
-Template.ProposalContainer.events({
+Template.ViewProposal.events({
   'click #edit-proposal' (event, template){
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
@@ -137,7 +121,7 @@ Template.ProposalContainer.events({
   }
 });
 
-Template.ProposalContainer.helpers({
+Template.ViewProposal.helpers({
    languages: function() {
     var content = Proposals.findOne(proposalId).content;
     var languages = _.pluck(content, 'language');
@@ -179,7 +163,7 @@ Template.ProposalContainer.helpers({
     });
   },
   _id: function() {
-    return Template.instance().proposal.get()._id;
+    return Template.instance().templateDictionary.get( '_id' );
   },
   isSigned: function(){
     var signatures = Template.instance().templateDictionary.get( 'signatures' );
