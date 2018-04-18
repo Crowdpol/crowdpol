@@ -1,25 +1,5 @@
 <template name='ViewProposal'>
-	{{#if Template.subscriptionsReady}}
-
-	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-		<div class="mdl-tabs__tab-bar">
-			{{#each languages}}
-				<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
-			{{/each}}
-		</div>
-
-		{{#each languages}}
-		<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
-			<ul>
-				{{> ProposalContainer language=this}}
-			</ul>
-		</div>
-		{{/each}}
-	</div>
-
-	{{else}}
-		{{> loader}}
-	{{/if}}
+	{{> ProposalContainer}}
 </template>
 
 <!--=========== Proposal Container ========-->
@@ -35,8 +15,73 @@
 
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
+
+		<!-- Author things -->
+<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
+      	<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+        	<div class="minilogo">
+          	<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
+          </div>
+          <div class="proposal-author">
+          	<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
+          	<span>{{createdAt}}</span>
+          </div>
+          <div class="section-spacer"></div>
+          <div>
+						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+							<i class="material-icons">share</i>
+						</button>
+          </div>
+          <div class="signature-button">
+						<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
+									<i class="material-icons">fingerprint</i>
+						</button>
+						<div class="mdl-tooltip" data-mdl-for="sign-proposal">
+							{{_ "pages.proposals.view.signature-tooltip"}}
+						</div>
+								
+          </div>
+          <div class="signature-count">
+						{{ signatureCount }}
+          </div>
+        </div>
+        {{#if selectedInvites.count}}
+        <div>
+        	<span id="collab-text">
+						{{_ "pages.proposals.view.collaborators"}}
+			  	</span>
+			  </div>
+			  <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+        	{{#each selectedInvites}}
+        		<div class="collab-author">
+								<img class="mdl-chip__contact" src="{{profile.photo}}">
+								<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+							</div>
+					{{/each}}
+        </div>
+        {{/if}}
+      </div>
+
+      <!-- end of author things -->
+
+		<!-- Tabs -->
+
+		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+		<div class="mdl-tabs__tab-bar">
+			{{#each languages}}
+				<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
+			{{/each}}
+		</div>
+
+		{{#each languages}}
+		<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
 			
-			{{> ProposalContent language}}
+				{{> ProposalContent this}}
+			
+		</div>
+		{{/each}}
+	</div>
+	<!-- end of tabs -->
 			
 			<div class="proposal-wrap proposal-actions">
 				{{#if isEditable }}
@@ -128,53 +173,7 @@
 
 <template name="ProposalContent">
 
-<!-- Author things -->
-<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
-      	<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-        	<div class="minilogo">
-          	<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
-          </div>
-          <div class="proposal-author">
-          	<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
-          	<span>{{createdAt}}</span>
-          </div>
-          <div class="section-spacer"></div>
-          <div>
-						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
-							<i class="material-icons">share</i>
-						</button>
-          </div>
-          <div class="signature-button">
-						<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
-									<i class="material-icons">fingerprint</i>
-						</button>
-						<div class="mdl-tooltip" data-mdl-for="sign-proposal">
-							{{_ "pages.proposals.view.signature-tooltip"}}
-						</div>
-								
-          </div>
-          <div class="signature-count">
-						{{ signatureCount }}
-          </div>
-        </div>
-        {{#if selectedInvites.count}}
-        <div>
-        	<span id="collab-text">
-						{{_ "pages.proposals.view.collaborators"}}
-			  	</span>
-			  </div>
-			  <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
-        	{{#each selectedInvites}}
-        		<div class="collab-author">
-								<img class="mdl-chip__contact" src="{{profile.photo}}">
-								<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
-							</div>
-					{{/each}}
-        </div>
-        {{/if}}
-      </div>
 
-      <!-- end of author things -->
       <!-- Content -->
       <div class="proposal-wrap">
       	<h1 class="proposal-title">{{ title }}</h1>
