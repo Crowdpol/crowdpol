@@ -30,52 +30,39 @@ Template.ViewProposal.helpers({
   }
 });
 
-Template.ProposalTranslation.onCreated(function(language){
-
+Template.ProposalContainer.onCreated(function(language){
   var self = this;
-  
-  self.proposal = new ReactiveVar();
-  self.content = new ReactiveVar();
+
+  var dict = new ReactiveDict();
+  this.templateDictionary = dict;
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
     self.subscribe('comments', proposalId);
-    self.subscribe('users.all');
+    self.subscribe('users.community', communityId);
     self.subscribe('proposals.one', proposalId, function(error){
       if (error){
         RavenClient.captureException(error);
         Bert.alert(error.reason, 'danger');
       } else {
-        var languageCode = self.data
-        self.proposal.set(Proposals.findOne({_id: proposalId}));
-        var allContent = self.proposal.get().content;
-        self.content.set(_.find(allContent, function(item){ return item.language == languageCode}))
-        /*dict.set( 'createdAt', proposal.createdAt );
+        proposal = Proposals.findOne({_id: proposalId})
+        dict.set( 'createdAt', proposal.createdAt );
         dict.set( '_id', proposal._id);
-        dict.set( 'title', proposal.title || '');
-        dict.set( 'abstract', proposal.abstract || '');
-        dict.set( 'body', proposal.body || '');
         dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') );
         dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') );
         dict.set( 'invited', proposal.invited );
         dict.set( 'authorId', proposal.authorId );
         dict.set( 'stage', proposal.stage );
         dict.set( 'status', proposal.status );
-        dict.set( 'tags', proposal.tags );
-        dict.set( 'signatures', proposal.signatures || [] );
-        dict.set( 'pointsFor', proposal.pointsFor || [] );
-        dict.set( 'pointsAgainst', proposal.pointsAgainst || [] );
-        dict.set( 'signatures', proposal.signatures || []);*/
+        dict.set( 'signatures', proposal.signatures || []);
       }
     })
-  });
-  
+  }); 
 });
 
-Template.ProposalTranslation.onRendered(function(language){
+Template.ProposalContainer.onRendered(function(language){
   var self = this;
   var clipboard = new Clipboard('#copy-proposal-link');
-
 
   clipboard.on('success', function(e) {
     Bert.alert({
@@ -99,7 +86,7 @@ Template.ProposalTranslation.onRendered(function(language){
 
 });
 
-Template.ProposalTranslation.events({
+Template.ProposalContainer.events({
   'click #edit-proposal' (event, template){
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
@@ -162,7 +149,7 @@ Template.ProposalTranslation.events({
   }
 });
 
-Template.ProposalTranslation.helpers({
+Template.ProposalContainer.helpers({
   createdAt: function(){
     return moment(Template.instance().proposal.get().createdAt).format('MMMM Do YYYY');
   },
@@ -199,20 +186,6 @@ Template.ProposalTranslation.helpers({
   isSigned: function(){
     var signatures = Template.instance().proposal.get().signatures;
     return signatures.indexOf( Meteor.userId()) > -1;
-  },
-  content: function() {
-    /*allContent = Template.instance().proposal.get().content;
-    return _.find(allContent, function(item){ return item.language == language})*/
-    return Template.instance().content.get().title;
-  },
-  tags: function() {
-    return Template.instance().templateDictionary.get( 'tags' );
-  },
-  abstract: function() {
-    return Template.instance().templateDictionary.get( 'abstract' );
-  },
-  body: function() {
-    return Template.instance().templateDictionary.get( 'body' );
   },
   status: function() {
     return Template.instance().templateDictionary.get( 'status' );
@@ -279,7 +252,7 @@ Template.ProposalTranslation.helpers({
     }
   },
   isVotable: function(){
-    /*var stage = Template.instance().templateDictionary.get('stage');
+    var stage = Template.instance().templateDictionary.get('stage');
     var status = Template.instance().templateDictionary.get('status');
     var startDate = Template.instance().templateDictionary.get('startDate');
     var endDate = Template.instance().templateDictionary.get('endDate');
@@ -290,10 +263,10 @@ Template.ProposalTranslation.helpers({
       return true;
     } else {
       return false;
-    }*/
+    }
   },
   isVisible: function() {
-   /* //Proposal should be visible to admin if submitted
+    //Proposal should be visible to admin if submitted
     if ((Roles.userIsInRole(Meteor.userId(), 'admin')) && (Template.instance().templateDictionary.get('stage') == 'submitted')){
       return true;
     } else {
@@ -304,13 +277,68 @@ Template.ProposalTranslation.helpers({
       } else {
         return false;
       }
-    }*/
+    }
   },
   getProposalLink: function() {
     return Meteor.absoluteUrl() + "proposals/view/" + proposalId;
   },
   signatureCount: function(){
     return Template.instance().templateDictionary.get('signatures').length
+  }
+});
+
+/*///////////////////////////////////////////////////////////////////////////*/
+
+Template.ProposalContent.onCreated(function(language){
+  var self = this;
+
+  var dict = new ReactiveDict();
+  this.templateDictionary = dict;
+
+  proposalId = FlowRouter.getParam("id");
+  self.autorun(function() {
+    self.subscribe('comments', proposalId);
+    self.subscribe('users.community', communityId);
+    self.subscribe('proposals.one', proposalId, function(error){
+      if (error){
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        proposal = Proposals.findOne({_id: proposalId})
+        dict.set( 'createdAt', proposal.createdAt );
+        dict.set( '_id', proposal._id);
+        dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') );
+        dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') );
+        dict.set( 'invited', proposal.invited );
+        dict.set( 'authorId', proposal.authorId );
+        dict.set( 'stage', proposal.stage );
+        dict.set( 'status', proposal.status );
+        dict.set( 'signatures', proposal.signatures || []);
+      }
+    })
+  }); 
+});
+
+Template.ProposalContent.helpers({
+  showPointsFor: function(){
+    results = Template.instance().templateDictionary.get( 'pointsFor' );
+    if(results.length > 0){
+      return true;
+    }
+    return false;
+  },
+  showPointsAgainst: function(){
+    results = Template.instance().templateDictionary.get( 'pointsAgainst' );
+    if(results.length > 0){
+      return true;
+    }
+    return false;
+  },
+  pointsFor: function() {
+    return Template.instance().templateDictionary.get( 'pointsFor' );
+  },
+  pointsAgainst: function() {
+    return Template.instance().templateDictionary.get( 'pointsAgainst' );
   }
 });
 
