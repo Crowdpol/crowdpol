@@ -1,32 +1,32 @@
 {
 	"emails": {
 		"verify-email": {
-			"subject": "Mer Demokrati: Bekräfta din epost",
-			"body": "Klicka på följande länk:\n\n __url__ \n\n för att verifera din epost adress __emailAddress__  Ignorera denna epost om du inte ansökt om att bekräfta din epostsadress hos oss. Om du har frågor eller misstänker att någon försöker använda din epostadress kontakta vår support: __supportEmail__."
+			"subject": "Mer Demokrati: Bekräfta din e-post",
+			"body": "Klicka på följande länk:\n\n __url__ \n\n för att verifera din e-postadress __emailAddress__  Ignorera detta meddelande om du inte har ansökt om att bekräfta din e-postsadress hos oss. Om du har frågor eller misstänker att någon försöker använda din e-postadress kontakta vår support: __supportEmail__."
 		},
 		"reset-password": {
 			"subject": "Mer Demokrati: Återställ Ditt Lösenord",
-			"body": "För att återställa ditt lösenord behlöver du bara klicka på länken nedan: \n\n __url__ \n\n Om du inte begärde att få återställa ditt lösenord går det bra att ignorera detta meddelande. Om du har frågor eller misstänker att någon försöker komma åt ditt konto, kontakta vår support: __supportEmail__."
+			"body": "Klicka på följande länk för att återställa ditt lösenord: \n\n __url__ \n\n Om du inte begärt att få återställa ditt lösenord kan du ignorera detta meddelande. Om du har frågor eller misstänker att någon försöker komma åt ditt konto, kontakta vår support: __supportEmail__."
 		},
 		"rejection-email": {
 			"from": "__name__ __fromEmail__",
-			"subject": "Din ansökan om att blu en __type__ har avslagits",
-			"body": "Våra administratörer har avslagit din begäran att bli en __type__."
+			"subject": "Din ansökan om att bli en __type__ har avslagits",
+			"body": "Våra administratörer har tyvärr avslagit din begäran att bli en __type__."
 		},
 		"newsletter-confirmation":{
 			"from": "__name__ __fromEmail__",
-			"subject": "Bekräftelse av Prenumeration av Nyhetsbrev Newsletter",
-			"body": "Tack för att du vill få vårt nyhetsbrev. Vi kommer göra vårt bästa för att hålla dig uppdaterad kring vad som är på gång."
+			"subject": "Bekräftelse av Prenumeration av Nyhetsbrev",
+			"body": "Tack för att du vill ta emot vårt nyhetsbrev. Vi kommer göra vårt bästa för att hålla dig uppdaterad kring vad som är på gång men inte skicka nyheter i onödan."
 		},
 		"send-approval": {
 			"from": "__name__ __fromEmail__",
 			"subject": "Din ansökan om att bli en __type__ har godkännts.",
-			"body": "Vår administration har godkänt din andökan om att bli en __type__. Du kan nu logga in som __type__."
+			"body": "Vår administration har godkänt din ansökan om att bli en __type__. Du kan nu logga in i egenskap av __type__."
 		},
 		"send-invite": {
 			"from": "__name__ __fromEmail__",
 			"subject": "Inbjudan till Mer Demokrati",
-			"body": "Du är inbjuden att delta i Mer Demokrati som en __role__. Klicka på denna länk om du är intresserad av att gå med: __url__"
+			"body": "Du är inbjuden att delta i Mer Demokrati som en __role__. Klicka på denna länk om du är intresserad: __url__"
 		}
 	}
 }

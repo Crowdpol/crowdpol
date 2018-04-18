@@ -141,8 +141,10 @@ Template.ViewProposal.helpers({
     return result
   },
   selectedInvites: function() {
-    result = Meteor.users.find({ _id : { $in :  Template.instance().templateDictionary.get('invited')} })
-    return result;
+    var invited = Template.instance().templateDictionary.get('invited');
+    if (invited){
+      return Meteor.users.find({ _id : { $in :  invited} });
+    }
   },
   emailedInvites: function() {
     return Template.instance().templateDictionary.get( 'emailInvites');

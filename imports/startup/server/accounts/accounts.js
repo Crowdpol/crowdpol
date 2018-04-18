@@ -128,21 +128,37 @@ function normalizeSignupUser(profile, user) {
     isPublic: false,
     type: 'Individual'
   });
-  Meteor.call('profiles.initiate', user._id,userProfile,(error) => {
-        if(error){
-          Bert.alert({
-              title: 'oh dear',
-              message: error,
-              type: 'danger',
-              style: 'growl-bottom-right',
-              icon: 'fa-hand-spock-o'
-          });
-        }
-      });
   return _.extend(user, {
     //username,
     profile: userProfile,
     roles: ['individual']
+  });
+}
+
+function normalizeEntity(profile, user) {
+  const credential =[];
+  credential.push({
+    source: 'signup',
+    URL: 'http://www.commondemocracy.org/',
+    validated: false,
+  });
+
+  const userProfile = {
+    firstName: profile.firstName,
+    website: profile.website,
+    phoneNumber: profile.phoneNumber,
+    contactPerson: profile.contactPerson,
+    type: 'Entity',
+    communityIds: profile.communityIds,
+    photo: Meteor.settings.private.defaultPhotoUrl,
+    username: generateUsername("anonymous_entity"),
+    isPublic: false
+  };
+
+  return _.extend(user, {
+    //username,
+    profile: userProfile,
+    roles: profile.roles
   });
 }
 
@@ -223,6 +239,9 @@ Accounts.onCreateUser((options, user) => {
     }
     if (user.services.google) {
       return normalizeGoogleUser(profile, user);
+    }
+    if (profile.type == 'Entity') {
+      return normalizeEntity(profile, user);
     }
     if (profile.demo) {
       normalizeDemoUser(profile, user);
