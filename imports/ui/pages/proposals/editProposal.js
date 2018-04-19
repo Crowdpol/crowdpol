@@ -150,20 +150,26 @@ Template.ProposalForm.onRendered(function(){
 	// Initialise fields
 	self.find(`#title-${language}`).value = content.title || '';
 	self.find(`#abstract-${language}`).value = content.abstract || '';
-	self.find('.ql-editor').innerHTML = content.body || '';
 	self.find(`#body-${language}`).value = content.body || '';
 
 	// Initialise Quill editor
 	var editor = new Quill(`#body-editor-${language}`, {
-			modules: { toolbar: `#toolbar-${language}` },
-			theme: 'snow'
-	  	});
+		modules: {
+			toolbar: [
+			['bold', 'italic', 'underline'],
+			['image', 'blockquote', 'link']
+			]
+		},
+		theme: 'snow'
+	});
   	
   	editor.on('text-change', function (delta, source) {
   		// Copy quill editor's contents to hidden input for validation
 		var bodyText = self.find('.ql-editor').innerHTML;
 		self.find(`#body-${language}`).value = bodyText;
 	});
+
+	self.find('.ql-editor').innerHTML = content.body || '';
 
 	Session.set("formRendered", true);
 });
