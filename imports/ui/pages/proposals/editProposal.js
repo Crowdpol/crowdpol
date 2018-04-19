@@ -7,36 +7,17 @@ import "../../components/userSearch/userSearch.js"
 import RavenClient from 'raven-js';
 
 Template.EditProposal.onCreated(function(){
-	self = this;
-	self.autorun(function(){
-		self.subscribe('communities.all')
-	});
-});
-
-Template.EditProposal.helpers({
-	languages: function(){
-		var communityId = LocalStore.get('communityId');
-		return Communities.findOne({_id: communityId}).settings.languages;
-	},
-	activeClass: function(language){
-	    var currentLang = TAPi18n.getLanguage();
-	    if (language == currentLang){
-	      return 'is-active';
-	    }
-	}
-});
-
-Template.ProposalForm.onCreated(function(){
 	var self = this;
-	Template.instance().pointsFor = new ReactiveVar([]);
-  	Template.instance().pointsAgainst = new ReactiveVar([]);
-  	Template.instance().invites = new ReactiveVar(null);
+	self.pointsFor = new ReactiveVar([]);
+  	self.pointsAgainst = new ReactiveVar([]);
+  	self.invites = new ReactiveVar(null);
+  	self.language = new ReactiveVar(TAPi18n.getLanguage());
   	Session.set('invited',[]);
   	Session.set('invitedUsers',null);
   	Session.set('emailInvites',[]);
 });
 
-Template.ProposalForm.onRendered(function(){
+Template.EditProposal.onRendered(function(){
 	var self = this;
 	// Form Validations
 	$( "#edit-proposal-form" ).validate({
@@ -117,7 +98,7 @@ Template.ProposalForm.onRendered(function(){
 
   	self.autorun(function(){
   		//self.subscribe("users.all");
-  		
+  		self.subscribe('communities.all');
 		proposalId = FlowRouter.getParam("id");
 		var defaultStartDate = moment().format('YYYY-MM-DD');
 		var defaultEndDate = moment().add(1, 'week').format('YYYY-MM-DD');
@@ -149,7 +130,12 @@ Template.ProposalForm.onRendered(function(){
 	});
 });
 
-Template.ProposalForm.events({
+Template.EditProposal.events({
+	'click .mdl-tabs__tab' (event, template) {
+		var lang = event.target.dataSet;
+		template.lanuage.set(lang);
+		console.log(template.lanuage.get())
+	},
 	'submit #edit-proposal-form' (event, template){
 		event.preventDefault();
 		saveChanges(event, template, 'App.proposal.edit');
@@ -228,21 +214,31 @@ Template.ProposalForm.events({
   	},
 });
 
-Template.ProposalForm.helpers({
-  pointsFor() {
-    return Template.instance().pointsFor.get();
-  },
-  pointsAgainst() {
-    return Template.instance().pointsAgainst.get();
-  },
-  selectedInvites: function() {
-  	//Make the query non-reactive so that the selected invites don't get updated with a new search
-    var users = Meteor.users.find({ _id : { $in :  Session.get('invited')} },{reactive: false});
-    return users;
-  },
-  emailedInvites: function() {
-    return Session.get('emailInvites');
-  }
+Template.EditProposal.helpers({
+	languages: function(){
+		var communityId = LocalStore.get('communityId');
+		return Communities.findOne({_id: communityId}).settings.languages;
+	},
+	activeClass: function(language){
+	    var currentLang = TAPi18n.getLanguage();
+	    if (language == currentLang){
+	      return 'is-active';
+	    }
+	},
+	pointsFor() {
+		return Template.instance().pointsFor.get();
+	},
+	pointsAgainst() {
+		return Template.instance().pointsAgainst.get();
+	},
+	selectedInvites: function() {
+	  	//Make the query non-reactive so that the selected invites don't get updated with a new search
+	  	var users = Meteor.users.find({ _id : { $in :  Session.get('invited')} },{reactive: false});
+	  	return users;
+  	},
+  	emailedInvites: function() {
+  		return Session.get('emailInvites');
+  	}
 });
 
 // Autosave function
@@ -322,8 +318,6 @@ function saveChanges(event, template, returnTo){
 		}
 		}
 	})
-	
-	
 };
 function removeUserInvite(id){
   invited = Session.get("invited");
