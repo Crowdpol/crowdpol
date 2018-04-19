@@ -4,7 +4,7 @@ import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import RavenClient from 'raven-js';
 
-Template.ViewProposal.onCreated(function(){
+Template.ViewProposal.onCreated(function(language){
   var self = this;
 
   var dict = new ReactiveDict();
@@ -271,7 +271,7 @@ Template.ViewProposal.helpers({
 
 /*///////////////////////////////////////////////////////////////////////////*/
 
-Template.ProposalContent.onCreated(function(){
+Template.ProposalContent.onCreated(function(language){
   var self = this;
 
   var dict = new ReactiveDict();
