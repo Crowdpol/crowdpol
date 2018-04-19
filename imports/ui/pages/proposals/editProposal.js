@@ -69,15 +69,7 @@ Template.EditProposal.onRendered(function(){
 	//Initialise date fields
 	self.find('#startDate').value = self.templateDictionary.get('startDate');
 	self.find('#endDate').value = self.templateDictionary.get('endDate');
-	
 
-	/*
-	if (proposal.pointsFor != null){
-		self.pointsFor.set(proposal.pointsFor);
-	}
-	if (proposal.pointsAgainst != null){
-		self.pointsAgainst.set(proposal.pointsAgainst);
-	}*/
 });
 
 Template.EditProposal.helpers({
@@ -147,7 +139,15 @@ Template.ProposalForm.onRendered(function(){
 	var content = _.find(allContent, function(item){ return item.language == language});
 	//self.content = new ReactiveVar(_.find(allContent, function(item){ return item.language == lang}))
 	
-	// Initialise fields
+	// Set points for and against
+	if (proposal.pointsFor != null){
+		self.pointsFor.set(proposal.pointsFor);
+	}
+	if (proposal.pointsAgainst != null){
+		self.pointsAgainst.set(proposal.pointsAgainst);
+	}
+
+	// Initialise content fields
 	self.find(`#title-${language}`).value = content.title || '';
 	self.find(`#abstract-${language}`).value = content.abstract || '';
 	self.find(`#body-${language}`).value = content.body || '';
@@ -168,9 +168,9 @@ Template.ProposalForm.onRendered(function(){
 		var bodyText = self.find('.ql-editor').innerHTML;
 		self.find(`#body-${language}`).value = bodyText;
 	});
-
 	self.find('.ql-editor').innerHTML = content.body || '';
 
+	// Set session so parent template can initialise form validation
 	Session.set("formRendered", true);
 });
 
