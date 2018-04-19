@@ -8,128 +8,35 @@ import RavenClient from 'raven-js';
 
 Template.EditProposal.onCreated(function(){
 	self = this;
+	self.currentLang = new ReactiveVar(TAPi18n.getLanguage());
+	self.proposalContent = new ReactiveVar();
+	proposalId = FlowRouter.getParam("id");
 	self.autorun(function(){
 		self.subscribe('communities.all')
 	});
 });
 
-Template.EditProposal.helpers({
-	languages: function(){
-		var communityId = LocalStore.get('communityId');
-		return Communities.findOne({_id: communityId}).settings.languages;
-	},
-	activeClass: function(language){
-	    var currentLang = TAPi18n.getLanguage();
-	    if (language == currentLang){
-	      return 'is-active';
-	    }
-	}
-});
+Template.EditProposal.onRendered(function(){
+	validateForm();
 
-Template.ProposalForm.onCreated(function(){
-	var self = this;
-	Template.instance().pointsFor = new ReactiveVar([]);
-  	Template.instance().pointsAgainst = new ReactiveVar([]);
-  	Template.instance().invites = new ReactiveVar(null);
-  	Session.set('invited',[]);
-  	Session.set('invitedUsers',null);
-  	Session.set('emailInvites',[]);
-});
-
-Template.ProposalForm.onRendered(function(){
-	var self = this;
-	// Form Validations
-	$( "#edit-proposal-form" ).validate({
-		debug: true,
-		ignore: "",
-		rules: {
-			title: {
-				required: false,
-				minlength: 5
-			},
-			abstract: {
-				required: false,
-				minlength: 5
-			},
-			body: {
-				required: false,
-				minlength: 50
-			},
-			startDate: {
-				required: true,
-			},
-			endDate: {
-				required: true,
-			},
-			inputPointFor: {
-				required: false,
-				minlength: 1,
-				maxlength: 320
-			},
-			inputPointAgainst: {
-				required: false,
-				minlength: 1,
-				maxlength: 320
-			}
-		},
-		messages: {
-			title: {
-				required: 'Please make sure your proposal has a title.',
-				minlength: "Use at least 5 characters."
-			},
-			abstract: {
-				required: 'Please provide a short abstract for your proposal.',
-				minlength: "Use at least 5 characters."
-			},
-			body: {
-				body: 'Please provide a body for your proposal.',
-				minlength: "Use at least 50 characters."
-			},
-			startDate: {
-				required: 'Please indicate when voting will open for this proposal.'
-			},
-			endDate: {
-				required: 'Please indicate when voting will close for this proposal.'
-			},
-		}
-	});
 	var top = $("#invited-users").position().top + 40;
 	var left = $("#invited").position().left + 15;
-  	//$("#autosuggest-results").css({top: top, left: left});
 
-	// Initialise Quill editor
-	editor = new Quill('#body-editor-sv', {
-		modules: { toolbar: '#toolbar-sv' },
-		theme: 'snow'
-  	});
-  	
-  	editor.on('text-change', function (delta, source) {
-  		// Copy quill editor's contents to hidden input for validation
-		var bodyText = self.find('.ql-editor').innerHTML;
-		self.find('#body').value = bodyText;
-		// Call Autosave
-		autosave(this, self)
-	});
-	// Set values of components once rendered
-	// (quill editor must be initialised before content is set)
+	//Taggle
 	var taggle = setupTaggle();
-  	self.taggle = new ReactiveVar(taggle);
+	self.taggle = new ReactiveVar(taggle);
 
-  	self.autorun(function(){
+	self.autorun(function(){
   		//self.subscribe("users.all");
   		
-		proposalId = FlowRouter.getParam("id");
-		var defaultStartDate = moment().format('YYYY-MM-DD');
-		var defaultEndDate = moment().add(1, 'week').format('YYYY-MM-DD');
-		
-		if (proposalId){
+  		
+  		var defaultStartDate = moment().format('YYYY-MM-DD');
+  		var defaultEndDate = moment().add(1, 'week').format('YYYY-MM-DD');
+
+  		if (proposalId){
 			// Edit an existing proposal
 			self.subscribe('proposals.one', proposalId, function(){
 				proposal = Proposals.findOne({_id: proposalId});
-				self.find('#title').value = proposal.title || '';
-				self.find('#abstract').value = proposal.abstract || '';
-				self.find('.ql-editor').innerHTML = proposal.body || '';
-				self.find('#body').value = proposal.body || '';
 				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate;
 				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate;
 				Session.set('invited',proposal.invited);
@@ -147,6 +54,76 @@ Template.ProposalForm.onRendered(function(){
 			self.find('#endDate').value = defaultEndDate;
 		}
 	});
+});
+
+Template.EditProposal.helpers({
+	proposalContent: function(){
+		proposalId = FlowRouter.getParam("id");
+		if (proposalId){
+			var allContent = Proposals.findOne({_id: proposalId}).content;
+			var lang = Template.instance().currentLang.get();
+			return _.find(allContent, function(item){ return item.language == lang})
+		}
+	},
+	languages: function(){
+		var communityId = LocalStore.get('communityId');
+		return Communities.findOne({_id: communityId}).settings.languages;
+	},
+	activeClass: function(language){
+	    var currentLang = TAPi18n.getLanguage();
+	    if (language == currentLang){
+	      return 'is-active';
+	    }
+	}
+});
+
+Template.EditProposal.events({
+	'click .mdl-tabs__tab': function(event, template){
+		// Get currently selected language
+		// Save changes to proposal content in current language
+		// Make new tabs active
+		var communityId = LocalStore.get('communityId');
+		return Communities.findOne({_id: communityId}).settings.languages;
+	},
+});
+
+Template.ProposalForm.onCreated(function(){
+	var self = this;
+	Template.instance().pointsFor = new ReactiveVar([]);
+  	Template.instance().pointsAgainst = new ReactiveVar([]);
+  	Template.instance().invites = new ReactiveVar(null);
+  	Session.set('invited',[]);
+  	Session.set('invitedUsers',null);
+  	Session.set('emailInvites',[]);
+});
+
+Template.ProposalForm.onRendered(function(){
+	var self = this;
+	
+	/*// Initialise Quill editor
+	editor = new Quill('#body-editor-sv', {
+		modules: { toolbar: '#toolbar-sv' },
+		theme: 'snow'
+  	});
+  	
+  	editor.on('text-change', function (delta, source) {
+  		// Copy quill editor's contents to hidden input for validation
+		var bodyText = self.find('.ql-editor').innerHTML;
+		self.find('#body').value = bodyText;
+		// Call Autosave
+		autosave(this, self)
+	});*/
+
+	console.log('inside the render of a proposal form')
+	console.log(self.data)
+	thing = self.data
+	
+	/*self.find('#title').value = proposal.title || '';
+	self.find('#abstract').value = proposal.abstract || '';
+	self.find('.ql-editor').innerHTML = proposal.body || '';
+	self.find('#body').value = proposal.body || '';*/
+	
+  
 });
 
 Template.ProposalForm.events({
@@ -335,4 +312,62 @@ function removeUserEmail(index){
   emails = Session.get('emailInvites');
   emails.splice(index, 1);
   Session.set('emailInvites',emails);
+}
+
+function validateForm(){
+	// Form Validations
+	$( "#edit-proposal-form" ).validate({
+		debug: true,
+		ignore: "",
+		rules: {
+			title: {
+				required: false,
+				minlength: 5
+			},
+			abstract: {
+				required: false,
+				minlength: 5
+			},
+			body: {
+				required: false,
+				minlength: 50
+			},
+			startDate: {
+				required: true,
+			},
+			endDate: {
+				required: true,
+			},
+			inputPointFor: {
+				required: false,
+				minlength: 1,
+				maxlength: 320
+			},
+			inputPointAgainst: {
+				required: false,
+				minlength: 1,
+				maxlength: 320
+			}
+		},
+		messages: {
+			title: {
+				required: 'Please make sure your proposal has a title.',
+				minlength: "Use at least 5 characters."
+			},
+			abstract: {
+				required: 'Please provide a short abstract for your proposal.',
+				minlength: "Use at least 5 characters."
+			},
+			body: {
+				body: 'Please provide a body for your proposal.',
+				minlength: "Use at least 50 characters."
+			},
+			startDate: {
+				required: 'Please indicate when voting will open for this proposal.'
+			},
+			endDate: {
+				required: 'Please indicate when voting will close for this proposal.'
+			},
+		}
+	});
 }
