@@ -8,61 +8,83 @@ import RavenClient from 'raven-js';
 
 Template.EditProposal.onCreated(function(){
 	self = this;
+
+	// Reactive and Session Vars
 	self.currentLang = new ReactiveVar(TAPi18n.getLanguage());
-	self.proposalContent = new ReactiveVar();
+	self.invites = new ReactiveVar(null);
+  	Session.set('invited',[]);
+  	Session.set('invitedUsers',null);
+  	Session.set('emailInvites',[]);
+
+	var dict = new ReactiveDict();
+	this.templateDictionary = dict;
+
+	var defaultStartDate = moment().format('YYYY-MM-DD');
+	var defaultEndDate = moment().add(1, 'week').format('YYYY-MM-DD');
+
 	proposalId = FlowRouter.getParam("id");
 	self.autorun(function(){
 		self.subscribe('communities.all')
+		if (proposalId){
+			// Edit an existing proposal
+			self.subscribe('proposals.one', proposalId, function(){
+				proposal = Proposals.findOne({_id: proposalId})
+		        dict.set( 'createdAt', proposal.createdAt );
+		        dict.set( '_id', proposal._id);
+		        dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate );
+		        dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate);
+		        dict.set( 'authorId', proposal.authorId );
+		        dict.set( 'stage', proposal.stage );
+		        dict.set( 'status', proposal.status );
+		        dict.set( 'signatures', proposal.signatures || []);
+		        dict.set( 'tags', proposal.tags || []);
+		        Session.set('invited',proposal.invited);
+			});
+		} else {
+			dict.set( 'startDate', defaultStartDate );
+	        dict.set( 'endDate', defaultEndDate);
+		}
 	});
 });
 
 Template.EditProposal.onRendered(function(){
-	validateForm();
+	self = this;
+
+	this.autorun(function() {
+	  if (Session.get ("formRendered")) {
+	  	validateForm();
+	  }
+	});
 
 	var top = $("#invited-users").position().top + 40;
 	var left = $("#invited").position().left + 15;
 
-	//Taggle
+	//Set up Taggle
 	var taggle = setupTaggle();
 	self.taggle = new ReactiveVar(taggle);
+	//Set up existing tags
+	var tags = self.templateDictionary.get('tags');
+	if (tags) { self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; })); }
+	
+	//Initialise date fields
+	self.find('#startDate').value = self.templateDictionary.get('startDate');
+	self.find('#endDate').value = self.templateDictionary.get('endDate');
+	
 
-	self.autorun(function(){
-  		//self.subscribe("users.all");
-  		
-  		
-  		var defaultStartDate = moment().format('YYYY-MM-DD');
-  		var defaultEndDate = moment().add(1, 'week').format('YYYY-MM-DD');
-
-  		if (proposalId){
-			// Edit an existing proposal
-			self.subscribe('proposals.one', proposalId, function(){
-				proposal = Proposals.findOne({_id: proposalId});
-				self.find('#startDate').value = moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate;
-				self.find('#endDate').value = moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate;
-				Session.set('invited',proposal.invited);
-				self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; }));
-				if (proposal.pointsFor != null){
-					self.pointsFor.set(proposal.pointsFor);
-				}
-				if (proposal.pointsAgainst != null){
-					self.pointsAgainst.set(proposal.pointsAgainst);
-				}
-				
-			});
-		} else {
-			self.find('#startDate').value = defaultStartDate;
-			self.find('#endDate').value = defaultEndDate;
-		}
-	});
+	/*
+	if (proposal.pointsFor != null){
+		self.pointsFor.set(proposal.pointsFor);
+	}
+	if (proposal.pointsAgainst != null){
+		self.pointsAgainst.set(proposal.pointsAgainst);
+	}*/
 });
 
 Template.EditProposal.helpers({
 	proposalContent: function(){
 		proposalId = FlowRouter.getParam("id");
 		if (proposalId){
-			var allContent = Proposals.findOne({_id: proposalId}).content;
-			var lang = Template.instance().currentLang.get();
-			return _.find(allContent, function(item){ return item.language == lang})
+			return Proposals.findOne({_id: proposalId}).content;
 		}
 	},
 	languages: function(){
@@ -70,63 +92,26 @@ Template.EditProposal.helpers({
 		return Communities.findOne({_id: communityId}).settings.languages;
 	},
 	activeClass: function(language){
-	    var currentLang = TAPi18n.getLanguage();
-	    if (language == currentLang){
-	      return 'is-active';
-	    }
+		var currentLang = TAPi18n.getLanguage();
+		if (language == currentLang){
+			return 'is-active';
+		}
+	},
+	selectedInvites: function() {
+		var invited = Session.get('invited');
+		if (invited) {
+			console.log('invited is here')
+			//Make the query non-reactive so that the selected invites don't get updated with a new search
+			var users = Meteor.users.find({ _id : { $in :  invited} },{reactive: false});
+			return users;
+		}
+	},
+	emailedInvites: function() {
+		return Session.get('emailInvites');
 	}
 });
 
 Template.EditProposal.events({
-	'click .mdl-tabs__tab': function(event, template){
-		// Get currently selected language
-		// Save changes to proposal content in current language
-		// Make new tabs active
-		var communityId = LocalStore.get('communityId');
-		return Communities.findOne({_id: communityId}).settings.languages;
-	},
-});
-
-Template.ProposalForm.onCreated(function(){
-	var self = this;
-	Template.instance().pointsFor = new ReactiveVar([]);
-  	Template.instance().pointsAgainst = new ReactiveVar([]);
-  	Template.instance().invites = new ReactiveVar(null);
-  	Session.set('invited',[]);
-  	Session.set('invitedUsers',null);
-  	Session.set('emailInvites',[]);
-});
-
-Template.ProposalForm.onRendered(function(){
-	var self = this;
-	
-	/*// Initialise Quill editor
-	editor = new Quill('#body-editor-sv', {
-		modules: { toolbar: '#toolbar-sv' },
-		theme: 'snow'
-  	});
-  	
-  	editor.on('text-change', function (delta, source) {
-  		// Copy quill editor's contents to hidden input for validation
-		var bodyText = self.find('.ql-editor').innerHTML;
-		self.find('#body').value = bodyText;
-		// Call Autosave
-		autosave(this, self)
-	});*/
-
-	console.log('inside the render of a proposal form')
-	console.log(self.data)
-	thing = self.data
-	
-	/*self.find('#title').value = proposal.title || '';
-	self.find('#abstract').value = proposal.abstract || '';
-	self.find('.ql-editor').innerHTML = proposal.body || '';
-	self.find('#body').value = proposal.body || '';*/
-	
-  
-});
-
-Template.ProposalForm.events({
 	'submit #edit-proposal-form' (event, template){
 		event.preventDefault();
 		saveChanges(event, template, 'App.proposal.edit');
@@ -140,6 +125,50 @@ Template.ProposalForm.events({
 		event.preventDefault();
 		saveChanges(event, template, 'App.proposal.view');
 	},
+	'click .remove-invite': function(e,t){
+    	removeUserInvite($(e.currentTarget).attr("data-user-id"));
+	},
+	'click .remove-invite-email': function(e,t){
+	    removeUserEmail($(e.currentTarget).attr("data-array-index"));
+	},
+});
+
+Template.ProposalForm.onCreated(function(){
+	var self = this;
+	self.pointsFor = new ReactiveVar([]);
+  	self.pointsAgainst = new ReactiveVar([]);
+});
+
+Template.ProposalForm.onRendered(function(){
+	var self = this;
+
+	var allContent = self.data.content;
+	var language = self.data.language
+	var content = _.find(allContent, function(item){ return item.language == language});
+	//self.content = new ReactiveVar(_.find(allContent, function(item){ return item.language == lang}))
+	
+	// Initialise fields
+	self.find(`#title-${language}`).value = content.title || '';
+	self.find(`#abstract-${language}`).value = content.abstract || '';
+	self.find('.ql-editor').innerHTML = content.body || '';
+	self.find(`#body-${language}`).value = content.body || '';
+
+	// Initialise Quill editor
+	var editor = new Quill(`#body-editor-${language}`, {
+			modules: { toolbar: `#toolbar-${language}` },
+			theme: 'snow'
+	  	});
+  	
+  	editor.on('text-change', function (delta, source) {
+  		// Copy quill editor's contents to hidden input for validation
+		var bodyText = self.find('.ql-editor').innerHTML;
+		self.find(`#body-${language}`).value = bodyText;
+	});
+
+	Session.set("formRendered", true);
+});
+
+Template.ProposalForm.events({
 	'click #add-point-for': function(event, template){
 		event.preventDefault();
 		var instance = Template.instance();
@@ -194,32 +223,19 @@ Template.ProposalForm.events({
 		string = "#" + event.currentTarget.id + " > button";
 		$(string).hide();
 	},
-	'click .remove-invite': function(e,t){
-    	removeUserInvite($(e.currentTarget).attr("data-user-id"));
-	},
-	'click .remove-invite-email': function(e,t){
-	    removeUserEmail($(e.currentTarget).attr("data-array-index"));
-	},
 	'input textarea, input input' : function( event , template){
-		autosave(event, template);
+		//autosave(event, template);
   	},
 });
 
 Template.ProposalForm.helpers({
   pointsFor() {
-    return Template.instance().pointsFor.get();
+    //return Template.instance().pointsFor.get();
   },
   pointsAgainst() {
-    return Template.instance().pointsAgainst.get();
+    //return Template.instance().pointsAgainst.get();
   },
-  selectedInvites: function() {
-  	//Make the query non-reactive so that the selected invites don't get updated with a new search
-    var users = Meteor.users.find({ _id : { $in :  Session.get('invited')} },{reactive: false});
-    return users;
-  },
-  emailedInvites: function() {
-    return Session.get('emailInvites');
-  }
+  
 });
 
 // Autosave function
