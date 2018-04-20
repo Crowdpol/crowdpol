@@ -104,8 +104,9 @@ Template.EditProposal.helpers({
 });
 
 Template.EditProposal.events({
-	'submit #edit-proposal-form' (event, template){
+	'click #save-proposal' (event, template){
 		event.preventDefault();
+		console.log('clicked save proposal')
 		saveChanges(event, template, 'App.proposal.edit');
 	},
 	'click #back-button' (event, template) {
@@ -179,14 +180,15 @@ Template.ProposalForm.events({
 		event.preventDefault();
 		var lang = event.target.dataset.lang;
 		var instance = Template.instance();
-		var tempArray = instance.pointsFor.get();
-		var string = template.find(`#inputPointFor-${lang}`).value;
-		if(tempArray.indexOf(string) > -1){
-			var listItemId = "#point-for-" + tempArray.indexOf(string);
+		var pointsFor = instance.pointsFor.get();
+		var point = template.find(`#inputPointFor-${lang}`).value;
+		var index = pointsFor.indexOf(point);
+		if(index > -1){
+			var listItemId = "#point-for-" + index;
 			$(listItemId).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 		}else{
-			tempArray.push(string);
-			instance.pointsFor.set(tempArray);
+			pointsFor.push(point);
+			instance.pointsFor.set(pointsFor);
 			template.find(`#inputPointFor-${lang}`).value = "";
 			$("#pointsForWrap").removeClass("is-dirty");
 		}
@@ -195,14 +197,15 @@ Template.ProposalForm.events({
 		event.preventDefault();
 		var lang = event.target.dataset.lang;
 		var instance = Template.instance();
-		var tempArray = instance.pointsAgainst.get();
-		var string = template.find(`#inputPointAgainst-${lang}`).value;
-		if(tempArray.indexOf(string) > -1){
-			var listItemId = "#point-against-" + tempArray.indexOf(string);
+		var pointsAgainst = instance.pointsAgainst.get();
+		var point = template.find(`#inputPointAgainst-${lang}`).value;
+		var index = pointsAgainst.indexOf(point);
+		if(index > -1){
+			var listItemId = "#point-against-" + index;
 			$(listItemId).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 		}else{
-			tempArray.push(string);
-			instance.pointsAgainst.set(tempArray);
+			pointsAgainst.push(point);
+			instance.pointsAgainst.set(pointsAgainst);
 			template.find(`#inputPointAgainst-${lang}`).value = "";
 			$("#pointsAgainstWrap").removeClass("is-dirty");
 		}
@@ -274,20 +277,42 @@ var timer = function(){
 }();
 
 function saveChanges(event, template, returnTo){
+	console.log('saving changes')
 	var communityId = LocalStore.get('communityId');
-	var language = template.data.language;
+	var languages = Communities.findOne({_id: communityId}).settings.languages;
+	var content = [];
+
+	// Get Translatable field for each language
+	_.each(languages, function(language) {
+		// Points For and Against
+		var pointsFor = [];
+		var pointsAgainst = [];
+		$(`#points-for-list-${language}`).children('input').each(function() { pointsFor.push(this.value) });
+		$(`#points-against-list-${language}`).children('input').each(function() { pointsAgainst.push(this.value) });
+
+		var translation = {
+			language: language,
+			title: $(`#title-${language}`).val(),
+			abstract: $(`#abstract-${language}`).val(),
+			body: $(`#body-${language}`).val(),
+			pointsFor: pointsFor,
+			pointsAgainst: pointsAgainst
+		};
+
+		content.push(translation);
+	})
+
+	console.log(languages)
+	console.log(content)
+	thing = content
+
 	Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
 		if (error){
 			RavenClient.captureException(error);
 			Bert.alert(error, 'reason');
 		} else {
 			let newProposal = {
-				// Translatable fields in Proposal Form
-				title: $(`#title-${language}`).val(),
-				abstract: $(`#abstract-${language}`).val(),
-				body: $(`#body-${language}`).val(),
-				pointsFor: template.pointsFor.get(),
-				pointsAgainst: template.pointsAgainst.get(),
+				content: content,
 				// Non-translatable fields
 				startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),//
 				endDate: new Date(template.find('#endDate').value),//new Date(2018, 8, 1),

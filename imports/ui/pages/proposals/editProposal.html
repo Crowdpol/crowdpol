@@ -135,6 +135,7 @@
 							<i class="material-icons" data-lang="{{language}}">remove</i>
 						</button>
 					</li>
+					<input type="hidden" class="point-for-hidden" id="point-for-{{@index}}-hidden" value={{this}}>
 					{{/each}}
 				</ul>
 			</div>
@@ -147,7 +148,7 @@
 				<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton add-point-against" id="add-point-against" data-lang="{{language}}" style="position: relative; bottom: 60px; float: right;">
 					<i class="material-icons" data-lang="{{language}}">add</i>
 				</button>
-				<ul id="points-against-list" class="pointsList">
+				<ul id="points-against-list-{{language}}" class="pointsList">
 					{{#each pointsAgainst}}
 					<li  id="point-against-{{@index}}" class="pointsListItem">
 						{{this}}
@@ -155,6 +156,7 @@
 							<i class="material-icons" data-lang="{{language}}">remove</i>
 						</button>
 					</li>
+					<input type="hidden" class="point-against-hidden" id="point-against-{{@index}}-hidden" value={{this}}>
 					{{/each}}
 				</ul>
 			</div>
