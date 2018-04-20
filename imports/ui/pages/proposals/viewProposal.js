@@ -253,8 +253,6 @@ Template.ViewProposal.helpers({
   }
 });
 
-/*///////////////////////////////////////////////////////////////////////////*/
-
 Template.ProposalContent.onCreated(function(language){
   var self = this;
 
@@ -316,15 +314,21 @@ Template.ProposalContent.helpers({
 
 function proposalIsComplete(proposalId) {
 
-  proposal = Proposals.findOne(proposalId);
-  
-  if (!proposal.title){
+  var proposal = Proposals.findOne(proposalId);
+
+  // A Proposal is complete if it exists in at least one of the languages
+  var content = proposal.content[0];
+
+  if (!content){
     return false;
   }
-  if (!proposal.abstract){
+  if (!content.title){
     return false;
   }
-  if (!proposal.body){
+  if (!content.abstract){
+    return false;
+  }
+  if (!content.body){
     return false;
   }
   if (!proposal.startDate){
