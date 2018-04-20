@@ -136,20 +136,6 @@ Template.ProposalForm.onRendered(function(){
 	var allContent = self.data.content;
 	var language = self.data.language
 	var content = _.find(allContent, function(item){ return item.language == language});
-	//self.content = new ReactiveVar(_.find(allContent, function(item){ return item.language == lang}))
-	
-	// Set points for and against
-	if (content.pointsFor != null){
-		self.pointsFor.set(content.pointsFor);
-	}
-	if (content.pointsAgainst != null){
-		self.pointsAgainst.set(content.pointsAgainst);
-	}
-
-	// Initialise content fields
-	self.find(`#title-${language}`).value = content.title || '';
-	self.find(`#abstract-${language}`).value = content.abstract || '';
-	self.find(`#body-${language}`).value = content.body || '';
 
 	// Initialise Quill editor
 	var editor = new Quill(`#body-editor-${language}`, {
@@ -161,14 +147,28 @@ Template.ProposalForm.onRendered(function(){
 		},
 		theme: 'snow'
 	});
-
+	// Copy quill editor's contents to hidden input for validation
 	editor.on('text-change', function (delta, source) {
-  		// Copy quill editor's contents to hidden input for validation
   		var bodyText = self.find('.ql-editor').innerHTML;
   		self.find(`#body-${language}`).value = bodyText;
   	});
-	self.find('.ql-editor').innerHTML = content.body || '';
 
+	// Working on an existing proposal
+	if (content) {
+		// Set points for and against
+		if (content.pointsFor != null){
+			self.pointsFor.set(content.pointsFor);
+		}
+		if (content.pointsAgainst != null){
+			self.pointsAgainst.set(content.pointsAgainst);
+		}
+		// Initialise content fields
+		self.find(`#title-${language}`).value = content.title || '';
+		self.find(`#abstract-${language}`).value = content.abstract || '';
+		self.find(`#body-${language}`).value = content.body || '';
+		self.find('.ql-editor').innerHTML = content.body || '';
+	}
+	
 	// Set session so parent template can initialise form validation
 	Session.set("formRendered", true);
 });
