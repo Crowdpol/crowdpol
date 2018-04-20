@@ -92,7 +92,6 @@ Template.EditProposal.helpers({
 	selectedInvites: function() {
 		var invited = Session.get('invited');
 		if (invited) {
-			console.log('invited is here')
 			//Make the query non-reactive so that the selected invites don't get updated with a new search
 			var users = Meteor.users.find({ _id : { $in :  invited} },{reactive: false});
 			return users;
@@ -106,7 +105,6 @@ Template.EditProposal.helpers({
 Template.EditProposal.events({
 	'click #save-proposal' (event, template){
 		event.preventDefault();
-		console.log('clicked save proposal')
 		saveChanges(event, template, 'App.proposal.edit');
 	},
 	'click #back-button' (event, template) {
@@ -277,7 +275,6 @@ var timer = function(){
 }();
 
 function saveChanges(event, template, returnTo){
-	console.log('saving changes')
 	var communityId = LocalStore.get('communityId');
 	var languages = Communities.findOne({_id: communityId}).settings.languages;
 	var content = [];
@@ -301,10 +298,6 @@ function saveChanges(event, template, returnTo){
 
 		content.push(translation);
 	})
-
-	console.log(languages)
-	console.log(content)
-	thing = content
 
 	Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
 		if (error){
