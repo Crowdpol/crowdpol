@@ -51,24 +51,27 @@ Template.EditProposal.onRendered(function(){
 	self = this;
 
 	this.autorun(function() {
-		if (Session.get ("formRendered")) {
+		// Wait for whole form to render before initialising fields
+		if (Session.get("formRendered")) {
 			validateForm();
-		}
+			
+			//Set up Taggle
+			var taggle = setupTaggle();
+			self.taggle = new ReactiveVar(taggle);
+			//Set up existing tags
+			var tags = self.templateDictionary.get('tags');
+			if (tags) { self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; })); }
+			
+			//Initialise date fields
+			self.find('#startDate').value = self.templateDictionary.get('startDate');
+			self.find('#endDate').value = self.templateDictionary.get('endDate');
+			Session.set("formRendered", false)
+		} 
 	});
 
-	var top = $("#invited-users").position().top + 40;
-	var left = $("#invited").position().left + 15;
-
-	//Set up Taggle
-	var taggle = setupTaggle();
-	self.taggle = new ReactiveVar(taggle);
-	//Set up existing tags
-	var tags = self.templateDictionary.get('tags');
-	if (tags) { self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; })); }
 	
-	//Initialise date fields
-	self.find('#startDate').value = self.templateDictionary.get('startDate');
-	self.find('#endDate').value = self.templateDictionary.get('endDate');
+	
+	
 
 });
 
@@ -168,7 +171,7 @@ Template.ProposalForm.onRendered(function(){
 		self.find(`#body-${language}`).value = content.body || '';
 		self.find('.ql-editor').innerHTML = content.body || '';
 	}
-	
+
 	// Set session so parent template can initialise form validation
 	Session.set("formRendered", true);
 });
