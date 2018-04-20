@@ -30,6 +30,7 @@ Template.ViewProposal.onCreated(function(language){
         dict.set( 'stage', proposal.stage );
         dict.set( 'status', proposal.status );
         dict.set( 'signatures', proposal.signatures || []);
+        dict.set( 'tags', translation.tags || [] );
       }
     })
   }); 
@@ -178,25 +179,8 @@ Template.ViewProposal.helpers({
   endDate: function() {
     return Template.instance().templateDictionary.get( 'endDate' );
   },
-  showPointsFor: function(){
-    results = Template.instance().templateDictionary.get( 'pointsFor' );
-    if(results.length > 0){
-      return true;
-    }
-    return false;
-  },
-  showPointsAgainst: function(){
-    results = Template.instance().templateDictionary.get( 'pointsAgainst' );
-    if(results.length > 0){
-      return true;
-    }
-    return false;
-  },
-  pointsFor: function() {
-    return Template.instance().templateDictionary.get( 'pointsFor' );
-  },
-  pointsAgainst: function() {
-    return Template.instance().templateDictionary.get( 'pointsAgainst' );
+  tags: function() {
+    return Template.instance().templateDictionary.get( 'tags' );
   },
   isInvited: function() {
     return userIsInvited();
@@ -293,7 +277,6 @@ Template.ProposalContent.onCreated(function(language){
         dict.set( 'body', translation.body || '' );
         dict.set( 'pointsFor', translation.pointsFor || [] );
         dict.set( 'pointsAgainst', translation.pointsAgainst || [] );
-        dict.set( 'tags', translation.tags || [] );
       }
     })
   }); 
@@ -302,9 +285,6 @@ Template.ProposalContent.onCreated(function(language){
 Template.ProposalContent.helpers({
   title: function() {
     return Template.instance().templateDictionary.get( 'title' );
-  },
-  tags: function() {
-    return Template.instance().templateDictionary.get( 'tags' );
   },
   abstract: function() {
     return Template.instance().templateDictionary.get( 'abstract' );

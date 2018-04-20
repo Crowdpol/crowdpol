@@ -25,6 +25,31 @@ TranslationSchema = new SimpleSchema({
         type: String,
         optional: true
     },
+    "pointsFor": {
+        type: Array,
+        optional: true
+    },
+    'pointsFor.$': {
+        type: String
+    },
+    "pointsAgainst": {
+        type: Array,
+        optional: true
+    },
+    'pointsAgainst.$': {
+        type: String
+    }
+});
+
+ProposalSchema = new SimpleSchema({
+    content: {
+        type: Array,
+        optional: true,
+    },
+    'content.$': {
+        type: TranslationSchema,
+        optional: true,
+    },
     tags: {
         type: Array,
         optional: true,
@@ -44,38 +69,6 @@ TranslationSchema = new SimpleSchema({
     "tags.$.url": {
         type: String,
         optional: true
-    },
-    "pointsFor": {
-        type: Array,
-        optional: true
-    },
-    'pointsFor.$': {
-        type: String
-    },
-    "pointsAgainst": {
-        type: Array,
-        optional: true
-    },
-    'pointsAgainst.$': {
-        type: String
-    },
-    "references": {
-        type: Array,
-        optional: true
-    },
-    'references.$': {
-        type: String
-    }
-});
-
-ProposalSchema = new SimpleSchema({
-    content: {
-        type: Array,
-        optional: true,
-    },
-    'content.$': {
-        type: TranslationSchema,
-        optional: true,
     },
     createdAt: {
         type: Date,

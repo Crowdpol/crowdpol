@@ -119,38 +119,40 @@
 		<div class="mdl-grid">
 			<small>{{_ "pages.proposals.edit.forAndAgainst"}}</small>
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+				<!-- Points For -->
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label proposal-points">
 					<label class="mdl-textfield__label" >{{_ "pages.proposals.edit.pointFor"}}</label>
 					<textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointFor-{{language}}" name="inputPointFor"></textarea>
 				</div>
-				<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="add-point-for-{{language}}" style="position: relative; bottom: 60px; float: right;">
-					<i class="material-icons">add</i>
+				<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton add-point-for" id="add-point-for" data-lang="{{language}}" style="position: relative; bottom: 60px; float: right;">
+					<i class="material-icons" data-lang="{{language}}">add</i>
 				</button>
 				<ul id="points-for-list-{{language}}" class="pointsList">
 					{{#each pointsFor}}
 					<li id="point-for-{{@index}}" class="pointsListItem">
 						{{this}}
-						<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="remove-point-for-{{language}}" data-id="{{@index}}" style="position: relative; float: right; display: none;">
-							<i class="material-icons">remove</i>
+						<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton remove-point-for" id="remove-point-for" data-lang="{{language}}" data-id="{{@index}}" style="position: relative; float: right; display: none;">
+							<i class="material-icons" data-lang="{{language}}">remove</i>
 						</button>
 					</li>
 					{{/each}}
 				</ul>
 			</div>
+			<!-- Points Against -->
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pointsAgainstWrap">
 					<textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointAgainst-{{language}}" name="inputPointAgainst"></textarea>
 					<label class="mdl-textfield__label" for="inputPointAgainst">{{_ "pages.proposals.edit.pointAgainst"}}</label>
 				</div>
-				<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="add-point-against-{{language}}" style="position: relative; bottom: 60px; float: right;">
-					<i class="material-icons">add</i>
+				<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton add-point-against" id="add-point-against" data-lang="{{language}}" style="position: relative; bottom: 60px; float: right;">
+					<i class="material-icons" data-lang="{{language}}">add</i>
 				</button>
 				<ul id="points-against-list" class="pointsList">
 					{{#each pointsAgainst}}
 					<li  id="point-against-{{@index}}" class="pointsListItem">
 						{{this}}
-						<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton" id="remove-point-against-{{language}}" style="position: relative; float: right; display: none;">
-							<i class="material-icons">remove</i>
+						<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton remove-point-against" id="remove-point-against" data-lang="{{language}}" style="position: relative; float: right; display: none;">
+							<i class="material-icons" data-lang="{{language}}">remove</i>
 						</button>
 					</li>
 					{{/each}}

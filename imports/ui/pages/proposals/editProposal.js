@@ -12,9 +12,9 @@ Template.EditProposal.onCreated(function(){
 	// Reactive and Session Vars
 	self.currentLang = new ReactiveVar(TAPi18n.getLanguage());
 	self.invites = new ReactiveVar(null);
-  	Session.set('invited',[]);
-  	Session.set('invitedUsers',null);
-  	Session.set('emailInvites',[]);
+	Session.set('invited',[]);
+	Session.set('invitedUsers',null);
+	Session.set('emailInvites',[]);
 
 	var dict = new ReactiveDict();
 	this.templateDictionary = dict;
@@ -29,20 +29,20 @@ Template.EditProposal.onCreated(function(){
 			// Edit an existing proposal
 			self.subscribe('proposals.one', proposalId, function(){
 				proposal = Proposals.findOne({_id: proposalId})
-		        dict.set( 'createdAt', proposal.createdAt );
-		        dict.set( '_id', proposal._id);
-		        dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate );
-		        dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate);
-		        dict.set( 'authorId', proposal.authorId );
-		        dict.set( 'stage', proposal.stage );
-		        dict.set( 'status', proposal.status );
-		        dict.set( 'signatures', proposal.signatures || []);
-		        dict.set( 'tags', proposal.tags || []);
-		        Session.set('invited',proposal.invited);
+				dict.set( 'createdAt', proposal.createdAt );
+				dict.set( '_id', proposal._id);
+				dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate );
+				dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate);
+				dict.set( 'authorId', proposal.authorId );
+				dict.set( 'stage', proposal.stage );
+				dict.set( 'status', proposal.status );
+				dict.set( 'signatures', proposal.signatures || []);
+				dict.set( 'tags', proposal.tags || []);
+				Session.set('invited',proposal.invited);
 			});
 		} else {
 			dict.set( 'startDate', defaultStartDate );
-	        dict.set( 'endDate', defaultEndDate);
+			dict.set( 'endDate', defaultEndDate);
 		}
 	});
 });
@@ -51,9 +51,9 @@ Template.EditProposal.onRendered(function(){
 	self = this;
 
 	this.autorun(function() {
-	  if (Session.get ("formRendered")) {
-	  	validateForm();
-	  }
+		if (Session.get ("formRendered")) {
+			validateForm();
+		}
 	});
 
 	var top = $("#invited-users").position().top + 40;
@@ -118,17 +118,17 @@ Template.EditProposal.events({
 		saveChanges(event, template, 'App.proposal.view');
 	},
 	'click .remove-invite': function(e,t){
-    	removeUserInvite($(e.currentTarget).attr("data-user-id"));
+		removeUserInvite($(e.currentTarget).attr("data-user-id"));
 	},
 	'click .remove-invite-email': function(e,t){
-	    removeUserEmail($(e.currentTarget).attr("data-array-index"));
+		removeUserEmail($(e.currentTarget).attr("data-array-index"));
 	},
 });
 
 Template.ProposalForm.onCreated(function(){
 	var self = this;
 	self.pointsFor = new ReactiveVar([]);
-  	self.pointsAgainst = new ReactiveVar([]);
+	self.pointsAgainst = new ReactiveVar([]);
 });
 
 Template.ProposalForm.onRendered(function(){
@@ -140,11 +140,11 @@ Template.ProposalForm.onRendered(function(){
 	//self.content = new ReactiveVar(_.find(allContent, function(item){ return item.language == lang}))
 	
 	// Set points for and against
-	if (proposal.pointsFor != null){
-		self.pointsFor.set(proposal.pointsFor);
+	if (content.pointsFor != null){
+		self.pointsFor.set(content.pointsFor);
 	}
-	if (proposal.pointsAgainst != null){
-		self.pointsAgainst.set(proposal.pointsAgainst);
+	if (content.pointsAgainst != null){
+		self.pointsAgainst.set(content.pointsAgainst);
 	}
 
 	// Initialise content fields
@@ -162,12 +162,12 @@ Template.ProposalForm.onRendered(function(){
 		},
 		theme: 'snow'
 	});
-  	
-  	editor.on('text-change', function (delta, source) {
+
+	editor.on('text-change', function (delta, source) {
   		// Copy quill editor's contents to hidden input for validation
-		var bodyText = self.find('.ql-editor').innerHTML;
-		self.find(`#body-${language}`).value = bodyText;
-	});
+  		var bodyText = self.find('.ql-editor').innerHTML;
+  		self.find(`#body-${language}`).value = bodyText;
+  	});
 	self.find('.ql-editor').innerHTML = content.body || '';
 
 	// Set session so parent template can initialise form validation
@@ -175,33 +175,35 @@ Template.ProposalForm.onRendered(function(){
 });
 
 Template.ProposalForm.events({
-	'click #add-point-for': function(event, template){
+	'click .add-point-for': function(event, template){
 		event.preventDefault();
+		var lang = event.target.dataset.lang;
 		var instance = Template.instance();
 		var tempArray = instance.pointsFor.get();
-		var string = template.find('#inputPointFor').value;
+		var string = template.find(`#inputPointFor-${lang}`).value;
 		if(tempArray.indexOf(string) > -1){
 			var listItemId = "#point-for-" + tempArray.indexOf(string);
 			$(listItemId).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 		}else{
 			tempArray.push(string);
 			instance.pointsFor.set(tempArray);
-			template.find('#inputPointFor').value = "";
+			template.find(`#inputPointFor-${lang}`).value = "";
 			$("#pointsForWrap").removeClass("is-dirty");
 		}
 	},
-	'click #add-point-against': function(event, template){
+	'click .add-point-against': function(event, template){
 		event.preventDefault();
+		var lang = event.target.dataset.lang;
 		var instance = Template.instance();
 		var tempArray = instance.pointsAgainst.get();
-		var string = template.find('#inputPointAgainst').value;
+		var string = template.find(`#inputPointAgainst-${lang}`).value;
 		if(tempArray.indexOf(string) > -1){
 			var listItemId = "#point-against-" + tempArray.indexOf(string);
 			$(listItemId).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 		}else{
 			tempArray.push(string);
 			instance.pointsAgainst.set(tempArray);
-			template.find('#inputPointAgainst').value = "";
+			template.find(`#inputPointAgainst-${lang}`).value = "";
 			$("#pointsAgainstWrap").removeClass("is-dirty");
 		}
 	},
@@ -231,17 +233,17 @@ Template.ProposalForm.events({
 	},
 	'input textarea, input input' : function( event , template){
 		//autosave(event, template);
-  	},
+	},
 });
 
 Template.ProposalForm.helpers({
-  pointsFor() {
-    //return Template.instance().pointsFor.get();
-  },
-  pointsAgainst() {
-    //return Template.instance().pointsAgainst.get();
-  },
-  
+	pointsFor() {
+		return Template.instance().pointsFor.get();
+	},
+	pointsAgainst() {
+		return Template.instance().pointsAgainst.get();
+	},
+
 });
 
 // Autosave function
@@ -256,45 +258,46 @@ function autosave(event, template) {
 
 // Autosave timer
 var timer = function(){
-    var timer;
+	var timer;
 
-    this.set = function(saveChanges) {
-      timer = Meteor.setTimeout(function() {
-    	saveChanges();
-      }, Meteor.settings.public.defaultAutosaveTime)
-    };
+	this.set = function(saveChanges) {
+		timer = Meteor.setTimeout(function() {
+			saveChanges();
+		}, Meteor.settings.public.defaultAutosaveTime)
+	};
 
-    this.clear = function() {
-      Meteor.clearInterval(timer);
-    };
+	this.clear = function() {
+		Meteor.clearInterval(timer);
+	};
 
-    return this;    
-  }();
+	return this;    
+}();
 
 function saveChanges(event, template, returnTo){
 	var communityId = LocalStore.get('communityId');
+	var language = template.data.language;
 	Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
 		if (error){
 			RavenClient.captureException(error);
 			Bert.alert(error, 'reason');
 		} else {
 			let newProposal = {
-			title: template.find('#title').value,
-			abstract: template.find('#abstract').value,
-			body: template.find('#body').value,
-			startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),//
-			endDate: new Date(template.find('#endDate').value),//new Date(2018, 8, 1),
-			authorId: Meteor.userId(),
-			invited: Session.get('invited'),
-			tags: proposalTags,
-			pointsFor: template.pointsFor.get(),
-			pointsAgainst: template.pointsAgainst.get(),
-			references: [''],
-			communityId: LocalStore.get('communityId')
+				// Translatable fields in Proposal Form
+				title: $(`#title-${language}`).val(),
+				abstract: $(`#abstract-${language}`).val(),
+				body: $(`#body-${language}`).val(),
+				pointsFor: template.pointsFor.get(),
+				pointsAgainst: template.pointsAgainst.get(),
+				// Non-translatable fields
+				startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),//
+				endDate: new Date(template.find('#endDate').value),//new Date(2018, 8, 1),
+				authorId: Meteor.userId(),
+				invited: Session.get('invited'),
+				tags: proposalTags,
+				communityId: LocalStore.get('communityId')
 		};
 
 		var proposalId = FlowRouter.getParam("id");
-
 		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
 
 		// If working on an existing proposal, save it, else create a new one
@@ -319,21 +322,21 @@ function saveChanges(event, template, returnTo){
 				}
 			});
 		}
-		}
-	})
+	}
+})
 	
 	
 };
 function removeUserInvite(id){
-  invited = Session.get("invited");
-  var index = invited.indexOf(id);
-  invited.splice(index, 1);
-  Session.set("invited",invited);
+	invited = Session.get("invited");
+	var index = invited.indexOf(id);
+	invited.splice(index, 1);
+	Session.set("invited",invited);
 }
 function removeUserEmail(index){
-  emails = Session.get('emailInvites');
-  emails.splice(index, 1);
-  Session.set('emailInvites',emails);
+	emails = Session.get('emailInvites');
+	emails.splice(index, 1);
+	Session.set('emailInvites',emails);
 }
 
 function validateForm(){
