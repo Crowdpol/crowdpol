@@ -70,11 +70,17 @@ function generateSearchQuery(searchTerm, communityId){
 		let regex = new RegExp(searchTerm, 'i');
 
 		query = {
-			$or: [
-				{ title: regex },
-				{ abstract: regex },
-				{ body: regex }
-				]
+			$and: [
+			{
+				communityId: communityId
+			},
+			{$or: [
+				{ 'content.title': regex },
+				{ 'content.abstract': regex },
+				{ 'content.body': regex }
+				]}
+			]
+			
 			};
 	}
 	return query;
