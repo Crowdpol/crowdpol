@@ -265,7 +265,7 @@ function createDemoProposal(communityId, subdomain, languages){
 	});
 
 	var title = languages[0] + ' Demo Proposal for ' + subdomain;
-	if (Proposals.find({title: title}).count() < 1){
+	if (Proposals.find({'content.title': title}).count() < 1){
 		var user = Accounts.findUserByEmail("trudie@socialsystems.io");
 		var proposal = {
 			content: content,
