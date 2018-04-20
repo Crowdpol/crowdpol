@@ -30,7 +30,7 @@ Template.ViewProposal.onCreated(function(language){
         dict.set( 'stage', proposal.stage );
         dict.set( 'status', proposal.status );
         dict.set( 'signatures', proposal.signatures || []);
-        dict.set( 'tags', translation.tags || [] );
+        dict.set( 'tags', proposal.tags || [] );
       }
     })
   }); 

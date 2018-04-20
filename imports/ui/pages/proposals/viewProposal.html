@@ -71,6 +71,15 @@
 			{{/each}}
 		</div>
 
+		<!-- Tags -->
+		<div class="proposal-wrap">
+			{{#each tags}}
+			<span class="mdl-chip">
+				<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
+			</span>
+			{{/each}}
+		</div>
+
 		<!-- Edit and Submit Buttons -->
 		<div class="proposal-wrap proposal-actions">
 			{{#if isEditable }}
@@ -198,15 +207,6 @@
 			</ul>
 			{{/if}}
 		</div>
-	</div>
-
-	<!-- Tags -->
-	<div class="proposal-wrap">
-		{{#each tags}}
-		<span class="mdl-chip">
-			<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
-		</span>
-		{{/each}}
 	</div>
 	
 </template>
