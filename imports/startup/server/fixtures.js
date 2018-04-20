@@ -60,6 +60,9 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		createDemoProposal(mdId, mdSubdomain, mdLanguages);
 		createDemoProposal(bgId, bgSubdomain, bgLanguages);
 	}
+
+	/* Convert existing proposals to new format*/
+	convertProposals();
 });
 
 function registerAdmins(communityIds){
@@ -291,4 +294,35 @@ function createCommunity(name, subdomain, settings){
 		return existing._id;
 	}
 	
+}
+
+function convertProposals() {
+	proposals = Proposals.find();
+
+	proposals.forEach(function(proposal){
+		if (!proposal.content){
+			console.log('converting proposal with id ' + proposal._id + ' to new format');
+			var defaultLanguage = Communities.findOne({_id: proposal.communityId}).settings.defaultLanguage;
+			//Get content
+			var title = proposal.title;
+			var abstract = proposal.abstract;
+			var body = proposal.body;
+			var pointsFor = proposal.pointsFor;
+			var pointsAgainst = proposal.pointsAgainst;
+			// Remove fields
+			Proposals.update({_id: proposal._id}, {$unset: {title:1, body: 1, abstract: 1, pointsAgainst: 1, pointsFor: 1}});
+			// Create content
+			var content = [{
+				language: defaultLanguage,
+				title: title,
+				abstract: abstract,
+				body: body,
+				pointsFor: pointsFor,
+				pointsAgainst: pointsAgainst
+			}];
+			Proposals.update({_id: proposal._id}, {$set: {content:content}});
+			console.log('finished converting proposal')
+		}
+	});
+
 }
