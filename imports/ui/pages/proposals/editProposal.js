@@ -291,7 +291,6 @@ function saveChanges(event, template, returnTo){
 		$(`#points-against-list-${language}`).children('input').each(function() { pointsAgainst.push(this.value) });
 
 		var translation = {
-			language: language,
 			title: $(`#title-${language}`).val(),
 			abstract: $(`#abstract-${language}`).val(),
 			body: $(`#body-${language}`).val(),
@@ -299,7 +298,22 @@ function saveChanges(event, template, returnTo){
 			pointsAgainst: pointsAgainst
 		};
 
-		content.push(translation);
+		hasContent = false;
+		// Test if each translation has any content before adding it to the proposal
+		// If any field contains something other than whitespace, the translation should be added
+		_.each(translation, function(item){ 
+			if (/\S/.test(item)) {
+				hasContent = true; 
+				return;
+			} 
+		});
+
+		if (hasContent) {
+			translation.language = language;
+			content.push(translation);
+			console.log('pushing translation')
+			console.log(translation)
+		}
 	})
 
 	Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
