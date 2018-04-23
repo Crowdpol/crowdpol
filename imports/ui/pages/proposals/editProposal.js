@@ -311,8 +311,6 @@ function saveChanges(event, template, returnTo){
 		if (hasContent) {
 			translation.language = language;
 			content.push(translation);
-			console.log('pushing translation')
-			console.log(translation)
 		}
 	})
 
