@@ -17,7 +17,7 @@ Template.ProposalsList.onCreated(function () {
   self.autorun(function(){
     self.subscribe('proposals.public', self.searchQuery.get(), communityId);
     self.subscribe('proposals.author', self.searchQuery.get(), communityId);
-    self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
+    self.subscribe('proposals.invited', self.searchQuery.get(), communityId);
   })
 });
 
@@ -35,7 +35,7 @@ Template.ProposalsList.helpers({
     return Proposals.find({endDate:{"$gte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: -1}});
   },
   myProposals: function(){
-    return Proposals.find({authorId: Meteor.userId()}, {transform: transformProposal, sort: {createdAt: -1}});
+    return Proposals.find({$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ]}, {transform: transformProposal, sort: {createdAt: -1}});
   },
   invitedProposals: function(){
     return Proposals.find({invited: Meteor.user().username}, {transform: transformProposal, sort: {createdAt: -1}});
