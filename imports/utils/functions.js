@@ -15,7 +15,7 @@ export const convertToSlug = (text) => {
     return text
         .toLowerCase()
         .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, '')
+        .replace(/[^a-zA-Z0-9àâäèéêëîïôöœùûüÿçÀÂÄÈÉÊËÎÏÔŒÙÛÜŸÇ\-]+/g, '')
         ;
   }
   return undefined;
