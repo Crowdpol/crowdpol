@@ -88,6 +88,16 @@ Template.ProposalCard.onCreated(function () {
 });
 
 Template.ProposalCard.helpers({
+  title: function(proposal) {
+    var language = TAPi18n.getLanguage();
+    var translation = _.find(proposal.content, function(item){ return item.language == language});
+    return translation.title;
+  },
+  abstract: function(proposal){
+    var language = TAPi18n.getLanguage();
+    var translation = _.find(proposal.content, function(item){ return item.language == language});
+    return translation.abstract;
+  },
   canVote: function() {
     return Session.get("canVote");
   },

@@ -4,17 +4,17 @@ import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import RavenClient from 'raven-js';
 
-Template.ViewProposal.onCreated(function(){
-
+Template.ViewProposal.onCreated(function(language){
   var self = this;
-  
+
   var dict = new ReactiveDict();
   this.templateDictionary = dict;
+  var communityId = LocalStore.get('communityId');
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
     self.subscribe('comments', proposalId);
-    self.subscribe('users.all');
+    self.subscribe('users.community', communityId);
     self.subscribe('proposals.one', proposalId, function(error){
       if (error){
         RavenClient.captureException(error);
@@ -23,27 +23,20 @@ Template.ViewProposal.onCreated(function(){
         proposal = Proposals.findOne({_id: proposalId})
         dict.set( 'createdAt', proposal.createdAt );
         dict.set( '_id', proposal._id);
-        dict.set( 'title', proposal.title || '');
-        dict.set( 'abstract', proposal.abstract || '');
-        dict.set( 'body', proposal.body || '');
         dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') );
         dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') );
         dict.set( 'invited', proposal.invited );
         dict.set( 'authorId', proposal.authorId );
         dict.set( 'stage', proposal.stage );
         dict.set( 'status', proposal.status );
-        dict.set( 'tags', proposal.tags );
-        dict.set( 'signatures', proposal.signatures || [] );
-        dict.set( 'pointsFor', proposal.pointsFor || [] );
-        dict.set( 'pointsAgainst', proposal.pointsAgainst || [] );
         dict.set( 'signatures', proposal.signatures || []);
+        dict.set( 'tags', proposal.tags || [] );
       }
     })
-  });
-  
+  }); 
 });
 
-Template.ViewProposal.onRendered(function(){
+Template.ViewProposal.onRendered(function(language){
   var self = this;
   var clipboard = new Clipboard('#copy-proposal-link');
 
@@ -89,7 +82,6 @@ Template.ViewProposal.events({
     } else {
       Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalIncomplete'), 'danger');
     }
-    
   },
 
   'submit #comment-form' (event, template){
@@ -111,8 +103,6 @@ Template.ViewProposal.events({
     }  else {
       openSignInModal();
     }
-    
-
   },
 
   'click #sign-proposal' (event, template){
@@ -133,21 +123,28 @@ Template.ViewProposal.events({
 });
 
 Template.ViewProposal.helpers({
-  createdAt: function(){
-    return moment(Template.instance().templateDictionary.get('createdAt')).format('MMMM Do YYYY');
+   languages: function() {
+    var content = Proposals.findOne(proposalId).content;
+    var languages = _.pluck(content, 'language');
+    return languages;
   },
-  author: function(){
-    result = Meteor.users.findOne({ _id : Template.instance().templateDictionary.get('authorId')})
-    return result
-  },
-  selectedInvites: function() {
-    var invited = Template.instance().templateDictionary.get('invited');
-    if (invited){
-      return Meteor.users.find({ _id : { $in :  invited} });
+  activeClass: function(language){
+    var currentLang = TAPi18n.getLanguage();
+    if (language == currentLang){
+      return 'is-active';
     }
   },
-  emailedInvites: function() {
-    return Template.instance().templateDictionary.get( 'emailInvites');
+  createdAt: function(){
+    return moment(Template.instance().templateDictionary.get( 'createdAt' )).format('MMMM Do YYYY');
+  },
+  author: function(){
+    return Meteor.users.findOne({ _id : Template.instance().templateDictionary.get( 'authorId' )})
+  },
+  selectedInvites: function() {
+    var invited = Template.instance().templateDictionary.get('invited')
+    if (invited) {
+      return Meteor.users.find({ _id : { $in : invited } });
+    }
   },
   comments: function() {
     return Comments.find({proposalId: proposalId},{transform: transformComment, sort: {createdAt: -1}});
@@ -173,18 +170,6 @@ Template.ViewProposal.helpers({
     var signatures = Template.instance().templateDictionary.get( 'signatures' );
     return signatures.indexOf( Meteor.userId()) > -1;
   },
-  title: function() {
-    return Template.instance().templateDictionary.get( 'title' );
-  },
-  tags: function() {
-    return Template.instance().templateDictionary.get( 'tags' );
-  },
-  abstract: function() {
-    return Template.instance().templateDictionary.get( 'abstract' );
-  },
-  body: function() {
-    return Template.instance().templateDictionary.get( 'body' );
-  },
   status: function() {
     return Template.instance().templateDictionary.get( 'status' );
   },
@@ -194,25 +179,8 @@ Template.ViewProposal.helpers({
   endDate: function() {
     return Template.instance().templateDictionary.get( 'endDate' );
   },
-  showPointsFor: function(){
-    results = Template.instance().templateDictionary.get( 'pointsFor' );
-    if(results.length > 0){
-      return true;
-    }
-    return false;
-  },
-  showPointsAgainst: function(){
-    results = Template.instance().templateDictionary.get( 'pointsAgainst' );
-    if(results.length > 0){
-      return true;
-    }
-    return false;
-  },
-  pointsFor: function() {
-    return Template.instance().templateDictionary.get( 'pointsFor' );
-  },
-  pointsAgainst: function() {
-    return Template.instance().templateDictionary.get( 'pointsAgainst' );
+  tags: function() {
+    return Template.instance().templateDictionary.get( 'tags' );
   },
   isInvited: function() {
     return userIsInvited();
@@ -285,17 +253,82 @@ Template.ViewProposal.helpers({
   }
 });
 
+Template.ProposalContent.onCreated(function(language){
+  var self = this;
+
+  var dict = new ReactiveDict();
+  this.templateDictionary = dict;
+
+  proposalId = FlowRouter.getParam("id");
+  self.autorun(function() {
+    self.subscribe('proposals.one', proposalId, function(error){
+      if (error){
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        proposal = Proposals.findOne({_id: proposalId})
+        var languageCode = self.data;
+        var allContent = proposal.content;
+        var translation = _.find(allContent, function(item){ return item.language == languageCode})
+        dict.set( 'title', translation.title || '');
+        dict.set( 'abstract', translation.abstract || '' );
+        dict.set( 'body', translation.body || '' );
+        dict.set( 'pointsFor', translation.pointsFor || [] );
+        dict.set( 'pointsAgainst', translation.pointsAgainst || [] );
+      }
+    })
+  }); 
+});
+
+Template.ProposalContent.helpers({
+  title: function() {
+    return Template.instance().templateDictionary.get( 'title' );
+  },
+  abstract: function() {
+    return Template.instance().templateDictionary.get( 'abstract' );
+  },
+  body: function() {
+    return Template.instance().templateDictionary.get( 'body' );
+  },
+  showPointsFor: function(){
+    results = Template.instance().templateDictionary.get( 'pointsFor' );
+    if(results.length > 0){
+      return true;
+    }
+    return false;
+  },
+  showPointsAgainst: function(){
+    results = Template.instance().templateDictionary.get( 'pointsAgainst' );
+    if(results.length > 0){
+      return true;
+    }
+    return false;
+  },
+  pointsFor: function() {
+    return Template.instance().templateDictionary.get( 'pointsFor' );
+  },
+  pointsAgainst: function() {
+    return Template.instance().templateDictionary.get( 'pointsAgainst' );
+  }
+});
+
 function proposalIsComplete(proposalId) {
 
-  proposal = Proposals.findOne(proposalId);
-  
-  if (!proposal.title){
+  var proposal = Proposals.findOne(proposalId);
+
+  // A Proposal is complete if it exists in at least one of the languages
+  var content = proposal.content[0];
+
+  if (!content){
     return false;
   }
-  if (!proposal.abstract){
+  if (!content.title){
     return false;
   }
-  if (!proposal.body){
+  if (!content.abstract){
+    return false;
+  }
+  if (!content.body){
     return false;
   }
   if (!proposal.startDate){

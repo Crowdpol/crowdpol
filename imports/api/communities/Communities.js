@@ -43,7 +43,15 @@ CommunitySettings = new SimpleSchema({
       optional: false,
       allowedValues: ['en', 'sv'],
       defaultValue: 'en'
-    }
+    },
+    languages: {
+      type: Array,
+      optional: false,
+    },
+    "languages.$": {
+      type: String,
+      optional: false
+    },
 });
 
 Community = new SimpleSchema({

@@ -8,7 +8,11 @@ if ( Meteor.isServer ) {
   //Proposals._ensureIndex( { title: 1, abstract: 1, body: 1 } );
 }
 
-ProposalSchema = new SimpleSchema({
+TranslationSchema = new SimpleSchema({
+    language: {
+        type: String,
+        optional: false
+    },  
     title: {
         type: String,
         optional: true
@@ -18,6 +22,51 @@ ProposalSchema = new SimpleSchema({
         optional: true
     },
     body: {
+        type: String,
+        optional: true
+    },
+    "pointsFor": {
+        type: Array,
+        optional: true
+    },
+    'pointsFor.$': {
+        type: String
+    },
+    "pointsAgainst": {
+        type: Array,
+        optional: true
+    },
+    'pointsAgainst.$': {
+        type: String
+    }
+});
+
+ProposalSchema = new SimpleSchema({
+    content: {
+        type: Array,
+        optional: true,
+    },
+    'content.$': {
+        type: TranslationSchema,
+        optional: true,
+    },
+    tags: {
+        type: Array,
+        optional: true,
+    },
+    "tags.$": {
+        type: Object,
+        optional: true
+    },
+    "tags.$.keyword": {
+        type: String,
+        optional: true
+    },
+    "tags.$._id": {
+        type: String,
+        optional: true
+    },
+    "tags.$.url": {
         type: String,
         optional: true
     },
@@ -56,26 +105,6 @@ ProposalSchema = new SimpleSchema({
         type: String,
         optional: true,
     },
-    tags: {
-        type: Array,
-        optional: true,
-    },
-    "tags.$": {
-        type: Object,
-        optional: true
-    },
-    "tags.$.keyword": {
-        type: String,
-        optional: true
-    },
-    "tags.$._id": {
-        type: String,
-        optional: true
-    },
-    "tags.$.url": {
-        type: String,
-        optional: true
-    },
     signatures: {
         type: Array,
         optional: true,
@@ -84,27 +113,7 @@ ProposalSchema = new SimpleSchema({
         type: String,
         optional: true,
     },
-    "pointsFor": {
-        type: Array,
-        optional: true
-    },
-    'pointsFor.$': {
-        type: String
-    },
-    "pointsAgainst": {
-        type: Array,
-        optional: true
-    },
-    'pointsAgainst.$': {
-        type: String
-    },
-    "references": {
-        type: Array,
-        optional: true
-    },
-    'references.$': {
-        type: String
-    },
+    
     votesFinalised: {
         /* If a proposal is expired and the votes have been prepared for tallying */
         type: Boolean,
