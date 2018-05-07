@@ -34,9 +34,9 @@
 					"link": "Se Statistik"
 				},
 				"communities":{
-					"heading": "TODO Communities",
-					"text": "TODO See all communities, or add a new one.",
-					"link": "TODO View Communities"
+					"heading": "Att göra: Gemenskaperna",
+					"text": "Att göra: Hantera Gemenskaperna",
+					"link": "Att göra: Visa Gemenskaperna"
 				}
 			}
 		},
