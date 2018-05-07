@@ -8,6 +8,10 @@
 		},
 		"taggle": {
 			"placeholder": "Lägg till några taggar..."
+		},
+		"termsModal": {
+			"heading": "TODO Terms of Use",
+			"accept": "TODO I Accept"
 		}
 	}
 }

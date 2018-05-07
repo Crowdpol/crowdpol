@@ -8,6 +8,10 @@
 		},
 		"taggle": {
 			"placeholder": "Add some tags..."
+		},
+		"termsModal": {
+			"heading": "Terms of Use",
+			"accept": "I Accept"
 		}
 	}
 }

@@ -155,7 +155,7 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true,
     },
-    acceptedTerms: {
+    termsAccepted: {
         type: Boolean,
         optional: false,
         autoValue() {
