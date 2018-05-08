@@ -102,12 +102,13 @@ Template.ProfileForm.events({
   },
   'click #show-settings' (event, template) {
     event.preventDefault();
-    if(Session.get('showSettings')){
+    var showSettings = Session.get('showSettings');
+    if (showSettings){
       $( "#public-form-details" ).hide();
     }else{
       $( "#public-form-details" ).show();
     }
-    Session.set('showSettings',!Session.get('showSettings'))
+    Session.set('showSettings',!showSettings)
   },
   'blur #profile-website' (event, template) {
         if (validateUrl(event.currentTarget.value)) {
@@ -189,6 +190,8 @@ Template.ProfileForm.events({
 
 Template.ProfileForm.onRendered(function() {
   let template = Template.instance();
+  Session.set('showSettings',false);
+  $( "#public-form-details" ).hide();
 
   $.validator.addMethod('usernameUnique', (username) => {
     let exists = Meteor.users.findOne({"_id":{$ne: Meteor.userId()},"profile.username": username});
@@ -385,9 +388,9 @@ Template.ProfileForm.helpers({
   },
   settingsText: function() {
     if(Session.get('showSettings')){
-      return TAPi18n.__('generic.show-less');
+      return '<i class="material-icons">expand_less</i>' + TAPi18n.__('generic.show-less');
     }
-    return TAPi18n.__('generic.show-more');;
+    return '<i class="material-icons">expand_more</i>' + TAPi18n.__('generic.show-more');;
   }
 });
 
