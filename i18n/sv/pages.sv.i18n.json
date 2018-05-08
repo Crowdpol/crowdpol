@@ -216,7 +216,9 @@
 					"vote": "och rösta"
 				},
 				"openClosedSwitch": "Pågående/Avslutad",
-				"createdInvitedSwitch": "Egen/Gemensam"
+				"createdInvitedSwitch": "Egen/Gemensam",
+				"untitled": "TODO Untitled",
+				"untranslated": "TODO This proposal has not yet been translated."
 			},
 			"edit": {
 				"heading": "Din motion",
