@@ -323,6 +323,7 @@
 			"private" : "Private Profile",
 			"delegate" : "Delegate",
 			"candidate" : "Candidate",
+			"terms-accepted": "I accept the Terms of Use",
 			"alerts": {
 				"invalid-url": "Please enter a valid url, starting with 'http' or 'https'.",
 				"username": "Username required.",
