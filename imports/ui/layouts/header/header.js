@@ -97,6 +97,7 @@ Template.Header.helpers({
     }
   },
   notificationDate(createdAt) {
+    moment.locale(TAPi18n.getLanguage());
     return moment(createdAt).fromNow();
   },
   unreadClass(){

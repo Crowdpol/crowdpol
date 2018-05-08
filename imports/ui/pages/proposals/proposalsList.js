@@ -45,6 +45,9 @@ Template.ProposalsList.helpers({
   },
   authorSelected: function(){
     return Template.instance().authorProposals.get();
+  },
+  isDraft: function(proposal) {
+    return proposal.stage == 'draft';
   }
 });
 
