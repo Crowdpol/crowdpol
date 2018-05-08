@@ -59,3 +59,9 @@
 .right-drawer-content {
   padding: $space;
 }
+
+#public-form-details {
+  .mdl-checkbox {
+    display: inline;
+  }
+}

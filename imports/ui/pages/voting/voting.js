@@ -95,12 +95,18 @@ Template.VotingCard.helpers({
   title: function(proposal) {
     var language = TAPi18n.getLanguage();
     var translation = _.find(proposal.content, function(item){ return item.language == language});
-    return translation.title;
+    if (translation){
+      return translation.title;
+    } else {
+      return TAPi18n.__('pages.proposals.list.untranslated')
+    }
   },
   abstract: function(proposal){
     var language = TAPi18n.getLanguage();
     var translation = _.find(proposal.content, function(item){ return item.language == language});
-    return translation.abstract;
+    if (translation){
+      return translation.abstract;
+    }
   },
   isVotingAsDelegate: function(){
     return (LocalStore.get('currentUserRole') == 'Delegate');

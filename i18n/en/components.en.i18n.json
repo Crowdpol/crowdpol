@@ -9,6 +9,15 @@
 		},
 		"taggle": {
 			"placeholder": "Add some tags..."
+		},
+		"role-selector":{
+			"voter": "Individual",
+			"party-delegate": "Party Delegate",
+			"organisation-delegate": "Organisation Delegate"
+		},
+		"termsModal": {
+			"heading": "Terms of Use",
+			"accept": "I Accept"
 		}
 	}
 }

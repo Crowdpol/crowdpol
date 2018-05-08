@@ -10,11 +10,10 @@ Template.SignInModal.events({
   }
 });
 
- openSignInModal = function(event) {
+openSignInModal = function(event) {
   if (event) event.preventDefault();
   $(".sign-in-modal").addClass('active');
   $("#overlay").addClass('dark-overlay');
-
 }
 
 closeSignInModal = function(event) {

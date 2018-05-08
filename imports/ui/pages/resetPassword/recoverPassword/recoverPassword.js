@@ -26,8 +26,8 @@ Template.recoverPassword.events({
             if (error) {
               RavenClient.captureException(error);
             	Bert.alert(error.reason, 'danger')
-            } else {
-                Bert.alert(TAPi18n.__('pages.authenticate.reset-password.reset-password-sent-message'), 'success')
+            } else { 
+                Bert.alert(TAPi18n.__('pages.authenticate.recover-password.alerts.reset-password-sent-message'), 'success')
             }
         });
         

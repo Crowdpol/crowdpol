@@ -45,7 +45,7 @@ Template.ProposalsList.helpers({
   },
   authorSelected: function(){
     return Template.instance().authorProposals.get();
-  },
+  }
 });
 
 Template.ProposalsList.events({
@@ -76,7 +76,9 @@ Template.ProposalsList.events({
 });
 
 function transformProposal(proposal) { 
-  proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');
+  proposal.endDate = moment(proposal.endDate).format('MMMM Do YYYY');
+  proposal.startDate = moment(proposal.startDate).format('MMMM Do YYYY');
+  proposal.lastModified = moment(proposal.lastModified).fromNow();
   return proposal;
 };
 
@@ -91,12 +93,25 @@ Template.ProposalCard.helpers({
   title: function(proposal) {
     var language = TAPi18n.getLanguage();
     var translation = _.find(proposal.content, function(item){ return item.language == language});
-    return translation.title;
+    
+    if (translation) {
+      var title = translation.title;
+      if (title && /\S/.test(title)) {
+        return title;
+      } else {
+        return TAPi18n.__('pages.proposals.list.untitled')
+      }
+    } else {
+      return TAPi18n.__('pages.proposals.list.untranslated')
+    }
   },
   abstract: function(proposal){
     var language = TAPi18n.getLanguage();
     var translation = _.find(proposal.content, function(item){ return item.language == language});
-    return translation.abstract;
+    if (translation){
+      return translation.abstract;
+    }
+
   },
   canVote: function() {
     return Session.get("canVote");
@@ -141,6 +156,9 @@ Template.ProposalCard.helpers({
     if (Votes.find({proposalId: proposalId}).count() > 0) {
       return true;
     }
+  },
+  isDraft: function(proposal) {
+    return proposal.stage == 'draft';
   }
 });
 

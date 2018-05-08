@@ -33,6 +33,7 @@ Template.TagSearch.helpers({
 });
 
 function transformProposal(proposal) { 
-  proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');;
+  proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');
+  proposal.startDate = moment(proposal.startDate).format('YYYY-MM-DD');
   return proposal;
 };
