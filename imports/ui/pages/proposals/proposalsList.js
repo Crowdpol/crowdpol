@@ -45,9 +45,6 @@ Template.ProposalsList.helpers({
   },
   authorSelected: function(){
     return Template.instance().authorProposals.get();
-  },
-  isDraft: function(proposal) {
-    return proposal.stage == 'draft';
   }
 });
 
@@ -79,8 +76,9 @@ Template.ProposalsList.events({
 });
 
 function transformProposal(proposal) { 
-  proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');
-  proposal.startDate = moment(proposal.startDate).format('YYYY-MM-DD');
+  proposal.endDate = moment(proposal.endDate).format('MMMM Do YYYY');
+  proposal.startDate = moment(proposal.startDate).format('MMMM Do YYYY');
+  proposal.lastModified = moment(proposal.lastModified).fromNow();
   return proposal;
 };
 
@@ -153,6 +151,9 @@ Template.ProposalCard.helpers({
     } else {
       return 0;
     }
+  },
+  isDraft: function(proposal) {
+    return proposal.stage == 'draft';
   }
 });
 

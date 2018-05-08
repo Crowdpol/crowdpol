@@ -97,7 +97,6 @@ Template.Header.helpers({
     }
   },
   notificationDate(createdAt) {
-    moment.locale(TAPi18n.getLanguage());
     return moment(createdAt).fromNow();
   },
   unreadClass(){
@@ -119,6 +118,7 @@ Template.Header.events({
     var lang = $(e.currentTarget).attr("id");
     Session.set("i18n_lang",lang)
     TAPi18n.setLanguage(lang);
+    moment.locale(lang);
   },
   'click #nav-logout' : function(e){
     event.preventDefault();
