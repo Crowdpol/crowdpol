@@ -1,4 +1,5 @@
 import "./profileForm.html"
+import "../../components/termsModal/termsModal.js"
 import { setupTaggle } from '../../components/taggle/taggle.js'
 import RavenClient from 'raven-js';
 
@@ -34,6 +35,16 @@ Template.ProfileForm.onRendered(function(){
       self.taggle.get().add(keywords);
     }
   });
+
+  //set checkbox
+  var termsCheckbox = self.find('#terms-checkbox-label').MaterialCheckbox;
+  var termsAccepted = self.templateDictionary.get('termsAccepted');
+  if (termsAccepted) {  
+    termsCheckbox.check();
+  } else {
+    termsCheckbox.uncheck();
+  }
+
 });
 
 Template.ProfileForm.onCreated(function() {
@@ -72,6 +83,7 @@ Template.ProfileForm.onCreated(function() {
       dict.set('credentials', result.profile.credentials);
       dict.set('showPublic', result.isPublic);
       dict.set('profileType', result.profile.type);
+      dict.set('termsAccepted', result.profile.termsAccepted || false);
       self.type.set(result.profile.type);
       if (result.profile.hasOwnProperty("photo")) {
         dict.set('photo', result.profile.photo);
@@ -168,6 +180,10 @@ Template.ProfileForm.events({
        $( "#profile-status-link" ).html('<i class="material-icons">expand_less</i>');
     }
     Session.set('showCompleteStatus',!Session.get('showCompleteStatus'));
+  },
+  'click #terms-checkbox-label' (event, template) {
+    event.preventDefault();
+    openTermsModal();
   }
 });
 
@@ -373,7 +389,6 @@ Template.ProfileForm.helpers({
     }
     return TAPi18n.__('generic.show-more');;
   }
-
 });
 
 function hasOwnProperty(obj, prop) {

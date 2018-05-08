@@ -260,6 +260,9 @@ Meteor.methods({
         _id: String });
       Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
+    acceptTerms: function() {
+      Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.termsAccepted': true}});
+    }
 });
 
 function profileIsComplete(user){

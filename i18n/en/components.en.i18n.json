@@ -13,6 +13,10 @@
 			"voter": "Individual",
 			"party-delegate": "Party Delegate",
 			"organisation-delegate": "Organisation Delegate"
+		},
+		"termsModal": {
+			"heading": "Terms of Use",
+			"accept": "I Accept"
 		}
 	}
 }

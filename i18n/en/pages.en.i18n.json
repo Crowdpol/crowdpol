@@ -212,7 +212,9 @@
 					"vote": "and vote"
 				},
 				"openClosedSwitch": "Open/Closed",
-				"createdInvitedSwitch": "Created/Invited"
+				"createdInvitedSwitch": "Created/Invited",
+				"untitled": "Untitled",
+				"untranslated": "This proposal has not yet been translated."
 			},
 			"edit": {
 				"heading": "Write your proposal",
@@ -323,6 +325,7 @@
 			"private" : "Private Profile",
 			"delegate" : "Delegate",
 			"candidate" : "Candidate",
+			"terms-accepted": "I accept the Terms of Use",
 			"alerts": {
 				"invalid-url": "Please enter a valid url, starting with 'http' or 'https'.",
 				"username": "Username required.",

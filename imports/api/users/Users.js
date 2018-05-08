@@ -155,6 +155,15 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true,
     },
+    termsAccepted: {
+        type: Boolean,
+        optional: false,
+        autoValue() {
+          if (this.isInsert) {
+            return false;
+          }
+        },
+    }
     /*
     birthday: {
         type: Date,

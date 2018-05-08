@@ -216,7 +216,9 @@
 					"vote": "och rösta"
 				},
 				"openClosedSwitch": "Pågående/Avslutad",
-				"createdInvitedSwitch": "Egen/Gemensam"
+				"createdInvitedSwitch": "Egen/Gemensam",
+				"untitled": "TODO Untitled",
+				"untranslated": "TODO This proposal has not yet been translated."
 			},
 			"edit": {
 				"heading": "Din motion",
@@ -327,6 +329,7 @@
 			"private" : "Privat Profil",
 			"delegate" : "Delegat",
 			"candidate" : "Kandidat",
+			"terms-accepted": "TODO I accept the Terms of Use",
 			"alerts": {
 				"invalid-url": "Lägg till en fungerande url, som börjar med ‘http’ eller ‘https’.",
 				"username": "Användarnamn är ett måste.",

@@ -110,6 +110,7 @@ Meteor.methods({
         } 
       }
 
+      proposal.lastModified = new Date();
       Proposals.update({_id: proposalId}, {$set: proposal });
     },
     addTagToProposal: function(proposalId, tag) {

@@ -73,7 +73,17 @@ ProposalSchema = new SimpleSchema({
     createdAt: {
         type: Date,
         autoValue: function() {
-            return new Date();
+            if (this.isInsert) {
+                return new Date();
+            }
+        }
+    },
+    lastModified: {
+        type: Date,
+        autoValue: function() {
+            if (this.isInsert) {
+                return new Date();
+            }
         }
     },
     startDate: {
