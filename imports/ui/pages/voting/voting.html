@@ -79,7 +79,7 @@
 				{{#if isVotingAsDelegate}}
 					<div class="voting-card-buttons">
 					<h6>{{_ "pages.voting.voting-card-heading.delegate"}}</h6>
-					{{> delegateVoteButtons proposalId=_id}}
+					{{> delegateVoteButtons proposalId=_id endDate=endDate}}
 					</div>
 				{{else}}
 					<div class="voting-card-buttons">

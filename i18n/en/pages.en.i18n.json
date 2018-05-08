@@ -276,7 +276,6 @@
 				"delegatesVoteHeading": "How your delegates voted",
 				"delegatesFor": "Delegates For:",
 				"delegatesAgainst": "Delegates Against:",
-				"delegateVotingClosed": "Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date.",
 				"tooltips": {
 					"share": "Copy a link to this proposal to your clipboard.",
 					"sign": "Show your support by signing this proposal. Note that this does not constitute a vote."

@@ -188,16 +188,6 @@ Template.ViewProposal.helpers({
   isVotingAsDelegate: function(){
     return (LocalStore.get('currentUserRole') == 'Delegate');
   },
-  isVotableForDelegates: function() {
-    var startDate = moment(Template.instance().templateDictionary.get( 'startDate' ));
-    var endDate = moment(Template.instance().templateDictionary.get( 'endDate' ));
-    var now = moment();
-    if (endDate.subtract(2,'weeks').isAfter(now) && startDate.isBefore(now)){
-      return true;
-    } else {
-      return false;
-    }
-  },
   isAuthor: function() {
     return userIsAuthor();
   },
