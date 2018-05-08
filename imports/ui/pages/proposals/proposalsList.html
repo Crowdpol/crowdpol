@@ -124,7 +124,7 @@
 		</div>
 
 			<div class="mdl-card__actions">
-				{{#if yesPercentage _id}}
+				{{#if hasVotes _id}}
 					<span class="proposal-percentage-text-left"> {{_ "pages.voting.for"}} {{ yesPercentage _id }}% </span>
 					<span class="proposal-percentage-text-right"> {{_ "pages.voting.against"}} {{ noPercentage _id }}% </span>
 					<div class="proposal-vote-progress-bar">

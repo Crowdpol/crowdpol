@@ -114,16 +114,12 @@
 			</div>
 			<div class="voting-content">
 				{{#if isVotingAsDelegate}}
-				{{#if isVotableForDelegates}}
-				{{> delegateVoteButtons proposalId=_id}}
+					{{> delegateVoteButtons proposalId=_id endDate=endDate}}
 				{{else}}
-				<small>{{_"pages.proposals.view.delegateVotingClosed"}}</small>
+					<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
+					{{> voteButtons proposalId=_id}}
+					{{> delegateVoteList proposalId=_id}}
 				{{/if}}
-				{{else}}
-				<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
-				{{> voteButtons proposalId=_id}}
-				{{/if}}
-				{{> delegateVoteList proposalId=_id}}
 			</div>
 			{{else}}
 			<center>

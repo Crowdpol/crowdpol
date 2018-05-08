@@ -1,4 +1,5 @@
 <template name='delegateVoteButtons'>
+    {{#if isOpen}}
 
     <small>{{_ "components.delegateVoteButtons.instructions-1"}}</small><br/>
     <small>{{_ "components.delegateVoteButtons.instructions-2"}}</small>
@@ -35,4 +36,8 @@
         </div>
     </div>
 </div>
+
+{{else}}
+{{_ "components.delegateVoteButtons.delegateVotingClosed"}}
+{{/if}}
 </template>

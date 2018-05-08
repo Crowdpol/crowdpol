@@ -32,6 +32,19 @@ Template.delegateVoteButtons.helpers({
 		if (charCount <= 160){
 			return charCount + '/160'
 		}
+	},
+	'isOpen': function() {
+		// Delegate voting closes two weeks before a proposal expires
+		var endDate = moment(Template.currentData().endDate);
+    	var now = new Date();
+    	var voteClose = endDate.subtract(2,'weeks');
+    	if (voteClose.isAfter(now)) {
+    		console.log(true)
+    		return true;
+    	} else {
+    		return false;
+    	}
+
 	}
 });
 
