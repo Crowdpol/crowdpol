@@ -9,6 +9,11 @@
 		"taggle": {
 			"placeholder": "Lägg till några taggar..."
 		},
+		"role-selector":{
+			"voter": "TODO: Individual",
+			"party-delegate": "TODO: Party Delegate",
+			"organisation-delegate": "TODO: Organisation Delegate"
+		],
 		"termsModal": {
 			"heading": "TODO Terms of Use",
 			"accept": "TODO I Accept"
