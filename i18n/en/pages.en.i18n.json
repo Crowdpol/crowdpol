@@ -212,7 +212,9 @@
 					"vote": "and vote"
 				},
 				"openClosedSwitch": "Open/Closed",
-				"createdInvitedSwitch": "Created/Invited"
+				"createdInvitedSwitch": "Created/Invited",
+				"untitled": "Untitled",
+				"untranslated": "This proposal has not yet been translated."
 			},
 			"edit": {
 				"heading": "Write your proposal",
