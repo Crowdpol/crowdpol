@@ -106,10 +106,12 @@
 					{{/if}}
 				</h6>
 				
-			</span><!-- 
+			</span> 
 			<span class="mdl-list__item-secondary-action">
-				<small class="proposal-date">{{_ "proposals.list.cards.expires"}} {{ endDate }}</small>
-			</span> -->
+				<small class="proposal-date">
+					<i class="material-icons">date_range</i>&nbsp;{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
+				</small>
+			</span>
 		</div>
 		<div class="card-secondary-wrap">
 			<p class="proposal-abstract">{{ abstract this}}</p>

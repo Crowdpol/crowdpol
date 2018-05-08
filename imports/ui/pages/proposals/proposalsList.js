@@ -45,7 +45,7 @@ Template.ProposalsList.helpers({
   },
   authorSelected: function(){
     return Template.instance().authorProposals.get();
-  },
+  }
 });
 
 Template.ProposalsList.events({
@@ -77,6 +77,7 @@ Template.ProposalsList.events({
 
 function transformProposal(proposal) { 
   proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');
+  proposal.startDate = moment(proposal.startDate).format('YYYY-MM-DD');
   return proposal;
 };
 
