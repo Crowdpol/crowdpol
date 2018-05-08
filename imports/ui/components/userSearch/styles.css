@@ -6,9 +6,11 @@
     line-height: 1.5;
  }
 #autosuggest-results{
- 	border: solid 1px;
+	box-shadow: 0 1px 5px rgba(6, 18, 25, 0.2);
  	position:absolute;
   	z-index:999;
   	padding: 0px;
   	background: #fff;
+  	position: relative;
+  	top: -40px;
  }
