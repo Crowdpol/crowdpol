@@ -55,13 +55,6 @@ Template.EditProposal.onRendered(function(){
 		if (Session.get("formRendered")) {
 			validateForm();
 			
-			//Set up Taggle
-			var taggle = setupTaggle();
-			self.taggle = new ReactiveVar(taggle);
-			//Set up existing tags
-			var tags = self.templateDictionary.get('tags');
-			if (tags) { self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; })); }
-			
 			//Initialise date fields
 			self.find('#startDate').value = self.templateDictionary.get('startDate');
 			self.find('#endDate').value = self.templateDictionary.get('endDate');
@@ -70,8 +63,16 @@ Template.EditProposal.onRendered(function(){
 	});
 
 	
-	
-	
+	//Set up Taggle
+	var taggle = setupTaggle();
+	self.taggle = new ReactiveVar(taggle);
+	//Set up existing tags
+	var tags = self.templateDictionary.get('tags');
+	if (tags) { 
+		var keywords = _.map(tags, function(tag){ return tag.keyword; })
+		self.taggle.get().add(keywords); 
+	}
+
 
 });
 
