@@ -144,7 +144,7 @@ Template.ProfileForm.events({
     // Check if person already is a delegate, if so remove role
     if (isInRole('delegate')) {
       if (window.confirm(TAPi18n.__('pages.profile.alerts.profile-stop-delegate'))){
-        Meteor.call('toggleRole', Meteor.userId(), 'delegate', false, function(error) {
+        Meteor.call('toggleRole', 'delegate', false, function(error) {
           if (error) {
             RavenClient.captureException(error);
             Bert.alert(error.reason, 'danger');
