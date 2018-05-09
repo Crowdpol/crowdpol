@@ -340,6 +340,7 @@
 				"profile-private": "Din profil är nu privat.",
 				"profile-public": "Din profil är nu offentlig.",
 				"profile-delegate-removed" : "Delegatprofil Borttagen.",
+				"profile-stop-delegate": "TODO Are you sure you want to stop being a delegate? Users will no longer be able to delegate their votes to you.",
 				"profile-delegate-requested" : "Delegatansökan skickad. Du kommer att få en bekräftelse per e-post när din ansökan har behandlats.",
 				"profile-candidate-removed" : "Kandidatprofil Borttagen.",
 				"profile-candidate-requested" : "Kandidatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats.",
