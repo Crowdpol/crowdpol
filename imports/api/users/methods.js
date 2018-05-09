@@ -175,7 +175,8 @@ Meteor.methods({
                 userId: id, 
                 url: '/delegate', 
                 icon: 'warning',
-                read: false
+                read: false,
+                createdAt: new Date()
               })
             });
             // Batch insert notifications
