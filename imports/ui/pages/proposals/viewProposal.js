@@ -13,7 +13,9 @@ Template.ViewProposal.onCreated(function(language){
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
-    self.subscribe('comments', proposalId);
+    self.subscribe('comments', proposalId, function(error){
+      dict.set('commentCount',Comments.find({proposalId: proposalId}).count());
+    });
     self.subscribe('users.community', communityId);
     self.subscribe('proposals.one', proposalId, function(error){
       if (error){
@@ -181,6 +183,13 @@ Template.ViewProposal.helpers({
   },
   tags: function() {
     return Template.instance().templateDictionary.get( 'tags' );
+  },
+  showComments(){
+    var commentCount = Template.instance().templateDictionary.get( 'commentCount' );
+    if(commentCount>0 || userIsInvited()){
+      return true;
+    }
+    return false;
   },
   isInvited: function() {
     return userIsInvited();
