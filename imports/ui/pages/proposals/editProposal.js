@@ -191,7 +191,7 @@ Template.ProposalForm.events({
 			pointsFor.push(point);
 			instance.pointsFor.set(pointsFor);
 			template.find(`#inputPointFor-${lang}`).value = "";
-			$("#pointsForWrap").removeClass("is-dirty");
+			template.find("#pointsForWrap").MaterialTextfield.change()
 		}
 	},
 	'click .add-point-against': function(event, template){
@@ -208,7 +208,7 @@ Template.ProposalForm.events({
 			pointsAgainst.push(point);
 			instance.pointsAgainst.set(pointsAgainst);
 			template.find(`#inputPointAgainst-${lang}`).value = "";
-			$("#pointsAgainstWrap").removeClass("is-dirty");
+			template.find("#pointsAgainstWrap").MaterialTextfield.change()
 		}
 	},
 	'click #remove-point-for': function(event, template){
