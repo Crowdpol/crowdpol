@@ -17,7 +17,7 @@
 			"invite": "You have been invited to collaborate on a proposal."
 		},
 		"users": {
-			"delegate-deselect": "%s is no longer a delegate. They have been removed from your delegate list."
+			"delegate-deselect": "%s has stopped being a delegate."
 		}
 	}
 }

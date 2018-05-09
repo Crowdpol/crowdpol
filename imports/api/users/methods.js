@@ -164,22 +164,26 @@ Meteor.methods({
         //Create notifications for each supporter
         if (role == 'delegate'){
           var delegateName = delegate.profile.firstName + delegate.profile.lastName;
-          var supporterIds = Ranks.find({delegateId: delegateId}).pluck('supporterId');
+          var supporterIds = Ranks.find({entityId: delegateId}).pluck('supporterId');
           // Create notifications
           var notifications = []
-          _.each(supporterIds, function(id){
-            var notification = 
-            notifications.push({
-              message: TAPi18n.__('notifications.users.delegate-deselect', delegateName), 
-              userId: id, 
-              url: '/delegate', 
-              icon: 'warning'
-            })
-          });
-          // Batch insert notifications
-          Notifications.batchInsert(notifications);
+          if (supporterIds){
+            _.each(supporterIds, function(id){
+              var notification = 
+              notifications.push({
+                message: TAPi18n.__('notifications.users.delegate-deselect', delegateName), 
+                userId: id, 
+                url: '/delegate', 
+                icon: 'warning',
+                read: false
+              })
+            });
+            // Batch insert notifications
+            Notifications.batchInsert(notifications);
+          }
+          
           // Remove delegate from user rankings
-          Ranks.remove({delegateId: Meteor.userId()});
+          Ranks.remove({entityId: delegateId});
         }
       }
     },

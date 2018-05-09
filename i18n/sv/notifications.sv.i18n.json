@@ -17,7 +17,7 @@
 			"invite": "Du har blivit inbjuden till att samarbeta på en motion."
 		},
 		"users": {
-			"delegate-deselect": "TODO %s is no longer a delegate. They have been removed from your delegate list."
+			"delegate-deselect": "TODO %s has stopped being a delegate."
 		}
 	}
 }
