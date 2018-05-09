@@ -1,6 +1,7 @@
 import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { Ranks } from '../ranking/Ranks.js'
+import { Notifications } from '../notifications/Notifications.js'
 
 Meteor.methods({
 
@@ -164,14 +165,19 @@ Meteor.methods({
         if (role == 'delegate'){
           var delegateName = delegate.profile.firstName + delegate.profile.lastName;
           var supporterIds = Ranks.find({delegateId: delegateId}).pluck('supporterId');
+          // Create notifications
+          var notifications = []
           _.each(supporterIds, function(id){
-            var notification = {
+            var notification = 
+            notifications.push({
               message: TAPi18n.__('notifications.users.delegate-deselect', delegateName), 
               userId: id, 
               url: '/delegate', 
               icon: 'warning'
-            }
-          })
+            })
+          });
+          // Batch insert notifications
+          Notifications.batchInsert(notifications);
           // Remove delegate from user rankings
           Ranks.remove({delegateId: Meteor.userId()});
         }
