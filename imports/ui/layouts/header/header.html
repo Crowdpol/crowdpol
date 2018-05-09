@@ -15,13 +15,15 @@
 				</a>
 			{{else}}
 				{{hideHamburger}}
-				<a href="/">
+				<a href="/"><!--
 					<i class="material-icons">add</i>
-					<h5>
+					<h5>-->
+					<span class="mdl-layout-title">
 						{{#if Template.subscriptionsReady}}
 							{{ title }}
 						{{/if}}
-					</h5>
+					</span>
+					<!--</h5>-->
 			</a>
 			{{/if}}
 			<!-- Add spacer, to align navigation to the right -->

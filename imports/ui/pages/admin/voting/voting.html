@@ -19,17 +19,17 @@
 						<tbody>
 								{{#each proposals}}
 								<tr>
-										<td>{{endDate}}</td>
-										<td>{{authorId}}</td>
-										<td> <a href="/proposals/view/{{_id}}">{{title}}</a></td>
+										<td data-label='{{_"admin.voting.endDate"}}'>{{endDate}}</td>
+										<td data-label='{{_"admin.voting.author"}}'>{{authorId}}</td>
+										<td data-label='{{_"admin.voting.title"}}'> <a href="/proposals/view/{{_id}}">{{title}}</a></td>
 										{{ #if votesFinalised }}
-											<td> 
+											<td data-label='{{_"admin.voting.results"}}'> 
 												{{_'admin.voting.yes-votes'}}: {{ yesCount _id }} <br/>
 												{{_'admin.voting.no-votes'}}: {{ noCount _id }} <br/>
 												{{_'admin.voting.total-votes'}}: {{ voteCount _id }} 
 											</td>
 										{{else}}
-										<td>
+											<td data-label='{{_"admin.voting.results"}}'>
 												<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" id="tally-votes-button">
 														<i class="material-icons">refresh</i>
 														{{_'admin.voting.tally-votes'}}
@@ -37,7 +37,7 @@
 												{{_'admin.voting.yes-votes'}}: {{ yesCount _id }} <br/>
 												{{_'admin.voting.no-votes'}}: {{ noCount _id }} <br/>
 												{{_'admin.voting.total-votes'}}: {{ voteCount _id }} 
-										</td>
+											</td>
 										{{/if}}
 								</tr>
 								{{/each}}
