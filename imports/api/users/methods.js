@@ -158,6 +158,11 @@ Meteor.methods({
         }
       }else{
         Roles.removeUsersFromRoles(Meteor.userId(), role);
+        if (role == 'delegate'){
+          // Remove delegate from user rankings
+
+          //Create notifications
+        }
       }
     },
     getRequests(){
