@@ -9,6 +9,12 @@
 		{{#if isVisible }}
 
 		<!-- Author Information -->
+		<div class="mdl-tooltip" data-mdl-for="sign-proposal">
+			{{_ "pages.proposals.view.tooltips.sign"}}
+		</div>
+		<div class="mdl-tooltip" data-mdl-for="copy-proposal-link">
+			{{_ "pages.proposals.view.tooltips.share"}}
+		</div>
 		<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
 			<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
 				<div class="minilogo">
@@ -19,6 +25,7 @@
 					<span>{{createdAt}}</span>
 				</div>
 				<div class="section-spacer"></div>
+
 				<div>
 					<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
 						<i class="material-icons">share</i>
@@ -28,9 +35,7 @@
 					<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
 						<i class="material-icons">fingerprint</i>
 					</button>
-					<div class="mdl-tooltip" data-mdl-for="sign-proposal">
-						{{_ "pages.proposals.view.signature-tooltip"}}
-					</div>
+					
 
 				</div>
 				<div class="signature-count">
@@ -114,16 +119,12 @@
 			</div>
 			<div class="voting-content">
 				{{#if isVotingAsDelegate}}
-				{{#if isVotableForDelegates}}
-				{{> delegateVoteButtons proposalId=_id}}
+					{{> delegateVoteButtons proposalId=_id endDate=endDate}}
 				{{else}}
-				<small>{{_"pages.proposals.view.delegateVotingClosed"}}</small>
+					<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
+					{{> voteButtons proposalId=_id}}
+					{{> delegateVoteList proposalId=_id}}
 				{{/if}}
-				{{else}}
-				<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
-				{{> voteButtons proposalId=_id}}
-				{{/if}}
-				{{> delegateVoteList proposalId=_id}}
 			</div>
 			{{else}}
 			<center>
@@ -136,23 +137,25 @@
 		</div>
 
 		<!-- Commenting -->
-		<div class="proposal-wrap">
-			<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-				<div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments">
-					{{#if isInvited }}
-					{{> CommentForm}}
-					{{/if}}
-					{{#if Template.subscriptionsReady}}
-					{{#each comments}}
-					{{> Comment}}
-					{{/each}}
+		{{#if showComments}}
+			<div class="proposal-wrap">
+				<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+					<div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments">
+						{{#if isInvited }}
+						{{> CommentForm}}
+						{{/if}}
+						{{#if Template.subscriptionsReady}}
+						{{#each comments}}
+						{{> Comment}}
+						{{/each}}
 
-					{{else}}
-					{{> loader}}
-					{{/if}}
+						{{else}}
+						{{> loader}}
+						{{/if}}
+					</div>
 				</div>
 			</div>
-		</div>
+		{{/if}}
 
 		{{else}}
 		<h3>{{_ "pages.proposals.view.proposalUnvailable"}}</h3>

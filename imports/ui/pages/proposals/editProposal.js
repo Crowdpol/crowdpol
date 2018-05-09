@@ -15,6 +15,7 @@ Template.EditProposal.onCreated(function(){
 	Session.set('invited',[]);
 	Session.set('invitedUsers',null);
 	Session.set('emailInvites',[]);
+	Session.set('setupTaggle', true);
 
 	var dict = new ReactiveDict();
 	this.templateDictionary = dict;
@@ -54,13 +55,20 @@ Template.EditProposal.onRendered(function(){
 		// Wait for whole form to render before initialising fields
 		if (Session.get("formRendered")) {
 			validateForm();
+
+			if (Session.get('setupTaggle')) {
+				//Set up Taggle
+				taggle = setupTaggle();
+				self.taggle = new ReactiveVar(taggle);
+				//Set up existing tags
+				var tags = self.templateDictionary.get('tags');
+				if (tags) { 
+					var keywords = _.map(tags, function(tag){ return tag.keyword; })
+					self.taggle.get().add(keywords); 
+				}
+				Session.set('setupTaggle', false);
+			}
 			
-			//Set up Taggle
-			var taggle = setupTaggle();
-			self.taggle = new ReactiveVar(taggle);
-			//Set up existing tags
-			var tags = self.templateDictionary.get('tags');
-			if (tags) { self.taggle.get().add(_.map(proposal.tags, function(tag){ return tag.keyword; })); }
 			
 			//Initialise date fields
 			self.find('#startDate').value = self.templateDictionary.get('startDate');
@@ -68,10 +76,6 @@ Template.EditProposal.onRendered(function(){
 			Session.set("formRendered", false)
 		} 
 	});
-
-	
-	
-	
 
 });
 
@@ -191,7 +195,7 @@ Template.ProposalForm.events({
 			pointsFor.push(point);
 			instance.pointsFor.set(pointsFor);
 			template.find(`#inputPointFor-${lang}`).value = "";
-			$("#pointsForWrap").removeClass("is-dirty");
+			template.find("#pointsForWrap").MaterialTextfield.change()
 		}
 	},
 	'click .add-point-against': function(event, template){
@@ -208,7 +212,7 @@ Template.ProposalForm.events({
 			pointsAgainst.push(point);
 			instance.pointsAgainst.set(pointsAgainst);
 			template.find(`#inputPointAgainst-${lang}`).value = "";
-			$("#pointsAgainstWrap").removeClass("is-dirty");
+			template.find("#pointsAgainstWrap").MaterialTextfield.change()
 		}
 	},
 	'click #remove-point-for': function(event, template){

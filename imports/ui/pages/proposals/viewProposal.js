@@ -13,7 +13,9 @@ Template.ViewProposal.onCreated(function(language){
 
   proposalId = FlowRouter.getParam("id");
   self.autorun(function() {
-    self.subscribe('comments', proposalId);
+    self.subscribe('comments', proposalId, function(error){
+      dict.set('commentCount',Comments.find({proposalId: proposalId}).count());
+    });
     self.subscribe('users.community', communityId);
     self.subscribe('proposals.one', proposalId, function(error){
       if (error){
@@ -182,21 +184,18 @@ Template.ViewProposal.helpers({
   tags: function() {
     return Template.instance().templateDictionary.get( 'tags' );
   },
+  showComments(){
+    var commentCount = Template.instance().templateDictionary.get( 'commentCount' );
+    if(commentCount>0 || userIsInvited()){
+      return true;
+    }
+    return false;
+  },
   isInvited: function() {
     return userIsInvited();
   },
   isVotingAsDelegate: function(){
     return (LocalStore.get('currentUserRole') == 'Delegate');
-  },
-  isVotableForDelegates: function() {
-    var startDate = moment(Template.instance().templateDictionary.get( 'startDate' ));
-    var endDate = moment(Template.instance().templateDictionary.get( 'endDate' ));
-    var now = moment();
-    if (endDate.subtract(2,'weeks').isAfter(now) && startDate.isBefore(now)){
-      return true;
-    } else {
-      return false;
-    }
   },
   isAuthor: function() {
     return userIsAuthor();

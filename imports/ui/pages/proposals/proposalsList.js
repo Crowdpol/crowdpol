@@ -152,6 +152,11 @@ Template.ProposalCard.helpers({
       return 0;
     }
   },
+  hasVotes: function(proposalId) {
+    if (Votes.find({proposalId: proposalId}).count() > 0) {
+      return true;
+    }
+  },
   isDraft: function(proposal) {
     return proposal.stage == 'draft';
   }

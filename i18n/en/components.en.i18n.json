@@ -4,7 +4,8 @@
 			"instructions-1": "Please note that you are voting as a delegate. Your vote wil be public.",
 			"instructions-2": "To switch to voting as an individual, click the 'Roles' menu.",
 			"reason-message": "Give a brief (optional) reason for your choice. This will be visible to your supporters.",
-			"finished": "Finished"
+			"finished": "Finished",
+			"delegateVotingClosed": "Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date."
 		},
 		"taggle": {
 			"placeholder": "Add some tags..."
