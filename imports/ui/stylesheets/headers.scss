@@ -1,6 +1,18 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
 
+/* Make header sticky on desktop, but not on mobile */
+.mdl-layout__container .mdl-layout--fixed-header .mdl-layout__content {
+    overflow-y: visible;
+    overflow-x: visible;
+    overflow: visible;
+  @include breakpoint($tablet) {
+    overflow-y: inherit;
+    overflow-x: inherit;
+    overflow: inherit;
+  }
+}
+
 .logged-in-header {
   background-color: $white;
 
