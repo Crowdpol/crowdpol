@@ -111,11 +111,11 @@ if (Meteor.isServer) {
       it("Toggles user role", (done) => {
         try {
           // Add a role
-          Meteor.call('toggleRole', userId, 'delegate', true);
+          Meteor.call('toggleRole', 'delegate', true);
           var user = Meteor.call('getUser', userId);
           expect(user.roles).to.include('delegate'); 
           // Remove a role
-          Meteor.call('toggleRole', userId, 'delegate', false);
+          Meteor.call('toggleRole', 'delegate', false);
           var user = Meteor.call('getUser', userId);
           expect(user.roles).to.not.include('delegate');     
           done();

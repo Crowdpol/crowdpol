@@ -335,6 +335,7 @@
 				"profile-private": "Profile is now private.",
 				"profile-public": "Profile is now public.",
 				"profile-delegate-removed" : "Delegate Role removed.",
+				"profile-stop-delegate": "Are you sure you want to stop being a delegate? Users will no longer be able to delegate their votes to you.",
 				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
 				"profile-candidate-removed" : "Candidate Role removed.",
 				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",

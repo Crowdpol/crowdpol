@@ -141,15 +141,16 @@ Template.ProfileForm.events({
 
   },
   'click #profile-delegate-switch' (event, template) {
+    event.preventDefault();
     // Check if person already is a delegate, if so remove role
     if (isInRole('delegate')) {
-      if (window.confirm('Are you sure you want to stop being a delegate?')){
-        Meteor.call('toggleRole', Meteor.userId(), 'delegate', false, function(error) {
+      if (window.confirm(TAPi18n.__('pages.profile.alerts.profile-stop-delegate'))){
+        Meteor.call('toggleRole', 'delegate', false, function(error) {
           if (error) {
             RavenClient.captureException(error);
             Bert.alert(error.reason, 'danger');
           } else {
-            var msg = TAPi18n.__('pages.profile.alerts.profile-msg-delegate-removed');
+            var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-removed');
             Bert.alert(msg, 'success');
           }
         });

@@ -1,6 +1,7 @@
 import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { Ranks } from '../ranking/Ranks.js'
+import { Notifications } from '../notifications/Notifications.js'
 
 Meteor.methods({
 
@@ -144,20 +145,47 @@ Meteor.methods({
       }
       
     },
-    toggleRole: function (userID,role,state) {
-      check(userID, String);
+    toggleRole: function (role,state) {
       check(role, String);
       check(state, Boolean);
+      var delegate = Meteor.user();
+      var delegateId = Meteor.userId();
       if(state){
         if ((role == 'delegate' || role == 'candidate')){
-          if (Meteor.user().isPublic){
-            Roles.addUsersToRoles(Meteor.userId(), role);
+          if (delegate.isPublic){
+            Roles.addUsersToRoles(delegateId, role);
           }
         } else {
-          Roles.addUsersToRoles(Meteor.userId(), role);
+          Roles.addUsersToRoles(delegateId, role);
         }
       }else{
-        Roles.removeUsersFromRoles(Meteor.userId(), role);
+        // Remove user from role
+        Roles.removeUsersFromRoles(delegateId, role);
+        //Create notifications for each supporter
+        if (role == 'delegate'){
+          var delegateName = delegate.profile.firstName + delegate.profile.lastName;
+          var supporterIds = Ranks.find({entityId: delegateId}).pluck('supporterId');
+          // Create notifications
+          var notifications = []
+          if (supporterIds){
+            _.each(supporterIds, function(id){
+              var notification = 
+              notifications.push({
+                message: TAPi18n.__('notifications.users.delegate-deselect', delegateName), 
+                userId: id, 
+                url: '/delegate', 
+                icon: 'warning',
+                read: false,
+                createdAt: new Date()
+              })
+            });
+            // Batch insert notifications
+            Notifications.batchInsert(notifications);
+          }
+          
+          // Remove delegate from user rankings
+          Ranks.remove({entityId: delegateId});
+        }
       }
     },
     getRequests(){

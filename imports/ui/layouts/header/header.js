@@ -15,7 +15,7 @@ Template.Header.onCreated(function(){
   if (user && user.roles){
     var currentRole = LocalStore.get('currentUserRole');
     if (!currentRole){
-      LocalStore.set('currentUserRole', Meteor.user().roles[0]);
+      LocalStore.set('currentUserRole', 'individual');
     }
   }
   self.availableTags = new ReactiveVar([]);
