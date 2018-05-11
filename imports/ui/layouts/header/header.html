@@ -4,7 +4,6 @@
 	<header class="{{#if currentUser}}logged-in-header{{else}}logged-out-header{{/if}} mdl-layout__header">
 		<div class="header-inner mdl-layout__header-row">
 			{{#if currentUser}}
-				{{showHamburger}}
 				<a href="/dash" class="header-link-signed-in">
 				<span class="mdl-layout-title">
 					<!-- This should be the page title -->
@@ -14,7 +13,8 @@
 				</span>
 				</a>
 			{{else}}
-				{{hideHamburger}}
+
+				<!--{{hideHamburger}}{{showHamburger}}-->
 				<a href="/"><!--
 					<i class="material-icons">add</i>
 					<h5>-->
@@ -138,7 +138,7 @@
 					{{/if}}
 				</nav>
 			{{else}}
-				<nav class="mdl-navigation">
+				<nav class="mdl-navigation" id="logged-out-nav">
 					<a class="mdl-navigation__link" href="/about">{{_ "layout.header.nav_about"}}</a>
 					<a class="mdl-navigation__link" href="/contact">{{_ "layout.header.nav_contact"}}</a>
 					{{#unless currentUser}}

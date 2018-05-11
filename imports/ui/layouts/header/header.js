@@ -43,10 +43,10 @@ Template.Header.helpers({
     return Template.instance().community.get().name;
   },
   hideHamburger() {
-    $(".mdl-layout__drawer-button").hide();
+    //$(".mdl-layout__drawer-button").hide();
   },
   showHamburger() {
-    $(".mdl-layout__drawer-button").show();
+    //$(".mdl-layout__drawer-button").show();
   },
   lang() {
     var str = Session.get("i18n_lang")

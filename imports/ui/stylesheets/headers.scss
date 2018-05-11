@@ -125,8 +125,22 @@
 .logged-out-header {
   display: block;
   background-color: $white;
-  .mdl-layout__drawer-button {
-    display: none;
+  @media only screen and (max-width: 600px) {
+    
+    .header-inner {
+      nav {
+        display: none;
+      }
+    }
+    .mdl-layout-title{
+      text-indent: 50px;
+    }
+    
+  }
+  @media only screen and (min-width: 601px) {
+    .mdl-layout__drawer-button {
+      display: none;
+    }
   }
   .header-inner {
     padding: 0 $space / 2;
