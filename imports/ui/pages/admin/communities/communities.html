@@ -24,9 +24,9 @@
 						<tbody>
 								{{#each communities}}
 								<tr>
-										<td class="mdl-data-table__cell--non-numeric">{{name}}</td>
-										<td class="mdl-data-table__cell--non-numeric">{{subdomain}}</td>
-										<td class="mdl-data-table__cell--non-numeric">{{userCount _id}}</td>
+										<td data-label='{{_"admin.communities.name"}}' class="mdl-data-table__cell--non-numeric">{{name}}</td>
+										<td data-label='{{_"admin.communities.subdomain"}}' class="mdl-data-table__cell--non-numeric">{{subdomain}}</td>
+										<td data-label='{{_"admin.communities.user-count"}}' class="mdl-data-table__cell--non-numeric">{{userCount _id}}</td>
 								</tr>
 								{{/each}}
 						</tbody>
