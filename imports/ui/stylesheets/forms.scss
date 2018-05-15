@@ -99,7 +99,9 @@
     }
 }
 
-
+.input-wrap.is-invalid{
+  overflow: visible;
+}
 
 @media screen and (max-width: 600px) {
   .search-wrapper {
