@@ -24,7 +24,7 @@ Accounts.emailTemplates.resetPassword = {
         token = url.substring(url.lastIndexOf('/')+1, url.length);
         newUrl = Meteor.absoluteUrl() + 'reset/' + token;
         supportEmail   = Meteor.settings.private.fromEmail,
-        emailBody      = TAPi18n.__('emails.reset-password.body', {url: urlWithoutHash, supportEmail: supportEmail});
+        emailBody      = TAPi18n.__('emails.reset-password.body', {url: newUrl, supportEmail: supportEmail});
 
     return emailBody;
   }
