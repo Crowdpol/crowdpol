@@ -3,12 +3,14 @@
 		<!-- Drawer Content -->
 		{{#if currentUser}}
 			<div class="side-nav-header">
-				<img src="{{currentUser.profile.photo}}">
-				{{#if currentUser.profile.firstname}}
-					<h6>{{currentUser.profile.firstname}} {{currentUser.profile.lastname}}</h6>
-				{{else}}
-					<h6>{{currentUser.profile.username}}</h6>
-				{{/if}}
+				<a href="/profile">
+					<img src="{{currentUser.profile.photo}}">
+					{{#if currentUser.profile.firstname}}
+						<h6>{{currentUser.profile.firstname}} {{currentUser.profile.lastname}}</h6>
+					{{else}}
+						<h6>{{currentUser.profile.username}}</h6>
+					{{/if}}
+				</a>
 			</div>
 		{{/if}}
 		<nav class="side-nav-link-wrap mdl-navigation">
