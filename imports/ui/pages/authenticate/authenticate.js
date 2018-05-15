@@ -1,6 +1,7 @@
 import './authenticate.html';
 import './signup/signup.js';
 import './login/login.js';
+import "../../components/termsModal/termsModal.js"
 import RavenClient from 'raven-js';
 
 Template.Authenticate.events({

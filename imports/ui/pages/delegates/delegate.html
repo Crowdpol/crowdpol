@@ -1,7 +1,8 @@
 <template name="Delegate">
 	{{#if currentUser}}
-	{{> backButton text="generic.back-to-proposals" url="/dash"}}
-	<div class="app-container">
+		<!--{{> backButton text="generic.back-to-proposals" url="/dash"}}-->
+	<div class="app-container search-container">
+		
 		<h3>{{_ "pages.delegates.heading"}}</h3>
 
 	<small>{{_ "pages.delegates.instructions-1"}}</small>
@@ -11,15 +12,16 @@
 	<br/>
 	<br/>
 	<small>{{_ "pages.delegates.instructions-3"}}</small>
+	<div class="search-wrapper">
+				<form>
+				<label>
+					<i class="material-icons search-icon">search</i>
+				</label>
 
-	<div class="search-input input-wrap mdl-textfield mdl-js-textfield">
-			<label class="mdl-button mdl-js-button mdl-button--icon" for="sample1">
-				<i class="material-icons">search</i>
-			</label>
-			<input class="mdl-textfield__input" type="text"  id="delegate-search">
-			<label class="mdl-textfield__label" for="sample1"></label>
-	</div>
-
+				<input type="text" name="focus" required class="search-box" placeholder='{{_ "pages.delegates.search"}}' id="delegate-search"/>
+				<button class="close-icon" type="reset"></button>
+				</form>
+			</div>
 	<ul id="sortable" class="delegate-list demo-list-control mdl-list" >
 		{{#if Template.subscriptionsReady}}
 			{{#each ranks}}

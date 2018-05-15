@@ -67,7 +67,7 @@
 			},
 			"links": {
 				"login": "Already have an account? Log in",
-				"register": "Don't have an account? Register",
+				"register": "Don't have an account? Sign up",
 				"forgot": "Forgot your password?"
 			},
 			"individual": {
@@ -103,6 +103,7 @@
 			}
 		},
 		"signup":{
+			"accept-terms": "You must accept the terms of use.",
 			"tab": {
 				"individual": "Individuals",
 				"entities": "Organisations/Political Parties"
@@ -176,6 +177,7 @@
 		},
 		"delegates": {
 			"heading": "Delegates",
+			"search": "Search for Delegates",
 			"instructions-1": "Below is a list of users to whom you may delegate your vote.",
 			"instructions-2": "If you do not vote on a proposal, your vote will automatically go to your highest-ranking delegate who voted. However, you can override your delegate's vote at any time.",
 			"instructions-3": "You can select up to five delegates. You can reorder your list of chosen delegates by dragging and dropping them into place once you have selected them.",
@@ -193,6 +195,7 @@
 		},
 		"proposals": {
 			"list": {
+				"search": "Search for keywords in proposals",
 				"deletedMessage": "Your proposal has been deleted.",
 				"confirmDelete": "Are you sure you want to permanently delete this proposal?",
 				"tabs":{

@@ -157,12 +157,7 @@ Schema.UserProfile = new SimpleSchema({
     },
     termsAccepted: {
         type: Boolean,
-        optional: false,
-        autoValue() {
-          if (this.isInsert) {
-            return false;
-          }
-        },
+        optional: false
     }
     /*
     birthday: {
