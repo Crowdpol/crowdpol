@@ -75,3 +75,8 @@
 .side-nav-header > a{
     text-decoration: none;
 }
+
+#public-profile-chip {
+    display: inline-flex;
+    margin-left: 10px;
+}
