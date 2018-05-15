@@ -117,6 +117,8 @@ Template.ProposalCard.helpers({
     return Session.get("canVote");
   },
   proposalStatus: function(proposal) {
+    //console.log(proposal);
+    return proposal.stage;;
     // If looking at public proposals, show open/closed
     if (Session.get('allProposals')){
       if (new Date(proposal.endDate) > new Date()){
@@ -129,6 +131,7 @@ Template.ProposalCard.helpers({
       var stage = proposal.stage;
       return stage.charAt(0).toUpperCase() + stage.slice(1);
     }
+
   },
   userIsAuthor: function(proposalId) {
     var proposal = Proposals.findOne(proposalId);

@@ -65,3 +65,18 @@
     display: inline;
   }
 }
+
+.mdl-chip.square-chip{
+  background-color: $light-grey-xdark; 
+  border-radius: 5px;
+  text-align: center;
+  width: 80px;
+  height: 25px;
+  line-height: 22px;
+  padding: 0px;
+  margin: 0px;
+
+  .mdl-chip__text {
+    line-height: 1.2rem;
+  } 
+}

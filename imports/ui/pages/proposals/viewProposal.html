@@ -24,8 +24,9 @@
 					<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
 					<span>{{createdAt}}</span>
 				</div>
-				<div class="section-spacer"></div>
 
+				<div class="section-spacer"></div>
+				
 				<div>
 					<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
 						<i class="material-icons">share</i>
@@ -35,13 +36,12 @@
 					<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
 						<i class="material-icons">fingerprint</i>
 					</button>
-					
-
 				</div>
 				<div class="signature-count">
 					{{ signatureCount }}
 				</div>
 			</div>
+			<span class="status-chip">{{status}}</span>
 			{{#if selectedInvites.count}}
 			<div>
 				<span id="collab-text">

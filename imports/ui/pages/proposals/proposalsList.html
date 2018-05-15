@@ -119,9 +119,10 @@
 						  <i class="material-icons delete-proposal-icon" data-proposal-id="{{_id}}">delete</i>
 						</button>
 					{{/if}}
+					
 				</h6>
-				
 			</span> 
+
 			<span class="mdl-list__item-secondary-action">
 				{{#if isDraft this}}
 					<small class="proposal-date">
@@ -135,6 +136,9 @@
 			</span>
 		</div>
 		<div class="card-secondary-wrap">
+			<span class="status-chip">
+				 {{proposalStatus this}}
+			</span>
 			<p class="proposal-abstract">{{ abstract this}}</p>
 		</div>
 
