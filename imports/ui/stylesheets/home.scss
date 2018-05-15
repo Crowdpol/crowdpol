@@ -7,6 +7,15 @@
   background-size: cover;
   border-bottom: ($space / 2) solid;
 
+  #get-started{
+    background-color: $blue;
+    color: $yellow;font-size: 20px;
+    height: 56px;
+    min-width: 150px;
+    font-weight: 800;
+    padding: 20px 30px 0px 30px;
+  }
+
    @include breakpoint($laptop) {
      padding: $space * 2;
    }
@@ -28,11 +37,12 @@
 
   p {
     color: $white;
-    max-width: 20rem;
+    //max-width: 20rem;
     margin-bottom: $space * 2;
     font-style: italic;
     letter-spacing: 1px;
   }
+
 }
 
 .hero-item-wrap {

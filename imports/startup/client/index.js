@@ -22,4 +22,13 @@ Meteor.startup(function () {
 
   var sentryDSN = Meteor.settings.public.sentryPublicDSN;
   RavenClient.config(sentryDSN).install();
+  Bert.defaults = {
+      hideDelay: 3500,
+      // Accepts: a number in milliseconds.
+      style: 'fixed-top',
+      // Accepts: fixed-top, fixed-bottom, growl-top-left,   growl-top-right,
+      // growl-bottom-left, growl-bottom-right.
+      //type: 'default'
+      // Accepts: default, success, info, warning, danger.
+  };
 });
