@@ -342,7 +342,9 @@
 				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
 				"profile-candidate-removed" : "Candidate Role removed.",
 				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
-				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete."
+				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete.",
+				"password-incorrect": "Your existing password was incorrect, please try again",
+				"password-reset": "Your password was successfully reset"
 			},
 			"tooltips": {
 				"delegateSwitch": "Apply to be a delegate. This will allow other users to let you vote on their behalf.",
@@ -365,7 +367,8 @@
 			"new-password": "New password",
 			"confirm-password": "Confirm password",
 			"reset": "Reset",
-			"password-mismatch": "Passwords do not match"
+			"password-mismatch": "Passwords do not match",
+			"password-reset": "Password success reset"
 		},
 		"routes": {
 			"alerts": {

@@ -171,27 +171,8 @@ Template.ProfileForm.events({
        $( "#profile-status-link" ).html('<i class="material-icons">expand_less</i>');
     }
     Session.set('showCompleteStatus',!Session.get('showCompleteStatus'));
-  },
-  'keyup #confirm-password, #new-password' (event,template){
-    checkPasswordsMatch(template);
-  },
-  'blur #new-password, #confirm-password' (event,template){
-    checkPasswordsMatch(template);
-  },
-  'click .toggle-password'(event,template) {
-    var element= event.currentTarget;
-    var elementId = "#" + element.id;
-    console.log(elementId);
-    $(elementId).toggleClass("fa-eye fa-eye-slash");
-    var input = element.getAttribute('toggle');
-    console.log("Before: " + $(input).attr("type"));
-    if ($(input).attr("type") == "password") {
-      $(input).attr("type", "text");
-    } else {
-      $(input).attr("type", "password");
-    }
-    console.log("After: " + $(input).attr("type"));
   }
+  
 });
 
 Template.ProfileForm.onRendered(function() {
@@ -602,15 +583,3 @@ function validateUrl(url){
   return regExp.test(url);
 }
 
-function checkPasswordsMatch(template){
-  var newPassword = template.find('[name="new-password"]');
-  var confirmPassword = template.find('[name="confirm-password"]');
-  if (newPassword.value != confirmPassword.value) {
-    console.log("passwords don't match");
-    $("#confirm-wrap").addClass("is-invalid")
-  } else {
-    // input is valid -- reset the error message
-    console.log("passwords match");
-    $("#confirm-wrap").removeClass("is-invalid")
-  }
-}

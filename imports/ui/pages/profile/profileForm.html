@@ -1,5 +1,5 @@
 <template name="ProfileForm">
-	<form id="profile-form" class="profile">
+	<form id="profile-form" class="profile" name="profile-form">
 		<div class="mdl-grid profile-grid ">
 			<div class="mdl-cell mdl-cell--12-col">
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -126,32 +126,7 @@
 				-->
 			</div>
 	</form>
-	<div class="mdl-grid profile-grid">
-		<div class="mdl-cell mdl-cell--12-col">
-			<h5>{{_ "pages.profile.password-reset"}}</h5>
-			<form id="password-reset-form" class="login">
-		    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		      <label class="mdl-textfield__label" for="old-password">{{_ "pages.profile.old-password"}}</label>
-		      <input type="password" name="old-password" id="old-password" class="mdl-textfield__input">
-		      <span toggle="#old-password" class="fa fa-fw fa-eye field-icon toggle-password" id="old-password-eye"></span>
-		    </div>
-		    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-		      <label class="mdl-textfield__label" for="new-password">{{_ "pages.profile.new-password"}}</label>
-		      <input type="password" name="new-password" id="new-password" class="mdl-textfield__input">
-		      <span toggle="#new-password" class="fa fa-fw fa-eye field-icon toggle-password" id="new-password-eye"></span>
-		    </div>
-		    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="confirm-wrap">
-		      <label class="mdl-textfield__label" for="confirm-password">{{_ "pages.profile.confirm-password"}}</label>
-		      <input type="password" name="confirm-password" id="confirm-password" class="mdl-textfield__input">
-		      <span toggle="#confirm-password" class="fa fa-fw fa-eye field-icon toggle-password" id="confirm-password-eye"></span>
-		      <span class="mdl-textfield__error" id="password-match-error">{{_ "pages.profile.password-mismatch"}}</span>
-		    </div>	
-		    <div class="form-group">
-		      <input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" style="float:right" value='{{_ "pages.profile.reset"}}'>
-		    </div>
-		  </form>
-		</div>
-	</div>
+	{{> ResetPassword}}
 			<!-- Helper list: Don't delete, useful for testing 
 			isEntity: |{{isEntity}}|<br>
 			profilePic: |{{profilePic}}|<br>
@@ -165,3 +140,4 @@
 			isCandidate: |{{isCandidate}}|<br>
 			-->
 </template>
+
