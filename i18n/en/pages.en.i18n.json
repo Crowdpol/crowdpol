@@ -103,6 +103,7 @@
 			}
 		},
 		"signup":{
+			"accept-terms": "You must accept the terms of use.",
 			"tab": {
 				"individual": "Individuals",
 				"entities": "Organisations/Political Parties"
