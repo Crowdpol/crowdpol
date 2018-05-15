@@ -50,6 +50,11 @@ Template.contact.events({
 			} else {
 				template.find('#contact-form').reset();
 				Bert.alert(TAPi18n.__('pages.contact.alerts.contact-message-sent'), 'success');
+        //Go through mdl inputs and check if dirty
+        var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
+        for (var i = 0, l = mdlInputs.length; i < l; i++) {
+          mdlInputs[i].MaterialTextfield.checkDirty();
+        } 
 			}
 		});
 	}
