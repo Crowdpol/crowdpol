@@ -180,6 +180,7 @@
 		},
 		"delegates": {
 			"heading": "Delegater",
+			"search": "TODO: Search for Delegates",
 			"instructions-1": "Här finner du alla individer, organisationer och partier om du i dagsläget kan delegera din röst till.",
 			"instructions-2": "En delegat är en slags representant som kommer att rösta åt dig i de frågor där du själv inte aktivt går in och röstar. Exempelvis för att du inte har tid att sätta dig in i frågan eller helt enkelt för att du litar mer på din delegats omdöme än dit eget i ett eller flera områden. I praktiken kommer din delegats röst dock aldrig vara mer än en rekommendation eftersom du närsomhelst kan gå in och rösta efter eget huvud. Din aktiva röst räknas med andra ord före din delegats röst. Ändrar du inte på din delegats röst kommer den dock att räknas som din egen.",
 			"instructions-3": "Du kan för närvarande endast välja upp till fem delegater. Dessa delegater behöver du sedan rangorda. Det gör du genom att dra och släppa dem i den ordning du föredrar. Den deleagt du placerat högst kommer att räknas först. Har den delegaten inte gjort ett val i en fråga går rösten vidare till nästa delegat i ordningen och så vidare. Du kommer dock kunna se hur samtliga dina delegater har röstat under varje fråga.",
@@ -197,6 +198,7 @@
 		},
 		"proposals": {
 			"list": {
+				"search": "TODO: Search for keywords in proposals",
 				"deletedMessage": "Din motion har raderats.",
 				"confirmDelete": "Är du säker på att du vill radera denna motion? Du kan inte ändra dig efteråt.",
 				"tabs":{
