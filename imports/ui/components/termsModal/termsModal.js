@@ -6,14 +6,9 @@ Template.TermsModal.events({
   },
   'click #accept-button' (event, template){
     event.preventDefault();
-    Meteor.call('acceptTerms', function(error) {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        document.querySelector('#terms-checkbox-label').MaterialCheckbox.check();
-        closeTermsModal();
-      }
-    })
+    document.querySelector('#terms-checkbox-label').MaterialCheckbox.check();
+    Session.set('termsAccepted', true);
+    closeTermsModal();
   }
 });
 

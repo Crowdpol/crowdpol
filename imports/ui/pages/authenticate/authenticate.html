@@ -10,6 +10,7 @@
 	</div>
 	<!-- NO: Show login or Signup -->
 	{{else}}
+		{{> TermsModal }}
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 			<!-- Tab Bars -->
 			<div class="mdl-tabs__tab-bar">
@@ -44,7 +45,6 @@
 		</div>
 
 	{{/if}}
-	<a href="/reset-password" class="password-link center">{{_ "pages.authenticate.links.forgot"}}</a>
 </template>
 
 <!-- Login buttons for Social Media OAuth -->

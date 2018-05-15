@@ -107,6 +107,7 @@
 			}
 		},
 		"signup":{
+			"accept-terms": "TODO You must accept the terms of use.",
 			"tab": {
 				"individual": "Individ",
 				"entities": "Organisation/Politiskt Parti"

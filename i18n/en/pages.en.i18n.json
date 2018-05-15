@@ -67,7 +67,7 @@
 			},
 			"links": {
 				"login": "Already have an account? Log in",
-				"register": "Don't have an account? Register",
+				"register": "Don't have an account? Sign up",
 				"forgot": "Forgot your password?"
 			},
 			"individual": {
@@ -103,6 +103,7 @@
 			}
 		},
 		"signup":{
+			"accept-terms": "You must accept the terms of use.",
 			"tab": {
 				"individual": "Individuals",
 				"entities": "Organisations/Political Parties"
