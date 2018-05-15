@@ -361,7 +361,15 @@
 			"interests": "intressen",
 			"public-switch-description": "Gör din profil synlig för andra. Detta kräver en fullständig profil. En synlig profil krävs för den som vill bli delegat.",
 			"delegate-switch-description": "Genom att ställa upp som delegat blir det möjligt för andra som litar på dig att anförtro dig med deras röst.",
-			"bio-count": "__bioCount__ tecken (min 50, max 160)"
+			"bio-count": "__bioCount__ tecken (min 50, max 160)",
+			"photo-url": "TODO: Enter an image url",
+			"change-photo": "TODO: Change profile photo URL",
+			"password-reset": "TODO: Password reset",
+			"old-password" : "TODO: Old password",
+			"new-password": "TODO: New password",
+			"confirm-password": "TODO: Confirm password",
+			"reset": "TODO: Reset",
+			"password-mismatch": "TODO: Passwords do not match"
 		},
 		"routes": {
 			"alerts": {

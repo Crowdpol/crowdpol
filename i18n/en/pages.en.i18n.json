@@ -358,7 +358,14 @@
 			"public-switch-description": "Make your profile visible to others. Requires completed profile form. Required become a delegate.",
 			"delegate-switch-description": "By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
 			"bio-count": "__bioCount__ characters (min 50, max 160)",
-			"photo-url": "Enter an image url"
+			"photo-url": "Enter an image url",
+			"change-photo": "Change profile photo URL",
+			"password-reset": "Password reset",
+			"old-password" : "Old password",
+			"new-password": "New password",
+			"confirm-password": "Confirm password",
+			"reset": "Reset",
+			"password-mismatch": "Passwords do not match"
 		},
 		"routes": {
 			"alerts": {
