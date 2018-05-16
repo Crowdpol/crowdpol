@@ -125,7 +125,20 @@
 			"name": "TODO Name",
 			"subdomain": "TODO Subdomain",
 			"user-count": "TODO Number of Users",
-			"none": "TODO There are currently no communities."
+			"none": "TODO There are currently no communities.",
+			"colorScheme": {
+				"label": "TODO Color Scheme",
+				"greyscale": "TODO greyscale (black/white/grey)",
+				"default": "TODO default (blue/yellow)"
+			},
+			"homepageImageUrl": "TODO Homepage image URL",
+			"homepageBannerText": "TODO Homepage banner text",
+			"homepageIntroText": "TODO Homepage introduction text",
+			"aboutText": "TODO About text",
+			"languageSelector": "TODO Show language selector in header",
+			"defaultLanguage": "TODO Default language",
+			"emailWhitelist": "TODO Emails of allowed users, separated by commas.",
+			"enforceWhitelist": "TODO Enforce the current email whitelist."
 		}
 	}
 }

@@ -63,6 +63,8 @@ Template.AddNewCommunity.events({
 				aboutText: template.find("#aboutText").value,
 				defaultLanguage: template.find("#defaultLanguage").dataset.val,
 				languageSelector: template.find("#languageSelector").checked,
+				emailWhitelist: template.find("#emailWhitelist").value.split(','),
+				enforceWhitelist: template.find("#enforceWhitelist").checked,
 			}
 		}
 

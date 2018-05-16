@@ -136,7 +136,9 @@
 			"homepageIntroText": "Homepage introduction text",
 			"aboutText": "About text",
 			"languageSelector": "Show language selector in header",
-			"defaultLanguage": "Default language"
+			"defaultLanguage": "Default language",
+			"emailWhitelist": "Emails of allowed users, separated by commas.",
+			"enforceWhitelist": "Enforce the current email whitelist."
 		}
 	}
 }

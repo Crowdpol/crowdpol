@@ -1,11 +1,13 @@
 import './users.html';
 import RavenClient from 'raven-js';
+import { Communities } from '../../../../api/communities/Communities.js'
 
 Template.AdminUsers.onCreated(function() {
   var self = this;
-  var communityId = LocalStore.get('communityId');
+  communityId = LocalStore.get('communityId');
   self.autorun(function() {
     self.subscribe('users.community', communityId);
+    self.subscribe('community', communityId);
   });
 });
 
@@ -13,6 +15,9 @@ Template.AdminUsers.helpers({
   users: ()=> {
     return Meteor.users.find({});
   },
+  community: ()=> {
+  	return Communities.findOne({_id: communityId});
+  }
 });
 
 Template.AdminUsers.events({
