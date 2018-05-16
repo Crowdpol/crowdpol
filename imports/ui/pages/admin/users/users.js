@@ -17,7 +17,7 @@ Template.AdminUsers.helpers({
   },
   community: ()=> {
   	return Communities.findOne({_id: communityId});
-  }
+  },
 });
 
 Template.AdminUsers.events({
