@@ -57,7 +57,11 @@
 			"invite-role": "Användares Roll",
 			"approve-button": "Godkän",
 			"reject-button": "Avslå",
-			"invite-role": "Användares Roll"
+			"invite-role": "Användares Roll",
+			"whitelist-updated" : "TODO Whitelist updated.",
+			"community-whitelist": "TODO Community Whitelist",
+			"whitelist-description": "TODO If the whitelist is enforced, only users with email addresses in the whitelist will be able to create accounts for this community.",
+			"enforceWhitelist": "TODO Only let these users create accounts."
 		},
 		"proposals":{
 			"heading": "Motioner",

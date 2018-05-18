@@ -69,7 +69,7 @@ Template.AdminUsers.events({
 				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('Whitelist updated.', 'success');
+				Bert.alert(TAPi18n.__('admin.users.whitelist-updated'), 'success');
 			}
 		});
 	},

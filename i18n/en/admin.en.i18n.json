@@ -57,7 +57,12 @@
 			"invite-role": "User Role",
 			"approve-button": "Approve",
 			"reject-button": "Reject",
-			"invite-role": "User Role"
+			"invite-role": "User Role",
+			"whitelist-updated" : "TODO Whitelist updated.",
+			"community-whitelist": "Community Whitelist",
+			"whitelist-description": "If the whitelist is enforced, only users with email addresses in the whitelist will be able to create accounts for this community.",
+			"emailWhitelist": "Enter user emails, separated by commas.",
+			"enforceWhitelist": "Only let these users create accounts."
 		},
 		"proposals":{
 			"heading": "Proposals",
