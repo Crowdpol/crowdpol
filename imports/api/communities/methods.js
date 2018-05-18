@@ -18,13 +18,7 @@ Meteor.methods({
 
     updateEmailWhitelist: function(emails, communityId) {
       var community = Communities.findOne({_id: communityId});
-      var whitelist = community.settings.emailWhitelist;
-      if (whitelist) {
-        whitelist = _.union(whitelist, emails);
-      } else {
-        whitelist = emails;
-      }
-      return Communities.update({_id: communityId}, {$set: {'settings.emailWhitelist': whitelist}});
+      return Communities.update({_id: communityId}, {$set: {'settings.emailWhitelist': emails}});
     },
 
     updateEnforceWhitelist: function(enforce, communityId) {
