@@ -36,24 +36,22 @@
 		<small> If the whitelist is enforced, only users with email addresses in the whitelist will be able to create accounts for this community. </small>
 		<form id="community-whitelist-form">
 
-		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		<div id="whitelistInput" class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="emailWhitelist">Enter user emails, separated by commas.</label>
-			<input type="text" name="emailWhitelist" class="mdl-textfield__input">
+			<input type="text" id="emailWhitelist" class="mdl-textfield__input">
 		</div>
 		
 		<div class="form-group">
-			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="whitelist-checkbox" id="terms-checkbox-label">
+			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="whitelist-checkbox" id="whitelist-checkbox-label">
 				<input type="checkbox" id="whitelist-checkbox" class="mdl-checkbox__input" />
 			  	<span class="mdl-checkbox__label">Only let these users create accounts.</span>
 			</label>
 		</div>
 
 		<div class="form-group">
-			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "generic.submit"}}'>
+			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.submit"}}'>
 		</div>
 	</form>
-
-		{{community.settings.enforceWhitelist}}
 
 		<hr>
 

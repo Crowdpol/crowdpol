@@ -11,6 +11,26 @@ Template.AdminUsers.onCreated(function() {
   });
 });
 
+Template.AdminUsers.onRendered(function() {
+  var self = this;
+  
+  communityId = LocalStore.get('communityId');
+  var settings = Communities.findOne({_id: communityId}).settings;
+  var emails = settings.emailWhitelist;
+  if (emails) {
+  	self.find("#emailWhitelist").value = emails.join(',');
+  	self.find("#whitelistInput").MaterialTextfield.checkDirty()
+  }
+
+  var enforceWhitelist = settings.enforceWhitelist;
+
+  if (enforceWhitelist) {
+  	var checkbox = self.find('#whitelist-checkbox-label').MaterialCheckbox;
+  	checkbox.check();
+  }
+  	
+});
+
 Template.AdminUsers.helpers({
   users: ()=> {
     return Meteor.users.find({});
@@ -21,7 +41,7 @@ Template.AdminUsers.helpers({
 });
 
 Template.AdminUsers.events({
-	'submit form' (event, template){
+	'submit #invite' (event, template){
 		event.preventDefault();
 
 		let email = template.find("#invite-email").value;
@@ -37,6 +57,23 @@ Template.AdminUsers.events({
 			}
 		});
 	},
+
+	'submit #community-whitelist-form' (event, template){
+		event.preventDefault();
+
+		let emails = template.find("#emailWhitelist").value.split(',');
+			enforceWhitelist = $('#whitelist-checkbox-label').hasClass('is-checked');
+
+		Meteor.call('updateWhitelistSettings', emails, enforceWhitelist, communityId, function(error){
+			if (error){
+				RavenClient.captureException(error);
+				Bert.alert(error.reason, 'danger');
+			} else {
+				Bert.alert('Whitelist updated.', 'success');
+			}
+		});
+	},
+
 
 	'click #delete-button': function(event, template){
 		Meteor.call('deleteUser', event.target.dataset.userId);

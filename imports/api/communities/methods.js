@@ -20,17 +20,20 @@ Meteor.methods({
       var community = Communities.findOne({_id: communityId});
       var whitelist = community.settings.emailWhitelist;
       if (whitelist) {
-        whitelist = whitelist.concat(emails);
+        whitelist = _.union(whitelist, emails);
       } else {
         whitelist = emails;
       }
-
       return Communities.update({_id: communityId}, {$set: {'settings.emailWhitelist': whitelist}});
     },
 
-
     updateEnforceWhitelist: function(enforce, communityId) {
       return Communities.update({_id: communityId}, {$set: {'settings.enforceWhitelist': enforce}});
+    },
+
+    updateWhitelistSettings: function(emailWhitelist, enforceWhitelist, communityId) {
+      Meteor.call('updateEmailWhitelist', emailWhitelist, communityId);
+      Meteor.call('updateEnforceWhitelist', enforceWhitelist, communityId);
     }
 });
 
