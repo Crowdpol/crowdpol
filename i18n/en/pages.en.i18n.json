@@ -87,7 +87,7 @@
 					"title": "Login as Organisation/Party"
 				}
 			},
-			"new-passowrd":{
+			"new-password":{
 				"heading": "Enter new password",
 				"new-password": "New password",
 				"alerts": {

@@ -20,9 +20,9 @@ Template.recoverPassword.events({
     'submit #recover-password': function(event, template) {
         event.preventDefault()
         var email = template.find('[name="recovery-email"]').value;
-        Accounts.forgotPassword({
-            email: email
-        }, function(error) {
+        var rootUrl = window.location.host.split('/')[0];
+
+        Meteor.call('sendForgotPasswordEmail',email, rootUrl, function(error) {
             if (error) {
               RavenClient.captureException(error);
             	Bert.alert(error.reason, 'danger')

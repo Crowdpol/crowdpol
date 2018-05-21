@@ -91,7 +91,7 @@
 					"title": "Logga in som Organisation/Parti"
 				}
 			},
-			"new-passowrd":{
+			"new-password":{
 				"heading": "Skapa nytt lösenord",
 				"new-password": "Nytt lösenord",
 				"alerts": {
