@@ -372,7 +372,7 @@
 			"confirm-password": "TODO: Confirm password",
 			"reset": "TODO: Reset",
 			"password-mismatch": "TODO: Passwords do not match",
-			"password-reset": "Password success reset"
+			"password-reset": "Password successfully reset"
 		},
 		"routes": {
 			"alerts": {

@@ -368,7 +368,7 @@
 			"confirm-password": "Confirm password",
 			"reset": "Reset",
 			"password-mismatch": "Passwords do not match",
-			"password-reset": "Password success reset"
+			"password-reset": "Password successfully reset"
 		},
 		"routes": {
 			"alerts": {

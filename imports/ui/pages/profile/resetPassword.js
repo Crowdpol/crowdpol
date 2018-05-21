@@ -27,6 +27,10 @@ Template.ResetPassword.events({
          newPassword.value = '';
          oldPassword.value = '';
          confirmPassword.value = '';
+         var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
+          for (var i = 0, l = mdlInputs.length; i < l; i++) {
+            mdlInputs[i].MaterialTextfield.checkDirty();
+          }
 			}
 		});
   },
