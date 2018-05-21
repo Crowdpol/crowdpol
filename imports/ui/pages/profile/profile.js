@@ -1,5 +1,6 @@
 import "./profileImage.js"
 import "./profileForm.js"
+import "./resetPassword"
 import "./profile.html"
 import "./profile.css"
 

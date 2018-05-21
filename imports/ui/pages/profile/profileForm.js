@@ -172,6 +172,7 @@ Template.ProfileForm.events({
     }
     Session.set('showCompleteStatus',!Session.get('showCompleteStatus'));
   }
+  
 });
 
 Template.ProfileForm.onRendered(function() {
@@ -581,3 +582,4 @@ function validateUrl(url){
   var regExp = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
   return regExp.test(url);
 }
+
