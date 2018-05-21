@@ -45,6 +45,18 @@ Template.ProposalsList.helpers({
   },
   authorSelected: function(){
     return Template.instance().authorProposals.get();
+  },
+  votesTabActive: function(){
+    if(Session.get("proposalTab")=='vote-proposals-tab'){
+      return true;
+    }
+    return false;
+  },
+  myTabActive: function(){
+    if(Session.get("proposalTab")=='my-proposals-tab'){
+      return true;
+    }
+    return false;
   }
 });
 
@@ -73,6 +85,11 @@ Template.ProposalsList.events({
     Session.set("myProposals",false);
     Session.set("allProposals",true);
   },
+  'click .mdl-tabs__tab': function(event,template){ 
+    if(event.currentTarget.id!='create-proposal-tab'){
+      Session.set("proposalTab",event.currentTarget.id);
+    }
+  }
 });
 
 function transformProposal(proposal) { 
