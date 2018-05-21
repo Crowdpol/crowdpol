@@ -47,6 +47,10 @@
   background-color: $light-grey;
 }
 
+.mdl-textfield__label{
+    color: rgba(0, 0, 0, 0.54)
+  }
+
 // Headers -------------------------------------------------
 
 .logged-in-header {
@@ -63,6 +67,8 @@
   .mdl-textfield__input{
     color: $grey;
   }
+
+
 
   // Autocomplete
 

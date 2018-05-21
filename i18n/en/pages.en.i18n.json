@@ -20,7 +20,8 @@
 			"alerts": {
 				"mailing-list-signup-success": "Thank you. You have been added to the mailing list.",
 				"no-image": "The image for your community could not be loaded."
-			}
+			},
+			"get-started": "Let's get started"
 		},
 		"about": {
 			"heading": "What’s all this about then?",
