@@ -159,6 +159,9 @@ Template.Header.events({
   },
   'click #mark-as-read': function(event, template) {
     Meteor.call('markAllAsRead', Meteor.userId());
+  },
+  'click .mdl-layout__obfuscator-right': function(event, template) {
+    $('#notifications-menu').removeClass('active'); 
   }
 
 });
