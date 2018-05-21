@@ -109,6 +109,7 @@
 		},
 		"signup":{
 			"accept-terms": "TODO You must accept the terms of use.",
+			"not-in-whitelist" : "TODO Only whitelisted users can sign up for this community.",
 			"tab": {
 				"individual": "Individ",
 				"entities": "Organisation/Politiskt Parti"

@@ -120,6 +120,18 @@
 			<span class="mdl-checkbox__label">{{_"admin.communities.languageSelector"}}</span>
 		</label>
 
+		<!-- email whitelist -->
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<input class="mdl-textfield__input" type="text" id="emailWhitelist">
+			<label class="mdl-textfield__label" for="emailWhitelist">{{_"admin.communities.emailWhitelist"}}</label>
+		</div>
+
+		<!-- enforce whitelist -->
+		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="enforceWhitelist">
+			<input type="checkbox" id="enforceWhitelist" class="mdl-checkbox__input" checked>
+			<span class="mdl-checkbox__label">{{_"admin.communities.enforceWhitelist"}}</span>
+		</label>
+
 		<div class="form-group" style="margin-bottom: 2rem;">
 			<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='Submit'>
 		</div>

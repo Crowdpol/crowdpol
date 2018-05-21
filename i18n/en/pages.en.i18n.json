@@ -105,6 +105,7 @@
 		},
 		"signup":{
 			"accept-terms": "You must accept the terms of use.",
+			"not-in-whitelist" : "Only whitelisted users can sign up for this community.",
 			"tab": {
 				"individual": "Individuals",
 				"entities": "Organisations/Political Parties"

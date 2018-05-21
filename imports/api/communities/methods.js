@@ -14,6 +14,20 @@ Meteor.methods({
 
     getCommunityBySubdomain: function(subdomain) {
     	return Communities.findOne({subdomain: subdomain});
+    },
+
+    updateEmailWhitelist: function(emails, communityId) {
+      var community = Communities.findOne({_id: communityId});
+      return Communities.update({_id: communityId}, {$set: {'settings.emailWhitelist': emails}});
+    },
+
+    updateEnforceWhitelist: function(enforce, communityId) {
+      return Communities.update({_id: communityId}, {$set: {'settings.enforceWhitelist': enforce}});
+    },
+
+    updateWhitelistSettings: function(emailWhitelist, enforceWhitelist, communityId) {
+      Meteor.call('updateEmailWhitelist', emailWhitelist, communityId);
+      Meteor.call('updateEnforceWhitelist', enforceWhitelist, communityId);
     }
 });
 
