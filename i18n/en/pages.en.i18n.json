@@ -201,7 +201,7 @@
 				"tabs":{
 					"allProposals": "All Proposals",
 					"myProposals": "My Proposals",
-					"writeProposals": "Write Proposals"
+					"writeProposals": "Write Proposal"
 				},
 				"headings":{
 					"openProposals": "Open Proposals",
@@ -217,7 +217,10 @@
 				"openClosedSwitch": "Open/Closed",
 				"createdInvitedSwitch": "Created/Invited",
 				"untitled": "Untitled",
-				"untranslated": "This proposal has not yet been translated."
+				"untranslated": "This proposal has not yet been translated.",
+				"no-proposals": "No __status__ proposals are currently available.",
+				"your-proposals": "You have no __status__ proposals.",
+				"create-link": "Create one?"
 			},
 			"edit": {
 				"heading": "Write your proposal",
@@ -284,7 +287,8 @@
 				"tooltips": {
 					"share": "Copy a link to this proposal to your clipboard.",
 					"sign": "Show your support by signing this proposal. Note that this does not constitute a vote."
-				}
+				},
+				"submit-comment": "Submit comment"
 			}
 		},
 		"tag-search":{

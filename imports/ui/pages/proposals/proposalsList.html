@@ -34,7 +34,7 @@
 			-->
 
 			<!-- MDL tab panels, is-active to denote currently active -->
-			<div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
+			<div class="mdl-tabs__panel {{#if votesTabActive}}is-active{{/if}}" id="vote-proposals-panel">
 				<button class="add-new-proposal mdl-button mdl-js-button mdl-button--fab" id="add-new-proposal">
 					<i class="material-icons">add</i>
 				</button>
@@ -51,6 +51,10 @@
 						<ul class="demo-list-control mdl-list">
 							{{#each openProposals}}
 								{{> ProposalCard}}
+							{{else}}
+								<p>
+									{{_ "pages.proposals.list.no-proposals" status="open"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a>
+								</p>
 							{{/each}}
 						</ul>
 					{{else}}
@@ -58,6 +62,9 @@
 						<ul class="demo-list-control mdl-list">
 							{{#each closedProposals}}
 								{{> ProposalCard}}
+							{{else}}
+								<p>{{_ "pages.proposals.list.no-proposals" status="closed"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
+								
 							{{/each}}
 						</ul>
 					{{/if}}
@@ -68,7 +75,7 @@
 			</div>
 
 			<!-- MDL Tab panel 2 -->
-			<div class="mdl-tabs__panel" id="my-proposals-panel">
+			<div class="mdl-tabs__panel {{#if myTabActive}}is-active{{/if}}" id="my-proposals-panel">
 				<button class="add-new-proposal mdl-button mdl-js-button mdl-button--fab" id="add-new-proposal">
 					<i class="material-icons">add</i>
 				</button>
@@ -86,6 +93,9 @@
 						<ul class="demo-list-control mdl-list">
 							{{#each myProposals}}
 								{{> ProposalCard }}
+							{{else}}
+								<p>{{_ "pages.proposals.list.your-proposals" status=""}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
+								
 							{{/each}}
 						</ul>
 
@@ -94,6 +104,9 @@
 						<ul class="demo-list-control mdl-list">
 							{{#each invitedProposals}}
 								{{> ProposalCard }}
+							{{else}}
+								<p>{{_ "pages.proposals.list.your-proposals" status="invited"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
+								
 							{{/each}}
 						</ul>
 					{{/if}}

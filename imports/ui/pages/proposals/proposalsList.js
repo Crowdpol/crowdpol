@@ -48,12 +48,18 @@ Template.ProposalsList.helpers({
   },
   votesTabActive: function(){
     if(Session.get("proposalTab")=='vote-proposals-tab'){
+      Session.set("canVote",Template.instance().openProposals.get());
+      Session.set("myProposals",false);
+      Session.set("allProposals",true);
       return true;
     }
     return false;
   },
   myTabActive: function(){
     if(Session.get("proposalTab")=='my-proposals-tab'){
+      Session.set("canVote",false);
+      Session.set("myProposals",true);
+      Session.set("allProposals",false);
       return true;
     }
     return false;
@@ -65,7 +71,7 @@ Template.ProposalsList.events({
     let value = event.target.value.trim();
     template.searchQuery.set(value);
   },
-	'click #add-new-proposal, click #new-proposals-link': function(event, template){
+	'click #add-new-proposal, click #new-proposals-link, click #create-proposal': function(event, template){
     FlowRouter.go('App.proposal.edit', {id: ''});
 	},
   'click #open-closed-switch': function(event, template){

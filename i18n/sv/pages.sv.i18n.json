@@ -221,7 +221,10 @@
 				"openClosedSwitch": "Pågående/Avslutad",
 				"createdInvitedSwitch": "Egen/Gemensam",
 				"untitled": "TODO Untitled",
-				"untranslated": "TODO This proposal has not yet been translated."
+				"untranslated": "TODO This proposal has not yet been translated.",
+				"no-proposals": "TODO No __status__ proposals are currently available.",
+				"your-proposals": "TODO You have no __status__ proposals.",
+				"create-link": "TODO Create one?"
 			},
 			"edit": {
 				"heading": "Din motion",
@@ -288,7 +291,8 @@
 				"tooltips": {
 					"share": "Kopiera en länk till denna motion till dina urklipp.",
 					"sign": "Visa ditt stöd genom att signera denna motion. Notera att detta inte är en röst på motionen, men väl ett publikt visat stöd."
-				}
+				},
+				"submit-comment": "TODO Submit comment"
 			}
 		},
 		"tag-search":{

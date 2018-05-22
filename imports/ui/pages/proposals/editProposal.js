@@ -1,6 +1,5 @@
 import './editProposal.html'
 import Quill from 'quill'
-import MaterialDateTimePicker from 'material-datetime-picker';
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Communities } from '../../../api/communities/Communities.js'
 import { setupTaggle } from '../../components/taggle/taggle.js'
@@ -81,7 +80,6 @@ Template.EditProposal.onRendered(function(){
 			Session.set("formRendered", false)
 		} 
 	});
-	var picker = new MaterialDatetimePicker({});
 
 });
 
