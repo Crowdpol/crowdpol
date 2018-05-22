@@ -30,7 +30,8 @@
 			"nav_privacy" : "Sekretesspolicy",
 			"nav_terms" : "Användarvillkor",
 			"nav_admin_dash" : "Adminpanel",
-			"right_about" : "Om"
+			"right_about" : "Om",
+			"website": "TODO Website"
 		},
 		"body":{
 			"no-styles": "Färgschemat för din webbsida kunde inte laddas upp."

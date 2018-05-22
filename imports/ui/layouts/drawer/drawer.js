@@ -1,4 +1,7 @@
 import './drawer.html';
+import { Proposals } from '../../../api/proposals/Proposals.js'
+import { DelegateVotes } from '../../../api/delegateVotes/DelegateVotes.js'
+
 
 Template.Drawer.events({
 	'click #drawer-nav-logout' (event, template){
@@ -11,6 +14,17 @@ Template.Drawer.events({
 	}
 });
 
+Template.RightDrawer.onCreated(function() {
+	Session.set('drawerId','');
+  var self = this;
+  var communityId = LocalStore.get('communityId');
+  self.autorun(function() {
+    self.subscribe('user.profile',Session.get('drawerId'));
+    self.subscribe('proposals.public', '', communityId);
+    self.subscribe('delegateVotes.forDelegate', '', Meteor.userId());
+  });
+});
+
 Template.RightDrawer.helpers({
 	user: function(template) {
 		userId = Session.get('drawerId');
@@ -20,13 +34,17 @@ Template.RightDrawer.helpers({
 		} else {
 			return false;
 		}
+	},
+	delegateVotes: function() {
+		return DelegateVotes.find({delegateId: delegateId}, {sort: {date_created: -1}, limit: 10})
+	},
+	proposalTitle: function(proposalId) {
+		return Proposals.findOne({_id: proposalId}).title;
+	},
+	isYesVote: function(vote) {
+		return vote == 'yes';
 	}
+
 })
 
-Template.RightDrawer.onCreated(function() {
-	Session.set('drawerId','');
-  var self = this;
-  self.autorun(function() {
-    self.subscribe('user.profile',Session.get('drawerId'));
-  });
-});
+
