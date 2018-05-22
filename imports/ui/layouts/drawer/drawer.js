@@ -41,9 +41,13 @@ Template.RightDrawer.helpers({
 	proposalTitle: function(proposalId) {
 		return Proposals.findOne({_id: proposalId}).title;
 	},
-	isYesVote: function(vote) {
-		return vote == 'yes';
-	}
+	voteIcon: function(vote){
+    if (vote=='yes'){
+      return 'check_circle'
+    } else if (vote=='no'){
+      return 'cancel'
+    }
+  }
 
 })
 
