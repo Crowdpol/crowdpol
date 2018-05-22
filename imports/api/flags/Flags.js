@@ -15,7 +15,7 @@ const FlagSchema = new SimpleSchema({
     optional: false
   },
   //who created the report content
-  createrId: {
+  creatorId: {
     type: String,
     optional: false
   },
@@ -27,7 +27,8 @@ const FlagSchema = new SimpleSchema({
   category: {
     // current stage of proposal
     type: String,
-    allowedValues: ["sexist", "racist", "langauge","other"]
+    allowedValues: ["sexist", "racist", "langauge","other"],
+    optional: false
   },
   other: {
     type: String,
@@ -64,9 +65,9 @@ const FlagSchema = new SimpleSchema({
     allowedValues: ["rejected", "blocked"]
   },
   communityId: {
-        type: String,
-        optional: false
-    },
+    type: String,
+    optional: false
+  },
 });
 
 

@@ -20,7 +20,22 @@ export const Community = {
     },
     settings: {
       type: CommunitySettings
-    }
+    },
+    languageSelector:{
+      type: 'boolean'
+    },
+    defaultLanguage: {
+      enum: ['en', 'sv']
+    },
+    languages: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    },
+    enforceWhitelist:{
+      type: 'boolean'
+    },
   },
   required: [
   'name',

@@ -8,6 +8,7 @@ import { Vote } from './Vote';
 import { DelegateVote } from './DelegateVote';
 import { Notification } from './Notification';
 import { Community } from './Community';
+import { Flags } from './Flags';
 export const fakerSchema = {
   generateDoc: jsf,
   schema: {
@@ -21,6 +22,7 @@ export const fakerSchema = {
     User,
     DelegateVote,
     Notification,
-    Community
+    Community,
+    Flags
   }
 }
