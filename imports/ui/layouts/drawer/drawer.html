@@ -59,7 +59,16 @@
 			<h6>{{_ "layout.drawer.website"}}</h6>
 			<a href="{{user.profile.website}}">{{user.profile.website}}</a>
 			<!-- Recent Votes -->
-			<h6></h6>
+			<h6>{{_ "layout.drawer.recent-votes"}}</h6>
+			{{#if delegateVotes}}
+				{{#each delegateVotes}}
+				 thing
+
+				{{/each}}
+				
+			{{else}}
+				{{_"layout.drawer.no-votes"}}
+			{{/if}}
 		</div>
 	</div>
 </template>

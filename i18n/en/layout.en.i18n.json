@@ -31,7 +31,9 @@
 			"nav_terms" : "Terms & conditions",
 			"nav_admin_dash" : "Admin dashboard",
 			"right_about" : "About",
-			"website": "Website"
+			"website": "Website",
+			"recent-votes": "TODO Recent Votes",
+			"no-votes": "TODO This delegate has not voted on any proposals yet."
 		},
 		"body":{
 			"no-styles": "The color scheme for your community could not be loaded."

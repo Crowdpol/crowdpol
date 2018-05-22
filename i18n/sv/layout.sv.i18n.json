@@ -31,7 +31,9 @@
 			"nav_terms" : "Användarvillkor",
 			"nav_admin_dash" : "Adminpanel",
 			"right_about" : "Om",
-			"website": "TODO Website"
+			"website": "TODO Website",
+			"recent-votes": "TODO Recent Votes",
+			"no-votes": "TODO This delegate has not voted on any proposals yet."
 		},
 		"body":{
 			"no-styles": "Färgschemat för din webbsida kunde inte laddas upp."

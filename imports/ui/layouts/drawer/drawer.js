@@ -21,7 +21,7 @@ Template.RightDrawer.onCreated(function() {
   self.autorun(function() {
     self.subscribe('user.profile',Session.get('drawerId'));
     self.subscribe('proposals.public', '', communityId);
-    self.subscribe('delegateVotes.forDelegate', '', Meteor.userId());
+    self.subscribe('delegateVotes.forDelegate', Session.get('drawerId'));
   });
 });
 
@@ -36,7 +36,7 @@ Template.RightDrawer.helpers({
 		}
 	},
 	delegateVotes: function() {
-		return DelegateVotes.find({delegateId: delegateId}, {sort: {date_created: -1}, limit: 10})
+		return DelegateVotes.find({delegateId: Session.get('drawerId')}, {sort: {date_created: -1}, limit: 10})
 	},
 	proposalTitle: function(proposalId) {
 		return Proposals.findOne({_id: proposalId}).title;
