@@ -39,7 +39,14 @@ Template.RightDrawer.helpers({
 		return DelegateVotes.find({delegateId: Session.get('drawerId')}, {sort: {date_created: -1}, limit: 10})
 	},
 	proposalTitle: function(proposalId) {
-		return Proposals.findOne({_id: proposalId}).title;
+		var content = Proposals.findOne({_id: proposalId}).content;
+		var translation = _.find(content, function(item){ return item.language == TAPi18n.getLanguage();})
+		if (translation) {
+			return translation.title;
+		} else {
+			return TAPi18n.__('pages.proposals.list.untranslated')
+		}
+		
 	},
 	voteIcon: function(vote){
     if (vote=='yes'){
