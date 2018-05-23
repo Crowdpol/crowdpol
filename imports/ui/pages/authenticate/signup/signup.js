@@ -42,42 +42,53 @@ Template.Signup.events({
 	'submit #individual-signup-form' (event, template){
 		event.preventDefault();
 
-		if(Session.get('termsAccepted')){
-			communityId = Communities.findOne({subdomain: LocalStore.get('subdomain')})._id;
-			var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
+		var community = Communities.findOne({subdomain: LocalStore.get('subdomain')});
+		var enforceWhitelist = community.settings.enforceWhitelist;
+		var emailWhitelist = community.settings.emailWhitelist;
+		var email = template.find('[name="emailAddress"]').value;
 
-			let user = {
-				email: template.find('[name="emailAddress"]').value,
-				password: template.find('[name="password"]').value,
-				profile: {communityIds: [communityId], termsAccepted: termsAccepted}
-			};
+		if ((enforceWhitelist == false) || ((enforceWhitelist == true) && (emailWhitelist.includes(email)))) {
+			if(Session.get('termsAccepted')){
+				communityId = community._id;
+				var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
 
-			Accounts.createUser(user, (error) => {
-				if (error) {
-					RavenClient.captureException(error);
-					Bert.alert(error.reason, 'danger');
-				} else {
-					/* Check if redirect route saved */
-					var redirect = LocalStore.get('signUpRedirectURL');
-					LocalStore.set('signUpRedirectURL', '');
-					if (redirect) {
-						window.location.href = redirect;
+				let user = {
+					email: email,
+					password: template.find('[name="password"]').value,
+					profile: {communityIds: [communityId], termsAccepted: termsAccepted}
+				};
+
+				Accounts.createUser(user, (error) => {
+					if (error) {
+						RavenClient.captureException(error);
+						Bert.alert(error.reason, 'danger');
 					} else {
-						FlowRouter.go('/proposals');
-					}
-					
-					/*Meteor.call('sendVerificationLink', (error, response) => {
-						if (error){
-							Bert.alert(error.reason, 'danger');
+						/* Check if redirect route saved */
+						var redirect = LocalStore.get('signUpRedirectURL');
+						LocalStore.set('signUpRedirectURL', '');
+						if (redirect) {
+							window.location.href = redirect;
 						} else {
-							Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
+							FlowRouter.go('/proposals');
 						}
-					});*/
-				}
-			});
+
+							/*Meteor.call('sendVerificationLink', (error, response) => {
+								if (error){
+									Bert.alert(error.reason, 'danger');
+								} else {
+									Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
+								}
+							});*/
+						}
+					});
+			} else {
+				Bert.alert(TAPi18n.__('pages.signup.accept-terms'), 'danger')
+			}
 		} else {
-			Bert.alert(TAPi18n.__('pages.signup.accept-terms'), 'danger')
+			Bert.alert(TAPi18n.__('pages.signup.not-in-whitelist'), 'danger')
 		}
+
+		
 	},
 	'click #terms-checkbox-label' (event, template) {
 		var termsCheckbox = self.find('#terms-checkbox-label').MaterialCheckbox;

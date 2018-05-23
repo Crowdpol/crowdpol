@@ -20,7 +20,8 @@
 			"alerts": {
 				"mailing-list-signup-success": "Thank you. You have been added to the mailing list.",
 				"no-image": "The image for your community could not be loaded."
-			}
+			},
+			"get-started": "Let's get started"
 		},
 		"about": {
 			"heading": "What’s all this about then?",
@@ -87,7 +88,7 @@
 					"title": "Login as Organisation/Party"
 				}
 			},
-			"new-passowrd":{
+			"new-password":{
 				"heading": "Enter new password",
 				"new-password": "New password",
 				"alerts": {
@@ -104,6 +105,7 @@
 		},
 		"signup":{
 			"accept-terms": "You must accept the terms of use.",
+			"not-in-whitelist" : "Only whitelisted users can sign up for this community.",
 			"tab": {
 				"individual": "Individuals",
 				"entities": "Organisations/Political Parties"
@@ -342,7 +344,9 @@
 				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
 				"profile-candidate-removed" : "Candidate Role removed.",
 				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
-				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete."
+				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete.",
+				"password-incorrect": "Your existing password was incorrect, please try again",
+				"password-reset": "Your password was successfully reset"
 			},
 			"tooltips": {
 				"delegateSwitch": "Apply to be a delegate. This will allow other users to let you vote on their behalf.",
@@ -358,7 +362,15 @@
 			"public-switch-description": "Make your profile visible to others. Requires completed profile form. Required become a delegate.",
 			"delegate-switch-description": "By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
 			"bio-count": "__bioCount__ characters (min 50, max 160)",
-			"photo-url": "Enter an image url"
+			"photo-url": "Enter an image url",
+			"change-photo": "Change profile photo URL",
+			"password-reset": "Password reset",
+			"old-password" : "Old password",
+			"new-password": "New password",
+			"confirm-password": "Confirm password",
+			"reset": "Reset",
+			"password-mismatch": "Passwords do not match",
+			"password-reset": "Password successfully reset"
 		},
 		"routes": {
 			"alerts": {

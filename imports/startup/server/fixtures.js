@@ -63,6 +63,8 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 
 	/* Convert existing proposals to new format*/
 	convertProposals();
+
+	
 });
 
 function registerAdmins(communityIds){

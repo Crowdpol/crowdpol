@@ -290,6 +290,35 @@ Meteor.methods({
     },
     acceptTerms: function() {
       Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.termsAccepted': true}});
+    },
+    sendForgotPasswordEmail: function(email, rootUrl) {
+
+      Accounts.emailTemplates.resetPassword = {
+        subject() {
+          return TAPi18n.__('emails.reset-password.subject');
+        },
+        text( user, url ) {
+          let emailAddress   = user.emails[0].address,
+              token = url.substring(url.lastIndexOf('/')+1, url.length);
+              newUrl = rootUrl + '/reset-password/' + token;
+              supportEmail   = Meteor.settings.private.fromEmail,
+              emailBody      = TAPi18n.__('emails.reset-password.body', {url: newUrl, supportEmail: supportEmail});
+
+          return emailBody;
+        }
+      };
+
+      var userId = Accounts.findUserByEmail(email)._id;
+
+      Accounts.sendResetPasswordEmail(userId, email, function(error) {
+            if (error) {
+              RavenClient.captureException(error);
+              Bert.alert(error.reason, 'danger')
+            } else { 
+                Bert.alert(TAPi18n.__('pages.authenticate.recover-password.alerts.reset-password-sent-message'), 'success')
+            }
+        });
+
     }
 });
 

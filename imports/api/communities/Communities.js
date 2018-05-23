@@ -52,6 +52,19 @@ CommunitySettings = new SimpleSchema({
       type: String,
       optional: false
     },
+    emailWhitelist: {
+      type: Array,
+      optional: true,
+    },
+    "emailWhitelist.$": {
+      type: String,
+      optional: true
+    },
+    enforceWhitelist: {
+      type: Boolean,
+      optional: false,
+      defaultValue: false
+    },
 });
 
 Community = new SimpleSchema({
