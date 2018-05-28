@@ -47,7 +47,7 @@ Template.Signup.events({
 		var emailWhitelist = community.settings.emailWhitelist;
 		var email = template.find('[name="emailAddress"]').value;
 
-		if ((enforceWhitelist == false) || ((enforceWhitelist == true) && (emailWhitelist.includes(email)))) {
+		if ((!enforceWhitelist) || (enforceWhitelist == false) || ((enforceWhitelist == true) && (emailWhitelist.includes(email)))) {
 			if(Session.get('termsAccepted')){
 				communityId = community._id;
 				var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
