@@ -61,6 +61,7 @@ Meteor.startup(() => {
   // code to run on server at startup
   console.log("Common Democracy: Sweden - started...");
   wrapMethods();
+  
 });
 
 //http://blog.mailgun.com/25-465-587-what-port-should-i-use/

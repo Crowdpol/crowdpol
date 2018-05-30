@@ -14,17 +14,3 @@ Accounts.emailTemplates.verifyEmail = {
     return emailBody;
   }
 };
-
-Accounts.emailTemplates.resetPassword = {
-  subject() {
-    return TAPi18n.__('emails.reset-password.subject');
-  },
-  text( user, url ) {
-    let emailAddress   = user.emails[0].address,
-        urlWithoutHash = url.replace( '#/', '' ),
-        supportEmail   = Meteor.settings.private.fromEmail,
-        emailBody      = TAPi18n.__('emails.reset-password.body', {url: urlWithoutHash, supportEmail: supportEmail});
-
-    return emailBody;
-  }
-};

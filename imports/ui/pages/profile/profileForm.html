@@ -1,5 +1,5 @@
 <template name="ProfileForm">
-	<form id="profile-form" class="profile">
+	<form id="profile-form" class="profile" name="profile-form">
 		<div class="mdl-grid profile-grid ">
 			<div class="mdl-cell mdl-cell--12-col">
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -11,7 +11,7 @@
     </div>
 		<div id="public-form-details">
 			<div class="mdl-grid profile-grid">
-				<input type="text" name="profilePhotoPath" id="profile-photo-path" value="{{profilePic}}">
+				<input type="hidden" name="profilePhotoPath" id="profile-photo-path" value="{{profilePic}}">
 	      <div class="mdl-cell mdl-cell--12-col">
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label class="mdl-textfield__label" for="profile-firstname">{{_ "form.firstname"}}</label>
@@ -49,7 +49,7 @@
 				<div class="form-group">
 					<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.save"}}' id="submitProfile" {{saveDisabled}} style="float: right;">
 					<button class="mdl-button mdl-js-button" id="show-settings" style="float: right;">
-						{{settingsText}}
+						{{{settingsText}}}
 					</button>
 				</div>
 				<br>
@@ -110,8 +110,8 @@
 							{{_ "pages.profile.tooltips.delegateSwitch"}}
 						</div>
 				</div>
-
-				<!--
+	
+				<!-- CANDIDATE TOGGLE - DO NOT REMOVE!
 				<div class="mdl-cell mdl-cell-10-col mdl-cell-10-col-tablet mdl-cell-12-col-phone">
 					<p>By being a Candidate you allow be eligible for nomination.</p>
 				</div>
@@ -126,6 +126,7 @@
 				-->
 			</div>
 	</form>
+	{{> ResetPassword}}
 			<!-- Helper list: Don't delete, useful for testing 
 			isEntity: |{{isEntity}}|<br>
 			profilePic: |{{profilePic}}|<br>
@@ -139,3 +140,4 @@
 			isCandidate: |{{isCandidate}}|<br>
 			-->
 </template>
+

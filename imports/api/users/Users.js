@@ -155,6 +155,10 @@ Schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true,
     },
+    termsAccepted: {
+        type: Boolean,
+        optional: false
+    }
     /*
     birthday: {
         type: Date,

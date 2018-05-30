@@ -20,7 +20,7 @@
 				<span>{{_ "pages.voting.delegate-description"}}</span>
 			{{else}}
 				<h4>{{_ "pages.voting.heading.individual"}}</h4>
-				<span>{{_ "pages.voting.delegate-description"}}</span>
+				<span>{{_ "pages.voting.individual-description"}}</span>
 			{{/if}}
 			
 			<ul class="demo-list-control mdl-list">
@@ -39,13 +39,12 @@
 
 <template name="VotingCard">
 
-
 	<div class="voting-card mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title mdl-card--expand">
-			<a href="/proposals/view/{{_id}}" class="proposal-list-item-link"><h6>{{ title }}</h6></a>
+			<a href="/proposals/view/{{_id}}" class="proposal-list-item-link"><h6>{{ title this}}</h6></a>
 		</div>
 		<div class="mdl-card__supporting-text">
-			<p class="proposal-abstract">{{ abstract }}</p>
+			<p class="proposal-abstract">{{ abstract this }}</p>
 		</div>
 
 		<div class="mdl-card__actions mdl-card--border">
@@ -62,9 +61,8 @@
 				<div id="voting-info" class="expandable">
 
 				<!-- Vote Tallies -->
-
 					<div class="mdl-card__actions">
-					{{#if yesPercentage _id}}
+					{{#if hasVotes _id}}
 						<span class="proposal-percentage-text-left">{{_ "pages.voting.for"}} {{ yesPercentage _id }}% </span>
 						<span class="proposal-percentage-text-right">{{_ "pages.voting.against"}} {{ noPercentage _id }}% </span>
 						<div class="proposal-vote-progress-bar">
@@ -78,11 +76,10 @@
 					<hr>
 
 				<!-- Vote buttons and Delegates List -->
-				
 				{{#if isVotingAsDelegate}}
 					<div class="voting-card-buttons">
 					<h6>{{_ "pages.voting.voting-card-heading.delegate"}}</h6>
-					{{> delegateVoteButtons proposalId=_id}}
+					{{> delegateVoteButtons proposalId=_id endDate=endDate}}
 					</div>
 				{{else}}
 					<div class="voting-card-buttons">
@@ -93,7 +90,6 @@
 					{{> delegateVoteList proposalId=_id}}
 				{{/if}}
 				
-
 			</div>
 
 			{{/if}}

@@ -86,6 +86,7 @@ meteortoys:throttle@4.0.0
 meteortoys:toggle@4.0.0
 meteortoys:toykit@4.0.1
 mfpierre:chartist-js@1.6.0
+mikowals:batch-insert@1.1.14
 minifier-css@1.2.16
 minifier-js@2.2.1
 minimongo@1.4.1
@@ -124,6 +125,7 @@ reactive-var@1.0.11
 reload@1.1.11
 retry@1.0.9
 routepolicy@1.0.12
+rzymek:moment-locale-sv@2.14.1
 seba:minifiers-autoprefixer@1.0.1
 service-configuration@1.0.11
 session@1.1.7

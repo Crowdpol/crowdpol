@@ -92,6 +92,22 @@ Template.VotingCard.onCreated(function () {
 });
 
 Template.VotingCard.helpers({
+  title: function(proposal) {
+    var language = TAPi18n.getLanguage();
+    var translation = _.find(proposal.content, function(item){ return item.language == language});
+    if (translation){
+      return translation.title;
+    } else {
+      return TAPi18n.__('pages.proposals.list.untranslated')
+    }
+  },
+  abstract: function(proposal){
+    var language = TAPi18n.getLanguage();
+    var translation = _.find(proposal.content, function(item){ return item.language == language});
+    if (translation){
+      return translation.abstract;
+    }
+  },
   isVotingAsDelegate: function(){
     return (LocalStore.get('currentUserRole') == 'Delegate');
   },
@@ -114,6 +130,11 @@ Template.VotingCard.helpers({
       return yesCount/totalCount * 100;
     } else {
       return 0;
+    }
+  },
+  hasVotes: function(proposalId) {
+    if (Votes.find({proposalId: proposalId}).count() > 0) {
+      return true;
     }
   }
 });

@@ -34,6 +34,7 @@ Template.ProfileForm.onRendered(function(){
       self.taggle.get().add(keywords);
     }
   });
+
 });
 
 Template.ProfileForm.onCreated(function() {
@@ -90,12 +91,13 @@ Template.ProfileForm.events({
   },
   'click #show-settings' (event, template) {
     event.preventDefault();
-    if(Session.get('showSettings')){
+    var showSettings = Session.get('showSettings');
+    if (showSettings){
       $( "#public-form-details" ).hide();
     }else{
       $( "#public-form-details" ).show();
     }
-    Session.set('showSettings',!Session.get('showSettings'))
+    Session.set('showSettings',!showSettings)
   },
   'blur #profile-website' (event, template) {
         if (validateUrl(event.currentTarget.value)) {
@@ -128,15 +130,16 @@ Template.ProfileForm.events({
 
   },
   'click #profile-delegate-switch' (event, template) {
+    event.preventDefault();
     // Check if person already is a delegate, if so remove role
     if (isInRole('delegate')) {
-      if (window.confirm('Are you sure you want to stop being a delegate?')){
-        Meteor.call('toggleRole', Meteor.userId(), 'delegate', false, function(error) {
+      if (window.confirm(TAPi18n.__('pages.profile.alerts.profile-stop-delegate'))){
+        Meteor.call('toggleRole', 'delegate', false, function(error) {
           if (error) {
             RavenClient.captureException(error);
             Bert.alert(error.reason, 'danger');
           } else {
-            var msg = TAPi18n.__('pages.profile.alerts.profile-msg-delegate-removed');
+            var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-removed');
             Bert.alert(msg, 'success');
           }
         });
@@ -169,11 +172,21 @@ Template.ProfileForm.events({
     }
     Session.set('showCompleteStatus',!Session.get('showCompleteStatus'));
   }
+  
 });
 
 Template.ProfileForm.onRendered(function() {
   let template = Template.instance();
+  Session.set('showSettings',false);
+  $( "#public-form-details" ).hide();
 
+  /*
+  //Go through mdl inputs and check if dirty
+  var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
+  for (var i = 0, l = mdlInputs.length; i < l; i++) {
+    mdlInputs[i].MaterialTextfield.checkDirty();
+  }  
+  */
   $.validator.addMethod('usernameUnique', (username) => {
     let exists = Meteor.users.findOne({"_id":{$ne: Meteor.userId()},"profile.username": username});
     return exists ? false : true;
@@ -369,11 +382,10 @@ Template.ProfileForm.helpers({
   },
   settingsText: function() {
     if(Session.get('showSettings')){
-      return TAPi18n.__('generic.show-less');
+      return '<i class="material-icons">expand_less</i>' + TAPi18n.__('generic.show-less');
     }
-    return TAPi18n.__('generic.show-more');;
+    return '<i class="material-icons">expand_more</i>' + TAPi18n.__('generic.show-more');;
   }
-
 });
 
 function hasOwnProperty(obj, prop) {
@@ -571,3 +583,4 @@ function validateUrl(url){
   var regExp = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
   return regExp.test(url);
 }
+

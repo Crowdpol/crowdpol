@@ -28,17 +28,17 @@
 						{{#each approvals}}
 							{{#if checkStatus status}}
 							<tr>
-								<td>{{createdAt}}</td>
-								<td>{{../profile.username}}</td>
-								<td>
+								<td data-label='{{_"admin.approvals.date"}}'>{{createdAt}}</td>
+								<td data-label='{{_"admin.approvals.username"}}'>{{../profile.username}}</td>
+								<td data-label='{{_"admin.users.email"}}'>
 									{{#each ../emails}}
 										{{address}}
 									{{/each}}
 								</td>
-								<td>{{../roles}}</td>
-								<td class="mdl-data-table__cell--non-numeric">{{type}}</td>
-								<td>{{status}}</td>
-								<td>
+								<td data-label='{{_"admin.users.roles"}}'>{{../roles}}</td>
+								<td data-label='{{_"admin.approvals.request-type"}}' class="mdl-data-table__cell--non-numeric">{{type}}</td>
+								<td data-label='{{_"admin.approvals.request-status"}}'>{{status}}</td>
+								<td data-label=''>
 									<button class="mdl-button mdl-js-button mdl-button--raised"
 										data-email="{{../emails.[0].address}}" data-role="{{../roles.[0]}}" data-type="{{type}}" data-request-id="{{id}}"
 										data-user-id="{{../_id}}" id="approve-button">
@@ -46,7 +46,7 @@
 										{{_'admin.approvals.approve-button'}}
 									</button>
 								</td>
-								<td>
+								<td data-label=''>
 									<button class="mdl-button mdl-js-button mdl-button--raised"
 										data-email="{{../emails.[0].address}}" data-role="{{../roles.[0]}}" data-type="{{type}}" data-request-id="{{id}}"
 										data-user-id="{{../_id}}" id="reject-button">

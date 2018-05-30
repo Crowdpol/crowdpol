@@ -13,7 +13,7 @@
 		},
 		"show-more": "Visa Mer",
 		"show-less": "Visa Mindre",
-		"approved": "Godkännd",
+		"approved": "Godkänd",
 		"back-to-proposals": "Tillbaka till Motionera"
 	},
 	"form": {
@@ -32,6 +32,7 @@
 		"save": "Spara",
 		"submit": "Sänd",
 		"update": "Uppdatera",
-		"cancel": "Avbryt"
+		"cancel": "Avbryt",
+		"signup": "Bli Medlem"
 	}
 }

@@ -1,13 +1,23 @@
 {
 	"components" :{
 		"delegateVoteButtons":{
-			"instructions-1": "Observera att du röstar som delegat. Din röst kommer att vara offentlig.",
-			"instructions-2": "Klicka på ‘Roller’ menyn för att byta tillbaka till att rösta som en anonym väljare.",
-			"reason-message": "Lämna en kortfattad (frivillig) anledning till ditt val. Denna kommer att vara synlig för de som delegerat till dig.",
-			"finished": "Färdig"
+			"instructions-1": "Du röstar nu i egenskap av delegat. Din röst kommer alltså att vara offentlig.",
+			"instructions-2": "Klicka på ‘Roller’ menyn för att växla tillbaka och rösta som en anonym användare.",
+			"reason-message": "Lämna gärna en kortfattad anledning till ditt val. Den kommer att vara synlig för de som delegerat sin röst till dig.",
+			"finished": "Färdig",
+			"delegateVotingClosed": "Röstning på denna motion är nu stängd för delegater. Delegaters möjlighet att rösta upphör två veckor innan motionens slutdatum."
 		},
 		"taggle": {
 			"placeholder": "Lägg till några taggar..."
+		},
+		"role-selector":{
+			"voter": "TODO: Individual",
+			"party-delegate": "TODO: Party Delegate",
+			"organisation-delegate": "TODO: Organisation Delegate"
+		},
+		"termsModal": {
+			"heading": "TODO Terms of Use",
+			"accept": "TODO I Accept"
 		}
 	}
 }

@@ -20,14 +20,14 @@ Template.recoverPassword.events({
     'submit #recover-password': function(event, template) {
         event.preventDefault()
         var email = template.find('[name="recovery-email"]').value;
-        Accounts.forgotPassword({
-            email: email
-        }, function(error) {
+        var rootUrl = window.location.host.split('/')[0];
+
+        Meteor.call('sendForgotPasswordEmail',email, rootUrl, function(error) {
             if (error) {
               RavenClient.captureException(error);
             	Bert.alert(error.reason, 'danger')
-            } else {
-                Bert.alert(TAPi18n.__('pages.authenticate.reset-password.reset-password-sent-message'), 'success')
+            } else { 
+                Bert.alert(TAPi18n.__('pages.authenticate.recover-password.alerts.reset-password-sent-message'), 'success')
             }
         });
         

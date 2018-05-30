@@ -19,4 +19,6 @@ import './back-button.scss';
 import './signInModal.scss';
 import './voting.scss';
 import './admin.scss';
+import './termsModal.scss';
+import './modals.scss';
 

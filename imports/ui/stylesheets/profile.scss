@@ -59,3 +59,70 @@
 .right-drawer-content {
   padding: $space;
 }
+
+#public-form-details {
+  .mdl-checkbox {
+    display: inline;
+  }
+}
+
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+#password-match-error{
+  margin: 0;
+  visibility: show;
+  margin-bottom: 5px;
+}
+
+//----
+
+.profile-pic-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.image {
+    display: block;
+    margin: 1.6rem auto;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+  background-color: transparent;
+}
+
+.profile-pic-wrapper:hover .overlay {
+  opacity: 0.5;
+}
+
+.icon {
+  color: black;
+  font-size: 25px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#change-photo-icon:hover {
+  opacity: 1;
+}

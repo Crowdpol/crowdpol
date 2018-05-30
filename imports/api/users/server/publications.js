@@ -111,7 +111,7 @@ Meteor.publish('simpleSearch', function(search, type, communityId) {
     return Meteor.users.find({roles: type});
   }*/
   let query      = {'profile.communityIds': communityId, roles: type},
-      projection = {limit: 10, fields: {profile: 1,roles: 1,isPublic: 1}};
+      projection = {fields: {profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
     let regex = new RegExp( search, 'i' );

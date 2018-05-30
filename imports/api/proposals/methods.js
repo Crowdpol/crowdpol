@@ -8,16 +8,12 @@ Meteor.methods({
   createProposal: function (proposal) {
       //try{
         check(proposal, { 
-          title: Match.Maybe(String), 
-          abstract: Match.Maybe(String), 
-          body: Match.Maybe(String), 
+          content: Match.Maybe([Object]),
           startDate: Date, 
           endDate: Date, 
           authorId: String,
           invited: Match.Maybe([String]),
           tags: Match.Maybe([Object]),
-          pointsFor: Match.Maybe([String]),
-          pointsAgainst: Match.Maybe([String]),
           references: Match.Maybe([String]),
           communityId: String
         });
@@ -114,6 +110,7 @@ Meteor.methods({
         } 
       }
 
+      proposal.lastModified = new Date();
       Proposals.update({_id: proposalId}, {$set: proposal });
     },
     addTagToProposal: function(proposalId, tag) {

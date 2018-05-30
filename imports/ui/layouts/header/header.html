@@ -4,7 +4,6 @@
 	<header class="{{#if currentUser}}logged-in-header{{else}}logged-out-header{{/if}} mdl-layout__header">
 		<div class="header-inner mdl-layout__header-row">
 			{{#if currentUser}}
-				{{showHamburger}}
 				<a href="/dash" class="header-link-signed-in">
 				<span class="mdl-layout-title">
 					<!-- This should be the page title -->
@@ -14,21 +13,24 @@
 				</span>
 				</a>
 			{{else}}
-				{{hideHamburger}}
-				<a href="/">
+
+				<!--{{hideHamburger}}{{showHamburger}}-->
+				<a href="/"><!--
 					<i class="material-icons">add</i>
-					<h5>
+					<h5>-->
+					<span class="mdl-layout-title">
 						{{#if Template.subscriptionsReady}}
 							{{ title }}
 						{{/if}}
-					</h5>
+					</span>
+					<!--</h5>-->
 			</a>
 			{{/if}}
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>
 			{{#if currentUser}}
 				<!-- Tag Search Field -->
-				<form action="#" id="header-tag-search-form">
+				<form action="#" id="header-tag-search-form" style="display:none;">
 					<div class="mdl-textfield mdl-js-textfield">
 						<input class="mdl-textfield__input" type="text" id="header-tag-search" placeholder="{{_ 'layout.header.search_tags'}}">
 					</div>
@@ -123,10 +125,10 @@
 					<!-- Language Menu -->
 					{{#if Template.subscriptionsReady}}
 						{{#if showLanguages}}
-							<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
-								<i class="material-icons">language</i>
+							<button id="demo-menu-lower-right" class="mdl-button mdl-js-button">
+								<i class="material-icons">language</i>{{ lang }}
 							</button>
-							<small>{{ lang }}</small>
+							
 							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 									for="demo-menu-lower-right">
 								<li class="mdl-menu__item lang-sel" id="en">{{_ "layout.header.lang_en"}}</li>
@@ -136,7 +138,7 @@
 					{{/if}}
 				</nav>
 			{{else}}
-				<nav class="mdl-navigation">
+				<nav class="mdl-navigation" id="logged-out-nav">
 					<a class="mdl-navigation__link" href="/about">{{_ "layout.header.nav_about"}}</a>
 					<a class="mdl-navigation__link" href="/contact">{{_ "layout.header.nav_contact"}}</a>
 					{{#unless currentUser}}

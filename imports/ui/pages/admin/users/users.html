@@ -11,15 +11,15 @@
 				</div>
         
 				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-					<input class="mdl-textfield__input" type="text" id="invite-role" data-val="voter" value="{{_'roles.voter'}}" readonly tabIndex="-1">
+					<input class="mdl-textfield__input" type="text" id="invite-role" data-val="voter" value="{{_'components.role-selector.voter'}}" readonly tabIndex="-1">
 					<label for="invite-role" class="dropdown-icon">
 							<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
 						</label>
 					<label for="invite-role" class="mdl-textfield__label">{{_'admin.users.invite-role'}}</label>
 					<ul for="invite-role" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-						<li class="mdl-menu__item dropdown-item" data-val="voter">{{_'roles.voter'}}</li>
-						<li class="mdl-menu__item dropdown-item" data-val="party-delegate">{{_'roles.party-delegate'}}</li>
-						<li class="mdl-menu__item dropdown-item" data-val="organisation-delegate">{{_'roles.organisation-delegate'}}</li>
+						<li class="mdl-menu__item dropdown-item" data-val="voter">{{_'components.role-selector.voter'}}</li>
+						<li class="mdl-menu__item dropdown-item" data-val="party-delegate">{{_'components.role-selector.party-delegate'}}</li>
+						<li class="mdl-menu__item dropdown-item" data-val="organisation-delegate">{{_'components.role-selector.organisation-delegate'}}</li>
 					</ul>
 				</div>
 			</div>
@@ -28,6 +28,30 @@
 				<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "admin.users.invite-button"}}'>
 			</div>
 		</form>
+
+		<hr>
+
+		<!-- Community Whitelist -->
+		<h3> {{_"admin.users.community-whitelist"}} </h3>
+		<small> {{_"admin.users.whitelist-description"}} </small>
+		<form id="community-whitelist-form">
+
+		<div id="whitelistInput" class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label" for="emailWhitelist">{{_"admin.users.emailWhitelist"}}</label>
+			<input type="text" id="emailWhitelist" class="mdl-textfield__input">
+		</div>
+		
+		<div class="form-group">
+			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="whitelist-checkbox" id="whitelist-checkbox-label">
+				<input type="checkbox" id="whitelist-checkbox" class="mdl-checkbox__input" />
+			  	<span class="mdl-checkbox__label">{{_"admin.users.enforceWhitelist"}}</span>
+			</label>
+		</div>
+
+		<div class="form-group">
+			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.submit"}}'>
+		</div>
+	</form>
 
 		<hr>
 

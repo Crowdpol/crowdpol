@@ -34,9 +34,9 @@
 					"link": "Se Statistik"
 				},
 				"communities":{
-					"heading": "TODO Communities",
-					"text": "TODO See all communities, or add a new one.",
-					"link": "TODO View Communities"
+					"heading": "Att göra: Gemenskaperna",
+					"text": "Att göra: Hantera Gemenskaperna",
+					"link": "Att göra: Visa Gemenskaperna"
 				}
 			}
 		},
@@ -51,13 +51,17 @@
 			"delete-title":"Radera användare permanent",
 			"delete-yes":"Ja",
 			"delete-no":"Nej",
-			"invite-heading": "Bjud in en Ny Användare a New Användare:",
-			"invite-message": "Fyll i en användares epost för att skicka dem en inbjudan att gå med.",
+			"invite-heading": "Bjud in en Ny Användare:",
+			"invite-message": "Fyll i en användares e-post för att skicka dem en inbjudan att gå med.",
 			"invite-button": "Skicka Inbjudan",
 			"invite-role": "Användares Roll",
 			"approve-button": "Godkän",
 			"reject-button": "Avslå",
-			"invite-role": "Användares Roll"
+			"invite-role": "Användares Roll",
+			"whitelist-updated" : "TODO Whitelist updated.",
+			"community-whitelist": "TODO Community Whitelist",
+			"whitelist-description": "TODO If the whitelist is enforced, only users with email addresses in the whitelist will be able to create accounts for this community.",
+			"enforceWhitelist": "TODO Only let these users create accounts."
 		},
 		"proposals":{
 			"heading": "Motioner",
@@ -90,7 +94,7 @@
 			"approved": "Godkänd",
 			"add-button": "Lägg till",
 			"delete-button": "Radera",
-			"none-waiting": "För dillfället finns det inga motioner som väntar på att granskas."
+			"none-waiting": "För tillfället finns det inga motioner som väntar på att granskas."
 		},
 		"approvals": {
 			"heading": "Godkännanden",
@@ -125,7 +129,20 @@
 			"name": "TODO Name",
 			"subdomain": "TODO Subdomain",
 			"user-count": "TODO Number of Users",
-			"none": "TODO There are currently no communities."
+			"none": "TODO There are currently no communities.",
+			"colorScheme": {
+				"label": "TODO Color Scheme",
+				"greyscale": "TODO greyscale (black/white/grey)",
+				"default": "TODO default (blue/yellow)"
+			},
+			"homepageImageUrl": "TODO Homepage image URL",
+			"homepageBannerText": "TODO Homepage banner text",
+			"homepageIntroText": "TODO Homepage introduction text",
+			"aboutText": "TODO About text",
+			"languageSelector": "TODO Show language selector in header",
+			"defaultLanguage": "TODO Default language",
+			"emailWhitelist": "TODO Emails of allowed users, separated by commas.",
+			"enforceWhitelist": "TODO Enforce the current email whitelist."
 		}
 	}
 }

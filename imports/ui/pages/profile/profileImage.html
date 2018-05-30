@@ -1,8 +1,17 @@
 <template name="ProfileImage">
-	<img src={{profilePic}} class="profile-picture" id="profile-pic">
-	<a href="#" id="change-photo-button">
-		<i class="material-icons">camera_alt</i>
-	</a>
+	<div class="profile-pic-wrapper" id="profile-pic-wrap">
+		<div class="mdl-tooltip" data-mdl-for="profile-pic-wrap">
+			Click on the camera icon to change Profile Pic
+		</div>
+	  <img src="{{profilePic}}" alt="Profile Pic" class="image" id="profile-pic">
+	  <div class="overlay">
+	    <a href="#" class="icon" title="User Profile" id="change-photo-button">
+	      <i class="material-icons" id="change-photo-icon">camera_alt</i>
+	    </a>
+	  </div>
+	  
+	</div>
+
 	<div class="mdl-grid profile-grid" id="change-photo" style="display:none; background-color: rgb(246,246,246);">
 		<div class="mdl-cell mdl-cell--12-col">
 			<form id="profile-photo-form" class="profile">
@@ -10,13 +19,14 @@
 					<!-- Tab Bars -->
 					<div class="mdl-tabs__tab-bar">
 						<a href="#photo-url" class="mdl-tabs__tab is-active">URL</a>
-						<a href="#photo-upload" class="mdl-tabs__tab">Upload</a>
+						<!-- <a href="#photo-upload" class="mdl-tabs__tab">Upload</a> -->
 					</div>
 					<!-- MDL tab panels, is-active to denote currently active -->
 					<div class="mdl-tabs__panel is-active" id="photo-url">
 						<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							<label class="mdl-textfield__label" for="profile-photo">{{_ "profile-photo"}}</label>
-							<input type="text" id="profilePhoto" name="profilePhoto" class="mdl-textfield__input">
+							<label class="mdl-textfield__label" for="profile-photo">{{_ "pages.profile.photo-url"}}</label>
+							<input type="url" id="profilePhoto" name="profilePhoto" class="mdl-textfield__input">
+							<span class="mdl-textfield__error" id="valid-photo-path">Invalid URL</span>
 						</div>
 					</div>
 
@@ -30,7 +40,6 @@
 					    <p><small>Upload file in <code>jpeg</code> or <code>png</code> format, with size less or equal to 10MB</small></p>
 					  {{/with}}
 					</div>
-					<span id="valid-photo-path"></span>
 				</div>
 			</form>
 		</div>

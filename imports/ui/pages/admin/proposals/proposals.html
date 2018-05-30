@@ -19,21 +19,21 @@
 						<tbody>
 								{{#each proposals}}
 								<tr>
-										<td>{{createdAt}}</td>
-										<td>{{authorId}}</td>
-										<td>
+										<td data-label='{{_"admin.proposals.date"}}'>{{createdAt}}</td>
+										<td data-label='{{_"admin.proposals.author"}}'>{{authorId}}</td>
+										<td data-label='{{_"admin.proposals.contributors"}}'>
 												{{#each user in invited}}
 														{{user}} <br>
 												{{/each}}
 										</td>
-										<td> <a href="/proposals/view/{{_id}}">{{title}}</a></td>
+										<td data-label='{{_"admin.proposals.title"}}'> <a href="/proposals/view/{{_id}}">{{title}}</a></td>
 										<td>
 												<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
 														<i class="material-icons">check</i>
 														{{_'admin.proposals.approve-button'}}
 												</button>
 										</td>
-										<td>
+										<td data-label="">
 												<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
 														<i class="material-icons">close</i>
 														{{_'admin.proposals.reject-button'}}

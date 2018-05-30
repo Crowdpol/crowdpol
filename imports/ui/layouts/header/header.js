@@ -10,12 +10,14 @@ Template.Header.onCreated(function(){
   var self = this;
   var user = Meteor.user();
   var subdomain = LocalStore.get('subdomain');
-  var communityId = LocalStore.get('communityId')
+  var communityId = LocalStore.get('communityId');
+  /* TODO: change date languages dynamically */
+  moment.locale('en');
 
   if (user && user.roles){
     var currentRole = LocalStore.get('currentUserRole');
     if (!currentRole){
-      LocalStore.set('currentUserRole', Meteor.user().roles[0]);
+      LocalStore.set('currentUserRole', 'individual');
     }
   }
   self.availableTags = new ReactiveVar([]);
@@ -43,10 +45,10 @@ Template.Header.helpers({
     return Template.instance().community.get().name;
   },
   hideHamburger() {
-    $(".mdl-layout__drawer-button").hide();
+    //$(".mdl-layout__drawer-button").hide();
   },
   showHamburger() {
-    $(".mdl-layout__drawer-button").show();
+    //$(".mdl-layout__drawer-button").show();
   },
   lang() {
     var str = Session.get("i18n_lang")
@@ -118,6 +120,8 @@ Template.Header.events({
     var lang = $(e.currentTarget).attr("id");
     Session.set("i18n_lang",lang)
     TAPi18n.setLanguage(lang);
+    /* TODO: change locale dynamically*/
+    moment.locale('en');
   },
   'click #nav-logout' : function(e){
     event.preventDefault();
@@ -158,6 +162,9 @@ Template.Header.events({
   },
   'click #mark-as-read': function(event, template) {
     Meteor.call('markAllAsRead', Meteor.userId());
+  },
+  'click .mdl-layout__obfuscator-right': function(event, template) {
+    $('#notifications-menu').removeClass('active'); 
   }
 
 });

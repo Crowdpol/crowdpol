@@ -24,9 +24,9 @@
 						<tbody>
 								{{#each communities}}
 								<tr>
-										<td class="mdl-data-table__cell--non-numeric">{{name}}</td>
-										<td class="mdl-data-table__cell--non-numeric">{{subdomain}}</td>
-										<td class="mdl-data-table__cell--non-numeric">{{userCount _id}}</td>
+										<td data-label='{{_"admin.communities.name"}}' class="mdl-data-table__cell--non-numeric">{{name}}</td>
+										<td data-label='{{_"admin.communities.subdomain"}}' class="mdl-data-table__cell--non-numeric">{{subdomain}}</td>
+										<td data-label='{{_"admin.communities.user-count"}}' class="mdl-data-table__cell--non-numeric">{{userCount _id}}</td>
 								</tr>
 								{{/each}}
 						</tbody>
@@ -118,6 +118,18 @@
 		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="languageSelector">
 			<input type="checkbox" id="languageSelector" class="mdl-checkbox__input" checked>
 			<span class="mdl-checkbox__label">{{_"admin.communities.languageSelector"}}</span>
+		</label>
+
+		<!-- email whitelist -->
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<input class="mdl-textfield__input" type="text" id="emailWhitelist">
+			<label class="mdl-textfield__label" for="emailWhitelist">{{_"admin.communities.emailWhitelist"}}</label>
+		</div>
+
+		<!-- enforce whitelist -->
+		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="enforceWhitelist">
+			<input type="checkbox" id="enforceWhitelist" class="mdl-checkbox__input" checked>
+			<span class="mdl-checkbox__label">{{_"admin.communities.enforceWhitelist"}}</span>
 		</label>
 
 		<div class="form-group" style="margin-bottom: 2rem;">

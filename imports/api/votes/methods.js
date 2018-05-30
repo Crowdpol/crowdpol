@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Proposals } from '../proposals/Proposals.js'
-import { Votes } from './Votes.js'
+import { Votes } from './Votes.js';
+import CryptoJS from 'crypto-js';
 
 Meteor.methods({
   vote: function(voteData) {
@@ -15,15 +16,19 @@ Meteor.methods({
       throw new Meteor.Error(422, 'Please vote yes or no');
     if (!proposal)
       throw new Meteor.Error(422, 'You must vote on a proposal');
-    vote = {
-      vote: voteData.vote,
-      proposalId: voteData.proposalId,
-      delegateId: voteData.delegateId,
-      voterHash: user._id
-    }
+   
+    var salt = user.username;
+    var voterHash = CryptoJS.SHA256(user._id + salt).toString(CryptoJS.enc.SHA256);
 
+    vote = {
+        vote: voteData.vote,
+        proposalId: voteData.proposalId,
+        delegateId: voteData.delegateId,
+        voterHash: voterHash
+      }
+  
     //if the user has already voted for that proposal, update their vote
-    var existingVote = Votes.findOne({proposalId: vote.proposalId, voterHash: vote.voterHash});
+    var existingVote = Votes.findOne({proposalId: vote.proposalId, voterHash: voterHash});
     if (existingVote){
       Votes.update({_id: existingVote._id}, {$set: vote});
     } else {
@@ -39,9 +44,11 @@ Meteor.methods({
     check(voteId, String);
     return Votes.findOne({_id: voteId});
   },
-  getUserVoteFor: function(proposalId, voterHash){
+  getUserVoteFor: function(proposalId, userId){
     check(proposalId, String);
-    check(voterHash, String);
+    check(userId, String);
+    var salt = Meteor.users.findOne({_id: userId}).username;
+    var voterHash = CryptoJS.SHA256(userId + salt).toString(CryptoJS.enc.SHA256);
     return Votes.findOne({proposalId: proposalId, voterHash: voterHash});
   },
   getProposalIndividualVotes: function(proposalId){

@@ -1,6 +1,7 @@
 import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { Ranks } from '../ranking/Ranks.js'
+import { Notifications } from '../notifications/Notifications.js'
 
 Meteor.methods({
 
@@ -59,44 +60,6 @@ Meteor.methods({
           Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
         }
       }
-    },
-    addEntity: function(entity) {
-      check(entity, { 
-        email: String, 
-        password: String, 
-        phone: Match.Maybe(String), 
-        contact: Match.Maybe(String), 
-        profileType: Match.Maybe(String), 
-        name: String, 
-        website: Match.Maybe(String),
-        roles: Match.Maybe([String]),
-        isParty: Boolean,
-        isOrganisation: Boolean
-      });
-
-      entityID = Accounts.createUser({
-        'email': entity.email,
-        'password': entity.password,
-        'isPublic' : false
-        });
-
-      // Update profile
-      profile = {'firstName': entity.name,
-      'website': entity.website,
-      'phoneNumber': entity.phone,
-      'contactPerson': entity.contact,
-      'type': entity.profileType,
-      //'username': generateUs"approvals": {$exists: true}, $where : "this.approvals.length > 0"})ername(entity.name),
-      'searchString': entity.name //+ ' ' + generateUsername(entity.name)
-      };
-
-      Meteor.call('updateProfile', entityID, profile);
-
-      // Add entity to role
-      Roles.addUsersToRoles(entityID, entity.roles);
-
-      return entityID;
-
     },
     isApproved: function(userID) {
       check(userID, String);
@@ -182,20 +145,47 @@ Meteor.methods({
       }
       
     },
-    toggleRole: function (userID,role,state) {
-      check(userID, String);
+    toggleRole: function (role,state) {
       check(role, String);
       check(state, Boolean);
+      var delegate = Meteor.user();
+      var delegateId = Meteor.userId();
       if(state){
         if ((role == 'delegate' || role == 'candidate')){
-          if (Meteor.user().isPublic){
-            Roles.addUsersToRoles(Meteor.userId(), role);
+          if (delegate.isPublic){
+            Roles.addUsersToRoles(delegateId, role);
           }
         } else {
-          Roles.addUsersToRoles(Meteor.userId(), role);
+          Roles.addUsersToRoles(delegateId, role);
         }
       }else{
-        Roles.removeUsersFromRoles(Meteor.userId(), role);
+        // Remove user from role
+        Roles.removeUsersFromRoles(delegateId, role);
+        //Create notifications for each supporter
+        if (role == 'delegate'){
+          var delegateName = delegate.profile.firstName + delegate.profile.lastName;
+          var supporterIds = Ranks.find({entityId: delegateId}).pluck('supporterId');
+          // Create notifications
+          var notifications = []
+          if (supporterIds){
+            _.each(supporterIds, function(id){
+              var notification = 
+              notifications.push({
+                message: TAPi18n.__('notifications.users.delegate-deselect', delegateName), 
+                userId: id, 
+                url: '/delegate', 
+                icon: 'warning',
+                read: false,
+                createdAt: new Date()
+              })
+            });
+            // Batch insert notifications
+            Notifications.batchInsert(notifications);
+          }
+          
+          // Remove delegate from user rankings
+          Ranks.remove({entityId: delegateId});
+        }
       }
     },
     getRequests(){
@@ -298,6 +288,38 @@ Meteor.methods({
         _id: String });
       Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
+    acceptTerms: function() {
+      Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.termsAccepted': true}});
+    },
+    sendForgotPasswordEmail: function(email, rootUrl) {
+
+      Accounts.emailTemplates.resetPassword = {
+        subject() {
+          return TAPi18n.__('emails.reset-password.subject');
+        },
+        text( user, url ) {
+          let emailAddress   = user.emails[0].address,
+              token = url.substring(url.lastIndexOf('/')+1, url.length);
+              newUrl = rootUrl + '/reset-password/' + token;
+              supportEmail   = Meteor.settings.private.fromEmail,
+              emailBody      = TAPi18n.__('emails.reset-password.body', {url: newUrl, supportEmail: supportEmail});
+
+          return emailBody;
+        }
+      };
+
+      var userId = Accounts.findUserByEmail(email)._id;
+
+      Accounts.sendResetPasswordEmail(userId, email, function(error) {
+            if (error) {
+              RavenClient.captureException(error);
+              Bert.alert(error.reason, 'danger')
+            } else { 
+                Bert.alert(TAPi18n.__('pages.authenticate.recover-password.alerts.reset-password-sent-message'), 'success')
+            }
+        });
+
+    }
 });
 
 function profileIsComplete(user){

@@ -20,7 +20,8 @@
 			"alerts": {
 				"mailing-list-signup-success": "Thank you. You have been added to the mailing list.",
 				"no-image": "The image for your community could not be loaded."
-			}
+			},
+			"get-started": "Let's get started"
 		},
 		"about": {
 			"heading": "What’s all this about then?",
@@ -67,7 +68,7 @@
 			},
 			"links": {
 				"login": "Already have an account? Log in",
-				"register": "Don't have an account? Register",
+				"register": "Don't have an account? Sign up",
 				"forgot": "Forgot your password?"
 			},
 			"individual": {
@@ -87,7 +88,7 @@
 					"title": "Login as Organisation/Party"
 				}
 			},
-			"new-passowrd":{
+			"new-password":{
 				"heading": "Enter new password",
 				"new-password": "New password",
 				"alerts": {
@@ -103,6 +104,8 @@
 			}
 		},
 		"signup":{
+			"accept-terms": "You must accept the terms of use.",
+			"not-in-whitelist" : "Only whitelisted users can sign up for this community.",
 			"tab": {
 				"individual": "Individuals",
 				"entities": "Organisations/Political Parties"
@@ -176,6 +179,7 @@
 		},
 		"delegates": {
 			"heading": "Delegates",
+			"search": "Search for Delegates",
 			"instructions-1": "Below is a list of users to whom you may delegate your vote.",
 			"instructions-2": "If you do not vote on a proposal, your vote will automatically go to your highest-ranking delegate who voted. However, you can override your delegate's vote at any time.",
 			"instructions-3": "You can select up to five delegates. You can reorder your list of chosen delegates by dragging and dropping them into place once you have selected them.",
@@ -193,6 +197,7 @@
 		},
 		"proposals": {
 			"list": {
+				"search": "Search for keywords in proposals",
 				"deletedMessage": "Your proposal has been deleted.",
 				"confirmDelete": "Are you sure you want to permanently delete this proposal?",
 				"tabs":{
@@ -212,7 +217,9 @@
 					"vote": "and vote"
 				},
 				"openClosedSwitch": "Open/Closed",
-				"createdInvitedSwitch": "Created/Invited"
+				"createdInvitedSwitch": "Created/Invited",
+				"untitled": "Untitled",
+				"untranslated": "This proposal has not yet been translated."
 			},
 			"edit": {
 				"heading": "Write your proposal",
@@ -276,7 +283,6 @@
 				"delegatesVoteHeading": "How your delegates voted",
 				"delegatesFor": "Delegates For:",
 				"delegatesAgainst": "Delegates Against:",
-				"delegateVotingClosed": "Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date.",
 				"tooltips": {
 					"share": "Copy a link to this proposal to your clipboard.",
 					"sign": "Show your support by signing this proposal. Note that this does not constitute a vote."
@@ -323,6 +329,7 @@
 			"private" : "Private Profile",
 			"delegate" : "Delegate",
 			"candidate" : "Candidate",
+			"terms-accepted": "I accept the Terms of Use",
 			"alerts": {
 				"invalid-url": "Please enter a valid url, starting with 'http' or 'https'.",
 				"username": "Username required.",
@@ -333,10 +340,13 @@
 				"profile-private": "Profile is now private.",
 				"profile-public": "Profile is now public.",
 				"profile-delegate-removed" : "Delegate Role removed.",
+				"profile-stop-delegate": "Are you sure you want to stop being a delegate? Users will no longer be able to delegate their votes to you.",
 				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
 				"profile-candidate-removed" : "Candidate Role removed.",
 				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
-				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete."
+				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete.",
+				"password-incorrect": "Your existing password was incorrect, please try again",
+				"password-reset": "Your password was successfully reset"
 			},
 			"tooltips": {
 				"delegateSwitch": "Apply to be a delegate. This will allow other users to let you vote on their behalf.",
@@ -351,7 +361,16 @@
 			"interests": "interests",
 			"public-switch-description": "Make your profile visible to others. Requires completed profile form. Required become a delegate.",
 			"delegate-switch-description": "By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
-			"bio-count": "__bioCount__ characters (min 50, max 160)"
+			"bio-count": "__bioCount__ characters (min 50, max 160)",
+			"photo-url": "Enter an image url",
+			"change-photo": "Change profile photo URL",
+			"password-reset": "Password reset",
+			"old-password" : "Old password",
+			"new-password": "New password",
+			"confirm-password": "Confirm password",
+			"reset": "Reset",
+			"password-mismatch": "Passwords do not match",
+			"password-reset": "Password successfully reset"
 		},
 		"routes": {
 			"alerts": {
