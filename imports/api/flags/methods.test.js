@@ -11,14 +11,25 @@ if (Meteor.isServer) {
 
     beforeEach(()=>{
       // Create a fake flag
-      flags = Factory.create('flags', generateDoc(schema.Flags));
+      flag = Factory.create('flags', generateDoc(schema.Flags));
     });
 
     it("Add flag", (done) => {
       try {
-        var id = Meteor.call('addFlag', flags);
+        var id = Meteor.call('addFlag', flag);
         expect(id).to.exist;
         var testFlag = Meteor.call('getFlag', id);
+        expect(testFlag).to.exist;
+        done();
+      } catch (err) {
+        console.log(err);
+        assert.fail();
+      }
+    });
+
+    it("Get flag", (done) => {
+      try {
+        var testFlag = Meteor.call('getFlag', flag._id);
         expect(testFlag).to.exist;
         done();
       } catch (err) {

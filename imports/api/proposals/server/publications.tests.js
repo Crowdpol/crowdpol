@@ -11,20 +11,22 @@ describe('Proposal publications', function () {
   beforeEach(function () {
     // create a fake user
     Factory.define('user', Meteor.users, schema.User);
-    userId = Factory.create('user')._id
-    tag = Factory.create('tag', generateDoc(schema.Tag))
+    user = Factory.create('user');
+    tag = Factory.create('tag', generateDoc(schema.Tag));
+    community = Factory.create('community', generateDoc(schema.Community))
     proposal = {
           title: 'Test Proposal',
           abstract: 'This proposal will test the proposals',
           body: 'I hereby propose a proposal to test the proposals so that others, too, may propose proposals.',
           startDate: new Date(),
           endDate: new Date(),
-          authorId: userId,
+          authorId: user._id,
           invited: ['invitedGuy', 'otherInvitedGuy'],
           tags: [{text: tag.text, keyword: tag.keyword, _id: tag._id, url: tag.url}],
           pointsFor: ['point1','point2'],
           pointsAgainst: ['point1','point2'],
           references: ['ref1','ref2'],
+          communityId: community._id
         }
         
         propsalId = Meteor.call('createProposal', proposal);

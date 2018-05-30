@@ -31,6 +31,9 @@ export const Tag = {
     },
     authorized: {
       type: 'boolean'
+    },
+    communityId: {
+      type: 'string'
     }
   },
   required: [
@@ -39,6 +42,7 @@ export const Tag = {
     'url',
     'createdAt',
     'lastUpdate',
-    'authorized'
+    'authorized',
+    'communityId'
   ]
 };

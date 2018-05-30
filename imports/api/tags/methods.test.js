@@ -12,11 +12,12 @@ if (Meteor.isServer) {
     beforeEach(()=>{
       // Create a fake tag
       tag = Factory.create('tag', generateDoc(schema.Tag));
+      community = Factory.create('community', generateDoc(schema.Community));
     });
 
     it("Add tag", (done) => {
       try {
-        var id = Meteor.call('addTag', "testing");
+        var id = Meteor.call('addTag', "testing",community._id);
         expect(id).to.exist;
         var testTag = Meteor.call('getTag', id);
         expect(testTag).to.exist;

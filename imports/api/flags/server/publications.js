@@ -5,3 +5,8 @@ Meteor.publish('flags.community', function(communityId) {
 	return Flags.find({communityId: communityId});
 });
 
+Meteor.publish('flags.all', function() {
+  return Flags.find({});
+});
+
+

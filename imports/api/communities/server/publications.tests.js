@@ -6,7 +6,7 @@ import { Factory } from 'meteor/dburles:factory';
 import { fakerSchema } from '../../../utils/test-utils/faker-schema/';
 
 const { schema, generateDoc } = fakerSchema;
-
+/*
 describe('Community publications', function () {
   beforeEach(function () {
     community = Factory.create('community', generateDoc(schema.Community))
@@ -23,3 +23,4 @@ describe('Community publications', function () {
     });
   });
 });
+*/

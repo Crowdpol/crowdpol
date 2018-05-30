@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 import { assert } from 'meteor/practicalmeteor:chai';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import { Flags } from '../Flags.js'
@@ -6,16 +7,16 @@ import { Factory } from 'meteor/dburles:factory';
 import { fakerSchema } from '../../../utils/test-utils/faker-schema/';
 import './publications.js';
 
+const { schema, generateDoc } = fakerSchema;
+
 describe('Flag publications', function () {
-  /*
   Factory.define('user', Meteor.users, schema.User);
   creatorId = Factory.create('user')._id;
   flaggerId = Factory.create('user')._id;
-  proposal = Factory.create('proposal', generateDoc(schema.Proposal));
 
   flag = {
     contentType: 'proposal',
-    contentId: proposal._id,
+    contentId: Random.id(),
     creatorId: creatorId,
     flaggerId: flaggerId,
     category: 'sexist',
@@ -25,9 +26,8 @@ describe('Flag publications', function () {
     communityId: creatorId,
     other: ''
   }
-  console.log(flag);
   beforeEach(function () {
-    //Meteor.call('addFlag', flag);
+    Meteor.call('addFlag', flag);
   });
 
   describe('flags', function () {
@@ -39,5 +39,4 @@ describe('Flag publications', function () {
       });
     });
   });
-  */
 });
