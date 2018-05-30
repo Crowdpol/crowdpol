@@ -296,6 +296,12 @@ adminRoutes.route('/communities', {
 });
 
 function loadCommunityInfo() {
+  //check for crowdpol:
+  var hostname = window.location.host;
+  console.log(hostname);
+  if(hostname=="crowdpol.com"||hostname=="www.crowdpol.com"){
+    console.log("You are in the crowdpol community");
+  }
   // Grab subdomain
   var subdomain = window.location.host.split('.')[0]
 
