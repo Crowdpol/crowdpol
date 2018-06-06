@@ -298,12 +298,31 @@ adminRoutes.route('/communities', {
 function loadCommunityInfo() {
   //check for crowdpol:
   var hostname = window.location.host;
-  console.log(hostname);
-  if(hostname=="crowdpol.com"||hostname=="www.crowdpol.com"){
-    console.log("You are in the crowdpol community");
+  var subdomain = window.location.host.split('.')[0];
+
+  switch (hostname) {
+    case "crowdpol.com":
+        subdomain = "global";
+        break;
+    case "www.crowdpol.com":
+        subdomain = "global";
+        break;
+    case "crowdpol.org":
+        subdomain = "global";
+        break;
+    case "www.crowdpol.org":
+        subdomain = "global";
+        break;
+    case "commondemocracy.org":
+        subdomain = "global";
+        break;
+    case "www.commondemocracy.org":
+        subdomain = "global";
+        break;
+    default:
+        subdomain = "global";
   }
-  // Grab subdomain
-  var subdomain = window.location.host.split('.')[0]
+  console.log(hostname + " - " + subdomain);
 
   // set LocalStorage info
   if (subdomain){
