@@ -66,6 +66,7 @@
   }
 }
 
+<<<<<<< HEAD
 .field-icon {
   float: right;
   margin-left: -25px;
@@ -126,3 +127,19 @@
 #change-photo-icon:hover {
   opacity: 1;
 }
+=======
+.mdl-chip.square-chip{
+  background-color: $light-grey-xdark; 
+  border-radius: 5px;
+  text-align: center;
+  width: 80px;
+  height: 25px;
+  line-height: 22px;
+  padding: 0px;
+  margin: 0px;
+
+  .mdl-chip__text {
+    line-height: 1.2rem;
+  } 
+}
+>>>>>>> remotes/origin/BJ-3-Proposals
