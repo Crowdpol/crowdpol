@@ -30,7 +30,10 @@
 			"nav_privacy" : "Privacy policy",
 			"nav_terms" : "Terms & conditions",
 			"nav_admin_dash" : "Admin dashboard",
-			"right_about" : "About"
+			"right_about" : "About",
+			"website": "Website",
+			"recent-votes": "Recent Votes",
+			"no-votes": "This delegate has not voted on any proposals yet."
 		},
 		"body":{
 			"no-styles": "The color scheme for your community could not be loaded."
