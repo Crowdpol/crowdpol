@@ -6,9 +6,15 @@ import { Ranks } from '../ranking/Ranks.js';
 
 Meteor.methods({
   createProposal: function (proposal) {
+    //console.log(proposal);
       //try{
         check(proposal, { 
+          title: Match.Maybe(String),
+          abstract: Match.Maybe(String),
+          body: Match.Maybe(String),
           content: Match.Maybe([Object]),
+          pointsFor: Match.Maybe([String]),
+          pointsAgainst: Match.Maybe([String]),
           startDate: Date, 
           endDate: Date, 
           authorId: String,
