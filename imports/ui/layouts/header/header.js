@@ -10,7 +10,9 @@ Template.Header.onCreated(function(){
   var self = this;
   var user = Meteor.user();
   var subdomain = LocalStore.get('subdomain');
-  var communityId = LocalStore.get('communityId')
+  var communityId = LocalStore.get('communityId');
+  /* TODO: change date languages dynamically */
+  moment.locale('en');
 
   if (user && user.roles){
     var currentRole = LocalStore.get('currentUserRole');
@@ -118,7 +120,8 @@ Template.Header.events({
     var lang = $(e.currentTarget).attr("id");
     Session.set("i18n_lang",lang)
     TAPi18n.setLanguage(lang);
-    moment.locale(lang);
+    /* TODO: change locale dynamically*/
+    moment.locale('en');
   },
   'click #nav-logout' : function(e){
     event.preventDefault();

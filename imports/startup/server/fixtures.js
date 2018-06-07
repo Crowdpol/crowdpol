@@ -41,24 +41,39 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		defaultLanguage: 'en',
 		languages: bgLanguages
 	});
+	cpSubdomain = 'global';
+	cpLanguages = ['en'];
+	cpId = createCommunity('Crowdpol Global', 'global', {
+		colorScheme: 'default', 
+		homepageImageUrl: 'img/wave-bg.jpg',
+		languageSelector: true,
+		homepageBannerText: "A new wave of democracy is coming.",
+		homepageIntroText: "A liquid democracy platform for the collective decision making in the commons.",
+		aboutText: "Crowdpol about us page",
+		defaultLanguage: 'en',
+		languages: cpLanguages
+	});
 
 	/* Register admins for both communities */
-	registerAdmins([mdId, bgId]);
+	registerAdmins([mdId, bgId,cpId]);
 
 	/* Create demo tags for each community */
 	createDemoTags(mdId);
 	createDemoTags(bgId);
+	createDemoTags(cpId);
 
 	/* Create demo users if in dev environment */
 	if (Meteor.isDevelopment) {
 		registerDemoUsers(Meteor.settings.private.demoUsers, [mdId], mdSubdomain);
 		registerDemoUsers(Meteor.settings.private.demoUsers, [bgId], bgSubdomain);
+		registerDemoUsers(Meteor.settings.private.demoUsers, [cpId], cpSubdomain);
 	}
 	
 	/* Create demo proposals if in dev environment */
 	if (Meteor.isDevelopment) {
 		createDemoProposal(mdId, mdSubdomain, mdLanguages);
 		createDemoProposal(bgId, bgSubdomain, bgLanguages);
+		createDemoProposal(cpId, cpSubdomain, cpLanguages);
 	}
 
 	/* Convert existing proposals to new format*/
@@ -89,6 +104,7 @@ createAdmins = function (admin, communityIds) {
 				firstName: admin.profile.firstName,
 				lastName: admin.profile.lastName,
 				photo: admin.profile.photo,
+				termsAccepted: true,
 				credentials : [
 				{
 					"source" : "default",
@@ -231,6 +247,7 @@ function createDemoUsers(users, communityIds, subdomain){
 					photo: users[x].picture.large,
 					type: type,
 					tags: tagObjects,
+					termsAccepted: true,
 					credentials : [
 						{
 							"source" : "default",
