@@ -351,6 +351,25 @@ function saveChanges(event, template, returnTo){
 					RavenClient.captureException(error);
 					Bert.alert(error.reason, 'danger');
 				} else {
+					var oldInvites = Proposals.findOne(proposalId).invited;
+				    var newInvites = newProposal.invited;
+
+				    if (oldInvites && newInvites) {
+				        // Only send new invites if new collaborators have been added
+				        var newCollaborators = _.difference(newInvites, oldInvites);
+				        if (newCollaborators) {
+				          // Create notification for each new collaborator
+				          for (i=0; i<newCollaborators.length; i++) {
+				            var notification = {
+				              message: TAPi18n.__('notifications.proposals.invite'), 
+				              userId: newCollaborators[i], 
+				              url: '/proposals/view/' + proposalId, 
+				              icon: 'people'
+				            }
+				            Meteor.call('createNotification', notification);
+				          }
+				        } 
+				    }
 					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
 					FlowRouter.go(returnTo, {id: proposalId});
 				}
@@ -361,6 +380,18 @@ function saveChanges(event, template, returnTo){
 					RavenClient.captureException(error);
 					Bert.alert(error.reason, 'danger');
 				} else {
+					 //Create notifications for collaborators
+			        if (newProposal.invited) {
+			          for (i=0; i < newProposal.invited.length; i++) {
+			            var notification = {
+			              message: TAPi18n.__('notifications.proposals.invite'), 
+			              userId: newProposal.invited[i], 
+			              url: '/proposals/view/' + proposalId, 
+			              icon: 'people'
+			            }
+			            Meteor.call('createNotification', notification);
+			          }
+			        }
 					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
 					FlowRouter.go(returnTo, {id: proposalId});
 				}

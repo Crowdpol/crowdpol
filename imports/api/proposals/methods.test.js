@@ -122,6 +122,7 @@ if (Meteor.isServer) {
       try {
         Meteor.call('saveProposalChanges', proposalId, {body: 'new body'});
         var proposal = Meteor.call('getProposal', proposalId);
+        console.log(proposal);
         expect(proposal.body).to.equal('new body');
         done();
       } catch (err) {
@@ -169,7 +170,8 @@ if (Meteor.isServer) {
           endDate: moment().subtract(1, 'days').toDate(),
           stage: 'live',
           status: 'approved',
-          authorId: '123'
+          authorId: '123',
+          communityId: communityId
         });
         // Create 16 users
         Factory.define('user', Meteor.users, schema.User);

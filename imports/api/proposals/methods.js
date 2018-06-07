@@ -24,18 +24,7 @@ Meteor.methods({
           communityId: String
         });
         proposalId = Proposals.insert(proposal);
-        //Create notifications for collaborators
-        if (proposal.invited) {
-          for (i=0; i < proposal.invited.length; i++) {
-            var notification = {
-              message: TAPi18n.__('notifications.proposals.invite'), 
-              userId: proposal.invited[i], 
-              url: '/proposals/view/' + proposalId, 
-              icon: 'people'
-            }
-            Meteor.call('createNotification', notification);
-          }
-        }
+       
         return proposalId;
       //} catch (err) {
         //console.log(err);
@@ -68,9 +57,7 @@ Meteor.methods({
       check(proposalId, String);
       var userId = Proposals.findOne(proposalId).authorId;
       Proposals.update({_id: proposalId}, {$set: {"status": "rejected"}});
-      var message = TAPi18n.__('notifications.proposals.rejected');
-      var url = '/proposals/view/' + proposalId;
-      Meteor.call('createNotification', {message: message, userId: userId, url: url, icon: 'do_not_disturb'})
+      
     },
     approveProposal: function(proposalId){
       check(proposalId, String);
@@ -83,10 +70,7 @@ Meteor.methods({
       */
       //Proposals.update({_id: proposalId}, {$set: {"startDate": new Date()}});
 
-      // Create notification
-      var message = TAPi18n.__('notifications.proposals.approved');
-      var url = '/proposals/view/' + proposalId;
-      Meteor.call('createNotification', {message: message, userId: userId, url: url, icon: 'check'});
+      
     },
     updateProposalStage: function(proposalId, stage){
       check(proposalId, String);
@@ -96,6 +80,7 @@ Meteor.methods({
     saveProposalChanges: function (proposalId, proposal) {
       check(proposalId, String);
       // Find if new collaborators have been added
+      /* moving this to client side
       var oldInvites = Proposals.findOne(proposalId).invited;
       var newInvites = proposal.invited;
 
@@ -115,6 +100,7 @@ Meteor.methods({
           }
         } 
       }
+      */
 
       proposal.lastModified = new Date();
       Proposals.update({_id: proposalId}, {$set: proposal });

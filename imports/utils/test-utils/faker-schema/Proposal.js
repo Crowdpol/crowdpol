@@ -33,6 +33,9 @@ export const Proposal = {
     },
     authorId: {
       type: 'string'
+    },
+    communityId: {
+      type: 'string'
     }
   },
   required: [
@@ -45,5 +48,6 @@ export const Proposal = {
     'stage',
     'status',
     'authorId',
+    'communityId'
   ]
 };

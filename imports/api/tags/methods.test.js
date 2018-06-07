@@ -13,11 +13,12 @@ if (Meteor.isServer) {
       // Create a fake tag
       tag = Factory.create('tag', generateDoc(schema.Tag));
       community = Factory.create('community', generateDoc(schema.Community));
+      communityId = community._id;
     });
 
     it("Add tag", (done) => {
       try {
-        var id = Meteor.call('addTag', "testing",community._id);
+        var id = Meteor.call('addTag', "testing",communityId);
         expect(id).to.exist;
         var testTag = Meteor.call('getTag', id);
         expect(testTag).to.exist;
@@ -68,7 +69,7 @@ if (Meteor.isServer) {
 
     it("Tranform tags", (done) => {
       try {
-        var tagArray = Meteor.call('transformTags', ['TagOne'], true);
+        var tagArray = Meteor.call('transformTags', ['TagOne'], community._id);
         expect(tagArray[0].keyword).to.equal('tagone');
         expect(tagArray[0].url).to.equal('/tag/tagone');
         done();

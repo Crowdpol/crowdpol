@@ -5,7 +5,6 @@ import { convertToSlug } from '../../utils/functions';
 
 Meteor.methods({
     addTag: function (keyword, communityId) {
-      console.log(keyword + " : " + communityId);
       check(keyword, String);
       check(communityId, String);
       var existingTag = Tags.findOne({keyword: convertToSlug(keyword), communityId: communityId});
