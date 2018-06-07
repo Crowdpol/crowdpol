@@ -62,8 +62,28 @@
 			<h6>{{_ "layout.drawer.right_about"}}</h6>
 			<p>{{user.profile.bio}}</p>
 			<br>
-			<h6>Website</h6>
+			<h6>{{_ "layout.drawer.website"}}</h6>
 			<a href="{{user.profile.website}}">{{user.profile.website}}</a>
+			<br>
+			<!-- Recent Votes -->
+			<br/>
+			<h6>{{_ "layout.drawer.recent-votes"}}</h6>
+			{{#if delegateVotes}}
+			<ul class=" mdl-list">
+				{{#each delegateVotes}}
+				 <li class="delegate-item mdl-list__item">
+				 <div class="card-main-wrap">
+					<span class="card-main mdl-list__item-primary-content recent-vote">
+						<i class="material-icons">{{voteIcon vote}}</i> 
+						<a href="/proposals/view/{{proposalId}}"> {{proposalTitle proposalId}} </a>
+					</span>
+				 </div>
+				</li>
+				{{/each}}
+				</ul>
+			{{else}}
+				{{_"layout.drawer.no-votes"}}
+			{{/if}}
 		</div>
 	</div>
 </template>

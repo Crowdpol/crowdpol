@@ -6,6 +6,9 @@ import { setupTaggle } from '../../components/taggle/taggle.js'
 import "../../components/userSearch/userSearch.js"
 import RavenClient from 'raven-js';
 
+
+
+
 Template.EditProposal.onCreated(function(){
 	self = this;
 
@@ -45,6 +48,7 @@ Template.EditProposal.onCreated(function(){
 			dict.set( 'startDate', defaultStartDate );
 			dict.set( 'endDate', defaultEndDate);
 		}
+		
 	});
 });
 
@@ -129,6 +133,9 @@ Template.EditProposal.events({
 	'click .remove-invite-email': function(e,t){
 		removeUserEmail($(e.currentTarget).attr("data-array-index"));
 	},
+	'click .c-datepicker-input': function(e,t){
+		picker.open();
+	}
 });
 
 Template.ProposalForm.onCreated(function(){

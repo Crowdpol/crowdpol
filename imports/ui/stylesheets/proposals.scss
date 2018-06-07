@@ -292,4 +292,22 @@
   padding: 10px;
 }
 
-
+.proposal-item{
+  .card-secondary-wrap{
+    margin-top: 0px;
+    
+  }
+}
+.status-chip{
+      font-size: $xsmall-font-size;
+      background-color: $light-grey;
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: white;
+      max-width: 80px;
+      line-height: 1.1rem;
+      text-align: center;
+}
+#body-editor-sv{
+  min-height: 200px;
+}

@@ -4,9 +4,9 @@
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<!-- Tab Bars -->
 		<div class="mdl-tabs__tab-bar">
-			<a href="#vote-proposals-panel" id="vote-proposals-tab" class="mdl-tabs__tab is-active">{{_ "pages.proposals.list.tabs.allProposals"}}</a>
-			<a href="#my-proposals-panel" id="my-proposals-tab" class="mdl-tabs__tab">{{_ "pages.proposals.list.tabs.myProposals"}}</a>
-			<a href="/proposals/edit" class="mdl-tabs__tab">{{_ "pages.proposals.list.tabs.writeProposals"}}</a>
+			<a href="#vote-proposals-panel" id="vote-proposals-tab" class="mdl-tabs__tab {{#if votesTabActive}}is-active{{/if}}">{{_ "pages.proposals.list.tabs.allProposals"}}</a>
+			<a href="#my-proposals-panel" id="my-proposals-tab" class="mdl-tabs__tab {{#if myTabActive}}is-active{{/if}}">{{_ "pages.proposals.list.tabs.myProposals"}}</a>
+			<a href="/proposals/edit" id="create-proposal-tab" class="mdl-tabs__tab">{{_ "pages.proposals.list.tabs.writeProposals"}}</a>
 		</div>
 
 		<div class="app-container search-container" id="proposal-list-container">
@@ -34,7 +34,7 @@
 			-->
 
 			<!-- MDL tab panels, is-active to denote currently active -->
-			<div class="mdl-tabs__panel is-active" id="vote-proposals-panel">
+			<div class="mdl-tabs__panel {{#if votesTabActive}}is-active{{/if}}" id="vote-proposals-panel">
 				<button class="add-new-proposal mdl-button mdl-js-button mdl-button--fab" id="add-new-proposal">
 					<i class="material-icons">add</i>
 				</button>
@@ -51,6 +51,10 @@
 						<ul class="demo-list-control mdl-list">
 							{{#each openProposals}}
 								{{> ProposalCard}}
+							{{else}}
+								<p>
+									{{_ "pages.proposals.list.no-proposals" status="open"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a>
+								</p>
 							{{/each}}
 						</ul>
 					{{else}}
@@ -58,6 +62,9 @@
 						<ul class="demo-list-control mdl-list">
 							{{#each closedProposals}}
 								{{> ProposalCard}}
+							{{else}}
+								<p>{{_ "pages.proposals.list.no-proposals" status="closed"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
+								
 							{{/each}}
 						</ul>
 					{{/if}}
@@ -68,7 +75,7 @@
 			</div>
 
 			<!-- MDL Tab panel 2 -->
-			<div class="mdl-tabs__panel" id="my-proposals-panel">
+			<div class="mdl-tabs__panel {{#if myTabActive}}is-active{{/if}}" id="my-proposals-panel">
 				<button class="add-new-proposal mdl-button mdl-js-button mdl-button--fab" id="add-new-proposal">
 					<i class="material-icons">add</i>
 				</button>
@@ -86,6 +93,9 @@
 						<ul class="demo-list-control mdl-list">
 							{{#each myProposals}}
 								{{> ProposalCard }}
+							{{else}}
+								<p>{{_ "pages.proposals.list.your-proposals" status=""}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
+								
 							{{/each}}
 						</ul>
 
@@ -94,6 +104,9 @@
 						<ul class="demo-list-control mdl-list">
 							{{#each invitedProposals}}
 								{{> ProposalCard }}
+							{{else}}
+								<p>{{_ "pages.proposals.list.your-proposals" status="invited"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
+								
 							{{/each}}
 						</ul>
 					{{/if}}
@@ -119,9 +132,10 @@
 						  <i class="material-icons delete-proposal-icon" data-proposal-id="{{_id}}">delete</i>
 						</button>
 					{{/if}}
+					
 				</h6>
-				
 			</span> 
+
 			<span class="mdl-list__item-secondary-action">
 				{{#if isDraft this}}
 					<small class="proposal-date">
@@ -135,6 +149,9 @@
 			</span>
 		</div>
 		<div class="card-secondary-wrap">
+			<span class="status-chip">
+				 {{proposalStatus this}}
+			</span>
 			<p class="proposal-abstract">{{ abstract this}}</p>
 		</div>
 
