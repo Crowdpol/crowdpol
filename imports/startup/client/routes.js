@@ -296,8 +296,33 @@ adminRoutes.route('/communities', {
 });
 
 function loadCommunityInfo() {
-  // Grab subdomain
-  var subdomain = window.location.host.split('.')[0]
+  //check for crowdpol:
+  var hostname = window.location.host;
+  var subdomain = window.location.host.split('.')[0];
+
+  switch (hostname) {
+    case "crowdpol.com":
+        subdomain = "global";
+        break;
+    case "www.crowdpol.com":
+        subdomain = "global";
+        break;
+    case "crowdpol.org":
+        subdomain = "global";
+        break;
+    case "www.crowdpol.org":
+        subdomain = "global";
+        break;
+    case "commondemocracy.org":
+        subdomain = "global";
+        break;
+    case "www.commondemocracy.org":
+        subdomain = "global";
+        break;
+    default:
+        subdomain = "global";
+  }
+  console.log(hostname + " - " + subdomain);
 
   // set LocalStorage info
   if (subdomain){

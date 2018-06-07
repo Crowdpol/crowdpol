@@ -1,0 +1,13 @@
+@import 'variables.scss';
+
+.recent-vote {
+  i {
+    color: $light-blue;
+    font-size: $base-line-height;
+    margin-right: $space/2;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

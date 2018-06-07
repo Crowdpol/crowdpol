@@ -180,12 +180,13 @@ Template.ProfileForm.onRendered(function() {
   Session.set('showSettings',false);
   $( "#public-form-details" ).hide();
 
+  /*
   //Go through mdl inputs and check if dirty
   var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
   for (var i = 0, l = mdlInputs.length; i < l; i++) {
     mdlInputs[i].MaterialTextfield.checkDirty();
   }  
-
+  */
   $.validator.addMethod('usernameUnique', (username) => {
     let exists = Meteor.users.findOne({"_id":{$ne: Meteor.userId()},"profile.username": username});
     return exists ? false : true;
