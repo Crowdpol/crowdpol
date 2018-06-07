@@ -320,7 +320,7 @@ function loadCommunityInfo() {
         subdomain = "global";
         break;
     default:
-        subdomain = "global";
+        subdomain = window.location.host.split('.')[0];
   }
   console.log(hostname + " - " + subdomain);
 
