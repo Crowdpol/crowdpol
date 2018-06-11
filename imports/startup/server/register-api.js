@@ -33,5 +33,8 @@ import '../../api/notifications/server/publications.js';
 import '../../api/communities/methods.js';
 import '../../api/communities/server/publications.js';
 
+import '../../api/flags/methods.js';
+import '../../api/flags/server/publications.js';
+
 
 

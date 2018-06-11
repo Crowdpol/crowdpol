@@ -25,6 +25,10 @@ Template.AdminProposals.events({
 				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
+				// Create notification
+      			var message = TAPi18n.__('notifications.proposals.approved');
+      			var url = '/proposals/view/' + proposalId;
+      			Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'check'});
 				Bert.alert(TAPi18n.__('admin.alerts.proposal-approved'), 'success');
 			}
 		}); 
@@ -37,6 +41,9 @@ Template.AdminProposals.events({
 				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
+				var message = TAPi18n.__('notifications.proposals.rejected');
+      			var url = '/proposals/view/' + proposalId;
+      			Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'do_not_disturb'})
 				Bert.alert(TAPi18n.__('admin.alerts.proposal-rejected'), 'success');
 			}
 		}); 

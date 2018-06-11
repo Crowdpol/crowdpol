@@ -3,7 +3,29 @@ import jsf from 'json-schema-faker';
 export const CommunitySettings = {
   type: 'object',
   properties: {
+    languageSelector:{
+      type: 'boolean'
+    },
+    defaultLanguage: {
+      enum: ['en', 'sv']
+    },
+    languages: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    },
+    enforceWhitelist:{
+      type: 'boolean'
+    },
   }
+  ,
+  required: [
+  'languageSelector',
+  'defaultLanguage',
+  'languages',
+  'enforceWhitelist'
+  ]
 };
 
 export const Community = {
@@ -19,8 +41,33 @@ export const Community = {
       faker: 'date.past'
     },
     settings: {
-      type: CommunitySettings
+      type: 'object',
+      properties: {
+        languageSelector:{
+          type: 'boolean'
+        },
+        defaultLanguage: {
+          enum: ['en', 'sv']
+        },
+        languages: {
+          type: 'array',
+          items: {
+            type: 'string'
+          }
+        },
+        enforceWhitelist:{
+          type: 'boolean'
+        },
+      }
+      ,
+      required: [
+      'languageSelector',
+      'defaultLanguage',
+      'languages',
+      'enforceWhitelist'
+      ]
     }
+    
   },
   required: [
   'name',

@@ -54,6 +54,19 @@ export const Profile = {
         type: Credential
       }
     },
+    communityIds: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    },
+    required: [
+      'firstName',
+      'lastName',
+      'photo',
+      'credentials',
+      'communityIds'
+    ]
   }
 };
 

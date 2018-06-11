@@ -18,6 +18,7 @@ if (Meteor.isServer) {
     beforeEach(function () {
       resetDatabase(null);
       proposalId = Factory.create('proposal', generateDoc(schema.Proposal))._id;
+      communityId = Factory.create('community', generateDoc(schema.Community))._id;
     });
 
     it("Create proposal", (done) => {
@@ -32,6 +33,7 @@ if (Meteor.isServer) {
           pointsFor: ['point1','point2'],
           pointsAgainst: ['point1','point2'],
           references: ['ref1','ref2'],
+          communityId: communityId
         }
         
         id = Meteor.call('createProposal', proposalData);
@@ -71,6 +73,7 @@ if (Meteor.isServer) {
           pointsFor: ['point1','point2'],
           pointsAgainst: ['point1','point2'],
           references: ['ref1','ref2'],
+          communityId: communityId
         }
         
         var deletableProposalId = Meteor.call('createProposal', proposalData);
@@ -119,6 +122,7 @@ if (Meteor.isServer) {
       try {
         Meteor.call('saveProposalChanges', proposalId, {body: 'new body'});
         var proposal = Meteor.call('getProposal', proposalId);
+        console.log(proposal);
         expect(proposal.body).to.equal('new body');
         done();
       } catch (err) {
@@ -166,7 +170,8 @@ if (Meteor.isServer) {
           endDate: moment().subtract(1, 'days').toDate(),
           stage: 'live',
           status: 'approved',
-          authorId: '123'
+          authorId: '123',
+          communityId: communityId
         });
         // Create 16 users
         Factory.define('user', Meteor.users, schema.User);
@@ -277,7 +282,8 @@ if (Meteor.isServer) {
             endDate: moment().subtract(1, 'days').toDate(),
             stage: 'live',
             status: 'approved',
-            authorId: '1234'
+            authorId: '1234',
+            communityId: communityId
           });
           Meteor.call('prepareVotesForTally', [unvotedProposalId]);
           expect(Votes.find({vote: 'yes', proposalId: unvotedProposalId}).count()).to.equal(0);

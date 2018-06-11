@@ -11,7 +11,8 @@ const { schema, generateDoc } = fakerSchema;
 describe('Comments publications', function () {
   beforeEach(function () {
     proposal = Factory.create('proposal', generateDoc(schema.Proposal));
-    let comment = {message: 'Test comment', proposalId: proposal._id, authorId: '23049234'};
+    proposalId = proposal._id
+    let comment = {message: 'Test comment', proposalId: proposalId, authorId: '23049234'};
     Comments.insert(comment);
   });
 
@@ -19,7 +20,7 @@ describe('Comments publications', function () {
 
     it('publishes comments for a proposal', function (done) {
       const collector = new PublicationCollector();
-      collector.collect('comments', proposal._id, (collections) => {
+      collector.collect('comments', proposalId, (collections) => {
         assert.equal(collections.comments.length, 1);
         done();
       });
