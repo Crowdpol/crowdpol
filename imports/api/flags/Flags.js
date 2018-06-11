@@ -25,7 +25,6 @@ const FlagSchema = new SimpleSchema({
     optional: false
   },
   category: {
-    // current stage of proposal
     type: String,
     allowedValues: ["sexist", "racist", "langauge","other"],
     optional: false
