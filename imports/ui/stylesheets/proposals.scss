@@ -78,17 +78,10 @@
 
 }
 
-#sign-proposal {
-  border: 1px solid;
-  .proposal-item {
-    .mdl-list__item-secondary-action {
-      margin-right: $space;
-    }
-  }
-}
+
 
 #copy-proposal-link{
-  border: 1px solid;
+  //border: 1px solid;
 }
 
 #proposal-body-wrap {
@@ -121,6 +114,20 @@
   min-height: 64px;
   display: flex;
   align-items: center;
+
+  div.signature-button {
+    button.mdl-button--colored{
+      color: #b20000;
+    }
+    #sign-proposal {
+      //border: 1px solid $dark-grey-xdark;
+      .proposal-item {
+        .mdl-list__item-secondary-action {
+          margin-right: $space;
+        }
+      }
+    }
+  }
 }
 .proposal-container .mdl-card__supporting-text strong {
   font-weight: 400;
@@ -283,6 +290,8 @@
 .proposal-date {
   display: inline-flex;
 }
+
+.signature-button
 
 
 //Proposal List
