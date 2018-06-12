@@ -21,7 +21,11 @@
 					<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
 				</div>
 				<div class="proposal-author">
-					<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
+					{{#if author.profile.firstName}}
+						<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
+					{{else}}
+						<strong>{{author.profile.username}}</strong>
+					{{/if}}
 					<span>{{createdAt}}</span>
 				</div>
 
@@ -46,22 +50,27 @@
 					</div>
 				{{/if}}
 			</div>
-			<span class="status-chip">{{status}}</span>
+			
 			{{#if selectedInvites.count}}
 			<div>
 				<span id="collab-text">
 					{{_ "pages.proposals.view.collaborators"}}
 				</span>
 			</div>
-			<div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+			<div class="mdl-color-text--grey-700 mdl-card__supporting-text" id="collab-chips">
 				{{#each selectedInvites}}
 				<div class="collab-author">
 					<img class="mdl-chip__contact" src="{{profile.photo}}">
-					<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+					{{#if profile.firstName}}
+						<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+					{{else}}
+						<span class="mdl-chip__text">{{profile.username}}</span>
+					{{/if}}
 				</div>
 				{{/each}}
 			</div>
 			{{/if}}
+
 		</div>
 
 		<!-- Tabs for translations -->
@@ -178,7 +187,7 @@
 
 	<!-- Main Content -->
 	<div class="proposal-wrap">
-		<h1 class="proposal-title">{{{ title }}}</h1>
+		<h1 class="proposal-title">{{{ title }}}</h1><span class="status-chip">{{status}}</span>
 		<p class="proposal-info">{{{ abstract }}}</p>
 	</div>
 	<div id="proposal-body-wrap">

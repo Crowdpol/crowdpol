@@ -7,7 +7,7 @@
   top: 15px;
 }
 
-.mdl-chip-hoverable:hover { 
+.mdl-chip-hoverable:hover{ 
     background-color: $light-blue-dark;
 }
 
@@ -21,7 +21,7 @@
     margin-right: 50px;
   }
 .collab-author{
-      margin-right: 5px;
+      margin-right: 8px;
 
       .mdl-chip__contact{
         margin-right: 2px;
@@ -199,6 +199,9 @@
   .status-chip{
     margin-left: 18px;
   }
+  #collab-chips{
+    padding: 0px;
+  }
 }
 .proposal-container .signature-count {
   font-size: $xsmall-font-size;
@@ -326,6 +329,10 @@
       font-size: $xsmall-font-size;
       line-height: 1.1rem;
       padding: 2px 5px;
+      text-decoration: none;
+    }
+    .tag-chip:hover { 
+      background-color: $light-blue-dark;
     }
   }
 }

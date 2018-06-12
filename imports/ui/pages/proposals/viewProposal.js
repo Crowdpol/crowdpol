@@ -30,7 +30,6 @@ Template.ViewProposal.onCreated(function(language){
         dict.set( 'invited', proposal.invited );
         dict.set( 'authorId', proposal.authorId );
         dict.set( 'stage', proposal.stage );
-        dict.set( 'status', proposal.status );
         dict.set( 'signatures', proposal.signatures || []);
         dict.set( 'tags', proposal.tags || [] );
       }
@@ -68,6 +67,14 @@ Template.ViewProposal.events({
   'click .minilogo, click .proposal-author' (event,template){
     //console.log("show right drawer: " + Template.instance().templateDictionary.get( 'authorId' ));
     Session.set('drawerId',Template.instance().templateDictionary.get( 'authorId' ));
+    if($('.mdl-layout__drawer-right').hasClass('active')){       
+      $('.mdl-layout__drawer-right').removeClass('active'); 
+    }else{
+      $('.mdl-layout__drawer-right').addClass('active'); 
+    }
+  },
+  'click .collab-author' (event,template){
+    Session.set('drawerId',this._id);
     if($('.mdl-layout__drawer-right').hasClass('active')){       
       $('.mdl-layout__drawer-right').removeClass('active'); 
     }else{
@@ -184,9 +191,7 @@ Template.ViewProposal.helpers({
     var signatures = Template.instance().templateDictionary.get( 'signatures' );
     return signatures.indexOf( Meteor.userId()) > -1;
   },
-  status: function() {
-    return Template.instance().templateDictionary.get( 'status' );
-  },
+  
   startDate: function() {
     return Template.instance().templateDictionary.get( 'startDate' );
   },
@@ -286,6 +291,7 @@ Template.ProposalContent.onCreated(function(language){
         dict.set( 'body', translation.body || '' );
         dict.set( 'pointsFor', translation.pointsFor || [] );
         dict.set( 'pointsAgainst', translation.pointsAgainst || [] );
+        dict.set( 'status', proposal.status );
       }
     })
   }); 
@@ -332,7 +338,10 @@ Template.ProposalContent.helpers({
   },
   pointsAgainst: function() {
     return Template.instance().templateDictionary.get( 'pointsAgainst' );
-  }
+  },
+  status: function() {
+    return Template.instance().templateDictionary.get( 'status' );
+  },
 });
 
 function proposalIsComplete(proposalId) {
