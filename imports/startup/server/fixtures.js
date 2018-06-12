@@ -111,7 +111,8 @@ createAdmins = function (admin, communityIds) {
 					"URL" : "https://www.commondemocracy.org/",
 					"validated" : true
 				}
-				]
+				],
+				termsAccepted: true
 			}
 		});
 
@@ -159,10 +160,14 @@ function registerDemoUsers(numUsers, communityIds, subdomain){
 			    */
 			    console.log("Generating " + response.data.results.length + " demo users...");
 			    response = response.data.results;
-				createDemoUsers(response, communityIds, subdomain);
+			    if(response){
+			    	createDemoUsers(response, communityIds, subdomain);
+			    }else{
+			    	console.log("Error: Could not generate random users.");
+			    }
+				
 			  }
 			});
-		
 	}
 }
 
@@ -249,7 +254,8 @@ function createDemoUsers(users, communityIds, subdomain){
 							"URL" : "https://www.commondemocracy.org/",
 							"validated" : true
 						}
-					]
+					],
+					termsAccepted: true
 				}
 			});
 			} catch (e) {

@@ -69,10 +69,10 @@ if (Meteor.isServer) {
       try {
         var notification = Meteor.call('getNotification', notificationId);
         expect(notification.read).to.equal(false);
-        console.log(Notifications.find().fetch())
+        //console.log(Notifications.find().fetch())
         Meteor.call('readNotification', notificationId);
         notification = Meteor.call('getNotification', notificationId);
-        console.log(Notifications.find().fetch())
+        //console.log(Notifications.find().fetch())
         expect(notification.read).to.equal(true);
         done();
       } catch (err) {

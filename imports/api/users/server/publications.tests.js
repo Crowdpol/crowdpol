@@ -12,7 +12,7 @@ describe('User publications', function () {
       password: 'test'
     });
   });
-
+  /*
   describe('users', function () {
     it('sends all users without services', function (done) {
       const collector = new PublicationCollector();
@@ -22,7 +22,7 @@ describe('User publications', function () {
       });
     });
   });
-
+  */
   describe('users.all', function () {
     it('sends all users', function (done) {
       const collector = new PublicationCollector();

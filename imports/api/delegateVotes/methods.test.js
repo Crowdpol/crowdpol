@@ -23,7 +23,9 @@ if (Meteor.isServer) {
       proposal = Proposals.findOne(proposal._id);
       // create a fake user
       Factory.define('user', Meteor.users, generateDoc(schema.User));
-      const userId = Factory.create('user')._id
+      const fakeUser = Factory.create('user');
+      console.log(fakeUser);
+      userId = fakeUser._id;
       // stub Meteor's user method to simulate a logged in user
       Roles.addUsersToRoles(userId, 'delegate');
       const user = Meteor.call('getUser', userId);

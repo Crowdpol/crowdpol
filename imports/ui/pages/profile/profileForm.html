@@ -90,10 +90,12 @@
 	      	<p>{{_ "pages.profile.public-switch-description"}}</p>
 	      </div>
 	      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
-	      	<label id="profile-public-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-						<input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
-						<span class="mdl-switch__label">{{_ "pages.profile.public"}}</span>
-					</label>
+	      	<div class="switch-wrap">
+		      	<label id="profile-public-switch-label" class="switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
+							<input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
+							<span class="mdl-switch__label">{{_ "pages.profile.public"}}</span>
+						</label>
+					</div>
 					<div class="mdl-tooltip mdl-tooltip--large" for="profile-public-switch-label">
 							{{_ "pages.profile.tooltips.publicSwitch"}}
 						</div>
@@ -102,10 +104,12 @@
 					<p>{{_ "pages.profile.delegate-switch-description"}}</p>
 				</div>
 	      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
-					<label id='profile-delegate-switch-label' class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+	      	<div class="switch-wrap">
+						<label id='profile-delegate-switch-label' class="swich mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
 							<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
 							<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
 						</label>
+					</div>
 						<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
 							{{_ "pages.profile.tooltips.delegateSwitch"}}
 						</div>
