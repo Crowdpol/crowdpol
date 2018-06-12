@@ -125,7 +125,10 @@ Template.ViewProposal.events({
 });
 
 Template.ViewProposal.helpers({
-   languages: function() {
+  backUrl: function(){
+    return Session.get('back');
+  },
+  languages: function() {
     var content = Proposals.findOne(proposalId).content;
     var languages = _.pluck(content, 'language');
     return languages;

@@ -114,7 +114,6 @@ FlowRouter.route('/search/users', {
 FlowRouter.route('/stats', {
   name: 'App.stats',
   action() {
-    console.log("show me stats");
     BlazeLayout.render('App_body', { main: 'Stats' });
   },
 });
@@ -127,7 +126,6 @@ var statsRoutes = FlowRouter.group({
 statsRoutes.route('/proposals', {
   name: 'App.stats.proposals',
   action() {
-    console.log("going to stats.proposals");
     BlazeLayout.render('App_body', {main: 'ProposalStats'});
   }
 });
