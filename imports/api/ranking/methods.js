@@ -45,5 +45,10 @@ Meteor.methods({
         result = Ranks.update({_id: currentRanking._id},{$set: {"ranking": rank}});
         rank+=1;
       });
+    },
+    removeRanks: function(entityType,entityId){
+      check(entityType, String);
+      check(entityId, String);
+      Ranks.remove({ entityType: entityType, entityId: entityId});
     }
 });

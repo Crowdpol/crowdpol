@@ -139,6 +139,7 @@ Template.ProfileForm.events({
             RavenClient.captureException(error);
             Bert.alert(error.reason, 'danger');
           } else {
+            Meteor.call('removeRanks', 'delegate', Meteor.userId());
             var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-removed');
             Bert.alert(msg, 'success');
           }
