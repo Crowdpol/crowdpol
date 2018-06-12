@@ -5,6 +5,7 @@ Template.TagSearch.onCreated(function(){
 	var self = this;
 	var keyword = FlowRouter.getParam('keyword');
 	var communityId = LocalStore.get('communityId');
+	Session.set('back',window.location.pathname);
 	self.autorun(function() {
 		Meteor.subscribe('proposals.public', '', communityId);
 		Meteor.subscribe('proposals.author', '', communityId);

@@ -76,6 +76,8 @@
     background-color: white;
   }
 
+
+
 }
 
 #sign-proposal {
@@ -295,19 +297,35 @@
 .proposal-item{
   .card-secondary-wrap{
     margin-top: 0px;
-    
-  }
-}
-.status-chip{
-      font-size: $xsmall-font-size;
-      background-color: $light-grey;
-      padding: 2px 5px;
+
+    .tag-chip{
+      background-color: $light-blue;
       border-radius: 5px;
       color: white;
       max-width: 80px;
-      line-height: 1.1rem;
       text-align: center;
+      margin-left: 2px;
+      color: $white;
+      font-size: $xsmall-font-size;
+      line-height: 1.1rem;
+      padding: 2px 5px;
+    }
+  }
+}
+.status-chip{
+  font-size: $xsmall-font-size;
+  background-color: $light-grey;
+  padding: 2px 5px;
+  border-radius: 5px;
+  color: white;
+  max-width: 80px;
+  line-height: 1.1rem;
+  text-align: center;
 }
 #body-editor-sv{
   min-height: 200px;
+}
+
+p.proposal-abstract{
+  font-size: $small-font-size;
 }

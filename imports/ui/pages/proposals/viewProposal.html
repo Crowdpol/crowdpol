@@ -1,7 +1,7 @@
 <template name="ViewProposal">
 	{{> SignInModal}}
 	{{#if currentUser }}
-		{{> backButton text="generic.back-to-proposals" url="/dash"}}
+		{{> backButton text="generic.back-to-proposals" url=backUrl}}
 	{{/if}}
 	{{#if Template.subscriptionsReady}}
 
