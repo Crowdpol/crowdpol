@@ -119,9 +119,13 @@ Template.EditProposal.events({
 		saveChanges(event, template, 'App.proposal.edit');
 	},
 	'click #back-button' (event, template) {
-		if (!window.confirm(TAPi18n.__('pages.proposals.edit.confirm-back'))){ 
-			event.preventDefault();
-		}
+		//if (!window.confirm(TAPi18n.__('pages.proposals.edit.confirm-back'))){ 
+			//event.preventDefault();
+		//}
+		event.preventDefault();
+		saveChanges(event, template, 'App.proposals');
+		//FlowRouter.go('/proposals');
+		Session.set('proposalTab','my-proposals-tab');
 	},
 	'click #preview-proposal': function(event, template){
 		event.preventDefault();
@@ -329,6 +333,7 @@ function saveChanges(event, template, returnTo){
 		if (error){
 			RavenClient.captureException(error);
 			Bert.alert(error, 'reason');
+			return false;
 		} else {
 			let newProposal = {
 				content: content,
@@ -350,6 +355,7 @@ function saveChanges(event, template, returnTo){
 				if (error){
 					RavenClient.captureException(error);
 					Bert.alert(error.reason, 'danger');
+					return false;
 				} else {
 					var oldInvites = Proposals.findOne(proposalId).invited;
 				    var newInvites = newProposal.invited;
@@ -379,6 +385,7 @@ function saveChanges(event, template, returnTo){
 				if (error){
 					RavenClient.captureException(error);
 					Bert.alert(error.reason, 'danger');
+					return false;
 				} else {
 					 //Create notifications for collaborators
 			        if (newProposal.invited) {
@@ -398,9 +405,9 @@ function saveChanges(event, template, returnTo){
 			});
 		}
 	}
-})
+	})
 	
-	
+	return true;
 };
 function removeUserInvite(id){
 	invited = Session.get("invited");

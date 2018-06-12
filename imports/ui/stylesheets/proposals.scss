@@ -7,6 +7,9 @@
   top: 15px;
 }
 
+.mdl-chip-hoverable:hover { 
+    background-color: $light-blue-dark;
+}
 
 #collab-text{
     min-height: 0;
@@ -184,11 +187,16 @@
     span {
       font-size: $xsmall-font-size;
       color: $dark-grey-xlight;
+      line-height: 0.95rem;
     }
 }
 .proposal-container .proposal-details {
   min-height: 0px;
   margin: 0px;
+
+  .status-chip{
+    margin-left: 18px;
+  }
 }
 .proposal-container .signature-count {
   font-size: $xsmall-font-size;
@@ -316,6 +324,7 @@
       max-width: 80px;
       line-height: 1.1rem;
       text-align: center;
+      
 }
 #body-editor-sv{
   min-height: 200px;
