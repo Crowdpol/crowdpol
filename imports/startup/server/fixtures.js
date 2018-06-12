@@ -323,7 +323,7 @@ function createCommunity(name, subdomain, settings){
 
 function convertProposals() {
 	proposals = Proposals.find();
-
+	/*
 	proposals.forEach(function(proposal){
 		if (!proposal.content){
 			console.log('converting proposal with id ' + proposal._id + ' to new format');
@@ -349,5 +349,5 @@ function convertProposals() {
 			console.log('finished converting proposal')
 		}
 	});
-
+	*/
 }

@@ -65,6 +65,15 @@ Template.ViewProposal.onRendered(function(language){
 });
 
 Template.ViewProposal.events({
+  'click .minilogo, click .proposal-author' (event,template){
+    //console.log("show right drawer: " + Template.instance().templateDictionary.get( 'authorId' ));
+    Session.set('drawerId',Template.instance().templateDictionary.get( 'authorId' ));
+    if($('.mdl-layout__drawer-right').hasClass('active')){       
+      $('.mdl-layout__drawer-right').removeClass('active'); 
+    }else{
+      $('.mdl-layout__drawer-right').addClass('active'); 
+    }
+  },
   'click #edit-proposal' (event, template){
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
@@ -284,27 +293,39 @@ Template.ProposalContent.onCreated(function(language){
 
 Template.ProposalContent.helpers({
   title: function() {
-    return Template.instance().templateDictionary.get( 'title' );
+    var title =  Template.instance().templateDictionary.get( 'title' );
+    if(title==undefined||title.length==0){
+      return "<i>" + TAPi18n.__('pages.proposals.view.title-empty') + "</i>";
+    }
+    return title;
   },
   abstract: function() {
-    return Template.instance().templateDictionary.get( 'abstract' );
+    var abstract = Template.instance().templateDictionary.get( 'abstract' );
+    if(abstract==undefined||abstract.length==0){
+      return "<i>" + TAPi18n.__('pages.proposals.view.abstract-empty') + "</i>";
+    }
+    return abstract;
   },
   body: function() {
-    return Template.instance().templateDictionary.get( 'body' );
+    var body = Template.instance().templateDictionary.get( 'body' );
+    if(body==undefined||body.length==0){
+      return "<i>" + TAPi18n.__('pages.proposals.view.body-empty') + "</i>";
+    }
+    return body;
   },
   showPointsFor: function(){
     results = Template.instance().templateDictionary.get( 'pointsFor' );
-    if(results.length > 0){
-      return true;
+    if (results === undefined || results.length == 0) {
+      return false;
     }
-    return false;
+    return true;
   },
   showPointsAgainst: function(){
     results = Template.instance().templateDictionary.get( 'pointsAgainst' );
-    if(results.length > 0){
-      return true;
+    if (results === undefined || results.length == 0) {
+      return false;
     }
-    return false;
+    return true;
   },
   pointsFor: function() {
     return Template.instance().templateDictionary.get( 'pointsFor' );

@@ -294,7 +294,10 @@
 					"share": "Kopiera en länk till denna motion till dina urklipp.",
 					"sign": "Visa ditt stöd genom att signera denna motion. Notera att detta inte är en röst på motionen, men väl ett publikt visat stöd."
 				},
-				"submit-comment": "TODO Submit comment"
+				"submit-comment": "TODO Submit comment",
+				"title-empty": "TODO: Untitled Proposal",
+				"abstract-empty":"TODO: Abstract is empty",
+				"body-empty": "TODO: Body is empty"
 			}
 		},
 		"tag-search":{
