@@ -7,6 +7,9 @@
   top: 15px;
 }
 
+.mdl-chip-hoverable:hover { 
+    background-color: $light-blue-dark;
+}
 
 #collab-text{
     min-height: 0;
@@ -78,17 +81,10 @@
 
 }
 
-#sign-proposal {
-  border: 1px solid;
-  .proposal-item {
-    .mdl-list__item-secondary-action {
-      margin-right: $space;
-    }
-  }
-}
+
 
 #copy-proposal-link{
-  border: 1px solid;
+  //border: 1px solid;
 }
 
 #proposal-body-wrap {
@@ -121,6 +117,20 @@
   min-height: 64px;
   display: flex;
   align-items: center;
+
+  div.signature-button {
+    button.mdl-button--colored{
+      color: #b20000;
+    }
+    #sign-proposal {
+      //border: 1px solid $dark-grey-xdark;
+      .proposal-item {
+        .mdl-list__item-secondary-action {
+          margin-right: $space;
+        }
+      }
+    }
+  }
 }
 .proposal-container .mdl-card__supporting-text strong {
   font-weight: 400;
@@ -177,11 +187,16 @@
     span {
       font-size: $xsmall-font-size;
       color: $dark-grey-xlight;
+      line-height: 0.95rem;
     }
 }
 .proposal-container .proposal-details {
   min-height: 0px;
   margin: 0px;
+
+  .status-chip{
+    margin-left: 18px;
+  }
 }
 .proposal-container .signature-count {
   font-size: $xsmall-font-size;
@@ -284,6 +299,8 @@
   display: inline-flex;
 }
 
+.signature-button
+
 
 //Proposal List
 
@@ -307,6 +324,7 @@
       max-width: 80px;
       line-height: 1.1rem;
       text-align: center;
+      
 }
 #body-editor-sv{
   min-height: 200px;

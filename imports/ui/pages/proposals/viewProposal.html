@@ -38,7 +38,7 @@
 					</div>
 					<div class="signature-button">
 						<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
-							<i class="material-icons">fingerprint</i>
+							<i class="material-icons">{{#if isSigned}}favorite{{else}}favorite_border{{/if}}</i>
 						</button>
 					</div>
 					<div class="signature-count">
@@ -74,9 +74,7 @@
 
 			{{#each languages}}
 			<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
-
 				{{> ProposalContent this}}
-
 			</div>
 			{{/each}}
 		</div>
@@ -84,7 +82,7 @@
 		<!-- Tags -->
 		<div class="proposal-wrap">
 			{{#each tags}}
-			<span class="mdl-chip">
+			<span class="mdl-chip mdl-chip-hoverable">
 				<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
 			</span>
 			{{/each}}
@@ -180,8 +178,8 @@
 
 	<!-- Main Content -->
 	<div class="proposal-wrap">
-		<h1 class="proposal-title">{{ title }}</h1>
-		<p class="proposal-info">{{ abstract }}</p>
+		<h1 class="proposal-title">{{{ title }}}</h1>
+		<p class="proposal-info">{{{ abstract }}}</p>
 	</div>
 	<div id="proposal-body-wrap">
 		{{{ body }}}
@@ -190,6 +188,7 @@
 	<!-- Points for and against -->
 	<div class="proposal-wrap mdl-grid" id="proposal-points">
 		<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+			{{showPointsFor}}
 			{{#if showPointsFor}}
 			<p>{{_ "pages.proposals.view.pointsFor"}}</p>
 			<ul id="points-for-list" class="points-list">
@@ -200,6 +199,7 @@
 			{{/if}}
 		</div>
 		<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+			{{showPointsAgainst}}
 			{{#if showPointsAgainst}}
 			<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
 			<ul id="points-against-list" class="points-list">

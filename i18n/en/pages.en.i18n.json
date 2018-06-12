@@ -290,7 +290,10 @@
 					"share": "Copy a link to this proposal to your clipboard.",
 					"sign": "Show your support by signing this proposal. Note that this does not constitute a vote."
 				},
-				"submit-comment": "Submit comment"
+				"submit-comment": "Submit comment",
+				"title-empty": "Untitled Proposal",
+				"abstract-empty":"Abstract is empty",
+				"body-empty": "Body is empty"
 			}
 		},
 		"tag-search":{
