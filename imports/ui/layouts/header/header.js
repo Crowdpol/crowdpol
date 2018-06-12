@@ -27,7 +27,7 @@ Template.Header.onCreated(function(){
   self.autorun(function(){
     //subscribe to list of existing tags
     self.subscribe('tags.community', communityId);
-    self.subscribe('notifications.forUser', Meteor.userId());
+    //self.subscribe('notifications.forUser', Meteor.userId());
     self.availableTags.set(Tags.find().pluck('keyword'));
     self.subscribe('communities.subdomain', subdomain, function(){
       self.community.set(Communities.findOne({subdomain: subdomain}));
@@ -82,6 +82,7 @@ Template.Header.helpers({
   matchedTags(){
     return Template.instance().matchedTags.get();
   },
+  /*
   notifications(){
     return Notifications.find({},{sort: {createdAt: -1}}).fetch();
   },
@@ -106,6 +107,7 @@ Template.Header.helpers({
       return 'noUnreads'
     }
   },
+  */
   showLanguages(){
     return Template.instance().community.get().settings.languageSelector
   },
@@ -152,9 +154,11 @@ Template.Header.events({
       FlowRouter.go('/tag/' + keyword);
     }
   },
+  
   'click #notifications-menu-icon': function(event, template) {
     toggleNotificationsDrawer();
   },
+  /*
   'click .notification-item': function(event, template) {
     FlowRouter.go(event.target.dataset.url);
     location.reload();
@@ -166,7 +170,7 @@ Template.Header.events({
   'click .mdl-layout__obfuscator-right': function(event, template) {
     $('#notifications-menu').removeClass('active'); 
   }
-
+  */
 });
 
 function toggleNotificationsDrawer(){
