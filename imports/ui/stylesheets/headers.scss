@@ -86,48 +86,6 @@
     visibility: hidden;
   }
 
-  #notifications-title{
-      background-color: $blue;
-      small {
-        color: white;
-      }
-
-      #mark-as-read {
-        color: white;
-        cursor: pointer;
-        font-size: $xsmall-font-size;
-      }
-    }
-
-  .notifications-list{
-    margin-top: 0px;
-    padding-top: 0px;
-  
-    .notification-time{
-      font-size: $xsmall-font-size;
-    }
-    .mdl-list__item-secondary-content {
-      margin-left: 0px;
-    }
-    
-    .notification-item{
-      border-bottom: 1px solid $light-grey-dark;
-      padding-top: 0 !important;
-      padding-bottom: 1.4rem !important;
-      cursor: pointer;
-      padding-top: $space/4;
-      padding-bottom: $space/4;
-
-      &.unread {
-        background: $light-grey-light;
-      }
-
-      &:hover {
-        background: $light-grey-mid;
-      }
-    }
-  }
-
 }
 
 .mdl-layout__drawer-button i {

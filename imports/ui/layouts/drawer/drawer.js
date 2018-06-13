@@ -1,4 +1,5 @@
 import './drawer.html';
+import './notificationsDrawer.js';
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { DelegateVotes } from '../../../api/delegateVotes/DelegateVotes.js'
 

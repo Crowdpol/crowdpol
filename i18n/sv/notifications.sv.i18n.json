@@ -1,5 +1,11 @@
 {
 	"notifications": {
+		"heading": "TODO: Notifications",
+		"recent": "TODO: Recent",
+		"new": "TODO: New",
+		"read": "TODO: Read",
+		"mark-as-read": "TODO: Mark as read",
+		"view-all": "TODO: View all",
 		"approvals": {
 			"candidate": {
 				"rejected": "Din begäran att bli en kandidat har avvisats.",

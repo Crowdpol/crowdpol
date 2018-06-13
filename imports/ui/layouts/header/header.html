@@ -84,42 +84,11 @@
 						<a class="mdl-navigation__link" href="/voting">{{_ "layout.header.nav_vote"}}</a>
 					{{/if}}
 
-
 					<!-- Notification Menu -->
 					<div id="notifications-menu-icon" class="material-icons mdl-badge mdl-badge--overlap {{ unreadClass }}" data-badge="{{ unreadNotificationCount }}">notifications</div>
 
-					<div class="mdl-layout__drawer-right" id="notifications-menu">
-						<span class="mdl-layout-title" id="notifications-title">
-							<small> Notifications ({{ notificationCount }})</small> <br/>
-							<span id="mark-as-read"> Mark all as read</span>
-						</span>
-						{{#if notifications}}
-							<ul class="demo-list-three mdl-list notifications-list">
-							  {{#each notifications}}
-								  <li class="mdl-list__item mdl-list__item--three-line notification-item {{ notificationItemClass read}}" data-url="{{ url }}" data-id="{{_id}}">
-								    <span class="mdl-list__item-primary-content" data-url="{{ url }}" data-id="{{_id}}">
-								    	<span class="notification-time">{{ notificationDate createdAt }}</span>
-								      <span class="mdl-list__item-text-body notification-item-text" id="wrap-span" data-url="{{ url }}" data-id="{{_id}}">
-								        {{ message }}
-								      </span>
-								    </span>
-								    <span class="mdl-list__item-secondary-content">
-								      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">{{ icon }}</i></a>
-								    </span>
-								  </li>
-							  {{/each}}
-							</ul>
-						{{else}}
-						<li class="mdl-list__item mdl-list__item--three-line">
-							<span class="mdl-list__item-primary-content">
-								<span class="mdl-list__item-text-body notification-item-text">
-									{{_ "layout.header.no_notifications"}}
-								</span>
-							</span>
-						</li>
-						{{/if}}
-					</div>
-
+					{{> NotificationsDrawer}}
+					
 					<div class="mdl-layout__obfuscator-right"></div>
 
 					<!-- Language Menu -->

@@ -47,6 +47,7 @@ import './pages/proposals/proposalsList.js';
 import './pages/voting/voting.js';
 import './pages/delegates/delegate.js';
 import './pages/candidates/candidates.js';
+import './pages/notifications/notifications.js';
 import './stylesheets/stylesheets.js';
 
 

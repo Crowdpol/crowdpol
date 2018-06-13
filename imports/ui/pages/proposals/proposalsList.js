@@ -15,6 +15,10 @@ Template.ProposalsList.onCreated(function () {
   Session.set("allProposals",true);
   Session.set("myProposals",false);
   Session.set('back','/proposals');
+  var propTab = Session.get("proposalTab");
+  if(propTab == null||propTab ==''){
+    Session.set('proposalTab','vote-proposals-tab');
+  }
   var communityId = LocalStore.get('communityId');
   self.autorun(function(){
     self.subscribe('proposals.public', self.searchQuery.get(), communityId);
