@@ -22,4 +22,5 @@ import './admin.scss';
 import './termsModal.scss';
 import './modals.scss';
 import './delegate-profile.scss';
+import './notifications.scss';
 

@@ -1,9 +1,9 @@
 import { Session } from 'meteor/session';
 
-import './notificationsDrawer.html';
+import './notifications.html';
 import { Notifications } from '../../../api/notifications/Notifications.js'
 
-Template.NotificationsDrawer.onCreated(function(){
+Template.Notifications.onCreated(function(){
   var self = this;
   var user = Meteor.user();
   self.autorun(function(){
@@ -12,12 +12,12 @@ Template.NotificationsDrawer.onCreated(function(){
 
 });
 
-Template.NotificationsDrawer.helpers({
+Template.Notifications.helpers({
   readNotifications(){
-    return Notifications.find({read: true},{sort: {createdAt: -1},limit: 5}).fetch();
+    return Notifications.find({read: true},{sort: {createdAt: -1}}).fetch();
   },
   unreadNotifications(){
-    return Notifications.find({read: false},{sort: {createdAt: -1},limit: 5}).fetch();
+    return Notifications.find({read: false},{sort: {createdAt: -1}}).fetch();
   },
   unreadNotificationCount(){
     return Notifications.find({read: false}).count();
@@ -45,20 +45,21 @@ Template.NotificationsDrawer.helpers({
   }
 });
 
-Template.NotificationsDrawer.events({
+Template.Notifications.events({
   'click .notification-item': function(event, template) {
-    FlowRouter.go(event.target.dataset.url);
-    location.reload();
+    //FlowRouter.go(event.target.dataset.url);
+    window.open(event.target.dataset.url, '_blank')
+    //location.reload();
     Meteor.call('readNotification', event.target.dataset.id);
   },
   'click #mark-as-read': function(event, template) {
     Meteor.call('markAllAsRead', Meteor.userId());
+  },
+  'click #view-all': function(event, template) {
+    FlowRouter.go('App.notifications');
   },
   'click .mdl-layout__obfuscator-right': function(event, template) {
     $('#notifications-menu').removeClass('active'); 
   }
 
 });
-
-
-

@@ -80,6 +80,13 @@ publicRoutes.route('/contact', {
   },
 });
 
+publicRoutes.route('/notifications', {
+  name: 'App.notifications',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Notifications' });
+  },
+});
+
 publicRoutes.route('/privacy', {
   name: 'App.privcay',
   action() {
