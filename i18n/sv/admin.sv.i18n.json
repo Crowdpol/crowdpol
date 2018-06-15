@@ -71,7 +71,8 @@
 			"title": "Titl",
 			"none-waiting": "Det finns inga nya motioner som inväntar godkännande.",
 			"approve-button": "Godkänn",
-			"reject-button": "Avslå"
+			"reject-button": "Avslå",
+			"preview": "TODO: Preview"
 		},
 		"voting":{
 			"heading": "Röstning",

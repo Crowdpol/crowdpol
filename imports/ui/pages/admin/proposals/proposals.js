@@ -1,4 +1,5 @@
 import './proposals.html';
+import { Comments } from '../../../../api/comments/Comments.js'
 import { Proposals } from '../../../../api/proposals/Proposals.js'
 import RavenClient from 'raven-js';
 
@@ -18,24 +19,52 @@ Template.AdminProposals.helpers({
 
 Template.AdminProposals.events({
 
-	'click #approve-button': function(event, template){
+});
+
+Template.AdminProposal.onCreated(function() {
+
+});
+
+Template.AdminProposal.helpers({
+  title: function(proposal) {
+    var language = TAPi18n.getLanguage();
+    var translation = _.find(this.content, function(item){ return item.language == language});
+    
+    if (translation) {
+      var title = translation.title;
+      if (title && /\S/.test(title)) {
+        return title;
+      } else {
+        return TAPi18n.__('pages.proposals.list.untitled')
+      }
+    } else {
+      return TAPi18n.__('pages.proposals.list.untranslated')
+    }
+  },
+  author: function(proposal) {
+  	var author = Meteor.users.findOne({ _id : this.authorId});
+  	if(author.profile.firstName==null){
+  		return author.profile.username;
+  	}
+  	return author.profile.firstName + " " + author.profile.lastName + " (" + author.profile.username + ")";
+  },
+  lastModified: function(){
+    return moment(this.lastModified).format('MMMM Do YYYY');
+  },
+  contributerCount: function(proposal){
+  	return this.invited.length;
+  }
+});
+
+Template.AdminProposal.events({
+
+	'click #preview-button': function(event, template){
 		proposalId = event.target.dataset.proposalId;
-		Meteor.call('approveProposal', proposalId, function(error){
-			if (error){
-				RavenClient.captureException(error);
-				Bert.alert(error.reason, 'danger');
-			} else {
-				// Create notification
-      			var message = TAPi18n.__('notifications.proposals.approved');
-      			var url = '/proposals/view/' + proposalId;
-      			Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'check'});
-				Bert.alert(TAPi18n.__('admin.alerts.proposal-approved'), 'success');
-			}
-		}); 
-		
-	},
-	'click #reject-button': function(event, template){
-		proposalId = event.target.dataset.proposalId;
+		proposal = Proposals.findOne({_id: proposalId});
+		Session.set("proposal",proposal);
+		//console.log(proposal);
+		openProposalModal();
+		/*
 		Meteor.call('rejectProposal', proposalId,function(error){
 			if (error){
 				RavenClient.captureException(error);
@@ -47,5 +76,127 @@ Template.AdminProposals.events({
 				Bert.alert(TAPi18n.__('admin.alerts.proposal-rejected'), 'success');
 			}
 		}); 
-	}
+		*/
+	},
 });
+
+
+
+Template.ProposalModal.events({
+  'click #overlay' (event, template){
+    closeProposalModal();
+  },
+  'click #approve-button': function(event, template){
+    event.preventDefault();
+    proposalId = Session.get("proposal")._id;
+    Meteor.call('approveProposal', proposalId, function(error){
+      if (error){
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        // Create notification
+            var message = TAPi18n.__('notifications.proposals.approved');
+            var url = '/proposals/view/' + proposalId;
+            Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'check'});
+        Bert.alert(TAPi18n.__('admin.alerts.proposal-approved'), 'success');
+        closeProposalModal();
+      }
+    }); 
+  },
+  'click #reject-button': function(event, template){
+    event.preventDefault();
+    proposalId = Session.get("proposal")._id;
+    Meteor.call('rejectProposal', proposalId,function(error){
+      if (error){
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        var message = TAPi18n.__('notifications.proposals.rejected');
+            var url = '/proposals/view/' + proposalId;
+            Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'do_not_disturb'})
+        Bert.alert(TAPi18n.__('admin.alerts.proposal-rejected'), 'success');
+        closeProposalModal();
+      }
+    }); 
+  },
+});
+Template.ProposalModal.onCreated(function(language){
+
+});
+Template.ProposalModal.helpers({
+	proposal: function(){
+		return Session.get("proposal");
+	},
+	content: function(){
+		proposal = Session.get("proposal");
+		content = proposal.content;
+		return content;
+	},
+  author: function(){
+    proposal = Session.get("proposal");
+    return Meteor.users.findOne({ _id : proposal.authorId});
+  },
+  selectedInvites: function() {
+    proposal = Session.get("proposal");
+    var invited = proposal.invited;
+    if (invited) {
+      collaborators = Meteor.users.find({ _id : { $in : invited } });
+      return collaborators;
+    }
+  },
+  languages: function() {
+    proposal = Session.get("proposal");
+    content = proposal.content;
+    var languages = _.pluck(content, 'language');
+    return languages;
+  },
+  activeClass: function(language){
+    var currentLang = TAPi18n.getLanguage();
+    if (language == currentLang){
+      return 'is-active';
+    }
+  },
+  tags: function() {
+    proposal = Session.get("proposal");
+    return proposal.tags;
+  },
+  comments: function() {
+    return Comments.find({proposalId: proposalId},{transform: transformComment, sort: {createdAt: -1}});
+  },
+  commentUsername: function(userId){
+    Meteor.call('getProfile', userId, function(error, result){
+      if (error){
+        return TAPi18n.__('pages.proposals.view.userNotFound');
+      } else {
+        profile = result.profile;
+        if (profile){
+          return profile.username;
+        } else {
+          return TAPi18n.__('pages.proposals.view.anonymous');
+        }
+      }
+    });
+  },
+  _id: function() {
+    return Session.get("proposalId");
+  },
+  propDate:function(lastModified){
+    return moment(lastModified).format('MMMM Do YYYY');
+  }
+});
+
+openProposalModal = function(event) {
+  if (event) event.preventDefault();
+  $(".proposal-modal").addClass('active');
+  $("#overlay").addClass('dark-overlay');
+}
+
+closeProposalModal = function(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
+
+  $(".proposal-modal").removeClass('active');
+  $("#overlay").removeClass('dark-overlay');
+}
