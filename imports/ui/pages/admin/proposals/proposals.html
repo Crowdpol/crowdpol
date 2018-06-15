@@ -1,8 +1,10 @@
 <template name="AdminProposals">
+	{{> ProposalModal}}
 	{{#if currentUserIsAdmin}}
 	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
 	<div class="container">
 		<h3>{{_"admin.proposals.heading"}}</h3>
+
 		{{#if Template.subscriptionsReady}}
 			{{#if proposals.count}}
 				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
@@ -13,33 +15,11 @@
 										<th>{{_"admin.proposals.contributors"}}</th>
 										<th>{{_"admin.proposals.title"}}</th>
 										<th></th>
-										<th></th>
 								</tr>
 						</thead>
 						<tbody>
 								{{#each proposals}}
-								<tr>
-										<td data-label='{{_"admin.proposals.date"}}'>{{createdAt}}</td>
-										<td data-label='{{_"admin.proposals.author"}}'>{{authorId}}</td>
-										<td data-label='{{_"admin.proposals.contributors"}}'>
-												{{#each user in invited}}
-														{{user}} <br>
-												{{/each}}
-										</td>
-										<td data-label='{{_"admin.proposals.title"}}'> <a href="/proposals/view/{{_id}}">{{title}}</a></td>
-										<td>
-												<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
-														<i class="material-icons">check</i>
-														{{_'admin.proposals.approve-button'}}
-												</button>
-										</td>
-										<td data-label="">
-												<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
-														<i class="material-icons">close</i>
-														{{_'admin.proposals.reject-button'}}
-												</button>
-										</td>
-								</tr>
+									{{> AdminProposal}}
 								{{/each}}
 						</tbody>
 				</table>
@@ -54,5 +34,131 @@
 			</p>
 		{{/if}}
 	</div>
+
 	{{/if}}
+</template>
+
+<template name="AdminProposal">
+	<tr>
+		<td data-label='{{_"admin.proposals.date"}}'>{{lastModified}}</td>
+		<td data-label='{{_"admin.proposals.author"}}'>{{author}}</td>
+		<td data-label='{{_"admin.proposals.contributors"}}'>
+			{{contributerCount}}
+		</td>
+		<td data-label='{{_"admin.proposals.title"}}'> <a href="/proposals/view/{{_id}}">{{title}}</a></td>
+		<td data-label="">
+			<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="preview-button">
+				<i class="material-icons" data-proposal-id="{{_id}}">visibility</i>
+			</button>
+		</td>
+	</tr>
+</template>
+
+  
+<template name="ProposalModal">
+  <div id="overlay"></div>
+	<div class="proposal-modal">
+	  <form class='content-wrapper'>
+	    {{#if proposal}}
+	    
+	    <div class="content">
+	      <div class="app-container proposal-container">
+					<!-- Author Information -->
+					<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
+						<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+							<div class="minilogo">
+								<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
+							</div>
+							<div class="proposal-author">
+								{{#if author.profile.firstName}}
+									<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
+								{{else}}
+									<strong>{{author.profile.username}}</strong>
+								{{/if}}
+								<span>{{propDate proposal.lastModified}}</span>
+							</div>
+						</div>
+						{{#if selectedInvites.count}}
+							<div>
+								<span id="collab-text">
+									{{_ "pages.proposals.view.collaborators"}}
+								</span>
+							</div>
+							<div class="mdl-color-text--grey-700 mdl-card__supporting-text" id="collab-chips">
+								{{#each selectedInvites}}
+								<div class="collab-author">
+									<img class="mdl-chip__contact" src="{{profile.photo}}">
+									{{#if profile.firstName}}
+										<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+									{{else}}
+										<span class="mdl-chip__text">{{profile.username}}</span>
+									{{/if}}
+								</div>
+								{{/each}}
+							</div>
+						{{/if}}
+					</div>
+					{{#each content}}
+						<!-- Tabs for translations -->
+						<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+							<div class="mdl-tabs__tab-bar">
+								<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{language}}</a>
+							</div>
+						</div>
+						
+						<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
+							<!-- Main Content -->
+							<div class="proposal-wrap">
+								<h1 class="proposal-title">{{{ title }}}</h1><span class="status-chip">{{proposal.status}}</span>
+								<p class="proposal-info">{{{ abstract }}}</p>
+							</div>
+							<div id="proposal-body-wrap">
+								{{{ body }}}
+							</div>
+
+							<!-- Points for and against -->
+							<div class="proposal-wrap mdl-grid" id="proposal-points">
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+									<p>{{_ "pages.proposals.view.pointsFor"}}</p>
+									<ul id="points-for-list" class="points-list">
+										{{#each pointsFor}}
+										<li>{{this}}</li>
+										{{/each}}
+									</ul>
+								</div>
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+									<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
+									<ul id="points-against-list" class="points-list">
+										{{#each pointsAgainst}}
+										<li>{{this}}</li>
+										{{/each}}
+									</ul>
+								</div>
+							</div>
+						</div>
+					{{/each}}
+					<!-- Tags -->
+					<div class="proposal-wrap">
+						{{#each proposal.tags}}
+						<span class="mdl-chip mdl-chip-hoverable">
+							<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
+						</span>
+						{{/each}}
+					</div>
+
+	      </div>
+	    </div>
+	    {{/if}}
+	    <div class="btn-wrapper">
+	      <button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
+					<i class="material-icons" data-proposal-id="{{_id}}">check</i>
+					{{_'admin.proposals.approve-button'}}
+				</button>
+				<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
+					<i class="material-icons" data-proposal-id="{{_id}}">close</i>
+					{{_'admin.proposals.reject-button'}}
+				</button>
+	    </div>
+	  </form>
+	</div>
 </template>

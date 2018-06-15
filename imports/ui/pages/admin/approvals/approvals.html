@@ -1,5 +1,44 @@
 <template name="AdminApprovals">
 	{{#if currentUserIsAdmin}}
+	<div id="overlay"></div>
+	<div class="approval-modal">
+		<form class='content-wrapper'>
+	    <div class="right-drawer-header mdl-shadow--2dp">
+				<img src="{{user.profile.photo}}" class="profile-picture">
+				<h4>{{user.profile.firstName}} {{user.profile.lastName}}</h4>
+				<h6>{{user.profile.type}}</h6>
+			</div>
+	    <div class="right-drawer-content">
+				<div class="user-tags-wrap">
+					{{#each user.profile.tags}}
+						<span class="mdl-chip">
+							<span class="mdl-chip__text">{{this.keyword}}</span>
+						</span>
+					{{/each}}
+				</div>
+				<br>
+				<h6>{{_ "layout.drawer.right_about"}}</h6>
+				<p>{{user.profile.bio}}</p>
+				<br>
+				<h6>{{_ "layout.drawer.website"}}</h6>
+				<a href="{{user.profile.website}}">{{user.profile.website}}</a>
+				<br>
+				<!-- Recent Votes -->
+				<br/>
+				<div class="btn-wrapper">
+					<button class="mdl-button mdl-js-button mdl-button--raised" id="approve-button">
+						<i class="material-icons">check</i>
+						{{_'admin.approvals.approve-button'}}
+					</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised" id="reject-button">
+						<i class="material-icons">close</i>
+						{{_'admin.approvals.reject-button'}}
+					</button>
+				</div>
+			</div>
+  	</form>
+		
+	</div>
 	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
 	<div class="container">
 		<h3>{{_"admin.approvals.heading"}}</h3>
@@ -9,6 +48,7 @@
 					<thead>
 						<tr>
 							<th>{{_"admin.approvals.date"}}</th>
+							<th></th>
 							<th>{{_"admin.approvals.username"}}</th>
 							<th>
 								{{_"admin.users.email"}}
@@ -19,7 +59,6 @@
 							<th>{{_"admin.approvals.request-type"}}</th>
 							<th>{{_"admin.approvals.request-status"}}</th>
 							<th></th>
-							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -28,8 +67,13 @@
 						{{#each approvals}}
 							{{#if checkStatus status}}
 							<tr>
-								<td data-label='{{_"admin.approvals.date"}}'>{{createdAt}}</td>
-								<td data-label='{{_"admin.approvals.username"}}'>{{../profile.username}}</td>
+								<td data-label='{{_"admin.approvals.date"}}'>{{showDatecreatedAt}}</td>
+								<td>
+									<div class="minilogo">
+										<img src="{{../profile.photo}}" class="mdl-list__item-avatar">
+									</div>
+								</td>
+								<td data-label='{{_"admin.approvals.username"}}'>{{../profile.firstName}}&nbsp;{{../profile.lastName}}({{../profile.username}})</td>
 								<td data-label='{{_"admin.users.email"}}'>
 									{{#each ../emails}}
 										{{address}}
@@ -38,8 +82,14 @@
 								<td data-label='{{_"admin.users.roles"}}'>{{../roles}}</td>
 								<td data-label='{{_"admin.approvals.request-type"}}' class="mdl-data-table__cell--non-numeric">{{type}}</td>
 								<td data-label='{{_"admin.approvals.request-status"}}'>{{status}}</td>
+								<td data-label="">
+									<button class="mdl-button mdl-js-button mdl-button--raised" data-email="{{../emails.[0].address}}" data-role="{{../roles.[0]}}" data-type="{{type}}" data-request-id="{{id}}" data-user-id="{{../_id}}" id="preview-button">
+										<i class="material-icons" data-request-id="{{id}}" data-user-id="{{../_id}}">visibility</i>
+									</button>
+								</td>
+								<!--
 								<td data-label=''>
-									<button class="mdl-button mdl-js-button mdl-button--raised"
+									<button class="mdl-button mdl-js-button mdl-button-raised"
 										data-email="{{../emails.[0].address}}" data-role="{{../roles.[0]}}" data-type="{{type}}" data-request-id="{{id}}"
 										data-user-id="{{../_id}}" id="approve-button">
 										<i class="material-icons">check</i>
@@ -47,13 +97,14 @@
 									</button>
 								</td>
 								<td data-label=''>
-									<button class="mdl-button mdl-js-button mdl-button--raised"
+									<button class="mdl-button mdl-js-button mdl-button-raised"
 										data-email="{{../emails.[0].address}}" data-role="{{../roles.[0]}}" data-type="{{type}}" data-request-id="{{id}}"
 										data-user-id="{{../_id}}" id="reject-button">
 										<i class="material-icons">close</i>
 										{{_'admin.approvals.reject-button'}}
 									</button>
 								</td>
+							-->
 							</tr>
 							{{/if}}
 						{{/each}}

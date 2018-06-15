@@ -12,7 +12,7 @@ import './auth.scss';
 import './dashboard.scss';
 import './profile.scss';
 import './delegate-vote.scss';
-import './drawer-right.css';
+import './drawer-right.scss';
 import './proposals.scss';
 import './modal.scss';
 import './back-button.scss';
@@ -20,6 +20,8 @@ import './signInModal.scss';
 import './voting.scss';
 import './admin.scss';
 import './termsModal.scss';
+import './proposalModal.scss';
 import './modals.scss';
 import './delegate-profile.scss';
+import './notifications.scss';
 

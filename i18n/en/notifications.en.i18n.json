@@ -1,5 +1,11 @@
 {
 	"notifications": {
+		"heading": "Notifications",
+		"recent": "Recent",
+		"new": "New",
+		"read": "Read",
+		"mark-as-read": "Mark as read",
+		"view-all": "View all",
 		"approvals": {
 			"candidate": {
 				"rejected": "Your request to be a candidate has been rejected.",
