@@ -72,7 +72,8 @@
 			"title": "Title",
 			"none-waiting": "There are no new proposals awaiting approval.",
 			"approve-button": "Approve",
-			"reject-button": "Reject"
+			"reject-button": "Reject",
+			"preview": "Preview"
 		},
 		"voting":{
 			"heading": "Voting",
