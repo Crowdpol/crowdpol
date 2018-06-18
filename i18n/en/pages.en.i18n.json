@@ -152,12 +152,12 @@
 			"heading" : "Dashboard",
 			"card": {
 				"proposals": {
-					"heading": "Vote",
-					"text": "Vote on Proposals.",
-					"link": "Vote"
+					"heading": "My Proposals",
+					"text": "Your proposals",
+					"link": "View"
 				},
 				"delegates": {
-					"heading": "Delegate",
+					"heading": "My Delegate",
 					"text": "Select your delegates.",
 					"link": "Delegate"
 				},
@@ -165,6 +165,21 @@
 					"heading": "Candidates",
 					"text": "Select your candidates",
 					"link": "Nominate"
+				},
+				"profile": {
+					"heading": "My Profile",
+					"text": "Profile status",
+					"link": "Edit"
+				},
+				"interests": {
+					"heading": "My Interests",
+					"text": "Current interests",
+					"link": "Select"
+				},
+				"vote": {
+					"heading": "Vote on Proposals",
+					"text": "Vote on Proposals and view results",
+					"link": "Select"
 				}
 			},
 			"verify-account-message": "Please verify your email address before continuing.",
