@@ -188,6 +188,13 @@ loggedInRoutes.route('/tag/:keyword', {
   }
 });
 
+loggedInRoutes.route('/interests', {
+  name: 'App.interests',
+  action() {
+    BlazeLayout.render('App_body', {main: 'Interests'});
+  }
+});
+
 loggedInRoutes.route('/voting', {
   name: 'App.voting',
   action() {

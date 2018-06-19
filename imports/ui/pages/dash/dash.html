@@ -3,12 +3,31 @@
 		<h1>{{_ "pages.dashboard.heading"}}</h1>
 		<!-- NOTE: This will have to be updated later on the permissions tickets. FlowRouter groups can manage this -->
 		<div class="dashboard-wrap">
+			<div class="mdl-grid">
+				<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+					<div class="mdl-card__title">
+						<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.vote.heading"}}</h2>
+					</div>
+					<div class="dash-card-text mdl-card__supporting-text">
+						{{_"pages.dashboard.card.vote.text"}}
+						<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/voting">
+							{{_"pages.dashboard.card.vote.link"}}
+						</a>
+					</div>
+					<div class="mdl-card__menu">
+						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+							<i class="material-icons">thumbs_up_down</i>
+						</button>
+					</div>
+				</div>
+			
 			{{#if currentUser}}
 				{{> DashInterests}}
 				{{> DashProfile}}
 				{{> DashVote}}
 				{{> DashDelegates}}
 				{{> DashProposals}}
+
 				<!--{{> DashCandidates}}-->
 
 				<!--<div class="dash-card mdl-card mdl-shadow- -2dp">
@@ -43,19 +62,19 @@
 				</div>
 			{{/if}}
 		</div>
+		</div>
 	</div>
 </template>
 
 <template name="DashProfile">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.profile.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
 			{{_ "pages.dashboard.card.profile.text"}}: {{profileStatus}}
-		</div>
-		<div class="mdl-card__actions">
-			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/profile">
+			<br>
+			<a  href="/profile">
 				{{_ "pages.dashboard.card.profile.link"}}
 			</a>
 		</div>
@@ -68,7 +87,7 @@
 </template>
 
 <template name="DashInterests">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.interests.heading"}}</h2>
 		</div>
@@ -80,9 +99,8 @@
 			{{else}}
 				you have not selected any interests yet
 			{{/each}}
-		</div>
-		<div class="mdl-card__actions">
-			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/interests">
+			<br/>
+			<a class="" href="/interests">
 				{{_ "pages.dashboard.card.interests.link"}}
 			</a>
 		</div>
@@ -95,14 +113,12 @@
 </template>
 
 <template name="DashProposals">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.proposals.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
 			{{_ "pages.dashboard.card.proposals.text"}}
-		</div>
-		<div class="mdl-card__actions">
 			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/proposals">
 				{{_ "pages.dashboard.card.proposals.link"}}
 			</a>
@@ -116,14 +132,24 @@
 </template>
 
 <template name="DashDelegates">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.delegates.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
 			{{_"pages.dashboard.card.delegates.text"}}
-		</div>
-		<div class="mdl-card__actions">
+			<ul class="demo-list-icon mdl-list">
+				{{#each ranks}}
+					<li class="mdl-list__item">
+				    <span class="mdl-list__item-primary-content">
+				    	<img class="mdl-chip__contact" src="{{profile.photo}}">
+				    	<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+				  	</span>
+				  </li>
+				{{else}}
+					you don't have any delegates
+				{{/each}}
+			</ul>
 			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/delegate">
 				{{_"pages.dashboard.card.delegates.link"}}
 			</a>
@@ -137,14 +163,12 @@
 </template>
 
 <template name="DashCandidates">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.candidates.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
 			{{_"pages.dashboard.card.candidates.text"}}
-		</div>
-		<div class="mdl-card__actions">
 			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/candidate">
 				{{_"pages.dashboard.card.candidates.link"}}
 			</a>
@@ -158,17 +182,15 @@
 </template>
 
 <template name="DashVote">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.vote.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
 			{{_"pages.dashboard.card.vote.text"}}
-		</div>
-		<div class="mdl-card__actions">
-			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/voting">
-				{{_"pages.dashboard.card.vote.link"}}
-			</a>
+			<br>
+			{{openProposalCount}} open proposals <a href="/voting">Vote now</a><br>
+			{{closedProposalCount}} closed proposals <a href="/proposals">View outcome</a>
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">

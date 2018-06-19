@@ -1,5 +1,29 @@
 import './dash.html';
-import RavenClient from 'raven-js'
+import RavenClient from 'raven-js';
+import { Proposals } from '../../../api/proposals/Proposals.js';
+import { Ranks } from '../../../api/ranking/Ranks.js'
+
+Template.Dash.onCreated(function () {
+  // Set user's ranked delegates
+  Meteor.call('getRanks', Meteor.userId(), "delegate", function(error, result){
+    if(error) {
+      RavenClient.captureException(error);
+      Bert.alert(error.reason, 'danger');
+    } else {
+    	console.log(result);
+      Session.set('ranked', result);
+    }
+  });
+  
+  var self = this;
+  self.ranks = new ReactiveVar([]);
+  var communityId = LocalStore.get('communityId');
+  self.autorun(function() {
+    self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
+    self.subscribe('ranks.all');
+  });
+  
+});
 
 Template.Dash.helpers({
 	isUnapprovedEntity: ()=> {
@@ -55,4 +79,33 @@ Template.DashInterests.helpers({
     return users[0].profile.tags;
 	},
 });
- 
+
+//DASH VOTE
+Template.DashVote.helpers({
+	openProposalCount: function() {
+    return Proposals.find({endDate:{"$gte": new Date()}, stage: "live"}).count();
+  },
+  closedProposalCount: function() {
+    return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}).count();
+  },
+  myProposalCount: function(){
+    return Proposals.find({$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ]}).count();
+  },
+});
+
+Template.DashDelegates.onCreated(function () {
+	var self = this;
+	self.autorun(function() {
+    self.subscribe('ranks.all');
+  });
+});
+ //DASH DELEGATES
+Template.DashDelegates.helpers({
+	ranks: ()=> {
+		ranks = Session.get('ranked');
+		if (typeof ranks !== 'undefined' && ranks.length > 0) {
+			return Meteor.users.find( { _id : { $in :  Session.get('ranked')} },{sort: ["ranking"]} );
+		}
+		return null;
+	}
+});
