@@ -1,5 +1,5 @@
 <template name="Dash">
-	<div class="container">
+	<div class="container app-container">
 		<h1>{{_ "pages.dashboard.heading"}}</h1>
 		<!-- NOTE: This will have to be updated later on the permissions tickets. FlowRouter groups can manage this -->
 		<div class="dashboard-wrap">
@@ -52,7 +52,7 @@
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.profile.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_ "pages.dashboard.card.profile.text"}}
+			{{_ "pages.dashboard.card.profile.text"}}: {{profileStatus}}
 		</div>
 		<div class="mdl-card__actions">
 			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/profile">
@@ -73,7 +73,13 @@
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.interests.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_ "pages.dashboard.card.interests.text"}}
+			{{#each tags}}
+				<span class="mdl-chip mdl-chip-hoverable">
+					<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
+				</span>
+			{{else}}
+				you have not selected any interests yet
+			{{/each}}
 		</div>
 		<div class="mdl-card__actions">
 			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/interests">
@@ -160,7 +166,7 @@
 			{{_"pages.dashboard.card.vote.text"}}
 		</div>
 		<div class="mdl-card__actions">
-			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/vote">
+			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/voting">
 				{{_"pages.dashboard.card.vote.link"}}
 			</a>
 		</div>

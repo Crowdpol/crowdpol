@@ -9,7 +9,8 @@ Template.Dash.helpers({
 		} else {
 			return false;
 		}
-	}
+	},
+
 });
 
 Template.Dash.events({
@@ -34,3 +35,24 @@ Template.Dash.events({
 		FlowRouter.go('/login');
 	}
 });
+
+//DASH PROFILE
+Template.DashProfile.helpers({
+	profileStatus: ()=> {
+		//Check if user is public
+	    if( Meteor.user().isPublic) {
+	      //True: - go private
+	        return "Public"
+	    }
+	    return "Private";
+	},
+});
+
+//DASH INTEREST
+Template.DashInterests.helpers({
+	tags: ()=> {
+		users = Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1}}).fetch();
+    return users[0].profile.tags;
+	},
+});
+ 
