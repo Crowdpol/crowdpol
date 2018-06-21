@@ -1,7 +1,7 @@
 import './dash.html';
 import RavenClient from 'raven-js';
 import { Proposals } from '../../../api/proposals/Proposals.js';
-import { Ranks } from '../../../api/ranking/Ranks.js'
+import { Ranks } from '../../../api/ranking/Ranks.js';
 
 Template.Dash.onCreated(function () {
   // Set user's ranked delegates
@@ -10,7 +10,6 @@ Template.Dash.onCreated(function () {
       RavenClient.captureException(error);
       Bert.alert(error.reason, 'danger');
     } else {
-    	console.log(result);
       Session.set('ranked', result);
     }
   });
@@ -70,9 +69,17 @@ Template.DashProfile.helpers({
 	    }
 	    return "Private";
 	},
+	tags: ()=> {
+		users = Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1}}).fetch();
+    return users[0].profile.tags;
+	},
 });
 
 //DASH INTEREST
+Template.DashInterests.onCreated(function () {
+
+});
+
 Template.DashInterests.helpers({
 	tags: ()=> {
 		users = Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1}}).fetch();
@@ -93,13 +100,14 @@ Template.DashVote.helpers({
   },
 });
 
+ //DASH DELEGATES
 Template.DashDelegates.onCreated(function () {
 	var self = this;
 	self.autorun(function() {
     self.subscribe('ranks.all');
   });
 });
- //DASH DELEGATES
+
 Template.DashDelegates.helpers({
 	ranks: ()=> {
 		ranks = Session.get('ranked');
@@ -109,3 +117,16 @@ Template.DashDelegates.helpers({
 		return null;
 	}
 });
+
+Template.DashDelegates.events({
+	'click .delegate-dash-item': function(event, template){
+    Session.set('drawerId',this._id);
+    if($('.mdl-layout__drawer-right').hasClass('active')){       
+        $('.mdl-layout__drawer-right').removeClass('active'); 
+     }
+     else{
+        $('.mdl-layout__drawer-right').addClass('active'); 
+     }
+    
+  }
+ });
