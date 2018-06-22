@@ -17,22 +17,22 @@ Template.AdminUsers.helpers({
     return Meteor.users.find({});
   },
   whitelist: ()=> {
-  var community = Communities.findOne({_id: LocalStore.get('communityId')});
-  console.log(community);
-  var settings = community.settings;
+	  var community = Communities.findOne({_id: LocalStore.get('communityId')});
+	  var settings = community.settings;
 
-  var enforceWhitelist = settings.enforceWhitelist;
-  /*
-  if (enforceWhitelist) {
-  	var emails = settings.emailWhitelist;
-	  if (emails) {
-	  	self.find("#emailWhitelist").value = emails.join(',');
-	  	self.find("#whitelistInput").MaterialTextfield.checkDirty()
+	  var enforceWhitelist = settings.enforceWhitelist;
+
+	  if (enforceWhitelist) {
+	  	var emails = settings.emailWhitelist;
+		  if (emails) {
+		  	self.find("#emailWhitelist").value = emails.join(',');
+		  	self.find("#whitelistInput").MaterialTextfield.checkDirty()
+		  }
+	  	var checkbox = self.find('#whitelist-checkbox-label').MaterialCheckbox;
+	  	checkbox.check();
+	  	return community.settings.enforceWhitelist;
 	  }
-  	var checkbox = self.find('#whitelist-checkbox-label').MaterialCheckbox;
-  	checkbox.check();*/
-  	return community.settings.enforceWhitelist;
-  }
+	 }
 });
 
 Template.AdminUsers.events({
@@ -41,11 +41,11 @@ Template.AdminUsers.events({
 
 		let email = template.find("#invite-email").value;
 			role = template.find("#invite-role").value;
-			url = Meteor.absoluteUrl('login');
+			//url = Meteor.absoluteUrl('login');
 			fromEmail = Meteor.user().emails[0].address;
-			console.log(url);
 			var hostname = window.location.host;
-			console.log(hostname);
+			url = 'https://' + hostname + '/login';
+			console.log(url);
 		Meteor.call('sendInvite', email, role, url, fromEmail, function(error){
 			if (error){
 				RavenClient.captureException(error);
