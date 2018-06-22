@@ -47,7 +47,9 @@ Template.AdminUsers.events({
 		let email = template.find("#invite-email").value;
 			role = template.find("#invite-role").value;
 			url = Meteor.absoluteUrl('login');
-
+			console.log(url);
+			var hostname = window.location.host;
+			console.log(hostname);
 		Meteor.call('sendInvite', email, role, url, function(error){
 			if (error){
 				RavenClient.captureException(error);
