@@ -32,28 +32,32 @@
 		<hr>
 
 		<!-- Community Whitelist -->
+		{{#if Template.subscriptionsReady}}
+		{{#if whitelist}}
 		<h3> {{_"admin.users.community-whitelist"}} </h3>
 		<small> {{_"admin.users.whitelist-description"}} </small>
 		<form id="community-whitelist-form">
 
-		<div id="whitelistInput" class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label class="mdl-textfield__label" for="emailWhitelist">{{_"admin.users.emailWhitelist"}}</label>
-			<input type="text" id="emailWhitelist" class="mdl-textfield__input">
-		</div>
-		
-		<div class="form-group">
-			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="whitelist-checkbox" id="whitelist-checkbox-label">
-				<input type="checkbox" id="whitelist-checkbox" class="mdl-checkbox__input" />
-			  	<span class="mdl-checkbox__label">{{_"admin.users.enforceWhitelist"}}</span>
-			</label>
-		</div>
+			<div id="whitelistInput" class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<label class="mdl-textfield__label" for="emailWhitelist">{{_"admin.users.emailWhitelist"}}</label>
+				<input type="text" id="emailWhitelist" class="mdl-textfield__input">
+			</div>
+			
+			<div class="form-group">
+				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="whitelist-checkbox" id="whitelist-checkbox-label">
+					<input type="checkbox" id="whitelist-checkbox" class="mdl-checkbox__input" />
+				  	<span class="mdl-checkbox__label">{{_"admin.users.enforceWhitelist"}}</span>
+				</label>
+			</div>
 
-		<div class="form-group">
-			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.submit"}}'>
-		</div>
-	</form>
-
+			<div class="form-group">
+				<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.submit"}}'>
+			</div>
+		</form>
 		<hr>
+		{{/if}}
+		{{/if}}
+		
 
 		<h3> {{_"admin.users.heading"}} </h3>
 		{{#if Template.subscriptionsReady}}
