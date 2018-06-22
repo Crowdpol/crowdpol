@@ -11,14 +11,18 @@ Template.AdminUsers.onCreated(function() {
   });
 });
 
-Template.AdminUsers.onRendered(function() {
-  var self = this;
-  self.autorun(function() {
-  communityId = LocalStore.get('communityId');
-  var settings = Communities.findOne({_id: communityId}).settings;
+
+Template.AdminUsers.helpers({
+  users: ()=> {
+    return Meteor.users.find({});
+  },
+  whitelist: ()=> {
+  var community = Communities.findOne({_id: LocalStore.get('communityId')});
+  console.log(community);
+  var settings = community.settings;
 
   var enforceWhitelist = settings.enforceWhitelist;
-
+  /*
   if (enforceWhitelist) {
   	var emails = settings.emailWhitelist;
 	  if (emails) {
@@ -26,20 +30,8 @@ Template.AdminUsers.onRendered(function() {
 	  	self.find("#whitelistInput").MaterialTextfield.checkDirty()
 	  }
   	var checkbox = self.find('#whitelist-checkbox-label').MaterialCheckbox;
-  	checkbox.check();
-  }
-  });
-});
-
-Template.AdminUsers.helpers({
-  users: ()=> {
-    return Meteor.users.find({});
-  },
-  community: ()=> {
-  	return Communities.findOne({_id: communityId});
-  },
-  whitelist: ()=> {
-  	return Communities.findOne({_id: communityId}).settings.enforceWhitelist;
+  	checkbox.check();*/
+  	return community.settings.enforceWhitelist;
   }
 });
 

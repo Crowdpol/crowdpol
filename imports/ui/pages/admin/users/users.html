@@ -32,6 +32,7 @@
 		<hr>
 
 		<!-- Community Whitelist -->
+		{{#if Template.subscriptionsReady}}
 		{{#if whitelist}}
 		<h3> {{_"admin.users.community-whitelist"}} </h3>
 		<small> {{_"admin.users.whitelist-description"}} </small>
@@ -53,8 +54,10 @@
 				<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.submit"}}'>
 			</div>
 		</form>
-		{{/if}}
 		<hr>
+		{{/if}}
+		{{/if}}
+		
 
 		<h3> {{_"admin.users.heading"}} </h3>
 		{{#if Template.subscriptionsReady}}
