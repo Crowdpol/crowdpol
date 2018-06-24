@@ -32,27 +32,27 @@
 			    <h2 class="mdl-card__title-text">{{_"admin.users.invite-heading"}}</h2>
 			  </div>
 			  <form id="invite">
-			  <div class="mdl-card__supporting-text">
-			    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-						<input class="mdl-textfield__input" type="text" id="invite-role" data-val="voter" value="{{_'components.role-selector.voter'}}" readonly tabIndex="-1">
-						<label for="invite-role" class="dropdown-icon">
-								<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-							</label>
-						<label for="invite-role" class="mdl-textfield__label">{{_'admin.users.invite-role'}}</label>
-						<ul for="invite-role" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-							<li class="mdl-menu__item dropdown-item" data-val="voter">{{_'components.role-selector.voter'}}</li>
-							<li class="mdl-menu__item dropdown-item" data-val="party-delegate">{{_'components.role-selector.party-delegate'}}</li>
-							<li class="mdl-menu__item dropdown-item" data-val="organisation-delegate">{{_'components.role-selector.organisation-delegate'}}</li>
-						</ul>
-				</div>
-					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label class="mdl-textfield__label"> {{_ "form.email"}}</label>
-						<input type="email" id="invite-email" class="mdl-textfield__input" placeholder='{{_ "form.email"}}'>
-					</div>
-			  </div>
-			  <div class="mdl-card__actions mdl-card--border">
-			  	<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "admin.users.invite-button"}}'>
-			  </div>
+				  <div class="mdl-card__supporting-text">
+				    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+							<input class="mdl-textfield__input" type="text" id="invite-role" data-val="voter" value="{{_'components.role-selector.voter'}}" readonly tabIndex="-1">
+							<label for="invite-role" class="dropdown-icon">
+									<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+								</label>
+							<label for="invite-role" class="mdl-textfield__label">{{_'admin.users.invite-role'}}</label>
+							<ul for="invite-role" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+								<li class="mdl-menu__item dropdown-item" data-val="voter">{{_'components.role-selector.voter'}}</li>
+								<li class="mdl-menu__item dropdown-item" data-val="party-delegate">{{_'components.role-selector.party-delegate'}}</li>
+								<li class="mdl-menu__item dropdown-item" data-val="organisation-delegate">{{_'components.role-selector.organisation-delegate'}}</li>
+							</ul>
+						</div>
+						<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label class="mdl-textfield__label"> {{_ "form.email"}}</label>
+							<input type="email" id="invite-email" class="mdl-textfield__input" placeholder='{{_ "form.email"}}'>
+						</div>
+				  </div>
+				  <div class="mdl-card__actions mdl-card--border">
+				  	<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "admin.users.invite-button"}}'>
+				  </div>
 			  </form>
 			</div>
 			
@@ -112,6 +112,77 @@
 			  </div>
 			</div>
 		</div>
+		<hr>
+
+		<!-- Community Whitelist -->
+		{{#if Template.subscriptionsReady}}
+			{{#if whitelist}}
+			<h3> {{_"admin.users.community-whitelist"}} </h3>
+			<small> {{_"admin.users.whitelist-description"}} </small>
+			<form id="community-whitelist-form">
+
+				<div id="whitelistInput" class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label class="mdl-textfield__label" for="emailWhitelist">{{_"admin.users.emailWhitelist"}}</label>
+					<input type="text" id="emailWhitelist" class="mdl-textfield__input">
+				</div>
+				
+				<div class="form-group">
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="whitelist-checkbox" id="whitelist-checkbox-label">
+						<input type="checkbox" id="whitelist-checkbox" class="mdl-checkbox__input" />
+					  	<span class="mdl-checkbox__label">{{_"admin.users.enforceWhitelist"}}</span>
+					</label>
+				</div>
+
+				<div class="form-group">
+					<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.submit"}}'>
+				</div>
+			</form>
+			<hr>
+			{{/if}}
+		{{/if}}
+		
+
+		<h3>{{_"admin.users.heading"}} </h3>
+		{{#if Template.subscriptionsReady}}
+			<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+				<thead>
+					<tr>
+						<th class="mdl-data-table__cell--non-numeric">{{_"admin.users.name"}}</th>
+						<th>{{_"admin.users.email"}}</th>
+						<th>{{_"admin.users.roles"}}</th>
+						<th>{{_"admin.users.public"}}</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				{{#each users}}
+					<tr>
+						<td class="mdl-data-table__cell--non-numeric"> {{profile.firstName}} {{profile.lastName}} </td>
+						<td class="mdl-data-table__cell--non-numeric">
+							{{#each emails}}
+								{{address}}
+							{{/each}}
+						</td>
+						<td class="mdl-data-table__cell--non-numeric"> {{roles}} </td>
+						<td class="mdl-data-table__cell--non-numeric">
+							{{#if profile.isPublic}}
+								<i class="material-icons">check</i>
+							{{else}}
+								<i class="material-icons">close</i>
+							{{/if}}
+						</td>
+						<td>
+							<button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
+									<i class="material-icons">delete</i>  {{_'admin.users.delete-button'}}
+								</button>
+						</td>
+					</tr>
+				{{/each}}
+				</tbody>
+			</table>
+		{{else}}
+			<p>{{_ "generic.loading"}}</p>
+		{{/if}}
 	</div>
 	{{/if}}
 </template>

@@ -11,33 +11,28 @@ Template.AdminUsers.onCreated(function() {
   });
 });
 
-Template.AdminUsers.onRendered(function() {
-  var self = this;
-  
-  communityId = LocalStore.get('communityId');
-  var settings = Communities.findOne({_id: communityId}).settings;
-  var emails = settings.emailWhitelist;
-  if (emails) {
-  	self.find("#emailWhitelist").value = emails.join(',');
-  	self.find("#whitelistInput").MaterialTextfield.checkDirty()
-  }
-
-  var enforceWhitelist = settings.enforceWhitelist;
-
-  if (enforceWhitelist) {
-  	var checkbox = self.find('#whitelist-checkbox-label').MaterialCheckbox;
-  	checkbox.check();
-  }
-  	
-});
 
 Template.AdminUsers.helpers({
   users: ()=> {
     return Meteor.users.find({});
   },
-  community: ()=> {
-  	return Communities.findOne({_id: communityId});
-  },
+  whitelist: ()=> {
+	  var community = Communities.findOne({_id: LocalStore.get('communityId')});
+	  var settings = community.settings;
+
+	  var enforceWhitelist = settings.enforceWhitelist;
+
+	  if (enforceWhitelist) {
+	  	var emails = settings.emailWhitelist;
+		  if (emails) {
+		  	self.find("#emailWhitelist").value = emails.join(',');
+		  	self.find("#whitelistInput").MaterialTextfield.checkDirty()
+		  }
+	  	var checkbox = self.find('#whitelist-checkbox-label').MaterialCheckbox;
+	  	checkbox.check();
+	  	return community.settings.enforceWhitelist;
+	  }
+	 }
 });
 
 Template.AdminUsers.events({
@@ -46,9 +41,12 @@ Template.AdminUsers.events({
 
 		let email = template.find("#invite-email").value;
 			role = template.find("#invite-role").value;
-			url = Meteor.absoluteUrl('login');
-
-		Meteor.call('sendInvite', email, role, url, function(error){
+			//url = Meteor.absoluteUrl('login');
+			fromEmail = Meteor.user().emails[0].address;
+			var hostname = window.location.host;
+			url = 'https://' + hostname + '/login';
+			console.log(url);
+		Meteor.call('sendInvite', email, role, url, fromEmail, function(error){
 			if (error){
 				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
