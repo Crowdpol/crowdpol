@@ -141,7 +141,6 @@ Template.DashProposals.helpers({
   },
   anyProposals: function(){
   	proposalCount = Proposals.find({$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ]}).count();
-  	console.log("proposal count: " + proposalCount);
   	if(proposalCount==0){
   		return false;
   	}

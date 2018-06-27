@@ -157,12 +157,18 @@
 			"card": {
 				"proposals": {
 					"heading": "Mina Motioner",
-					"text": "Rösta på motioner.",
-					"link": "Rösta"
+					"text": "Dina motioner.",
+					"no-proposals": "TODO: You haven't written any proposals yet.",
+					"draft-count": "TODO: __count__ draft proposals",
+					"closed-count": "TODO: __count__ closed proposals",
+					"open-count": "TODO: __count__ open proposals",
+					"new-proposal": "TODO: Draft a new proposal",
+					"link": "Se"
 				},
 				"delegates": {
 					"heading": "Delegate",
 					"text": "Välj dina delegater.",
+					"no-delegates": "TODO: You don't have any delegates",
 					"link": "Delegera"
 				},
 				"candidates": {
@@ -171,9 +177,10 @@
 					"link": "Nominera"
 				},
 				"delegates": {
-					"heading": "My Delegate",
-					"text": "Select your delegates.",
-					"link": "Delegate"
+					"heading": "TODO: My Delegate",
+					"text": "TODO: Select your delegates.",
+					"no-delegates": "TODO: You have not selected any Delegates",
+					"link": "TODO: Delegate"
 				},
 				"profile": {
 					"heading": "Min Profil",
@@ -183,12 +190,16 @@
 				"interests": {
 					"heading": "Mina Intressen",
 					"text": "Valda Intressen",
+					"no-interests": "TODO: You have not selected any interests yet",
 					"link": "Välj"
 				},
 				"vote": {
 					"heading": "Rösta på Motioner",
 					"text": "TODO: Vote on Proposals and view results",
-					"link": "TODO: Select"
+					"open-proposals": "TODO: __count__ open proposals",
+					"closed-proposals": "TODO: __count__ closed proposals",
+					"vote-link": "TODO: Vote now",
+					"view-link": "TODO: View outcome"
 				}
 			},
 			"verify-account-message": "Verifiera din e-postadress innan du fortsätter.",

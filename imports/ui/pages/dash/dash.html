@@ -71,7 +71,7 @@
 							<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
 						</span>
 					{{else}}
-						you have not selected any interests yet
+						{{_"pages.dashboard.card.interests.no-interests"}}
 					{{/each}}
 					<br/>
 					<a class="" href="/interests">
@@ -100,7 +100,7 @@
 							<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
 						</span>
 					{{else}}
-						you have not selected any interests yet
+						{{_"pages.dashboard.card.interests.no-interests"}}
 					{{/each}}
 					<br/>
 					<a class="" href="/interests">
@@ -130,18 +130,18 @@
 				{{_ "pages.dashboard.card.proposals.text"}}<br>
 				{{#if anyProposals}}
 				{{else}}
-					You haven't written any proposals yet.
+					{{_"pages.dashboard.card.proposals.no-proposals"}}
 				{{/if}}
 					{{#if myDraftProposalCount}}
-						{{myDraftProposalCount}} draft proposals<a href="/proposals">view</a><br>
+						{{_ "pages.dashboard.card.proposals.draft-count" count=myDraftProposalCount}}&nbsp;<a href="/proposals">{{_ "pages.dashboard.card.proposals.link"}}</a><br>
 					{{/if}}
 					{{#if myOpenProposalCount}}
-						{{myOpenProposalCount}} open proposals<a href="/proposals">view</a><br>
+						{{_ "pages.dashboard.card.proposals.open-count" count=myOpenProposalCount}}&nbsp;<a href="/proposals">{{_ "pages.dashboard.card.proposals.link"}}</a><br>
 					{{/if}}
 					{{#if myClosedProposalCount}}
-						{{myClosedProposalCount}} closed proposals<a href="/proposals">view</a><br>
+						{{_ "pages.dashboard.card.proposals.closed-count" count=myClosedProposalCount}}&nbsp;<a href="/proposals">{{_ "pages.dashboard.card.proposals.link"}}</a><br>
 					{{/if}}
-				<a href="/proposals/edit">Draft a new proposal</a>
+				<a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
 			{{else}}
 					loading
 			{{/if}}
@@ -171,7 +171,7 @@
 				  	</span>
 				  </li>
 				{{else}}
-					you don't have any delegates
+					{{_"pages.dashboard.card.delegates.no-delegates"}}
 				{{/each}}
 			</ul>
 			
@@ -211,8 +211,8 @@
 		<div class="dash-card-text mdl-card__supporting-text">
 			{{_"pages.dashboard.card.vote.text"}}
 			<br>
-			{{openProposalCount}} open proposals <a href="/voting">Vote now</a><br>
-			{{closedProposalCount}} closed proposals <a href="/proposals">View outcome</a>
+			{{_"pages.dashboard.card.vote.open-proposals" count=openProposalCount}}&nbsp;<a href="/voting">{{_"pages.dashboard.card.vote.vote-link"}}</a><br>
+			{{_"pages.dashboard.card.vote.open-proposals" count=closedProposalCount}}&nbsp;<a href="/proposals">{{_"pages.dashboard.card.vote.view-link"}}</a>
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
