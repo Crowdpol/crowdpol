@@ -89,15 +89,12 @@ Template.DashInterests.helpers({
 
 //DASH VOTE
 Template.DashVote.helpers({
-	openProposalCount: function() {
+  openProposalCount: function() {
     return Proposals.find({endDate:{"$gte": new Date()}, stage: "live"}).count();
   },
   closedProposalCount: function() {
     return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}).count();
-  },
-  myProposalCount: function(){
-    return Proposals.find({$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ]}).count();
-  },
+  }
 });
 
  //DASH DELEGATES
@@ -130,3 +127,24 @@ Template.DashDelegates.events({
     
   }
  });
+
+//DASH PROPOSALS
+Template.DashProposals.helpers({
+  myDraftProposalCount: function(){
+    return Proposals.find({stage: "draft",$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ]}).count();
+  },
+  myOpenProposalCount: function(){
+    return Proposals.find({endDate:{"$gte": new Date()}, stage: "live",$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ]}).count();
+  },
+  myClosedProposalCount: function(){
+    return Proposals.find({endDate:{"$lte": new Date()}, stage: "live",$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ]}).count();
+  },
+  anyProposals: function(){
+  	proposalCount = Proposals.find({$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ]}).count();
+  	console.log("proposal count: " + proposalCount);
+  	if(proposalCount==0){
+  		return false;
+  	}
+  	return true;
+  }
+});

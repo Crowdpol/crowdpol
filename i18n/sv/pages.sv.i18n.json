@@ -156,7 +156,7 @@
 			"heading" : "Instrumentpanel",
 			"card": {
 				"proposals": {
-					"heading": "Rösta",
+					"heading": "Mina Motioner",
 					"text": "Rösta på motioner.",
 					"link": "Rösta"
 				},
@@ -169,6 +169,26 @@
 					"heading": "Kandidater",
 					"text": "Välj dina kandidater",
 					"link": "Nominera"
+				},
+				"delegates": {
+					"heading": "My Delegate",
+					"text": "Select your delegates.",
+					"link": "Delegate"
+				},
+				"profile": {
+					"heading": "Min Profil",
+					"text": "TODO: Profile status",
+					"link": "Redigera"
+				},
+				"interests": {
+					"heading": "Mina Intressen",
+					"text": "Valda Intressen",
+					"link": "Välj"
+				},
+				"vote": {
+					"heading": "Rösta på Motioner",
+					"text": "TODO: Vote on Proposals and view results",
+					"link": "TODO: Select"
 				}
 			},
 			"verify-account-message": "Verifiera din e-postadress innan du fortsätter.",

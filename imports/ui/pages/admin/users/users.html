@@ -62,7 +62,7 @@
 			  </div>
 			  <div class="mdl-card__supporting-text">
 			    {{#if Template.subscriptionsReady}}
-						<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+						<table class="mdl-data-table mdl-js-data-table mdl-data-table">
 							<thead>
 								<tr>
 									<th class="mdl-data-table__cell--non-numeric">{{_"admin.users.name"}}</th>
@@ -139,47 +139,6 @@
 			</form>
 			<hr>
 			{{/if}}
-		{{/if}}
-		
-
-		<h3>{{_"admin.users.heading"}} </h3>
-		{{#if Template.subscriptionsReady}}
-			<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
-				<thead>
-					<tr>
-						<th class="mdl-data-table__cell--non-numeric">{{_"admin.users.name"}}</th>
-						<th>{{_"admin.users.email"}}</th>
-						<th>{{_"admin.users.roles"}}</th>
-						<th>{{_"admin.users.public"}}</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-				{{#each users}}
-					<tr>
-						<td class="mdl-data-table__cell--non-numeric"> {{profile.firstName}} {{profile.lastName}} </td>
-						<td class="mdl-data-table__cell--non-numeric">
-							{{#each emails}}
-								{{address}}
-							{{/each}}
-						</td>
-						<td class="mdl-data-table__cell--non-numeric"> {{roles}} </td>
-						<td class="mdl-data-table__cell--non-numeric">
-							{{#if profile.isPublic}}
-								<i class="material-icons">check</i>
-							{{else}}
-								<i class="material-icons">close</i>
-							{{/if}}
-						</td>
-						<td>
-							<button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised" data-user-id={{_id}}>
-									<i class="material-icons">delete</i>  {{_'admin.users.delete-button'}}
-								</button>
-						</td>
-					</tr>
-				{{/each}}
-				</tbody>
-			</table>
 		{{else}}
 			<p>{{_ "generic.loading"}}</p>
 		{{/if}}
