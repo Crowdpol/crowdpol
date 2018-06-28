@@ -1,9 +1,16 @@
 import "./interests.html";
+import { Tags } from '/imports/api/tags/Tags.js';
 import { setupTaggle } from '../../components/taggle/taggle.js'
 import RavenClient from 'raven-js';
 
 Template.Interests.onRendered(function(){
   var self = this;
+
+  var communityId = LocalStore.get('communityId')
+  self.autorun(function() {
+    Meteor.subscribe('tags.community', communityId);
+  });
+  Session.set("tagIndex",-1);
 
   self.taggle = new ReactiveVar(setupTaggle());
 
@@ -33,6 +40,12 @@ Template.Interests.onCreated(function() {
   dict.set('tagsCount', 0);
 
   this.templateDictionary = dict;
+});
+
+Template.Interests.helpers({
+  tags: ()=> {
+    return Tags.find();
+  }
 });
 
 Template.Interests.events({
