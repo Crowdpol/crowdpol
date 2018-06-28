@@ -73,7 +73,7 @@ Template.AdminUsers.events({
 	},
 
 
-	'click #delete-button': function(event, template){
+	'click .delete-button': function(event, template){
 		Meteor.call('deleteUser', event.target.dataset.userId);
 	},
 

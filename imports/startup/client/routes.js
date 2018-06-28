@@ -177,7 +177,7 @@ loggedInRoutes.route('/profile/:id', {
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
-    BlazeLayout.render('App_body', { main: 'ProposalsList' });
+    BlazeLayout.render('App_body', { main: 'Dash' });
   },
 });
 
@@ -185,6 +185,13 @@ loggedInRoutes.route('/tag/:keyword', {
   name: 'App.tag',
   action() {
     BlazeLayout.render('App_body', {main: 'TagSearch'});
+  }
+});
+
+loggedInRoutes.route('/interests', {
+  name: 'App.interests',
+  action() {
+    BlazeLayout.render('App_body', {main: 'Interests'});
   }
 });
 

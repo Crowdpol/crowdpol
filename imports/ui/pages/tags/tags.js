@@ -25,11 +25,19 @@ Template.TagSearch.helpers({
 	},
 	delegates(){
 		var keyword = FlowRouter.getParam('keyword');
-		return Meteor.users.find({roles: 'delegate', 'profile.tags': { $elemMatch: {keyword: keyword}}});
+		delegates = Meteor.users.find({roles: 'delegate', 'profile.tags': { $elemMatch: {keyword: keyword}}});
+		if(delegates.count()){
+			return delegates;
+		}
+		return null;
 	},
 	proposals(){
 		var keyword = FlowRouter.getParam('keyword');
-		return Proposals.find({tags: { $elemMatch: {keyword: keyword}}}, {transform: transformProposal});
+		proposals = Proposals.find({tags: { $elemMatch: {keyword: keyword}}}, {transform: transformProposal});
+		if(proposals.count()){
+			return proposals;
+		}
+		return null;
 	}
 });
 
