@@ -1,5 +1,12 @@
 <template name="Interests">
 	<div class="app-container">
 		<h3>{{_ "pages.interests.heading"}}</h3>
+		<p>{{_ "pages.interests.intro-text"}}</p>
+		<br>
+		<label class="custom-label">{{_ "pages.profile.profile-tags"}}</label>
+		{{> taggle}}
+		<button class="mdl-button mdl-js-button" id="update-tags" style="float: right;">
+			Save
+		</button>
 	</div>
 </template>
