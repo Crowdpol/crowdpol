@@ -411,6 +411,11 @@
 				"login-to-view": "You must log in to access that page.",
 				"no-subdomain": "Please ensure that you've entered a valid URL."
 			}
+		},
+		"interests": {
+			"heading": "My Interests",
+			"intro-text": "Select some of your personal interests you would like ot follow.",
+			"popular": "Popular Tags"
 		}
 
 
