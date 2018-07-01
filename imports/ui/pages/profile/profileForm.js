@@ -1,41 +1,7 @@
 import "./profileForm.html"
-import { setupTaggle } from '../../components/taggle/taggle.js'
+//import { setupTaggle } from '../../components/taggle/taggle.js'
 import RavenClient from 'raven-js';
 
-Template.ProfileForm.onRendered(function(){
-  var self = this;
-  self.delegateStatus = new ReactiveVar(false);
-  self.candidateStatus = new ReactiveVar(false);
-
-  self.taggle = new ReactiveVar(setupTaggle());
-
-  const handle = Meteor.subscribe('users.current');
-
-  Tracker.autorun(() => {
-    const isReady = handle.ready();
-    
-    if (isReady){
-      // Set public/private switch
-      updatePublicSwitch(self);
-      // Set approval statuses and switches
-      self.delegateStatus.set(updateDisplayedStatus('delegate', self));
-      //self.candidateStatus.set(updateDisplayedStatus('candidate', self));
-    }
-  });
-
-  Session.set('profileIsComplete', checkProfileIsComplete(self))
-  Session.set('showCompleteStatus', false);
-  Meteor.call('getUserTags', Meteor.userId(), function(error, result){
-    if (error){
-      RavenClient.captureException(error);
-      Bert.alert(error.reason, 'danger');
-    } else {
-      var keywords = _.map(result, function(tag){ return tag.keyword; });
-      self.taggle.get().add(keywords);
-    }
-  });
-
-});
 
 Template.ProfileForm.onCreated(function() {
   var self = this;
@@ -64,7 +30,8 @@ Template.ProfileForm.onCreated(function() {
     } else {
       dict.set('isPublic', result.isPublic);
       dict.set('username', result.profile.username);
-      dict.set('firstname', result.profile.firstName);
+      self.find(`[name="profileFirstName"]`).value = result.profile.firstName || '';
+      //dict.set('firstname', result.profile.firstName);
       dict.set('lastname', result.profile.lastName);
       dict.set('bio', result.profile.bio);
       dict.set('website', result.profile.website);
@@ -89,6 +56,7 @@ Template.ProfileForm.events({
   'keyup input, keyup textarea' (event, template){
     Session.set('profileIsComplete', checkProfileIsComplete(template))
   },
+  /*
   'click #show-settings' (event, template) {
     event.preventDefault();
     var showSettings = Session.get('showSettings');
@@ -99,6 +67,7 @@ Template.ProfileForm.events({
     }
     Session.set('showSettings',!showSettings)
   },
+  */
   'blur #profile-website' (event, template) {
         if (validateUrl(event.currentTarget.value)) {
           template.templateDictionary.set('urlCompleted',true);
@@ -108,6 +77,47 @@ Template.ProfileForm.events({
           template.templateDictionary.set('urlCompleted',false);
           $("#valid-url").text("");
         }
+  },
+  /*
+  'change isPublic' (event,template){
+    console.log("isPublic clicked");
+    //Check if user is public
+    if( Meteor.user().isPublic) {
+      //True: - go private
+        //1 Check if user is delegate
+        if (isInRole('delegate')) {
+          //true - let user know they cannot go private while delegate
+            Bert.alert("Remove delegate role before going private", 'danger');
+        }else{
+          //false - make user private
+          togglePublic(false, template);
+        }
+    }else{
+      togglePublic(true,template);
+
+    } 
+  },
+  */
+  'click #goPrivate' (event,template){
+    if( Meteor.user().isPublic) {
+      //True: - go private
+        //1 Check if user is delegate
+        if (isInRole('delegate')) {
+          //true - let user know they cannot go private while delegate
+            Bert.alert("Remove delegate role before going private", 'danger');
+            if(event.currentTarget.checked){
+              $( "#goPrivate" ).prop( "checked", false );
+            }
+        }else{
+          //false - make user private
+          togglePublic(false, template);
+        }
+    }
+  },
+  'click #goPublic' (event,template){
+    if(! Meteor.user().isPublic) {
+      togglePublic(true, template);
+    }
   },
   'click #profile-public-switch' (event, template) {
     event.preventDefault();
@@ -177,17 +187,59 @@ Template.ProfileForm.events({
 });
 
 Template.ProfileForm.onRendered(function() {
+    var self = this;
+  self.delegateStatus = new ReactiveVar(false);
+  self.candidateStatus = new ReactiveVar(false);
+
+  //self.taggle = new ReactiveVar(setupTaggle());
+
+  const handle = Meteor.subscribe('users.current');
+
+  Tracker.autorun(() => {
+    const isReady = handle.ready();
+    
+    if (isReady){
+      // Set public/private switch
+      //updatePublicSwitch(self);
+      // Set approval statuses and switches
+      self.delegateStatus.set(updateDisplayedStatus('delegate', self));
+      //self.candidateStatus.set(updateDisplayedStatus('candidate', self));
+      Session.set('profileIsComplete', checkProfileIsComplete(self));
+    }
+  });
+
+  
+  //Session.set('showCompleteStatus', false);
+  /*
+  Meteor.call('getUserTags', Meteor.userId(), function(error, result){
+    if (error){
+      RavenClient.captureException(error);
+      Bert.alert(error.reason, 'danger');
+    } else {
+      var keywords = _.map(result, function(tag){ return tag.keyword; });
+      self.taggle.get().add(keywords);
+    }
+  });
+  */
   let template = Template.instance();
   Session.set('showSettings',false);
-  $( "#public-form-details" ).hide();
+  //$( "#public-form-details" ).hide();
 
-  /*
+  
   //Go through mdl inputs and check if dirty
-  var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
+  var form = document.forms[2];
+  var mdlInputs = form.querySelectorAll('.mdl-js-textfield');
   for (var i = 0, l = mdlInputs.length; i < l; i++) {
-    mdlInputs[i].MaterialTextfield.checkDirty();
+    var classes = mdlInputs[i].getAttribute('class') + " is-dirty";
+    var nodes = mdlInputs[i].querySelector('input,textarea');
+    console.log(nodes);
+    mdlInputs[i].setAttribute('class', classes);
+    //mdlInputs[i].addClass("is-dirty");
+    //mdlInputs[i].get(0).MaterialTextfield.checkDirty();
   }  
-  */
+  
+  //$('[name="profileFirstName"]').get(0).MaterialTextfield.change(template.templateDictionary.get('firstname'));
+  
   $.validator.addMethod('usernameUnique', (username) => {
     let exists = Meteor.users.findOne({"_id":{$ne: Meteor.userId()},"profile.username": username});
     return exists ? false : true;
@@ -219,11 +271,13 @@ Template.ProfileForm.onRendered(function() {
     },
     submitHandler() {
       var communityId = LocalStore.get('communityId');
+      /*
       Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
         if (error){
           RavenClient.captureException(error);
           Bert.alert(error, 'reason');
         } else {
+          */
           var profile = {
             username: template.find('[name="profileUsername"]').value,
             firstName: template.find('[name="profileFirstName"]').value,
@@ -233,7 +287,7 @@ Template.ProfileForm.onRendered(function() {
             website: template.find('[name="profileWebsite"]').value,
             credentials: template.templateDictionary.get('credentials'),
             type: template.type.get(),
-            tags: proposalTags
+            //tags: proposalTags
           };
 
           Meteor.call('updateProfile', profile, function(error) {
@@ -245,8 +299,8 @@ Template.ProfileForm.onRendered(function() {
             }
           });
 
-        } 
-      });
+        //} 
+      //});
       
     }
   });
@@ -256,9 +310,9 @@ Template.ProfileForm.helpers({
   totalScore: function(){
     //remember to check if type is entity as only uses firstname (thus return 6), individual requires firstname and lastname (thus 7)
     if(Template.instance().type.get()=='Entity'){
-      return 6;
+      return 5;
     }
-    return 7;
+    return 6;
   },
   photoCompleted: function(){
     return Template.instance().templateDictionary.get('photoCompleted');
@@ -283,12 +337,15 @@ Template.ProfileForm.helpers({
   bioCount: function(){
     return Template.instance().templateDictionary.get('bioCount');
   },
+  /*
   tagsCompleted: function(){
     return Template.instance().templateDictionary.get('tagsCompleted');
   },
+
   tagsCount: function(){
     return Template.instance().templateDictionary.get('tagsCount');
   },
+    */
   completedScore: function(){
     return Template.instance().templateDictionary.get('completedScore');
   },
@@ -299,9 +356,11 @@ Template.ProfileForm.helpers({
   profilePic: function() {
     return Template.instance().templateDictionary.get('photo');
   },
+  /*
   firstName: function() {
     return Template.instance().templateDictionary.get('firstname');
   },
+  */
   lastName: function() {
     return Template.instance().templateDictionary.get('lastname');
   },
@@ -330,6 +389,18 @@ Template.ProfileForm.helpers({
   },
   isPublic: function() {
     return Meteor.user().isPublic;
+  },
+  publicChecked: function() {
+    if(Meteor.user().isPublic){
+      return "checked";
+    }
+    return null;
+  },
+  privateChecked: function() {
+    if(!Meteor.user().isPublic){
+      return "checked";
+    }
+    return null;
   },
   saveDisabled: function(){
     if (Meteor.user().isPublic && !Session.get('profileIsComplete')){
@@ -407,7 +478,7 @@ function checkProfileIsComplete(template){
     photo: template.find('[name="profilePhotoPath"]').value,
     bio: template.find('[name="profileBio"]').value,
     website: template.find('[name="profileWebsite"]').value,
-    tags: template.taggle.get().getTagValues()
+    //tags: template.taggle.get().getTagValues()
   };
   
   var profileFields = _.keys(profile);
@@ -458,7 +529,7 @@ function checkProfileIsComplete(template){
   }else{
     template.templateDictionary.set('urlCompleted',false);
   }
-
+  /*
   //7. Check tags: NOTE! Something a bit iffy with template.taggle.get().getTagValues()
   //console.log(profile.tags);
   //console.log(template.taggle.get().getTagValues());
@@ -469,13 +540,14 @@ function checkProfileIsComplete(template){
   }else{
     template.templateDictionary.set('tagsCompleted',false);
   }
+  */
   template.templateDictionary.set('completedScore',completedScore);
 
-  //8. Calculate score total based on profile type (individual = 7, entity = 6)
+  //8. Calculate score total based on profile type (individual = 6, entity = 5)
   var profileType = template.templateDictionary.get('profileType');
-  var totalScore = 7;
+  var totalScore = 6;
   if(profileType == 'Entity'){
-    totalScore = 6;
+    totalScore = 5;
   }
   
   //9. Update progress bar
@@ -501,7 +573,7 @@ function checkProfileIsComplete(template){
   if(completedScore==totalScore){
     isComplete = true;
   }
-  //console.log("completedScore: " + completedScore + " totalScore: " + totalScore + " isComplete");
+  console.log("completedScore: " + completedScore + " totalScore: " + totalScore + " isComplete");
   return isComplete;
 }
 
@@ -537,12 +609,14 @@ function updateDisplayedStatus(type, template){
 function updatePublicSwitch(template){
   var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch;
   var delegateSwitch = template.find('#profile-delegate-switch-label').MaterialSwitch;
+  /*
   if(!checkProfileIsComplete(template)){
     //console.log("profile is incomplete, disabling public toggle");
     publicSwitch.disable();
     delegateSwitch.disable();
     return;
   }
+  */
   if (isInRole('candidate') || isInRole('delegate')){
     //console.log("user is delegate/candidate, disabling public toggle");
     publicSwitch.disable();
@@ -562,17 +636,22 @@ function updatePublicSwitch(template){
 }
 
 function togglePublic(isPublic,template){
-  var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch;
+  //var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch;
   Meteor.call('togglePublic', Meteor.userId(), isPublic, function(error) {
     if (error) {
       Bert.alert(error.reason, 'danger');
-      publicSwitch.off();
+      //publicSwitch.off();
+      $( "#goPrivate" ).prop( "checked", false );
+      $( "#goPublic" ).prop( "checked", false );
     } else {
       var msg = TAPi18n.__('pages.profile.alerts.profile-private');
-      publicSwitch.off();
+      //publicSwitch.off();
+      $( "#goPrivate" ).prop( "checked", false );
       if (Meteor.user().isPublic) {
         msg = TAPi18n.__('pages.profile.alerts.profile-public');
-        publicSwitch.on();
+        //publicSwitch.on();
+        $( "#goPrivate" ).prop( "checked", true );
+        $( "#goPublic" ).prop( "checked", false );
       }
       Bert.alert(msg, 'success');
     }
