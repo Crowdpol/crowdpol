@@ -330,14 +330,14 @@ function profileIsComplete(user){
     photo: user.profile.photo,
     bio: user.profile.bio,
     website: user.profile.website,
-    tags: user.profile.tags
+    //tags: user.profile.tags
   };
   var isComplete = true;
   var profileFields = _.keys(profile);
   public = profile;
-  if (!profile.tags || profile.tags.length < 5){
-    isComplete = false;
-  } else {
+  //if (!profile.tags || profile.tags.length < 5){
+  //  isComplete = false;
+  //} else {
     _.map(profileFields, function(field){
       if (profile[field]){
         if (profile[field].length == 0) {
@@ -347,7 +347,7 @@ function profileIsComplete(user){
         isComplete = false;
       }
     });
-  }
+  //}
   return isComplete;
 }
 

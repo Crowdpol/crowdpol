@@ -143,3 +143,45 @@
   } 
 }
 
+
+//UPDATE PROFILE PAGE:
+
+div#profile-radios{
+
+  label.mdl-radio{
+    span.mdl-radio__label{
+      font-size: 16px;
+      font-weight: 200;
+      small{
+        font-size: 12px;
+        display: block;
+        font-weight: 200;
+      }
+    }
+  }
+}
+
+div#profile-delegate-status{
+  div.switch-wrap{
+    //margin-top: 0.5rem;
+    font-size: 16px;
+    font-weight: 200;
+    line-height: 1rem;
+    label{
+      span{
+        font-size: 16px;
+        font-weight: 200;
+      }
+    }
+  }
+  small{
+    font-size: 12px;
+    font-weight: 200;
+    line-height: 0.5rem;
+  }
+  div#progress-header{
+    font-weight: 200;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}

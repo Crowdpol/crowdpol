@@ -152,19 +152,45 @@
 			"heading" : "Dashboard",
 			"card": {
 				"proposals": {
-					"heading": "Vote",
-					"text": "Vote on Proposals.",
-					"link": "Vote"
+					"heading": "My Proposals",
+					"text": "Your proposals",
+					"no-proposals": "You haven't written any proposals yet.",
+					"draft-proposals": " draft proposals",
+					"draft-count": "__count__ draft proposals",
+					"closed-count": "__count__ closed proposals",
+					"open-count": "__count__ open proposals",
+					"new-proposal": "Draft a new proposal",
+					"link": "View"
 				},
 				"delegates": {
-					"heading": "Delegate",
+					"heading": "My Delegate",
 					"text": "Select your delegates.",
+					"no-delegates": "You have not selected any delegates",
 					"link": "Delegate"
 				},
 				"candidates": {
 					"heading": "Candidates",
 					"text": "Select your candidates",
 					"link": "Nominate"
+				},
+				"profile": {
+					"heading": "My Profile",
+					"text": "Profile status",
+					"link": "Edit"
+				},
+				"interests": {
+					"heading": "My Interests",
+					"text": "Current interests",
+					"no-interests": "You have not selected any interests yet",
+					"link": "Select"
+				},
+				"vote": {
+					"heading": "Vote on Proposals",
+					"text": "Vote on Proposals and view results",
+					"open-proposals": "__count__ open proposals",
+					"closed-proposals": "__count__ closed proposals",
+					"vote-link": "Vote now",
+					"view-link": "View outcome"
 				}
 			},
 			"verify-account-message": "Please verify your email address before continuing.",
@@ -385,6 +411,11 @@
 				"login-to-view": "You must log in to access that page.",
 				"no-subdomain": "Please ensure that you've entered a valid URL."
 			}
+		},
+		"interests": {
+			"heading": "My Interests",
+			"intro-text": "Select some of your personal interests you would like ot follow.",
+			"popular": "Popular Tags"
 		}
 
 
