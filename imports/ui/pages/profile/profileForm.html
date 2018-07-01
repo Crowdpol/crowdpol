@@ -1,21 +1,75 @@
 <template name="ProfileForm">
 	<form id="profile-form" class="profile" name="profile-form">
 		<div class="mdl-grid profile-grid ">
-			<div class="mdl-cell mdl-cell--12-col">
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
-					<input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
-					<span id="valid-username" class="valid-username"></span>
+			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone" id="profile-radios">
+				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="goPrivate">
+				  <input type="radio" id="goPrivate" class="mdl-radio__button" name="isPublic" value="1" {{privateChecked}}>
+				  <span class="mdl-radio__label">
+				  	Make my profile private
+				  	<small>(Others will only be able to view your username)</small>
+				  </span>
+				</label>
+				<br>
+				<br>
+				<br>
+				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="goPublic">
+				  <input type="radio" id="goPublic" class="mdl-radio__button" name="isPublic" value="2" {{publicChecked}}>
+				  <span class="mdl-radio__label">
+				  	Make my profile visible to others<br>
+				  	<small>(Others will only be able to view your name, website and about info)</small>
+				  </span>
+				</label>
+				<br>
+				<br>
+				<br>
+			</div>
+			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone" id="profile-delegate-status">
+				<div id="progress-header">
+					{{_ "pages.profile.status" completedScore=completedScore totalScore=totalScore}}
+					<div class="progress-bar">
+						<div class="progress-status" id="progress-status" style=""></div>
+					</div>
+				</div>
+				<small>Your profile must be complete</small>
+				<div class="switch-wrap">
+					<label id='profile-delegate-switch-label' class="swich mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
+						<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
+					</label>
+				</div>
+				<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
+					{{_ "pages.profile.tooltips.delegateSwitch"}}
+				</div>
+				<small>{{_ "pages.profile.delegate-switch-description"}}</small>
+				
+				<div class="mdl-tooltip mdl-tooltip--large" for="progress-header">
+					<div id="profile-status-complete">
+						{{_ "form.profile-photo"}}: <i class="material-icons">{{#if photoCompleted}}check{{else}}error{{/if}}</i><br>
+						{{_ "form.username"}}: <i class="material-icons">{{#if usernameCompleted}}check{{else}}error{{/if}}</i><br>
+							{{#if isEntity}}
+								Entity name: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i><br>
+							{{else}}
+	  						{{_ "form.firstname"}}: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i><br>
+	  						{{_ "form.lastname"}}: <i class="material-icons">{{#if lastnameCompleted}}check{{else}}error{{/if}}</i><br>
+	  					{{/if}}
+	  					{{_ "form.website"}}: <i class="material-icons">{{#if urlCompleted}}check{{else}}error{{/if}}</i><br><br>
+	  					{{_ "form.bio"}}: {{bioCount}} characters (min: 50, max: 160) <i class="material-icons">{{#if bioCompleted}}check{{else}}error{{/if}}</i><br>
+					</div>
 				</div>
 			</div>
     </div>
 		<div id="public-form-details">
 			<div class="mdl-grid profile-grid">
-				<input type="hidden" name="profilePhotoPath" id="profile-photo-path" value="{{profilePic}}">
-	      <div class="mdl-cell mdl-cell--12-col">
+				<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+					<input type="hidden" name="profilePhotoPath" id="profile-photo-path" value="{{profilePic}}">
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
+						<input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
+						<span id="valid-username" class="valid-username"></span>
+					</div>
+					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
 						<label class="mdl-textfield__label" for="profile-firstname">{{_ "form.firstname"}}</label>
-						<input type="text" name="profileFirstName" class="mdl-textfield__input" value="{{firstName}}">
+						<input type="text" name="profileFirstName" id="profileFirstName" class="mdl-textfield__input">
 					</div>
 					<!-- NOTE: Please be aware of the script that hide this input if necessary -->
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{#if isEntity}}hidden{{/if}}">
@@ -27,6 +81,8 @@
 						<input type="text" id="profile-website" name="profileWebsite" class="mdl-textfield__input" value="{{website}}">
 						<span id="valid-url" class="valid-username"></span>
 					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-phone">
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio" id="profile-bio">{{bio}}</textarea>
 						<label class="mdl-textfield__label" for="profile-bio">{{_ "form.bio"}}</label>
@@ -38,9 +94,6 @@
 						<span style="color: red; font-size: 10px">{{_ "pages.profile.bio-count" bioCount=bioCount}}</span>
 					{{/if}}
 					</div>
-					<br>
-					<label class="custom-label">{{_ "pages.profile.profile-tags"}}</label>
-					{{> taggle}}
 				</div>
 			</div>
 		</div>
@@ -48,73 +101,14 @@
 			<div class="mdl-cell mdl-cell--12-col">
 				<div class="form-group">
 					<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "form.save"}}' id="submitProfile" {{saveDisabled}} style="float: right;">
-					<button class="mdl-button mdl-js-button" id="show-settings" style="float: right;">
+					<!--<button class="mdl-button mdl-js-button" id="show-settings" style="float: right;">
 						{{{settingsText}}}
-					</button>
+					</button>-->
 				</div>
 				<br>
 			</div>
 		</div>
-		<div class="mdl-grid profile-grid">
-			<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-	      <h5>{{_ "pages.profile.settings"}}<small class="center">{{pages.profile.type}}</small></h5>
-	    </div>
-	    <div class="mdl-cell mdl-cell--12-col">
-	    	<div id="progress-header">
-					<div class="progress-bar">
-					  <div class="progress-status" id="progress-status" style=""></div>
-					</div>
-					<p>
-					{{_ "pages.profile.status" completedScore=completedScore totalScore=totalScore}}
-					<a href="#" id="profile-status-link"><i class="material-icons">expand_more</i></a>
-					</p>
-					
-				</div>
-				<div id="profile-status-complete" style="display:none;">
-					<ol id="progress-list">
-						<li>{{_ "form.profile-photo"}}: <i class="material-icons">{{#if photoCompleted}}check{{else}}error{{/if}}</i></li>
-						<li>{{_ "form.username"}}: <i class="material-icons">{{#if usernameCompleted}}check{{else}}error{{/if}}</i></li>
-						{{#if isEntity}}
-							<li>Entity name: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i></li>
-						{{else}}
-  						<li>{{_ "form.firstname"}}: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i></li>
-  						<li>{{_ "form.lastname"}}: <i class="material-icons">{{#if lastnameCompleted}}check{{else}}error{{/if}}</i></li>
-  					{{/if}}
-  					<li>{{_ "form.website"}}: <i class="material-icons">{{#if urlCompleted}}check{{else}}error{{/if}}</i></li>
-  					<li>{{_ "form.bio"}}: {{bioCount}} characters (min: 50, max: 160) <i class="material-icons">{{#if bioCompleted}}check{{else}}error{{/if}}</i></li>
-  					<li>{{_ "pages.profile.interests"}}: {{tagsCount}} of 5 <i class="material-icons">{{#if tagsCompleted}}check{{else}}error{{/if}}</i></li>
-					</ol>
-				</div>
-			</div>
-	      <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
-	      	<p>{{_ "pages.profile.public-switch-description"}}</p>
-	      </div>
-	      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
-	      	<div class="switch-wrap">
-		      	<label id="profile-public-switch-label" class="switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-public-switch">
-							<input type="checkbox" id="profile-public-switch" class="mdl-switch__input">
-							<span class="mdl-switch__label">{{_ "pages.profile.public"}}</span>
-						</label>
-					</div>
-					<div class="mdl-tooltip mdl-tooltip--large" for="profile-public-switch-label">
-							{{_ "pages.profile.tooltips.publicSwitch"}}
-						</div>
-	      </div>
-				<div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
-					<p>{{_ "pages.profile.delegate-switch-description"}}</p>
-				</div>
-	      <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-table mdl-cell--12-col-phone">
-	      	<div class="switch-wrap">
-						<label id='profile-delegate-switch-label' class="swich mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-							<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
-							<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
-						</label>
-					</div>
-						<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
-							{{_ "pages.profile.tooltips.delegateSwitch"}}
-						</div>
-				</div>
-	
+		
 				<!-- CANDIDATE TOGGLE - DO NOT REMOVE!
 				<div class="mdl-cell mdl-cell-10-col mdl-cell-10-col-tablet mdl-cell-12-col-phone">
 					<p>By being a Candidate you allow be eligible for nomination.</p>
@@ -128,7 +122,7 @@
 					</div>
 				</div>
 				-->
-			</div>
+			
 	</form>
 	{{> ResetPassword}}
 			<!-- Helper list: Don't delete, useful for testing 
