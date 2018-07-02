@@ -49,12 +49,43 @@ Template.Voting.helpers({
   isVotingAsDelegate: function(){
     return (LocalStore.get('currentUserRole') == 'Delegate');
   },
+  isVotingAsIndividual: function(){
+    return (LocalStore.get('currentUserRole') == 'Individual');
+  },
+  userHasMultipleRoles(){
+    var user = Meteor.user();
+    var userRoles = user.roles;
+    if (user && userRoles) {
+      var roles = getMenuRoles(userRoles);
+      return roles.length > 1;
+    }
+    return false;
+  },
+  roles(){
+    var userRoles = Meteor.user().roles;
+    var roles = getMenuRoles(userRoles);
+    //Capitalise first letter of role name
+    return _.map(roles, function(role){ return role.charAt(0).toUpperCase() + role.slice(1);; });
+  },
+  currentRole(){
+    return LocalStore.get('currentUserRole');
+  },
+  isCurrentRole(role){
+    return (role == LocalStore.get('currentUserRole'));
+  },
+  voteDropdownText(){
+    var str = "layout.header.vote_as_" + LocalStore.get('currentUserRole').toLowerCase();
+    return TAPi18n.__(str);
+  }
 });
 
 Template.Voting.events({
   'keyup #proposal-search' ( event, template ) {
     let value = event.target.value.trim();
     template.searchQuery.set(value);
+  },
+  'click .role-menu-item' : function(){
+    LocalStore.set('currentUserRole', event.target.dataset.role)
   },
   'click #add-new-proposal, click #new-proposals-link': function(event, template){
     FlowRouter.go('App.proposal.edit', {id: ''});
@@ -146,3 +177,8 @@ Template.VotingCard.events({
      console.log(template.showVotingInfo.get())
   },
 });
+
+function getMenuRoles(userRoles){
+  var menuRoles = ['individual', 'delegate'];
+  return _.intersection(userRoles, menuRoles);
+}

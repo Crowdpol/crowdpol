@@ -64,26 +64,6 @@
 						<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
 					{{/unless}}
 
-					{{#if userHasMultipleRoles}}
-						<!-- Role Selection Menu -->
-						<a id="demo-menu-lower-left" class="mdl-navigation__link" href="/voting">
-							{{ voteDropdownText }}<i class="material-icons">arrow_drop_down</i>
-						</a>
-
-						<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
-							{{#each roles}}
-							<li class="mdl-menu__item role-menu-item" data-role="{{this}}">
-								Vote as {{this}}
-								{{#if isCurrentRole this}}
-								<i class="material-icons small">check</i>
-								{{/if}}
-							</li>
-							{{/each}}
-						</ul>
-					{{else}}
-						<a class="mdl-navigation__link" href="/voting">{{_ "layout.header.nav_vote"}}</a>
-					{{/if}}
-
 					<!-- Notification Menu -->
 					<div id="notifications-menu-icon" class="material-icons mdl-badge mdl-badge--overlap {{ unreadClass }}" data-badge="{{ unreadNotificationCount }}">notifications</div>
 
