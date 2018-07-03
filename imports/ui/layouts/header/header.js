@@ -55,30 +55,7 @@ Template.Header.helpers({
     return str.toUpperCase();
   },
 
-  userHasMultipleRoles(){
-    var user = Meteor.user();
-    var userRoles = user.roles;
-    if (user && userRoles) {
-      var roles = getMenuRoles(userRoles);
-      return roles.length > 1;
-    }
-    return false;
-  },
-
-  roles(){
-    var userRoles = Meteor.user().roles;
-    var roles = getMenuRoles(userRoles);
-    //Capitalise first letter of role name
-    return _.map(roles, function(role){ return role.charAt(0).toUpperCase() + role.slice(1);; });
-  },
-
-  currentRole(){
-    return LocalStore.get('currentUserRole');
-  },
-
-  isCurrentRole(role){
-    return (role == LocalStore.get('currentUserRole'));
-  },
+  
   matchedTags(){
     return Template.instance().matchedTags.get();
   },
@@ -110,10 +87,6 @@ Template.Header.helpers({
   */
   showLanguages(){
     return Template.instance().community.get().settings.languageSelector
-  },
-  voteDropdownText(){
-    var str = "layout.header.vote_as_" + LocalStore.get('currentUserRole').toLowerCase();
-    return TAPi18n.__(str);
   }
 });
 
@@ -128,9 +101,6 @@ Template.Header.events({
   'click #nav-logout' : function(e){
     event.preventDefault();
     Meteor.logout();
-  },
-  'click .role-menu-item' : function(){
-    LocalStore.set('currentUserRole', event.target.dataset.role)
   },
   'keyup input' (event, template) {
     var input = event.target.value;
@@ -185,10 +155,7 @@ function toggleNotificationsDrawer(){
      }
 }
 
-function getMenuRoles(userRoles){
-  var menuRoles = ['individual', 'delegate'];
-  return _.intersection(userRoles, menuRoles);
-}
+
 
 function matchTags(input, tags) {
   if (input) {
