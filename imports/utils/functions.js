@@ -20,3 +20,10 @@ export const convertToSlug = (text) => {
   }
   return undefined;
 };
+export const walkThrough = (steps) => {
+  var intro = introJs();
+  intro.setOptions({
+    steps: steps
+  });
+  intro.start();
+}

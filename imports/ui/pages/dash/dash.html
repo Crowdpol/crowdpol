@@ -1,8 +1,8 @@
 <template name="Dash">
 	<div class="container app-container">
-		<h1>{{_ "pages.dashboard.heading"}}</h1>
+		<h1>{{_ "pages.dashboard.heading"}}<small><i class="material-icons" id="dash-help">help_outline</i></small></h1>
 		<!-- NOTE: This will have to be updated later on the permissions tickets. FlowRouter groups can manage this -->
-		<div class="dashboard-wrap mdl-grid">
+		<div class="dashboard-wrap mdl-grid" id="instrument-panel">
 		{{#if Template.subscriptionsReady}}
 			{{#if currentUser}}
 				{{> DashVote}}
@@ -51,7 +51,7 @@
 </template>
 
 <template name="DashProfile">
-	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashProfile">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.profile.heading"}}</h2>
 		</div>
@@ -87,7 +87,7 @@
 </template>
 
 <template name="DashInterests">
-	<div class="mdl-cell mdl-cell--12-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--12-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashInterests">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.interests.heading"}}</h2>
 		</div>
@@ -121,7 +121,7 @@
 </template>
 
 <template name="DashProposals">
-	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashProposals">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.proposals.heading"}}</h2>
 		</div>
@@ -156,7 +156,7 @@
 </template>
 
 <template name="DashDelegates">
-	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashDelegates">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.delegates.heading"}}</h2>
 		</div>
@@ -185,7 +185,7 @@
 </template>
 
 <template name="DashCandidates">
-	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashCandidates"> 
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.candidates.heading"}}</h2>
 		</div>
@@ -204,7 +204,7 @@
 </template>
 
 <template name="DashVote">
-	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashVote">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.vote.heading"}}</h2>
 		</div>
@@ -222,7 +222,7 @@
 	</div>
 </template>
 <template name="DashFeed">
-	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashFeed">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.feed.heading"}}</h2>
 		</div>

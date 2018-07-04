@@ -24,24 +24,27 @@
 				<br>
 			</div>
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone" id="profile-delegate-status">
-				<div id="progress-header">
-					{{_ "pages.profile.status" completedScore=completedScore totalScore=totalScore}}
-					<div class="progress-bar">
-						<div class="progress-status" id="progress-status" style=""></div>
+				<div id="progress-container">
+					<div id="progress-header">
+						{{_ "pages.profile.status" completedScore=completedScore totalScore=totalScore}}
+						<div class="progress-bar">
+							<div class="progress-status" id="progress-status" style=""></div>
+						</div>
 					</div>
+					<small>Your profile must be complete in order to become a delegate.</small>
 				</div>
-				<small>Your profile must be complete</small>
-				<div class="switch-wrap">
-					<label id='profile-delegate-switch-label' class="swich mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
-						<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
-					</label>
+				<div id="delegate-switch-container">
+					<div class="switch-wrap">
+						<label id='profile-delegate-switch-label' class="swich mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+							<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
+							<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
+						</label>
+					</div>
+					<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
+						{{_ "pages.profile.tooltips.delegateSwitch"}}
+					</div>
+					<small>{{_ "pages.profile.delegate-switch-description"}}</small>
 				</div>
-				<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
-					{{_ "pages.profile.tooltips.delegateSwitch"}}
-				</div>
-				<small>{{_ "pages.profile.delegate-switch-description"}}</small>
-				
 				<div class="mdl-tooltip mdl-tooltip--large" for="progress-header">
 					<div id="profile-status-complete">
 						{{_ "form.profile-photo"}}: <i class="material-icons">{{#if photoCompleted}}check{{else}}error{{/if}}</i><br>

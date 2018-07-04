@@ -2,6 +2,7 @@ import './dash.html';
 import RavenClient from 'raven-js';
 import { Proposals } from '../../../api/proposals/Proposals.js';
 import { Ranks } from '../../../api/ranking/Ranks.js';
+import { walkThrough } from '../../../utils/functions';
 
 Template.Dash.onCreated(function () {
   // Set user's ranked delegates
@@ -20,9 +21,11 @@ Template.Dash.onCreated(function () {
   self.autorun(function() {
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
     self.subscribe('ranks.all');
+    
   });
   
 });
+
 
 Template.Dash.helpers({
 	isUnapprovedEntity: ()=> {
@@ -56,6 +59,36 @@ Template.Dash.events({
 	},
 	'click #log-in' (event, template){
 		FlowRouter.go('/login');
+	},
+	'click #dash-help'(event, template){
+		var steps = [
+			{
+				element: document.querySelector('#instrument-panel'),
+				intro: "This is your dashboard. It gives you a basic overvue of your features and settings.",
+				position: 'top'
+			},
+			{
+				element: '#DashVote',
+				intro: "Here are the latest proposals up for vote.",
+				position: 'top'
+			},
+			{
+				element: '#DashProposals',
+				intro: 'Proposals you have written or have been invited to co-author.',
+				position: 'top'
+			},
+			{
+				element: '#DashDelegates',
+				intro: 'You can see your chosen delegates here.',
+				position: 'top'
+			},
+			{
+				element: '#DashProfile',
+				intro: 'Overview of your profile and selected interests.',
+				position: 'top'
+			}
+		];
+		walkThrough(steps);
 	}
 });
 

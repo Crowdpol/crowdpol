@@ -24,4 +24,6 @@ import './proposalModal.scss';
 import './modals.scss';
 import './delegate-profile.scss';
 import './notifications.scss';
+import './notifications.scss';
+import './introjs.min.css';
 
