@@ -2,13 +2,16 @@
 	{{#if currentUser}}
 	<!-- MDL Tab Container -->
 
-	<div class="app-container">
-		<div class="search-input input-wrap mdl-textfield mdl-js-textfield">
-			<label class="mdl-button mdl-js-button mdl-button--icon" for="proposal-search">
-				<i class="material-icons">search</i>
-			</label>
-			<input class="mdl-textfield__input" type="text"  id="proposal-search">
-			<label class="mdl-textfield__label" for="proposal-search"></label>
+	<div class="app-container search-container">
+		<div class="search-wrapper">
+				<form>
+				<label>
+					<i class="material-icons search-icon">search</i>
+				</label>
+
+				<input type="text" name="focus" required class="search-box" placeholder='{{_ "pages.proposals.list.search"}}' id="vote-search"/>
+				<button class="close-icon" type="reset"></button>
+				</form>
 		</div>
 
 		<!-- MDL tab panels, is-active to denote currently active -->
