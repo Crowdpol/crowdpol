@@ -3,6 +3,7 @@ import '../header/header.js'
 import '../drawer/drawer.js'
 import '../footer/footer.js'
 import './styles.css'
+import '../../../utils/intro.min.js'
 
 import { Communities } from '../../../api/communities/Communities.js'
 

@@ -5,6 +5,7 @@ import './clamp.min.js'
 import { Tags } from '../../../api/tags/Tags.js'
 import { Notifications } from '../../../api/notifications/Notifications.js'
 import { Communities } from '../../../api/communities/Communities.js'
+import { walkThrough } from '../../../utils/functions';
 
 Template.Header.onCreated(function(){
   var self = this;
@@ -54,7 +55,6 @@ Template.Header.helpers({
     var str = Session.get("i18n_lang")
     return str.toUpperCase();
   },
-
   
   matchedTags(){
     return Template.instance().matchedTags.get();
@@ -124,7 +124,56 @@ Template.Header.events({
       FlowRouter.go('/tag/' + keyword);
     }
   },
-  
+  'click #main-help'(event, template){
+    event.preventDefault();
+    var steps = [
+      {
+        element: '#main-help',
+        intro: 'Click on this icon anywhere to get help.',
+        position: 'bottom'
+      },
+      {
+        element: document.querySelector('.mdl-layout__drawer-button'),
+        intro: "This is your profile menu",
+        position: 'bottom'
+      },
+      {
+        element: '#main-menu',
+        intro: "This is where you can access the main features.",
+      },
+      {
+        element: '#dash-menu',
+        intro: 'This takes you to your dashboard.',
+        position: 'bottom'
+      },
+      {
+        element: '#vote-menu',
+        intro: 'Vote on proposals here.',
+        position: 'bottom'
+      },
+      {
+        element: '#proposals-menu',
+        intro: 'Checkout proposals you have created here.',
+        position: 'bottom'
+      },
+      {
+        element: '#delegate-menu',
+        intro: 'Chose your delegates here.',
+        position: 'bottom'
+      },
+      {
+        element: '#notifications-menu-icon',
+        intro: 'Check your latest notifications.',
+        position: 'bottom'
+      },
+      {
+        element: '#language-menu',
+        intro: 'Select your language.',
+        position: 'bottom'
+      }
+    ];
+    walkThrough(steps);
+  },
   'click #notifications-menu-icon': function(event, template) {
     toggleNotificationsDrawer();
   },

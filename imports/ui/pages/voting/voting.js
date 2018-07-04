@@ -80,8 +80,9 @@ Template.Voting.helpers({
 });
 
 Template.Voting.events({
-  'keyup #proposal-search' ( event, template ) {
+  'keyup #vote-search' ( event, template ) {
     let value = event.target.value.trim();
+    console.log(value);
     template.searchQuery.set(value);
   },
   'click .role-menu-item' : function(){
