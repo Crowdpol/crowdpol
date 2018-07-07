@@ -96,7 +96,7 @@ Template.Header.events({
     Session.set("i18n_lang",lang)
     TAPi18n.setLanguage(lang);
     /* TODO: change locale dynamically*/
-    moment.locale('en');
+    moment.locale(lang);
   },
   'click #nav-logout' : function(e){
     event.preventDefault();

@@ -1,6 +1,7 @@
 import './voting.html'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Votes } from '../../../api/votes/Votes.js'
+import { timeRemaining } from '../../../utils/functions';
 
 Template.Voting.onCreated(function () {
   var self = this;
@@ -10,8 +11,11 @@ Template.Voting.onCreated(function () {
   self.authorProposals = new ReactiveVar(true);
   Session.set("canVote",true);
   // Indicate active tab
-  Session.set("allProposals",true);
-  Session.set("myProposals",false);
+  if(!Session.get("activeVoteTab")){
+    Session.set("activeVoteTab","vote");
+  }
+  Session.set("votesTab",true);
+  Session.set("completedTab",false);
   var communityId = LocalStore.get('communityId');
 
   self.autorun(function(){
@@ -28,17 +32,28 @@ Template.Voting.helpers({
   query() {
     return Template.instance().searchQuery.get();
   },
+  votesTabActive(){
+    if(Session.get("activeVoteTab")=="vote"){
+      return "is-active"
+    }
+    return null;
+  },
+  completedTabActive(){
+    if(Session.get("activeVoteTab")=="closed"){
+      return "is-active"
+    }
+    return null;
+  },
   closedProposals: function() {
-    return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: -1}});
+    return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: 1}});
   },
-  openProposals: function() {
-    return Proposals.find({endDate:{"$gte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: -1}});
-  },
-  myProposals: function(){
-    return Proposals.find({authorId: Meteor.userId()}, {transform: transformProposal, sort: {createdAt: -1}});
-  },
-  invitedProposals: function(){
-    return Proposals.find({invited: Meteor.user().username}, {transform: transformProposal, sort: {createdAt: -1}});
+  openProposals: function(isVotingAsDelegate) {
+    var now = new Date();
+    //TO DO: add option for admin to select delgate expiry date (currently 14 days before end date)
+    if(isVotingAsDelegate){
+      var now =  now.setDate(now.getDate()-14);;
+    }
+    return Proposals.find({startDate:{"$lte": now}, endDate:{"$gte": now}, stage: "live"}, {transform: transformProposal, sort: {endDate: 1}});
   },
   openSelected: function(){
     return Template.instance().openProposals.get();
@@ -98,20 +113,23 @@ Template.Voting.events({
   'click #author-invited-switch': function(event, template){
     Template.instance().authorProposals.set(event.target.checked);
   },
-  'click #my-proposals-tab': function(event, template){
-    Session.set("canVote",false);
-    Session.set("myProposals",true);
-    Session.set("allProposals",false);
-  },
   'click #vote-proposals-tab': function(event, template){
-    Session.set("canVote",Template.instance().openProposals.get());
-    Session.set("myProposals",false);
-    Session.set("allProposals",true);
+    Session.set("activeVoteTab","vote");
+  },
+  'click #closed-proposals-tab': function(event, template){
+    Session.set("activeVoteTab","closed");
   },
 });
 
 function transformProposal(proposal) { 
-  proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');
+  var currentLang = TAPi18n.getLanguage();
+  var endDate = proposal.endDate;
+  var startDate = proposal.startDate;
+  //Put dates in ISO format so they are compatible with moment
+  endDate = endDate.toISOString();
+  startDate = startDate.toISOString();
+  proposal.endDate = endDate;
+  proposal.startDate = startDate;
   return proposal;
 };
 
@@ -124,6 +142,80 @@ Template.VotingCard.onCreated(function () {
 });
 
 Template.VotingCard.helpers({
+  title: function(proposal) {
+    var language = TAPi18n.getLanguage();
+    var translation = _.find(proposal.content, function(item){ return item.language == language});
+    if (translation){
+      return translation.title;
+    } else {
+      return TAPi18n.__('pages.proposals.list.untranslated')
+    }
+  },
+  abstract: function(proposal){
+    //console.log(proposal);
+    var language = TAPi18n.getLanguage();
+    var translation = _.find(proposal.content, function(item){ return item.language == language});
+    if (translation){
+      return translation.abstract;
+    }
+  },
+  isVotingAsDelegate: function(){
+    return (LocalStore.get('currentUserRole') == 'Delegate');
+  },
+  showVotingInfo: function() {
+    return Template.instance().showVotingInfo.get();
+  },
+  yesPercentage: function(proposalId) {
+    var yesCount = Votes.find({proposalId: proposalId, vote: 'yes'}).count();
+    var totalCount = Votes.find({proposalId: proposalId}).count();
+    if (totalCount > 0) {
+      return yesCount + " (" + Math.round(yesCount/totalCount * 100) + "%)";
+    } else {
+      return 0;
+    }
+  },
+  noPercentage: function(proposalId) {
+    var noCount = Votes.find({proposalId: proposalId, vote: 'no'}).count();
+    var totalCount = Votes.find({proposalId: proposalId}).count();
+    if (totalCount > 0) {
+      return noCount + " (" + Math.round(noCount/totalCount * 100) + "%)";
+    } else {
+      return 0;
+    }
+  },
+  hasVotes: function(proposalId) {
+    if (Votes.find({proposalId: proposalId}).count() > 0) {
+      return true;
+    }
+  },
+  expireDate: function(proposal){
+    var endDate = proposal.endDate;
+    endDate = moment(endDate).fromNow();
+    return endDate;
+  },
+  tags: function(proposal){
+    return proposal.tags;
+  },
+});
+
+Template.VotingCard.events({
+  'click #toggle-voting-info': function(event, template){
+     var showVotingInfo = template.showVotingInfo.get();
+     template.showVotingInfo.set(!showVotingInfo);
+     //console.log(template.showVotingInfo.get())
+  },
+});
+
+//VOTING RESULTS
+Template.ResultCard.onCreated(function () {
+  var self = this;
+  self.showVotingInfo = new ReactiveVar(false);
+  self.autorun(function(){
+    self.subscribe('votes.all');
+  })
+});
+
+Template.ResultCard.helpers({
   title: function(proposal) {
     var language = TAPi18n.getLanguage();
     var translation = _.find(proposal.content, function(item){ return item.language == language});
@@ -155,7 +247,28 @@ Template.VotingCard.helpers({
       return 0;
     }
   },
- noPercentage: function(proposalId) {
+  proposalStatus: function(proposal) {
+    //console.log(proposal);
+    /*
+    return proposal.stage;;
+    // If looking at public proposals, show open/closed
+    if (Session.get('allProposals')){
+      if (new Date(proposal.endDate) > new Date()){
+        return 'Open';
+      } else {
+        return 'Closed';
+      }
+      // If looking at own proposals, show draft/submitted/live
+    } else if (Session.get('myProposals')){
+      var stage = proposal.stage;
+      return stage.charAt(0).toUpperCase() + stage.slice(1);
+    }*/
+    return "test"
+  },
+  tags: function(proposal){
+    return proposal.tags;
+  },
+  noPercentage: function(proposalId) {
     var yesCount = Votes.find({proposalId: proposalId, vote: 'no'}).count();
     var totalCount = Votes.find({proposalId: proposalId}).count();
     if (totalCount > 0) {
@@ -168,14 +281,26 @@ Template.VotingCard.helpers({
     if (Votes.find({proposalId: proposalId}).count() > 0) {
       return true;
     }
+  },
+  userIsAuthor: function(proposalId) {
+    var proposal = Proposals.findOne(proposalId);
+    return proposal.authorId == Meteor.userId();
+  },
+  endDate: function(proposal){
+    return proposal.endDate;
+  },
+  started: function(date){
+    return moment(date).format('Do MMMM YYYY');
+  },
+  completed: function(date){
+    return moment(date).format('Do MMMM YYYY');
   }
 });
 
-Template.VotingCard.events({
+Template.ResultCard.events({
   'click #toggle-voting-info': function(event, template){
      var showVotingInfo = template.showVotingInfo.get();
      template.showVotingInfo.set(!showVotingInfo);
-     console.log(template.showVotingInfo.get())
   },
 });
 
