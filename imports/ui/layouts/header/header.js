@@ -33,7 +33,10 @@ Template.Header.onCreated(function(){
     self.subscribe('communities.subdomain', subdomain, function(){
       self.community.set(Communities.findOne({subdomain: subdomain}));
       //set default language for community is none is selected
-      var lang = Communities.findOne({subdomain: subdomain}).settings.defaultLanguage;
+      var community = Communities.findOne({subdomain: subdomain});
+      var lang = community.settings.defaultLanguage;
+      var languages = community.settings.languages;
+      LocalStore.set('languages', languages);
       Session.set("i18n_lang",lang)
       TAPi18n.setLanguage(lang);
     });
@@ -87,6 +90,31 @@ Template.Header.helpers({
   */
   showLanguages(){
     return Template.instance().community.get().settings.languageSelector
+  },
+  langs(){
+    var langs = LocalStore.get('languages');
+    if (typeof langs !== 'undefined' && langs.length > 0) {
+    // the array is defined and has at least one element
+
+      return langs;
+    }
+    return 0;
+  },
+  getLang(lang){
+    switch (lang) {
+    case 'en':
+          text = TAPi18n.__('layout.header.lang_en');
+          break;
+      case 'sv':
+          text = TAPi18n.__('layout.header.lang_sv');
+          break;
+      case 'cy':
+          text = TAPi18n.__('layout.header.lang_cy');
+          break;
+      default: 
+          text = TAPi18n.__('layout.header.lang_en');;
+    }
+    return text;
   }
 });
 

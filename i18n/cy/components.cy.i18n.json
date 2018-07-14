@@ -1,0 +1,23 @@
+{
+	"components" :{
+		"delegateVoteButtons":{
+			"instructions-1": "CY: Please note that you are voting as a delegate. Your vote wil be public.",
+			"instructions-2": "CY: To switch to voting as an individual, click the 'Roles' menu.",
+			"reason-message": "CY: Give a brief (optional) reason for your choice. This will be visible to your supporters.",
+			"finished": "CY: Finished",
+			"delegateVotingClosed": "CY: Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date."
+		},
+		"taggle": {
+			"placeholder": "CY: Add some tags..."
+		},
+		"role-selector":{
+			"voter": "CY: Individual",
+			"party-delegate": "CY: Party Delegate",
+			"organisation-delegate": "CY: Organisation Delegate"
+		},
+		"termsModal": {
+			"heading": "CY: Terms of Use",
+			"accept": "CY: I Accept"
+		}
+	}
+}

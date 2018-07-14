@@ -1,0 +1,150 @@
+{
+	"admin":{
+		"dash":{
+			"heading" : "CY: Admin Dashboard",
+			"card": {
+				"users": {
+					"heading": "CY: Users",
+					"text": "CY: Add/Edit/Delete users, invite new people, change user roles.",
+					"link": "CY: Manage Users"
+				},
+				"tags": {
+					"heading": "CY: Tags",
+					"text": "CY: Add/Edit/Delete tags used for filtering content.",
+					"link": "CY: Manage Tags"
+				},
+				"approvals": {
+					"heading": "CY: Approvals",
+					"text": "CY: Approve or reject user requests to be delegates, organisations or political parties.",
+					"link": "CY: Manage Approvals"
+				},
+				"proposals": {
+					"heading": "CY: Proposals",
+					"text": "CY: Review proposals submitted by users.",
+					"link": "CY: Manage Proposals"
+				},
+				"voting": {
+					"heading": "CY: Voting",
+					"text": "CY: See voting results and prepare votes for tallying in closed proposals.",
+					"link": "CY: View Voting"
+				},
+				"stats":{
+					"heading": "CY: Statistics",
+					"text": "CY: Review various statistcs of the site",
+					"link": "CY: View Stats"
+				},
+				"communities":{
+					"heading": "CY: Communities",
+					"text": "CY: See all communities, or add a new one.",
+					"link": "CY: View Communities"
+				}
+			}
+		},
+		"users": {
+			"heading": "CY: All Users",
+			"name": "CY: Full Name",
+			"email": "CY: Email Address",
+			"roles": "CY: Roles",
+			"public": "CY: Public",
+			"delete-button": "CY: Delete",
+			"delete-message": "CY: Are you sure you want to delete this user?",
+			"delete-title":"CY: Permanently delete a user",
+			"delete-yes":"CY: Yes",
+			"delete-no":"CY: No",
+			"invite-heading": "CY: Invite a New User:",
+			"invite-message": "CY: Enter a user's email to send them an invitation to join.",
+			"invite-button": "CY: Send Invite",
+			"invite-role": "CY: User Role",
+			"approve-button": "CY: Approve",
+			"reject-button": "CY: Reject",
+			"invite-role": "CY: User Role",
+			"whitelist-updated" : "CY:  Whitelist updated.",
+			"community-whitelist": "CY: Community Whitelist",
+			"whitelist-description": "CY: If the whitelist is enforced, only users with email addresses in the whitelist will be able to create accounts for this community.",
+			"emailWhitelist": "CY: Enter user emails, separated by commas.",
+			"enforceWhitelist": "CY: Only let these users create accounts."
+		},
+		"proposals":{
+			"heading": "CY: Proposals",
+			"date": "CY: Date",
+			"author": "CY: Author",
+			"contributors": "CCY: ontributors",
+			"title": "CY: Title",
+			"none-waiting": "CY: There are no new proposals awaiting approval.",
+			"approve-button": "CY: Approve",
+			"reject-button": "CY: Reject",
+			"preview": "CY: Preview"
+		},
+		"voting":{
+			"heading": "CY: Voting",
+			"endDate": "CY: Expiry Date",
+			"author": "CY: Author",
+			"title": "CY: Title",
+			"tally-votes": "CY: Refresh Votes",
+			"results": "CY: Results",
+			"yes-votes": "CY: Yes Votes",
+			"no-votes": "CY: No Votes",
+			"total-votes": "CY: Total Votes"
+		},
+		"tags": {
+			"heading": "CY: Manage Tags",
+			"text": "CY: Text",
+			"keyword": "CY: Keyword",
+			"url": "CY: URL",
+			"delete": "CY: Delete",
+			"created": "CY: Date created",
+			"approved": "CY: Authorized",
+			"add-button": "CY: Add",
+			"delete-button": "CY: Delete",
+			"none-waiting": "CY: There are currently no pending proposals."
+		},
+		"approvals": {
+			"heading": "CY: Approvals",
+			"approve-button": "CY: Approve",
+			"reject-button": "CY: Reject",
+			"date": "CY: Date",
+			"username":"CY: Username",
+			"request-type":"CY: Request Type",
+			"request-status":"CY: Request Status",
+			"approvals-waiting":"CY: There are no pending approval requests."
+		},
+		"alerts": {
+			"user-approved": "CY: User approved",
+			"user-rejected": "CY: User rejected",
+			"proposal-approved": "CY: Proposal approved",
+			"proposal-rejected": "CY: Proposal rejected",
+			"tag-updated": "CY: Tag Updated",
+			"tag-added": "CY: Tag Added",
+			"tag-deleted": "CY: Tag Deleted",
+			"verification-email-sent": "CY: Verification sent to "
+		},
+		"stats": {
+			"proposals":{
+				"tabs": {
+					"overview" : "CY: Overview",
+					"proposalList" : "CY: Proposal Stats"
+				}
+			}
+		},
+		"communities": {
+			"heading": "CY: Communities",
+			"name": "CY: Name",
+			"subdomain": "CY: Subdomain",
+			"user-count": "CY: Number of Users",
+			"none": "CY: There are currently no communities.",
+			"colorScheme": {
+				"label": "CY: Color Scheme",
+				"greyscale": "CY: greyscale (black/white/grey)",
+				"default": "CY: default (blue/yellow)"
+			},
+			"homepageImageUrl": "CY: Homepage image URL",
+			"homepageBannerText": "CY: Homepage banner text",
+			"homepageIntroText": "CY: Homepage introduction text",
+			"aboutText": "CY: About text",
+			"languageSelector": "CY: Show language selector in header",
+			"defaultLanguage": "CY: Default language",
+			"emailWhitelist": "CY: Emails of allowed users, separated by commas.",
+			"enforceWhitelist": "CY: Enforce the current email whitelist."
+		}
+	}
+}
