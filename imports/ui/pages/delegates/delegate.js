@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import "./delegate.html"
 import { Ranks } from '../../../api/ranking/Ranks.js'
 import RavenClient from 'raven-js';
+import { walkThrough } from '../../../utils/functions';
 
 Template.Delegate.onCreated(function () {
   Session.set('searchPhrase','');
@@ -105,6 +106,27 @@ Template.Delegate.events({
         $('.mdl-layout__drawer-right').addClass('active'); 
      }
     
+  },
+  'click #delegate-help'(event, template){
+    var steps = [
+      {
+        element: '.search-wrapper',
+        intro: "Search for delegates here.",
+        position: 'top'
+      },
+      {
+        element: '.delegate-item',
+        intro: "Select preferred delegates from the list.",
+        position: 'top'
+      },
+      {
+        element: '.mdl-checkbox',
+        intro: "Click the checkbox to select a delegate. You can choose a maximum of five.",
+        position: 'top'
+      },
+
+    ];
+    walkThrough(steps);
   }
 });
 

@@ -3,6 +3,7 @@ import "../../components/proposals/proposalCard.js"
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Votes } from '../../../api/votes/Votes.js'
 import RavenClient from 'raven-js';
+import { walkThrough } from '../../../utils/functions';
 
 Template.ProposalsList.onCreated(function () {
   var self = this;
@@ -102,6 +103,92 @@ Template.ProposalsList.events({
       Session.set("proposalTab",event.currentTarget.id);
     }
   },
+  'click #all-proposals-help'(event, template){
+    var steps = [
+      {
+        element: '.search-wrapper',
+        intro: "Search for any keyword in the list of proposals.",
+        position: 'bottom'
+      },
+      {
+        element: '#vote-proposals-tab',
+        intro: "Click here to see all available proposals.",
+        position: 'bottom'
+      },
+      {
+        element: '#my-proposals-tab',
+        intro: "Click here to see all of the proposals you have authored.",
+        position: 'bottom'
+      },
+      {
+        element: "#create-proposal-tab",
+        intro: "Create a new proposal",
+        position: 'bottom'
+      }
+    ];
+    walkThrough(steps);
+  },
+  'click #my-proposals-help'(event, template){
+    var steps = [
+      {
+        element: '.search-wrapper',
+        intro: "Search for any keyword in the list of proposals.",
+        position: 'bottom'
+      },
+      {
+        element: '#vote-proposals-tab',
+        intro: "Click here to see all available proposals.",
+        position: 'bottom'
+      },
+      {
+        element: '#my-proposals-tab',
+        intro: "Click here to see all of the proposals you have authored.",
+        position: 'bottom'
+      },
+      {
+        element: "#create-proposal-tab",
+        intro: "Create a new proposal",
+        position: 'bottom'
+      }
+    ];
+    walkThrough(steps);
+  },
+  'click #open-proposals-help, click #closed-proposals-help'(event, template){
+    var steps = [
+      {
+        element: '.search-wrapper',
+        intro: "Search for any keyword in the list of proposals.",
+        position: 'bottom'
+      },
+      {
+        element: '#vote-proposals-tab',
+        intro: "Click here to see all available proposals.",
+        position: 'bottom'
+      },
+      {
+        element: '#my-proposals-tab',
+        intro: "Click here to see all of the proposals you have authored.",
+        position: 'bottom'
+      },
+      {
+        element: "#create-proposal-tab",
+        intro: "Create a new proposal",
+        position: 'bottom'
+      },
+      {
+        element: '.switch-wrap',
+        intro: "Switch between open and closed proposals.",
+        position: 'bottom'
+      },
+      {
+        element: '.proposal-item mdl-list__item',
+        intro: "Click proposal summary to view full proposal.",
+        position: 'bottom'
+      }
+      
+    ];
+    walkThrough(steps);
+  }
 });
 
 function transformProposal(proposal) { 

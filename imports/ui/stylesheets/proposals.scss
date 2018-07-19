@@ -318,24 +318,27 @@
   .card-secondary-wrap{
     margin-top: 0px;
 
-    .tag-chip{
-      background-color: $light-blue;
-      border-radius: 5px;
-      color: white;
-      max-width: 80px;
-      text-align: center;
-      margin-left: 2px;
-      color: $white;
-      font-size: $xsmall-font-size;
-      line-height: 1.1rem;
-      padding: 2px 5px;
-      text-decoration: none;
-    }
-    .tag-chip:hover { 
-      background-color: $light-blue-dark;
-    }
+    
   }
 }
+
+.tag-chip{
+  background-color: $light-blue;
+  border-radius: 5px;
+  color: white;
+  max-width: 80px;
+  text-align: center;
+  margin-left: 2px;
+  color: $white;
+  font-size: $xsmall-font-size;
+  line-height: 1.1rem;
+  padding: 2px 5px;
+  text-decoration: none;
+}
+.tag-chip:hover { 
+  background-color: $light-blue-dark;
+}
+
 .status-chip{
   font-size: $xsmall-font-size;
   background-color: $light-grey;

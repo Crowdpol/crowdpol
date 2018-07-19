@@ -30,11 +30,11 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		languages: mdLanguages
 	});
 	bgSubdomain = 'bangor';
-	bgLanguages = ['en'];
+	bgLanguages = ['en','cy'];
 	bgId = createCommunity('elop*10', 'bangor', {
 		colorScheme: 'greyscale', 
 		homepageImageUrl: 'img/bangor.jpg', 
-		languageSelector: false,
+		languageSelector: true,
 		homepageBannerText: "Innovation can start with the question 'What if?'",
 		homepageIntroText: "A public presentation of four visions of a future High Street.",
 		aboutText: bgAbout,

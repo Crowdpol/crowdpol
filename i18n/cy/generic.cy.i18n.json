@@ -1,0 +1,40 @@
+{
+	"generic": {
+		"login": "CY: Login",
+		"logout": "CY: Logout",
+		"signup": "CY: Sign Up",
+		"read-more": "CY: Read More",
+		"preview": "CY: Preview & Submit",
+		"loading": "CY: Loading...",
+		"not-found_message": "CY: Sorry, that page doesn't exist",
+		"not-found_home-link": "CY: Go to home",
+		"alerts": {
+			"welcome": "CY: Welcome"
+		},
+		"show-more": "CY: Show More",
+		"show-less": "CY: Show Less",
+		"approved": "CY: Approved",
+		"back-to-proposals": "CY: Back to Proposals"
+	},
+	"form": {
+		"email": "CY: Email address",
+		"password": "CY: Password",
+		"name": "CY: Name",
+		"firstname": "CY: First name",
+		"lastname": "CY: Last name",
+		"username": "CY: Username",
+		"bio": "CY: About",
+		"website": "CY: Website",
+		"phone": "CY: Phone number",
+		"subject": "CY: Subject",
+		"contact": "CY: Contact person",
+		"message": "CY: Your message",
+		"save": "CY: Save",
+		"save-draft": "CY: Save Draft",
+		"submit": "CY: Submit",
+		"update": "CY: Update",
+		"cancel": "CY: Cancel",
+		"signup": "CY: Sign Up",
+		"profile-photo": "CY: Profile photo"
+	}
+}

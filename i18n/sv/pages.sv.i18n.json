@@ -347,10 +347,16 @@
 		"voting": {
 			"heading": {
 				"delegate": "Röstar som Delegat",
-				"individual": "Röstar som Individ"
+				"individual": "Röstar som Individ",
+				"completed": "TODO: Completed Voting"
+			},
+			"tabs":{
+				"voteProposals": "TODO: Open for voting",
+				"completedProposals": "TODO: Completed"
 			},
 			"description": "Följande motioner går att rösta på. Klicka på en motion för att läsa mer eller expandera motionen för att se hur dina delegater har röstat och för att rösta själv.",
 			"not-ready": "Rösterna för denna motion har inte räknats ännu. Resultatet uppdateras en gång per dygn.",
+			"no-open-proposals": "TODO: There are currently no open proposals to vote on.",
 			"show-more": "Visa Mer",
 			"show-less": "Visa Mindre",
 			"delegate-description": "OBS: Du röstar nu som delegat åt de användare som valt att ge sin röst till dig. Som delegat ör dina val offentliga.",
@@ -361,7 +367,8 @@
 			},
 			"no-votes-used": "Inga användare har röstat på denna motion.",
 			"for": "För:",
-			"against": "Emot:"
+			"against": "Emot:",
+			"expires": "TODO: Voting closes"
 		},
 		"profile": {
 			"profile-tags" : "Fyll i minst fem intressen",

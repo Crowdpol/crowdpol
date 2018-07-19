@@ -1,0 +1,13 @@
+{
+	"header":{
+		"intro": "Click on this icon anywhere to get help.",
+		"right-drawer": "This is your profile menu",
+		"main-menu": "This is where you can access the main features.",
+		"dash-menu-item": "This takes you to your dashboard.",
+		"vote-menu-item": "Vote on proposals here.",
+		"proposal-menu-item": "Checkout proposals you have created here.",
+		"delegate-menu-item": "Chose your delegates here.",
+		"notification-menu-item": "Check your latest notifications.",
+		"language-menu-item": "Select your language."
+	}
+}
