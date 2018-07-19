@@ -157,46 +157,46 @@ Template.Header.events({
     var steps = [
       {
         element: '#main-help',
-        intro: 'Click on this icon anywhere to get help.',
+        intro: TAPi18n.__('tutorial.header.intro'),
         position: 'bottom'
       },
       {
         element: document.querySelector('.mdl-layout__drawer-button'),
-        intro: "This is your profile menu",
+        intro: "This is your profile menu", //TAPi18n.__('tutorial.header.right-drawer')
         position: 'bottom'
       },
       {
         element: '#main-menu',
-        intro: "This is where you can access the main features.",
+        intro: "This is where you can access the main features.",//TAPi18n.__('tutorial.header.main-menu')
       },
       {
         element: '#dash-menu',
-        intro: 'This takes you to your dashboard.',
+        intro: 'This takes you to your dashboard.',//TAPi18n.__('tutorial.header.dash-menu-item')
         position: 'bottom'
       },
       {
         element: '#vote-menu',
-        intro: 'Vote on proposals here.',
+        intro: 'Vote on proposals here.',//TAPi18n.__('tutorial.header.vote-menu-item')
         position: 'bottom'
       },
       {
         element: '#proposals-menu',
-        intro: 'Checkout proposals you have created here.',
+        intro: 'Checkout proposals you have created here.',//TAPi18n.__('tutorial.header.proposal-menu-item')
         position: 'bottom'
       },
       {
         element: '#delegate-menu',
-        intro: 'Chose your delegates here.',
+        intro: 'Chose your delegates here.',//TAPi18n.__('tutorial.header.delegate-menu-item')
         position: 'bottom'
       },
       {
         element: '#notifications-menu-icon',
-        intro: 'Check your latest notifications.',
+        intro: 'Check your latest notifications.',//TAPi18n.__('tutorial.header.notification-menu-item)
         position: 'bottom'
       },
       {
         element: '#language-menu',
-        intro: 'Select your language.',
+        intro: 'Select your language.',//TAPi18n.__('tutorial.header.language-menu-item')
         position: 'bottom'
       }
     ];
