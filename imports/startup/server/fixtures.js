@@ -60,7 +60,7 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		languageSelector: true,
 		homepageBannerText: "A new wave of democracy is coming.",
 		homepageIntroText: "A liquid democracy platform for the collective decision making in the commons.",
-		aboutText: "Crowdpol about us page",
+		aboutText: "Crowdpol Japan about us page, coming soon.",
 		defaultLanguage: 'en',
 		languages: cpLanguages
 	});
@@ -119,7 +119,7 @@ createAdmins = function (admin, communityIds) {
 				credentials : [
 				{
 					"source" : "default",
-					"URL" : "https://www.commondemocracy.org/",
+					"URL" : "https://www.crowdpol.org/",
 					"validated" : true
 				}
 				],

@@ -1,0 +1,150 @@
+{
+	"admin":{
+		"dash":{
+			"heading" : "JA: Admin Dashboard",
+			"card": {
+				"users": {
+					"heading": "JA: Users",
+					"text": "JA: Add/Edit/Delete users, invite new people, change user roles.",
+					"link": "JA: Manage Users"
+				},
+				"tags": {
+					"heading": "JA: Tags",
+					"text": "JA: Add/Edit/Delete tags used for filtering content.",
+					"link": "JA: Manage Tags"
+				},
+				"approvals": {
+					"heading": "JA: Approvals",
+					"text": "JA: Approve or reject user requests to be delegates, organisations or political parties.",
+					"link": "JA: Manage Approvals"
+				},
+				"proposals": {
+					"heading": "JA: Proposals",
+					"text": "JA: Review proposals submitted by users.",
+					"link": "JA: Manage Proposals"
+				},
+				"voting": {
+					"heading": "JA: Voting",
+					"text": "JA: See voting results and prepare votes for tallying in closed proposals.",
+					"link": "JA: View Voting"
+				},
+				"stats":{
+					"heading": "JA: Statistics",
+					"text": "JA: Review various statistcs of the site",
+					"link": "JA: View Stats"
+				},
+				"communities":{
+					"heading": "JA: Communities",
+					"text": "JA: See all communities, or add a new one.",
+					"link": "JA: View Communities"
+				}
+			}
+		},
+		"users": {
+			"heading": "JA: All Users",
+			"name": "JA: Full Name",
+			"email": "JA: Email Address",
+			"roles": "JA: Roles",
+			"public": "JA: Public",
+			"delete-button": "JA: Delete",
+			"delete-message": "JA: Are you sure you want to delete this user?",
+			"delete-title":"JA: Permanently delete a user",
+			"delete-yes":"JA: Yes",
+			"delete-no":"JA: No",
+			"invite-heading": "JA: Invite a New User:",
+			"invite-message": "JA: Enter a user's email to send them an invitation to join.",
+			"invite-button": "JA: Send Invite",
+			"invite-role": "JA: User Role",
+			"approve-button": "JA: Approve",
+			"reject-button": "JA: Reject",
+			"invite-role": "JA: User Role",
+			"whitelist-updated" : "JA:  Whitelist updated.",
+			"community-whitelist": "JA: Community Whitelist",
+			"whitelist-description": "JA: If the whitelist is enforced, only users with email addresses in the whitelist will be able to create accounts for this community.",
+			"emailWhitelist": "JA: Enter user emails, separated by commas.",
+			"enforceWhitelist": "JA: Only let these users create accounts."
+		},
+		"proposals":{
+			"heading": "JA: Proposals",
+			"date": "JA: Date",
+			"author": "JA: Author",
+			"contributors": "CJA: ontributors",
+			"title": "JA: Title",
+			"none-waiting": "JA: There are no new proposals awaiting approval.",
+			"approve-button": "JA: Approve",
+			"reject-button": "JA: Reject",
+			"preview": "JA: Preview"
+		},
+		"voting":{
+			"heading": "JA: Voting",
+			"endDate": "JA: Expiry Date",
+			"author": "JA: Author",
+			"title": "JA: Title",
+			"tally-votes": "JA: Refresh Votes",
+			"results": "JA: Results",
+			"yes-votes": "JA: Yes Votes",
+			"no-votes": "JA: No Votes",
+			"total-votes": "JA: Total Votes"
+		},
+		"tags": {
+			"heading": "JA: Manage Tags",
+			"text": "JA: Text",
+			"keyword": "JA: Keyword",
+			"url": "JA: URL",
+			"delete": "JA: Delete",
+			"created": "JA: Date created",
+			"approved": "JA: Authorized",
+			"add-button": "JA: Add",
+			"delete-button": "JA: Delete",
+			"none-waiting": "JA: There are currently no pending proposals."
+		},
+		"approvals": {
+			"heading": "JA: Approvals",
+			"approve-button": "JA: Approve",
+			"reject-button": "JA: Reject",
+			"date": "JA: Date",
+			"username":"JA: Username",
+			"request-type":"JA: Request Type",
+			"request-status":"JA: Request Status",
+			"approvals-waiting":"JA: There are no pending approval requests."
+		},
+		"alerts": {
+			"user-approved": "JA: User approved",
+			"user-rejected": "JA: User rejected",
+			"proposal-approved": "JA: Proposal approved",
+			"proposal-rejected": "JA: Proposal rejected",
+			"tag-updated": "JA: Tag Updated",
+			"tag-added": "JA: Tag Added",
+			"tag-deleted": "JA: Tag Deleted",
+			"verification-email-sent": "JA: Verification sent to "
+		},
+		"stats": {
+			"proposals":{
+				"tabs": {
+					"overview" : "JA: Overview",
+					"proposalList" : "JA: Proposal Stats"
+				}
+			}
+		},
+		"communities": {
+			"heading": "JA: Communities",
+			"name": "JA: Name",
+			"subdomain": "JA: Subdomain",
+			"user-count": "JA: Number of Users",
+			"none": "JA: There are currently no communities.",
+			"colorScheme": {
+				"label": "JA: Color Scheme",
+				"greyscale": "JA: greyscale (black/white/grey)",
+				"default": "JA: default (blue/yellow)"
+			},
+			"homepageImageUrl": "JA: Homepage image URL",
+			"homepageBannerText": "JA: Homepage banner text",
+			"homepageIntroText": "JA: Homepage introduction text",
+			"aboutText": "JA: About text",
+			"languageSelector": "JA: Show language selector in header",
+			"defaultLanguage": "JA: Default language",
+			"emailWhitelist": "JA: Emails of allowed users, separated by commas.",
+			"enforceWhitelist": "JA: Enforce the current email whitelist."
+		}
+	}
+}
