@@ -53,6 +53,17 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		defaultLanguage: 'en',
 		languages: cpLanguages
 	});
+	cpLanguages = ['en,ja'];
+	cpId = createCommunity('Crowdpol Japan', 'japan', {
+		colorScheme: 'default', 
+		homepageImageUrl: 'img/wave-bg.jpg',
+		languageSelector: true,
+		homepageBannerText: "A new wave of democracy is coming.",
+		homepageIntroText: "A liquid democracy platform for the collective decision making in the commons.",
+		aboutText: "Crowdpol about us page",
+		defaultLanguage: 'en',
+		languages: cpLanguages
+	});
 
 	/* Register admins for both communities */
 	registerAdmins([mdId, bgId,cpId]);
