@@ -26,11 +26,11 @@
 }
 
 #voting-info.expandable {
-  border-top: 1px solid rgba(0,0,0,.1);
+  //border-top: 0px solid rgba(0,0,0,.1);
 }
 
 .voting-card-buttons{
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  //border-bottom: 1px solid rgba(0,0,0,.1);
   padding-right: 16px;
   padding-left: 16px;
 }
@@ -38,4 +38,11 @@
   font-size: $base-font-size * 1.55;
   line-height: $base-line-height * 1.5;
   color: $dark-grey-xdark;
+}
+
+.proposal-percentage-text-left{
+  padding-left: 16px;
+}
+.proposal-percentage-text-right{
+  padding-right: 16px;
 }

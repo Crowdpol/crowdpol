@@ -33,7 +33,10 @@ Template.Header.onCreated(function(){
     self.subscribe('communities.subdomain', subdomain, function(){
       self.community.set(Communities.findOne({subdomain: subdomain}));
       //set default language for community is none is selected
-      var lang = Communities.findOne({subdomain: subdomain}).settings.defaultLanguage;
+      var community = Communities.findOne({subdomain: subdomain});
+      var lang = community.settings.defaultLanguage;
+      var languages = community.settings.languages;
+      LocalStore.set('languages', languages);
       Session.set("i18n_lang",lang)
       TAPi18n.setLanguage(lang);
     });
@@ -87,6 +90,31 @@ Template.Header.helpers({
   */
   showLanguages(){
     return Template.instance().community.get().settings.languageSelector
+  },
+  langs(){
+    var langs = LocalStore.get('languages');
+    if (typeof langs !== 'undefined' && langs.length > 0) {
+    // the array is defined and has at least one element
+
+      return langs;
+    }
+    return 0;
+  },
+  getLang(lang){
+    switch (lang) {
+    case 'en':
+          text = TAPi18n.__('layout.header.lang_en');
+          break;
+      case 'sv':
+          text = TAPi18n.__('layout.header.lang_sv');
+          break;
+      case 'cy':
+          text = TAPi18n.__('layout.header.lang_cy');
+          break;
+      default: 
+          text = TAPi18n.__('layout.header.lang_en');;
+    }
+    return text;
   }
 });
 
@@ -96,7 +124,7 @@ Template.Header.events({
     Session.set("i18n_lang",lang)
     TAPi18n.setLanguage(lang);
     /* TODO: change locale dynamically*/
-    moment.locale('en');
+    moment.locale(lang);
   },
   'click #nav-logout' : function(e){
     event.preventDefault();
@@ -129,46 +157,46 @@ Template.Header.events({
     var steps = [
       {
         element: '#main-help',
-        intro: 'Click on this icon anywhere to get help.',
+        intro: TAPi18n.__('tutorial.header.intro'),
         position: 'bottom'
       },
       {
         element: document.querySelector('.mdl-layout__drawer-button'),
-        intro: "This is your profile menu",
+        intro: "This is your profile menu", //TAPi18n.__('tutorial.header.right-drawer')
         position: 'bottom'
       },
       {
         element: '#main-menu',
-        intro: "This is where you can access the main features.",
+        intro: "This is where you can access the main features.",//TAPi18n.__('tutorial.header.main-menu')
       },
       {
         element: '#dash-menu',
-        intro: 'This takes you to your dashboard.',
+        intro: 'This takes you to your dashboard.',//TAPi18n.__('tutorial.header.dash-menu-item')
         position: 'bottom'
       },
       {
         element: '#vote-menu',
-        intro: 'Vote on proposals here.',
+        intro: 'Vote on proposals here.',//TAPi18n.__('tutorial.header.vote-menu-item')
         position: 'bottom'
       },
       {
         element: '#proposals-menu',
-        intro: 'Checkout proposals you have created here.',
+        intro: 'Checkout proposals you have created here.',//TAPi18n.__('tutorial.header.proposal-menu-item')
         position: 'bottom'
       },
       {
         element: '#delegate-menu',
-        intro: 'Chose your delegates here.',
+        intro: 'Chose your delegates here.',//TAPi18n.__('tutorial.header.delegate-menu-item')
         position: 'bottom'
       },
       {
         element: '#notifications-menu-icon',
-        intro: 'Check your latest notifications.',
+        intro: 'Check your latest notifications.',//TAPi18n.__('tutorial.header.notification-menu-item)
         position: 'bottom'
       },
       {
         element: '#language-menu',
-        intro: 'Select your language.',
+        intro: 'Select your language.',//TAPi18n.__('tutorial.header.language-menu-item')
         position: 'bottom'
       }
     ];
