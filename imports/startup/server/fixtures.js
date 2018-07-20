@@ -53,7 +53,7 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		defaultLanguage: 'en',
 		languages: cpLanguages
 	});
-	cpLanguages = ['en,ja'];
+	cpLanguages = ['en','ja'];
 	cpId = createCommunity('Crowdpol Japan', 'japan', {
 		colorScheme: 'default', 
 		homepageImageUrl: 'img/wave-bg.jpg',

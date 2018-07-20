@@ -93,6 +93,7 @@ Template.Header.helpers({
   },
   langs(){
     var langs = LocalStore.get('languages');
+    console.log(langs);
     if (typeof langs !== 'undefined' && langs.length > 0) {
     // the array is defined and has at least one element
 
@@ -111,8 +112,11 @@ Template.Header.helpers({
       case 'cy':
           text = TAPi18n.__('layout.header.lang_cy');
           break;
+      case 'ja':
+          text = TAPi18n.__('layout.header.lang_ja');
+          break;
       default: 
-          text = TAPi18n.__('layout.header.lang_en');;
+          text = TAPi18n.__('layout.header.lang_en');
     }
     return text;
   }

@@ -2,6 +2,7 @@
 	"admin":{
 		"dash":{
 			"heading" : "JA: Admin Dashboard",
+			"sub-heading" : "SuperAdmin Dash",
 			"card": {
 				"users": {
 					"heading": "JA: Users",

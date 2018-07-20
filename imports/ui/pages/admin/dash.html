@@ -1,6 +1,12 @@
 <template name="AdminDash">
 	{{#if currentUserIsAdmin}}
 	<div class="container app-container">
+		{{#if currentUserIsSuperAdmin}}
+			<h3> {{_ "admin.dash.sub-heading"}} </h3>
+			<div class="dashboard-wrap  mdl-grid">
+				{{> AdminDashCommunities}}
+			</div>
+		{{/if}}
 		<h3> {{_ "admin.dash.heading"}} </h3>
 		<div class="dashboard-wrap  mdl-grid">
 			{{> AdminDashUsers}}
@@ -9,10 +15,9 @@
 			{{> AdminDashProposals}}
 			{{> AdminDashVoting}}
 			{{> AdminDashStats}}
-			{{#if currentUserIsSuperAdmin}}
-				{{> AdminDashCommunities}}
-			{{/if}}
+			
 		</div>
+
 	</div>
 	{{/if}}
 </template>
