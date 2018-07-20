@@ -1,0 +1,40 @@
+{
+	"generic": {
+		"login": "JA: Login",
+		"logout": "JA: Logout",
+		"signup": "JA: Sign Up",
+		"read-more": "JA: Read More",
+		"preview": "JA: Preview & Submit",
+		"loading": "JA: Loading...",
+		"not-found_message": "JA: Sorry, that page doesn't exist",
+		"not-found_home-link": "JA: Go to home",
+		"alerts": {
+			"welcome": "JA: Welcome"
+		},
+		"show-more": "JA: Show More",
+		"show-less": "JA: Show Less",
+		"approved": "JA: Approved",
+		"back-to-proposals": "JA: Back to Proposals"
+	},
+	"form": {
+		"email": "JA: Email address",
+		"password": "JA: Password",
+		"name": "JA: Name",
+		"firstname": "JA: First name",
+		"lastname": "JA: Last name",
+		"username": "JA: Username",
+		"bio": "JA: About",
+		"website": "JA: Website",
+		"phone": "JA: Phone number",
+		"subject": "JA: Subject",
+		"contact": "JA: Contact person",
+		"message": "JA: Your message",
+		"save": "JA: Save",
+		"save-draft": "JA: Save Draft",
+		"submit": "JA: Submit",
+		"update": "JA: Update",
+		"cancel": "JA: Cancel",
+		"signup": "JA: Sign Up",
+		"profile-photo": "JA: Profile photo"
+	}
+}

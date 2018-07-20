@@ -1,0 +1,29 @@
+{
+	"notifications": {
+		"heading": "CY: Notifications",
+		"recent": "CY: Recent",
+		"new": "CY: New",
+		"read": "CY: Read",
+		"mark-as-read": "CY: Mark as read",
+		"view-all": "CY: View all",
+		"approvals": {
+			"candidate": {
+				"rejected": "CY: Your request to be a candidate has been rejected.",
+				"approved": "CY: Your request to be a candidate has been approved."
+			},
+			"delegate": {
+				"rejected": "CY: Your request to be a delegate has been rejected.",
+				"approved": "CY: Your request to be a delegate has been approved."
+			}
+		},
+		"proposals": {
+			"approved": "CY: The proposal you submitted has been approved.",
+			"rejected": "CY: The proposal you submitted has been rejected.",
+			"comments": "CY: There is a new comment on your proposal.",
+			"invite": "CY: You have been invited to collaborate on a proposal."
+		},
+		"users": {
+			"delegate-deselect": "CY: %s has stopped being a delegate."
+		}
+	}
+}

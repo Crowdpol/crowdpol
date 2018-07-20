@@ -80,8 +80,9 @@
 							
 							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 									for="language-menu">
-								<li class="mdl-menu__item lang-sel" id="en">{{_ "layout.header.lang_en"}}</li>
-								<li class="mdl-menu__item lang-sel" id="sv">{{_ "layout.header.lang_sv"}}</li>
+									{{#each langs}}
+										<li class="mdl-menu__item lang-sel" id="{{this}}">{{getLang this}}</li>
+									{{/each}}
 							</ul>
 						{{/if}}
 					{{/if}}

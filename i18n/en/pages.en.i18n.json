@@ -338,21 +338,29 @@
 		"voting": {
 			"heading": {
 				"delegate": "Voting as Delegate",
-				"individual": "Voting as an Individual"
+				"individual": "Voting as an Individual",
+				"completed": "Completed Voting"
+			},
+			"tabs":{
+				"voteProposals": "Open for voting",
+				"completedProposals": "Completed"
 			},
 			"description": "The following proposals are all available to vote on. Click on a proposal to read more, or expand the proposal to see how your delegates voted, or to cast your own vote.",
 			"not-ready": "The votes for this proposal have not yet been tallied. Results are updated every 24 hours.",
+			"no-open-proposals": "There are currently no open proposals to vote on.",
 			"show-more": "Show More",
 			"show-less": "Show Less",
 			"delegate-description": "Please note: You are now voting on behalf of users who have delegated their vote to you. Delegate votes are public.",
 			"individual-description": "You are now voting on issues as you see fit. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Individual votes are private.",
+			"completed-description": "Review the results of the completed votes. Coming soon...",
 			"voting-card-heading": {
-				"delegate": "Vote as a Delegate:",
-				"individual": "Cast your Individual vote:"
+				"delegate": "Vote as a Delegate",
+				"individual": "Cast your Individual vote"
 			},
 			"no-votes-used": "No users voted on this proposal.",
 			"for": "For:",
-			"against": "Against:"
+			"against": "Against:",
+			"expires": "Voting closes"
 		},
 		"profile": {
 			"profile-tags" : "Fill in at least five of your interests",

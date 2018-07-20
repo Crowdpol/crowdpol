@@ -1,0 +1,50 @@
+{
+	"layout": {
+		"header": {
+			"app_title": "JA: Common Democracy",
+			"home_title": "JA: Democracy 2018",
+			"nav_home": "JA: Home",
+			"nav_dash": "JA: Dashboard",
+			"nav_delegate" : "JA: My Delegates",
+			"nav_vote": "JA: Vote",
+			"nav_proposals": "JA: My Proposals",
+			"nav_nominate": "JA: Nominate",
+			"nav_about": "JA: About",
+			"nav_contact": "JA: Contact",
+			"nav_login": "JA: Login",
+			"nav_logout": "JA: Logout",
+			"lang_en": "JA: English",
+			"lang_sv": "JA: Swedish",
+			"lang_cy": "JA: Welsh",
+			"lang_ja": "JA: Japanese",
+			"role_selector": "JA: Switch Roles",
+			"no_notifications": "JA: You don't have any notifications yet.",
+			"search_tags": "JA: Search for tags...",
+			"vote_as_individual": "JA: Vote as Individual",
+			"vote_as_delegate": "JA: Vote as Delegate"
+		},
+		"drawer": {
+			"nav_login" : "JA: Log in",
+			"nav_logout": "JA: Log out",
+			"nav_profile" : "JA: Profile",
+			"nav_dash" : "JA: Dashboard",
+			"nav_contact" : "JA: Contact",
+			"nav_privacy" : "JA: Privacy policy",
+			"nav_terms" : "JA: Terms & conditions",
+			"nav_admin_dash" : "JA: Admin dashboard",
+			"right_about" : "JA: About",
+			"website": "JA: Website",
+			"recent-votes": "JA: Recent Votes",
+			"no-votes": "JA: This delegate has not voted on any proposals yet."
+		},
+		"body":{
+			"no-styles": "JA: The color scheme for your community could not be loaded."
+		},
+		"footer": {
+			"delegate": "JA: Delegate",
+			"propose": "JA: Propose",
+			"nominate": "JA: Nominate",
+			"vote": "JA: Vote"
+		}
+	}
+}

@@ -20,10 +20,25 @@ export const convertToSlug = (text) => {
   }
   return undefined;
 };
+
+//IntroJs tutorial guide
 export const walkThrough = (steps) => {
   var intro = introJs();
   intro.setOptions({
     steps: steps
   });
   intro.start();
+}
+
+export const timeRemaining = (finalDate) => {
+    var eventdate = moment(finalDate);
+    var todaysdate = moment();
+    return eventdate.diff(todaysdate, 'days');
+}
+
+export const daysRemaining = (finalDate) => {
+    var eventdate = moment(finalDate);
+    console.log(moment(finalDate).fromNow());
+    var todaysdate = moment();
+    return eventdate.diff(todaysdate, 'days');
 }

@@ -1,0 +1,29 @@
+{
+	"notifications": {
+		"heading": "JA: Notifications",
+		"recent": "JA: Recent",
+		"new": "JA: New",
+		"read": "JA: Read",
+		"mark-as-read": "JA: Mark as read",
+		"view-all": "JA: View all",
+		"approvals": {
+			"candidate": {
+				"rejected": "JA: Your request to be a candidate has been rejected.",
+				"approved": "JA: Your request to be a candidate has been approved."
+			},
+			"delegate": {
+				"rejected": "JA: Your request to be a delegate has been rejected.",
+				"approved": "JA: Your request to be a delegate has been approved."
+			}
+		},
+		"proposals": {
+			"approved": "JA: The proposal you submitted has been approved.",
+			"rejected": "JA: The proposal you submitted has been rejected.",
+			"comments": "JA: There is a new comment on your proposal.",
+			"invite": "JA: You have been invited to collaborate on a proposal."
+		},
+		"users": {
+			"delegate-deselect": "JA: %s has stopped being a delegate."
+		}
+	}
+}
