@@ -3,19 +3,21 @@ import { check } from 'meteor/check';
 import { Ranks } from './Ranks.js';
 
 Meteor.methods({
-    addRank: function (entityType,entityId,ranking) {
-      //console.log("method addRank called");
+    addRank: function (entityType,entityId,ranking,communityId) {
+      //console.log(communityId);
       check(entityType, String);
       check(entityId, String);
       check(ranking, Number);
-      Ranks.insert({ entityType: entityType, entityId: entityId, supporterId: Meteor.userId(), ranking: ranking});
-      return Meteor.call('getRanks',Meteor.userId(),entityType);
+      check(communityId, String);
+      Ranks.insert({ entityType: entityType, entityId: entityId, supporterId: Meteor.userId(), ranking: ranking, communityId: communityId});
+      return Meteor.call('getRanks',Meteor.userId(),entityType,communityId);
     },
-    removeRank: function (entityType,entityId) {
+    removeRank: function (entityType,entityId,communityId) {
       check(entityType, String);
       check(entityId, String);
+      check(communityId, String);
       Ranks.remove({ entityType: entityType, entityId: entityId, supporterId: Meteor.userId()});
-      return Meteor.call('getRanks',Meteor.userId(),entityType);
+      return Meteor.call('getRanks',Meteor.userId(),entityType,communityId);
     },
     getRank: function (rankID) {
       check(rankID, String);
@@ -26,12 +28,13 @@ Meteor.methods({
       check(rankID, String);
       Ranks.remove(rankID);
     },
-    getRanks: function(userId, type) {
+    getRanks: function(userId, type,communityId) {
       check(userId, String);
       check(type, String);
-      //console.log("getRank: userId: " + userId + " type: " + type);
+      check(communityId, String);
+      console.log("getRank: userId: " + userId + " type: " + type + " communityId:" + communityId);
       results = Ranks.aggregate([
-        { $match: {"supporterId" : userId,"entityType" : type}},
+        { $match: {"supporterId" : userId,"entityType" : type,"communityId":communityId}},
         {$project:{"_id": 0,"entityId" :1}}
       ]).map(function(el) { return el.entityId });
       return results;
@@ -46,9 +49,10 @@ Meteor.methods({
         rank+=1;
       });
     },
-    removeRanks: function(entityType,entityId){
+    removeRanks: function(entityType,entityId,communityId){
       check(entityType, String);
       check(entityId, String);
-      Ranks.remove({ entityType: entityType, entityId: entityId});
+      check(communityId, String);
+      Ranks.remove({ entityType: entityType, entityId: entityId, communityId: communityId});
     }
 });

@@ -5,24 +5,28 @@ import RavenClient from 'raven-js';
 import { walkThrough } from '../../../utils/functions';
 
 Template.Delegate.onCreated(function () {
+  var communityId = LocalStore.get('communityId');
   Session.set('searchPhrase','');
-
-  // Set user's ranked delegates
-  Meteor.call('getRanks', Meteor.userId(), "delegate", function(error, result){
-    if(error) {
-      RavenClient.captureException(error);
-      Bert.alert(error.reason, 'danger');
-    } else {
-      Session.set('ranked', result);
-    }
-  });
+  var dict = new ReactiveDict();
+  this.templateDictionary = dict;
+  dict.set("communityId",LocalStore.get('communityId'));
   
   var self = this;
   self.ranks = new ReactiveVar([]);
-  var communityId = LocalStore.get('communityId');
+  
   self.autorun(function() {
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
     self.subscribe('ranks.all');
+    // Set user's ranked delegates
+    Meteor.call('getRanks', Meteor.userId(), "delegate", communityId, function(error, result){
+      if(error) {
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Session.set('ranked', result);
+        dict.set('ranked',result);
+      }
+    });
   });
   
 });
@@ -43,8 +47,8 @@ Template.Delegate.onRendered(function () {
 
 Template.Delegate.helpers({
   getRanking: function(template) {
-    
-    result = Ranks.findOne({entityType: 'delegate', entityId: this._id, supporterId: Meteor.userId()});
+    communityId = Template.instance().templateDictionary.get( 'communityId' );
+    result = Ranks.findOne({entityType: 'delegate', entityId: this._id, supporterId: Meteor.userId(),communityId: communityId});
     if(result){
       return result.ranking;
     }
@@ -68,13 +72,15 @@ Template.Delegate.events({
 		Session.set('searchPhrase',event.target.value);
 	},
   'click .delegate-select': function(event, template){
+    var communityId = Template.instance().templateDictionary.get( 'communityId' );
     delegateId = this._id;
     var ranks = Session.get('ranked');
     if(ranks.length>=5){
       Bert.alert(TAPi18n.__('pages.delegates.alerts.delegate-limit'), 'danger');
       event.target.checked = false;
     }else{
-      Meteor.call('addRank','delegate',delegateId,(ranks.length +1),function(error,result){
+      console.log(communityId);
+      Meteor.call('addRank','delegate',delegateId,(ranks.length +1),communityId,function(error,result){
         if (error) {
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
@@ -86,12 +92,13 @@ Template.Delegate.events({
   },
   'click .rank-select': function(event, template){
     delegateId = this._id;
-    
-      Meteor.call('removeRank','delegate',delegateId,function(error,result){
+    communityId = Template.instance().templateDictionary.get( 'communityId' )
+      Meteor.call('removeRank','delegate',delegateId,communityId,function(error,result){
         if (error) {
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
+          console.log(result);
           Session.set('ranked',result);
         }
       });
