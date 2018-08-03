@@ -110,34 +110,34 @@
 		<div class="proposal-wrap proposal-vote">
 			<hr>
 			{{#if isVotable}}
-			<div class="mdl-card mdl-cell mdl-cell--12-col vote-details">
-				<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-					<div>
-						<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
-					</div>
-					<div class="section-spacer"></div>
+				<div class="mdl-card mdl-cell mdl-cell--12-col vote-details">
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+						<div>
+							<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
+						</div>
+						<div class="section-spacer"></div>
 
-					<div class="signature-count">
-						{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
+						<div class="signature-count">
+							{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
+						</div>
+						<div class="signature-count"><i class="material-icons">date_range</i></div>
 					</div>
-					<div class="signature-count"><i class="material-icons">date_range</i></div>
 				</div>
-			</div>
-			<div class="voting-content">
-				{{#if isVotingAsDelegate}}
-					{{> delegateVoteButtons proposalId=_id endDate=endDate}}
-				{{else}}
-					<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
-					{{> voteButtons proposalId=_id}}
-					{{> delegateVoteList proposalId=_id}}
-				{{/if}}
-			</div>
+				<div class="voting-content">
+					{{#if isVotingAsDelegate}}
+						{{> delegateVoteButtons proposalId=_id endDate=endDate}}
+					{{else}}
+						<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
+						{{> voteButtons proposalId=_id}}
+						{{> delegateVoteList proposalId=_id}}
+					{{/if}}
+				</div>
 			{{else}}
-			<center>
-				<h5>
-					<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
-				</h5>
-			</center>
+				<center>
+					<h5>
+						<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
+					</h5>
+				</center>
 			{{/if}}
 			<hr>
 		</div>
