@@ -4,16 +4,18 @@ import { Ranks } from './Ranks.js';
 
 Meteor.methods({
     addRank: function (entityType,entityId,ranking,communityId) {
-      console.log(communityId);
+      //console.log(communityId);
       check(entityType, String);
       check(entityId, String);
       check(ranking, Number);
+      check(communityId, String);
       Ranks.insert({ entityType: entityType, entityId: entityId, supporterId: Meteor.userId(), ranking: ranking, communityId: communityId});
       return Meteor.call('getRanks',Meteor.userId(),entityType,communityId);
     },
     removeRank: function (entityType,entityId,communityId) {
       check(entityType, String);
       check(entityId, String);
+      check(communityId, String);
       Ranks.remove({ entityType: entityType, entityId: entityId, supporterId: Meteor.userId()});
       return Meteor.call('getRanks',Meteor.userId(),entityType,communityId);
     },
@@ -29,6 +31,7 @@ Meteor.methods({
     getRanks: function(userId, type,communityId) {
       check(userId, String);
       check(type, String);
+      check(communityId, String);
       console.log("getRank: userId: " + userId + " type: " + type + " communityId:" + communityId);
       results = Ranks.aggregate([
         { $match: {"supporterId" : userId,"entityType" : type,"communityId":communityId}},
@@ -49,6 +52,7 @@ Meteor.methods({
     removeRanks: function(entityType,entityId,communityId){
       check(entityType, String);
       check(entityId, String);
+      check(communityId, String);
       Ranks.remove({ entityType: entityType, entityId: entityId, communityId: communityId});
     }
 });
