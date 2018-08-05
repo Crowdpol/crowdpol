@@ -60,11 +60,15 @@
 			"subtitle": "JA: Coming soon..."
 		},
 		"authenticate":{
+			"login" : "JA: Login",
+			"signup": "JA: Sign up",
 			"logged-in-title": "JA: You are already logged in",
 			"logout": "JA: Log out",
 			"tab": {
 				"individual": "JA: Individuals",
-				"entities": "JA: Organisations/Political Parties"
+				"entities": "JA: Organisations/Political Parties",
+				"login":"JA: Login",
+				"signup":"JA: Sign Up"
 			},
 			"links": {
 				"login": "JA: Already have an account? Log in",

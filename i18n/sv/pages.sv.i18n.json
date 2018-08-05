@@ -64,11 +64,15 @@
 			"subtitle": "Kommer snart..."
 		},
 		"authenticate":{
+			"login" : "Logga In",
+			"signup": "Bli Medlem",
 			"logged-in-title": "Du är redan inloggad",
 			"logout": "Logga ut",
 			"tab": {
 				"individual": "Individ",
-				"entities": "Organisation/Politiskt Parti"
+				"entities": "Organisation/Politiskt Parti",
+				"login":"Logga In",
+				"signup":"Bli Medlem"
 			},
 			"links": {
 				"login": "Har du redan ett konto? Logga in",

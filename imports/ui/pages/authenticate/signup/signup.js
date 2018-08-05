@@ -89,17 +89,5 @@ Template.Signup.events({
 		}
 
 		
-	},
-	'click #terms-checkbox-label' (event, template) {
-		var termsCheckbox = self.find('#terms-checkbox-label').MaterialCheckbox;
-		var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
-		if (termsAccepted) {  
-			termsCheckbox.uncheck();
-			Session.set('termsAccepted', false);
-		} else {
-			event.preventDefault();
-			openTermsModal();
-		}
-
 	}
 });

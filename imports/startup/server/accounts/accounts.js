@@ -152,7 +152,8 @@ function normalizeEntity(profile, user) {
     communityIds: profile.communityIds,
     photo: Meteor.settings.private.defaultPhotoUrl,
     username: generateUsername("anonymous_entity"),
-    isPublic: false
+    isPublic: false,
+    termsAccepted: profile.termsAccepted
   };
 
   return _.extend(user, {

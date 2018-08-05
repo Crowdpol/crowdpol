@@ -11,9 +11,9 @@
 			"placeholder": "CY: Add some tags..."
 		},
 		"role-selector":{
-			"voter": "CY: Individual",
-			"party-delegate": "CY: Party Delegate",
-			"organisation-delegate": "CY: Organisation Delegate"
+			"individual": "CY: Individual",
+			"party": "CY: Party Delegate",
+			"organisation": "CY: Organisation Delegate"
 		},
 		"termsModal": {
 			"heading": "CY: Terms of Use",
