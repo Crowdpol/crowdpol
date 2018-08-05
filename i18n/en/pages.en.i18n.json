@@ -60,11 +60,15 @@
 			"subtitle": "Coming soon..."
 		},
 		"authenticate":{
+			"login" : "Login",
+			"signup": "Sign up",
 			"logged-in-title": "You are already logged in",
 			"logout": "Log out",
 			"tab": {
 				"individual": "Individuals",
-				"entities": "Organisations/Political Parties"
+				"entities": "Organisations/Political Parties",
+				"login":"Login",
+				"signup":"Sign Up"
 			},
 			"links": {
 				"login": "Already have an account? Log in",

@@ -11,9 +11,9 @@
 			"placeholder": "JA: Add some tags..."
 		},
 		"role-selector":{
-			"voter": "JA: Individual",
-			"party-delegate": "JA: Party Delegate",
-			"organisation-delegate": "JA: Organisation Delegate"
+			"individual": "JA: Individual",
+			"party": "JA: Party Delegate",
+			"organisation": "JA: Organisation Delegate"
 		},
 		"termsModal": {
 			"heading": "JA: Terms of Use",
