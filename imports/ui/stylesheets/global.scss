@@ -105,3 +105,13 @@
     color: $white;
   }
 }
+
+.tab-bar {
+  max-width: 40rem;
+  margin: 0 auto 1rem;
+  border-bottom: 0;
+
+  .tab {
+    flex: 1;
+  }
+}
