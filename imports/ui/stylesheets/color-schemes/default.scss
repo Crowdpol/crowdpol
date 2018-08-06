@@ -56,7 +56,6 @@
 // Headers -------------------------------------------------
 
 .logged-in-header {
-
   .header-inner {
     i,
     a,
@@ -70,14 +69,13 @@
     color: $blue;
   }
 
-
   // Autocomplete
 
   #headerMatchedTagsList{
     .autocomplete-item{
       &:hover {
         background: $light-blue-dark;
-    }
+      }
     }
   }
 

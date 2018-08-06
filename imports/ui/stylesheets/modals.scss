@@ -63,13 +63,10 @@
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
-}
 
-.mdl-button--raised.mdl-button--colored {
-  &:hover {
+  button:hover {
     opacity: 0.8;
   }
-
 }
 
 /* just presenation */
