@@ -11,9 +11,10 @@
 	<!-- NO: Show login or Signup -->
 	{{else}}
 		{{> TermsModal }}
+
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 			<!-- Tab Bars -->
-			<div class="mdl-tabs__tab-bar tab-bar">
+			<div class="mdl-tabs__tab-bar tab-bar auth-tab-bar">
 				<a href="#login-panel" class="mdl-tabs__tab is-active tab">{{_ "pages.authenticate.tab.login"}}</a>
 				<a href="#signup-panel" class="mdl-tabs__tab tab">{{_ "pages.authenticate.tab.signup"}}</a>
 			</div>
@@ -22,7 +23,7 @@
 				<div id="individual-login" class="container narrow-container auth-wrap">
 					<h3>{{_ "pages.authenticate.login"}}</h3>
 					{{> Login}}
-					<a href="#" class="center light" id="individual-signup-link">{{_ "pages.authenticate.links.register"}}</a>
+					<a href="#signup-panel" class="center light" id="individual-signup-link">{{_ "pages.authenticate.links.register"}}</a>
 				</div>
 			</div>
 
