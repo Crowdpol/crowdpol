@@ -3,7 +3,7 @@
 	{{#if currentUser}}
 	<div class="container narrow-container auth-wrap">
 		<!-- YES: Tell user, provide log out -->
-		<h5>{{_ "logged-in-title"}}</h5>
+		<h3>{{_ "logged-in-title"}}</h3>
 		<button id="log-out" class="mdl-button mdl-js-button mdl-button--raised">
 			{{_ "logout"}}
 		</button>
@@ -11,28 +11,30 @@
 	<!-- NO: Show login or Signup -->
 	{{else}}
 		{{> TermsModal }}
+
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 			<!-- Tab Bars -->
-			<div class="mdl-tabs__tab-bar">
-				<a href="#login-panel" class="mdl-tabs__tab is-active">{{_ "pages.authenticate.tab.login"}}</a>
-				<a href="#signup-panel" class="mdl-tabs__tab">{{_ "pages.authenticate.tab.signup"}}</a>
+			<div class="mdl-tabs__tab-bar tab-bar auth-tab-bar">
+				<a href="#login-panel" class="mdl-tabs__tab is-active tab">{{_ "pages.authenticate.tab.login"}}</a>
+				<a href="#signup-panel" class="mdl-tabs__tab tab">{{_ "pages.authenticate.tab.signup"}}</a>
 			</div>
 			<!-- MDL tab panels, is-active to denote currently active -->
 			<div class="mdl-tabs__panel is-active" id="login-panel">
 				<div id="individual-login" class="container narrow-container auth-wrap">
-					<h5>{{_ "pages.authenticate.login"}}</h5>
+					<h3>{{_ "pages.authenticate.login"}}</h3>
 					{{> Login}}
-					<a href="#" class="center" id="individual-signup-link">{{_ "pages.authenticate.links.register"}}</a>
+					<a href="#signup-panel" class="center light" id="individual-signup-link">{{_ "pages.authenticate.links.register"}}</a>
 				</div>
 			</div>
+
 			<div class="mdl-tabs__panel" id="signup-panel">
 				<div id="indivdual-signup" class="container narrow-container auth-wrap">
-					<h5>{{_ "pages.authenticate.signup"}}</h5>
+					<h3>{{_ "pages.authenticate.signup"}}</h3>
 					<div class="form-group">
 						<!-- Terms and conditions of usage-->
 						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="terms-checkbox" id="terms-checkbox-label">
 							<input type="checkbox" id="terms-checkbox" name="terms-checkbox" class="mdl-checkbox__input" required />
-						  	<span class="mdl-checkbox__label">{{_ "pages.profile.terms-accepted"}}</span>
+						  	<span class="light mdl-checkbox__label">{{_ "pages.profile.terms-accepted"}}</span>
 						</label>
 					</div>
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
@@ -50,7 +52,7 @@
 
 					{{> Signup}}
 					{{> entitySignup}}
-					
+
 				</div>
 			</div>
 		</div>
