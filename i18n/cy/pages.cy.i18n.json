@@ -233,7 +233,9 @@
 				"tabs":{
 					"allProposals": "CY: All Proposals",
 					"myProposals": "CY: My Proposals",
-					"writeProposals": "CY: Write Proposal"
+					"writeProposals": "CY: Write Proposal",
+					"draftProposals": "CY: Draft Proposals",
+					"submittedProposals": "CY: Submitted Proposals"
 				},
 				"headings":{
 					"openProposals": "CY: Open Proposals",
@@ -247,6 +249,7 @@
 					"vote": "CY: and vote"
 				},
 				"openClosedSwitch": "CY: Open/Closed",
+				"approvedRejectedSwitch": "CY: Rejected/Approved",
 				"createdInvitedSwitch": "CY: Created/Invited",
 				"untitled": "CY: Untitled",
 				"untranslated": "CY: This proposal has not yet been translated.",
