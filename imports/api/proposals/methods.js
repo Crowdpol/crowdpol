@@ -21,7 +21,8 @@ Meteor.methods({
           invited: Match.Maybe([String]),
           tags: Match.Maybe([Object]),
           references: Match.Maybe([String]),
-          communityId: String
+          communityId: String,
+          stage: String
         });
         proposalId = Proposals.insert(proposal);
        

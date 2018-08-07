@@ -30,7 +30,7 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		languages: mdLanguages
 	});
 	bgSubdomain = 'bangor';
-	bgLanguages = ['en','cy'];
+	bgLanguages = ['en'];
 	bgId = createCommunity('elop*10', 'bangor', {
 		colorScheme: 'greyscale', 
 		homepageImageUrl: 'img/bangor.jpg', 
