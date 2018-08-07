@@ -21,7 +21,6 @@ Template.ProposalsList.onCreated(function () {
   }
   var communityId = LocalStore.get('communityId');
   self.autorun(function(){
-    self.subscribe('proposals.public', self.searchQuery.get(), communityId);
     self.subscribe('proposals.author', self.searchQuery.get(), communityId);
     self.subscribe('proposals.invited', self.searchQuery.get(), communityId);
   })
@@ -34,9 +33,13 @@ Template.ProposalsList.helpers({
   query() {
     return Template.instance().searchQuery.get();
   },
-  myProposals: function(){
-    return Proposals.find({authorId: Meteor.userId(), stage : "draft"}, {transform: transformProposal, sort: {createdAt: -1}});
+  draftProposals: function(){
+    return Proposals.find({$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ], stage : "draft"}, {transform: transformProposal, sort: {createdAt: -1}});
   },
+  submittedProposals: function() {
+    return Proposals.find({$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ], stage: "submitted"}, {transform: transformProposal, sort: {endDate: -1}});
+  },
+  /*
   invitedProposals: function(){
     return Proposals.find({invited: Meteor.user().username, stage : "draft"}, {transform: transformProposal, sort: {createdAt: -1}});
   },
@@ -46,7 +49,6 @@ Template.ProposalsList.helpers({
   rejectedProposals: function() {
     return Proposals.find({$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ], status: "rejected"}, {transform: transformProposal, sort: {endDate: -1}});
   },
-  /*
   closedProposals: function() {
     return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: -1}});
   },
@@ -101,13 +103,13 @@ Template.ProposalsList.events({
   'click #author-invited-switch': function(event, template){
     Template.instance().authorProposals.set(event.target.checked);
   },
-  'click #my-proposals-tab': function(event, template){
-    Session.set("myProposals",true);
-    Session.set("allProposals",false);
+  'click #draft-proposals-tab': function(event, template){
+    Session.set("draftProposals",true);
+    Session.set("submittedProposals",false);
   },
   'click #submitted-proposals-tab': function(event, template){
-    Session.set("myProposals",false);
-    Session.set("allProposals",true);
+    Session.set("draftProposals",false);
+    Session.set("submittedProposals",true);
   },
   'click .mdl-tabs__tab': function(event,template){ 
     if(event.currentTarget.id!='create-proposal-tab'){

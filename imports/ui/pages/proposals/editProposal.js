@@ -125,7 +125,7 @@ Template.EditProposal.events({
 		event.preventDefault();
 		saveChanges(event, template, 'App.proposals');
 		//FlowRouter.go('/proposals');
-		Session.set('proposalTab','my-proposals-tab');
+		//Session.set('proposalTab','my-proposals-tab');
 	},
 	'click #preview-proposal': function(event, template){
 		event.preventDefault();

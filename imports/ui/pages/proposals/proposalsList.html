@@ -41,18 +41,19 @@
 				</button>
 
 				{{#if Template.subscriptionsReady}}
+				<!-- HIDING SWITCH TO TOGGLE INVITED VS CREATED PROPOSALS
 					<div class="switch-wrap">
 						<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="author-invited-switch">
 							<input type="checkbox" id="author-invited-switch" class="mdl-switch__input" checked>
 							<span class="mdl-switch__label">{{_ "pages.proposals.list.createdInvitedSwitch"}}</span>
 						</label>
 					</div>
-
+				-->
 					{{#if authorSelected}}
-						<h4>{{_ "pages.proposals.list.headings.myProposals"}}<small><i class="material-icons" id="draft-proposals-help">help_outline</i></small></h4>
+						<!--<h5>{{_ "pages.proposals.list.headings.draftProposals"}}<small><i class="material-icons" id="draft-proposals-help">help_outline</i></small></h5>-->
 						<ul class="demo-list-control mdl-list">
-							{{#each myProposals}}
-								{{> ProposalCard }}
+							{{#each proposal in draftProposals}}
+								{{> ProposalCard proposal=proposal showStatus=false showStage=true showDelete=true}}
 							{{else}}
 								<p>{{_ "pages.proposals.list.your-proposals" status=""}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
 								
@@ -62,8 +63,8 @@
 					{{else}}
 						<h4>{{_ "pages.proposals.list.headings.notMyProposals"}}<small><i class="material-icons" id="shared-proposals-help">help_outline</i></small></h4>
 						<ul class="demo-list-control mdl-list">
-							{{#each invitedProposals}}
-								{{> ProposalCard }}
+							{{#each proposal in invitedProposals}}
+								{{> ProposalCard  proposal=proposal showStatus=false showStage=true showDelete=true}}
 							{{else}}
 								<p>{{_ "pages.proposals.list.your-proposals" status="invited"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
 								
@@ -80,30 +81,31 @@
 				<button class="add-new-proposal mdl-button mdl-js-button mdl-button--fab" id="add-new-proposal">
 					<i class="material-icons">add</i>
 				</button>
+				<!-- HIDING SWITCH TO TOGGLE APPROVED VS REJECTED PROPOSALS
 				<div class="switch-wrap">
 					<label class="switch proposal-switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="approved-rejected-switch">
 						<input type="checkbox" id="approved-rejected-switch" class="mdl-switch__input" checked>
 						<span class="mdl-switch__label">{{_ "pages.proposals.list.approvedRejectedSwitch"}}</span>
 					</label>
 				</div>
-
+				-->
 				{{#if Template.subscriptionsReady}}
 					{{#if approvedSelected}}
-						<h4>{{_ "pages.proposals.list.headings.approvedProposals"}}<small><i class="material-icons" id="approved-rejected-help">help_outline</i></small></h4>
+						<!--<h4>{{_ "pages.proposals.list.headings.approvedProposals"}}<small><i class="material-icons" id="approved-rejected-help">help_outline</i></small></h4>-->
 						<ul class="demo-list-control mdl-list">
-							{{#each approvedProposals}}
-								{{> ProposalCard}}
+							{{#each proposal in submittedProposals}}
+								{{> ProposalCard proposal=proposal showStatus=true showStage=false showDelete=true}}
 							{{else}}
 								<p>
-									{{_ "pages.proposals.list.no-proposals" status="approved"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a>
+									{{_ "pages.proposals.list.no-proposals" status="sumbitted"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a>
 								</p>
 							{{/each}}
 						</ul>
 					{{else}}
 						<h4>{{_ "pages.proposals.list.headings.rejectedProposals"}}<small><i class="material-icons" id="closed-proposals-help">help_outline</i></small></h4>
 						<ul class="demo-list-control mdl-list">
-							{{#each rejectedProposals}}
-								{{> ProposalCard}}
+							{{#each proposal in rejectedProposals}}
+								{{> ProposalCard proposal=proposal showStatus=true showStage=false showDelete=true}}
 							{{else}}
 								<p>{{_ "pages.proposals.list.no-proposals" status="rejected"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
 								

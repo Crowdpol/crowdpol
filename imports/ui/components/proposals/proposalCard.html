@@ -1,23 +1,34 @@
 <template name="ProposalCard">
-	<a href="/proposals/view/{{_id}}" class="proposal-list-item-link">
+	<a href="/proposals/view/{{proposal._id}}" class="proposal-list-item-link">
 	<li class="proposal-item mdl-list__item">
 		<div class="card-main-wrap">
 			<span class="card-main mdl-list__item-primary-content">
 				<h6>
-					{{ title this}}
-					{{#if userIsAuthor _id}}
-						<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal-button" data-proposal-id="{{_id}}">
-						  <i class="material-icons delete-proposal-icon" data-proposal-id="{{_id}}">delete</i>
+					{{ title proposal}}
+					{{#if showDelete}}
+						<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal-button" data-proposal-id="{{proposal._id}}">
+						  <i class="material-icons delete-proposal-icon" data-proposal-id="{{proposal._id}}">delete</i>
 						</button>
 					{{/if}}
-					
 				</h6>
+				
 			</span> 
 
 			<span class="mdl-list__item-secondary-action">
-				{{#if isDraft this}}
+				{{#if showStatus}}
+					<span class="status-chip {{proposal.status}}">
+						 {{proposalStatus proposal}}
+					</span>
+					{{/if}}
+					{{#if showStage}}
+					<span class="status-chip {{proposal.stage}}">
+						 {{proposalStage proposal}}
+					</span>
+				{{/if}}
+				<br>
+				{{#if isDraft proposal}}
 					<small class="proposal-date">
-						<i class="material-icons">edit</i>&nbsp;{{ lastModified }}
+						{{ proposal.lastModified }}
 					</small>
 				{{else}}
 					<small class="proposal-date">
@@ -27,13 +38,10 @@
 			</span>
 		</div>
 		<div class="card-secondary-wrap">
-			<span class="status-chip">
-				 {{proposalStatus this}}
-			</span>
-			{{#each tags this}}
+			{{#each tags proposal}}
 				<a href="/tag/{{keyword}}" class="tag-chip">{{keyword}}</a>
 			{{/each}}
-			<p class="proposal-abstract">{{ abstract this}}</p>
+			<p class="proposal-abstract">{{ abstract proposal}}</p>
 		</div>
 		<!--
 			<div class="mdl-card__actions">

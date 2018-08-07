@@ -243,7 +243,8 @@
 					"myProposals": "My proposals",
 					"notMyProposals": "Collaborative Proposals",
 					"approvedProposals": "Approved Proposals",
-					"rejectedProposals": "Rejected Proposals"
+					"rejectedProposals": "Rejected Proposals",
+					"draftProposals": "Draft Proposals"
 				},
 				"cards":{
 					"expires": "Expires",
