@@ -233,7 +233,9 @@
 				"tabs":{
 					"allProposals": "JA: All Proposals",
 					"myProposals": "JA: My Proposals",
-					"writeProposals": "JA: Write Proposal"
+					"writeProposals": "JA: Write Proposal",
+					"draftProposals": "JA: Draft Proposals",
+					"submittedProposals": "JA: Submitted Proposals"
 				},
 				"headings":{
 					"openProposals": "JA: Open Proposals",
@@ -247,6 +249,7 @@
 					"vote": "JA: and vote"
 				},
 				"openClosedSwitch": "JA: Open/Closed",
+				"approvedRejectedSwitch": "JA: Rejected/Approved",
 				"createdInvitedSwitch": "JA: Created/Invited",
 				"untitled": "JA: Untitled",
 				"untranslated": "JA: This proposal has not yet been translated.",

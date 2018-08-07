@@ -349,6 +349,15 @@
   line-height: 1.1rem;
   text-align: center;
 }
+.status-chip.unreviewed{
+  background-color: grey;
+}
+.status-chip.rejected{
+  background-color: red;
+}
+.status-chip.approved{
+  background-color: green;
+}
 #body-editor-sv{
   min-height: 200px;
 }

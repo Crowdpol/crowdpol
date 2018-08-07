@@ -225,7 +225,7 @@ Template.ViewProposal.helpers({
     return (userIsAuthor() && Template.instance().templateDictionary.get( 'stage' ) == 'draft')
   },
   isEditable: function(){
-    return (userIsAuthor() && !proposalIsLive())
+    return ((userIsAuthor()||userIsInvited()) && !proposalIsLive())
   },
   signatureIcon: function(){
     if (Template.instance().templateDictionary.get('signatures').includes(Meteor.userId())){

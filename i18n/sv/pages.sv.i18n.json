@@ -242,7 +242,9 @@
 				"tabs":{
 					"allProposals": "Alla Motioner",
 					"myProposals": "Mina Motioner",
-					"writeProposals": "Skriv en Motion"
+					"writeProposals": "Skriv en Motion",
+					"draftProposals": "TODO: Draft Proposals",
+					"submittedProposals": "TODO: Submitted Proposals"
 				},
 				"headings":{
 					"openProposals": "Pågående Motioner",
@@ -256,6 +258,7 @@
 					"vote": "och rösta"
 				},
 				"openClosedSwitch": "Pågående/Avslutad",
+				"approvedRejectedSwitch": "TODO: Rejected/Approved",
 				"createdInvitedSwitch": "Egen/Gemensam",
 				"untitled": "TODO Untitled",
 				"untranslated": "TODO This proposal has not yet been translated.",

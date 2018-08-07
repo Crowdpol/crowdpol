@@ -233,13 +233,18 @@
 				"tabs":{
 					"allProposals": "All Proposals",
 					"myProposals": "My Proposals",
-					"writeProposals": "Write Proposal"
+					"writeProposals": "Write Proposal",
+					"draftProposals": "Draft Proposals",
+					"submittedProposals": "Submitted Proposals"
 				},
 				"headings":{
 					"openProposals": "Open Proposals",
 					"closedProposals": "Closed Proposals",
 					"myProposals": "My proposals",
-					"notMyProposals": "Collaborative Proposals"
+					"notMyProposals": "Collaborative Proposals",
+					"approvedProposals": "Approved Proposals",
+					"rejectedProposals": "Rejected Proposals",
+					"draftProposals": "Draft Proposals"
 				},
 				"cards":{
 					"expires": "Expires",
@@ -247,6 +252,7 @@
 					"vote": "and vote"
 				},
 				"openClosedSwitch": "Open/Closed",
+				"approvedRejectedSwitch": "Rejected/Approved",
 				"createdInvitedSwitch": "Created/Invited",
 				"untitled": "Untitled",
 				"untranslated": "This proposal has not yet been translated.",

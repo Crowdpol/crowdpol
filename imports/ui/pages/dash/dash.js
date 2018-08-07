@@ -5,8 +5,9 @@ import { Ranks } from '../../../api/ranking/Ranks.js';
 import { walkThrough } from '../../../utils/functions';
 
 Template.Dash.onCreated(function () {
+  var communityId = LocalStore.get('communityId');
   // Set user's ranked delegates
-  Meteor.call('getRanks', Meteor.userId(), "delegate", function(error, result){
+  Meteor.call('getRanks', Meteor.userId(), "delegate", communityId, function(error, result){
     if(error) {
       RavenClient.captureException(error);
       Bert.alert(error.reason, 'danger');
@@ -17,7 +18,7 @@ Template.Dash.onCreated(function () {
   
   var self = this;
   self.ranks = new ReactiveVar([]);
-  var communityId = LocalStore.get('communityId');
+  
   self.autorun(function() {
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
     self.subscribe('ranks.all');
