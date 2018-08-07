@@ -1,7 +1,7 @@
 @import '../variables.scss';
 @import '../breakpoint.scss';
 
-/* 
+/*
   This file contains the default colour scheme.
   Only styles specifying a colour (not including white or greys) should be included here.
 */
@@ -18,6 +18,8 @@
 .primary-button {
   background-color: $light-blue-dark;
   color: $white;
+  letter-spacing: 0.8px;
+
   &:hover {
     background-color: $light-blue;
   }
@@ -54,7 +56,6 @@
 // Headers -------------------------------------------------
 
 .logged-in-header {
-
   .header-inner {
     i,
     a,
@@ -68,14 +69,13 @@
     color: $blue;
   }
 
-
   // Autocomplete
 
   #headerMatchedTagsList{
     .autocomplete-item{
       &:hover {
         background: $light-blue-dark;
-    }
+      }
     }
   }
 
