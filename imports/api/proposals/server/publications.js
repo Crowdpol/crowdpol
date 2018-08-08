@@ -41,6 +41,8 @@ Meteor.publish('proposals.public.stats', function(search, communityId) {
 
 //Proposals that the user authored
 Meteor.publish('proposals.author', function(search, communityId) {
+	check(search, Match.OneOf(String, null, undefined));
+	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
 	query.authorId = this.userId;
 	return Proposals.find(query);

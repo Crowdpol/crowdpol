@@ -27,7 +27,8 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
 		aboutText: mdAbout,
 		defaultLanguage: 'sv',
-		languages: mdLanguages
+		languages: mdLanguages,
+		emailWhitelist: []
 	});
 	bgSubdomain = 'bangor';
 	bgLanguages = ['en'];
@@ -39,7 +40,8 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		homepageIntroText: "A public presentation of four visions of a future High Street.",
 		aboutText: bgAbout,
 		defaultLanguage: 'en',
-		languages: bgLanguages
+		languages: bgLanguages,
+		emailWhitelist: []
 	});
 	cpSubdomain = 'global';
 	cpLanguages = ['en'];
@@ -51,7 +53,8 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		homepageIntroText: "A liquid democracy platform for the collective decision making in the commons.",
 		aboutText: "Crowdpol about us page",
 		defaultLanguage: 'en',
-		languages: cpLanguages
+		languages: cpLanguages,
+		emailWhitelist: []
 	});
 	cpLanguages = ['en','ja'];
 	cpId = createCommunity('Crowdpol Japan', 'japan', {
@@ -62,7 +65,8 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		homepageIntroText: "A liquid democracy platform for the collective decision making in the commons.",
 		aboutText: "Crowdpol Japan about us page, coming soon.",
 		defaultLanguage: 'en',
-		languages: cpLanguages
+		languages: cpLanguages,
+		emailWhitelist: []
 	});
 
 	/* Register admins for both communities */
