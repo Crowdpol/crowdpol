@@ -163,7 +163,10 @@
 // Proposals ---------------------------------------------
 
 .card-date {
-  color: $light-blue;
+  span,
+  i {
+    color: $light-blue;
+  }
 }
 
 .add-new-proposal {

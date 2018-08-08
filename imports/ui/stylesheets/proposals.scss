@@ -82,7 +82,8 @@
   }
 }
 
-.delete-proposal-icon {
+.delete-proposal-icon,
+.edit-proposal-icon {
   vertical-align: middle;
   font-size: $base-font-size;
   line-height: $base-line-height;
@@ -330,6 +331,3 @@
   min-height: 200px;
 }
 
-p.proposal-abstract{
-  font-size: $small-font-size;
-}
