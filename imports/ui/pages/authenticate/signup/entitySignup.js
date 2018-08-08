@@ -1,4 +1,5 @@
 import './entitySignup.html'
+import { hasOwnProperty } from '../../../../utils/functions';
 import RavenClient from 'raven-js';
 import { Communities } from '../../../../api/communities/Communities.js'
 
@@ -52,8 +53,20 @@ Template.entitySignup.events({
 
 		communityId = Communities.findOne({subdomain: LocalStore.get('subdomain')})._id;
     var community = Communities.findOne({subdomain: LocalStore.get('subdomain')});
+    if(!hasOwnProperty(community,'settings')){
+      Bert.alert('Community does not have settings', 'danger');
+      return;
+    }
     var enforceWhitelist = community.settings.enforceWhitelist;
+    if(!hasOwnProperty(community.settings,'enforceWhitelist')){
+      Bert.alert('Community does not have settings.enforceWhitelist', 'danger');
+      return;
+    }
     var emailWhitelist = community.settings.emailWhitelist;
+    if(!hasOwnProperty(community.settings,'emailWhitelist')){
+      Bert.alert('Community does not have settings.emailWhitelist', 'danger');
+      return;
+    }
     var email = template.find('[name="entity-email"]').value;
 
     if ((!enforceWhitelist) || (enforceWhitelist == false) || ((enforceWhitelist == true) && (emailWhitelist.includes(email)))) {

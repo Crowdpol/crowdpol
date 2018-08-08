@@ -42,3 +42,9 @@ export const daysRemaining = (finalDate) => {
     var todaysdate = moment();
     return eventdate.diff(todaysdate, 'days');
 }
+
+//function to check if object has key
+export const hasOwnProperty = (obj,prop) => {
+  var proto = obj.__proto__ || obj.constructor.prototype;
+  return (prop in obj) && (!(prop in proto) || proto[prop] !== obj[prop]);
+};
