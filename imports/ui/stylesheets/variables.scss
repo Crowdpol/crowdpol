@@ -20,7 +20,7 @@ $light-grey-xdark: #b2b1b1;
 
 $blue-xdark: #0b2830;
 $blue: #143c56;
-$light-blue: #449be5;
+$light-blue: #55A4E7;
 $light-blue-dark: #337ab7;
 $bright-blue: #337ab7;
 $taggle-blue: #003399;
@@ -28,6 +28,8 @@ $notification-blue: #edf6ff;
 
 $yellow: #eebd45;
 $yellow-light: #faedc1;
+$green: #06A77D;
+$red: #F0544F;
 
 // Colours: Greyscale
 
@@ -41,8 +43,8 @@ $taggle-grey: #5e5e5e;
 $greyscale: #cecece;
 $greyscale-light: #ffffff;
 
-$yes-button: green;
-$no-button: red;
+$yes-button: $green;
+$no-button: $red;
 
 // Fonts
 $default-font: 'Roboto', sans-serif;

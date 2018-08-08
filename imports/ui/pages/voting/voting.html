@@ -19,7 +19,7 @@
 					<button class="close-icon" type="reset"></button>
 				</form>
 			</div>
-		
+
 			<!-- MDL tab panels, is-active to denote currently active -->
 			<div class="mdl-tabs__panel {{votesTabActive}}" id="vote-proposals-panel">
 
@@ -92,22 +92,22 @@
 						<h6>
 							<a href="/proposals/view/{{_id}}" class="proposal-list-item-link"><h6>{{ title this}}</h6></a>
 						</h6>
-					</span> 
+					</span>
 
 					<span class="mdl-list__item-secondary-action">
-							<small class="proposal-date">
+							<small class="card-date">
 								<i class="material-icons">date_range</i>&nbsp;{{_ "pages.voting.expires"}}&nbsp;{{expireDate this}}
 							</small>
-							
+
 					</span>
 			</div>
 		</div>
 		<div class="mdl-card__supporting-text">
-			<span class="status-chip">
+			<span class="tag status-chip">
 						 complete
 					</span>
 					{{#each tags this}}
-						<a href="/tag/{{keyword}}" class="tag-chip">{{keyword}}</a>
+						<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
 					{{/each}}
 			<p class="proposal-abstract">{{ abstract this }}</p>
 		</div>
@@ -127,7 +127,7 @@
 								{{> voteButtons proposalId=_id}}
 							</center>
 						</div>
-						
+
 					{{/if}}
 
 			{{#if showVotingInfo}}
@@ -138,7 +138,7 @@
 						{{> delegateVoteList proposalId=_id}}
 					{{/if}}
 					<!-- Vote Tallies -->
-					
+
 				</div>
 
 			{{/if}}
@@ -162,7 +162,7 @@
 						{{/if}}
 					</a>
 				</center>
-			
+
 		</div>
 
 	</div>
@@ -177,21 +177,21 @@
 						<h6>
 							<a href="/proposals/view/{{_id}}" class="proposal-list-item-link"><h6>{{ title this}}</h6></a>
 						</h6>
-					</span> 
+					</span>
 
 					<span class="mdl-list__item-secondary-action">
-							<small class="proposal-date">
+							<small class="card-date">
 								<i class="material-icons">date_range</i>&nbsp;{{ started this.startDate }}&nbsp;-&nbsp;{{ completed this.endDate }}&nbsp;
 							</small>
 					</span>
 			</div>
 		</div>
 		<div class="mdl-card__supporting-text">
-			<span class="status-chip">
+			<span class="tag status-chip">
 						 complete
 					</span>
 					{{#each tags this}}
-						<a href="/tag/{{keyword}}" class="tag-chip">{{keyword}}</a>
+						<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
 					{{/each}}
 			<p class="proposal-abstract">{{ abstract this }}</p>
 			<!-- Vote Tallies -->
@@ -203,7 +203,7 @@
 						</div>
 			{{/if}}
 		</div>
-		
+
 		<div class="mdl-card__actions mdl-card--border">
 			{{#if hasVotes _id}}
 				<!-- Show More/Less Button -->

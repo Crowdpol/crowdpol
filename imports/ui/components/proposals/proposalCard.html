@@ -11,27 +11,27 @@
 						</button>
 					{{/if}}
 				</h6>
-				
-			</span> 
+
+			</span>
 
 			<span class="mdl-list__item-secondary-action">
 				{{#if showStatus}}
-					<span class="status-chip {{proposal.status}}">
+					<span class="tag status-chip {{proposal.status}}">
 						 {{proposalStatus proposal}}
 					</span>
 					{{/if}}
 					{{#if showStage}}
-					<span class="status-chip {{proposal.stage}}">
+					<span class="tag status-chip {{proposal.stage}}">
 						 {{proposalStage proposal}}
 					</span>
 				{{/if}}
 				<br>
 				{{#if isDraft proposal}}
-					<small class="proposal-date">
+					<small class="card-date">
 						{{ proposal.lastModified }}
 					</small>
 				{{else}}
-					<small class="proposal-date">
+					<small class="card-date">
 						<i class="material-icons">date_range</i>&nbsp;{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
 					</small>
 				{{/if}}
@@ -39,7 +39,7 @@
 		</div>
 		<div class="card-secondary-wrap">
 			{{#each tags proposal}}
-				<a href="/tag/{{keyword}}" class="tag-chip">{{keyword}}</a>
+				<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
 			{{/each}}
 			<p class="proposal-abstract">{{ abstract proposal}}</p>
 		</div>
@@ -54,9 +54,9 @@
 				  	{{else}}
 						<small class="proposal-percentage-text-left"> {{_ "pages.voting.no-votes-used"}} </small>
 					{{/if}}
-					
+
 		  	</div>
-		
+
 		 <a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
 			{{_ "proposals.list.cards.read"}}&nbsp;{{#if canVote}}{{_ "proposals.list.cards.vote"}}{{/if}}
 		</a> -->
