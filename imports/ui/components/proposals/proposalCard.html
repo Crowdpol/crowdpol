@@ -1,37 +1,81 @@
 <template name="ProposalCard">
 	<a href="/proposals/view/{{proposal._id}}" class="proposal-list-item-link">
+		<li class="proposal-item">
+			<div class="card-main-wrap">
+				<div class="tag-wrap">
+					{{#if showStatus}}
+						<span class="tag status-chip {{proposal.status}}">
+							{{proposalStatus proposal}}
+						</span>
+					{{/if}}
+					{{#if showStage}}
+						<span class="tag status-chip {{proposal.stage}}">
+							{{proposalStage proposal}}
+						</span>
+					{{/if}}
+				</div>
+				<div class="card-date">
+					<i class="material-icons">date_range</i>
+					{{#if isDraft proposal}}
+							<span>&nbsp;{{ proposal.lastModified }}</span>
+					{{else}}
+							<span>&nbsp;{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;</span>
+					{{/if}}
+				</div>
+				<div class="card-title">
+					<h6>{{ title proposal}}</h6>
+					{{#if showDelete}}
+					<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal-button" data-proposal-id="123">
+						<i class="material-icons delete-proposal-icon" data-proposal-id="123">delete</i>
+					</button>
+					{{/if}}
+					<button class="mdl-button mdl-js-button mdl-button--icon edit-proposal-button" data-proposal-id="123">
+						<i class="material-icons edit-proposal-icon" data-proposal-id="123">edit</i>
+					</button>
+				</div>
+			</div>
+			<div class="card-secondary-wrap">
+				<p class="proposal-abstract">This is the abstract that describes the basic argument of the proposal.</p>
+				{{#each tags proposal}}
+				<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
+				{{/each}}
+			</div>
+		</li>
+	</a>
+	<!-- old card 
+	<a href="/proposals/view/{{proposal._id}}" class="proposal-list-item-link">
 	<li class="proposal-item mdl-list__item">
 		<div class="card-main-wrap">
 			<span class="card-main mdl-list__item-primary-content">
 				<h6>
 					{{ title proposal}}
 					{{#if showDelete}}
-						<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal-button" data-proposal-id="{{proposal._id}}">
+						<button class="mdl-button mdl-js-button mdl-button-icon delete-proposal-button" data-proposal-id="{{proposal._id}}">
 						  <i class="material-icons delete-proposal-icon" data-proposal-id="{{proposal._id}}">delete</i>
 						</button>
 					{{/if}}
 				</h6>
-				
-			</span> 
+
+			</span>
 
 			<span class="mdl-list__item-secondary-action">
 				{{#if showStatus}}
-					<span class="status-chip {{proposal.status}}">
+					<span class="tag status-chip {{proposal.status}}">
 						 {{proposalStatus proposal}}
 					</span>
 					{{/if}}
 					{{#if showStage}}
-					<span class="status-chip {{proposal.stage}}">
+					<span class="tag status-chip {{proposal.stage}}">
 						 {{proposalStage proposal}}
 					</span>
 				{{/if}}
 				<br>
 				{{#if isDraft proposal}}
-					<small class="proposal-date">
+					<small class="card-date">
 						{{ proposal.lastModified }}
 					</small>
 				{{else}}
-					<small class="proposal-date">
+					<small class="card-date">
 						<i class="material-icons">date_range</i>&nbsp;{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
 					</small>
 				{{/if}}
@@ -39,11 +83,10 @@
 		</div>
 		<div class="card-secondary-wrap">
 			{{#each tags proposal}}
-				<a href="/tag/{{keyword}}" class="tag-chip">{{keyword}}</a>
+				<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
 			{{/each}}
 			<p class="proposal-abstract">{{ abstract proposal}}</p>
 		</div>
-		<!--
 			<div class="mdl-card__actions">
 				{{#if hasVotes _id}}
 					<span class="proposal-percentage-text-left"> {{_ "pages.voting.for"}} {{ yesPercentage _id }} </span>
@@ -54,12 +97,12 @@
 				  	{{else}}
 						<small class="proposal-percentage-text-left"> {{_ "pages.voting.no-votes-used"}} </small>
 					{{/if}}
-					
+
 		  	</div>
-		
+
 		 <a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
 			{{_ "proposals.list.cards.read"}}&nbsp;{{#if canVote}}{{_ "proposals.list.cards.vote"}}{{/if}}
-		</a> -->
+		</a> 
 	</li>
-</a>
+</a>-->
 </template>
