@@ -52,45 +52,8 @@
 					{{#if authorSelected}}
 						<!--<h5>{{_ "pages.proposals.list.headings.draftProposals"}}<small><i class="material-icons" id="draft-proposals-help">help_outline</i></small></h5>-->
 						<ul class="card-list">
-								<!-- BASIC HTML PROPOSAL CARD STRUCTURE FOR SOL -->
-							<a href="/proposals/view/123" class="proposal-list-item-link">
-								<li class="proposal-item">
-									<div class="card-main-wrap">
-										<div class="tag-wrap">
-											<span class="tag status-chip draft">
-												draft
-											</span>
-											<span class="tag status-chip rejected">
-												rejected
-											</span>
-										</div>
-										<div class="card-date">
-											<i class="material-icons">date_range</i>
-											<span>3 Days ago</span>
-										</div>
-										<div class="card-title">
-											<h6>This is the Proposal Card Title</h6>
-											<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal-button" data-proposal-id="123">
-												<i class="material-icons delete-proposal-icon" data-proposal-id="123">delete</i>
-											</button>
-											<button class="mdl-button mdl-js-button mdl-button--icon edit-proposal-button" data-proposal-id="123">
-												<i class="material-icons edit-proposal-icon" data-proposal-id="123">edit</i>
-											</button>
-										</div>
-									</div>
-
-									<div class="card-secondary-wrap">
-										<p class="proposal-abstract">This is the abstract that describes the basic argument of the proposal.</p>
-										<a href="/tag/tag1" class="tag tag-chip">tag1</a>
-										<a href="/tag/tag2" class="tag tag-chip">tag2</a>
-										<a href="/tag/tag3" class="tag tag-chip">tag3</a>
-									</div>
-								</li>
-							</a>
-								<!-- END: BASIC HTML PROPOSAL CARD STRUCTURE FOR SOL -->
 							{{#each proposal in draftProposals}}
-
-								{{> ProposalCard proposal=proposal showStatus=false showStage=true showDelete=true}}
+								{{> ProposalCard proposal=proposal showStatus=true showStage=true showDelete=true}}
 							{{else}}
 								<p>{{_ "pages.proposals.list.your-proposals" status=""}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
 
@@ -130,42 +93,8 @@
 					{{#if approvedSelected}}
 						<!--<h4>{{_ "pages.proposals.list.headings.approvedProposals"}}<small><i class="material-icons" id="approved-rejected-help">help_outline</i></small></h4>-->
 						<ul class="card-list">
-							<!-- BASIC HTML PROPOSAL CARD STRUCTURE FOR SOL -->
-							<a href="/proposals/view/123" class="proposal-list-item-link">
-								<li class="proposal-item">
-									<div class="card-main-wrap">
-										<div class="tag-wrap">
-											<span class="tag status-chip draft">
-												submitted
-											</span>
-											<span class="tag status-chip approved">
-												approved
-											</span>
-										</div>
-										<div class="card-date">
-											<i class="material-icons">date_range</i>
-											<span>15 August 2018 - 19 December 2018</span>
-										</div>
-										<div class="card-title">
-											<h6>This is the Proposal Card Title</h6>
-											<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal-button" data-proposal-id="123">
-												<i class="material-icons delete-proposal-icon" data-proposal-id="123">delete</i>
-											</button>
-										</div>
-									</div>
-
-									<div class="card-secondary-wrap">
-										<p class="proposal-abstract">This is the abstract that describes the basic argument of the proposal.</p>
-										<a href="/tag/tag1" class="tag tag-chip">tag1</a>
-										<a href="/tag/tag2" class="tag tag-chip">tag2</a>
-										<a href="/tag/tag3" class="tag tag-chip">tag3</a>
-									</div>
-								</li>
-							</a>
-							<!-- END: BASIC HTML PROPOSAL CARD STRUCTURE FOR SOL -->
-
 							{{#each proposal in submittedProposals}}
-								{{> ProposalCard proposal=proposal showStatus=true showStage=false showDelete=true}}
+								{{> ProposalCard proposal=proposal showStatus=true showStage=true showDelete=true}}
 							{{else}}
 								<p>
 									{{_ "pages.proposals.list.no-proposals" status="sumbitted"}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a>
