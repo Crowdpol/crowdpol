@@ -124,7 +124,7 @@ Template.EditProposal.events({
 		//}
 		event.preventDefault();
 		saveChanges(event, template, 'App.proposals');
-		//FlowRouter.go('/proposals');
+		FlowRouter.go('/proposals');
 		//Session.set('proposalTab','my-proposals-tab');
 	},
 	'click #preview-proposal': function(event, template){
@@ -331,10 +331,8 @@ function saveChanges(event, template, returnTo){
 
 	})
 	//CHECK IF THERE IS SOME CONTENT IN THE PROPOSAL
-	if(languages.length != contentCount){
-		Bert.alert('Please enter some content','danger');
-		return;
-	}else{
+	console.log("languages.length: " + languages.length + ", contentCount: " + contentCount);
+	if(contentCount!=0){
 		Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
 			if (error){
 				RavenClient.captureException(error);
