@@ -3,7 +3,7 @@
 	<!-- MDL Tab Container -->
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<!-- Tab Bars -->
-		<div class="mdl-tabs__tab-bar">
+		<div class="tabs-wrap mdl-tabs__tab-bar">
 			<a href="#draft-proposals-panel" id="draft-proposals-tab" class="mdl-tabs__tab {{#if draftTabActive}}is-active{{/if}}">{{_ "pages.proposals.list.tabs.draftProposals"}}</a>
 			<a href="#submitted-proposals-panel" id="submitted-proposals-tab" class="mdl-tabs__tab {{#if submittedTabActive}}is-active{{/if}}">{{_ "pages.proposals.list.tabs.submittedProposals"}}</a>
 			<!--<a href="#vote-proposals-panel" id="vote-proposals-tab" class="mdl-tabs__tab {{#if votesTabActive}}is-active{{/if}}">{{_ "pages.proposals.list.tabs.allProposals"}}</a>-->
@@ -12,14 +12,11 @@
 
 		<div class="app-container search-container" id="proposal-list-container">
 			<div class="search-wrapper">
-				<form>
-				<label>
-					<i class="material-icons search-icon">search</i>
-				</label>
-
+				<i class="material-icons search-icon">search</i>
 				<input type="text" name="focus" required class="search-box" placeholder='{{_ "pages.proposals.list.search"}}' id="proposal-search"/>
-				<button class="close-icon" type="reset"></button>
-				</form>
+				<button class="close-icon" type="reset">
+					<i class="material-icons">close</i>
+				</button>
 			</div>
 
 			<!--
