@@ -14,7 +14,7 @@
 
 			<!-- Tabs for translations -->
 			<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-				<div class="mdl-tabs__tab-bar">
+				<div class="button-tabs mdl-tabs__tab-bar">
 					{{#each languages}}
 					<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
 					{{/each}}
@@ -45,7 +45,6 @@
 			</div>
 
 			<!-- Tags -->
-			<!-- {{> taggle }} -->
 
 			<!-- TAGS SHOULD BE MOVED TO ITS OWN COMPONENT -->
 			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
