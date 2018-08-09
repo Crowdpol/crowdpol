@@ -45,7 +45,26 @@
 			</div>
 
 			<!-- Tags -->
-			{{> taggle }}
+			<!-- {{> taggle }} -->
+
+			<!-- TAGS SHOULD BE MOVED TO ITS OWN COMPONENT -->
+			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+				<input class="mdl-textfield__input" type="text" name="add-tag" id="add-tag">
+				<label for="add-tag" class="mdl-textfield__label">Add some tags</label>
+
+				<ul for="add-tag" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+					<li class="mdl-menu__item dropdown-item">choose</li>
+					<li class="mdl-menu__item dropdown-item">from the</li>
+					<li class="mdl-menu__item dropdown-item">list</li>
+				</ul>
+			</div>
+			<div class="tags-wrap add-tags-wrap">
+				<!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
+				<a class="tag tag-chip">These are</a>
+				<a class="tag tag-chip">the tags</a>
+				<a class="tag tag-chip">i added</a>
+			</div>
+			<!-- END TAGS SHOULD BE MOVED TO ITS OWN COMPONENT -->
 
 			<!-- User invitation field -->
 			<div class="form-group">
@@ -90,11 +109,11 @@
 
 	{{/if}}
 	{{/if}}
-	
+
 </template>
 
 <template name='ProposalForm'>
-	
+
 		<!-- Title -->
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.title"}}</label>
@@ -163,8 +182,8 @@
 
 		</div>
 
-		
-	
+
+
 </template>
 
 
