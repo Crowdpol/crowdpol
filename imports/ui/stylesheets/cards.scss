@@ -1,5 +1,10 @@
 @import 'variables.scss';
 
+.card-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .proposal-item,
 .delegate-item {
   flex-flow: row wrap;
@@ -46,7 +51,7 @@
     justify-content: space-between;
     align-items: center;
     flex-basis: 100%;
-    margin: ($space / 2) 0 ($space / 4);
+    margin: 0 0 ($space / 4);
 
     h6 {
       flex: 1;
@@ -56,10 +61,32 @@
       color: $dark-grey-mid;
       margin-bottom: 0;
     }
+
+    button {
+      align-self: flex-start;
+    }
+  }
+}
+
+.tag-wrap {
+  display: flex;
+  margin-bottom: $space / 2;
+}
+
+.card-date {
+  display: flex;
+  align-items: center;
+  margin-bottom: $space / 2;
+
+  span {
+    font-size: $xsmall-font-size;
+    letter-spacing: 0.5px;
+    line-height: 1;
   }
 
-  .tag-wrap {
-    display: flex;
+  i {
+    margin-right: $space / 4;
+    font-size: $small-font-size;
   }
 }
 
@@ -72,22 +99,6 @@
 .card-avatar {
   width: $space * 1.5;
   height: $space * 1.5;
-}
-
-.card-date {
-  display: flex;
-  align-items: center;
-
-  span {
-    font-size: $xsmall-font-size;
-    letter-spacing: 0.5px;
-    line-height: 1;
-  }
-
-  i {
-    margin-right: $space / 4;
-    font-size: $small-font-size;
-  }
 }
 
 .proposal-abstract{
