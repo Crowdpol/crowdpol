@@ -17,10 +17,6 @@
   padding: $space ($space / 2) ($space * 3);
 }
 
-.search-container {
-  padding-top: 0;
-}
-
 .static-content-wrap {
   padding-top: $space * 2;
   padding-bottom: $space * 2;
@@ -106,12 +102,7 @@
   }
 }
 
-.tab-bar {
-  max-width: 40rem;
-  margin: 0 auto 1rem;
-  border-bottom: 0;
-
-  .tab {
-    flex: 1;
-  }
+.tabs-wrap {
+  justify-content: space-around;
+  border-bottom: 1px solid $light-grey-light;
 }
