@@ -1,6 +1,6 @@
 import "./interests.html";
 import { Tags } from '/imports/api/tags/Tags.js';
-import { setupTaggle } from '../../components/taggle/taggle.js'
+//import { setupTaggle } from '../../components/taggle/taggle.js'
 import RavenClient from 'raven-js';
 
 Template.Interests.onRendered(function(){
@@ -12,7 +12,7 @@ Template.Interests.onRendered(function(){
   });
   Session.set("tagIndex",-1);
 
-  self.taggle = new ReactiveVar(setupTaggle());
+  //self.taggle = new ReactiveVar(setupTaggle());
 
   const handle = Meteor.subscribe('users.current');
 
@@ -22,7 +22,7 @@ Template.Interests.onRendered(function(){
       Bert.alert(error.reason, 'danger');
     } else {
       var keywords = _.map(result, function(tag){ return tag.keyword; });
-      self.taggle.get().add(keywords);
+      //self.taggle.get().add(keywords);
     }
   });
 
