@@ -74,30 +74,28 @@
 	-->
 
 		{{#if Template.subscriptionsReady}}
-			<ul class="delegate-list demo-list-control mdl-list">
+			<div class="delegate-list">
 				{{#each delegates}}
-					<li class="delegate-item mdl-list__item">
+					<div class="delegate-item">
 						<div class="card-main-wrap">
-							<span class="card-main mdl-list__item-primary-content delegate-view">
-								<img src={{profile.photo}} class="card-avatar mdl-list__item-avatar">
+							<span class="card-main delegate-view">
+								<img src={{profile.photo}} class="card-avatar">
 								<h6 class="delegate-name">{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})</h6>
 							</span>
-							<span class="mdl-list__item-secondary-action">
-								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delegate-checkbox-{{@index}}">
-									<input type="checkbox" id="delegate-checkbox-{{@index}}" class="mdl-checkbox__input delegate-select" />
-								</label>
-							</span>
+							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delegate-checkbox-{{@index}}">
+								<input type="checkbox" id="delegate-checkbox-{{@index}}" class="mdl-checkbox__input delegate-select" />
+							</label>
 						</div>
 						<div class="card-secondary-wrap">
 							{{#each roles}}
-								<span class="mdl-chip">
+								<span class="tag tag-chip mdl-chip">
 									<span class="mdl-chip__text">{{this}}</span>
 								</span>
 							{{/each}}
 						</div>
-					</li>
+					</div>
 			  {{/each}}
-			</ul>
+			</div>
 		{{else}}
 			{{> loader}}
   	{{/if}}
