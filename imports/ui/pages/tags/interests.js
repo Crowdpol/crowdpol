@@ -1,6 +1,7 @@
 import "./interests.html";
 import { Tags } from '/imports/api/tags/Tags.js';
-//import { setupTaggle } from '../../components/taggle/taggle.js'
+import { setupTaggle } from '../../components/taggle/taggle.js'
+import { getTags } from '../../components/taggle/taggle.js'
 import RavenClient from 'raven-js';
 
 Template.Interests.onRendered(function(){
@@ -45,6 +46,14 @@ Template.Interests.onCreated(function() {
 Template.Interests.helpers({
   tags: ()=> {
     return Tags.find();
+  },
+  selectedTags: ()=> {
+    tagsArray = Meteor.user().profile.tags;
+    tags = [];
+    for(i=0;i<tagsArray.length;i++){
+      tags.push(tagsArray[i].keyword);
+    }
+    return tags;
   }
 });
 
@@ -52,7 +61,8 @@ Template.Interests.events({
 	'click #update-tags' (event, template) {
   	event.preventDefault();
   	var communityId = LocalStore.get('communityId');
-    Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
+    console.log(getTags());
+    Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
 			if (error){
         RavenClient.captureException(error);
         Bert.alert(error, 'reason');

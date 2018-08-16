@@ -40,7 +40,7 @@ Template.NewTaggle.onCreated(function(){
   var self = this;
   self.availableTags = new ReactiveVar([]);
   self.matchedTags = new ReactiveVar([]);
-  self.selectedTags = new ReactiveVar(["test","test2"]);
+  Session.set("selectedTags",[]);
   var communityId = LocalStore.get('communityId')
   self.autorun(function(){
     //subscribe to list of existing tags
@@ -70,6 +70,9 @@ Template.NewTaggle.events({
   },
   'focusout input' (event, template){
    template.matchedTags.set([]);
+  },
+  'click .tag-chip-delete' (event, template){
+    removeTag(event.target.dataset.keyword);
   }
 })
 
@@ -78,10 +81,8 @@ Template.NewTaggle.helpers({
     //console.log(Template.instance().matchedTags.get());
     return Template.instance().matchedTags.get();
   },
-  'selectedTags'(){
-    console.log(Template.instance().selectedTags.get());
-    selectedTags = Template.instance().selectedTags.get();
-    return selectedTags;
+  'setTags'(tags) {
+    Session.set("selectedTags",tags);
   }
 })
 
@@ -93,6 +94,14 @@ export function setupTaggle(){
   var input = taggle.getInput();
 
   return taggle;
+}
+
+export function getTags(){
+  selectedTags = Session.get("selectedTags");
+    if (typeof selectedTags == 'undefined') {
+      selectedTags = [];
+    }
+  return selectedTags;
 }
 
 function matchTags(input, tags) {
@@ -109,24 +118,57 @@ function matchTags(input, tags) {
 }
 
 function addTag(keyword){
-    selectedTags = Template.instance().selectedTags.get();
-    keywordIndex = selectedTags.indexOf(keyword);
+    selectedTags = Session.get("selectedTags");//Template.instance().selectedTags.get();
+    if (typeof selectedTags == 'undefined') {
+      selectedTags = [];
+    }
+    keywordIndex = selectedTags.indexOf(keyword.toLowerCase());
     if(keywordIndex == -1){
-      console.log("adding tag");
-      selectedTags.push(keyword);
-      Template.instance().matchedTags.set(selectedTags);
+      selectedTags.push(keyword.toLowerCase());
+      matchedTags = Template.instance().matchedTags.get();
+      removeStringFromArray(keyword,matchedTags);
+      //Template.instance().selectedTags.set(selectedTags);
+      Session.set("selectedTags",selectedTags);
       updateTags(keyword);
     }else{
-      bounceTag(keywordIndex);
+      bounceTag(keyword);
     }
     return;   
 }
-function bounceTag(keywordIndex){
-  console.log("bounce index: " + keywordIndex);
-}
+
 function updateTags(keyword){
-  newTag = '<a class="tag tag-chip">'+keyword+
-              '<button type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>'+
+  newTag = '<a class="tag tag-chip" id="keyword-'+keyword.toLowerCase()+'">'+keyword+
+              '<button type="button" class="mdl-chip__action tag-chip-delete" data-keyword="'+keyword.toLowerCase()+'"><i class="material-icons tag-chip-delete" data-keyword="'+keyword.toLowerCase()+'">cancel</i></button>'+
            '</a>';
   $(".add-tags-wrap").append(newTag);
+}
+function removeTag(keyword){
+  selectedTags = Session.get("selectedTags");//Template.instance().selectedTags.get();
+  if (typeof selectedTags == 'undefined') {
+    selectedTags = [];
+  }
+  keywordIndex = selectedTags.indexOf(keyword);
+  if(keywordIndex > -1){
+    removeStringFromArray(keyword,selectedTags);
+    Session.set("selectedTags",selectedTags);
+    selector = "#keyword-"+keyword;
+    $(selector).remove();
+  }
+}
+
+function bounceTag(keyword) {
+  selector = "#keyword-"+keyword.toLowerCase();
+  for(i = 0; i < 3; i++) {
+    $(selector).fadeTo("fast", 0.15).fadeTo("fast", 1);
+  }        
+}
+
+function removeStringFromArray(keyword,array){
+  for (var i=array.length-1; i>=0; i--) {
+    if (array[i].toLowerCase() === keyword.toLowerCase()) {
+      array.splice(i, 1);
+      return array;       //<-- Uncomment  if only the first term has to be removed
+    }
+  }
+  return array;
 }

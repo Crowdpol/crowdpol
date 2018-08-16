@@ -110,7 +110,15 @@ Template.EditProposal.helpers({
 	},
 	emailedInvites: function() {
 		return Session.get('emailInvites');
-	}
+	},
+	selectedTags: ()=> {
+    tagsArray = Template.instance().templateDictionary.get('tags');
+    tags = [];
+    for(i=0;i<tagsArray.length;i++){
+      tags.push(tagsArray[i].keyword);
+    }
+    return tags;
+  }
 });
 
 Template.EditProposal.events({
