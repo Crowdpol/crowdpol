@@ -76,6 +76,10 @@
   }
 }
 
+.edit-proposal-wrap {
+  padding-top: 0;
+}
+
 #proposal-body-wrap {
   img {
     width: 100%;
@@ -89,6 +93,10 @@
   line-height: $base-line-height;
   cursor: pointer;
   color: $light-grey-xdark;
+}
+
+.proposal-heading {
+  margin-bottom: 0;
 }
 
 .proposal-container {
@@ -230,8 +238,8 @@
 }
 
 .pointsList {
-  margin: 0px;
-  padding: 20px;
+  margin: 0;
+  padding: $space;
 
   li{
     font-size: $small-font-size;
@@ -244,8 +252,14 @@
   }
 }
 
-.pointsButton {
-  border: solid 1px #ccc;
+.points-button {
+  position: relative;
+  float: right;
+
+  &.add-point-against,
+  &.add-point-for {
+    bottom: 60px;
+  }
 }
 
 #title-error {
