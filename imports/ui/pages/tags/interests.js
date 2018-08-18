@@ -1,6 +1,9 @@
 import "./interests.html";
 import { Tags } from '/imports/api/tags/Tags.js';
-import { setupTaggle } from '../../components/taggle/taggle.js'
+//import { setupTaggle } from '../../components/taggle/taggle.js'
+import { Proposals } from '../../../api/proposals/Proposals.js'
+import { getTags } from '../../components/taggle/taggle.js'
+import { addTag } from '../../components/taggle/taggle.js'
 import RavenClient from 'raven-js';
 
 Template.Interests.onRendered(function(){
@@ -9,10 +12,12 @@ Template.Interests.onRendered(function(){
   var communityId = LocalStore.get('communityId')
   self.autorun(function() {
     Meteor.subscribe('tags.community', communityId);
+    Meteor.subscribe('users.delegates', communityId);
+    Meteor.subscribe('proposals.community', communityId);
   });
   Session.set("tagIndex",-1);
 
-  self.taggle = new ReactiveVar(setupTaggle());
+  //self.taggle = new ReactiveVar(setupTaggle());
 
   const handle = Meteor.subscribe('users.current');
 
@@ -22,7 +27,7 @@ Template.Interests.onRendered(function(){
       Bert.alert(error.reason, 'danger');
     } else {
       var keywords = _.map(result, function(tag){ return tag.keyword; });
-      self.taggle.get().add(keywords);
+      //self.taggle.get().add(keywords);
     }
   });
 
@@ -45,6 +50,23 @@ Template.Interests.onCreated(function() {
 Template.Interests.helpers({
   tags: ()=> {
     return Tags.find();
+  },
+  selectedTags: ()=> {
+    tagsArray = Meteor.user().profile.tags;
+    tags = [];
+    for(i=0;i<tagsArray.length;i++){
+      tags.push(tagsArray[i].keyword);
+    }
+    return tags;
+  },
+  tagCount: (keyword)=>{
+    console.log(keyword);
+    delegateCount = Meteor.users.find({roles: 'delegate', 'profile.tags': { $elemMatch: {keyword: keyword}}}).count();
+    proposalCount = Proposals.find({tags: { $elemMatch: {keyword: keyword}}}).count();
+    totalCount = delegateCount+proposalCount;
+    if(totalCount>0){
+      return totalCount
+    }
   }
 });
 
@@ -52,7 +74,7 @@ Template.Interests.events({
 	'click #update-tags' (event, template) {
   	event.preventDefault();
   	var communityId = LocalStore.get('communityId');
-    Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
+    Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
 			if (error){
         RavenClient.captureException(error);
         Bert.alert(error, 'reason');
@@ -74,5 +96,9 @@ Template.Interests.events({
       });
 
     });
+  },
+  'click .tag-chip' (event, template){
+    tagId = event.target.dataset.keyword
+    addTag(event.target.dataset.keyword);
   }
 });

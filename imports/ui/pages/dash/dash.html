@@ -96,9 +96,7 @@
 			<div class="mdl-grid">
 				<div class="mdl-cell--6-col">
 					{{#each tags}}
-						<span class="mdl-chip mdl-chip-hoverable">
-							<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
-						</span>
+						<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
 					{{else}}
 						<p>{{_"pages.dashboard.card.interests.no-interests"}}</p>
 					{{/each}}
@@ -133,13 +131,25 @@
 					<p>{{_"pages.dashboard.card.proposals.no-proposals"}}</p>
 				{{/if}}
 					{{#if myDraftProposalCount}}
-						<p>{{_ "pages.dashboard.card.proposals.draft-count" count=myDraftProposalCount}}&nbsp;<a href="/proposals">{{_ "pages.dashboard.card.proposals.link"}}</a></p>
+						<p>
+							<span class="mdl-badge" data-badge='{{myDraftProposalCount}}'>
+								<a href="/proposals">{{_ "pages.dashboard.card.proposals.draft-proposals"}}</a>
+							</span>
+						</p>
 					{{/if}}
 					{{#if myOpenProposalCount}}
-						<p>{{_ "pages.dashboard.card.proposals.open-count" count=myOpenProposalCount}}&nbsp;<a href="/proposals">{{_ "pages.dashboard.card.proposals.link"}}</a></p>
+						<p>
+							<span class="mdl-badge" data-badge='{{myOpenProposalCount}}'>
+								<a href="/proposals">{{_ "pages.dashboard.card.proposals.open-proposals"}}</a>
+							</span>
+						</p>
 					{{/if}}
 					{{#if myClosedProposalCount}}
-						<p>{{_ "pages.dashboard.card.proposals.closed-count" count=myClosedProposalCount}}&nbsp;<a href="/proposals">{{_ "pages.dashboard.card.proposals.link"}}</a></p>
+						<p>
+							<span class="mdl-badge" data-badge='{{myClosedProposalCount}}'>
+								<a href="/proposals">{{_ "pages.dashboard.card.proposals.closed-proposals"}}</a>
+							</span>
+						</p>
 					{{/if}}
 				<a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
 			{{else}}
@@ -210,8 +220,16 @@
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
 			<p>{{_"pages.dashboard.card.vote.text"}}</p>
-			<p>{{_"pages.dashboard.card.vote.open-proposals" count=openProposalCount}}&nbsp;<a href="/voting">{{_"pages.dashboard.card.vote.vote-link"}}</a></p>
-			<p>{{_"pages.dashboard.card.vote.open-proposals" count=closedProposalCount}}&nbsp;<a href="/proposals">{{_"pages.dashboard.card.vote.view-link"}}</a></p>
+			<p>
+				<span class="mdl-badge" data-badge='{{openProposalCount}}'>
+					<a href="/voting">{{_ "pages.dashboard.card.vote.open-proposals"}}</a>
+				</span>
+			</p>
+			<p>
+				<span class="mdl-badge" data-badge='{{closedProposalCount}}'>
+					<a href="/voting">{{_ "pages.dashboard.card.vote.closed-proposals"}}</a>
+				</span>
+			</p>
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
