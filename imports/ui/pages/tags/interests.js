@@ -62,7 +62,6 @@ Template.Interests.events({
 	'click #update-tags' (event, template) {
   	event.preventDefault();
   	var communityId = LocalStore.get('communityId');
-    console.log(getTags());
     Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
 			if (error){
         RavenClient.captureException(error);

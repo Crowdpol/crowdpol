@@ -1,7 +1,7 @@
 import './taggle.html'
 import Taggle from 'taggle'
 import { Tags } from '../../../api/tags/Tags.js'
-
+/*
 Template.taggle.onCreated(function(){
   var self = this;
   self.availableTags = new ReactiveVar([]);
@@ -20,7 +20,7 @@ Template.taggle.events({
     var matchedTags = matchTags(input, template.availableTags.get());
     template.matchedTags.set(matchedTags);
   },
-  'mousedown .autocomplete-item' (event, template) {
+  'mousedown .dropdown-item' (event, template) {
     taggle.add(event.target.dataset.keyword);
     template.matchedTags.set([]);
   },
@@ -31,10 +31,11 @@ Template.taggle.events({
 
 Template.taggle.helpers({
   'matchedTags'() {
-    console.log(Template.instance().matchedTags.get());
+    //console.log(Template.instance().matchedTags.get());
     return Template.instance().matchedTags.get();
   }
 })
+*/
 
 Template.NewTaggle.onCreated(function(){
   var self = this;
@@ -48,26 +49,35 @@ Template.NewTaggle.onCreated(function(){
     self.availableTags.set(Tags.find().pluck('keyword'));
   });
 });
-
+/*
+Template.NewTaggle.onRendered(function(){
+  //var topPosition = ($('#tag-input-wrap').offset().top - 10) + 'px';
+  //console.log(topPosition);
+  //$("#matchedTagsList").css({ top: topPosition });
+})
+*/
 Template.NewTaggle.events({
   'keyup input' (event, template) {
+    var key = event.keyCode;
     //check if return key was pressed
-    if (event.which === 13) {
+    if (key === 13) {
       addTag(event.target.value);
       $('#add-tag').val('');
       $('#matchedTagsList').hide();
     }else{
+      $('#matchedTagsList').show();
       var input = event.target.value;
       var matchedTags = matchTags(input, template.availableTags.get());
       if(matchedTags.length){
         template.matchedTags.set(matchedTags);
       }else{
-        template.matchedTags.set(['no matches found']);
+        template.matchedTags.set([event.target.value]);
       }
     }
     
   },
-  'mousedown .autocomplete-item' (event, template) {
+  'mousedown .dropdown-item' (event, template) {
+    console.log(event.target.dataset.keyword);
     addTag(event.target.dataset.keyword);
     $('#add-tag').val('');
     //taggle.add(event.target.dataset.keyword);
@@ -116,11 +126,9 @@ export function getTags(){
 }
 
 function matchTags(input, tags) {
-  
   if (!input) {
     input = '*'
   }
-  console.log(input);
   var reg = new RegExp(input.split('').join('\\w*').replace(/\W/, ""), 'i');
     return tags.filter(function(tag) {
       if (tag.match(reg)) {
@@ -184,3 +192,8 @@ function removeStringFromArray(keyword,array){
   }
   return array;
 }
+window.onresize = function(event) {
+  var topPosition = ($('#tag-input-wrap').offset().top - 10) + 'px';
+  console.log(topPosition);
+  //$("#matchedTagsList").css({ top: topPosition });
+};
