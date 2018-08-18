@@ -379,13 +379,20 @@ textarea.input {
 // Homemade Autocomplete using mdl list component
 
 #matchedTagsList{
-    height: 200px;
-    width: 50%;
+    height: auto;
+    min-width: 50%;
     overflow-y: scroll;
+    position: absolute;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background: #fff;
+    z-index: 999;
 
     .autocomplete-item{
         padding: 0px;
-        padding-left: 5px;
+        padding-left: 10px;
+        padding-left: 10px;
+        font-size: $xsmall-font-size;
+        color : red;
     }
 
     .autocomplete-item:hover {

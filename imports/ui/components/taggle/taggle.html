@@ -32,12 +32,13 @@
 			<button type="button" class="mdl-chip__action tag-chip-delete" data-keyword="example"><i class="material-icons tag-chip-delete" data-keyword="example">cancel</i></button>
 		</a>-->
 	</div>
+
 	<!-- TAGS SHOULD BE MOVED TO ITS OWN COMPONENT -->
 	<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
 		<input class="mdl-textfield__input" type="text" name="add-tag" id="add-tag">
 		<label for="add-tag" class="mdl-textfield__label">Add some tags</label>
-
-			<ul for="add-tag"  class="demo-list-item mdl-list autocomplete-list" id="matchedTagsList">
+	</div>
+	<ul for="add-tag"  class="demo-list-item mdl-list autocomplete-list" id="matchedTagsList" style="display:none;">
 				{{#each matchedTags}}
 				<li class="mdl-list__item autocomplete-item" data-keyword={{this}}>
 					<span class="mdl-list__item-primary-content" data-keyword={{this}}>
@@ -46,9 +47,5 @@
 				</li>
 				{{/each}}
 			</ul>
-
-
-	</div>
-	
 	<!-- END TAGS SHOULD BE MOVED TO ITS OWN COMPONENT -->
 </template>

@@ -1,6 +1,6 @@
 import "./interests.html";
 import { Tags } from '/imports/api/tags/Tags.js';
-import { setupTaggle } from '../../components/taggle/taggle.js'
+//import { setupTaggle } from '../../components/taggle/taggle.js'
 import { getTags } from '../../components/taggle/taggle.js'
 import RavenClient from 'raven-js';
 

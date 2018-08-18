@@ -55,10 +55,15 @@ Template.NewTaggle.events({
     if (event.which === 13) {
       addTag(event.target.value);
       $('#add-tag').val('');
+      $('#matchedTagsList').hide();
     }else{
       var input = event.target.value;
       var matchedTags = matchTags(input, template.availableTags.get());
-      template.matchedTags.set(matchedTags);
+      if(matchedTags.length){
+        template.matchedTags.set(matchedTags);
+      }else{
+        template.matchedTags.set(['no matches found']);
+      }
     }
     
   },
@@ -67,9 +72,15 @@ Template.NewTaggle.events({
     $('#add-tag').val('');
     //taggle.add(event.target.dataset.keyword);
     template.matchedTags.set([]);
+    $('#matchedTagsList').hide();
   },
   'focusout input' (event, template){
    template.matchedTags.set([]);
+   $('#matchedTagsList').hide();
+  },
+  'focus input' (event, template){
+   ///template.matchedTags.set([]);
+   $('#matchedTagsList').show();
   },
   'click .tag-chip-delete' (event, template){
     removeTag(event.target.dataset.keyword);
@@ -105,16 +116,17 @@ export function getTags(){
 }
 
 function matchTags(input, tags) {
-  if (input) {
-    var reg = new RegExp(input.split('').join('\\w*').replace(/\W/, ""), 'i');
+  
+  if (!input) {
+    input = '*'
+  }
+  console.log(input);
+  var reg = new RegExp(input.split('').join('\\w*').replace(/\W/, ""), 'i');
     return tags.filter(function(tag) {
       if (tag.match(reg)) {
         return tag;
       }
     });
-  } else {
-    return [];
-  } 
 }
 
 function addTag(keyword){
