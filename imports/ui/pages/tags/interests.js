@@ -1,6 +1,7 @@
 import "./interests.html";
 import { Tags } from '/imports/api/tags/Tags.js';
 //import { setupTaggle } from '../../components/taggle/taggle.js'
+import { Proposals } from '../../../api/proposals/Proposals.js'
 import { getTags } from '../../components/taggle/taggle.js'
 import { addTag } from '../../components/taggle/taggle.js'
 import RavenClient from 'raven-js';
@@ -11,6 +12,8 @@ Template.Interests.onRendered(function(){
   var communityId = LocalStore.get('communityId')
   self.autorun(function() {
     Meteor.subscribe('tags.community', communityId);
+    Meteor.subscribe('users.delegates', communityId);
+    Meteor.subscribe('proposals.community', communityId);
   });
   Session.set("tagIndex",-1);
 
@@ -55,6 +58,15 @@ Template.Interests.helpers({
       tags.push(tagsArray[i].keyword);
     }
     return tags;
+  },
+  tagCount: (keyword)=>{
+    console.log(keyword);
+    delegateCount = Meteor.users.find({roles: 'delegate', 'profile.tags': { $elemMatch: {keyword: keyword}}}).count();
+    proposalCount = Proposals.find({tags: { $elemMatch: {keyword: keyword}}}).count();
+    totalCount = delegateCount+proposalCount;
+    if(totalCount>0){
+      return totalCount
+    }
   }
 });
 

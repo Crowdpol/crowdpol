@@ -11,7 +11,7 @@
 		<h4>{{_ "pages.interests.popular"}}</h4>
 		<div class="tags-wrap" >
 		{{#each tags}}
-			<a class="tag tag-chip" data-keyword="{{keyword}}">{{keyword}}</a>
+			<a class="tag tag-chip mdl-badge" data-keyword="{{keyword}}" data-badge="{{tagCount keyword}}">{{keyword}}</a>
 		{{/each}}
 		</div>
 	</div>

@@ -57,10 +57,12 @@ Template.Delegate.helpers({
     return Meteor.users.find( { _id : { $in :  Session.get('ranked')} },{sort: ["ranking"]} );
   },
   delegates: function() {
-    return Meteor.users.find( { $and: [ 
+    delegates = Meteor.users.find( { $and: [ 
       { _id : { $nin : Session.get('ranked')}},
       { _id : { $ne: Meteor.userId()} }
     ]});
+    console.log(delegates);
+    return delegates;
   },
   searchPhrase: function() {
   	return Session.get('searchPhrase');

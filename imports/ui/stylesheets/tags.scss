@@ -22,7 +22,17 @@
     background-color: $light-blue-dark;
   }
 }
+.role-chip {
+  background-color: $light-grey-dark;
 
+  &:hover {
+    background-color: $light-grey-xdark;
+  }
+}
+.tag-chip.mdl-badge[data-badge]:after {
+    top: -6px;
+    right: -8px;
+}
 .status-chip {
   background-color: $light-grey-xdark;
 
