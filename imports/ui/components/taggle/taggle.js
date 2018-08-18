@@ -129,7 +129,7 @@ function matchTags(input, tags) {
     });
 }
 
-function addTag(keyword){
+export function addTag(keyword){
     selectedTags = Session.get("selectedTags");//Template.instance().selectedTags.get();
     if (typeof selectedTags == 'undefined') {
       selectedTags = [];
@@ -137,8 +137,8 @@ function addTag(keyword){
     keywordIndex = selectedTags.indexOf(keyword.toLowerCase());
     if(keywordIndex == -1){
       selectedTags.push(keyword.toLowerCase());
-      matchedTags = Template.instance().matchedTags.get();
-      removeStringFromArray(keyword,matchedTags);
+      //matchedTags = Template.instance().matchedTags.get();
+      //removeStringFromArray(keyword,matchedTags);
       //Template.instance().selectedTags.set(selectedTags);
       Session.set("selectedTags",selectedTags);
       updateTags(keyword);
