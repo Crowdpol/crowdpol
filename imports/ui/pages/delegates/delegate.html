@@ -24,17 +24,26 @@
 			{{#if Template.subscriptionsReady}}
 				{{#each ranks}}
 					<div class="delegate-item selected" id="{{_id}}" data-ex="{{getRanking}}">
-					 	<div class="card-main-wrap delegate-card-main-wrap">
+						<div class="card-main-wrap delegate-card-main-wrap">
 							<div class="card-main delegate-view">
 								<img src={{profile.photo}} class="card-avatar">
 								<div class="delegate-name">
 									<h6>{{profile.firstName}} {{profile.lastName}}</h6>
 									<p>({{profile.username}})</p>
 								</div>
-								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
-									<input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
-								</label>
 							</div>
+							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
+								<input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
+							</label>
+						</div>
+
+						<div class="card-secondary-wrap">
+							{{#each roles}}
+								<a class="tag role-chip">{{this}}</a>
+							{{/each}}
+							{{#each profile.tags}}
+								<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
+							{{/each}}
 						</div>
 					</div>
 				{{/each}}
@@ -94,7 +103,10 @@
 						</div>
 						<div class="card-secondary-wrap">
 							{{#each roles}}
-								<span class="tag tag-chip">{{this}}</span>
+								<a class="tag tag-chip role-chip">{{this}}</a>
+							{{/each}}
+							{{#each profile.tags}}
+								<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
 							{{/each}}
 						</div>
 					</div>

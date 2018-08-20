@@ -2,7 +2,8 @@ import './editProposal.html'
 import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Communities } from '../../../api/communities/Communities.js'
-import { setupTaggle } from '../../components/taggle/taggle.js'
+//import { setupTaggle } from '../../components/taggle/taggle.js'
+import { getTags } from '../../components/taggle/taggle.js'
 import "../../components/userSearch/userSearch.js"
 import RavenClient from 'raven-js';
 
@@ -18,7 +19,7 @@ Template.EditProposal.onCreated(function(){
 	Session.set('invited',[]);
 	Session.set('invitedUsers',null);
 	Session.set('emailInvites',[]);
-	Session.set('setupTaggle', true);
+	//Session.set('setupTaggle', true);
 
 	var dict = new ReactiveDict();
 	this.templateDictionary = dict;
@@ -59,7 +60,7 @@ Template.EditProposal.onRendered(function(){
 		// Wait for whole form to render before initialising fields
 		if (Session.get("formRendered")) {
 			validateForm();
-
+			/*
 			if (Session.get('setupTaggle')) {
 				//Set up Taggle
 				taggle = setupTaggle();
@@ -72,7 +73,7 @@ Template.EditProposal.onRendered(function(){
 				}
 				Session.set('setupTaggle', false);
 			}
-			
+			*/
 			
 			//Initialise date fields
 			self.find('#startDate').value = self.templateDictionary.get('startDate');
@@ -110,7 +111,15 @@ Template.EditProposal.helpers({
 	},
 	emailedInvites: function() {
 		return Session.get('emailInvites');
-	}
+	},
+	selectedTags: ()=> {
+    tagsArray = Template.instance().templateDictionary.get('tags');
+    tags = [];
+    for(i=0;i<tagsArray.length;i++){
+      tags.push(tagsArray[i].keyword);
+    }
+    return tags;
+  }
 });
 
 Template.EditProposal.events({
@@ -333,7 +342,7 @@ function saveChanges(event, template, returnTo){
 	//CHECK IF THERE IS SOME CONTENT IN THE PROPOSAL
 	console.log("languages.length: " + languages.length + ", contentCount: " + contentCount);
 	if(contentCount!=0){
-		Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
+		Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
 			if (error){
 				RavenClient.captureException(error);
 				Bert.alert(error, 'reason');

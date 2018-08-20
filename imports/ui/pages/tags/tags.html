@@ -17,10 +17,10 @@
 
 				{{#if Template.subscriptionsReady}}
 						<h4>{{_ "pages.tag-search.tabs.proposals-heading"}}</h4>
-						<ul class="demo-list-control mdl-list">
+						<ul class="card-list">
 							{{#if proposals}}
-								{{#each proposals}}
-									{{> ProposalCard}}
+								{{#each proposal in proposals}}
+									{{> ProposalCard proposal=proposal showStatus=false showStage=true showDelete=false}}
 								{{/each}}
 							{{else}}
 								<p>{{_ "pages.tag-search.no-proposals"}}</p>
@@ -106,11 +106,9 @@
 				<h6 class="delegate-name">{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})</h6>
 			</span>
 		</div>
-		<div class="card-secondary-wrap">
+		<div class="card-secondary-wrap tags-wrap">
 			{{#each profile.tags}}
-				<span class="mdl-chip">
-					<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
-				</span>
+				<a href="{{this.url}}" class="tag tag-chip mdl-badge">{{this.keyword}}</a>
 			{{/each}}
 		</div>
 	</li>

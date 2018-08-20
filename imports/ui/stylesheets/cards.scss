@@ -120,6 +120,10 @@
     align-self: flex-start;
     padding: 1rem 0 0 1rem;
   }
+
+  .card-secondary-wrap {
+    margin-left: $space / 2;
+  }
 }
 
 .delegate-item.selected {

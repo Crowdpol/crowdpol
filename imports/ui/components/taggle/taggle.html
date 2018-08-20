@@ -15,3 +15,38 @@
 		{{/if}}
 	</div>
 </template>
+
+<template name="NewTaggle">
+	<div class="tags-wrap add-tags-wrap" >
+		<!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
+		{{#if showTags}}
+			{{setTags selectedTags}}
+			{{#each selectedTags}}
+				<a class="tag tag-chip" id="keyword-{{this}}">{{this}}
+					<button type="button" class="mdl-chip__action tag-chip-delete" data-keyword="{{this}}"><i class="material-icons tag-chip-delete" data-keyword="{{this}}">cancel</i></button>
+				</a>
+			{{/each}}
+		{{/if}}
+		<!--
+		<a class="tag tag-chip" id="keyword-example">Example
+			<button type="button" class="mdl-chip__action tag-chip-delete" data-keyword="example"><i class="material-icons tag-chip-delete" data-keyword="example">cancel</i></button>
+		</a>-->
+	</div>
+
+	<!-- TAGS SHOULD BE MOVED TO ITS OWN COMPONENT -->
+	<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="tag-input-wrap">
+		<input class="mdl-textfield__input" type="text" name="add-tag" id="add-tag">
+		<label for="add-tag" class="mdl-textfield__label">Add some tags</label>
+		<ul for="add-tag"  class="dropdown" id="matchedTagsList" style="display:none;">
+		{{#each matchedTags}}
+			<li class="dropdown-item" data-keyword={{this}}>
+				<span class="primary-content" data-keyword={{this}}>
+					{{this}}
+				</span>
+			</li>
+		{{/each}}
+	</ul>
+	</div>
+
+	<!-- END TAGS SHOULD BE MOVED TO ITS OWN COMPONENT -->
+</template>
