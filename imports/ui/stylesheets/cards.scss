@@ -106,12 +106,19 @@
 
   .delegate-name {
     flex: 1;
-    margin-bottom: 0;
-    letter-spacing: 0;
+
+    h6,
+    p {
+      margin-bottom: 0;
+      letter-spacing: 0;
+      word-break: break-word;
+    }
   }
 
   .mdl-checkbox {
     width: auto;
+    align-self: flex-start;
+    padding: 1rem 0 0 1rem;
   }
 }
 

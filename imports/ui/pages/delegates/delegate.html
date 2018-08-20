@@ -27,7 +27,10 @@
 					 	<div class="card-main-wrap delegate-card-main-wrap">
 							<div class="card-main delegate-view">
 								<img src={{profile.photo}} class="card-avatar">
-								<h6 class="delegate-name">{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})</h6>
+								<div class="delegate-name">
+									<h6>{{profile.firstName}} {{profile.lastName}}</h6>
+									<p>({{profile.username}})</p>
+								</div>
 								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
 									<input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
 								</label>
@@ -78,19 +81,20 @@
 				{{#each delegates}}
 					<div class="delegate-item">
 						<div class="card-main-wrap">
-							<span class="card-main delegate-view">
+							<div class="card-main delegate-view">
 								<img src={{profile.photo}} class="card-avatar">
-								<h6 class="delegate-name">{{profile.firstName}}&nbsp;{{profile.lastName}} ({{profile.username}})</h6>
-							</span>
+								<div class="delegate-name">
+									<h6>{{profile.firstName}} {{profile.lastName}}</h6>
+									<p>({{profile.username}})</p>
+								</div>
+							</div>
 							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delegate-checkbox-{{@index}}">
 								<input type="checkbox" id="delegate-checkbox-{{@index}}" class="mdl-checkbox__input delegate-select" />
 							</label>
 						</div>
 						<div class="card-secondary-wrap">
 							{{#each roles}}
-								<span class="tag tag-chip mdl-chip">
-									<span class="mdl-chip__text">{{this}}</span>
-								</span>
+								<span class="tag tag-chip">{{this}}</span>
 							{{/each}}
 						</div>
 					</div>
