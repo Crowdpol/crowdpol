@@ -19,10 +19,9 @@ Template.Voting.onCreated(function () {
   var communityId = LocalStore.get('communityId');
 
   self.autorun(function(){
-    self.subscirbe('proposals.sort');
-    //self.subscribe('proposals.public', self.searchQuery.get(), communityId);
-    //self.subscribe('proposals.author', self.searchQuery.get(), communityId);
-    //self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
+    self.subscribe('proposals.public', self.searchQuery.get(), communityId);
+    self.subscribe('proposals.author', self.searchQuery.get(), communityId);
+    self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
   })
 });
 
@@ -54,7 +53,7 @@ Template.Voting.helpers({
     if(isVotingAsDelegate){
       var now =  now.setDate(now.getDate()-14);;
     }
-    return Proposals.find({startDate:{"$lte": now}, endDate:{"$gte": now}, stage: "live"}, {transform: transformProposal, sort: {endDate: -1}});
+    return Proposals.find({startDate:{"$lte": now}, endDate:{"$gte": now}, stage: "live"}, {transform: transformProposal, sort: {endDate: 1}});
   },
   openSelected: function(){
     return Template.instance().openProposals.get();

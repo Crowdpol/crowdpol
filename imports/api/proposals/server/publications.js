@@ -1,20 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { Proposals } from '../Proposals.js';
-import { buildAggregator } from 'meteor/lamoglia:publish-aggregation';
-
-const pipelineCreator = () => ([
-		{ $unwind : "$content" },
-		{ $match: 
-			{
-				communityId: "whz9Ep4Ptqv3EFbqE",
-				"content.language" : "sv",
-				stage: "live"
-			}
-		},
-]);
-
-Meteor.publish('proposals.sort', buildAggregator(Proposals, pipelineCreator));
-
 
 Meteor.publish('proposals.community', function(communityId) {
 	return Proposals.find({communityId: communityId});
