@@ -159,10 +159,9 @@
 					"heading": "JA: My Proposals",
 					"text": "JA: Your proposals",
 					"no-proposals": "JA: You haven't written any proposals yet.",
-					"draft-proposals": "JA:  draft proposals",
-					"draft-count": "JA: __count__ draft proposals",
-					"closed-count": "JA: __count__ closed proposals",
-					"open-count": "JA: __count__ open proposals",
+					"draft-proposals": "JA: Draft proposals",
+					"closed-proposals": "JA: Closed proposals",
+					"open-proposals": "JA: Open proposals",
 					"new-proposal": "JA: Draft a new proposal",
 					"link": "JA: View"
 				},
@@ -191,8 +190,8 @@
 				"vote": {
 					"heading": "JA: Vote on Proposals",
 					"text": "JA: Vote on Proposals and view results",
-					"open-proposals": "JA: __count__ open proposals",
-					"closed-proposals": "JA: __count__ closed proposals",
+					"open-proposals": "JA: Open proposals",
+					"closed-proposals": "JA: Closed proposals",
 					"vote-link": "JA: Vote now",
 					"view-link": "JA: View outcome"
 				}

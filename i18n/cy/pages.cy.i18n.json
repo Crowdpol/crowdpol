@@ -159,10 +159,9 @@
 					"heading": "CY: My Proposals",
 					"text": "CY: Your proposals",
 					"no-proposals": "CY: You haven't written any proposals yet.",
-					"draft-proposals": "CY:  draft proposals",
-					"draft-count": "CY: __count__ draft proposals",
-					"closed-count": "CY: __count__ closed proposals",
-					"open-count": "CY: __count__ open proposals",
+					"draft-proposals": "CY: Draft proposals",
+					"closed-proposals": "CY: Closed proposals",
+					"open-proposals": "CY: Open proposals",
 					"new-proposal": "CY: Draft a new proposal",
 					"link": "CY: View"
 				},
@@ -191,8 +190,8 @@
 				"vote": {
 					"heading": "CY: Vote on Proposals",
 					"text": "CY: Vote on Proposals and view results",
-					"open-proposals": "CY: __count__ open proposals",
-					"closed-proposals": "CY: __count__ closed proposals",
+					"open-proposals": "CY: Open proposals",
+					"closed-proposals": "CY: Closed proposals",
 					"vote-link": "CY: Vote now",
 					"view-link": "CY: View outcome"
 				}

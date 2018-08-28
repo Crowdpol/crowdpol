@@ -34,6 +34,14 @@
 								<input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
 							</label>
 						</span>
+						<div class="card-secondary-wrap">
+							{{#each roles}}
+								<a class="tag role-chip">{{this}}</a>
+							{{/each}}
+							{{#each profile.tags}}
+								<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
+							{{/each}}
+						</div>
 					 </div>
 					</li>
 				{{/each}}
@@ -92,9 +100,10 @@
 						</div>
 						<div class="card-secondary-wrap">
 							{{#each roles}}
-								<span class="mdl-chip">
-									<span class="mdl-chip__text">{{this}}</span>
-								</span>
+								<a class="tag role-chip">{{this}}</a>
+							{{/each}}
+							{{#each profile.tags}}
+								<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
 							{{/each}}
 						</div>
 					</li>
