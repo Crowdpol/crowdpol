@@ -80,7 +80,11 @@
   padding-top: 0;
 }
 
-#proposal-body-wrap {
+.proposal-body-wrap {
+  p {
+    font-family: $body-font;
+  }
+
   img {
     width: 100%;
   }
@@ -147,7 +151,6 @@
 
   .meta {
     box-sizing: border-box;
-    padding: 16px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -155,30 +158,10 @@
     height: auto;
   }
 
-  .meta > .meta__favorites {
-    flex-direction: row;
-    margin: 0 8px;
-    font-size: 13px;
-    font-weight: 500;
-
-    .material-icons {
-      font-size: 2em;
-      cursor: pointer;
-      margin-left: 12px;
-    }
-  }
-
-  .mdl-card .meta.meta--fill {
-    justify-content: space-between;
-  }
-
-  .meta > *:first-child {
-    margin-right: 16px;
-  }
-
   .meta > * {
     display: flex;
     flex-direction: column;
+    margin-left: 16px;
   }
 
   .section-spacer {
@@ -237,18 +220,16 @@
   margin: 8px;
 }
 
+.proposal-points-wrap {
+  margin: ($space * 2) 0;
+}
+
 .pointsList {
   margin: 0;
   padding: $space;
 
   li{
     font-size: $small-font-size;
-  }
-}
-
-.points-list {
-  li {
-    font-family: $body-font;
   }
 }
 
@@ -274,15 +255,10 @@
   .comments {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    padding: 32px;
-    box-sizing: border-box;
 
     .comment {
       display: flex;
       flex-direction: column;
-      align-items: stretch;
     }
 
     .comment > .comment__header {
