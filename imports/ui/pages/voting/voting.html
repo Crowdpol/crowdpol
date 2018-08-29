@@ -3,7 +3,7 @@
 	<!-- MDL Tab Container -->
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 		<!-- Tab Bars -->
-		<div class="mdl-tabs__tab-bar">
+		<div class="tabs-wrap mdl-tabs__tab-bar">
 			<a href="#vote-proposals-panel" id="vote-proposals-tab" class="mdl-tabs__tab {{votesTabActive}}">{{_ "pages.voting.tabs.voteProposals"}}</a>
 			<a href="#closed-proposals-panel" id="closed-proposals-tab" class="mdl-tabs__tab {{completedTabActive}}">{{_ "pages.voting.tabs.completedProposals"}}</a>
 		</div>
@@ -46,13 +46,13 @@
 						</ul>
 						<!-- DISPLAY DESCRIPTION ACCORDING TO ROLE-->
 						{{#if isVotingAsDelegate}}
-							<span>{{_ "pages.voting.delegate-description"}}</span>
+							<p>{{_ "pages.voting.delegate-description"}}</p>
 						{{else}}
-							<span>{{_ "pages.voting.individual-description"}}</span>
+							<p>{{_ "pages.voting.individual-description"}}</p>
 						{{/if}}
 					{{else}}
 						<h4>{{_ "pages.voting.heading.individual"}}</h4>
-						<span>{{_ "pages.voting.individual-description"}}</span>
+						<p>{{_ "pages.voting.individual-description"}}</p>
 					{{/if}}
 					<ul class="demo-list-control mdl-list">
 						{{#each openProposals isVotingAsDelegate}}
@@ -80,61 +80,66 @@
 	</div>
 	{{/if}}
 </template>
+
 <template name="VotingCard">
-	<div class="voting-card mdl-card mdl-shadow--2dp">
-		<div class="mdl-card__title mdl-card--expand">
-			<div class="card-main-wrap">
-				<span class="card-main mdl-list__item-primary-content">
-						<h6>
-							<a href="/proposals/view/{{_id}}" class="proposal-list-item-link"><h6>{{ title this}}</h6></a>
-						</h6>
-					</span>
-
-					<span class="mdl-list__item-secondary-action">
-							<small class="card-date">
-								<i class="material-icons">date_range</i>&nbsp;{{_ "pages.voting.expires"}}&nbsp;{{expireDate this}}
-							</small>
-
-					</span>
+	<div class="vote-item">
+		<div class="card-main-wrap">
+			<div class="tag-wrap">
+				<span class="tag status-chip">Complete</span>
+			</div>
+			<div class="card-date">
+				<i class="material-icons">date_range</i>
+				<span>{{_ "pages.voting.expires"}} {{expireDate this}}</span>
+			</div>
+			<div class="card-title">
+				<h6>
+					<a href="/proposals/view/{{_id}}" class="card-link">
+					{{ title this }}
+					</a>
+				</h6>
+				<div class="card-actions-wrap">
+					<span>23</span>
+					<button class="mdl-button mdl-js-button mdl-button--icon">
+						<i class="material-icons">favorite</i>
+					</button>
+				</div>
+				<div class="card-actions-wrap">
+					<span>23</span>
+					<button class="mdl-button mdl-js-button mdl-button--icon">
+						<i class="material-icons">share</i>
+					</button>
+				</div>
 			</div>
 		</div>
-		<div class="mdl-card__supporting-text">
-			<span class="tag status-chip">
-						 complete
-					</span>
-					{{#each tags this}}
-						<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
-					{{/each}}
+		<div class="card-secondary-wrap">
 			<p class="proposal-abstract">{{ abstract this }}</p>
+			{{#each tags this}}
+				<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
+			{{/each}}
 		</div>
-		<div class="mdl-card__actions mdl-card--border">
-			<!-- Vote buttons and Delegates List -->
-					{{#if isVotingAsDelegate}}
-						<div class="voting-card-buttons">
-						<center>
-							{{_ "pages.voting.voting-card-heading.delegate"}}
-							{{> delegateVoteButtons proposalId=_id endDate=endDate}}
-						</center>
-						</div>
-					{{else}}
-						<div class="voting-card-buttons">
-							<center>
-								{{_ "pages.voting.voting-card-heading.individual"}}
-								{{> voteButtons proposalId=_id}}
-							</center>
-						</div>
 
-					{{/if}}
+		<div class="card-voting-wrap">
+			<!-- Vote buttons and Delegates List -->
+			{{#if isVotingAsDelegate}}
+				<div class="voting-card-buttons">
+					{{_ "pages.voting.voting-card-heading.delegate"}}
+					{{> delegateVoteButtons proposalId=_id endDate=endDate}}
+				</div>
+			{{else}}
+				<div class="voting-card-buttons">
+					{{_ "pages.voting.voting-card-heading.individual"}}
+					{{> voteButtons proposalId=_id}}
+				</div>
+			{{/if}}
 
 			{{#if showVotingInfo}}
-				<div id="voting-info" class="expandable">
+				<div id="voting-info">
 					{{#if isVotingAsDelegate}}
 					{{else}}
 						<!-- How user's delegates voted -->
 						{{> delegateVoteList proposalId=_id}}
 					{{/if}}
 					<!-- Vote Tallies -->
-
 				</div>
 
 			{{/if}}

@@ -37,12 +37,12 @@
 			<div class="card-secondary-wrap">
 				<p class="proposal-abstract">This is the abstract that describes the basic argument of the proposal.</p>
 				{{#each tags proposal}}
-				<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
+					<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
 				{{/each}}
 			</div>
 		</li>
 	</a>
-	<!-- old card 
+	<!-- old card
 	<a href="/proposals/view/{{proposal._id}}" class="proposal-list-item-link">
 	<li class="proposal-item mdl-list__item">
 		<div class="card-main-wrap">
@@ -102,7 +102,7 @@
 
 		 <a href="/proposals/view/{{_id}}" class="secondary-button proposal-card-button mdl-button mdl-js-button mdl-js-ripple-effect">
 			{{_ "proposals.list.cards.read"}}&nbsp;{{#if canVote}}{{_ "proposals.list.cards.vote"}}{{/if}}
-		</a> 
+		</a>
 	</li>
 </a>-->
 </template>
