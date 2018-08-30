@@ -141,18 +141,17 @@
 					{{/if}}
 					<!-- Vote Tallies -->
 				</div>
-
 			{{/if}}
 
-					{{#if hasVotes _id}}
-						<span class="proposal-percentage-text-left">{{_ "pages.voting.for"}} {{ yesPercentage _id }} </span>
-						<span class="proposal-percentage-text-right">{{_ "pages.voting.against"}} {{ noPercentage _id }} </span>
-						<div class="proposal-vote-progress-bar">
-							<div class="proposal-vote-yes-bar" style="width:{{ yesPercentage _id }}%"></div>
-						</div>
-					{{else}}
-						<small class="proposal-percentage-text-left">{{_ "pages.voting.no-votes-used"}}</small>
-					{{/if}}
+			{{#if hasVotes _id}}
+				<span class="proposal-percentage-text-left">{{_ "pages.voting.for"}} {{ yesPercentage _id }} </span>
+				<span class="proposal-percentage-text-right">{{_ "pages.voting.against"}} {{ noPercentage _id }} </span>
+				<div class="proposal-vote-progress-bar">
+					<div class="proposal-vote-yes-bar" style="width:{{ yesPercentage _id }}%"></div>
+				</div>
+			{{else}}
+				<small class="proposal-percentage-text-left">{{_ "pages.voting.no-votes-used"}}</small>
+			{{/if}}
 				<!-- Show More/Less Button -->
 				<center>
 					<a id="toggle-voting-info" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
