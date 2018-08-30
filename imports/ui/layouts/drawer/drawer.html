@@ -53,9 +53,7 @@
 		<div class="right-drawer-content">
 			<div class="user-tags-wrap">
 				{{#each user.profile.tags}}
-					<span class="mdl-chip">
-						<span class="mdl-chip__text">{{this.keyword}}</span>
-					</span>
+					<span class="tag tag-chip">{{this.keyword}}</span>
 				{{/each}}
 			</div>
 			<br>
@@ -74,7 +72,7 @@
 				 <li class="delegate-item mdl-list__item">
 				 <div class="card-main-wrap">
 					<span class="card-main mdl-list__item-primary-content recent-vote">
-						<i class="material-icons">{{voteIcon vote}}</i> 
+						<i class="material-icons">{{voteIcon vote}}</i>
 						<a href="/proposals/view/{{proposalId}}"> {{proposalTitle proposalId}} </a>
 					</span>
 				 </div>
