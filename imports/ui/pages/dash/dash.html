@@ -57,8 +57,7 @@
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
 			<p>{{_ "pages.dashboard.card.profile.text"}}: {{profileStatus}}</p>
-			<br>
-			<a  href="/profile">
+			<a href="/profile">
 				{{_ "pages.dashboard.card.profile.link"}}
 			</a>
 		</div>
@@ -67,14 +66,11 @@
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
 			{{#each tags}}
-				<span class="mdl-chip mdl-chip-hoverable">
-					<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
-				</span>
+				<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
 			{{else}}
 				<p>{{_"pages.dashboard.card.interests.no-interests"}}</p>
 			{{/each}}
-			<br/>
-			<a class="" href="/interests">
+			<a href="/interests">
 				{{_ "pages.dashboard.card.interests.link"}}
 			</a>
 		</div>
@@ -100,13 +96,12 @@
 					{{else}}
 						<p>{{_"pages.dashboard.card.interests.no-interests"}}</p>
 					{{/each}}
-					<br/>
 					<a class="" href="/interests">
 						{{_ "pages.dashboard.card.interests.link"}}
 					</a>
 				</div>
 				<div class="mdl-cell--6-col">
-						<p>recent activity matching your interests</p>
+					<p>Recent activity matching your interests</p>
 				</div>
 			</div>
 		</div>
