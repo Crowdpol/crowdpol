@@ -113,6 +113,10 @@
       letter-spacing: 0;
       word-break: break-word;
     }
+
+    p {
+      font-size: $small-font-size;
+    }
   }
 
   .mdl-checkbox {
@@ -123,6 +127,7 @@
 
   .card-secondary-wrap {
     margin-left: $space / 2;
+    margin-top: $space / 4;
   }
 }
 
