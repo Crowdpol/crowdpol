@@ -106,3 +106,8 @@
   justify-content: space-around;
   border-bottom: 1px solid $light-grey-light;
 }
+
+.button-tabs {
+  justify-content: flex-end;
+  border-bottom: 0;
+}

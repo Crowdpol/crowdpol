@@ -15,8 +15,8 @@
 		<div class="mdl-tooltip" data-mdl-for="copy-proposal-link">
 			{{_ "pages.proposals.view.tooltips.share"}}
 		</div>
-		<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
-			<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+		<div class="proposal-details">
+			<div class="meta">
 				<div class="minilogo">
 					<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
 				</div>
@@ -75,7 +75,7 @@
 
 		<!-- Tabs for translations -->
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-			<div class="mdl-tabs__tab-bar">
+			<div class="button-tabs mdl-tabs__tab-bar">
 				{{#each languages}}
 				<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
 				{{/each}}
@@ -133,11 +133,11 @@
 					{{/if}}
 				</div>
 			{{else}}
-				<center>
+				<!-- <center> -->
 					<h5>
 						<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
 					</h5>
-				</center>
+				<!-- </center> -->
 			{{/if}}
 			<hr>
 		</div>
@@ -145,8 +145,8 @@
 		<!-- Commenting -->
 		{{#if showComments}}
 			<div class="proposal-wrap">
-				<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-					<div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments">
+				<div class="">
+					<div class="comments">
 						{{#if isInvited }}
 						{{> CommentForm}}
 						{{/if}}
@@ -190,15 +190,15 @@
 		<h1 class="proposal-title">{{{ title }}}</h1><span class="tag status-chip">{{status}}</span>
 		<p class="proposal-info">{{{ abstract }}}</p>
 	</div>
-	<div id="proposal-body-wrap">
+	<div id="proposal-body-wrap" class="proposal-body-wrap">
 		{{{ body }}}
 	</div>
 
 	<!-- Points for and against -->
-	<div class="proposal-wrap mdl-grid" id="proposal-points">
-		<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+	<div class="proposal-points-wrap" id="proposal-points">
+		<div>
 			{{#if showPointsFor}}
-			<p>{{_ "pages.proposals.view.pointsFor"}}</p>
+			<h6>{{_ "pages.proposals.view.pointsFor"}}</h6>
 			<ul id="points-for-list" class="points-list">
 				{{#each pointsFor}}
 				<li>{{this}}</li>
@@ -206,9 +206,9 @@
 			</ul>
 			{{/if}}
 		</div>
-		<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+		<div>
 			{{#if showPointsAgainst}}
-			<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
+			<h6>{{_ "pages.proposals.view.pointsAgainst"}}</h6>
 			<ul id="points-against-list" class="points-list">
 				{{#each pointsAgainst}}
 				<li>{{this}}</li>

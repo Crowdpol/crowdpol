@@ -86,3 +86,13 @@
 .input-wrap.is-invalid{
   overflow: visible;
 }
+
+// Removes overlapping placeholder on input type date
+input::-webkit-datetime-edit {
+  color: transparent;
+}
+
+input:focus::-webkit-datetime-edit {
+  color: $dark-grey-mid;
+}
+
