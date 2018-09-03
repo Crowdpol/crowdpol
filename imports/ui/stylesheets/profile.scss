@@ -25,20 +25,17 @@
 }
 
 .user-tags-wrap {
-  display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
   flex-flow: row wrap;
   text-align: center;
 }
 
 .right-drawer.active {
+  position: fixed;
   width: 80%;
   max-width: 40rem;
+  z-index: 11;
 }
 
 .right-drawer-header {

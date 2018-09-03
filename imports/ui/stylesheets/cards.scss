@@ -15,30 +15,6 @@
   box-shadow: 0 1px 5px rgba($black, 0.2);
 }
 
-.delegate-item.selected {
-  cursor: pointer;
-  outline: ($space / 2) solid $light-blue;
-  &::after {
-    content: '';
-    position: absolute;
-    left: $space / 4;
-    top: $space / 4;
-    bottom: $space / 4;
-    width: 3px;
-    border-left: 2px dotted $light-grey-dark;
-    border-right: 2px dotted $light-grey-dark;
-  }
-
-  .card-avatar {
-    margin-left: $space / 2;
-  }
-  .card-main-wrap{
-    .card-secondary-wrap{
-      padding-left: 15px;//$space / 2;
-    }
-  }
-}
-
 .card-main-wrap {
   display: flex;
   flex-basis: 100%;
@@ -101,15 +77,72 @@
 }
 
 .card-avatar {
+  border-radius: 50%;
   width: $space * 1.5;
   height: $space * 1.5;
 }
 
-.proposal-abstract{
+.proposal-abstract {
   font-size: $small-font-size;
   font-family: $default-font;
   margin-bottom: $space / 2;
   color: $dark-grey-mid;
   font-weight: 300;
   line-height: $space / 1.5;
+}
+
+.delegate-list {
+  &.ui-sortable {
+    padding: $space / 2;
+  }
+
+  .card-avatar {
+    margin: 0 $space / 2;
+  }
+
+  .card-main {
+    display: flex;
+  }
+
+  .delegate-name {
+    flex: 1;
+
+    h6,
+    p {
+      margin-bottom: 0;
+      letter-spacing: 0;
+      word-break: break-word;
+    }
+
+    p {
+      font-size: $small-font-size;
+    }
+  }
+
+  .mdl-checkbox {
+    width: auto;
+    align-self: flex-start;
+    padding: 1rem 0 0 1rem;
+  }
+
+  .card-secondary-wrap {
+    margin-left: $space / 2;
+    margin-top: $space / 4;
+  }
+}
+
+.delegate-item.selected {
+  cursor: pointer;
+  outline: ($space / 2) solid $light-blue;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: $space / 4;
+    top: $space / 4;
+    bottom: $space / 4;
+    width: 3px;
+    border-left: 2px dotted $light-grey-dark;
+    border-right: 2px dotted $light-grey-dark;
+  }
 }
