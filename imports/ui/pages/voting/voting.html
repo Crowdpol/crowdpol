@@ -170,61 +170,76 @@
 </template>
 
 <template name="ResultCard">
-	<div class="voting-card mdl-card mdl-shadow--2dp">
-		<div class="mdl-card__title mdl-card--expand">
-			<div class="card-main-wrap">
-				<span class="card-main mdl-list__item-primary-content">
-						<h6>
-							<a href="/proposals/view/{{_id}}" class="proposal-list-item-link"><h6>{{ title this}}</h6></a>
-						</h6>
-					</span>
-
-					<span class="mdl-list__item-secondary-action">
-							<small class="card-date">
-								<i class="material-icons">date_range</i>&nbsp;{{ started this.startDate }}&nbsp;-&nbsp;{{ completed this.endDate }}&nbsp;
-							</small>
-					</span>
+	<div class="vote-item">
+		<div class="card-main-wrap">
+			<div class="tag-wrap">
+				<span class="tag status-chip">Complete</span>
+			</div>
+			<div class="card-date">
+				<i class="material-icons">date_range</i>
+				<span>{{ started this.startDate }}&nbsp;-&nbsp;{{ completed this.endDate }}&nbsp;</span>
+			</div>
+			<div class="card-title">
+				<h6>
+					<a href="/proposals/view/{{_id}}" class="card-link">
+					{{ title this }}
+					</a>
+				</h6>
+				<div class="card-actions-wrap">
+					<span>23</span>
+					<button class="mdl-button mdl-js-button mdl-button--icon">
+						<i class="material-icons">favorite</i>
+					</button>
+				</div>
+				<div class="card-actions-wrap">
+					<span>23</span>
+					<button class="mdl-button mdl-js-button mdl-button--icon">
+						<i class="material-icons">share</i>
+					</button>
+				</div>
 			</div>
 		</div>
-		<div class="mdl-card__supporting-text">
-			<span class="tag status-chip">
-						 complete
-					</span>
-					{{#each tags this}}
-						<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
-					{{/each}}
+		<div class="card-secondary-wrap">
 			<p class="proposal-abstract">{{ abstract this }}</p>
-			<!-- Vote Tallies -->
-			{{#if hasVotes _id}}
-						<span class="proposal-percentage-text-left">{{_ "pages.voting.for"}} {{ yesPercentage _id }}% </span>
-						<span class="proposal-percentage-text-right">{{_ "pages.voting.against"}} {{ noPercentage _id }}% </span>
-						<div class="proposal-vote-progress-bar">
-							<div class="proposal-vote-yes-bar" style="width:{{ yesPercentage _id }}%"></div>
-						</div>
-			{{/if}}
+			{{#each tags this}}
+				<a href="/tag/{{keyword}}" class="tag tag-chip">{{keyword}}</a>
+			{{/each}}
 		</div>
 
-		<div class="mdl-card__actions mdl-card--border">
-			{{#if hasVotes _id}}
-				<!-- Show More/Less Button -->
-				<a id="toggle-voting-info" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-					{{#if showVotingInfo}}
-						{{_ "pages.voting.show-less"}} <i class="material-icons">expand_less</i>
+		<div class="card-voting-wrap">
+			<!-- Vote buttons and Delegates List -->
+
+			{{#if showVotingInfo}}
+				<div id="voting-info">
+					<span>Graphs coming soon...</span>
+					{{#if isVotingAsDelegate}}
 					{{else}}
-						{{_ "pages.voting.show-more"}} <i class="material-icons">expand_more</i>
-					{{/if}}
-				</a>
-				{{#if showVotingInfo}}
-					<div id="voting-info" class="expandable">
 						<!-- How user's delegates voted -->
 						{{> delegateVoteList proposalId=_id}}
-						<!-- Vote Tallies -->
-						<center><small>Graphs coming soon...</small></center>
-					</div>
-				{{/if}}
-			{{else}}
-				<center><small>{{_ "pages.voting.no-votes-used"}}</small></center>
+					{{/if}}
+					<!-- Vote Tallies -->
+				</div>
 			{{/if}}
+
+			{{#if hasVotes _id}}
+				<span class="proposal-percentage-text-left">{{_ "pages.voting.for"}} {{ yesPercentage _id }} </span>
+				<span class="proposal-percentage-text-right">{{_ "pages.voting.against"}} {{ noPercentage _id }} </span>
+				<div class="proposal-vote-progress-bar">
+					<div class="proposal-vote-yes-bar" style="width:{{ yesPercentage _id }}%"></div>
+				</div>
+			{{else}}
+				<small class="proposal-percentage-text-left">{{_ "pages.voting.no-votes-used"}}</small>
+			{{/if}}
+				<!-- Show More/Less Button -->
+				<center>
+					<a id="toggle-voting-info" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+						{{#if showVotingInfo}}
+							{{_ "pages.voting.show-less"}} <i class="material-icons">expand_less</i>
+						{{else}}
+							{{_ "pages.voting.show-more"}} <i class="material-icons">expand_more</i>
+						{{/if}}
+					</a>
+				</center>
 		</div>
 	</div>
 
