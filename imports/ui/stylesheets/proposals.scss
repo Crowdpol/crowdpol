@@ -51,12 +51,10 @@
   text-decoration: none;
 }
 
-.proposal-vote-progress-bar {
-  height: $space;
-}
-
+.proposal-vote-progress-bar,
 .proposal-vote-yes-bar {
-  height: $space;
+  height: $space / 4;
+  margin-bottom: $space / 2;
 }
 
 .proposal-percentage-text-left {

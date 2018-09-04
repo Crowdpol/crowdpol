@@ -78,7 +78,7 @@
 			"individual": {
 				"register": {
 					"title": "Signup"
-				},	
+				},
 				"login": {
 					"title": "Login",
 					"wrong-community": "You can not log into this community."
@@ -87,7 +87,7 @@
 			"entity": {
 				"register": {
 					"title": "Register as Organisation/Party"
-				},	
+				},
 				"login": {
 					"title": "Login as Organisation/Party"
 				}
@@ -122,7 +122,7 @@
 			"individual": {
 				"register": {
 					"title": "Signup"
-				},	
+				},
 				"login": {
 					"title": "Login"
 				}
@@ -136,7 +136,7 @@
 				"register": {
 					"title": "Signup",
 					"loginlink": "Already have an account? Log in"
-				},	
+				},
 				"login": {
 					"title": "Login",
 					"signuplink": "Don't have an account? Register"
@@ -431,7 +431,7 @@
 		},
 		"interests": {
 			"heading": "My Interests",
-			"intro-text": "Select some of your personal interests you would like ot follow.",
+			"intro-text": "Select some of your personal interests you would like to follow.",
 			"popular": "Popular Tags"
 		}
 

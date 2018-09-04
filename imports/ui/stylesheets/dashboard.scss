@@ -16,7 +16,9 @@
 
     .dash-card-text {
       p, a {
-        font-size: $small-font-size;
+        &:not(.tag) {
+          font-size: $small-font-size;
+        }
       }
 
       ul.mdl-list {

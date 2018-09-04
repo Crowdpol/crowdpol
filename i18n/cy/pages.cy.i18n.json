@@ -78,7 +78,7 @@
 			"individual": {
 				"register": {
 					"title": "CY: Signup"
-				},	
+				},
 				"login": {
 					"title": "CY: Login",
 					"wrong-community": "CY: You can not log into this community."
@@ -87,7 +87,7 @@
 			"entity": {
 				"register": {
 					"title": "CY: Register as Organisation/Party"
-				},	
+				},
 				"login": {
 					"title": "CY: Login as Organisation/Party"
 				}
@@ -122,7 +122,7 @@
 			"individual": {
 				"register": {
 					"title": "CY: Signup"
-				},	
+				},
 				"login": {
 					"title": "CY: Login"
 				}
@@ -136,7 +136,7 @@
 				"register": {
 					"title": "CY: Signup",
 					"loginlink": "CY: Already have an account? Log in"
-				},	
+				},
 				"login": {
 					"title": "CY: Login",
 					"signuplink": "CY: Don't have an account? Register"
@@ -428,7 +428,7 @@
 		},
 		"interests": {
 			"heading": "CY: My Interests",
-			"intro-text": "CY: Select some of your personal interests you would like ot follow.",
+			"intro-text": "CY: Select some of your personal interests you would like to follow.",
 			"popular": "CY: Popular Tags"
 		}
 
