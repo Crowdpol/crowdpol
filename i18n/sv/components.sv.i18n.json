@@ -11,9 +11,9 @@
 			"placeholder": "Lägg till några taggar..."
 		},
 		"role-selector":{
-			"voter": "TODO: Individual",
-			"party-delegate": "TODO: Party Delegate",
-			"organisation-delegate": "TODO: Organisation Delegate"
+			"individual": "TODO: Individual",
+			"party": "TODO: Party Delegate",
+			"organisation": "TODO: Organisation Delegate"
 		},
 		"termsModal": {
 			"heading": "TODO Terms of Use",

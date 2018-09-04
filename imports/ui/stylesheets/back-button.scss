@@ -1,9 +1,8 @@
 @import 'variables.scss';
 
-#back-button { 
+.back-button {
 	text-transform: none;
-	margin-top: $space/2;
-	margin-left: $space/2;
+	margin-top: $space /2;
 
 	.back-button-text{
 		font-size: $small-font-size;

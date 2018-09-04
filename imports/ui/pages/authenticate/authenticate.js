@@ -43,6 +43,7 @@ Template.Authenticate.events({
 	      }
 	    });
 	},
+	/*,
 	'click #individual-login-link'(event) {
 		$("#indivdual-signup").hide();
 		$("#individual-login").show();
@@ -58,6 +59,41 @@ Template.Authenticate.events({
 	'click #entity-signup-link'(event) {
 		$("#entity-login").hide();
 		$("#entity-signup").show();
+	},
+	*/
+	'click .dropdown-item': function(event, template){
+		entity = event.target.dataset.val
+		template.find('#entity-type').dataset.val = entity;
+		template.find('#entity-type').value = TAPi18n.__('components.role-selector.' + entity);
+		switch (entity) {
+		    case 'party':
+		        $("#individual-signup-form").hide();
+		        $("#entity-signup-form").show();
+		        break; 
+		    case 'organisation':
+		        $("#individual-signup-form").hide();
+		        $("#entity-signup-form").show();
+		        break; 
+		    case 'individual':
+		    	$("#individual-signup-form").show();
+		        $("#entity-signup-form").hide();
+		        break; 
+		    default: 
+		        $("#individual-signup-form").show();
+		        $("#entity-signup-form").hide();
+		}
+	},
+	'click #terms-checkbox-label' (event, template) {
+		var termsCheckbox = self.find('#terms-checkbox-label').MaterialCheckbox;
+		var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
+		if (termsAccepted) {  
+			termsCheckbox.uncheck();
+			Session.set('termsAccepted', false);
+		} else {
+			event.preventDefault();
+			openTermsModal();
+		}
+
 	}
 });
 

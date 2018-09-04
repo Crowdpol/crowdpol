@@ -130,6 +130,21 @@ function transformProposal(proposal) {
   startDate = startDate.toISOString();
   proposal.endDate = endDate;
   proposal.startDate = startDate;
+  var content = proposal.content;
+  content.forEach(function (lang, index) {
+    if(lang.language==currentLang){
+      
+      //var langContent = {
+        proposal.title = lang.title
+        proposal.abstract =lang.abstract;
+        proposal.body = lang.body;
+        proposal.pointsAgainst = lang.pointsAgainst;
+        proposal.pointsFor = lang.pointsFor;
+      //}
+      //proposal.langContent = langContent;
+    }
+  });
+  console.log(proposal);
   return proposal;
 };
 

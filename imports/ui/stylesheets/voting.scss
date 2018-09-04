@@ -13,36 +13,8 @@
   }
 }
 
-.voting-card {
-  margin-top: $base-line-height;
-  margin-bottom: $base-line-height;
-  width: auto;
-
-  .mdl-card__actions.mdl-card--border{
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-
-}
-
-#voting-info.expandable {
-  //border-top: 0px solid rgba(0,0,0,.1);
-}
-
-.voting-card-buttons{
-  //border-bottom: 1px solid rgba(0,0,0,.1);
-  padding-right: 16px;
-  padding-left: 16px;
-}
 #demo-menu-lower-left{
   font-size: $base-font-size * 1.55;
   line-height: $base-line-height * 1.5;
   color: $dark-grey-xdark;
-}
-
-.proposal-percentage-text-left{
-  padding-left: 16px;
-}
-.proposal-percentage-text-right{
-  padding-right: 16px;
 }

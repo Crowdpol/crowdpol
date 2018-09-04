@@ -1,30 +1,36 @@
 @import './variables.scss';
 
 .dashboard-wrap {
-  //display: flex;
-  //flex-flow: row wrap;
-  //justify-content: space-around;
-  //padding-bottom: 6rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 0 0 6rem 0;
 
   .mdl-card {
-    //display: flex;
-    //flex-direction: column;
-    //justify-content: space-between;
-    //margin: 0 ($space / 2) $space;
-    //padding: $space / 2;
+    margin-bottom: $space / 2;
+    padding: $space / 2;
+
+    .mdl-card__title-text {
+      font-weight: 400;
+    }
+
     .dash-card-text {
-      font-size: $base-font-size;
-      line-height: $base-line-height;
-  
+      p, a {
+        &:not(.tag) {
+          font-size: $small-font-size;
+        }
+      }
+
       ul.mdl-list {
         padding: 0px;
-        li.mdl-list__item{
-          
+
+        li.mdl-list__item {
           padding: 0px;
           min-height: 38px;
         }
       }
     }
+
     .dash-actions {
       display: flex;
       flex-direction: column;
@@ -36,9 +42,3 @@
     }
   }
 }
-
-
-
-
-
-

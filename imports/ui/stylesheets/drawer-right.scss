@@ -45,17 +45,17 @@
 .active {
     -webkit-transform: translateX(0);
     -ms-transform: translateX(0);
-    transform: translateX(0);  
+    transform: translateX(0);
 }
 
 .mdl-layout__obfuscator-right {
     background-color: transparent;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
-    z-index: 4;
+    z-index: 10;
     visibility: hidden;
     -webkit-transition-property: background-color;
     transition-property: background-color;

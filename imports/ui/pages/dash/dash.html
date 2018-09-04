@@ -31,7 +31,7 @@
 							<h2 class="mdl-card__title-text">{{_ "pages.dashboard.unapproved-entity-message"}}</h2>
 						</div>
 					{{/if}}
-				{{/unless}} 
+				{{/unless}}
 				</div>-->
 			{{else}}
 				<div class="dash-card mdl-card mdl-shadow--2dp">
@@ -56,9 +56,8 @@
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.profile.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_ "pages.dashboard.card.profile.text"}}: {{profileStatus}}
-			<br>
-			<a  href="/profile">
+			<p>{{_ "pages.dashboard.card.profile.text"}}: {{profileStatus}}</p>
+			<a href="/profile">
 				{{_ "pages.dashboard.card.profile.link"}}
 			</a>
 		</div>
@@ -67,16 +66,13 @@
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
 			{{#each tags}}
-						<span class="mdl-chip mdl-chip-hoverable">
-							<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
-						</span>
-					{{else}}
-						{{_"pages.dashboard.card.interests.no-interests"}}
-					{{/each}}
-					<br/>
-					<a class="" href="/interests">
-						{{_ "pages.dashboard.card.interests.link"}}
-					</a>
+				<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
+			{{else}}
+				<p>{{_"pages.dashboard.card.interests.no-interests"}}</p>
+			{{/each}}
+			<a href="/interests">
+				{{_ "pages.dashboard.card.interests.link"}}
+			</a>
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -96,19 +92,16 @@
 			<div class="mdl-grid">
 				<div class="mdl-cell--6-col">
 					{{#each tags}}
-						<span class="mdl-chip mdl-chip-hoverable">
-							<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
-						</span>
+						<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
 					{{else}}
-						{{_"pages.dashboard.card.interests.no-interests"}}
+						<p>{{_"pages.dashboard.card.interests.no-interests"}}</p>
 					{{/each}}
-					<br/>
 					<a class="" href="/interests">
 						{{_ "pages.dashboard.card.interests.link"}}
 					</a>
 				</div>
 				<div class="mdl-cell--6-col">
-						recent activity matching your interests
+					<p>Recent activity matching your interests</p>
 				</div>
 			</div>
 		</div>
@@ -127,25 +120,37 @@
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
 			{{#if Template.subscriptionsReady}}
-				{{_ "pages.dashboard.card.proposals.text"}}<br>
+				<p>{{_ "pages.dashboard.card.proposals.text"}}</p>
 				{{#if anyProposals}}
 				{{else}}
-					{{_"pages.dashboard.card.proposals.no-proposals"}}
+					<p>{{_"pages.dashboard.card.proposals.no-proposals"}}</p>
 				{{/if}}
 					{{#if myDraftProposalCount}}
-						{{_ "pages.dashboard.card.proposals.draft-count" count=myDraftProposalCount}}&nbsp;<a href="/proposals">{{_ "pages.dashboard.card.proposals.link"}}</a><br>
+						<p>
+							<span class="mdl-badge" data-badge='{{myDraftProposalCount}}'>
+								<a href="/proposals">{{_ "pages.dashboard.card.proposals.draft-proposals"}}</a>
+							</span>
+						</p>
 					{{/if}}
 					{{#if myOpenProposalCount}}
-						{{_ "pages.dashboard.card.proposals.open-count" count=myOpenProposalCount}}&nbsp;<a href="/proposals">{{_ "pages.dashboard.card.proposals.link"}}</a><br>
+						<p>
+							<span class="mdl-badge" data-badge='{{myOpenProposalCount}}'>
+								<a href="/proposals">{{_ "pages.dashboard.card.proposals.open-proposals"}}</a>
+							</span>
+						</p>
 					{{/if}}
 					{{#if myClosedProposalCount}}
-						{{_ "pages.dashboard.card.proposals.closed-count" count=myClosedProposalCount}}&nbsp;<a href="/proposals">{{_ "pages.dashboard.card.proposals.link"}}</a><br>
+						<p>
+							<span class="mdl-badge" data-badge='{{myClosedProposalCount}}'>
+								<a href="/proposals">{{_ "pages.dashboard.card.proposals.closed-proposals"}}</a>
+							</span>
+						</p>
 					{{/if}}
 				<a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
 			{{else}}
 					loading
 			{{/if}}
-			
+
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -161,7 +166,7 @@
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.delegates.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_"pages.dashboard.card.delegates.text"}} <a href="/delegate">{{_"pages.dashboard.card.delegates.link"}}</a>
+			<p>{{_"pages.dashboard.card.delegates.text"}} <a href="/delegate">{{_"pages.dashboard.card.delegates.link"}}</a></p>
 			<ul class="demo-list-icon mdl-list">
 				{{#each ranks}}
 					<li class="mdl-list__item delegate-dash-item">
@@ -171,10 +176,10 @@
 				  	</span>
 				  </li>
 				{{else}}
-					{{_"pages.dashboard.card.delegates.no-delegates"}}
+					<p>{{_"pages.dashboard.card.delegates.no-delegates"}}</p>
 				{{/each}}
 			</ul>
-			
+
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -185,12 +190,12 @@
 </template>
 
 <template name="DashCandidates">
-	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashCandidates"> 
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashCandidates">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.candidates.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_"pages.dashboard.card.candidates.text"}}
+			<p>{{_"pages.dashboard.card.candidates.text"}}</p>
 			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/candidate">
 				{{_"pages.dashboard.card.candidates.link"}}
 			</a>
@@ -209,10 +214,17 @@
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.vote.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_"pages.dashboard.card.vote.text"}}
-			<br>
-			{{_"pages.dashboard.card.vote.open-proposals" count=openProposalCount}}&nbsp;<a href="/voting">{{_"pages.dashboard.card.vote.vote-link"}}</a><br>
-			{{_"pages.dashboard.card.vote.open-proposals" count=closedProposalCount}}&nbsp;<a href="/proposals">{{_"pages.dashboard.card.vote.view-link"}}</a>
+			<p>{{_"pages.dashboard.card.vote.text"}}</p>
+			<p>
+				<span class="mdl-badge" data-badge='{{openProposalCount}}'>
+					<a href="/voting">{{_ "pages.dashboard.card.vote.open-proposals"}}</a>
+				</span>
+			</p>
+			<p>
+				<span class="mdl-badge" data-badge='{{closedProposalCount}}'>
+					<a href="/voting">{{_ "pages.dashboard.card.vote.closed-proposals"}}</a>
+				</span>
+			</p>
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -221,15 +233,14 @@
 		</div>
 	</div>
 </template>
+
 <template name="DashFeed">
 	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashFeed">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.feed.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_"pages.dashboard.card.feed.text"}}
-			<br>
-			
+			<p>{{_"pages.dashboard.card.feed.text"}}</p>
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">

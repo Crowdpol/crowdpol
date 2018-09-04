@@ -1,0 +1,53 @@
+@import 'variables.scss';
+
+.tag {
+  display: inline-block;
+  padding: 0 ($space / 2);
+  margin-right: $space / 8;
+  border-radius: 1rem;
+  font-size: $xsmall-font-size;
+  color: $white;
+  line-height: 1.1rem;
+  text-decoration: none;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+}
+
+.tag-chip {
+  background-color: $light-blue;
+
+  &:hover {
+    background-color: $light-blue-dark;
+  }
+}
+.role-chip {
+  background-color: $light-grey-dark;
+
+  &:hover {
+    background-color: $light-grey-xdark;
+  }
+}
+.tag-chip.mdl-badge[data-badge]:after {
+    top: -6px;
+    right: -8px;
+}
+.status-chip {
+  background-color: $light-grey-xdark;
+
+  &.unreviewed {
+    background-color: $light-grey-xdark;
+  }
+
+  &.rejected {
+    background-color: $red;
+  }
+
+  &.approved {
+    background-color: $green;
+  }
+}
+
+.add-tags-wrap {
+  margin-bottom: $space;
+}

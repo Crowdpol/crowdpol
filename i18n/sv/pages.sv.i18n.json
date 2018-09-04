@@ -64,11 +64,15 @@
 			"subtitle": "Kommer snart..."
 		},
 		"authenticate":{
+			"login" : "Logga In",
+			"signup": "Bli Medlem",
 			"logged-in-title": "Du är redan inloggad",
 			"logout": "Logga ut",
 			"tab": {
 				"individual": "Individ",
-				"entities": "Organisation/Politiskt Parti"
+				"entities": "Organisation/Politiskt Parti",
+				"login":"Logga In",
+				"signup":"Bli Medlem"
 			},
 			"links": {
 				"login": "Har du redan ett konto? Logga in",
@@ -159,9 +163,9 @@
 					"heading": "Mina Motioner",
 					"text": "Dina motioner.",
 					"no-proposals": "TODO: You haven't written any proposals yet.",
-					"draft-count": "TODO: __count__ draft proposals",
-					"closed-count": "TODO: __count__ closed proposals",
-					"open-count": "TODO: __count__ open proposals",
+					"draft-proposals": "TODO: Draft proposals",
+					"closed-proposals": "TODO: Closed proposals",
+					"open-proposals": "TODO: Open proposals",
 					"new-proposal": "TODO: Draft a new proposal",
 					"link": "Se"
 				},
@@ -196,8 +200,8 @@
 				"vote": {
 					"heading": "Rösta på Motioner",
 					"text": "TODO: Vote on Proposals and view results",
-					"open-proposals": "TODO: __count__ open proposals",
-					"closed-proposals": "TODO: __count__ closed proposals",
+					"open-proposals": "TODO: Open proposals",
+					"closed-proposals": "TODO: Closed proposals",
 					"vote-link": "TODO: Vote now",
 					"view-link": "TODO: View outcome"
 				}
@@ -238,7 +242,9 @@
 				"tabs":{
 					"allProposals": "Alla Motioner",
 					"myProposals": "Mina Motioner",
-					"writeProposals": "Skriv en Motion"
+					"writeProposals": "Skriv en Motion",
+					"draftProposals": "TODO: Draft Proposals",
+					"submittedProposals": "TODO: Submitted Proposals"
 				},
 				"headings":{
 					"openProposals": "Pågående Motioner",
@@ -252,6 +258,7 @@
 					"vote": "och rösta"
 				},
 				"openClosedSwitch": "Pågående/Avslutad",
+				"approvedRejectedSwitch": "TODO: Rejected/Approved",
 				"createdInvitedSwitch": "Egen/Gemensam",
 				"untitled": "TODO Untitled",
 				"untranslated": "TODO This proposal has not yet been translated.",

@@ -1,6 +1,7 @@
 import './signup.html';
 import './entitySignup.js';
 import "../../../components/termsModal/termsModal.js"
+import { hasOwnProperty } from '../../../../utils/functions';
 import { Communities } from '../../../../api/communities/Communities.js'
 import RavenClient from 'raven-js'
 
@@ -43,10 +44,21 @@ Template.Signup.events({
 		event.preventDefault();
 
 		var community = Communities.findOne({subdomain: LocalStore.get('subdomain')});
+		if(!hasOwnProperty(community,'settings')){
+			Bert.alert('Community does not have settings', 'danger');
+			return;
+		}
 		var enforceWhitelist = community.settings.enforceWhitelist;
+		if(!hasOwnProperty(community.settings,'enforceWhitelist')){
+			Bert.alert('Community does not have settings.enforceWhitelist', 'danger');
+			return;
+		}
 		var emailWhitelist = community.settings.emailWhitelist;
+		if(!hasOwnProperty(community.settings,'emailWhitelist')){
+			Bert.alert('Community does not have settings.emailWhitelist', 'danger');
+			return;
+		}
 		var email = template.find('[name="emailAddress"]').value;
-
 		if ((!enforceWhitelist) || (enforceWhitelist == false) || ((enforceWhitelist == true) && (emailWhitelist.includes(email)))) {
 			if(Session.get('termsAccepted')){
 				communityId = community._id;
@@ -89,17 +101,5 @@ Template.Signup.events({
 		}
 
 		
-	},
-	'click #terms-checkbox-label' (event, template) {
-		var termsCheckbox = self.find('#terms-checkbox-label').MaterialCheckbox;
-		var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
-		if (termsAccepted) {  
-			termsCheckbox.uncheck();
-			Session.set('termsAccepted', false);
-		} else {
-			event.preventDefault();
-			openTermsModal();
-		}
-
 	}
 });

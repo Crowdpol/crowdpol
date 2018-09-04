@@ -1,4 +1,5 @@
 import './entitySignup.html'
+import { hasOwnProperty } from '../../../../utils/functions';
 import RavenClient from 'raven-js';
 import { Communities } from '../../../../api/communities/Communities.js'
 
@@ -48,47 +49,70 @@ Template.entitySignup.onRendered( function() {
 Template.entitySignup.events({
 	'submit #entity-signup-form' (event, template){
 		event.preventDefault();
-		role = template.find('#entity-type').dataset.val;
+		role = $('#entity-type').attr('data-val');//template.find('#entity-type').dataset.val;
 
 		communityId = Communities.findOne({subdomain: LocalStore.get('subdomain')})._id;
+    var community = Communities.findOne({subdomain: LocalStore.get('subdomain')});
+    if(!hasOwnProperty(community,'settings')){
+      Bert.alert('Community does not have settings', 'danger');
+      return;
+    }
+    var enforceWhitelist = community.settings.enforceWhitelist;
+    if(!hasOwnProperty(community.settings,'enforceWhitelist')){
+      Bert.alert('Community does not have settings.enforceWhitelist', 'danger');
+      return;
+    }
+    var emailWhitelist = community.settings.emailWhitelist;
+    if(!hasOwnProperty(community.settings,'emailWhitelist')){
+      Bert.alert('Community does not have settings.emailWhitelist', 'danger');
+      return;
+    }
+    var email = template.find('[name="entity-email"]').value;
 
-		// Update profile
-    profile = {
-      'firstName': template.find('#entity-name').value,
-      'website': template.find('#entity-website').value,
-      'phoneNumber': template.find('#entity-phone').value,
-      'contactPerson': template.find('#entity-contact').value,
-      'type': 'Entity',
-      'communityIds': [communityId],
-      'roles': [role, 'delegate']
-    };
+    if ((!enforceWhitelist) || (enforceWhitelist == false) || ((enforceWhitelist == true) && (emailWhitelist.includes(email)))) {
+      termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
+      if(termsAccepted){
+    		// Update profile
+        profile = {
+          'firstName': template.find('#entity-name').value,
+          'website': template.find('#entity-website').value,
+          'phoneNumber': template.find('#entity-phone').value,
+          'contactPerson': template.find('#entity-contact').value,
+          'type': 'Entity',
+          'communityIds': [communityId],
+          'roles': [role, 'delegate'],
+          termsAccepted: termsAccepted
+        };
 
-    entity = {
-     'email': template.find('#entity-email').value,
-     'password': template.find('#entity-password').value,
-     'isPublic' : true,
-     profile: profile
-   };
+        entity = {
+         'email': template.find('#entity-email').value,
+         'password': template.find('#entity-password').value,
+         'isPublic' : true,
+         profile: profile
+       };
+       console.log("termsAccepted: " + termsAccepted);
+       console.log(entity);
 
-   Accounts.createUser(entity, (error) => {
-     if (error) {
-      RavenClient.captureException(error);
-      Bert.alert(error.reason, 'danger');
+       Accounts.createUser(entity, (error) => {
+         if (error) {
+            RavenClient.captureException(error);
+            Bert.alert(error.reason, 'danger');
+          } else {
+            /* Check if redirect route saved */
+            var redirect = LocalStore.get('signUpRedirectURL');
+            LocalStore.set('signUpRedirectURL', '');
+            if (redirect) {
+             window.location.href = redirect;
+           } else {
+             FlowRouter.go('/proposals');
+           }
+         }
+       });
+      } else {
+        Bert.alert(TAPi18n.__('pages.signup.accept-terms'), 'danger')
+      }
     } else {
-      /* Check if redirect route saved */
-      var redirect = LocalStore.get('signUpRedirectURL');
-      LocalStore.set('signUpRedirectURL', '');
-      if (redirect) {
-       window.location.href = redirect;
-     } else {
-       FlowRouter.go('/proposals');
-     }
-   }
- });
- },
-
-	'click .dropdown-item': function(event, template){
-		template.find('#entity-type').dataset.val = event.target.dataset.val;
-		template.find('#entity-type').value = TAPi18n.__('roles.' + event.target.dataset.val);
-	}
+      Bert.alert(TAPi18n.__('pages.signup.not-in-whitelist'), 'danger')
+    }
+  }
 });

@@ -36,21 +36,14 @@ Template.ProposalCard.helpers({
   canVote: function() {
     return Session.get("canVote");
   },
-  proposalStatus: function(proposal) {
+  proposalStage: function(proposal) {
     //console.log(proposal);
-    return proposal.stage;;
-    // If looking at public proposals, show open/closed
-    if (Session.get('allProposals')){
-      if (new Date(proposal.endDate) > new Date()){
-        return 'Open';
-      } else {
-        return 'Closed';
-      }
-      // If looking at own proposals, show draft/submitted/live
-    } else if (Session.get('myProposals')){
-      var stage = proposal.stage;
-      return stage.charAt(0).toUpperCase() + stage.slice(1);
-    }
+    var stage = proposal.stage;
+    return stage.charAt(0).toUpperCase() + stage.slice(1);
+  },
+  proposalStatus: function(proposal) {
+    var status = proposal.status;
+    return status.charAt(0).toUpperCase() + status.slice(1);
 
   },
   tags: function(proposal){
@@ -84,7 +77,10 @@ Template.ProposalCard.helpers({
     }
   },
   isDraft: function(proposal) {
-    return proposal.stage == 'draft';
+    if(proposal.stage == 'live'||proposal.status=='approved'){
+      return false;
+    }
+    return true;
   }
 });
 

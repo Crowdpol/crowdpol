@@ -43,39 +43,30 @@
 
 .active .content-wrapper {
   display: block;
+  padding-bottom: 1rem;
 }
 
-#modal-header {
-  position: absolute;
-  width: 100%;
-}
+.modal-header {
+  padding: 1rem;
 
-#modal-header h3 {
-  color: white;
-  padding-left: 30px;
-  padding-top: 20px;
+  h3 {
+    color: white;
+    margin-bottom: 0;
+  }
 }
 
 .content {
-  padding: 100px 35px 0 35px;
-  color: #757575;
+  padding: 1rem;
 }
 
 .btn-wrapper {
-  position: absolute;
-  width: 100%;
-  position: absolute;
-  right: auto;
-  left: auto;
-  bottom: auto;
-  text-align: center;
-}
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 
-.mdl-button--raised.mdl-button--colored {
-  &:hover {
+  button:hover {
     opacity: 0.8;
   }
-
 }
 
 /* just presenation */

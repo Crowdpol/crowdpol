@@ -25,20 +25,17 @@
 }
 
 .user-tags-wrap {
-  display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
   flex-flow: row wrap;
   text-align: center;
 }
 
 .right-drawer.active {
+  position: fixed;
   width: 80%;
   max-width: 40rem;
+  z-index: 11;
 }
 
 .right-drawer-header {
@@ -65,7 +62,6 @@
     display: inline;
   }
 }
-
 
 .field-icon {
   float: right;
@@ -129,7 +125,7 @@
 }
 
 .mdl-chip.square-chip{
-  background-color: $light-grey-xdark; 
+  background-color: $light-grey-xdark;
   border-radius: 5px;
   text-align: center;
   width: 80px;
@@ -140,7 +136,7 @@
 
   .mdl-chip__text {
     line-height: 1.2rem;
-  } 
+  }
 }
 
 

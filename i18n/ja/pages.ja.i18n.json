@@ -60,11 +60,15 @@
 			"subtitle": "JA: Coming soon..."
 		},
 		"authenticate":{
+			"login" : "JA: Login",
+			"signup": "JA: Sign up",
 			"logged-in-title": "JA: You are already logged in",
 			"logout": "JA: Log out",
 			"tab": {
 				"individual": "JA: Individuals",
-				"entities": "JA: Organisations/Political Parties"
+				"entities": "JA: Organisations/Political Parties",
+				"login":"JA: Login",
+				"signup":"JA: Sign Up"
 			},
 			"links": {
 				"login": "JA: Already have an account? Log in",
@@ -74,7 +78,7 @@
 			"individual": {
 				"register": {
 					"title": "JA: Signup"
-				},	
+				},
 				"login": {
 					"title": "JA: Login",
 					"wrong-community": "JA: You can not log into this community."
@@ -83,7 +87,7 @@
 			"entity": {
 				"register": {
 					"title": "JA: Register as Organisation/Party"
-				},	
+				},
 				"login": {
 					"title": "JA: Login as Organisation/Party"
 				}
@@ -118,7 +122,7 @@
 			"individual": {
 				"register": {
 					"title": "JA: Signup"
-				},	
+				},
 				"login": {
 					"title": "JA: Login"
 				}
@@ -132,7 +136,7 @@
 				"register": {
 					"title": "JA: Signup",
 					"loginlink": "JA: Already have an account? Log in"
-				},	
+				},
 				"login": {
 					"title": "JA: Login",
 					"signuplink": "JA: Don't have an account? Register"
@@ -155,10 +159,9 @@
 					"heading": "JA: My Proposals",
 					"text": "JA: Your proposals",
 					"no-proposals": "JA: You haven't written any proposals yet.",
-					"draft-proposals": "JA:  draft proposals",
-					"draft-count": "JA: __count__ draft proposals",
-					"closed-count": "JA: __count__ closed proposals",
-					"open-count": "JA: __count__ open proposals",
+					"draft-proposals": "JA: Draft proposals",
+					"closed-proposals": "JA: Closed proposals",
+					"open-proposals": "JA: Open proposals",
 					"new-proposal": "JA: Draft a new proposal",
 					"link": "JA: View"
 				},
@@ -187,8 +190,8 @@
 				"vote": {
 					"heading": "JA: Vote on Proposals",
 					"text": "JA: Vote on Proposals and view results",
-					"open-proposals": "JA: __count__ open proposals",
-					"closed-proposals": "JA: __count__ closed proposals",
+					"open-proposals": "JA: Open proposals",
+					"closed-proposals": "JA: Closed proposals",
 					"vote-link": "JA: Vote now",
 					"view-link": "JA: View outcome"
 				}
@@ -229,7 +232,9 @@
 				"tabs":{
 					"allProposals": "JA: All Proposals",
 					"myProposals": "JA: My Proposals",
-					"writeProposals": "JA: Write Proposal"
+					"writeProposals": "JA: Write Proposal",
+					"draftProposals": "JA: Draft Proposals",
+					"submittedProposals": "JA: Submitted Proposals"
 				},
 				"headings":{
 					"openProposals": "JA: Open Proposals",
@@ -243,6 +248,7 @@
 					"vote": "JA: and vote"
 				},
 				"openClosedSwitch": "JA: Open/Closed",
+				"approvedRejectedSwitch": "JA: Rejected/Approved",
 				"createdInvitedSwitch": "JA: Created/Invited",
 				"untitled": "JA: Untitled",
 				"untranslated": "JA: This proposal has not yet been translated.",
@@ -422,7 +428,7 @@
 		},
 		"interests": {
 			"heading": "JA: My Interests",
-			"intro-text": "JA: Select some of your personal interests you would like ot follow.",
+			"intro-text": "JA: Select some of your personal interests you would like to follow.",
 			"popular": "JA: Popular Tags"
 		}
 

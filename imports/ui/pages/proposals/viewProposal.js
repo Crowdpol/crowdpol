@@ -30,6 +30,7 @@ Template.ViewProposal.onCreated(function(language){
         dict.set( 'invited', proposal.invited );
         dict.set( 'authorId', proposal.authorId );
         dict.set( 'stage', proposal.stage );
+        dict.set( 'status', proposal.status );
         dict.set( 'signatures', proposal.signatures || []);
         dict.set( 'tags', proposal.tags || [] );
       }
@@ -224,7 +225,7 @@ Template.ViewProposal.helpers({
     return (userIsAuthor() && Template.instance().templateDictionary.get( 'stage' ) == 'draft')
   },
   isEditable: function(){
-    return (userIsAuthor() && !proposalIsLive())
+    return ((userIsAuthor()||userIsInvited()) && !proposalIsLive())
   },
   signatureIcon: function(){
     if (Template.instance().templateDictionary.get('signatures').includes(Meteor.userId())){
@@ -239,7 +240,7 @@ Template.ViewProposal.helpers({
     var startDate = Template.instance().templateDictionary.get('startDate');
     var endDate = Template.instance().templateDictionary.get('endDate');
     var isOpen = ((moment().isAfter(startDate, 'minute')) && (moment().isBefore(endDate, 'minute')))
-
+    console.log("stage: " + stage + " status: " + status);
     //Should be live, approved and between the start and end dates
     if ((stage == 'live') && (status == 'approved') && (isOpen)) {
       return true;

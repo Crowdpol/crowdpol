@@ -2,7 +2,8 @@ import './editProposal.html'
 import Quill from 'quill'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Communities } from '../../../api/communities/Communities.js'
-import { setupTaggle } from '../../components/taggle/taggle.js'
+//import { setupTaggle } from '../../components/taggle/taggle.js'
+import { getTags } from '../../components/taggle/taggle.js'
 import "../../components/userSearch/userSearch.js"
 import RavenClient from 'raven-js';
 
@@ -18,7 +19,7 @@ Template.EditProposal.onCreated(function(){
 	Session.set('invited',[]);
 	Session.set('invitedUsers',null);
 	Session.set('emailInvites',[]);
-	Session.set('setupTaggle', true);
+	//Session.set('setupTaggle', true);
 
 	var dict = new ReactiveDict();
 	this.templateDictionary = dict;
@@ -59,7 +60,7 @@ Template.EditProposal.onRendered(function(){
 		// Wait for whole form to render before initialising fields
 		if (Session.get("formRendered")) {
 			validateForm();
-
+			/*
 			if (Session.get('setupTaggle')) {
 				//Set up Taggle
 				taggle = setupTaggle();
@@ -72,7 +73,7 @@ Template.EditProposal.onRendered(function(){
 				}
 				Session.set('setupTaggle', false);
 			}
-			
+			*/
 			
 			//Initialise date fields
 			self.find('#startDate').value = self.templateDictionary.get('startDate');
@@ -110,7 +111,15 @@ Template.EditProposal.helpers({
 	},
 	emailedInvites: function() {
 		return Session.get('emailInvites');
-	}
+	},
+	selectedTags: ()=> {
+    tagsArray = Template.instance().templateDictionary.get('tags');
+    tags = [];
+    for(i=0;i<tagsArray.length;i++){
+      tags.push(tagsArray[i].keyword);
+    }
+    return tags;
+  }
 });
 
 Template.EditProposal.events({
@@ -124,8 +133,8 @@ Template.EditProposal.events({
 		//}
 		event.preventDefault();
 		saveChanges(event, template, 'App.proposals');
-		//FlowRouter.go('/proposals');
-		Session.set('proposalTab','my-proposals-tab');
+		FlowRouter.go('/proposals');
+		//Session.set('proposalTab','my-proposals-tab');
 	},
 	'click #preview-proposal': function(event, template){
 		event.preventDefault();
@@ -296,7 +305,7 @@ function saveChanges(event, template, returnTo){
 	var communityId = LocalStore.get('communityId');
 	var languages = Communities.findOne({_id: communityId}).settings.languages;
 	var content = [];
-
+	var contentCount = 0;
 	// Get Translatable field for each language
 	_.each(languages, function(language) {
 		// Points For and Against
@@ -326,87 +335,92 @@ function saveChanges(event, template, returnTo){
 		if (hasContent) {
 			translation.language = language;
 			content.push(translation);
+			contentCount+=1;
 		}
+
 	})
+	//CHECK IF THERE IS SOME CONTENT IN THE PROPOSAL
+	console.log("languages.length: " + languages.length + ", contentCount: " + contentCount);
+	if(contentCount!=0){
+		Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
+			if (error){
+				RavenClient.captureException(error);
+				Bert.alert(error, 'reason');
+				return false;
+			} else {
+				let newProposal = {
+					content: content,
+					// Non-translatable fields
+					startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),//
+					endDate: new Date(template.find('#endDate').value),//new Date(2018, 8, 1),
+					authorId: Meteor.userId(),
+					invited: Session.get('invited'),
+					tags: proposalTags,
+					communityId: LocalStore.get('communityId'),
+					stage: "draft"
+			};
 
-	Meteor.call('transformTags', template.taggle.get().getTagValues(), communityId, function(error, proposalTags){
-		if (error){
-			RavenClient.captureException(error);
-			Bert.alert(error, 'reason');
-			return false;
-		} else {
-			let newProposal = {
-				content: content,
-				// Non-translatable fields
-				startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),//
-				endDate: new Date(template.find('#endDate').value),//new Date(2018, 8, 1),
-				authorId: Meteor.userId(),
-				invited: Session.get('invited'),
-				tags: proposalTags,
-				communityId: LocalStore.get('communityId')
-		};
+			var proposalId = FlowRouter.getParam("id");
+			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
 
-		var proposalId = FlowRouter.getParam("id");
-		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
+			// If working on an existing proposal, save it, else create a new one
+			if (proposalId){
+				Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
+					if (error){
+						RavenClient.captureException(error);
+						Bert.alert(error.reason, 'danger');
+						return false;
+					} else {
+						var oldInvites = Proposals.findOne(proposalId).invited;
+					    var newInvites = newProposal.invited;
 
-		// If working on an existing proposal, save it, else create a new one
-		if (proposalId){
-			Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
-				if (error){
-					RavenClient.captureException(error);
-					Bert.alert(error.reason, 'danger');
-					return false;
-				} else {
-					var oldInvites = Proposals.findOne(proposalId).invited;
-				    var newInvites = newProposal.invited;
-
-				    if (oldInvites && newInvites) {
-				        // Only send new invites if new collaborators have been added
-				        var newCollaborators = _.difference(newInvites, oldInvites);
-				        if (newCollaborators) {
-				          // Create notification for each new collaborator
-				          for (i=0; i<newCollaborators.length; i++) {
+					    if (oldInvites && newInvites) {
+					        // Only send new invites if new collaborators have been added
+					        var newCollaborators = _.difference(newInvites, oldInvites);
+					        if (newCollaborators) {
+					          // Create notification for each new collaborator
+					          for (i=0; i<newCollaborators.length; i++) {
+					            var notification = {
+					              message: TAPi18n.__('notifications.proposals.invite'), 
+					              userId: newCollaborators[i], 
+					              url: '/proposals/view/' + proposalId, 
+					              icon: 'people'
+					            }
+					            Meteor.call('createNotification', notification);
+					          }
+					        } 
+					    }
+						template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
+						FlowRouter.go(returnTo, {id: proposalId});
+					}
+				});
+			} else {
+				Meteor.call('createProposal', newProposal, function(error, proposalId){
+					if (error){
+						RavenClient.captureException(error);
+						Bert.alert(error.reason, 'danger');
+						return false;
+					} else {
+						 //Create notifications for collaborators
+				        if (newProposal.invited) {
+				          for (i=0; i < newProposal.invited.length; i++) {
 				            var notification = {
 				              message: TAPi18n.__('notifications.proposals.invite'), 
-				              userId: newCollaborators[i], 
+				              userId: newProposal.invited[i], 
 				              url: '/proposals/view/' + proposalId, 
 				              icon: 'people'
 				            }
 				            Meteor.call('createNotification', notification);
 				          }
-				        } 
-				    }
-					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
-					FlowRouter.go(returnTo, {id: proposalId});
-				}
-			});
-		} else {
-			Meteor.call('createProposal', newProposal, function(error, proposalId){
-				if (error){
-					RavenClient.captureException(error);
-					Bert.alert(error.reason, 'danger');
-					return false;
-				} else {
-					 //Create notifications for collaborators
-			        if (newProposal.invited) {
-			          for (i=0; i < newProposal.invited.length; i++) {
-			            var notification = {
-			              message: TAPi18n.__('notifications.proposals.invite'), 
-			              userId: newProposal.invited[i], 
-			              url: '/proposals/view/' + proposalId, 
-			              icon: 'people'
-			            }
-			            Meteor.call('createNotification', notification);
-			          }
-			        }
-					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
-					FlowRouter.go(returnTo, {id: proposalId});
-				}
-			});
+				        }
+						template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
+						FlowRouter.go(returnTo, {id: proposalId});
+					}
+				});
+			}
 		}
-	}
-	})
-	
+		})
+	}	
 	return true;
 };
 function removeUserInvite(id){
