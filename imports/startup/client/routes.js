@@ -332,7 +332,7 @@ function loadCommunityInfo() {
         subdomain = "global";
         break;
     case "www.syntropi.se":
-        subdomain = "global";
+        subdomain = "syntropi";
         break;
     default:
         subdomain = window.location.host.split('.')[0];
