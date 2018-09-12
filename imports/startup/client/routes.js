@@ -331,6 +331,9 @@ function loadCommunityInfo() {
     case "www.commondemocracy.org":
         subdomain = "global";
         break;
+    case "www.syntropi.se":
+        subdomain = "global";
+        break;
     default:
         subdomain = window.location.host.split('.')[0];
   }
