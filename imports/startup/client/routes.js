@@ -311,7 +311,6 @@ function loadCommunityInfo() {
   //check for crowdpol:
   var hostname = window.location.host;
   var subdomain = window.location.host.split('.')[0];
-  console.log('check subdomain');
   switch (hostname) {
     case "crowdpol.com":
         subdomain = "global";
@@ -333,12 +332,11 @@ function loadCommunityInfo() {
         break;
     case "www.syntropi.se":
         subdomain = "syntropi";
-        console.log("subdomain is syntropi");
         break;
     default:
         subdomain = window.location.host.split('.')[0];
   }
-  console.log(hostname + " - " + subdomain);
+  //console.log(hostname + " - " + subdomain);
 
   // set LocalStorage info
   if (subdomain){
