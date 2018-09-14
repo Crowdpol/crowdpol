@@ -11,7 +11,7 @@ CommunitySettings = new SimpleSchema({
     colorScheme: {
         type: String,
         optional: true,
-        allowedValues: ['default', 'greyscale'],
+        allowedValues: ['default', 'greyscale','syntropi'],
         defaultValue: 'default'
     },
     logoUrl: {
