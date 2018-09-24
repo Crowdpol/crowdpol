@@ -35,7 +35,7 @@ Template.ViewProposal.onCreated(function(language){
         dict.set( 'tags', proposal.tags || [] );
       }
     })
-  }); 
+  });
 });
 
 Template.ViewProposal.onRendered(function(language){
@@ -68,18 +68,18 @@ Template.ViewProposal.events({
   'click .minilogo, click .proposal-author' (event,template){
     //console.log("show right drawer: " + Template.instance().templateDictionary.get( 'authorId' ));
     Session.set('drawerId',Template.instance().templateDictionary.get( 'authorId' ));
-    if($('.mdl-layout__drawer-right').hasClass('active')){       
-      $('.mdl-layout__drawer-right').removeClass('active'); 
+    if($('.mdl-layout__drawer-right').hasClass('active')){
+      $('.mdl-layout__drawer-right').removeClass('active');
     }else{
-      $('.mdl-layout__drawer-right').addClass('active'); 
+      $('.mdl-layout__drawer-right').addClass('active');
     }
   },
   'click .collab-author' (event,template){
     Session.set('drawerId',this._id);
-    if($('.mdl-layout__drawer-right').hasClass('active')){       
-      $('.mdl-layout__drawer-right').removeClass('active'); 
+    if($('.mdl-layout__drawer-right').hasClass('active')){
+      $('.mdl-layout__drawer-right').removeClass('active');
     }else{
-      $('.mdl-layout__drawer-right').addClass('active'); 
+      $('.mdl-layout__drawer-right').addClass('active');
     }
   },
   'click #edit-proposal' (event, template){
@@ -192,7 +192,7 @@ Template.ViewProposal.helpers({
     var signatures = Template.instance().templateDictionary.get( 'signatures' );
     return signatures.indexOf( Meteor.userId()) > -1;
   },
-  
+
   startDate: function() {
     return Template.instance().templateDictionary.get( 'startDate' );
   },
@@ -249,11 +249,15 @@ Template.ViewProposal.helpers({
     }
   },
   isVisible: function() {
+    //Proposals should be visible to superadmin at all times
+    if(Roles.userIsInRole(Meteor.userId(), 'superadmin')){
+      return true;
+    }
     //Proposal should be visible to admin if submitted
     if ((Roles.userIsInRole(Meteor.userId(), 'admin')) && (Template.instance().templateDictionary.get('stage') == 'submitted')){
       return true;
     } else {
-      // Proposal should be visible to everyone if live, 
+      // Proposal should be visible to everyone if live,
       //or if not live, to authors and invited users
       if (proposalIsLive() || userIsAuthor() || userIsInvited()){
         return true;
@@ -295,7 +299,7 @@ Template.ProposalContent.onCreated(function(language){
         dict.set( 'status', proposal.status );
       }
     })
-  }); 
+  });
 });
 
 Template.ProposalContent.helpers({
@@ -366,10 +370,10 @@ function proposalIsComplete(proposalId) {
   }
   if (!proposal.startDate){
     return false;
-  }  
+  }
   if (!proposal.endDate){
     return false;
-  }  
+  }
 
   return true;
 
