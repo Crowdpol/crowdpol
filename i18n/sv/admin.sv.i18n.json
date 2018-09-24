@@ -16,17 +16,17 @@
 				},
 				"approvals": {
 					"heading": "Godkännanden",
-					"text": "Godkänn eller avvisa användares önskemål om att bli delegater, som individ, organisation eller politiskt parti.",
+					"text": "Godkänn eller avvisa användares önskemål om att bli delegater.",
 					"link": "Hantera Godkännanden"
 				},
 				"proposals": {
-					"heading": "Motioner",
-					"text": "Granska motioner som användare lämnat in.",
-					"link": "Hantera Motioner"
+					"heading": "Förslag",
+					"text": "Granska förslag som användare skickat in.",
+					"link": "Hantera Förslag"
 				},
 				"voting": {
 					"heading": "Röstning",
-					"text": "Se resultat av omröstning och förbered röster i stängda motioner för sammanräkning.",
+					"text": "Se resultat av omröstning och förbered röster i avslutade omröstningar för sammanräkning.",
 					"link": "Se Röstresultat"
 				},
 				"stats":{
@@ -35,9 +35,9 @@
 					"link": "Se Statistik"
 				},
 				"communities":{
-					"heading": "Att göra: Gemenskaperna",
-					"text": "Att göra: Hantera Gemenskaperna",
-					"link": "Att göra: Visa Gemenskaperna"
+					"heading": "Grupper",
+					"text": "Hantera Grupper",
+					"link": "Visa Grupper"
 				}
 			}
 		},
@@ -52,28 +52,27 @@
 			"delete-title":"Radera användare permanent",
 			"delete-yes":"Ja",
 			"delete-no":"Nej",
-			"invite-heading": "Bjud in en Ny Användare:",
-			"invite-message": "Fyll i en användares e-post för att skicka dem en inbjudan att gå med.",
+			"invite-heading": "Bjud in en ny användare:",
+			"invite-message": "Fyll i en användarens e-post för att skicka dem en inbjudan att gå med.",
 			"invite-button": "Skicka Inbjudan",
 			"invite-role": "Användares Roll",
-			"approve-button": "Godkän",
-			"reject-button": "Avslå",
-			"invite-role": "Användares Roll",
-			"whitelist-updated" : "TODO Whitelist updated.",
-			"community-whitelist": "TODO Community Whitelist",
-			"whitelist-description": "TODO If the whitelist is enforced, only users with email addresses in the whitelist will be able to create accounts for this community.",
-			"enforceWhitelist": "TODO Only let these users create accounts."
-		},
-		"proposals":{
-			"heading": "Motioner",
-			"date": "Datum",
-			"author": "Författare",
-			"contributors": "Bidragsgivare",
-			"title": "Titl",
-			"none-waiting": "Det finns inga nya motioner som inväntar godkännande.",
 			"approve-button": "Godkänn",
 			"reject-button": "Avslå",
-			"preview": "TODO: Preview"
+			"whitelist-updated" : "Vitlistan uppdaterad.",
+			"community-whitelist": "Gruppens Vitlista",
+			"whitelist-description": "Om en vitlista används kommer bara användare med e'postadreser på vitlistan kunna skapa konton i denna grupp.",
+			"enforceWhitelist": "Tillåt endast dessa användare att skapa konton."
+		},
+		"proposals":{
+			"heading": "Förslag",
+			"date": "Datum",
+			"author": "Författare",
+			"contributors": "Bidragare",
+			"title": "Titl",
+			"none-waiting": "Det finns inga nya förslag som inväntar godkännande.",
+			"approve-button": "Godkänn",
+			"reject-button": "Avslå",
+			"preview": "Förhandsvisning"
 		},
 		"voting":{
 			"heading": "Röstning",
@@ -96,7 +95,7 @@
 			"approved": "Godkänd",
 			"add-button": "Lägg till",
 			"delete-button": "Radera",
-			"none-waiting": "För tillfället finns det inga motioner som väntar på att granskas."
+			"none-waiting": "För närvarande finns det inga förslag som väntar på att granskas."
 		},
 		"approvals": {
 			"heading": "Godkännanden",
@@ -122,29 +121,29 @@
 			"proposals":{
 				"tabs": {
 					"overview" : "Översikt",
-					"proposalList" : "Statistik Motioner"
+					"proposalList" : "Statistik Förslag"
 				}
 			}
 		},
 		"communities": {
-			"heading": "TODO Communities",
-			"name": "TODO Name",
-			"subdomain": "TODO Subdomain",
-			"user-count": "TODO Number of Users",
-			"none": "TODO There are currently no communities.",
+			"heading": "Grupper",
+			"name": "Namn",
+			"subdomain": "Subdomän",
+			"user-count": "Antal Användare",
+			"none": "För tillfället finns inga grupper.",
 			"colorScheme": {
-				"label": "TODO Color Scheme",
-				"greyscale": "TODO greyscale (black/white/grey)",
-				"default": "TODO default (blue/yellow)"
+				"label": "Färgschema",
+				"greyscale": "Gråskala (svart/vit/grå)",
+				"default": "Default (blå/gul)"
 			},
-			"homepageImageUrl": "TODO Homepage image URL",
-			"homepageBannerText": "TODO Homepage banner text",
-			"homepageIntroText": "TODO Homepage introduction text",
-			"aboutText": "TODO About text",
-			"languageSelector": "TODO Show language selector in header",
-			"defaultLanguage": "TODO Default language",
-			"emailWhitelist": "TODO Emails of allowed users, separated by commas.",
-			"enforceWhitelist": "TODO Enforce the current email whitelist."
+			"homepageImageUrl": "URL till hemsidesbild",
+			"homepageBannerText": "Hemsidans bannertext",
+			"homepageIntroText": "Hemsidans introduktiontext",
+			"aboutText": "Om Oss text",
+			"languageSelector": "Visa språkväljare i sidhuvudet",
+			"defaultLanguage": "Standardspråk",
+			"emailWhitelist": "E-postadresser till tillåtna användare, separerade med kommatecken.",
+			"enforceWhitelist": "Tillämpa den aktuella vitlistan med e-postadresser"
 		}
 	}
 }

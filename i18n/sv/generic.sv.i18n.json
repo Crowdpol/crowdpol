@@ -14,7 +14,7 @@
 		"show-more": "Visa Mer",
 		"show-less": "Visa Mindre",
 		"approved": "Godkänd",
-		"back-to-proposals": "Tillbaka till Motionera"
+		"back-to-proposals": "Tillbaka till Föreslå"
 	},
 	"form": {
 		"email": "E-postadress",
@@ -30,11 +30,11 @@
 		"contact": "Kontaktperson",
 		"message": "Ditt meddelande",
 		"save": "Spara",
-		"save-draft": "TODO: Save Draft",
+		"save-draft": "Spara utkast",
 		"submit": "Sänd",
 		"update": "Uppdatera",
 		"cancel": "Avbryt",
 		"signup": "Bli Medlem",
-		"profile-photo": "TODO: Profile photo"
+		"profile-photo": "Profilbild"
 	}
 }

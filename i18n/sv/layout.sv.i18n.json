@@ -1,13 +1,13 @@
 {
 	"layout": {
 		"header": {
-			"app_title": "Mer Demokrati",
-			"home_title": "Mer Demokrati",
+			"app_title": "Syntropi",
+			"home_title": "Syntropi",
 			"nav_home": "Hem",
 			"nav_dash": "Instrumentpanel",
 			"nav_delegate" : "Delegera",
 			"nav_vote": "Rösta",
-			"nav_proposals": "Motionera",
+			"nav_proposals": "Föreslå",
 			"nav_nominate": "Nominera",
 			"nav_about": "Om",
 			"nav_contact": "Kontakt",
@@ -15,8 +15,8 @@
 			"nav_logout": "Logga ut",
 			"lang_en": "English",
 			"lang_sv": "Svenska",
-			"lang_cy": "TODO: Welsh",
-			"lang_ja": "TODO: Japanese",
+			"lang_cy": "Walesiska",
+			"lang_ja": "Japanska",
 			"role_selector": "Byt Roll",
 			"no_notifications": "Du har inga meddelanden.",
 			"search_tags": "Sök efter taggar...",
@@ -33,16 +33,16 @@
 			"nav_terms" : "Användarvillkor",
 			"nav_admin_dash" : "Adminpanel",
 			"right_about" : "Om",
-			"website": "TODO Website",
-			"recent-votes": "TODO Recent Votes",
-			"no-votes": "TODO This delegate has not voted on any proposals yet."
+			"website": "Webbsida",
+			"recent-votes": "Senaste Omröstningarna",
+			"no-votes": "Den här delegaten har inte röstat på några förslag ännu."
 		},
 		"body":{
 			"no-styles": "Färgschemat för din webbsida kunde inte laddas upp."
 		},
 		"footer": {
 			"delegate": "Delegera",
-			"propose": "Motionera",
+			"propose": "Föreslå",
 			"nominate": "Nominera",
 			"vote": "Rösta"
 		}
