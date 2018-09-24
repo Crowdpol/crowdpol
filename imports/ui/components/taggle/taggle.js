@@ -192,8 +192,10 @@ function removeStringFromArray(keyword,array){
   }
   return array;
 }
+/*
 window.onresize = function(event) {
-  var topPosition = ($('#tag-input-wrap').offset().top - 10) + 'px';
-  console.log(topPosition);
+  //var topPosition = ($('#tag-input-wrap').offset().top - 10) + 'px';
+  //console.log(topPosition);
   //$("#matchedTagsList").css({ top: topPosition });
 };
+*/

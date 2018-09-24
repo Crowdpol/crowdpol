@@ -26,10 +26,15 @@ Template.App_body.onCreated(function() {
       // Load Styles based on community settings
       var community = Communities.findOne({subdomain: subdomain});
       try {
-        if (community.settings.colorScheme == 'greyscale') {
-          import '../../stylesheets/color-schemes/greyscale.scss';
-        } else {
-          import '../../stylesheets/color-schemes/default.scss';
+        switch (community.settings.colorScheme) {
+          case 'greyscale':
+              import '../../stylesheets/color-schemes/greyscale.scss';
+              break;
+          case 'syntropi':
+              import '../../stylesheets/color-schemes/syntropi.scss';
+              break;
+          default:
+              import '../../stylesheets/color-schemes/default.scss';
         }
       } catch(err) {
         console.log(err)

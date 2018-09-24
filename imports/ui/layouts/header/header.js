@@ -89,11 +89,14 @@ Template.Header.helpers({
   },
   */
   showLanguages(){
-    return Template.instance().community.get().settings.languageSelector
+    var langs = Template.instance().community.get().settings.languageSelector;
+    if(langs.length > 1){
+      return true;
+    }
+    return false;
   },
   langs(){
     var langs = LocalStore.get('languages');
-    console.log(langs);
     if (typeof langs !== 'undefined' && langs.length > 0) {
     // the array is defined and has at least one element
 

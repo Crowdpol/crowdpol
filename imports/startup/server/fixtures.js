@@ -20,8 +20,8 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 	snSubdomain = 'syntropi';
 	snLanguages = ['sv'];
 	snId = createCommunity('syntropi', snSubdomain, {
-		colorScheme: 'default',
-		homepageImageUrl: 'img/wave-bg.jpg',
+		colorScheme: 'syntropi',
+		homepageImageUrl: 'img/riksdag-bw.png',
 		languageSelector: true,
 		homepageBannerText: "A new wave of democracy is coming to Sweden.",
 		homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
