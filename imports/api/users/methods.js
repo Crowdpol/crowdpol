@@ -4,7 +4,16 @@ import { Ranks } from '../ranking/Ranks.js'
 import { Notifications } from '../notifications/Notifications.js'
 
 Meteor.methods({
-
+    checkIfUserExists: function (email,communityId) {
+      console.log("check if user email exists: " + email + " communityid: " + communityId);
+      let user = Accounts.findUserByEmail(email);
+      if (typeof user === 'undefined' || user === null) {
+          return false;// variable is undefined or null
+      }else{
+        Meteor.users.update({_id: user._id}, {$push: {'profile.communityIds': communityId} });
+        return true;
+      }
+    },
     addUser: function (newUser) {
       //console.log("method addUser called");
       userId = Accounts.createUser(newUser);

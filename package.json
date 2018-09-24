@@ -1,5 +1,5 @@
 {
-  "name": "CommonDemocracy",
+  "name": "CrowdPol",
   "private": true,
   "scripts": {
     "prod": "meteor --settings=settings.json",

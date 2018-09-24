@@ -139,7 +139,7 @@ function normalizeEntity(profile, user) {
   const credential =[];
   credential.push({
     source: 'signup',
-    URL: 'http://www.commondemocracy.org/',
+    URL: 'http://www.crowdpol.com/',
     validated: false,
   });
 
@@ -229,7 +229,7 @@ function slugName(firstName,lastName) {
 }
 
 Accounts.onCreateUser((options, user) => {
-  //console.log("0. let's start the oncreate process");
+  console.log("0. let's start the oncreate process");
   //console.log(options);
   //console.log("-");
   //console.log(user);
@@ -248,6 +248,7 @@ Accounts.onCreateUser((options, user) => {
       normalizeDemoUser(profile, user);
       Meteor.call('profiles.initiate_demo', user._id,(error) => {
         if(error){
+          console.log("this is the error: " + error);
           Bert.alert({
               title: 'oh dear',
               message: error,
@@ -280,7 +281,7 @@ Accounts.onLogin(function(user){
 
 Accounts.validateNewUser((user) => {
 
-  //console.log("1. validating username on creation");
+  console.log("1. validating username on creation");
 
   //assign random username
   let username = Random.id();
