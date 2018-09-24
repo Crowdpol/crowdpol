@@ -2,56 +2,57 @@
 	"pages": {
 		"roles":{
 			"voter": "Väljare",
-			"individual-delegate": "Individuell Delegat",
-			"organisation-delegate": "Organisationsdelegat",
+			"individual-delegate": "Individdelegat",
+			"organisation-delegate": "Organisation",
 			"party-delegate": "Politiskt Parti",
 			"candidate": "Kandidat"
 		},
 		"home": {
-			"heading": "Mer Demokrati",
-			"intro-text": "Ditt Personliga Val.",
+			"heading": "Syntropii",
+			"intro-text": "Öppen tankesmedja.",
 			"hero": {
 				"delegate": "Delegera",
-				"propose": "Motionera",
+				"propose": "Föreslå",
 				"vote": "Rösta"
 			},
 			"newsletter-text": "Få Vårt Nyhetsbrev.",
-			"banner-text": "Ditt Personliga Val.",
+			"banner-text": "Öppen tankesmedja.",
 			"alerts": {
 				"mailing-list-signup-success": "Tack. Du har lagts till vår mailinglista.",
 				"no-image": "Din bakgrundsbild kunde inte laddas upp."
 			},
-			"get-started": "Komma igång"
+			"get-started": "Kom igång"
 		},
 		"about": {
 			"heading": "Vad handlar det här om då?",
 			"subtitle": "En Inbjudan till Demokratiska (r)Evolutionärer",
 			"section": {
 				"project": {
-					"heading": "Projektet",
-					"paragraph-1": "Mer Demokrati är ett projekt öppet för alla politik- och samhällsintresserade människor som vill skapa en personlig politisk plattform inför valet 2018 och se hur den stämmer överens med olika partiers. För att göra detta använder vi så kallad flytande demokrati där besökare kan välja att delegera sin röst till någon annan eller själv rösta direkt på ett antal motioner, eller en kombination av de båda. För den som har förslag på motioner går det även att skriva egna och skicka in dem till vår redaktion som kommer lägga ut två nya motioner i veckan. Projektet löper fram till Internatuonella Demokratidagen den 15e september i år.",
-    				"paragraph-2": "Målet är att ge väljarna en upplevelse om hur demokrati skulle kunna fungera i vårt moderan, digitala samhälle, men även att bjuda in till en djupare analys och förståelse av de utmaningar samhället står inför detta valår, samt hur våra politiska partier ställer sig till dem. Slutligen är målet att informera våra riksdagsledamöter om hur ett förhoppningsvis representativt axplock av sveriges medborgare ställer sig till diverse olika politiska områden i hopp om att skapa en djupare dialog och ett fördjupat förtroende.",
-    				"paragraph-3":"Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att presenteras för demokratiministern men även riksdagens ledamöter kommer individuellt att bjudas in för att kommentera och ta ställning."
+					"heading": "SYNTROPI",
+					"paragraph-1": "Det finns konservativa veganer. Det finns vänstersympatisörer som gillar sportbilar. Det finns klimataktivister som är för kärnkraft. Människan rymmer och har alltid rymt mångfalder. Ingen är bara en sak, ingen är den statistiska normen, vi är alla avvikelser. Allt färre människor definierar sig som det ena eller det andra på en klassisk höger-vänster skala. 70 procent av svenskarna betraktar sig inte heller som anhängare av något politiskt parti. Politiken är personlig. De enskilda frågorna är viktigare än ideologierna, kanske för att ideologierna är så svåra att se skillnad på i praktiken idag. Alla tror på något, men detta något är olika från person till person och går för det mesta inte att översätta till något som ryms inom en snäv partipolitisk symbol.",
+    				"paragraph-2": "Trots ointresset för partipolitik med bara tre procent av befolkningen medlemmar i ett parti saknas varken politiskt engagemang eller politiska visioner eller förslag hos svenskarna i gemen. Den gamla politiska strukturen håller helt enkelt inte jämna steg med utvecklingen i resten av samhället. Det som behövs är inte nya partier så mycket som nya politiska strukturer, nya metoder och möjligheter att forma politikens innehåll. Nya sätt att mötas och diskutera. I en ofta förvirrande samtid med brist på information behövs pålitliga sätt att identifiera sin egna politiska plattform.",
+    				"paragraph-3":"SYNTROPI representerar ett unikt demokratiprojekt som söker vägar bortom etablerade strukturer och vedertagna vanor inom den politiska sfären. Vi vill stödja skapandet av dessa nya strukturer."
     			
 				},
 				"liquid-democracy": {
-					"heading": "Flytande Demokrati",
-					"paragraph-1": "Flytande Demokrati är ett valsystem som kombinerar fördelarna hos traditionell representativ demokrati med de bästa sidorna hos direktdemokrati, men undviker de bådas begränsningar. Systemet använder så kallade delegater, ungefär samma förfarande som vid delegering av den individuella rösten till ett politiskt parti eller annan representant, men har ett antal mer eller mindre revolutionerande aspekter. Åtminstone för den röstande individen som kan skapa en betydligt mer personlig platform än den paketlösning det befintliga demokratiska systemet erdjuder. Genom flytande demokrati blir det exempelvis möjligt att inte bara delegera sin röst till ett etablerat politikskt parti men även till en organisation eller en person som en har förtroende för. Allt som krävs är att organisationen eller personen i fråga själva använder systemet i egensakp av delegater. Detta kan om systemet användas fullt ut innebära att ett parti, en organisation eller en individ kan få ett direkt politiskt inflytande utan att själva ha ett politiskt uppdrag. Det blir även fullt möjligt för väljaren att anförtro sin röst till fler delegater, inte bara en representant, liksom att ändra delegater närsomhelst. Det är från denna rörliga, flexibla aspekt som det demokratiska systemt fått epitetet flytande.",
-    				"paragraph-2": "Delegatens roll är att rösta åt väljaren i de fall väljaren själv inte anser sig ha tiden, kompetensen eller intresset av att fördjupa sig tillräckligt djupt i en fråga för att fatta ett eget beslut, i stort den roll dagens traditionella demokratiskt valda representanter har. Till skillnad från det senare har en delegate dock bara en rådgivande roll, den individuella väljaren måste i slutändan ändå godkänna alla beslut. I detta ligger kopplingen till den direktdemokratiska traditionen. Väljaren kan närsomhelst aktivt gå in och rösta i valfritt ärende och denna röst kommer alltid att räknas framför delegatens förvalda alternativ.",
-    				"paragraph-3": "Fördelarna med ett flytande demokratisk system är flera. Det tillåter användaren en närmast obegränsad valfrihet att komponera sin egna politiska profil och agenda i enlighet med privata övertygelser, istället för att välja mellan ett mindre antal färdiga paketlösningar. Fokus på sakfrågor framför ideologi skapar nya möjligheter till diskussion och praktiska lösningar med brett politiskt stöd. Saknar väljaren konkreta politiska förslag går det dessutom att bidra med egna motioner som andra väljare och delegater kan stödja.      Väljaren får genom flytande demokrati möjligheten att ändra uppfattning och röst närsomhelst, något som kan vara praktiskt om exempelvis en delegat inte lever upp till förväntning. Delegater i sin tur riskerar att förlora sitt stöd om de inte håller vad de lovat, ett starkt incitament mot korruption och till öppen och ärlig kommunikation eftersom. Omedelbarheten hos röstandet med de risker som denna impulsivitet kan leda till vägs upp av utnyttjandet av mer erfarna och välinformerade delegater i mer komplexa frågor. Detta skapar en betydligt mer stabil politisk struktur än ren direktdemokrati med dess potentiellt i sakfrågor oinformerade väljare. Systemet med flytande demokrati och dess delegater utanför de traditionella politiska kanalerna tillåter en betydligt bredare åsiktskorridor och helt nya perspektiv och lösningar på sociala utmaningar, förutsatt att delegaterna i fråga får tillräckligt stort stöd av den röstadne allmängheten. Flytande demokrati skapar därför även helt nya möjligheter inte bara i fråga om demokratisk struktur men även i det demokratiska innehållet. För att nämna några fördelar."
+					"heading": "Med demokrati som ideologi",
+					"paragraph-1": "SYNTROPI  bygger på de grekiska termerna för tillsammans och närande omsorg. Ett digitalt forum för människor som vill förstå och lösa samhällsutmaningar tillsammans, en slags folkets tankesmedja. Tills skillnad från andra tankesmedjor har vi ingen annan ideologisk grund än tron på demokrati, övertygelsen om allas rätt att vara med och påverka hur det allmänna förvaltas. För att detta ska fungera fullt ut behöver vi även hitta en grund i fakta och i möjligaste mån basera våra förslag evidens snarare än antaganden. Argument och åsikter från alla riktningar och dimensioner är välkomna så länge de skapar en mer nyanserad bild, så de skiljer på åsikt och fakta och så länge de presenteras med respekt till alla andra som använder forumet.",
+    				"paragraph-2": "Vårt mål är att bygga upp en databas av politiska förslag i form av motioner där du snabbt kan få överblick i en specifik fråga och, om du vill, själv rösta och genom detta skapa dig en tydligare bild över din egna politiska plattform. Eftersom vi använder oss av så kallad flytande demokrati (liquid democracy) kan du både delegera din röst till andra men även se hur andra, exempelvis våra riksdagspartier, står i de olika frågorna. En tydligare bild  över som är viktigt för dig men även vilket parti som bäst stämmer överens med dina personliga åsikt i en specifik fråga.",
+    				"paragraph-3": "SYNTROPI kommer alltså att inte bara erbjuda en plattform för politisk dialog utan även att kontinuerligt följa de olika riksdagspartiernas beslut i sakfrågor för att på ett pålitligt sätt kunna representera partiernas politik i praktiken, En gång per år, på demokratidagen den 15 september, gör vi en sammanställning av de viktigaste frågorna på vår plattform enligt allmänheten och presenterar dessa för regering och media. En slags avstämning mellan vad svenskarna tycker är viktigt och vad den politiska eliten prioriterar. Vi kommer även kontinuerligt att ordna debatter samt diskussionskvällar med djupdykningar i olika frågor och ämnen kopplade till våra omröstningar under namnet Syntropia - utopier för realister."
 				},
 				"how-it-works": {
-					"heading": "Hur det fungerar",
-					"paragraph-1": "För att bli användare måste du först skapa ett konto. Det gör du genom att registrera dig genom socialt media eller epost. När du registrerat et konto får du först välja delegater mellan ett antal politiska partier, organisationer och individer. Du kan i dagsläget välja upp till fem delegater, och du behöver inte välja några alls om du inte vill. Det är upp till dig. Det är liksom hela poängen.",
-    				"paragraph-2": "Om du valt ett antal delegater kommer du sedan att få rangordna dem. Den delegat du placerar högst kommer att räknas först och den du placerar längst ner räknas sist när delegaternas rådgivande röster sammanräknas. I vår grundinställning så placeras individer först, sedan organisationer och till sist politiska partier. Detta då individuella delegater oftast fokuserar på specifika frågor, organisationer har ett bredare intresseområde och partier av nödvändighet behöver täcka alla områden. Som väljare kan du dock enkelt se hur dina delegater röstar, oavsett vilken du placerar högst, eftersom alla delegatröster måste vara offentliga.",
-    				"paragraph-3": "Efter val och rangordning av delegater är det dags att rösta i sakfrågorna, i detta fall de motioner som redaktionen har valt att lägga upp. Mer Demokrati kommer att börja med tio motioner och planerar att lagga upp ytterliggare två motioner i veckan fram till slutet av kampanjen i september. Varje enskild motion kommer ha ett  förvalt alternativ, forutsatt att du har delegerat din röst och någon av dina delegater har en åsikt om motionen. Har flera delegater en åsikt i frågan kommer alla dessa att synas under motionen, inklusive kortare kommentarer. Du som väljare kan antingen bekräfta din delegats val eller rösta annorlunda. Som väljare kan du ändra din röst eller ditt val av delegater närsomhelst fram till projektet Mer Demokratis slutdatum, midnatt den 15 september 2018.",
-    					"paragraph-4": "Som registrerad användare i Mer Demokrati kommer du även att kunna föreslå egna motioner. Redaktionen kommer att granska de förslag vi får in och de som möter våra kriterier kommer att publiceras under projektets gång, i mån av utrymme och relevans. Du kan skriva en motion själv eller bjuda in andra användare och skriva en motion tillsammans. Eftersom vi har begränsat med resursder kommer vi först att titta på motioner som kommer in från delegater, sedan gemensamt författade motioner och sist på de motioner som en individ har skrivit själv. Mer informatio om detta hittar du på sidan Motionera.",
-    				"paragraph-5": "Vem som helst kan skapa ett konto för att rösta i Mer Demokrati, men för att bli delegat krävs verifiering av identiteten. Representerar du en organisation som vill agera delegat i projektet behöver du kontakta oss via organisationens epost samt lämna telegonnummer för verifiering. Är du en privatperson som vill bli delegat behöver du verifiera din identitet på liknande sätt. Vi kommer dock att prioritera individer med ett större antal följare i sociala media av naturliga skäl, varför sådan information är viktig att förmedla och verifiera i samband med ansökan.",
-    				"paragraph-6":"Mer Demokrati är ett ideellt projekt där ingen av oss i redaktionen får ekonomisk ersättning för vårt engagemang. Detta innebär att det kan ta en stund att svara på ansökningar samt läsa förslag på motioner."
+					"heading": "SYNTROPI i framtiden",
+					"paragraph-1": "Målet med SYNTROPI är att hitta beröringspunkterna mellan olika förhållningssätt som kan leda till politiska förslag med brett och  långsiktigt stöd hos allmänheten. Målet är även att bli en länk mellan dagens etablerade partier och den breda väljarbasen, mellan specialister och generalister, mellan höger och vänster, mellan där vi är och dit vi vill komma.  ",
+    				"paragraph-2": "För att ta oss fram som samhälle måste vi lösa våra utmaningar tillsammans med hjälp av alla de unika perspektiv som alla individer kan bidra med. Genom att samarbeta får vi en betydligt bättre bild om var vi är och vilka vägar fram som finns. Världen tycks bli mer och mer komplex med många nya utmaningar som inte går att förstå med gamla, etablerade glasögon. Vi gör oss själva ingen tjänst genom att förenkla och reducera dessa med ideologiska skygglappar och snäva perspektiv. Istället för att avfärda dem vi inte håller med bör vi lyssna och ta reda på vad vi kan lära oss av våra meningsmotståndare. Det är bara genom att förstå mer som vi kan skapa en gemensam väg fram genom våra gemensamma utmaningar till vår gemensamma framtid.",
+    				"paragraph-3": "SYNTROPI söker bli en del i en helt ny typ av folkrörelse, en rörelse som bygger på individens val och som kontinuerligt kan ändra kurs allteftersom samhället och förutsättningarna förändras. Ett samhällsbyggande projekt med blicken på samtiden och utifrån detta tar nästa steg mot de gemensamma målen.",
+    					
 				},
 				"about-us": {
-					"heading": "Om Oss",
-					"paragraph-1": "Mer Demokrati är ett ideellt projekt som drivs av Demokratiskolan tillsammans med Social Systems Lab samt ett antal volontärer. Vi är ett partipolitiskt obundet projekt med målet att utvekla det demokratiska samtalet i samhället och de strukturer som en levande demokrati behöver med hjälp av modern teknik och frivilligt engagemang."
+					"heading": "SYNTROPI i nuet",
+					"paragraph-1": "SYNTROPI är ett praktiskt projekt. Visst finns här plats för de stora visionerna, men framför allt ligger fokus på här och nu, på nästa steg. Hos oss kan du idag rösta i ett antal olika politiska frågor eller delegera din röst till partier, organisationer och individer om du inte är säker på hur du själv står i en fråga. Du kan även skicka in förslag på egna politiska motioner."
+					"paragraph-2": "Då vi är en ideell förening har vi ganska begränsade medel och kan därför ännu inte husera debatter på vår plattform. Varje enskild motion har därför sin egna närvaro i sociala media för de som vill diskutera på bredden och djupet. Till 2019 bör vår plattform kunna erbjuda mer avancerade förutsättningar för diskussion av sakfrågor. Varefter vi kommer att kunna diskutera och utveckla idéer på en mer praktiskt sätt här på SYNTROPI. Precis som andra traditionella tankesmedjor. Förutom att alla får vara med.",
+						"paragraph-3": "Vill du engagera dig? Vi behöver all hjälp vi kan få, både vad gäller bidrag i form av motioner, redaktionellt arbete, feedback och förslag, stöd med event, marknadsföring, utveckling med mycket mera. Om du tycker det hela verkar kul och intressant skicka en epost till info@syntropi.se. Som den amerikanska arkitekten och visionären Buckminster Fuller sa är det bästa sättet att förutsäga framtiden att skapa den. Vi hoppas du vill vara med och skapa den med oss.",
+					
 				}
 			}
 		},
@@ -85,7 +86,7 @@
 				},	
 				"login": {
 					"title": "Login",
-					"wrong-community": "Du har inte behörighet för att logga in."
+					"wrong-community": "Du har tyvärr inte behörighet att logga in i denna grupp."
 				}
 			},
 			"entity": {
@@ -112,8 +113,8 @@
 			}
 		},
 		"signup":{
-			"accept-terms": "TODO You must accept the terms of use.",
-			"not-in-whitelist" : "TODO Only whitelisted users can sign up for this community.",
+			"accept-terms": "Du måste acceptera villkoren för att bli medlem i Syntropi.",
+			"not-in-whitelist" : "Endast redan godkända eller  verifierade användare kan registrera sig i denna grupp.",
 			"tab": {
 				"individual": "Individ",
 				"entities": "Organisation/Politiskt Parti"
@@ -160,19 +161,19 @@
 			"heading" : "Instrumentpanel",
 			"card": {
 				"proposals": {
-					"heading": "Mina Motioner",
-					"text": "Dina motioner.",
-					"no-proposals": "TODO: You haven't written any proposals yet.",
-					"draft-proposals": "TODO: Draft proposals",
-					"closed-proposals": "TODO: Closed proposals",
-					"open-proposals": "TODO: Open proposals",
-					"new-proposal": "TODO: Draft a new proposal",
+					"heading": "Mina Förslag",
+					"text": "Dina förslag.",
+					"no-proposals": "Du har inte skrivit några förslag ännu.",
+					"draft-proposals": "Utkast på förslag",
+					"closed-proposals": "Stängda förslag",
+					"open-proposals": "Öppna förslag",
+					"new-proposal": "Skriv ett nytt förslag",
 					"link": "Se"
 				},
 				"delegates": {
 					"heading": "Delegate",
 					"text": "Välj dina delegater.",
-					"no-delegates": "TODO: You don't have any delegates",
+					"no-delegates": "Du verkar inte ha valt några delegater ännu",
 					"link": "Delegera"
 				},
 				"candidates": {
@@ -181,29 +182,29 @@
 					"link": "Nominera"
 				},
 				"delegates": {
-					"heading": "TODO: My Delegate",
-					"text": "TODO: Select your delegates.",
-					"no-delegates": "TODO: You have not selected any Delegates",
-					"link": "TODO: Delegate"
+					"heading": "Mina Delegater",
+					"text": "Välj dina delegater.",
+					"no-delegates": "Du har inte valt några delegater.",
+					"link": "Delegera"
 				},
 				"profile": {
 					"heading": "Min Profil",
-					"text": "TODO: Profile status",
+					"text": "Profilstatus",
 					"link": "Redigera"
 				},
 				"interests": {
 					"heading": "Mina Intressen",
 					"text": "Valda Intressen",
-					"no-interests": "TODO: You have not selected any interests yet",
+					"no-interests": "Du har inte valt några intresseområden ännu",
 					"link": "Välj"
 				},
 				"vote": {
-					"heading": "Rösta på Motioner",
-					"text": "TODO: Vote on Proposals and view results",
-					"open-proposals": "TODO: Open proposals",
-					"closed-proposals": "TODO: Closed proposals",
-					"vote-link": "TODO: Vote now",
-					"view-link": "TODO: View outcome"
+					"heading": "Rösta på Förslag",
+					"text": "Rösta på förslag och se utfallet ov omröstningen",
+					"open-proposals": "Öppna förslag",
+					"closed-proposals": "Avslutade förslag",
+					"vote-link": "Rösta nu",
+					"view-link": "Se utfall"
 				}
 			},
 			"verify-account-message": "Verifiera din e-postadress innan du fortsätter.",
@@ -218,13 +219,13 @@
 		},
 		"delegates": {
 			"heading": "Delegater",
-			"search": "TODO: Search for Delegates",
+			"search": "Sök efter delegater",
 			"instructions-1": "Här finner du alla individer, organisationer och partier om du i dagsläget kan delegera din röst till.",
-			"instructions-2": "En delegat är en slags representant som kommer att rösta åt dig i de frågor där du själv inte aktivt går in och röstar. Exempelvis för att du inte har tid att sätta dig in i frågan eller helt enkelt för att du litar mer på din delegats omdöme än dit eget i ett eller flera områden. I praktiken kommer din delegats röst dock aldrig vara mer än en rekommendation eftersom du närsomhelst kan gå in och rösta efter eget huvud. Din aktiva röst räknas med andra ord före din delegats röst. Ändrar du inte på din delegats röst kommer den dock att räknas som din egen.",
-			"instructions-3": "Du kan för närvarande endast välja upp till fem delegater. Dessa delegater behöver du sedan rangorda. Det gör du genom att dra och släppa dem i den ordning du föredrar. Den deleagt du placerat högst kommer att räknas först. Har den delegaten inte gjort ett val i en fråga går rösten vidare till nästa delegat i ordningen och så vidare. Du kommer dock kunna se hur samtliga dina delegater har röstat under varje fråga.",
+			"instructions-2": "En delegat röstar åt dig i de frågor du själv inte aktivt röstar i. Din delegats röst är aldrig mer än en rekommendation eftersom du närsomhelst kan gå in och rösta efter eget huvud.  Ändrar du inte på din delegats röst kommer den dock att räknas som din egen.",
+			"instructions-3": "Du kan välja upp till fem delegater. Dessa delegater behöver du sedan rangorda. Det gör du genom att dra och släppa dem i den ordning du föredrar. Den deleagt du placerat högst kommer att räknas först. Har den delegaten inte gjort ett val i en fråga går rösten vidare till nästa delegat i ordningen och så vidare.",
 			"alerts": {
 				"delegate-limit": "Du får välja max fem delegater",
-				"ranking-updated": "Dina delegaters inbördes ordning är uppdaterad"
+				"ranking-updated": "Dina delegaters inbördes ordning har uppdaterats"
 			}
 		},
 		"candidates": {
@@ -236,21 +237,21 @@
 		},
 		"proposals": {
 			"list": {
-				"search": "TODO: Search for keywords in proposals",
-				"deletedMessage": "Din motion har raderats.",
-				"confirmDelete": "Är du säker på att du vill radera denna motion? Du kan inte ändra dig efteråt.",
+				"search": "Sök efter nyckelord bland förslagen",
+				"deletedMessage": "Ditt förslag har raderats.",
+				"confirmDelete": "Är du säker på att du vill radera detta förslag? Du kan inte ändra dig efteråt.",
 				"tabs":{
-					"allProposals": "Alla Motioner",
-					"myProposals": "Mina Motioner",
-					"writeProposals": "Skriv en Motion",
-					"draftProposals": "TODO: Draft Proposals",
-					"submittedProposals": "TODO: Submitted Proposals"
+					"allProposals": "Alla Förslag",
+					"myProposals": "Mina Förslag",
+					"writeProposals": "Skriv ett Förslag",
+					"draftProposals": "Utkast till förslag",
+					"submittedProposals": "Inlämnat förslag"
 				},
 				"headings":{
-					"openProposals": "Pågående Motioner",
-					"closedProposals": "Avslutade Motioner",
-					"myProposals": "Mina motioner",
-					"notMyProposals": "Gemensamma Motioner"
+					"openProposals": "Öppna Förslag",
+					"closedProposals": "Avslutade Förslag",
+					"myProposals": "Mina Förlsag",
+					"notMyProposals": "Gemensamma Förslag"
 				},
 				"cards":{
 					"expires": "Löper ut",
@@ -258,95 +259,95 @@
 					"vote": "och rösta"
 				},
 				"openClosedSwitch": "Pågående/Avslutad",
-				"approvedRejectedSwitch": "TODO: Rejected/Approved",
+				"approvedRejectedSwitch": "Avvisad/Godkänd",
 				"createdInvitedSwitch": "Egen/Gemensam",
-				"untitled": "TODO Untitled",
-				"untranslated": "TODO This proposal has not yet been translated.",
-				"no-proposals": "TODO No __status__ proposals are currently available.",
-				"your-proposals": "TODO You have no __status__ proposals.",
-				"create-link": "TODO Create one?"
+				"untitled": "Namnlös",
+				"untranslated": "Detta försalg har ännu inte översatts.",
+				"no-proposals": "Inga __status__ förslag är .",
+				"your-proposals": "Du har inga __status__ förslag.",
+				"create-link": "Skapa en?"
 			},
 			"edit": {
-				"heading": "Din motion",
-				"title": "Ge din motion en titel.",
-				"abstract": "Beskriv kortfattat vad din motion går ut på. Det är denna text som kommer att synas först så det är bra om det ger läsaren en tydlig överblick om vad motionen gpr ut på. ",
-				"body": "Beskriv din motion mer utförligt. Det är denna text som den som vill sätta sig djupare in i motionen kommer att läsa. Tänkt dock på att vara så kortfattad och tydlig som möjligt. Dels för att alla ska vilja läsa och dels för att alla ska vilja förstå vad de röstar på. Inkludera bakgrunden till motionen, de viktigaste argumenten för motionen, relevanta detaljer, länkar och referenser här. Det måste vara uppenbart för alla som röstar vad de röstar för eller emot. Om din motion inte möter dessa grandkrav kommer vi inte att kunna godkänna den, så ta dig gärna tiden att utveckla din motion ordentligt. Samarbete med andra rekommenderas varmt (och gör dessutom att din motion prioriteras av vår redaktion).    ",
-				"forAndAgainst": "Alla motioner har för- och nackdelar. Lägg till alla argument som stödjer din motion men även så många argument du kommer på som kan användas emot den i respektive fält nedan. Målet är en fördjupad förståelse och en balanserad bild av varje problem, för bästa möjliga och välinformarade beslut som väljare. ",
+				"heading": "Ditt förslag",
+				"title": "Ge ditt förslag en titel.",
+				"abstract": "Beskriv kortfattat vad ditt förslag går ut på. Det är denna text som kommer att synas först så det är bra om det ger läsaren en tydlig överblick om vad förslage går ut på. ",
+				"body": "Beskriv ditt förslag mer utförligt, men tänkt dock på att vara så kortfattad och tydlig som möjligt. Dels för att alla ska vilja läsa och dels för att alla ska kunna förstå vad de röstar på. Inkludera gärna relevanta länkar och referenser här. Det måste vara uppenbart för alla som röstar vad de röstar för eller emot. Om ditt förslag inte möter dessa grandkrav kommer vi inte att kunna godkänna den, så ta dig gärna tiden att utveckla det ordentligt. Samarbete med andra rekommenderas varmt.    ",
+				"forAndAgainst": "Alla förslag har för- och nackdelar. Lägg till alla argument som stödjer ditt förslag men även så många motargument du kommer på, i respektive fält nedan. Målet är en nyanserad och balanserad representation av varje fråga, för att kunna fatta bästa möjliga beslut som väljare. ",
 				"startDate": "Startdatum",
 				"endDate": "Slutdatum",
 				"confirm-back": "Är du säker på att du vill lämna sidan? Alla osparade ändringar kommer att förloras.",
-				"invited": "Samarbete brukar ge bästa resultat. Bjud in andra att hjälpa till med denna motion genom att fylla i deras användarnamn. Saknar du användarnamn går det även att fylla i deras e-postadress.",
-				"tags": "Tagga din motion:",
+				"invited": "Samarbete brukar ge bästa resultat. Bjud in andra att hjälpa till med detta förslag genom att fylla i deras användarnamn. Saknar du användarnamn går det även att fylla i deras e-postadress.",
+				"tags": "Tagga ditt förslag:",
 				"pointFor": "Argument För:",
 				"pointAgainst": "Argument Emot:",
 				"alerts": {
 					"saving": "Sparar...",
 					"changes-saved": "Dina Ändringar är Sparade",
-					"proposal-created": "Motion Skapad",
-					"bad-email": "Det här verkar inte vara en riktig e-postadress. Har du skrivit den rätt?"
+					"proposal-created": "Förslag Skapat",
+					"bad-email": "Det här verkar inte vara en riktig e-postadress. Har du skrivit rätt?"
 				}
 			},
 			"view":{
 				"signInModal": {
 					"header": "Gå med i diskussionen",
-					"paragraph-1":"Vill du rösta på den här motionen?",
-					"paragraph-2": "Att skapa ett konto är enkelt, och tillåter dig att välja delegater, rösta på motioner och samarbeta med andra om att skriva egna.",
+					"paragraph-1":"Vill du rösta på det här förslaget?",
+					"paragraph-2": "Att skapa ett konto är enkelt, och tillåter dig att välja delegater, rösta på förslag och samarbeta med andra om att skriva egna.",
 					"button": "Skapa Konto"
 				},
-				"signature-tooltip": "Visa ditt stöd för denna motion genom att signera den. Genom att signera den blir ditt ställningstagande offentligt.",
-				"confirmSubmit": "Är du helt säker på att du vill skicka in din motion? När du väl har skickat in den kan den inte ändras. Om den inte blir godkänd måste du dessutom börja om från blörjan. Bättre att först vara helt säker på att den är så bra som den kan bli med andra ord!",
+				"signature-tooltip": "Visa ditt stöd för detta förslag genom att signera den. Genom att signera det blir dock ditt ställningstagande offentligt.",
+				"confirmSubmit": "Är du helt säker på att du vill skicka in ditt förslag? När du väl har skickat in det kan det inte ändras. Om den inte blir godkänd måste du dessutom börja om från början. Bättre att först vara helt säker på att den är så bra som den kan bli med andra ord!",
 				"voteCast": "Din röst har lagts",
-				"editProposal": "Ändra Motionen",
-				"submitProposal": "Skicka in Motionen",
+				"editProposal": "Ändra Förslaget",
+				"submitProposal": "Skicka in Förslaget",
 				"pointsFor": "Argument För:",
 				"pointsAgainst": "Argument Emot:",
-				"noDelegatesFor": "Ingen av dina delegater röstade för denna motion",
-				"noDelegatesAgainst": "Ingen av dina delegater röstade emot denna motion",
-				"proposalUnvailable": "Denna motion är inte offentlig ännu.",
+				"noDelegatesFor": "Ingen av dina delegater röstade för detta förslag",
+				"noDelegatesAgainst": "Ingen av dina delegater röstade emot detta förslag",
+				"proposalUnvailable": "Detta förslag är inte offentlig ännu.",
 				"noDelegateReason": "Den här delegaten lämade ingen kommentar till sitt val.",
 				"addComment": "Lägg till en kommentar",
-				"voteHeading": "Rösta på denna motion",
+				"voteHeading": "Rösta på detta förslag",
 				"voteStarts": "Börjar:",
 				"voteEnds": "Slutar: ",
-				"inactive-vote-message": "Den här motionen är öppen för omröstning från __startDate__ till __endDate__",
+				"inactive-vote-message": "Det här förslaget är öppet för omröstning från __startDate__ till __endDate__",
 				"abstract": "Sammanfattning",
-				"proposal": "Motion",
+				"proposal": "Förslag",
 				"yes": "Ja",
 				"no": "Nej",
-				"voteInstructions": "Klicka på Ja/Nej för att lägga din röst. Om du väljer att inte rösta kommer din röst att gå till din högst rankade delegat som har röstat i motionen. Du kan dock ändra din röst vid ett senare tillfälle.",
+				"voteInstructions": "Klicka på Ja/Nej för att lägga din röst. Om du väljer att inte rösta kommer din röst att gå till din högst rankade delegat som har röstat på förslaget. Du kan dock ändra din röst vid ett senare tillfälle.",
 				"alerts": {
 					"linkToClipboardSuccess": "Länk kopierad till urklipp",
 					"linkToClipboardFailed": "Kopiering av länk till urklipp misslyckdes",
-					"proposalSubmitted":"Motion inlämnad till redaktionen",
-					"proposalIncomplete": "Du måste fylla i alla fält innan du kan lämna in en motion.",
+					"proposalSubmitted":"Förslag inlämnad till redaktionen",
+					"proposalIncomplete": "Du måste fylla i alla fält innan du kan lämna in ett förslag.",
 					"commentPosted":"Kommentar upplagd"
 				},
 				"userNotFound":"Användaren kunde inte hittas",
 				"anonymous": "Anonym",
 				"collaborators": "Medskapare",
-				"author": "Skapare",
+				"author": "Författare",
 				"delegatesVoteHeading": "Dina delegaters val",
 				"delegatesFor": "Delegater För:",
 				"delegatesAgainst": "Delegater Emot:",
 				"tooltips": {
-					"share": "Kopiera en länk till denna motion till dina urklipp.",
-					"sign": "Visa ditt stöd genom att signera denna motion. Notera att detta inte är en röst på motionen, men väl ett publikt visat stöd."
+					"share": "Kopiera en länk till detta förslag till dina urklipp.",
+					"sign": "Visa ditt stöd genom att signera detta förslag. Notera att detta inte är en röst på motionen, men väl ett publikt visat stöd."
 				},
-				"submit-comment": "TODO Submit comment",
-				"title-empty": "TODO: Untitled Proposal",
-				"abstract-empty":"TODO: Abstract is empty",
-				"body-empty": "TODO: Body is empty"
+				"submit-comment": "Lämna kommentar",
+				"title-empty": "Titel saknas",
+				"abstract-empty":"Sammanfattning saknas",
+				"body-empty": "Innehåll saknas"
 			}
 		},
 		"tag-search":{
 			"heading": "Taggad",
 			"no-delegates": "Det finns ingen delegat med denna tagg.",
-			"no-proposals": "Det finns inga motioner med denna tagg.",
+			"no-proposals": "Det finns inga förslag med denna tagg.",
 			"tabs": {
-				"proposals": "Motioner",
+				"proposals": "Förslag",
 				"delegates": "Delegater",
 				"candidates": "Kandidater",
-				"proposals-heading": "Motioner",
+				"proposals-heading": "Förslag",
 				"delegates-heading": "Delegater",
 				"candidates-heading": "Kandidater"
 			}
@@ -355,37 +356,37 @@
 			"heading": {
 				"delegate": "Röstar som Delegat",
 				"individual": "Röstar som Individ",
-				"completed": "TODO: Completed Voting"
+				"completed": "Omröstning avslutad"
 			},
 			"tabs":{
-				"voteProposals": "TODO: Open for voting",
-				"completedProposals": "TODO: Completed"
+				"voteProposals": "Öppen för omröstning",
+				"completedProposals": "Avslutad"
 			},
-			"description": "Följande motioner går att rösta på. Klicka på en motion för att läsa mer eller expandera motionen för att se hur dina delegater har röstat och för att rösta själv.",
-			"not-ready": "Rösterna för denna motion har inte räknats ännu. Resultatet uppdateras en gång per dygn.",
-			"no-open-proposals": "TODO: There are currently no open proposals to vote on.",
+			"description": "Följande förslag går att rösta på. Klicka på ett förslag för att läsa mer eller expandera förslaget för att se hur dina delegater har röstat och för att själv rösta.",
+			"not-ready": "Rösterna för detta förslag har inte räknats ännu. Resultatet uppdateras en gång per dygn.",
+			"no-open-proposals": "Det finns för närvarande inga förslag öppna för omröstning.",
 			"show-more": "Visa Mer",
 			"show-less": "Visa Mindre",
 			"delegate-description": "OBS: Du röstar nu som delegat åt de användare som valt att ge sin röst till dig. Som delegat ör dina val offentliga.",
-			"individual-description": "Du röstar nu som individ och din röst är bara synlig för dig. Skulle du välja att inte rösta på en specifik motion kommer din högst rankade delagats röst att räknas i ditt ställe.",
+			"individual-description": "Du röstar nu som individ och din röst är bara synlig för dig. Skulle du välja att inte rösta i ett specifikt förslag kommer din högst rankade delagats röst att räknas i ditt ställe.",
 			"voting-card-heading": {
 				"delegate": "Rösta som Delegat:",
 				"individual": "Rösta som Individuell Medlem:"
 			},
-			"no-votes-used": "Inga användare har röstat på denna motion.",
+			"no-votes-used": "Inga användare har röstat på detta förslag.",
 			"for": "För:",
 			"against": "Emot:",
-			"expires": "TODO: Voting closes"
+			"expires": "Omröstningen avslutas"
 		},
 		"profile": {
 			"profile-tags" : "Fyll i minst fem intressen",
 			"heading": "Profil",
-			"photo" : "Profilfotos sökväg",
+			"photo" : "Profilfotos url",
 			"public" : "Offentlig Profil",
 			"private" : "Privat Profil",
 			"delegate" : "Delegat",
 			"candidate" : "Kandidat",
-			"terms-accepted": "TODO I accept the Terms of Use",
+			"terms-accepted": "Jag accepterar användaravtalet",
 			"alerts": {
 				"invalid-url": "Lägg till en fungerande url, som börjar med ‘http’ eller ‘https’.",
 				"username": "Användarnamn är ett måste.",
@@ -396,13 +397,13 @@
 				"profile-private": "Din profil är nu privat.",
 				"profile-public": "Din profil är nu offentlig.",
 				"profile-delegate-removed" : "Delegatprofil Borttagen.",
-				"profile-stop-delegate": "TODO Are you sure you want to stop being a delegate? Users will no longer be able to delegate their votes to you.",
+				"profile-stop-delegate": "Är du säker på att du vill sluta vara delegat? Användare kommer inte längre att kunna låta dig representera dem.",
 				"profile-delegate-requested" : "Delegatansökan skickad. Du kommer att få en bekräftelse per e-post när din ansökan har behandlats.",
 				"profile-candidate-removed" : "Kandidatprofil Borttagen.",
 				"profile-candidate-requested" : "Kandidatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats.",
 				"profile-incomplete" : "Du behöver en fullständig profil om du vill bli delegat.",
-				"password-incorrect": "TODO: Your existing password was incorrect, please try again",
-				"password-reset": "TODO: Your password was successfully reset"
+				"password-incorrect": "Lösenordet du skrev verkar inte stämma. Prova igen!",
+				"password-reset": "Ditt lösenord har återställts"
 			},
 			"tooltips": {
 				"delegateSwitch": "Ansök för att bli delegat. Detta kommer tillåta andra användare att låta dig rösta i deras ställe.",
@@ -415,24 +416,24 @@
 			"status": "Profil status: __completedScore__/__totalScore__ fullständig.",
 			"completed": "fullständig",
 			"interests": "intressen",
-			"public-switch-description": "Gör din profil synlig för andra. Detta kräver en fullständig profil. En synlig profil krävs för den som vill bli delegat.",
-			"delegate-switch-description": "Genom att ställa upp som delegat blir det möjligt för andra som litar på dig att anförtro dig med deras röst.",
+			"public-switch-description": "Gör din profil synlig för andra. Detta krävs om du vill bli delegat. Först krävs dock en fullständig profil.",
+			"delegate-switch-description": "Genom att ställa upp som delegat blir det möjligt för andra att anförtro dig med deras röst.",
 			"bio-count": "__bioCount__ tecken (min 50, max 160)",
-			"photo-url": "TODO: Enter an image url",
-			"change-photo": "TODO: Change profile photo URL",
-			"password-reset": "TODO: Password reset",
-			"old-password" : "TODO: Old password",
-			"new-password": "TODO: New password",
-			"confirm-password": "TODO: Confirm password",
-			"reset": "TODO: Reset",
-			"password-mismatch": "TODO: Passwords do not match",
-			"password-reset": "Password successfully reset"
+			"photo-url": "Fyll i en länk till den profilbild du vill använda",
+			"change-photo": "Ändra länken till ditt profilfoto",
+			"password-reset": "Återställ lösenordet",
+			"old-password" : "Gammalt lösenord",
+			"new-password": "Nytt lösenord",
+			"confirm-password": "Bekräfta lösenord",
+			"reset": "Återställ",
+			"password-mismatch": "Dina lösenord stämmer inte överens med varandra",
+			"password-reset": "Lösenordet har återställts"
 		},
 		"routes": {
 			"alerts": {
-				"verify-success-alert-entity": "Verifiering lyckades. Ditt konto väntar på godkännande av våra admins.",
+				"verify-success-alert-entity": "Verifiering lyckades. Ditt konto väntar nu på godkännande av våra admins.",
 				"login-to-view": "Du måste logga in för att få tillgång till denna sida.",
-				"no-subdomain": "Kolla att URLen du skrev in stämmer."
+				"no-subdomain": "Kolla att länken du skrev stämmer."
 			}
 		}
 
