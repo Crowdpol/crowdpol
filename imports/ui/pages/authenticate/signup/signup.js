@@ -69,30 +69,34 @@ Template.Signup.events({
 					password: template.find('[name="password"]').value,
 					profile: {communityIds: [communityId], termsAccepted: termsAccepted}
 				};
-
-				Accounts.createUser(user, (error) => {
-					if (error) {
-						RavenClient.captureException(error);
-						Bert.alert(error.reason, 'danger');
-					} else {
-						/* Check if redirect route saved */
-						var redirect = LocalStore.get('signUpRedirectURL');
-						LocalStore.set('signUpRedirectURL', '');
-						if (redirect) {
-							window.location.href = redirect;
+				//check if the user email already has an account
+				if(checkUserExists(email,communityId)){
+					FlowRouter.go('/dash');
+				}else{
+					Accounts.createUser(user, (error) => {
+						if (error) {
+							RavenClient.captureException(error);
+							Bert.alert(error.reason, 'danger');
 						} else {
-							FlowRouter.go('/proposals');
-						}
+							/* Check if redirect route saved */
+							var redirect = LocalStore.get('signUpRedirectURL');
+							LocalStore.set('signUpRedirectURL', '');
+							if (redirect) {
+								window.location.href = redirect;
+							} else {
+								FlowRouter.go('/dash');
+							}
 
-							/*Meteor.call('sendVerificationLink', (error, response) => {
-								if (error){
-									Bert.alert(error.reason, 'danger');
-								} else {
-									Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
-								}
-							});*/
+								/*Meteor.call('sendVerificationLink', (error, response) => {
+									if (error){
+										Bert.alert(error.reason, 'danger');
+									} else {
+										Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
+									}
+								});*/
 						}
 					});
+				}
 			} else {
 				Bert.alert(TAPi18n.__('pages.signup.accept-terms'), 'danger')
 			}
@@ -103,3 +107,18 @@ Template.Signup.events({
 		
 	}
 });
+
+function checkUserExists(email,communityId){
+	Meteor.call('checkIfUserExists',email,communityId, (error, response) => {
+		if (error){
+			//user email not found, create a new account
+			Bert.alert(error.reason, 'danger');
+			return false;
+		} else {
+			//user email found, adding community to user profile
+			Bert.alert("found email", 'success');
+			return true;
+		}
+	});
+	return false;
+}

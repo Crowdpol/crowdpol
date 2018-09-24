@@ -1,10 +1,10 @@
-# Common Democracy Beta
+# Crowdpol Beta
 
-Beta version for Common Democracy app.
+Beta version for Crowdpol app.
 
-Common Democracy is an platform for facilitating the democracy of the commons.
+Crowdpol is an platform for facilitating the democracy of the commons.
 
-> _IMPORTANT: Common Democracy is **still under development**, no official releases have been made yet.[ Beta Demo](http://www.commondemocracy.org)._
+> _IMPORTANT: Crowdpol is **still under development**, no official releases have been made yet.[ Beta Demo](http://www.crowdpol.org)._
 
 ## Getting Started
 
@@ -86,7 +86,7 @@ This will setup [Meteor](http://github.com/meteor/meteor) (including [Node](http
           "password": "superadmin"
           "first_name": "Brett",
           "last_name":"Jackman",
-          "email":"brett@commondemocracy.org",
+          "email":"brett@socialsystems.io",
           "roles":["superadmin","admin","normal"]
       }```
 
@@ -101,13 +101,13 @@ This will setup [Meteor](http://github.com/meteor/meteor) (including [Node](http
 	This will load custom settings for development testing on localhost.
 	For 
     
-    Load browser and go to [http://localhost:3000/](http://localhost:3000/) 
+    Load browser and go to [http://crowdpol.localhost:3000/](http://crowdpol.localhost:3000/) 
      :boom:
 
 
 ### Live Demo
 
-* Beta Site: [commondemocracy.org](http://www.commondemocracy.org).
+* Beta Site: [crowdpol.com](http://www.crowdpol.com).
 
 ---
 
@@ -118,20 +118,20 @@ Here is an outline of the MVP features:
 
 0.  **[-]  Registration: **
  	* [-] Email registration
- 	* [x] FB registration
- 	* [x] Google registration
+ 	* [x] FB registration (disabled)
+ 	* [x] Google registration (disabled)
  	* [-] Twitter registration
  	* [x] Dummy user generation
- 	* [-] Admin Panel: User management
- 	* [-] Roles & Permissions
- 	* [-] User Profiles
+ 	* [x] Admin Panel: User management
+ 	* [x] Roles & Permissions
+ 	* [x] User Profiles
  	
 1.	**[-] Admin Panel CRUD **
  	* [x] User 
-  	* [-] Delegates
-  	* [-] Candidates
+  	* [x] Delegates
+  	* [x] Candidates
   	* [-] Organisations/Parties
-  	* [-] Proposals
+  	* [x] Proposals
   	* [-] Votes
   	* [-] Reported Content (Proposals/Comments/Users)
   	* [-] Issues
@@ -142,7 +142,7 @@ Here is an outline of the MVP features:
  	* [x] Comments
  	* [x] Simple vote (yes/no)
  	* [-] Mulitiple vote options (custom)
- 	* [-] Admin Panel: Proposal management
+ 	* [x] Admin Panel: Proposal management
 
 3. ** [x] Delegation. **
     * [x] Choose Delegates (People/Parties/Organisations)
@@ -151,22 +151,22 @@ Here is an outline of the MVP features:
     	* [-] Political Party Management
     	* [-] 0rganisation Management
  
-4. ** [-] Endorse. **
+4. ** [-] Endorse. ** //postponed for later date
     * [-] Nominate Candidates
     * [-] Select Candidates
     * ...still to be updated
     
 5. ** [-] Styling**
-    * [-] Material design layout [Materialize]()
-    * [-] Mobile & desktop responsive UX.
+    * [x] Material design layout [Materialize]()
+    * [x] Mobile & desktop responsive UX.
     * [-] [Webflow](https://www.webflow.com) anyone...?
     
 6. ** [-] Dev-ops**
-	* [-] MailGun set-up
+	* [x] MailGun set-up
 	* [x] Slack Intergation on BitBucket
-	* [-] Subdomains for Collectives
-	* [-] CI Integration
-	* [-] Bugsnag Integration
+	* [x] Subdomains for Collectives
+	* [x] CI Integration
+	* [x] Bug Catch Integration
   
 
  
@@ -251,6 +251,6 @@ None so far
 ---
 ## Acknowledgments
 
-* Hat tip to Democracy Earth for getting me started
+* Hat tip to Democracy Earth for getting us started
 * add your name here after your first commit... ;)
 
