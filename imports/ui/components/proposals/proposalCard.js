@@ -89,7 +89,6 @@ Template.ProposalCard.events({
   'click .delete-proposal-button': function(event, template){
     event.preventDefault();
     var proposalId = event.target.dataset.proposalId;
-    console.log(proposalId);
     if (window.confirm(TAPi18n.__('pages.proposals.list.confirmDelete'))){
       Meteor.call('deleteProposal', proposalId, function(error){
         if (error){
@@ -100,6 +99,13 @@ Template.ProposalCard.events({
           Bert.alert(TAPi18n.__('pages.proposals.list.deletedMessage'), 'success');
         }
       });
+    }
+  },
+  'click .edit-proposal-button': function(event, template){
+    event.preventDefault();
+    var proposalId = event.target.dataset.proposalId;
+    if(typeof proposalId != 'undefined'){
+      FlowRouter.go('App.proposal.edit', {id: proposalId});
     }
   },
 });
