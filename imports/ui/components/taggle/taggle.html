@@ -20,7 +20,7 @@
 	<div class="tags-wrap add-tags-wrap" >
 		<!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
 		{{#if showTags}}
-			{{setTags selectedTags}}
+
 			{{#each selectedTags}}
 				<a class="tag tag-chip" id="keyword-{{this}}">{{this}}
 					<button type="button" class="mdl-chip__action tag-chip-delete" data-keyword="{{this}}"><i class="material-icons tag-chip-delete" data-keyword="{{this}}">cancel</i></button>

@@ -240,7 +240,7 @@ Template.ViewProposal.helpers({
     var startDate = Template.instance().templateDictionary.get('startDate');
     var endDate = Template.instance().templateDictionary.get('endDate');
     var isOpen = ((moment().isAfter(startDate, 'minute')) && (moment().isBefore(endDate, 'minute')))
-    console.log("stage: " + stage + " status: " + status);
+    //console.log("stage: " + stage + " status: " + status);
     //Should be live, approved and between the start and end dates
     if ((stage == 'live') && (status == 'approved') && (isOpen)) {
       return true;

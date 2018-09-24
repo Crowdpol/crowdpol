@@ -48,8 +48,9 @@ Template.EditProposal.onCreated(function(){
 		} else {
 			dict.set( 'startDate', defaultStartDate );
 			dict.set( 'endDate', defaultEndDate);
+			dict.set( 'tags',[]);
 		}
-		
+
 	});
 });
 
@@ -67,19 +68,19 @@ Template.EditProposal.onRendered(function(){
 				self.taggle = new ReactiveVar(taggle);
 				//Set up existing tags
 				var tags = self.templateDictionary.get('tags');
-				if (tags) { 
+				if (tags) {
 					var keywords = _.map(tags, function(tag){ return tag.keyword; })
-					self.taggle.get().add(keywords); 
+					self.taggle.get().add(keywords);
 				}
 				Session.set('setupTaggle', false);
 			}
 			*/
-			
+
 			//Initialise date fields
 			self.find('#startDate').value = self.templateDictionary.get('startDate');
 			self.find('#endDate').value = self.templateDictionary.get('endDate');
 			Session.set("formRendered", false)
-		} 
+		}
 	});
 
 });
@@ -89,6 +90,9 @@ Template.EditProposal.helpers({
 		proposalId = FlowRouter.getParam("id");
 		if (proposalId){
 			return Proposals.findOne({_id: proposalId}).content;
+		}else{
+			//console.log("could not find proposal content");
+			return "";
 		}
 	},
 	languages: function(){
@@ -118,6 +122,7 @@ Template.EditProposal.helpers({
     for(i=0;i<tagsArray.length;i++){
       tags.push(tagsArray[i].keyword);
     }
+		//console.log(tags);
     return tags;
   }
 });
@@ -128,12 +133,12 @@ Template.EditProposal.events({
 		saveChanges(event, template, 'App.proposal.edit');
 	},
 	'click #back-button' (event, template) {
-		//if (!window.confirm(TAPi18n.__('pages.proposals.edit.confirm-back'))){ 
+		//if (!window.confirm(TAPi18n.__('pages.proposals.edit.confirm-back'))){
 			//event.preventDefault();
 		//}
 		event.preventDefault();
 		saveChanges(event, template, 'App.proposals');
-		FlowRouter.go('/proposals');
+		//FlowRouter.go('/proposals');
 		//Session.set('proposalTab','my-proposals-tab');
 	},
 	'click #preview-proposal': function(event, template){
@@ -161,6 +166,9 @@ Template.ProposalForm.onRendered(function(){
 	var self = this;
 
 	var allContent = self.data.content;
+	//if(typeof allContent==='undefined'){
+		//console.log("here is your problem");
+	//}
 	var language = self.data.language
 	var content = _.find(allContent, function(item){ return item.language == language});
 
@@ -279,8 +287,8 @@ function autosave(event, template) {
 	// Save user input after 3 seconds of not typing
 	timer.clear();
 
-	timer.set(function() { 
-		saveChanges(event, template, 'App.proposal.edit');  
+	timer.set(function() {
+		saveChanges(event, template, 'App.proposal.edit');
 	});
 }
 
@@ -298,7 +306,7 @@ var timer = function(){
 		Meteor.clearInterval(timer);
 	};
 
-	return this;    
+	return this;
 }();
 
 function saveChanges(event, template, returnTo){
@@ -325,11 +333,11 @@ function saveChanges(event, template, returnTo){
 		hasContent = false;
 		// Test if each translation has any content before adding it to the proposal
 		// If any field contains something other than whitespace, the translation should be added
-		_.each(translation, function(item){ 
+		_.each(translation, function(item){
 			if (/\S/.test(item)) {
-				hasContent = true; 
+				hasContent = true;
 				return;
-			} 
+			}
 		});
 
 		if (hasContent) {
@@ -340,7 +348,6 @@ function saveChanges(event, template, returnTo){
 
 	})
 	//CHECK IF THERE IS SOME CONTENT IN THE PROPOSAL
-	console.log("languages.length: " + languages.length + ", contentCount: " + contentCount);
 	if(contentCount!=0){
 		Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
 			if (error){
@@ -351,76 +358,77 @@ function saveChanges(event, template, returnTo){
 				let newProposal = {
 					content: content,
 					// Non-translatable fields
-					startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),//
+					startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),
 					endDate: new Date(template.find('#endDate').value),//new Date(2018, 8, 1),
 					authorId: Meteor.userId(),
 					invited: Session.get('invited'),
 					tags: proposalTags,
 					communityId: LocalStore.get('communityId'),
 					stage: "draft"
-			};
+				};
+				var proposalId = FlowRouter.getParam("id");
 
-			var proposalId = FlowRouter.getParam("id");
-			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
+				template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
 
-			// If working on an existing proposal, save it, else create a new one
-			if (proposalId){
-				Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
-					if (error){
-						RavenClient.captureException(error);
-						Bert.alert(error.reason, 'danger');
-						return false;
-					} else {
-						var oldInvites = Proposals.findOne(proposalId).invited;
-					    var newInvites = newProposal.invited;
+				// If working on an existing proposal, save it, else create a new one
+				if (proposalId){
+					Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
+						if (error){
+							RavenClient.captureException(error);
+							Bert.alert(error.reason, 'danger');
+							return false;
+						} else {
+							var oldInvites = Proposals.findOne(proposalId).invited;
+						  var newInvites = newProposal.invited;
 
-					    if (oldInvites && newInvites) {
-					        // Only send new invites if new collaborators have been added
-					        var newCollaborators = _.difference(newInvites, oldInvites);
-					        if (newCollaborators) {
-					          // Create notification for each new collaborator
-					          for (i=0; i<newCollaborators.length; i++) {
+						  if (oldInvites && newInvites) {
+						  	// Only send new invites if new collaborators have been added
+						    var newCollaborators = _.difference(newInvites, oldInvites);
+						    if (newCollaborators) {
+						    	// Create notification for each new collaborator
+						      for (i=0; i<newCollaborators.length; i++) {
+						      	var notification = {
+						              message: TAPi18n.__('notifications.proposals.invite'),
+						              userId: newCollaborators[i],
+						              url: '/proposals/view/' + proposalId,
+						              icon: 'people'
+						      	}
+						      	Meteor.call('createNotification', notification);
+						     	}
+						   	}
+						 	}
+								template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
+
+							FlowRouter.go(returnTo, {id: proposalId});
+						}
+					});
+				} else {
+					Meteor.call('createProposal', newProposal, function(error, proposalId){
+						if (error){
+							RavenClient.captureException(error);
+							Bert.alert(error.reason, 'danger');
+							return false;
+						} else {
+							 //Create notifications for collaborators
+					        if (newProposal.invited) {
+					          for (i=0; i < newProposal.invited.length; i++) {
 					            var notification = {
-					              message: TAPi18n.__('notifications.proposals.invite'), 
-					              userId: newCollaborators[i], 
-					              url: '/proposals/view/' + proposalId, 
+					              message: TAPi18n.__('notifications.proposals.invite'),
+					              userId: newProposal.invited[i],
+					              url: '/proposals/view/' + proposalId,
 					              icon: 'people'
 					            }
 					            Meteor.call('createNotification', notification);
 					          }
-					        } 
-					    }
-						template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
-						FlowRouter.go(returnTo, {id: proposalId});
-					}
-				});
-			} else {
-				Meteor.call('createProposal', newProposal, function(error, proposalId){
-					if (error){
-						RavenClient.captureException(error);
-						Bert.alert(error.reason, 'danger');
-						return false;
-					} else {
-						 //Create notifications for collaborators
-				        if (newProposal.invited) {
-				          for (i=0; i < newProposal.invited.length; i++) {
-				            var notification = {
-				              message: TAPi18n.__('notifications.proposals.invite'), 
-				              userId: newProposal.invited[i], 
-				              url: '/proposals/view/' + proposalId, 
-				              icon: 'people'
-				            }
-				            Meteor.call('createNotification', notification);
-				          }
-				        }
-						template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
-						FlowRouter.go(returnTo, {id: proposalId});
-					}
-				});
+					        }
+									template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
+							FlowRouter.go(returnTo, {id: proposalId});
+						}
+					});
+				}
 			}
-		}
 		})
-	}	
+	}
 	return true;
 };
 function removeUserInvite(id){
