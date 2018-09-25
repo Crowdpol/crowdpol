@@ -39,7 +39,7 @@
     color: #424242;
     overflow: visible;
     overflow-y: auto;
-    z-index: 5;
+    z-index: 99;
 }
 
 .active {
@@ -83,5 +83,3 @@
     display: inline-flex;
     margin-left: 10px;
 }
-
-
