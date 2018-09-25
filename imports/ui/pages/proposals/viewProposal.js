@@ -349,6 +349,57 @@ Template.ProposalContent.helpers({
   },
 });
 
+Template.Comment.events({
+  'mouseenter .comment': function(e) {
+    let commentId = "[data-buttons-id='" + e.currentTarget.getAttribute("data-comment-id") + "']";
+    $(commentId).show();
+  },
+  'mouseleave .comment': function(e) {
+    let commentId = "[data-buttons-id='" + e.currentTarget.getAttribute("data-comment-id") + "']";
+    $(commentId).hide();
+  },
+  'click .delete-comment-button' (event, template){
+    let commentId = event.currentTarget.getAttribute("data-id");
+    Meteor.call('deleteComment', commentId, function(error){
+      if (error){
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentDeleted'), 'success');
+      }
+    });
+  },
+  'click .edit-comment-button' (event, template){
+    let commentTextAreaId = "[data-comment-textarea-id='" + event.currentTarget.getAttribute("data-id") + "']";
+    let commentMessageId = "[data-comment-message-id='" + event.currentTarget.getAttribute("data-id") + "']";
+    $(commentTextAreaId).show();
+    $(commentMessageId).hide();
+  },
+  'click .close-comment-button' (event, template){
+    let commentTextAreaId = "[data-comment-textarea-id='" + event.currentTarget.getAttribute("data-id") + "']";
+    let commentMessageId = "[data-comment-message-id='" + event.currentTarget.getAttribute("data-id") + "']";
+    $(commentTextAreaId).hide();
+    $(commentMessageId).show();
+  },
+  'click .save-comment-button' (event, template){
+    let commentId = event.currentTarget.getAttribute("data-id");
+    let commentUpdateMessageId = "[data-textarea-id='" + commentId + "']";
+    let message = $(commentUpdateMessageId).val();
+    Meteor.call('updateComment', commentId, message, function(error){
+      if (error){
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentUpdated'), 'success');
+        let commentTextAreaId = "[data-comment-textarea-id='" + commentId + "']";
+        let commentMessageId = "[data-comment-message-id='" + commentId + "']";
+        $(commentTextAreaId).hide();
+        $(commentMessageId).show();
+      }
+    });
+  }
+});
+
 function proposalIsComplete(proposalId) {
 
   var proposal = Proposals.findOne(proposalId);

@@ -298,6 +298,7 @@
 				"proposalUnvailable": "Sorry, this proposal is not yet visible to the public.",
 				"noDelegateReason": "This delegate did not provide a reason for their voting choice.",
 				"addComment": "Add a comment",
+				"updateComment": "Udate comment",
 				"voteHeading": "Vote on this proposal",
 				"voteStarts": "Starts:",
 				"voteEnds": "Ends: ",
@@ -312,7 +313,9 @@
 					"linkToClipboardFailed": "Link copied to clipboard",
 					"proposalSubmitted":"Proposal submitted for admin approval",
 					"proposalIncomplete": "You must complete your proposal before submitting it.",
-					"commentPosted":"Comment posted"
+					"commentPosted":"Comment posted",
+					"commentUpdated": "Comment Updated",
+					"commentDeleted": "Comment Deleted"
 				},
 				"userNotFound":"User could not be found",
 				"anonymous": "Anonymous",

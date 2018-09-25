@@ -29,5 +29,11 @@ Meteor.methods({
   getComment: function(commentId){
     check(commentId, String);
     return Comments.findOne({_id: commentId});
+  },
+  updateComment: function(commentId,message){
+    check(commentId, String);
+    check(message, String);
+    console.log("conentId: " + commentId + " message: " + message);
+    Comments.update({_id: commentId}, {$set: {"message": message}});
   }
 });
