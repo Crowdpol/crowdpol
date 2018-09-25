@@ -25,12 +25,12 @@
 				<div class="card-title">
 					<h6>{{ title proposal}}</h6>
 					{{#if showDelete}}
-					<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal-button" data-proposal-id="123">
-						<i class="material-icons delete-proposal-icon" data-proposal-id="123">delete</i>
+					<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal-button" data-proposal-id="{{proposal._id}}">
+						<i class="material-icons delete-proposal-icon" data-proposal-id="{{proposal._id}}">delete</i>
 					</button>
 					{{/if}}
-					<button class="mdl-button mdl-js-button mdl-button--icon edit-proposal-button" data-proposal-id="123">
-						<i class="material-icons edit-proposal-icon" data-proposal-id="123">edit</i>
+					<button class="mdl-button mdl-js-button mdl-button--icon edit-proposal-button" data-proposal-id="{{proposal._id}}">
+						<i class="material-icons edit-proposal-icon" data-proposal-id="{{proposal._id}}">edit</i>
 					</button>
 				</div>
 			</div>

@@ -1,5 +1,6 @@
 import './proposalCard.html'
 import "../../components/proposals/proposalCard.js"
+import RavenClient from 'raven-js';
 import { Proposals } from '../../../api/proposals/Proposals.js'
 
 Template.ProposalCard.onCreated(function () {
@@ -13,7 +14,7 @@ Template.ProposalCard.helpers({
   title: function(proposal) {
     var language = TAPi18n.getLanguage();
     var translation = _.find(proposal.content, function(item){ return item.language == language});
-    
+
     if (translation) {
       var title = translation.title;
       if (title && /\S/.test(title)) {
@@ -88,16 +89,23 @@ Template.ProposalCard.events({
   'click .delete-proposal-button': function(event, template){
     event.preventDefault();
     var proposalId = event.target.dataset.proposalId;
-
     if (window.confirm(TAPi18n.__('pages.proposals.list.confirmDelete'))){
       Meteor.call('deleteProposal', proposalId, function(error){
         if (error){
+          console.log(error.reason);
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
           Bert.alert(TAPi18n.__('pages.proposals.list.deletedMessage'), 'success');
         }
       });
-    } 
+    }
+  },
+  'click .edit-proposal-button': function(event, template){
+    event.preventDefault();
+    var proposalId = event.target.dataset.proposalId;
+    if(typeof proposalId != 'undefined'){
+      FlowRouter.go('App.proposal.edit', {id: proposalId});
+    }
   },
 });
