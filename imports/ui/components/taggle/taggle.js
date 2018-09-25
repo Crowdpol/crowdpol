@@ -74,10 +74,10 @@ Template.NewTaggle.events({
         template.matchedTags.set([event.target.value]);
       }
     }
-    
+
   },
   'mousedown .dropdown-item' (event, template) {
-    console.log(event.target.dataset.keyword);
+    //console.log(event.target.dataset.keyword);
     addTag(event.target.dataset.keyword);
     $('#add-tag').val('');
     //taggle.add(event.target.dataset.keyword);
@@ -103,6 +103,9 @@ Template.NewTaggle.helpers({
     return Template.instance().matchedTags.get();
   },
   'setTags'(tags) {
+    if(typeof tags === 'undefined'){
+      tags = [];
+    }
     Session.set("selectedTags",tags);
   }
 })
@@ -122,6 +125,7 @@ export function getTags(){
     if (typeof selectedTags == 'undefined') {
       selectedTags = [];
     }
+  //console.log(selectedTags);
   return selectedTags;
 }
 
@@ -153,7 +157,7 @@ export function addTag(keyword){
     }else{
       bounceTag(keyword);
     }
-    return;   
+    return;
 }
 
 function updateTags(keyword){
@@ -180,7 +184,7 @@ function bounceTag(keyword) {
   selector = "#keyword-"+keyword.toLowerCase();
   for(i = 0; i < 3; i++) {
     $(selector).fadeTo("fast", 0.15).fadeTo("fast", 1);
-  }        
+  }
 }
 
 function removeStringFromArray(keyword,array){

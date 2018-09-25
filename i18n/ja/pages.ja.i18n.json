@@ -295,6 +295,7 @@
 				"proposalUnvailable": "JA: Sorry, this proposal is not yet visible to the public.",
 				"noDelegateReason": "JA: This delegate did not provide a reason for their voting choice.",
 				"addComment": "JA: Add a comment",
+				"updateComment": "JA: Update comment",
 				"voteHeading": "JA: Vote on this proposal",
 				"voteStarts": "JA: Starts:",
 				"voteEnds": "JA: Ends: ",
@@ -309,7 +310,9 @@
 					"linkToClipboardFailed": "JA: Link copied to clipboard",
 					"proposalSubmitted":"Proposal submitted for admin approval",
 					"proposalIncomplete": "JA: You must complete your proposal before submitting it.",
-					"commentPosted":"Comment posted"
+					"commentPosted":"JA: Comment posted",
+					"commentUpdated": "JA: Comment Updated",
+					"commentDeleted": "JA: Comment Deleted"
 				},
 				"userNotFound":"User could not be found",
 				"anonymous": "JA: Anonymous",

@@ -283,11 +283,33 @@
         color: $dark-grey-xlight;
       }
     }
-
+    .comment > .comment__header {
+      .mdl-button--icon {
+        .material-icons{
+          font-size: 14pt;
+          color: #b2b1b1;
+        }
+      }
+    }
     .comment > .comment__text {
       line-height: 1.5em;
       font-size: $small-font-size;
+
+      .comment_message_edit{
+        display: flex;
+        align-content: space-around;
+        .input-wrap{
+          width: 100%;
+        }
+        .mdl-button--icon {
+          .material-icons{
+            font-size: 14pt;
+            color: #b2b1b1;
+          }
+        }
+      }
     }
+
   }
 }
 
@@ -311,4 +333,3 @@
 #body-editor-sv{
   min-height: 200px;
 }
-

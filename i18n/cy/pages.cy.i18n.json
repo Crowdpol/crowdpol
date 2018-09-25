@@ -295,6 +295,7 @@
 				"proposalUnvailable": "CY: Sorry, this proposal is not yet visible to the public.",
 				"noDelegateReason": "CY: This delegate did not provide a reason for their voting choice.",
 				"addComment": "CY: Add a comment",
+				"updateComment": "CY: Update comment",
 				"voteHeading": "CY: Vote on this proposal",
 				"voteStarts": "CY: Starts:",
 				"voteEnds": "CY: Ends: ",
@@ -309,7 +310,9 @@
 					"linkToClipboardFailed": "CY: Link copied to clipboard",
 					"proposalSubmitted":"Proposal submitted for admin approval",
 					"proposalIncomplete": "CY: You must complete your proposal before submitting it.",
-					"commentPosted":"Comment posted"
+					"commentPosted":"CY: Comment posted",
+					"commentUpdated": "CY: Comment Updated",
+					"commentDeleted": "CY: Comment Deleted"
 				},
 				"userNotFound":"User could not be found",
 				"anonymous": "CY: Anonymous",
