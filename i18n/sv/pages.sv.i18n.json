@@ -300,6 +300,7 @@
 				"proposalUnvailable": "Detta förslag är inte offentlig ännu.",
 				"noDelegateReason": "Den här delegaten lämade ingen kommentar till sitt val.",
 				"addComment": "Lägg till en kommentar",
+				"updateComment": "Uppdatera kommentar",
 				"voteHeading": "Rösta på detta förslag",
 				"voteStarts": "Börjar:",
 				"voteEnds": "Slutar: ",
@@ -314,7 +315,9 @@
 					"linkToClipboardFailed": "Kopiering av länk till urklipp misslyckdes",
 					"proposalSubmitted": "Förslag inlämnad till redaktionen",
 					"proposalIncomplete": "Du måste fylla i alla fält innan du kan lämna in ett förslag.",
-					"commentPosted": "Kommentar upplagd"
+					"commentPosted": "Kommentar upplagd",
+					"commentUpdated": "Kommentar uppdaterad",
+					"commentDeleted": "Kommentar borttagen"
 				},
 				"userNotFound": "Användaren kunde inte hittas",
 				"anonymous": "Anonym",

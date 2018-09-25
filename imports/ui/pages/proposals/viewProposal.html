@@ -238,17 +238,46 @@
 <!--============ Single Comment ============-->
 
 <template name="Comment">
-	<div class="comment mdl-color-text--grey-700">
+
+	<div class="comment mdl-color-text--grey-700" data-comment-id="{{_id}}">
 		<header class="comment__header">
 			<img src="{{avatar}}" class="comment__avatar">
 			<div class="comment__author">
 				<strong>{{ username }}</strong>
 				<span>{{ date }}</span>
 			</div>
+			<div class="comment__functions" style="display:none;" data-buttons-id="{{_id}}">
+				<button class="mdl-button mdl-js-button mdl-button--icon delete-comment-button" data-id="{{_id}}">
+					<i class="material-icons delete-comment-icon" data-id="{{_id}}">delete</i>
+				</button>
+				<button class="mdl-button mdl-js-button mdl-button--icon edit-comment-button" data-id="{{_id}}">
+					<i class="material-icons edit-comment-icon" data-id="{{_id}}">edit</i>
+				</button>
+			</div>
 		</header>
 		<div class="comment__text">
-			{{ message }}
+			<div class="comment_message" data-comment-message-id="{{_id}}">{{ message }}</div>
+			<div class="comment_message_edit" style="display:none;"  data-comment-textarea-id="{{_id}}">
+				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<textarea class="mdl-textfield__input" type="text" rows= "3" data-textarea-id="{{_id}}">{{ message }}</textarea>
+					<label class="mdl-textfield__label">{{_ "pages.proposals.view.updateComment"}}</label>
+				</div>
+				<button class="mdl-button mdl-js-button mdl-button--icon close-comment-button" data-id="{{_id}}">
+					<i class="material-icons close-comment-icon" data-id="{{_id}}">close</i>
+				</button>
+				<button class="mdl-button mdl-js-button mdl-button--icon save-comment-button" data-id="{{_id}}">
+					<i class="material-icons save-comment-icon" data-id="{{_id}}">save</i>
+				</button>
+			</div>
 		</div>
+		<!--<nav class="comment__actions">
+			<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button-icon">
+				<i class="material-icons" role="presentation">thumb_up</i><span class="visuallyhidden">like comment</span>
+			</button>
+			<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button-icon">
+				<i class="material-icons" role="presentation">thumb_down</i><span class="visuallyhidden">dislike comment</span>
+			</button>
+		</nav>-->
 	</div>
 	<hr>
 </template>
