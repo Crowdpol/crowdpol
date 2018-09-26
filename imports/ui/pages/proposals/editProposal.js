@@ -197,6 +197,8 @@ function saveChanges(event, template, returnTo){
 			title: $(`#title-${language}`).val(),
 			abstract: $(`#abstract-${language}`).val(),
 			body: $(`#body-${language}`).val(),
+			argumentsFor: [],
+			argumentsAgainst: [],
 			pointsFor: pointsFor,
 			pointsAgainst: pointsAgainst
 		};

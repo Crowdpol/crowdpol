@@ -5,6 +5,7 @@ import { Communities } from '../../../api/communities/Communities.js'
 //import { setupTaggle } from '../../components/taggle/taggle.js'
 import { getTags } from '../../components/taggle/taggle.js'
 import "../../components/userSearch/userSearch.js"
+import "../../components/arguments/arguments.js"
 import RavenClient from 'raven-js';
 
 Template.ProposalForm.onCreated(function(){
