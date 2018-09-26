@@ -351,52 +351,68 @@ Template.ProposalContent.helpers({
 
 Template.Comment.events({
   'mouseenter .comment': function(e) {
-    let commentId = "[data-buttons-id='" + e.currentTarget.getAttribute("data-comment-id") + "']";
-    $(commentId).show();
+    let commentId = e.currentTarget.getAttribute("data-comment-id");
+    if(checkIfOwner(commentId)){
+      let identifier = "[data-buttons-id='" + commentId + "']";
+      $(identifier).show();
+    }
   },
   'mouseleave .comment': function(e) {
-    let commentId = "[data-buttons-id='" + e.currentTarget.getAttribute("data-comment-id") + "']";
-    $(commentId).hide();
+    let commentId = e.currentTarget.getAttribute("data-comment-id");
+    if(checkIfOwner(commentId)){
+      let identifier = "[data-buttons-id='" + commentId  + "']";
+      $(identifier).hide();
+    }
   },
   'click .delete-comment-button' (event, template){
     let commentId = event.currentTarget.getAttribute("data-id");
-    Meteor.call('deleteComment', commentId, function(error){
-      if (error){
-        RavenClient.captureException(error);
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentDeleted'), 'success');
-      }
-    });
+    if(checkIfOwner(commentId)){
+      Meteor.call('deleteComment', commentId, function(error){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentDeleted'), 'success');
+        }
+      });
+    }
   },
   'click .edit-comment-button' (event, template){
-    let commentTextAreaId = "[data-comment-textarea-id='" + event.currentTarget.getAttribute("data-id") + "']";
-    let commentMessageId = "[data-comment-message-id='" + event.currentTarget.getAttribute("data-id") + "']";
-    $(commentTextAreaId).show();
-    $(commentMessageId).hide();
+    let commentId = event.currentTarget.getAttribute("data-id");
+    if(checkIfOwner(commentId)){
+      let commentTextAreaId = "[data-comment-textarea-id='" + commentId + "']";
+      let commentMessageId = "[data-comment-message-id='" + commentId + "']";
+      $(commentTextAreaId).show();
+      $(commentMessageId).hide();
+    }
   },
   'click .close-comment-button' (event, template){
-    let commentTextAreaId = "[data-comment-textarea-id='" + event.currentTarget.getAttribute("data-id") + "']";
-    let commentMessageId = "[data-comment-message-id='" + event.currentTarget.getAttribute("data-id") + "']";
-    $(commentTextAreaId).hide();
-    $(commentMessageId).show();
+    let commentId = event.currentTarget.getAttribute("data-id");
+    if(checkIfOwner(commentId)){
+      let commentTextAreaId = "[data-comment-textarea-id='" + commentId + "']";
+      let commentMessageId = "[data-comment-message-id='" + commentId + "']";
+      $(commentTextAreaId).hide();
+      $(commentMessageId).show();
+    }
   },
   'click .save-comment-button' (event, template){
     let commentId = event.currentTarget.getAttribute("data-id");
-    let commentUpdateMessageId = "[data-textarea-id='" + commentId + "']";
-    let message = $(commentUpdateMessageId).val();
-    Meteor.call('updateComment', commentId, message, function(error){
-      if (error){
-        RavenClient.captureException(error);
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentUpdated'), 'success');
-        let commentTextAreaId = "[data-comment-textarea-id='" + commentId + "']";
-        let commentMessageId = "[data-comment-message-id='" + commentId + "']";
-        $(commentTextAreaId).hide();
-        $(commentMessageId).show();
-      }
-    });
+    if(checkIfOwner(commentId)){
+      let commentUpdateMessageId = "[data-textarea-id='" + commentId + "']";
+      let message = $(commentUpdateMessageId).val();
+      Meteor.call('updateComment', commentId, message, function(error){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentUpdated'), 'success');
+          let commentTextAreaId = "[data-comment-textarea-id='" + commentId + "']";
+          let commentMessageId = "[data-comment-message-id='" + commentId + "']";
+          $(commentTextAreaId).hide();
+          $(commentMessageId).show();
+        }
+      });
+    }
   }
 });
 
@@ -471,3 +487,14 @@ function transformComment(comment) {
     }
     return comment;
 };
+
+function checkIfOwner(commentId){
+  let comment = Comments.findOne({_id: commentId});
+  if(typeof comment != 'undefined'){
+    let authorId = comment.authorId;
+    if(Meteor.user()._id == authorId){
+      return true;
+    }
+  }
+  return false;
+}
