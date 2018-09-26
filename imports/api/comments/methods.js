@@ -15,11 +15,15 @@ Meteor.methods({
       throw new Meteor.Error(422, 'Please write some content');
     if (!proposal)
       throw new Meteor.Error(422, 'You must comment on a proposal');
+    let existingComment = Comments.find({"proposalId":commentAttributes.proposalId,"message":commentAttributes.message,"authorId":user._id}).count();
+    if (existingComment)
+      throw new Meteor.Error(422, 'Duplicate comment');
     comment = {
       message: commentAttributes.message,
       proposalId: commentAttributes.proposalId,
       authorId: user._id
     }
+
     return Comments.insert(comment);
   },
   deleteComment: function(commentId) {
