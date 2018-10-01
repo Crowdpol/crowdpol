@@ -14,7 +14,7 @@ ArgumentSchema = new SimpleSchema({
     allowedValues: ['for', 'against'],
     optional: false,
   },
-  comment: {
+  message: {
     type: String,
     optional: false,
   },

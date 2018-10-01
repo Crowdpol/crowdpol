@@ -19,8 +19,9 @@
 		<div id="body-editor-{{language}}"></div>
 		<input type="hidden" name="body" id="body-{{language}}" class="mdl-textfield__input">
 		<br/>
-		<!-- Points for and against -->
-		{{> Arguments  }}
+
+		<!-- Arguments-->
+		{{>Arguments forArguments=forArguments againstArguments=againstArguments lang=language}}
 
 		<!-- Points for and against -->
 		<div>

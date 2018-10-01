@@ -4,6 +4,7 @@ import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Communities } from '../../../api/communities/Communities.js'
 //import { setupTaggle } from '../../components/taggle/taggle.js'
 import { getTags } from '../../components/taggle/taggle.js'
+import { validateForm } from './proposalForm.js'
 import "../../components/userSearch/userSearch.js"
 import RavenClient from 'raven-js';
 
@@ -57,8 +58,9 @@ Template.EditProposal.onRendered(function(){
 	this.autorun(function() {
 		// Wait for whole form to render before initialising fields
 		if (Session.get("formRendered")) {
-			validateForm();
 			/*
+			validateForm();
+
 			if (Session.get('setupTaggle')) {
 				//Set up Taggle
 				taggle = setupTaggle();
@@ -74,6 +76,7 @@ Template.EditProposal.onRendered(function(){
 			*/
 
 			//Initialise date fields
+			//console.log(self.templateDictionary.get('startDate'));
 			self.find('#startDate').value = self.templateDictionary.get('startDate');
 			self.find('#endDate').value = self.templateDictionary.get('endDate');
 			Session.set("formRendered", false)
@@ -330,62 +333,4 @@ function removeUserEmail(index){
 	emails = Session.get('emailInvites');
 	emails.splice(index, 1);
 	Session.set('emailInvites',emails);
-}
-
-function validateForm(){
-	// Form Validations
-	$( "#edit-proposal-form" ).validate({
-		debug: true,
-		ignore: "",
-		rules: {
-			title: {
-				required: false,
-				minlength: 5
-			},
-			abstract: {
-				required: false,
-				minlength: 5
-			},
-			body: {
-				required: false,
-				minlength: 50
-			},
-			startDate: {
-				required: true,
-			},
-			endDate: {
-				required: true,
-			},
-			inputPointFor: {
-				required: false,
-				minlength: 1,
-				maxlength: 320
-			},
-			inputPointAgainst: {
-				required: false,
-				minlength: 1,
-				maxlength: 320
-			}
-		},
-		messages: {
-			title: {
-				required: 'Please make sure your proposal has a title.',
-				minlength: "Use at least 5 characters."
-			},
-			abstract: {
-				required: 'Please provide a short abstract for your proposal.',
-				minlength: "Use at least 5 characters."
-			},
-			body: {
-				body: 'Please provide a body for your proposal.',
-				minlength: "Use at least 50 characters."
-			},
-			startDate: {
-				required: 'Please indicate when voting will open for this proposal.'
-			},
-			endDate: {
-				required: 'Please indicate when voting will close for this proposal.'
-			},
-		}
-	});
 }

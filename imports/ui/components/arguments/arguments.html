@@ -1,16 +1,86 @@
 <template name="Arguments">
+  {{setArguments forArguments againstArguments lang}}
   <div class="argument-container">
-    <div class="for-container">
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  			<textarea class="mdl-textfield__input" type="text" rows= "3" id="argument-for-message" ></textarea>
-  			<label class="mdl-textfield__label">{{_ "pages.proposals.view.pointsFor"}}</label>
-  		</div>
+    <div class="for-container arguments-column">
+      <h5>Arguments For</h5>
+      <ul class="arguments-list">
+        {{#each argument in forArgumentsLang lang}}
+          {{>ArgumentsListItem argument=argument lang=lang}}
+        {{/each}}
+      </ul>
+      {{>ArgumentsBox type="for" lang=lang args=argumentsFor}}
     </div>
-    <div class="against-container">
+    <div class="against-container arguments-column">
+      <h5>Arguments Against</h5>
+      <ul class="arguments-list">
+        {{#each argument in againstArgumentsLang lang}}
+          {{>ArgumentsListItem  argument=argument lang=lang}}
+        {{/each}}
+      </ul>
+      {{>ArgumentsBox type="against" lang=lang args=argumentsAgainst}}
+    </div>
+  </div>
+</template>
+
+<template name="ArgumentsListItem">
+  <li class="argument" data-id='{{argument._id}}'>
+    <div class="argument-content">
+      <div class="argument-author">
+        {{authorName argument.authorId}}
+      </div>
+      <div class="argument-message">
+        <span class="argument-text" data-id="{{argument._id}}">{{argument.message}}</span>
+        <div class="argument-textarea input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display:none;" data-id="{{argument._id}}">
+          <textarea class="mdl-textfield__input" type="text" rows= "3" data-id="{{_id}}">{{argument.message}}</textarea>
+          <label class="mdl-textfield__label">{{_ "pages.proposals.view.updateComment"}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="argument-menu" style="display:none;" data-id='{{argument._id}}'>
+      {{#if isOwnArgument argument.authorId}}
+      <div class="edit-menu" data-id='{{argument._id}}'>
+        <button class="mdl-button mdl-js-button mdl-button--icon delete-argument-button" data-id="{{argument._id}}">
+          <i class="material-icons delete-argument-icon" data-id="{{argument._id}}">delete</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--icon edit-argument-button" data-id="{{argument._id}}">
+          <i class="material-icons edit-argument-icon" data-id="{{argument._id}}">edit</i>
+        </button>
+      </div>
+      {{else}}
+      <div class="like-menu">
+        <button class="mdl-button mdl-js-button mdl-button--icon like-argument-button" data-id="{{argument._id}}">
+          <i class="material-icons like-argument-icon" data-id="{{argument._id}}">thumb_up</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--icon dislike-argument-button" data-id="{{argument._id}}">
+          <i class="material-icons dislike-argument-icon" data-id="{{argument._id}}">thumb_down</i>
+        </button>
+      </div>
+      {{/if}}
+      <div class="save-menu" style="display:none;"  data-id='{{argument._id}}'>
+        <button class="mdl-button mdl-js-button mdl-button--icon close-argument-button" data-id="{{argument._id}}">
+          <i class="material-icons close-argument-icon" data-id="{{argument._id}}">close</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--icon save-argument-button" data-id="{{argument._id}}">
+          <i class="material-icons save-argument-icon" data-id="{{argument._id}}">save</i>
+        </button>
+      </div>
+    </div>
+  </li>
+</template>
+
+<template name="ArgumentsBox">
+  {{args}}
+  <div class="argument-box">
+    <div class="argument-box-textarea">
       <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  			<textarea class="mdl-textfield__input" type="text" rows= "3" id="argument-against-message" ></textarea>
-  			<label class="mdl-textfield__label">{{_ "pages.proposals.view.pointsAgainst"}}</label>
-  		</div>
+        <textarea class="argument-input mdl-textfield__input" type="text" rows= "3" data-type="{{type}}" data-lang="{{lang}}"></textarea>
+        <label class="mdl-textfield__label">{{_ "pages.proposals.view.pointsFor"}}</label>
+      </div>
+    </div>
+    <div class="argument-box-menu">
+      <button class="mdl-button mdl-js-button mdl-button--icon add-argument-button" data-type="{{type}}" data-lang="{{lang}}">
+        <i class="material-icons add-argument-icon" data-id="{{argument._id}}" data-type="{{type}}" data-lang="{{lang}}">add</i>
+      </button>
     </div>
   </div>
 </template>
