@@ -12,7 +12,7 @@ TranslationSchema = new SimpleSchema({
     language: {
         type: String,
         optional: false
-    },  
+    },
     title: {
         type: String,
         optional: true
@@ -123,7 +123,7 @@ ProposalSchema = new SimpleSchema({
         type: String,
         optional: true,
     },
-    
+
     votesFinalised: {
         /* If a proposal is expired and the votes have been prepared for tallying */
         type: Boolean,

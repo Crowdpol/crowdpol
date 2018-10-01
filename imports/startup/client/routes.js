@@ -336,7 +336,7 @@ function loadCommunityInfo() {
     default:
         subdomain = window.location.host.split('.')[0];
   }
-  console.log(hostname + " - " + subdomain);
+  //console.log(hostname + " - " + subdomain);
 	document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
   // set LocalStorage info
   if (subdomain){
