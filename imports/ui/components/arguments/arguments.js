@@ -1,8 +1,8 @@
 import './arguments.html'
 import { Random } from 'meteor/random';
 
-//let argumentsForArray = [];
-//let argumentsAgainstArray = [];
+let argumentsForArray = [];
+let argumentsAgainstArray = [];
 Template.Arguments.onCreated(function () {
 
   let self = this;
@@ -18,6 +18,9 @@ Template.Arguments.helpers({
     return Template.instance().argumentsAgainst.get();
   },
   setArguments(argumentsFor,argumentsAgainst,lang){
+    //let parentView = Blaze.currentView.parentView.parentView.parentView;
+    //let parentInstance = parentView.templateInstance();
+    //console.log(parentView);
     if(typeof argumentsFor!='undefined'){
       let langArray = [];
       for(arg in argumentsFor){
@@ -86,7 +89,6 @@ Template.ArgumentsListItem.events({
       $(textareaIdentifier).show();
       $(editMenuIdentifier).hide();
       $(saveMenuIdentifier).show();
-      console.log(messageIdentifier);
     }
   },
   'click .close-argument-button' (event, template){
@@ -101,7 +103,6 @@ Template.ArgumentsListItem.events({
       $(textareaIdentifier).hide();
       $(editMenuIdentifier).show();
       $(saveMenuIdentifier).hide();
-      console.log(messageIdentifier);
     }
   },
   'click .save-argument-button' (event, template){
@@ -109,6 +110,10 @@ Template.ArgumentsListItem.events({
     let authorId = Meteor.user()._id;
     let argumentId = event.target.dataset.id;
     if(typeof argumentId !='undefined'){
+      //get Parent Template instance for reactiveVar
+      let parentView = Blaze.currentView.parentView.parentView;
+      let parentInstance = parentView.templateInstance();
+
       let messageIdentifier = "[data-id='" + argumentId + "'].argument-text";
       let textareaIdentifier = "[data-id='" + argumentId + "'].argument-textarea";
       let editMenuIdentifier = "[data-id='" + argumentId + "'].edit-menu"
@@ -160,16 +165,15 @@ Template.ArgumentsListItem.helpers({
 Template.ArgumentsBox.events({
   'click .add-argument-button .add-argument-icon' (event, template){
     event.preventDefault();
+    //get Parent Template instance for reactiveVar
     let parentView = Blaze.currentView.parentView.parentView;
-    console.log(parentView);
     let parentInstance = parentView.templateInstance();
-    console.log(parentInstance);
-    //console.log(template.view.parentView.parentView._templateInstance.argumentsFor.curValue);
+    //get the correct input field by language and argument
     let argumentType = event.target.dataset.type;
     let argumentLang = event.target.dataset.lang;
     let argumentTextIdentifier = "[data-type='" + argumentType + "'][data-lang='" + argumentLang + "'].argument-input";
-    console.log($(argumentTextIdentifier).val());
     if(typeof argumentType !='undefined'){
+      //create arguments
       let argument = {
         _id: Random.id(),
         type: argumentType,
@@ -181,17 +185,32 @@ Template.ArgumentsBox.events({
         downVote: [],
         language: argumentLang
       };
-
+      //update reactiveVar
       if(argumentType=='for'){
-        let argumentsArray = parentInstance.argumentsFor.get();
-        argumentsArray.push(argument);
-        parentInstance.argumentsFor.set(argumentsArray);
+        argumentsForArray = parentInstance.argumentsFor.get();
+        argumentsForArray.push(argument);
+        parentInstance.argumentsFor.set(argumentsForArray);
       }
       if(argumentType=='against'){
-        let argumentsArray = parentInstance.argumentsAgainst.get();
-        argumentsArray.push(argument);
-        parentInstance.argumentsAgainst.set(argumentsArray);
+        argumentsAgainstArray = parentInstance.argumentsAgainst.get();
+        argumentsAgainstArray.push(argument);
+        parentInstance.argumentsAgainst.set(argumentsAgainstArray);
       }
     }
   }
-})
+});
+
+export function getForArguments(){
+  if (typeof argumentsForArray == 'undefined') {
+      argumentsForArray = [];
+  }
+  //console.log(argumentsForArray);
+  return argumentsForArray;
+}
+export function getAgainstArguments(){
+  if (typeof argumentsAgainstArray == 'undefined') {
+      argumentsAgainstArray = [];
+  }
+  //console.log(argumentsAgainstArray);
+  return argumentsAgainstArray;
+}

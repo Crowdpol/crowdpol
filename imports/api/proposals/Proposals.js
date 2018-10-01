@@ -8,52 +8,6 @@ if ( Meteor.isServer ) {
   //Proposals._ensureIndex( { title: 1, abstract: 1, body: 1 } );
 }
 
-ArgumentSchema = new SimpleSchema({
-  type: {
-    type: String,
-    allowedValues: ['for', 'against'],
-    optional: false,
-  },
-  message: {
-    type: String,
-    optional: false,
-  },
-  authorId: {
-    type: Boolean,
-    optional: false,
-  },
-  createdAt: {
-      type: Date,
-      autoValue: function() {
-          if (this.isInsert) {
-              return new Date();
-          }
-      }
-  },
-  lastModified: {
-      type: Date,
-      autoValue: function() {
-          if (this.isInsert) {
-              return new Date();
-          }
-      }
-  },
-  "upVote": {
-      type: Array,
-      optional: true
-  },
-  'upVote.$': {
-      type: String
-  },
-  "downVote": {
-      type: Array,
-      optional: true
-  },
-  'downVote.$': {
-      type: String
-  },
-});
-
 TranslationSchema = new SimpleSchema({
     language: {
         type: String,
@@ -70,22 +24,6 @@ TranslationSchema = new SimpleSchema({
     body: {
         type: String,
         optional: true
-    },
-    "argumentsFor": {
-        type: Array,
-        optional: true
-    },
-    'argumentsFor.$': {
-        type: ArgumentSchema,
-        optional: true,
-    },
-    "argumentsAgainst": {
-        type: Array,
-        optional: true
-    },
-    'argumentsAgainst.$': {
-        type: ArgumentSchema,
-        optional: true,
     },
     "pointsFor": {
         type: Array,

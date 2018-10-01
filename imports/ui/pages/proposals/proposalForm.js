@@ -21,9 +21,9 @@ Template.ProposalForm.onRendered(function(){
 	var self = this;
 
 	var allContent = self.data.content;
-	//if(typeof allContent==='undefined'){
-		//console.log("here is your problem");
-	//}
+	if(typeof allContent==='undefined'){
+		console.log("here is your problem");
+	}
 	var language = self.data.language
 	var content = _.find(allContent, function(item){ return item.language == language});
 
@@ -173,7 +173,7 @@ Template.ProposalForm.helpers({
 			{
 				_id: Random.id(),
 				type: 'for',
-				message: 'test message 1',
+				message: 'sample for message - sv',
 				authorId: 'Ba6WhQRTSxCGBTNMY',
 				createdAt: moment().format('YYYY-MM-DD'),
 				lastModified: moment().format('YYYY-MM-DD'),
@@ -184,7 +184,7 @@ Template.ProposalForm.helpers({
 			{
 				_id: Random.id(),
 				type: 'for',
-				message: 'test message 2',
+				message: 'sample for message - en',
 				authorId: 'pQmkc7Rtpg3Yoajqi',
 				createdAt: moment().format('YYYY-MM-DD'),
 				lastModified: moment().format('YYYY-MM-DD'),
@@ -199,7 +199,7 @@ Template.ProposalForm.helpers({
 			{
 				_id: Random.id(),
 				type: 'against',
-				message: 'test message 3',
+				message: 'sample against message - sv',
 				authorId: 'acYAwSGKCwrnRvg57',
 				createdAt: moment().format('YYYY-MM-DD'),
 				lastModified: moment().format('YYYY-MM-DD'),
@@ -210,7 +210,7 @@ Template.ProposalForm.helpers({
 			{
 				_id: Random.id(),
 				type: 'against',
-				message: 'test message 4',
+				message: 'sample against message - en',
 				authorId: 'pQmkc7Rtpg3Yoajqi',
 				createdAt: moment().format('YYYY-MM-DD'),
 				lastModified: moment().format('YYYY-MM-DD'),
