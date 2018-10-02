@@ -1,61 +1,69 @@
 <template name="AdminTags">
 	{{#if currentUserIsAdmin}}
-	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
-	<div class="container">
+
 		<h3> {{_"admin.tags.heading"}} </h3>
 		{{> AdminTagsForm}}
 		{{> AdminTagsTable}}
-	</div>
+
 	{{/if}}
 </template>
 
 <template name="AdminTagsTable">
-	{{#if Template.subscriptionsReady}}
-		<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
-			<thead>
-				<tr>
-					<th>{{_"admin.tags.keyword"}}</th>
-					<th>{{_"admin.tags.created"}}</th>
-					<th>{{_"admin.tags.approved"}}</th>
-					<th>{{_"admin.tags.delete"}}</th>
-				</tr>
-			</thead>
-			<tbody>
-				{{#each tags}}
-					<tr>
-						<td data-label='{{_"admin.tags.keyword"}}' class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{keyword}}</a></td>
-						<td data-label='{{_"admin.tags.created"}}' class="mdl-data-table__cell--non-numeric">{{tagDate}}</td>
-						<td data-label='{{_"admin.tags.approved"}}' class="mdl-data-table__cell--non-numeric">
-							<button id="approve-button" class="mdl-button mdl-js-button mdl-button--raised" data-tag-id={{_id}} data-tag-authorized="{{authorized}}">
-								{{#if authorized}}
-									<i class="material-icons">check</i>
-								{{else}}
-									<i class="material-icons">close</i>
-								{{/if}}
-							</button>
-						</td>
-						<td data-label='{{_"admin.tags.delete"}}' >
-							<button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised" data-tag-id="{{_id}}">
-								<i class="material-icons">delete</i>
-							</button>
-						</td>
-					</tr>
-				{{/each}}
-			</tbody>
-		</table>
-	{{else}}
-		<p> Loading... </p>
-	{{/if}}
+		<div class="dashboard__item dashboard__item--full">
+			<div class="card">
+				{{#if Template.subscriptionsReady}}
+				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+					<thead>
+						<tr>
+							<th>{{_"admin.tags.keyword"}}</th>
+							<th>{{_"admin.tags.created"}}</th>
+							<th>{{_"admin.tags.approved"}}</th>
+							<th>{{_"admin.tags.delete"}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each tags}}
+							<tr>
+								<td data-label='{{_"admin.tags.keyword"}}' class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{keyword}}</a></td>
+								<td data-label='{{_"admin.tags.created"}}' class="mdl-data-table__cell--non-numeric">{{tagDate}}</td>
+								<td data-label='{{_"admin.tags.approved"}}' class="mdl-data-table__cell--non-numeric">
+									<button id="approve-button" class="mdl-button mdl-js-button mdl-button--raised" data-tag-id={{_id}} data-tag-authorized="{{authorized}}">
+										{{#if authorized}}
+											<i class="material-icons">check</i>
+										{{else}}
+											<i class="material-icons">close</i>
+										{{/if}}
+									</button>
+								</td>
+								<td data-label='{{_"admin.tags.delete"}}' >
+									<button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised" data-tag-id="{{_id}}">
+										<i class="material-icons">delete</i>
+									</button>
+								</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			{{else}}
+				<p> Loading... </p>
+			{{/if}}
+		</div>
+	</div>
 </template>
 
 <template name="AdminTagsForm">
-	<form id="add-tag">
-		<div class="mdl-textfield mdl-js-textfield">
-			<label class="mdl-textfield__label"> {{_ "admin.tags.text"}}</label>
-			<input type="text" id="tag-text" class="mdl-textfield__input" placeholder='{{_ "admin.tags.text"}}'>
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			<form id="add-tag">
+				<div class="mdl-textfield mdl-js-textfield">
+					<label class="mdl-textfield__label"> {{_ "admin.tags.text"}}</label>
+					<input type="text" id="tag-text" class="mdl-textfield__input" placeholder='{{_ "admin.tags.text"}}'>
+				</div>
+				<div class="form-group" style="margin-bottom: 1rem">
+					<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "admin.tags.add-button"}}'>
+				</div>
+			</form>
 		</div>
-		<div class="form-group" style="margin-bottom: 1rem">
-			<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "admin.tags.add-button"}}'>
-		</div>
-	</form>
+	</div>
+
 </template>

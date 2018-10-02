@@ -1,38 +1,38 @@
 <template name="AdminProposals">
 	{{> ProposalModal}}
 	{{#if currentUserIsAdmin}}
-	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
-	<div class="container">
-		<h3>{{_"admin.proposals.heading"}}</h3>
-
-		{{#if Template.subscriptionsReady}}
-			{{#if proposals.count}}
-				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
-						<thead>
-								<tr>
-										<th>{{_"admin.proposals.date"}}</th>
-										<th>{{_"admin.proposals.author"}}</th>
-										<th>{{_"admin.proposals.contributors"}}</th>
-										<th>{{_"admin.proposals.title"}}</th>
-										<th></th>
-								</tr>
-						</thead>
-						<tbody>
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			<h3>{{_"admin.proposals.heading"}}</h3>
+			{{#if Template.subscriptionsReady}}
+				{{#if proposals.count}}
+					<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+							<thead>
+									<tr>
+											<th>{{_"admin.proposals.date"}}</th>
+											<th>{{_"admin.proposals.author"}}</th>
+											<th>{{_"admin.proposals.contributors"}}</th>
+											<th>{{_"admin.proposals.title"}}</th>
+											<th></th>
+									</tr>
+							</thead>
+							<tbody>
 								{{#each proposals}}
 									{{> AdminProposal}}
 								{{/each}}
-						</tbody>
-				</table>
+							</tbody>
+					</table>
+				{{else}}
+					<p>
+						{{_"admin.tags.none-waiting"}}
+					</p>
+				{{/if}}
 			{{else}}
 				<p>
-					{{_"admin.tags.none-waiting"}}
+					{{_ "generic.loading"}}
 				</p>
 			{{/if}}
-		{{else}}
-			<p>
-				{{_ "generic.loading"}}
-			</p>
-		{{/if}}
+		</div>
 	</div>
 
 	{{/if}}
@@ -54,13 +54,13 @@
 	</tr>
 </template>
 
-  
+
 <template name="ProposalModal">
   <div id="overlay"></div>
 	<div class="proposal-modal">
 	  <form class='content-wrapper'>
 	    {{#if proposal}}
-	    
+
 	    <div class="content">
 	      <div class="app-container proposal-container">
 					<!-- Author Information -->
@@ -105,7 +105,7 @@
 								<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{language}}</a>
 							</div>
 						</div>
-						
+
 						<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
 							<!-- Main Content -->
 							<div class="proposal-wrap">
