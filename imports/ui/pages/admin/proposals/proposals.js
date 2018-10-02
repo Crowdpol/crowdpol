@@ -12,8 +12,19 @@ Template.AdminProposals.onCreated(function() {
 });
 
 Template.AdminProposals.helpers({
-  proposals: function() {
-    return Proposals.find({stage: "submitted", status: "unreviewed"});
+  submittedProposals: function() {
+    let submittedProposals = Proposals.find({stage: "submitted", status: "unreviewed"});
+    return submittedProposals;
+  },
+  liveProposals: function() {
+    let liveProposals = Proposals.find({stage: "live"});
+    //console.log("liveProposals: " + liveProposals.count());
+    return liveProposals;
+  },
+  allProposals: function() {
+    let allProposals = Proposals.find();
+    //console.log("allProposals: " + allProposals.count());
+    return allProposals;
   },
 });
 
@@ -27,9 +38,12 @@ Template.AdminProposal.onCreated(function() {
 
 Template.AdminProposal.helpers({
   title: function(proposal) {
+    //console.log(proposal);
     var language = TAPi18n.getLanguage();
-    var translation = _.find(this.content, function(item){ return item.language == language});
-    
+    //console.log(language);
+    //console.log(this.content);
+    var translation = _.find(proposal.content, function(item){ return item.language == language});
+    //console.log(translation);
     if (translation) {
       var title = translation.title;
       if (title && /\S/.test(title)) {
@@ -41,28 +55,58 @@ Template.AdminProposal.helpers({
       return TAPi18n.__('pages.proposals.list.untranslated')
     }
   },
-  author: function(proposal) {
-  	var author = Meteor.users.findOne({ _id : this.authorId});
-  	if(author.profile.firstName==null){
-  		return author.profile.username;
-  	}
-  	return author.profile.firstName + " " + author.profile.lastName + " (" + author.profile.username + ")";
+  author: function(id) {
+
+  	var author = Meteor.users.findOne({ _id : id});
+    if(typeof author!=='undefined'){
+      if(author.profile.firstName==null){
+      	return author.profile.username;
+      }
+      return author.profile.firstName + " " + author.profile.lastName + " (" + author.profile.username + ")";
+    }
+    return "error finding name";
   },
   lastModified: function(){
     return moment(this.lastModified).format('MMMM Do YYYY');
   },
   contributerCount: function(proposal){
-  	return this.invited.length;
+    //console.log(proposal)
+    //return proposal.invited.length;
   }
 });
 
 Template.AdminProposal.events({
+  'click .delete-proposal': function(event, template){
 
-	'click #preview-button': function(event, template){
-		proposalId = event.target.dataset.proposalId;
+		proposalId = event.target.dataset.id;
+
+    Meteor.call('deleteProposal',proposalId, function(error){
+      if (error){
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        // Create notification
+        /*
+        var message = TAPi18n.__('notifications.proposals.approved');
+        var url = '/proposals/view/' + proposalId;
+        Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'check'});
+        */
+        Bert.alert("Proposal deleted", 'success');
+      }
+    });
+
+  },
+	'click .preview-proposal': function(event, template){
+		proposalId = event.target.dataset.id;
+    proposalType = event.target.dataset.type;
+    if(proposalType=='submitted'){
+      Session.set("showApproval",true);
+    }else{
+      Session.set("showApproval",false);
+    }
 		proposal = Proposals.findOne({_id: proposalId});
 		Session.set("proposal",proposal);
-		//console.log(proposal);
+
 		openProposalModal();
 		/*
 		Meteor.call('rejectProposal', proposalId,function(error){
@@ -75,7 +119,7 @@ Template.AdminProposal.events({
       			Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'do_not_disturb'})
 				Bert.alert(TAPi18n.__('admin.alerts.proposal-rejected'), 'success');
 			}
-		}); 
+		});
 		*/
 	},
 });
@@ -101,7 +145,7 @@ Template.ProposalModal.events({
         Bert.alert(TAPi18n.__('admin.alerts.proposal-approved'), 'success');
         closeProposalModal();
       }
-    }); 
+    });
   },
   'click #reject-button': function(event, template){
     event.preventDefault();
@@ -117,7 +161,7 @@ Template.ProposalModal.events({
         Bert.alert(TAPi18n.__('admin.alerts.proposal-rejected'), 'success');
         closeProposalModal();
       }
-    }); 
+    });
   },
 });
 Template.ProposalModal.onCreated(function(language){
@@ -182,6 +226,9 @@ Template.ProposalModal.helpers({
   },
   propDate:function(lastModified){
     return moment(lastModified).format('MMMM Do YYYY');
+  },
+  showApproval: function(){
+    return Session.get("showApproval");
   }
 });
 
@@ -196,7 +243,7 @@ closeProposalModal = function(event) {
     event.preventDefault();
     event.stopImmediatePropagation();
   }
-
+  Session.set("showApproval",false);
   $(".proposal-modal").removeClass('active');
   $("#overlay").removeClass('dark-overlay');
 }

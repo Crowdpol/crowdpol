@@ -3,30 +3,96 @@
 	{{#if currentUserIsAdmin}}
 	<div class="dashboard__item dashboard__item--full">
 		<div class="card">
-			<h3>{{_"admin.proposals.heading"}}</h3>
 			{{#if Template.subscriptionsReady}}
-				{{#if proposals.count}}
-					<table class="mdl-data-table mdl-js-data-table mdl-data-table">
-							<thead>
-									<tr>
-											<th>{{_"admin.proposals.date"}}</th>
-											<th>{{_"admin.proposals.author"}}</th>
-											<th>{{_"admin.proposals.contributors"}}</th>
-											<th>{{_"admin.proposals.title"}}</th>
-											<th></th>
-									</tr>
-							</thead>
-							<tbody>
-								{{#each proposals}}
-									{{> AdminProposal}}
-								{{/each}}
-							</tbody>
-					</table>
-				{{else}}
-					<p>
-						{{_"admin.tags.none-waiting"}}
-					</p>
-				{{/if}}
+				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+					<div class="mdl-tabs__tab-bar">
+							<a href="#submitted-proposals" class="mdl-tabs__tab is-active">Submitted</a>
+							<a href="#live-proposals" class="mdl-tabs__tab">Live</a>
+							<a href="#all-proposals" class="mdl-tabs__tab">All</a>
+					</div>
+					<div class="mdl-tabs__panel is-active" id="submitted-proposals">
+							{{#if submittedProposals.count}}
+								<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+										<thead>
+												<tr>
+														<th>{{_"admin.proposals.date"}}</th>
+														<th>{{_"admin.proposals.author"}}</th>
+														<th>{{_"admin.proposals.contributors"}}</th>
+														<th>{{_"admin.proposals.title"}}</th>
+														<th></th>
+												</tr>
+										</thead>
+										<tbody>
+											{{#each proposal in submittedProposals}}
+												{{> AdminProposal proposal=proposal type="submitted"}}
+											{{/each}}
+										</tbody>
+								</table>
+							{{else}}
+								<br>
+								<center>
+									<p>
+										{{_"admin.tags.none-waiting"}}
+									</p>
+								</center>
+							{{/if}}
+					</div>
+					<div class="mdl-tabs__panel" id="live-proposals">
+							{{#if liveProposals.count}}
+								<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+										<thead>
+												<tr>
+														<th>{{_"admin.proposals.date"}}</th>
+														<th>{{_"admin.proposals.author"}}</th>
+														<th>{{_"admin.proposals.contributors"}}</th>
+														<th>{{_"admin.proposals.title"}}</th>
+														<th></th>
+														<th></th>
+												</tr>
+										</thead>
+										<tbody>
+											{{#each proposal in  liveProposals}}
+												{{> AdminProposal proposal=proposal type="live"}}
+											{{/each}}
+										</tbody>
+								</table>
+							{{else}}
+								<br>
+								<center>
+									<p>
+										"There are currently no live proposals"
+									</p>
+								</center>
+							{{/if}}
+					</div>
+					<div class="mdl-tabs__panel" id="all-proposals">
+							{{#if allProposals.count}}
+								<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+										<thead>
+												<tr>
+														<th>{{_"admin.proposals.date"}}</th>
+														<th>{{_"admin.proposals.author"}}</th>
+														<th>{{_"admin.proposals.contributors"}}</th>
+														<th>{{_"admin.proposals.title"}}</th>
+														<th></th>
+												</tr>
+										</thead>
+										<tbody>
+											{{#each proposal in  allProposals}}
+												{{> AdminProposal proposal=proposal  type="all"}}
+											{{/each}}
+										</tbody>
+								</table>
+							{{else}}
+								<br>
+								<center>
+									<p>
+										There are currently no proposals in the system.
+									</p>
+								</center>
+							{{/if}}
+					</div>
+				</div>
 			{{else}}
 				<p>
 					{{_ "generic.loading"}}
@@ -40,17 +106,22 @@
 
 <template name="AdminProposal">
 	<tr>
-		<td data-label='{{_"admin.proposals.date"}}'>{{lastModified}}</td>
-		<td data-label='{{_"admin.proposals.author"}}'>{{author}}</td>
-		<td data-label='{{_"admin.proposals.contributors"}}'>
-			{{contributerCount}}
+	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.date"}}'>{{lastModified}}</td>
+	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.author"}}'>{{author proposal.authorId}}</td>
+	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.contributors"}}'>
+	    {{contributerCount proposal}}
+	  </td>
+	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.title"}}'> <a href="/proposals/view/{{_id}}">{{title proposal}}</a></td>
+	  <td class="mdl-data-table__cell--non-numeric" data-label="">
+	    <button class="mdl-button mdl-js-button mdl-button--icon preview-proposal" data-id="{{proposal._id}}" data-type="{{type}}">
+	      <i class="material-icons preview-proposal" data-id="{{proposal._id}}" data-type="{{type}}">visibility</i>
+	    </button>
 		</td>
-		<td data-label='{{_"admin.proposals.title"}}'> <a href="/proposals/view/{{_id}}">{{title}}</a></td>
-		<td data-label="">
-			<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="preview-button">
-				<i class="material-icons" data-proposal-id="{{_id}}">visibility</i>
-			</button>
-		</td>
+		<td class="mdl-data-table__cell--non-numeric">
+			<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal" data-id="{{proposal._id}}" data-type="{{type}}">
+	      <i class="material-icons delete-proposal" data-id="{{proposal._id}}" data-type="{{type}}">delete</i>
+	    </button>
+	  </td>
 	</tr>
 </template>
 
@@ -149,6 +220,7 @@
 	      </div>
 	    </div>
 	    {{/if}}
+			{{#if showApproval}}
 	    <div class="btn-wrapper">
 	      <button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
 					<i class="material-icons" data-proposal-id="{{_id}}">check</i>
@@ -159,6 +231,7 @@
 					{{_'admin.proposals.reject-button'}}
 				</button>
 	    </div>
+			{{/if}}
 	  </form>
 	</div>
 </template>

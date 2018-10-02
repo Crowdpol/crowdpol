@@ -74,7 +74,11 @@
 									{{address}}
 								{{/each}}
 							</td>
-							<td class="mdl-data-table__cell--non-numeric"> {{roles}} </td>
+							<td class="mdl-data-table__cell--non-numeric">
+								{{#each role in roles}}
+									<a class="tag tag-chip" id="keyword-test">{{role}}<button type="button" class="mdl-chip__action tag-chip-delete" data-keyword="test"><i class="material-icons tag-chip-delete" data-keyword="test">cancel</i></button></a>
+								{{/each}}
+								  </td>
 							<td class="mdl-data-table__cell--non-numeric">
 								{{#if profile.isPublic}}
 									<i class="material-icons">check</i>
@@ -89,9 +93,11 @@
 								</button>
 								<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 											for="demo-menu-lower-left-{{_id}}">
-									<li class="mdl-menu__item">{{_'admin.users.delete-button'}}</li>
-									<li class="mdl-menu__item">Make Admin</li>
-									<li disabled class="mdl-menu__item">Disabled Account</li>
+									<li class="mdl-menu__item delete-user" data-id="{{_id}}">{{_'admin.users.delete-button'}}</li>
+									{{#if currentUserIsSuperAdmin}}
+									<li class="mdl-menu__item make-admin" data-id="{{_id}}">Make Admin</li>
+									{{/if}}
+									<li class="mdl-menu__item disable-user" data-id="{{_id}}">Disable Account</li>
 								</ul>
 							</td>
 						</tr>

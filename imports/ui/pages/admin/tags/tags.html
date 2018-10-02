@@ -1,16 +1,14 @@
 <template name="AdminTags">
 	{{#if currentUserIsAdmin}}
-
-		<h3> {{_"admin.tags.heading"}} </h3>
 		{{> AdminTagsForm}}
 		{{> AdminTagsTable}}
-
 	{{/if}}
 </template>
 
 <template name="AdminTagsTable">
 		<div class="dashboard__item dashboard__item--full">
 			<div class="card">
+				<h5> {{_"admin.tags.heading"}} </h5>
 				{{#if Template.subscriptionsReady}}
 				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
 					<thead>
@@ -54,6 +52,7 @@
 <template name="AdminTagsForm">
 	<div class="dashboard__item dashboard__item--full">
 		<div class="card">
+			<h5> Add New Tag</h5>
 			<form id="add-tag">
 				<div class="mdl-textfield mdl-js-textfield">
 					<label class="mdl-textfield__label"> {{_ "admin.tags.text"}}</label>

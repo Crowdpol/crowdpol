@@ -38,21 +38,28 @@ Meteor.methods({
     },
     deleteProposal: function(proposalId) {
       check(proposalId, String);
+      console.log(proposalId);
       var user = Meteor.user();
 
       var proposal = Proposals.findOne(proposalId);
+
       // user must be logged in
       if (!user)
         throw new Meteor.Error(401, "You need to login to delete your proposal.");
+
       // proposal must exist
       if (!proposal)
         throw new Meteor.Error(422, "Proposal does not exist.");
+
       // user must be the author of the proposal
-      if (!proposal.authorId == Meteor.userId())
+      if (!proposal.authorId == Meteor.userId() || !Roles.userIsInRole(user, ['admin','superadmin']))
         throw new Meteor.Error(422, "Only the author of a proposal can delete it.");
-
-      Proposals.remove(proposalId);
-
+      try{
+        Proposals.remove(proposalId);
+      } catch (err) {
+        console.log(err);
+        return err;
+      }
     },
     rejectProposal: function (proposalId) {
       check(proposalId, String);

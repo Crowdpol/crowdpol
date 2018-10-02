@@ -227,6 +227,15 @@ Schema.User = new SimpleSchema({
           }
         },
     },
+    isDisabled: {
+        type: Boolean,
+        optional: true,
+        autoValue() {
+          if (this.isInsert) {
+            return false;
+          }
+        },
+    },
     isPublic: {
         type: Boolean,
         optional: true,
@@ -315,6 +324,3 @@ Meteor.users.deny({
     return true;
   },
 });
-
-
-

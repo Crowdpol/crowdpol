@@ -36,6 +36,38 @@ Template.AdminUsers.helpers({
 });
 
 Template.AdminUsers.events({
+  'click .delete-user' (event,template){
+    var userId = event.target.dataset.id;
+    if(typeof userId!=='undefined'){
+      Confirm('Delete User', 'Are you sure you want to delete this user? This action cannot be undone.', 'Yes', 'Cancel',userId);
+    }
+  },
+  'click .disable-user' (event,template){
+    var userId = event.target.dataset.id;
+    if(typeof userId!=='undefined'){
+        Meteor.call('toggleAccount',userId,true,function(error,result){
+          if (error){
+    				RavenClient.captureException(error);
+    				Bert.alert(error.reason, 'danger');
+    			} else {
+    				Bert.alert('User account disabled', 'success');
+    			}
+        });
+    }
+  },
+  'click .make-admin' (event,template){
+    var userId = event.target.dataset.id;
+    if(typeof userId!=='undefined'){
+        Meteor.call('toggleAdmin',userId,true,function(error,result){
+          if (error){
+    				RavenClient.captureException(error);
+    				Bert.alert(error.reason, 'danger');
+    			} else {
+    				Bert.alert('User role updated', 'success');
+    			}
+        });
+    }
+  },
 	'submit #invite' (event, template){
 		event.preventDefault();
 
@@ -72,13 +104,49 @@ Template.AdminUsers.events({
 		});
 	},
 
-
-	'click .delete-button': function(event, template){
-		Meteor.call('deleteUser', event.target.dataset.userId);
-	},
-
 	'click .dropdown-item': function(event, template){
 		template.find('#invite-role').dataset.val = event.target.dataset.val;
 		template.find('#invite-role').value = TAPi18n.__('roles.' + event.target.dataset.val);
 	}
 });
+
+
+function Confirm(title, msg, $true, $false, userId) { /*change*/
+  var $content =  "<div class='dialog-ovelay'>" +
+                    "<div class='dialog'>"+
+                      "<header>" +
+                         "<h3> " + title + " </h3> " +
+                         "<i class='fa fa-close'></i>" +
+                      "</header>" +
+                     "<div class='dialog-msg'>" +
+                         " <p> " + msg + " </p> " +
+                     "</div>" +
+                     "<footer>" +
+                         "<div class='controls'>" +
+                             " <button class='button button-danger doAction'>" + $true + "</button> " +
+                             " <button class='button button-default cancelAction'>" + $false + "</button> " +
+                         "</div>" +
+                     "</footer>" +
+                  "</div>" +
+                "</div>";
+  $('body').prepend($content);
+  $('.doAction').click(function () {
+    Meteor.call('deleteUser',userId,function(error,result){
+      if (error){
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert('User deleted', 'success');
+      }
+    });
+    $(this).parents('.dialog-ovelay').fadeOut(500, function () {
+      $(this).remove();
+    });
+  });
+  $('.cancelAction, .fa-close').click(function () {
+    $(this).parents('.dialog-ovelay').fadeOut(500, function () {
+      $(this).remove();
+    });
+    return false;
+  });
+}

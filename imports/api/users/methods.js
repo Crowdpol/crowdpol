@@ -34,7 +34,13 @@ Meteor.methods({
     deleteUser: function (userID) {
       //console.log("method deleteUser called");
       check(userID, String);
+      //TODO: Delete all user's content
       Meteor.users.remove({_id:userID});
+    },
+    toggleAccount: function (userID,isDisabled) {
+      check(userID, String);
+      check(isDisabled, Boolean);
+      Meteor.users.update({_id: userID}, {$set: {"isDisabled": isDisabled}});
     },
     getProfile: function (userID) {
       //console.log("method getUserProfile called: " + userID);
@@ -91,6 +97,14 @@ Meteor.methods({
       check(userID, String);
       Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
     },
+    toggleAdmin: function(userId,state){
+      check(userId, String);
+      if(state){
+        Roles.addUsersToRoles(userId, 'admin');
+      }else{
+        Roles.removeUsersFromRoles(userId, 'admin');
+      }
+    },
     approveUser: function(userID, requestId, status){
       check(userID, String);
       check(requestId, String);
@@ -131,12 +145,12 @@ Meteor.methods({
       //don't create request unless profile is complete
       if (profileIsComplete(Meteor.user())) {
         //check if this user already has an approval of this type
-        //users should only ever have one approval per 
+        //users should only ever have one approval per
         var existingApprovalCount = Meteor.users.find({$and:[{_id: userId},{'approvals.type': type}]}).count();
-        if (existingApprovalCount > 0){ 
+        if (existingApprovalCount > 0){
           //an approval request of this type already exists - remove it.
           Meteor.users.update({_id: userId}, {$pull: {approvals: {type: type}} });
-        } 
+        }
         //get current user approvalRequests
         var currentApprovals = Meteor.user().approvals;
         //add to existing array before update, or else it just replaces what is already there
@@ -152,7 +166,7 @@ Meteor.methods({
         console.log("profileIsComplete() has failed");
         throw new Meteor.Error(422, TAPi18n.__('pages.profile.alerts.profile-incomplete'));
       }
-      
+
     },
     toggleRole: function (role,state) {
       check(role, String);
@@ -178,11 +192,11 @@ Meteor.methods({
           var notifications = []
           if (supporterIds){
             _.each(supporterIds, function(id){
-              var notification = 
+              var notification =
               notifications.push({
-                message: TAPi18n.__('notifications.users.delegate-deselect', delegateName), 
-                userId: id, 
-                url: '/delegate', 
+                message: TAPi18n.__('notifications.users.delegate-deselect', delegateName),
+                userId: id,
+                url: '/delegate',
                 icon: 'warning',
                 read: false,
                 createdAt: new Date()
@@ -191,7 +205,7 @@ Meteor.methods({
             // Batch insert notifications
             Notifications.batchInsert(notifications);
           }
-          
+
           // Remove delegate from user rankings
           Ranks.remove({entityId: delegateId});
         }
@@ -227,11 +241,11 @@ Meteor.methods({
         { $sort : { "approvals.createdAt": -1} },
         {
           $project: {
-            "_id": 0, 
+            "_id": 0,
             "status": "$approvals.status",
           }
         },
-        
+
         { $limit : 1 }
       ]);
       if(result.length>0){
@@ -284,16 +298,16 @@ Meteor.methods({
     addTagToProfile: function(userId, tag) {
       check(userId, String);
       check(tag, {
-        keyword: String, 
-        url: String, 
+        keyword: String,
+        url: String,
         _id: String });
       Meteor.users.update({_id: userId}, {$push: {'profile.tags': tag} });
     },
     removeTagFromProfile: function(userId, tag) {
       check(userId, String);
       check(tag, {
-        keyword: String, 
-        url: String, 
+        keyword: String,
+        url: String,
         _id: String });
       Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
@@ -323,7 +337,7 @@ Meteor.methods({
             if (error) {
               RavenClient.captureException(error);
               Bert.alert(error.reason, 'danger')
-            } else { 
+            } else {
                 Bert.alert(TAPi18n.__('pages.authenticate.recover-password.alerts.reset-password-sent-message'), 'success')
             }
         });
@@ -359,5 +373,3 @@ function profileIsComplete(user){
   //}
   return isComplete;
 }
-
-
