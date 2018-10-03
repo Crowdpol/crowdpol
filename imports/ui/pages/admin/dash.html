@@ -1,25 +1,135 @@
 <template name="AdminDash">
-	{{#if currentUserIsAdmin}}
-	<div class="container app-container">
-		{{#if currentUserIsSuperAdmin}}
-			<h3> {{_ "admin.dash.sub-heading"}} </h3>
-			<div class="dashboard-wrap  mdl-grid">
-				{{> AdminDashCommunities}}
+	<div class="admin">
+		{{>AdminDashHeader}}
+	  <main class="admin__main">
+	    <div class="dashboard">
+				{{>Template.dynamic template=currentTemplate}}
 			</div>
-		{{/if}}
-		<h3> {{_ "admin.dash.heading"}} </h3>
-		<div class="dashboard-wrap  mdl-grid">
-			{{> AdminDashUsers}}
-			{{> AdminDashTags}}
-			{{> AdminDashApprovals}}
-			{{> AdminDashProposals}}
-			{{> AdminDashVoting}}
-			{{> AdminDashStats}}
-			
-		</div>
+	  </main>
 
 	</div>
+</template>
+<template name="Overview">
+	{{#if currentUserIsAdmin}}
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			<img src="https://imgs.xkcd.com/comics/voting_software.png" alt="" />
+		</div>
+	</div>
+	<!--
+		<div class="container app-container">
+
+
+			<h3> {{_ "admin.dash.heading"}} </h3>
+			<div class="dashboard-wrap  mdl-grid">
+				{{> AdminDashUsers}}
+				{{> AdminDashTags}}
+				{{> AdminDashApprovals}}
+				{{> AdminDashProposals}}
+				{{> AdminDashVoting}}
+				{{> AdminDashStats}}
+				{{#if currentUserIsSuperAdmin}}
+						{{> AdminDashCommunities}}
+				{{/if}}
+			</div>
+
+		</div>
+		-->
 	{{/if}}
+</template>
+<template name="AdminDashFooter">
+	<footer class="admin__footer">
+		<ul class="ticker">
+			<li class="ticker__item">BTC: +3.12%</li>
+			<li class="ticker__item">ETH: +1.29%</li>
+			<li class="ticker__item">XRP: -0.32%</li>
+			<li class="ticker__item">BCH: -2.82%</li>
+			<li class="ticker__item">EOS: +1.44%</li>
+			<li class="ticker__item">CSS: +13.37%</li>
+		</ul>
+		<span>
+			&copy; 2018 Grid Inc.
+		</span>
+	</footer>
+</template>
+<template name="DashBasic">
+	<div class="dashboard__item">
+		<div class="card">
+			<strong>41</strong> Foobars
+		</div>
+	</div>
+	<div class="dashboard__item">
+		<div class="card">
+			<strong>81.712</strong> Doohickeys
+		</div>
+	</div>
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			<img src="https://imgs.xkcd.com/comics/voting_software.png" alt="" />
+		</div>
+	</div>
+	<div class="dashboard__item dashboard__item--col">
+		<div class="card">A</div>
+	</div>
+	<div class="dashboard__item dashboard__item--col">
+		<div class="card">B</div>
+	</div>
+	<div class="dashboard__item dashboard__item--col">
+		<div class="card">C</div>
+	</div>
+	<div class="dashboard__item dashboard__item--col">
+		<div class="card">D</div>
+	</div>
+	<p>read more about this in <a href="https://mxb.at/blog/css-grid-admin-dashboard/">this blogpost</a>.</p>
+</template>
+
+<template name="AdminDashHeader">
+	<header class="admin__header">
+		<a href="#" class="logo">
+			<strong>Admin Dash</strong>
+		</a>
+		<!--
+		<div class="toolbar">
+			<button class="btn btn-primary">Add New Plumbus</button>
+			<a href="#" class="logout">
+				Log Out
+			</a>
+		</div>
+	-->
+	</header>
+	<nav class="admin__nav">
+		<ul class="menu">
+			<li class="menu__item">
+				<a class="menu__link" href="#" data-template="Overview">Dashboard</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#" data-template="AdminUsers">Users</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#" data-template="AdminApprovals">Requests</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#" data-template="AdminProposals">Proposals</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#" data-template="AdminTags">Tags</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#" data-template="AdminVoting">Votes</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#" data-template="ProposalStats">Stats</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#" data-template="AdminSettings">Settings</a>
+			</li>
+			{{#if currentUserIsSuperAdmin}}
+				<li class="menu__item">
+					<a class="menu__link" href="#" data-template="AdminCommunities">Super Admin</a>
+				</li>
+			{{/if}}
+		</ul>
+	</nav>
 </template>
 
 <template name="AdminDashUsers">

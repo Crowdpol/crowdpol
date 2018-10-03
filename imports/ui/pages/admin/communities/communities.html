@@ -1,46 +1,46 @@
 <template name="AdminCommunities">
 	{{#if currentUserIsSuperAdmin}}
-	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
-	<div class="container">
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			<a href="#" id="new-community-link">Add a new community<i class="material-icons">{{expandIcon}}</i></a>
+			{{#if showForm}}
+				<div id="new-community-div">
+					{{>AddNewCommunity}}
+				</div>
+			{{/if}}
 
-		<a href="#" id="new-community-link">Add a new community<i class="material-icons">{{expandIcon}}</i></a>
-		{{#if showForm}}
-			<div id="new-community-div">
-				{{>AddNewCommunity}}
-			</div>
-		{{/if}}
-
-		<h3>{{_"admin.communities.heading"}}</h3>
-		{{#if Template.subscriptionsReady}}
-			{{#if communities.count}}
-				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
-						<thead>
-								<tr>
-										<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.name"}}</th>
-										<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.subdomain"}}</th>
-										<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.user-count"}}</th>
-								</tr>
-						</thead>
-						<tbody>
-								{{#each communities}}
-								<tr>
-										<td data-label='{{_"admin.communities.name"}}' class="mdl-data-table__cell--non-numeric">{{name}}</td>
-										<td data-label='{{_"admin.communities.subdomain"}}' class="mdl-data-table__cell--non-numeric">{{subdomain}}</td>
-										<td data-label='{{_"admin.communities.user-count"}}' class="mdl-data-table__cell--non-numeric">{{userCount _id}}</td>
-								</tr>
-								{{/each}}
-						</tbody>
-				</table>
+			<h3>{{_"admin.communities.heading"}}</h3>
+			{{#if Template.subscriptionsReady}}
+				{{#if communities.count}}
+					<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+							<thead>
+									<tr>
+											<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.name"}}</th>
+											<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.subdomain"}}</th>
+											<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.user-count"}}</th>
+									</tr>
+							</thead>
+							<tbody>
+									{{#each communities}}
+									<tr>
+											<td data-label='{{_"admin.communities.name"}}' class="mdl-data-table__cell--non-numeric">{{name}}</td>
+											<td data-label='{{_"admin.communities.subdomain"}}' class="mdl-data-table__cell--non-numeric">{{subdomain}}</td>
+											<td data-label='{{_"admin.communities.user-count"}}' class="mdl-data-table__cell--non-numeric">{{userCount _id}}</td>
+									</tr>
+									{{/each}}
+							</tbody>
+					</table>
+				{{else}}
+					<p>
+						{{_"admin.communities.none"}}
+					</p>
+				{{/if}}
 			{{else}}
 				<p>
-					{{_"admin.communities.none"}}
+					{{_ "generic.loading"}}
 				</p>
 			{{/if}}
-		{{else}}
-			<p>
-				{{_ "generic.loading"}}
-			</p>
-		{{/if}}
+		</div>
 	</div>
 	{{/if}}
 </template>

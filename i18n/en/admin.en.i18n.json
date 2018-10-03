@@ -15,7 +15,7 @@
 					"link": "Manage Tags"
 				},
 				"approvals": {
-					"heading": "Approvals",
+					"heading": "Requests",
 					"text": "Approve or reject user requests to be delegates, organisations or political parties.",
 					"link": "Manage Approvals"
 				},

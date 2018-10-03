@@ -6,6 +6,7 @@ import './voting/voting.js';
 import './stats/stats.js';
 import './dash.html';
 import './communities/communities.js'
+import './settings/settings.js'
 
 Template.registerHelper('currentUserIsAdmin', function(){
 	var user = Meteor.user();
@@ -14,7 +15,7 @@ Template.registerHelper('currentUserIsAdmin', function(){
 	} else {
 		return false;
 	}
-})
+});
 
 Template.registerHelper('currentUserIsSuperAdmin', function(){
 	var user = Meteor.user();
@@ -23,4 +24,23 @@ Template.registerHelper('currentUserIsSuperAdmin', function(){
 	} else {
 		return false;
 	}
-})
+});
+
+Template.AdminDash.onCreated(function() {
+	Session.set("adminTemplate","Overview");
+});
+
+
+Template.AdminDash.helpers({
+  currentTemplate: function() {
+  	// only display expired proposals that are public
+  	return Session.get("adminTemplate");
+  }
+});
+
+Template.AdminDashHeader.events({
+	'click .menu__link': function(event, template){
+		//console.log(event.target.dataset.template);
+		Session.set("adminTemplate",event.target.dataset.template);
+	},
+});
