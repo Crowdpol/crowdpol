@@ -15,17 +15,14 @@
 				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 					<div class="button-tabs mdl-tabs__tab-bar">
 						{{#each languages}}
-						<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
+							<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
 						{{/each}}
 					</div>
 					<h3 class="proposal-heading">{{_ "pages.proposals.edit.heading"}}</h3>
-
 					{{#each languages}}
-					<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
-
-						{{> ProposalForm content=proposalContent language=this }}
-
-					</div>
+						<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
+							{{> ProposalForm content=proposalContent language=this }}
+						</div>
 					{{/each}}
 				</div>
 

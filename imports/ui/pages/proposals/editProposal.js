@@ -4,6 +4,9 @@ import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Communities } from '../../../api/communities/Communities.js'
 //import { setupTaggle } from '../../components/taggle/taggle.js'
 import { getTags } from '../../components/taggle/taggle.js'
+import { getForArguments } from '../../components/arguments/arguments.js'
+import { getAgainstArguments } from '../../components/arguments/arguments.js'
+import { validateForm } from './proposalForm.js'
 import "../../components/userSearch/userSearch.js"
 import RavenClient from 'raven-js';
 
@@ -57,8 +60,9 @@ Template.EditProposal.onRendered(function(){
 	this.autorun(function() {
 		// Wait for whole form to render before initialising fields
 		if (Session.get("formRendered")) {
-			validateForm();
 			/*
+			validateForm();
+
 			if (Session.get('setupTaggle')) {
 				//Set up Taggle
 				taggle = setupTaggle();
@@ -74,6 +78,7 @@ Template.EditProposal.onRendered(function(){
 			*/
 
 			//Initialise date fields
+			//console.log(self.templateDictionary.get('startDate'));
 			self.find('#startDate').value = self.templateDictionary.get('startDate');
 			self.find('#endDate').value = self.templateDictionary.get('endDate');
 			Session.set("formRendered", false)
@@ -86,10 +91,15 @@ Template.EditProposal.helpers({
 	proposalContent: function(){
 		proposalId = FlowRouter.getParam("id");
 		if (proposalId){
-			return Proposals.findOne({_id: proposalId}).content;
+			let proposal = Proposals.findOne({_id: proposalId});
+			if(typeof proposal!=='undefined'){
+				let content = proposal.content;
+				if(typeof content!=='undefined'){
+					return content;
+				}
+			}
 		}else{
-			//console.log("could not find proposal content");
-			return "";
+			return {};
 		}
 	},
 	languages: function(){
@@ -134,7 +144,10 @@ Template.EditProposal.events({
 			//event.preventDefault();
 		//}
 		event.preventDefault();
-		saveChanges(event, template, 'App.proposals');
+		if(!saveChanges(event, template, 'App.proposals')){
+			console.log("back picked up no save");
+			FlowRouter.go('/proposals');
+		};
 		//FlowRouter.go('/proposals');
 		//Session.set('proposalTab','my-proposals-tab');
 	},
@@ -181,6 +194,7 @@ var timer = function(){
 }();
 
 function saveChanges(event, template, returnTo){
+	console.log("saveChanges() called");
 	var communityId = LocalStore.get('communityId');
 	var languages = Communities.findOne({_id: communityId}).settings.languages;
 	var content = [];
@@ -197,6 +211,8 @@ function saveChanges(event, template, returnTo){
 			title: $(`#title-${language}`).val(),
 			abstract: $(`#abstract-${language}`).val(),
 			body: $(`#body-${language}`).val(),
+			argumentsFor: getForArguments(),
+			argumentsAgainst: getAgainstArguments(),
 			pointsFor: pointsFor,
 			pointsAgainst: pointsAgainst
 		};
@@ -220,6 +236,7 @@ function saveChanges(event, template, returnTo){
 	})
 	//CHECK IF THERE IS SOME CONTENT IN THE PROPOSAL
 	if(contentCount!=0){
+		console.log("there is content");
 		Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
 			if (error){
 				RavenClient.captureException(error);
@@ -243,7 +260,7 @@ function saveChanges(event, template, returnTo){
 
 				// If working on an existing proposal, save it, else create a new one
 				if (proposalId){
-					//console.log(newProposal);
+					console.log(newProposal);
 					saveProposal(proposalId,newProposal,returnTo,template);
 
 				} else {
@@ -251,14 +268,18 @@ function saveChanges(event, template, returnTo){
 					createProposal(proposalId,newProposal,returnTo,template);
 				}
 			}
-		})
+		});
+	}else{
+		console.log("nothing to save, return false");
+		return false;
 	}
 	return true;
 };
 
 
 function createProposal(propsalId,newProposal,returnTo,template){
-	//console.log("Create Proposal function called");
+	console.log("Create Proposal function called");
+	console.log(newProposal);
 	Meteor.call('createProposal', newProposal, function(error, proposalId){
 		if (error){
 			RavenClient.captureException(error);
@@ -266,7 +287,7 @@ function createProposal(propsalId,newProposal,returnTo,template){
 			return false;
 		} else {
 			 //Create notifications for collaborators
-					if (newProposal.invited) {
+			 if (newProposal.invited) {
 						for (i=0; i < newProposal.invited.length; i++) {
 							var notification = {
 								message: TAPi18n.__('notifications.proposals.invite'),
@@ -276,8 +297,9 @@ function createProposal(propsalId,newProposal,returnTo,template){
 							}
 							Meteor.call('createNotification', notification);
 						}
-					}
-					template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
+			}
+			console.log(proposalId);
+			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
 			FlowRouter.go(returnTo, {id: proposalId});
 		}
 	});
@@ -291,7 +313,12 @@ function saveProposal(proposalId,newProposal,returnTo,template){
 			Bert.alert(error.reason, 'danger');
 			return false;
 		} else {
+			/*
+			console.log("catch the problematic old invites");
+			console.log(newProposal);
+			console.log(Proposals.findOne(proposalId));
 			var oldInvites = Proposals.findOne(proposalId).invited;
+
 			var newInvites = null;
 			if('invited' in newProposal){
 				newInvites = newProposal.invited;
@@ -311,7 +338,7 @@ function saveProposal(proposalId,newProposal,returnTo,template){
 						Meteor.call('createNotification', notification);
 					}
 				}
-			}
+			}*/
 			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
 			FlowRouter.go(returnTo, {id: proposalId});
 		}
@@ -328,62 +355,4 @@ function removeUserEmail(index){
 	emails = Session.get('emailInvites');
 	emails.splice(index, 1);
 	Session.set('emailInvites',emails);
-}
-
-function validateForm(){
-	// Form Validations
-	$( "#edit-proposal-form" ).validate({
-		debug: true,
-		ignore: "",
-		rules: {
-			title: {
-				required: false,
-				minlength: 5
-			},
-			abstract: {
-				required: false,
-				minlength: 5
-			},
-			body: {
-				required: false,
-				minlength: 50
-			},
-			startDate: {
-				required: true,
-			},
-			endDate: {
-				required: true,
-			},
-			inputPointFor: {
-				required: false,
-				minlength: 1,
-				maxlength: 320
-			},
-			inputPointAgainst: {
-				required: false,
-				minlength: 1,
-				maxlength: 320
-			}
-		},
-		messages: {
-			title: {
-				required: 'Please make sure your proposal has a title.',
-				minlength: "Use at least 5 characters."
-			},
-			abstract: {
-				required: 'Please provide a short abstract for your proposal.',
-				minlength: "Use at least 5 characters."
-			},
-			body: {
-				body: 'Please provide a body for your proposal.',
-				minlength: "Use at least 50 characters."
-			},
-			startDate: {
-				required: 'Please indicate when voting will open for this proposal.'
-			},
-			endDate: {
-				required: 'Please indicate when voting will close for this proposal.'
-			},
-		}
-	});
 }

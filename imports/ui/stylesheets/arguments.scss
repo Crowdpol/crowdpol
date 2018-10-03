@@ -1,0 +1,66 @@
+@import 'variables.scss';
+.argument-input{
+  border: solid 1px green;
+}
+div.argument-container{
+  display: flex;
+  align-content: space-between;
+
+  div.arguments-column{
+    width: auto;
+    flex: 50%;
+
+    ul.arguments-list {
+      padding-inline-start: 0px;
+
+      li.argument{
+        display: flex;
+        border-bottom: solid 1px grey;
+        list-style: none;
+
+        div.argument-content{
+          border: solid 1px red;
+          width: 80%;
+          div.argument-author{
+
+          }
+          div.argument-message{
+
+          }
+        }
+
+        div.argument-menu{
+          border:solid 1px blue;
+          width: 20%;
+
+          div.like-menu{
+            justify-content: flex-end;
+          }
+          div.edit-menu{
+
+          }
+          div.save-menu{
+
+          }
+        }
+      }
+    }
+    div.argument-box{
+      display: flex;
+      div.argument-box-textarea{
+        width: 80%;
+      }
+      div.argument-box-menu{
+        width: 20%;
+      }
+    }
+  }
+  div.for-container{
+    display: flex;
+    flex-direction: column;
+  }
+  div.against-container{
+    display: flex;
+    flex-direction: column;
+  }
+}

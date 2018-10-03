@@ -2,10 +2,10 @@
 	"components" :{
 		"delegateVoteButtons":{
 			"instructions-1": "Du röstar nu i egenskap av delegat. Din röst kommer alltså att vara offentlig.",
-			"instructions-2": "Klicka på ‘Roller’ menyn för att växla tillbaka och rösta som en anonym användare.",
-			"reason-message": "Lämna gärna en kortfattad anledning till ditt val. Den kommer att vara synlig för de som delegerat sin röst till dig eller är nyfikna på varför du röstat som du gjort.",
+			"instructions-2": "Klicka på ‘Roller’ menyn för att växla tillbaka och rösta som privatperson.",
+			"reason-message": "Lämna gärna en kortfattad motivering till ditt val.",
 			"finished": "Färdig",
-			"delegateVotingClosed": "Röstning på denna motion är nu stängd för delegater. Delegaters möjlighet att rösta upphör två veckor innan motionens slutdatum för att undvika sista minuten ändringar som den som delegerar inte hinner ta ställning till."
+			"delegateVotingClosed": "Röstning på denna motion är nu stängd för delegater. Delegaters möjlighet att rösta upphör två veckor innan motionens slutdatum för att undvika sista minuten ändringar vilka den som delegerar inte hinner ta ställning till."
 		},
 		"taggle": {
 			"placeholder": "Lägg till några taggar..."

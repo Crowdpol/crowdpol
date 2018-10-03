@@ -27,4 +27,5 @@ import './notifications.scss';
 import './tags.scss';
 import './cards.scss';
 import './introjs.min.css';
-
+import './arguments.scss';
+import './admindash.scss';
