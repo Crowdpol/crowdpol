@@ -1,6 +1,6 @@
 {
 	"pages": {
-		"roles":{
+		"roles": {
 			"voter": "Väljare",
 			"individual-delegate": "Individdelegat",
 			"organisation-delegate": "Organisation",
@@ -30,29 +30,27 @@
 				"project": {
 					"heading": "SYNTROPI",
 					"paragraph-1": "Det finns konservativa veganer. Det finns vänstersympatisörer som gillar sportbilar. Det finns klimataktivister som är för kärnkraft. Människan rymmer och har alltid rymt mångfalder. Ingen är bara en sak, ingen är den statistiska normen, vi är alla avvikelser. Allt färre människor definierar sig som det ena eller det andra på en klassisk höger-vänster skala. 70 procent av svenskarna betraktar sig inte heller som anhängare av något politiskt parti. Politiken är personlig. De enskilda frågorna är viktigare än ideologierna, kanske för att ideologierna är så svåra att se skillnad på i praktiken idag. Alla tror på något, men detta något är olika från person till person och går för det mesta inte att översätta till något som ryms inom en snäv partipolitisk symbol.",
-    				"paragraph-2": "Trots ointresset för partipolitik med bara tre procent av befolkningen medlemmar i ett parti saknas varken politiskt engagemang eller politiska visioner eller förslag hos svenskarna i gemen. Den gamla politiska strukturen håller helt enkelt inte jämna steg med utvecklingen i resten av samhället. Det som behövs är inte nya partier så mycket som nya politiska strukturer, nya metoder och möjligheter att forma politikens innehåll. Nya sätt att mötas och diskutera. I en ofta förvirrande samtid med brist på information behövs pålitliga sätt att identifiera sin egna politiska plattform.",
-    				"paragraph-3":"SYNTROPI representerar ett unikt demokratiprojekt som söker vägar bortom etablerade strukturer och vedertagna vanor inom den politiska sfären. Vi vill stödja skapandet av dessa nya strukturer."
-    			
+					"paragraph-2": "Trots ointresset för partipolitik med bara tre procent av befolkningen medlemmar i ett parti saknas varken politiskt engagemang eller politiska visioner eller förslag hos svenskarna i gemen. Den gamla politiska strukturen håller helt enkelt inte jämna steg med utvecklingen i resten av samhället. Det som behövs är inte nya partier så mycket som nya politiska strukturer, nya metoder och möjligheter att forma politikens innehåll. Nya sätt att mötas och diskutera. I en ofta förvirrande samtid med brist på information behövs pålitliga sätt att identifiera sin egna politiska plattform.",
+					"paragraph-3": "SYNTROPI representerar ett unikt demokratiprojekt som söker vägar bortom etablerade strukturer och vedertagna vanor inom den politiska sfären. Vi vill stödja skapandet av dessa nya strukturer."
+
 				},
 				"liquid-democracy": {
 					"heading": "Med demokrati som ideologi",
 					"paragraph-1": "SYNTROPI  bygger på de grekiska termerna för tillsammans och närande omsorg. Ett digitalt forum för människor som vill förstå och lösa samhällsutmaningar tillsammans, en slags folkets tankesmedja. Tills skillnad från andra tankesmedjor har vi ingen annan ideologisk grund än tron på demokrati, övertygelsen om allas rätt att vara med och påverka hur det allmänna förvaltas. För att detta ska fungera fullt ut behöver vi även hitta en grund i fakta och i möjligaste mån basera våra förslag evidens snarare än antaganden. Argument och åsikter från alla riktningar och dimensioner är välkomna så länge de skapar en mer nyanserad bild, så de skiljer på åsikt och fakta och så länge de presenteras med respekt till alla andra som använder forumet.",
-    				"paragraph-2": "Vårt mål är att bygga upp en databas av politiska förslag i form av motioner där du snabbt kan få överblick i en specifik fråga och, om du vill, själv rösta och genom detta skapa dig en tydligare bild över din egna politiska plattform. Eftersom vi använder oss av så kallad flytande demokrati (liquid democracy) kan du både delegera din röst till andra men även se hur andra, exempelvis våra riksdagspartier, står i de olika frågorna. En tydligare bild  över som är viktigt för dig men även vilket parti som bäst stämmer överens med dina personliga åsikt i en specifik fråga.",
-    				"paragraph-3": "SYNTROPI kommer alltså att inte bara erbjuda en plattform för politisk dialog utan även att kontinuerligt följa de olika riksdagspartiernas beslut i sakfrågor för att på ett pålitligt sätt kunna representera partiernas politik i praktiken, En gång per år, på demokratidagen den 15 september, gör vi en sammanställning av de viktigaste frågorna på vår plattform enligt allmänheten och presenterar dessa för regering och media. En slags avstämning mellan vad svenskarna tycker är viktigt och vad den politiska eliten prioriterar. Vi kommer även kontinuerligt att ordna debatter samt diskussionskvällar med djupdykningar i olika frågor och ämnen kopplade till våra omröstningar under namnet Syntropia - utopier för realister."
+					"paragraph-2": "Vårt mål är att bygga upp en databas av politiska förslag i form av motioner där du snabbt kan få överblick i en specifik fråga och, om du vill, själv rösta och genom detta skapa dig en tydligare bild över din egna politiska plattform. Eftersom vi använder oss av så kallad flytande demokrati (liquid democracy) kan du både delegera din röst till andra men även se hur andra, exempelvis våra riksdagspartier, står i de olika frågorna. En tydligare bild  över som är viktigt för dig men även vilket parti som bäst stämmer överens med dina personliga åsikt i en specifik fråga.",
+					"paragraph-3": "SYNTROPI kommer alltså att inte bara erbjuda en plattform för politisk dialog utan även att kontinuerligt följa de olika riksdagspartiernas beslut i sakfrågor för att på ett pålitligt sätt kunna representera partiernas politik i praktiken, En gång per år, på demokratidagen den 15 september, gör vi en sammanställning av de viktigaste frågorna på vår plattform enligt allmänheten och presenterar dessa för regering och media. En slags avstämning mellan vad svenskarna tycker är viktigt och vad den politiska eliten prioriterar. Vi kommer även kontinuerligt att ordna debatter samt diskussionskvällar med djupdykningar i olika frågor och ämnen kopplade till våra omröstningar under namnet Syntropia - utopier för realister."
 				},
 				"how-it-works": {
 					"heading": "SYNTROPI i framtiden",
 					"paragraph-1": "Målet med SYNTROPI är att hitta beröringspunkterna mellan olika förhållningssätt som kan leda till politiska förslag med brett och  långsiktigt stöd hos allmänheten. Målet är även att bli en länk mellan dagens etablerade partier och den breda väljarbasen, mellan specialister och generalister, mellan höger och vänster, mellan där vi är och dit vi vill komma.  ",
-    				"paragraph-2": "För att ta oss fram som samhälle måste vi lösa våra utmaningar tillsammans med hjälp av alla de unika perspektiv som alla individer kan bidra med. Genom att samarbeta får vi en betydligt bättre bild om var vi är och vilka vägar fram som finns. Världen tycks bli mer och mer komplex med många nya utmaningar som inte går att förstå med gamla, etablerade glasögon. Vi gör oss själva ingen tjänst genom att förenkla och reducera dessa med ideologiska skygglappar och snäva perspektiv. Istället för att avfärda dem vi inte håller med bör vi lyssna och ta reda på vad vi kan lära oss av våra meningsmotståndare. Det är bara genom att förstå mer som vi kan skapa en gemensam väg fram genom våra gemensamma utmaningar till vår gemensamma framtid.",
-    				"paragraph-3": "SYNTROPI söker bli en del i en helt ny typ av folkrörelse, en rörelse som bygger på individens val och som kontinuerligt kan ändra kurs allteftersom samhället och förutsättningarna förändras. Ett samhällsbyggande projekt med blicken på samtiden och utifrån detta tar nästa steg mot de gemensamma målen.",
-    					
+					"paragraph-2": "För att ta oss fram som samhälle måste vi lösa våra utmaningar tillsammans med hjälp av alla de unika perspektiv som alla individer kan bidra med. Genom att samarbeta får vi en betydligt bättre bild om var vi är och vilka vägar fram som finns. Världen tycks bli mer och mer komplex med många nya utmaningar som inte går att förstå med gamla, etablerade glasögon. Vi gör oss själva ingen tjänst genom att förenkla och reducera dessa med ideologiska skygglappar och snäva perspektiv. Istället för att avfärda dem vi inte håller med bör vi lyssna och ta reda på vad vi kan lära oss av våra meningsmotståndare. Det är bara genom att förstå mer som vi kan skapa en gemensam väg fram genom våra gemensamma utmaningar till vår gemensamma framtid.",
+					"paragraph-3": "SYNTROPI söker bli en del i en helt ny typ av folkrörelse, en rörelse som bygger på individens val och som kontinuerligt kan ändra kurs allteftersom samhället och förutsättningarna förändras. Ett samhällsbyggande projekt med blicken på samtiden och utifrån detta tar nästa steg mot de gemensamma målen."
 				},
 				"about-us": {
 					"heading": "SYNTROPI i nuet",
-					"paragraph-1": "SYNTROPI är ett praktiskt projekt. Visst finns här plats för de stora visionerna, men framför allt ligger fokus på här och nu, på nästa steg. Hos oss kan du idag rösta i ett antal olika politiska frågor eller delegera din röst till partier, organisationer och individer om du inte är säker på hur du själv står i en fråga. Du kan även skicka in förslag på egna politiska motioner."
+					"paragraph-1": "SYNTROPI är ett praktiskt projekt. Visst finns här plats för de stora visionerna, men framför allt ligger fokus på här och nu, på nästa steg. Hos oss kan du idag rösta i ett antal olika politiska frågor eller delegera din röst till partier, organisationer och individer om du inte är säker på hur du själv står i en fråga. Du kan även skicka in förslag på egna politiska motioner.",
 					"paragraph-2": "Då vi är en ideell förening har vi ganska begränsade medel och kan därför ännu inte husera debatter på vår plattform. Varje enskild motion har därför sin egna närvaro i sociala media för de som vill diskutera på bredden och djupet. Till 2019 bör vår plattform kunna erbjuda mer avancerade förutsättningar för diskussion av sakfrågor. Varefter vi kommer att kunna diskutera och utveckla idéer på en mer praktiskt sätt här på SYNTROPI. Precis som andra traditionella tankesmedjor. Förutom att alla får vara med.",
-						"paragraph-3": "Vill du engagera dig? Vi behöver all hjälp vi kan få, både vad gäller bidrag i form av motioner, redaktionellt arbete, feedback och förslag, stöd med event, marknadsföring, utveckling med mycket mera. Om du tycker det hela verkar kul och intressant skicka en epost till info@syntropi.se. Som den amerikanska arkitekten och visionären Buckminster Fuller sa är det bästa sättet att förutsäga framtiden att skapa den. Vi hoppas du vill vara med och skapa den med oss.",
-					
+					"paragraph-3": "Vill du engagera dig? Vi behöver all hjälp vi kan få, både vad gäller bidrag i form av motioner, redaktionellt arbete, feedback och förslag, stöd med event, marknadsföring, utveckling med mycket mera. Om du tycker det hela verkar kul och intressant skicka en epost till info@syntropi.se. Som den amerikanska arkitekten och visionären Buckminster Fuller sa är det bästa sättet att förutsäga framtiden att skapa den. Vi hoppas du vill vara med och skapa den med oss."
 				}
 			}
 		},
@@ -64,16 +62,16 @@
 			"heading": "Integritetspolicy",
 			"subtitle": "Kommer snart..."
 		},
-		"authenticate":{
-			"login" : "Logga In",
+		"authenticate": {
+			"login": "Logga In",
 			"signup": "Bli Medlem",
 			"logged-in-title": "Du är redan inloggad",
 			"logout": "Logga ut",
 			"tab": {
 				"individual": "Individ",
 				"entities": "Organisation/Politiskt Parti",
-				"login":"Logga In",
-				"signup":"Bli Medlem"
+				"login": "Logga In",
+				"signup": "Bli Medlem"
 			},
 			"links": {
 				"login": "Har du redan ett konto? Logga in",
@@ -83,7 +81,7 @@
 			"individual": {
 				"register": {
 					"title": "Bli medlem"
-				},	
+				},
 				"login": {
 					"title": "Login",
 					"wrong-community": "Du har tyvärr inte behörighet att logga in i denna grupp."
@@ -92,19 +90,19 @@
 			"entity": {
 				"register": {
 					"title": "Registera som Organisation/Parti"
-				},	
+				},
 				"login": {
 					"title": "Logga in som Organisation/Parti"
 				}
 			},
-			"new-password":{
+			"new-password": {
 				"heading": "Skapa nytt lösenord",
 				"new-password": "Nytt lösenord",
 				"alerts": {
 					"password-changed": "Ditt löseonord har ändrats."
 				}
 			},
-			"recover-password":{
+			"recover-password": {
 				"heading": "Fyll i din epostadress för att ta emot instruktioner för hur du ska återställa ditt lösenord.",
 				"recovery-email": "E-post för återställning av lösenord",
 				"alerts": {
@@ -112,9 +110,9 @@
 				}
 			}
 		},
-		"signup":{
+		"signup": {
 			"accept-terms": "Du måste acceptera villkoren för att bli medlem i Syntropi.",
-			"not-in-whitelist" : "Endast redan godkända eller  verifierade användare kan registrera sig i denna grupp.",
+			"not-in-whitelist": "Endast redan godkända eller  verifierade användare kan registrera sig i denna grupp.",
 			"tab": {
 				"individual": "Individ",
 				"entities": "Organisation/Politiskt Parti"
@@ -127,7 +125,7 @@
 			"individual": {
 				"register": {
 					"title": "Bli Medlem"
-				},	
+				},
 				"login": {
 					"title": "Login"
 				}
@@ -141,24 +139,24 @@
 				"register": {
 					"title": "Registrera",
 					"loginlink": "Har organisationen ett konto? Logga in"
-				},	
+				},
 				"login": {
 					"title": "Login",
 					"signuplink": "Har organisationen inget konto ännu? Registera ett"
 				}
 			}
 		},
-		"entitySignup":{
+		"entitySignup": {
 			"type": "Typ av organisation"
 		},
-		"contact":{
+		"contact": {
 			"heading": "Kontakta Oss",
 			"alerts": {
 				"contact-message-sent": "Ditt meddelande har skickats."
 			}
 		},
 		"dashboard": {
-			"heading" : "Instrumentpanel",
+			"heading": "Instrumentpanel",
 			"card": {
 				"proposals": {
 					"heading": "Mina Förslag",
@@ -180,12 +178,6 @@
 					"heading": "Kandidater",
 					"text": "Välj dina kandidater",
 					"link": "Nominera"
-				},
-				"delegates": {
-					"heading": "Mina Delegater",
-					"text": "Välj dina delegater.",
-					"no-delegates": "Du har inte valt några delegater.",
-					"link": "Delegera"
 				},
 				"profile": {
 					"heading": "Min Profil",
@@ -240,20 +232,20 @@
 				"search": "Sök efter nyckelord bland förslagen",
 				"deletedMessage": "Ditt förslag har raderats.",
 				"confirmDelete": "Är du säker på att du vill radera detta förslag? Du kan inte ändra dig efteråt.",
-				"tabs":{
+				"tabs": {
 					"allProposals": "Alla Förslag",
 					"myProposals": "Mina Förslag",
 					"writeProposals": "Skriv ett Förslag",
 					"draftProposals": "Utkast till förslag",
 					"submittedProposals": "Inlämnat förslag"
 				},
-				"headings":{
+				"headings": {
 					"openProposals": "Öppna Förslag",
 					"closedProposals": "Avslutade Förslag",
 					"myProposals": "Mina Förlsag",
 					"notMyProposals": "Gemensamma Förslag"
 				},
-				"cards":{
+				"cards": {
 					"expires": "Löper ut",
 					"read": "Läs Mer",
 					"vote": "och rösta"
@@ -287,10 +279,10 @@
 					"bad-email": "Det här verkar inte vara en riktig e-postadress. Har du skrivit rätt?"
 				}
 			},
-			"view":{
+			"view": {
 				"signInModal": {
 					"header": "Gå med i diskussionen",
-					"paragraph-1":"Vill du rösta på det här förslaget?",
+					"paragraph-1": "Vill du rösta på det här förslaget?",
 					"paragraph-2": "Att skapa ett konto är enkelt, och tillåter dig att välja delegater, rösta på förslag och samarbeta med andra om att skriva egna.",
 					"button": "Skapa Konto"
 				},
@@ -318,11 +310,11 @@
 				"alerts": {
 					"linkToClipboardSuccess": "Länk kopierad till urklipp",
 					"linkToClipboardFailed": "Kopiering av länk till urklipp misslyckdes",
-					"proposalSubmitted":"Förslag inlämnad till redaktionen",
+					"proposalSubmitted": "Förslag inlämnad till redaktionen",
 					"proposalIncomplete": "Du måste fylla i alla fält innan du kan lämna in ett förslag.",
-					"commentPosted":"Kommentar upplagd"
+					"commentPosted": "Kommentar upplagd"
 				},
-				"userNotFound":"Användaren kunde inte hittas",
+				"userNotFound": "Användaren kunde inte hittas",
 				"anonymous": "Anonym",
 				"collaborators": "Medskapare",
 				"author": "Författare",
@@ -335,11 +327,11 @@
 				},
 				"submit-comment": "Lämna kommentar",
 				"title-empty": "Titel saknas",
-				"abstract-empty":"Sammanfattning saknas",
+				"abstract-empty": "Sammanfattning saknas",
 				"body-empty": "Innehåll saknas"
 			}
 		},
-		"tag-search":{
+		"tag-search": {
 			"heading": "Taggad",
 			"no-delegates": "Det finns ingen delegat med denna tagg.",
 			"no-proposals": "Det finns inga förslag med denna tagg.",
@@ -358,7 +350,7 @@
 				"individual": "Röstar som Individ",
 				"completed": "Omröstning avslutad"
 			},
-			"tabs":{
+			"tabs": {
 				"voteProposals": "Öppen för omröstning",
 				"completedProposals": "Avslutad"
 			},
@@ -379,13 +371,13 @@
 			"expires": "Omröstningen avslutas"
 		},
 		"profile": {
-			"profile-tags" : "Fyll i minst fem intressen",
+			"profile-tags": "Fyll i minst fem intressen",
 			"heading": "Profil",
-			"photo" : "Profilfotots url",
-			"public" : "Offentlig profil",
-			"private" : "Privat profil",
-			"delegate" : "Delegat",
-			"candidate" : "Kandidat",
+			"photo": "Profilfotots url",
+			"public": "Offentlig profil",
+			"private": "Privat profil",
+			"delegate": "Delegat",
+			"candidate": "Kandidat",
 			"terms-accepted": "Jag accepterar användaravtalet",
 			"alerts": {
 				"invalid-url": "Lägg till en fungerande url, som börjar med ‘http’ eller ‘https’.",
@@ -396,12 +388,12 @@
 				"profile-updated": "Din profil är updaterad.",
 				"profile-private": "Din profil är nu privat.",
 				"profile-public": "Din profil är nu offentlig.",
-				"profile-delegate-removed" : "Delegatprofil borttagen.",
+				"profile-delegate-removed": "Delegatprofil borttagen.",
 				"profile-stop-delegate": "Är du säker på att du vill sluta vara delegat? Användare kommer inte längre att kunna låta dig representera dem.",
-				"profile-delegate-requested" : "Delegatansökan skickad. Du kommer att få en bekräftelse per e-post när din ansökan har behandlats.",
-				"profile-candidate-removed" : "Kandidatprofil Borttagen.",
-				"profile-candidate-requested" : "Kandidatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats.",
-				"profile-incomplete" : "Du behöver en fullständig profil om du vill bli delegat.",
+				"profile-delegate-requested": "Delegatansökan skickad. Du kommer att få en bekräftelse per e-post när din ansökan har behandlats.",
+				"profile-candidate-removed": "Kandidatprofil Borttagen.",
+				"profile-candidate-requested": "Kandidatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats.",
+				"profile-incomplete": "Du behöver en fullständig profil om du vill bli delegat.",
 				"password-incorrect": "Lösenordet du skrev verkar inte stämma. Prova igen!",
 				"password-reset": "Ditt lösenord har återställts"
 			},
@@ -422,12 +414,12 @@
 			"photo-url": "Fyll i en länk till den profilbild du vill använda",
 			"change-photo": "Ändra länken till ditt profilfoto",
 			"password-reset": "Återställ lösenordet",
-			"old-password" : "Gammalt lösenord",
+			"old-password": "Gammalt lösenord",
 			"new-password": "Nytt lösenord",
 			"confirm-password": "Bekräfta lösenord",
 			"reset": "Återställ",
 			"password-mismatch": "Dina lösenord stämmer inte överens med varandra",
-			"password-reset": "Lösenordet har återställts"
+			"password-reset-confirm": "Lösenordet har återställts"
 		},
 		"routes": {
 			"alerts": {
