@@ -6,17 +6,17 @@
 			"card": {
 				"users": {
 					"heading": "Användare",
-					"text": "Lägg till/Ändra/Ta bort användare, bjud in nya användare, ändra användares roll.",
+					"text": "Lägg till, ändra samt ta bort användare, bjud in nya användare eller ändra användares roll.",
 					"link": "Hantera Användare"
 				},
 				"tags": {
 					"heading": "Taggar",
-					"text": "Lägg till/Ändra/Ta bort taggar som används för filtrering av innehåll.",
+					"text": "Lägg till, ändra eller ta bort taggar som används för filtrering av innehåll.",
 					"link": "Hantera Taggar"
 				},
 				"approvals": {
 					"heading": "Godkännanden",
-					"text": "Godkänn eller avvisa användares önskemål om att bli delegater.",
+					"text": "Godkänn eller avvisa användares ansökningar om att bli delegater.",
 					"link": "Hantera Godkännanden"
 				},
 				"proposals": {
@@ -26,7 +26,7 @@
 				},
 				"voting": {
 					"heading": "Röstning",
-					"text": "Se resultat av omröstning och förbered röster i avslutade omröstningar för sammanräkning.",
+					"text": "Se valresultat och förbered röster i avslutade omröstningar för sammanräkning.",
 					"link": "Se Röstresultat"
 				},
 				"stats":{
@@ -53,13 +53,13 @@
 			"delete-yes":"Ja",
 			"delete-no":"Nej",
 			"invite-heading": "Bjud in en ny användare:",
-			"invite-message": "Fyll i en användarens e-post för att skicka dem en inbjudan att gå med.",
-			"invite-button": "Skicka Inbjudan",
-			"invite-role": "Användares Roll",
+			"invite-message": "Fyll i en användarens e-post om du vill skicka dem en inbjudan.",
+			"invite-button": "Skicka inbjudan",
+			"invite-role": "Användares roll",
 			"approve-button": "Godkänn",
 			"reject-button": "Avslå",
 			"whitelist-updated" : "Vitlistan uppdaterad.",
-			"community-whitelist": "Gruppens Vitlista",
+			"community-whitelist": "Gruppens vitlista",
 			"whitelist-description": "Om en vitlista används kommer bara användare med e'postadreser på vitlistan kunna skapa konton i denna grupp.",
 			"enforceWhitelist": "Tillåt endast dessa användare att skapa konton."
 		},
@@ -69,7 +69,7 @@
 			"author": "Författare",
 			"contributors": "Bidragare",
 			"title": "Titl",
-			"none-waiting": "Det finns inga nya förslag som inväntar godkännande.",
+			"none-waiting": "Inga nya förslag inväntar godkännande.",
 			"approve-button": "Godkänn",
 			"reject-button": "Avslå",
 			"preview": "Förhandsvisning"
@@ -79,17 +79,17 @@
 			"endDate": "Slutdatum",
 			"author": "Författare",
 			"title": "Titel",
-			"tally-votes": "Uppdatera Röster",
+			"tally-votes": "Uppdatera valresultat",
 			"results": "Resultat",
-			"yes-votes": "Bifallande Röster",
-			"no-votes": "Avslående Röster",
-			"total-votes": "Totalt Antal Röster"
+			"yes-votes": "Bifallande röster",
+			"no-votes": "Avslående röster",
+			"total-votes": "Totalt antal röster"
 		},
 		"tags": {
-			"heading": "Hantera Taggar",
+			"heading": "Hantera taggar",
 			"text": "Text",
 			"keyword": "Nyckelord",
-			"url": "URL",
+			"url": "Länk",
 			"delete": "Radera",
 			"created": "Datum skapad",
 			"approved": "Godkänd",
@@ -108,14 +108,14 @@
 			"approvals-waiting":"Det finns inga väntande önskemål om godkännande."
 		},
 		"alerts": {
-			"user-approved": "Användare Godkänd",
-			"user-rejected": "Användare Avvisad",
-			"proposal-approved": "Motion Godkänd",
-			"proposal-rejected": "Motion Avvisad",
-			"tag-updated": "Tagg Uppdaterad",
-			"tag-added": "Tagg Tillagd",
-			"tag-deleted": "Tagd Raderad",
-			"verification-email-sent": "Verifications epost skickad till "
+			"user-approved": "Användare godkänd",
+			"user-rejected": "Användare avvisad",
+			"proposal-approved": "Förslaget godkänt",
+			"proposal-rejected": "Förslaget avvisat",
+			"tag-updated": "Tagg uppdaterad",
+			"tag-added": "Tagg tillagd",
+			"tag-deleted": "Tagg raderad",
+			"verification-email-sent": "Verifications e-post skickad till "
 		},
 		"stats": {
 			"proposals":{
@@ -136,14 +136,14 @@
 				"greyscale": "Gråskala (svart/vit/grå)",
 				"default": "Default (blå/gul)"
 			},
-			"homepageImageUrl": "URL till hemsidesbild",
+			"homepageImageUrl": "Länk till hemsidesbild",
 			"homepageBannerText": "Hemsidans bannertext",
 			"homepageIntroText": "Hemsidans introduktiontext",
-			"aboutText": "Om Oss text",
+			"aboutText": "Om oss text",
 			"languageSelector": "Visa språkväljare i sidhuvudet",
 			"defaultLanguage": "Standardspråk",
 			"emailWhitelist": "E-postadresser till tillåtna användare, separerade med kommatecken.",
-			"enforceWhitelist": "Tillämpa den aktuella vitlistan med e-postadresser"
+			"enforceWhitelist": "Aktivera vitlistan med e-postadresser "
 		}
 	}
 }

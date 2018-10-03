@@ -20,8 +20,8 @@
 			"role_selector": "Byt Roll",
 			"no_notifications": "Du har inga meddelanden.",
 			"search_tags": "Sök efter taggar...",
-			"vote_as_individual": "Rösta som Individ",
-			"vote_as_delegate": "Rösta som Delegat"
+			"vote_as_individual": "Du röstar nu som privatperson",
+			"vote_as_delegate": "Du röstar nu i egenskap av delegat"
 		},
 		"drawer": {
 			"nav_login" : "Logga in",
