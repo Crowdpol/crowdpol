@@ -29,9 +29,12 @@ Meteor.methods({
     updateWhitelistSettings: function(emailWhitelist, enforceWhitelist, communityId) {
       Meteor.call('updateEmailWhitelist', emailWhitelist, communityId);
       Meteor.call('updateEnforceWhitelist', enforceWhitelist, communityId);
+    },
+
+    setDefaultDates: function(){
+
+    },
+    disableDefaultDates: function(){
+      
     }
 });
-
-
-
-
