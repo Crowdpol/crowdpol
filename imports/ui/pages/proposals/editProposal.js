@@ -12,7 +12,8 @@ import RavenClient from 'raven-js';
 
 Template.EditProposal.onCreated(function(){
 	self = this;
-
+	var communityId = LocalStore.get('communityId');
+	var settings = LocalStore.get('settings');
 	// Reactive and Session Vars
 	self.currentLang = new ReactiveVar(TAPi18n.getLanguage());
 	self.invites = new ReactiveVar(null);
@@ -29,11 +30,11 @@ Template.EditProposal.onCreated(function(){
 
 	proposalId = FlowRouter.getParam("id");
 	self.autorun(function(){
-		self.subscribe('communities.all')
 		if (proposalId){
 			// Edit an existing proposal
 			self.subscribe('proposals.one', proposalId, function(){
 				proposal = Proposals.findOne({_id: proposalId})
+				dict.set( 'showDates',false);
 				dict.set( 'createdAt', proposal.createdAt );
 				dict.set( '_id', proposal._id);
 				dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate );
@@ -50,6 +51,11 @@ Template.EditProposal.onCreated(function(){
 			dict.set( 'endDate', defaultEndDate);
 			dict.set( 'tags',[]);
 		}
+		//if dates are static and defined in settings, overrde defaults
+		if(settings.showDates==false){
+			dict.set( 'startDate', settings.defaultStartDate );
+			dict.set( 'endDate', settings.defaultEndDate );
+		}
 
 	});
 });
@@ -60,27 +66,14 @@ Template.EditProposal.onRendered(function(){
 	this.autorun(function() {
 		// Wait for whole form to render before initialising fields
 		if (Session.get("formRendered")) {
-			/*
-			validateForm();
+			//validateForm();
 
-			if (Session.get('setupTaggle')) {
-				//Set up Taggle
-				taggle = setupTaggle();
-				self.taggle = new ReactiveVar(taggle);
-				//Set up existing tags
-				var tags = self.templateDictionary.get('tags');
-				if (tags) {
-					var keywords = _.map(tags, function(tag){ return tag.keyword; })
-					self.taggle.get().add(keywords);
-				}
-				Session.set('setupTaggle', false);
+			//Initialise date fields, check for override settings
+			let settings = LocalStore.get('settings');
+			if(settings.showDates){
+				self.find('#startDate').value = self.templateDictionary.get('startDate');
+				self.find('#endDate').value = self.templateDictionary.get('endDate');
 			}
-			*/
-
-			//Initialise date fields
-			//console.log(self.templateDictionary.get('startDate'));
-			self.find('#startDate').value = self.templateDictionary.get('startDate');
-			self.find('#endDate').value = self.templateDictionary.get('endDate');
 			Session.set("formRendered", false)
 		}
 	});
@@ -103,8 +96,7 @@ Template.EditProposal.helpers({
 		}
 	},
 	languages: function(){
-		var communityId = LocalStore.get('communityId');
-		return Communities.findOne({_id: communityId}).settings.languages;
+		return LocalStore.get('languages');
 	},
 	activeClass: function(language){
 		var currentLang = TAPi18n.getLanguage();
@@ -131,7 +123,19 @@ Template.EditProposal.helpers({
     }
 		//console.log(tags);
     return tags;
-  }
+  },
+	showDates: ()=> {
+		let settings = LocalStore.get('settings');
+		return settings.showDates;
+	},
+	startDate: ()=> {
+		let startDate = Template.instance().templateDictionary.get('startDate');
+		return moment(startDate).format('DD MMMM YYYY');
+	},
+	endDate: ()=> {
+		let endDate = Template.instance().templateDictionary.get('endDate');
+		return moment(endDate).format('DD MMMM YYYY');
+	},
 });
 
 Template.EditProposal.events({
@@ -145,7 +149,6 @@ Template.EditProposal.events({
 		//}
 		event.preventDefault();
 		if(!saveChanges(event, template, 'App.proposals')){
-			console.log("back picked up no save");
 			FlowRouter.go('/proposals');
 		};
 		//FlowRouter.go('/proposals');
@@ -194,9 +197,8 @@ var timer = function(){
 }();
 
 function saveChanges(event, template, returnTo){
-	console.log("saveChanges() called");
 	var communityId = LocalStore.get('communityId');
-	var languages = Communities.findOne({_id: communityId}).settings.languages;
+	var languages = LocalStore.get('languages');
 	var content = [];
 	var contentCount = 0;
 	// Get Translatable field for each language
@@ -236,7 +238,16 @@ function saveChanges(event, template, returnTo){
 	})
 	//CHECK IF THERE IS SOME CONTENT IN THE PROPOSAL
 	if(contentCount!=0){
-		console.log("there is content");
+		let settings = LocalStore.get('settings');
+		//let startDate = template.instance().templateDictionary.get('startDate');
+		//let endDate = template.instance().templateDictionary.get('endDate');
+		if(settings.showDates==false){
+			startDate = settings.defaultStartDate;
+			endDate = settings.defaultEndDate;
+		}else{
+			startDate = new Date(template.find('#startDate').value);
+			endDate = new Date(template.find('#endDate').value);
+		}
 		Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
 			if (error){
 				RavenClient.captureException(error);
@@ -246,8 +257,8 @@ function saveChanges(event, template, returnTo){
 				let newProposal = {
 					content: content,
 					// Non-translatable fields
-					startDate: new Date(template.find('#startDate').value),//new Date(2018, 8, 1),
-					endDate: new Date(template.find('#endDate').value),//new Date(2018, 8, 1),
+					startDate: startDate,//new Date(2018, 8, 1),
+					endDate: endDate,//new Date(2018, 8, 1),
 					authorId: Meteor.userId(),
 					invited: Session.get('invited'),
 					tags: proposalTags,
@@ -260,7 +271,6 @@ function saveChanges(event, template, returnTo){
 
 				// If working on an existing proposal, save it, else create a new one
 				if (proposalId){
-					console.log(newProposal);
 					saveProposal(proposalId,newProposal,returnTo,template);
 
 				} else {
@@ -270,7 +280,6 @@ function saveChanges(event, template, returnTo){
 			}
 		});
 	}else{
-		console.log("nothing to save, return false");
 		return false;
 	}
 	return true;
@@ -278,8 +287,6 @@ function saveChanges(event, template, returnTo){
 
 
 function createProposal(propsalId,newProposal,returnTo,template){
-	console.log("Create Proposal function called");
-	console.log(newProposal);
 	Meteor.call('createProposal', newProposal, function(error, proposalId){
 		if (error){
 			RavenClient.captureException(error);
@@ -298,7 +305,6 @@ function createProposal(propsalId,newProposal,returnTo,template){
 							Meteor.call('createNotification', notification);
 						}
 			}
-			console.log(proposalId);
 			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
 			FlowRouter.go(returnTo, {id: proposalId});
 		}

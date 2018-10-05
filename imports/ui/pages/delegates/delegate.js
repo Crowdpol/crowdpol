@@ -10,10 +10,10 @@ Template.Delegate.onCreated(function () {
   var dict = new ReactiveDict();
   this.templateDictionary = dict;
   dict.set("communityId",LocalStore.get('communityId'));
-  
+
   var self = this;
   self.ranks = new ReactiveVar([]);
-  
+
   self.autorun(function() {
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
     self.subscribe('ranks.all');
@@ -28,7 +28,7 @@ Template.Delegate.onCreated(function () {
       }
     });
   });
-  
+
 });
 
 Template.Delegate.onRendered(function () {
@@ -46,6 +46,12 @@ Template.Delegate.onRendered(function () {
 });
 
 Template.Delegate.helpers({
+  notDelegate: function() {
+    if(Roles.userIsInRole(Meteor.user(), ['delegate'])){
+      return false;
+    }
+    return true;
+  },
   getRanking: function(template) {
     communityId = Template.instance().templateDictionary.get( 'communityId' );
     result = Ranks.findOne({entityType: 'delegate', entityId: this._id, supporterId: Meteor.userId(),communityId: communityId});
@@ -57,11 +63,16 @@ Template.Delegate.helpers({
     return Meteor.users.find( { _id : { $in :  Session.get('ranked')} },{sort: ["ranking"]} );
   },
   delegates: function() {
-    delegates = Meteor.users.find( { $and: [ 
+    /* DO NOT SHOW CURRENT USER IN DELEGATE SEARCH
+    delegates = Meteor.users.find( { $and: [
       { _id : { $nin : Session.get('ranked')}},
       { _id : { $ne: Meteor.userId()} }
     ]});
-    console.log(delegates);
+    */
+    delegates = Meteor.users.find( { $and: [
+      { _id : { $nin : Session.get('ranked')}}
+    ]});
+    //console.log(delegates);
     return delegates;
   },
   searchPhrase: function() {
@@ -81,7 +92,7 @@ Template.Delegate.events({
       Bert.alert(TAPi18n.__('pages.delegates.alerts.delegate-limit'), 'danger');
       event.target.checked = false;
     }else{
-      console.log(communityId);
+      //console.log(communityId);
       Meteor.call('addRank','delegate',delegateId,(ranks.length +1),communityId,function(error,result){
         if (error) {
           RavenClient.captureException(error);
@@ -100,7 +111,7 @@ Template.Delegate.events({
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
-          console.log(result);
+          //console.log(result);
           Session.set('ranked',result);
         }
       });
@@ -108,13 +119,13 @@ Template.Delegate.events({
   },
   'click .delegate-view': function(event, template){
     Session.set('drawerId',this._id);
-    if($('.mdl-layout__drawer-right').hasClass('active')){       
-        $('.mdl-layout__drawer-right').removeClass('active'); 
+    if($('.mdl-layout__drawer-right').hasClass('active')){
+        $('.mdl-layout__drawer-right').removeClass('active');
      }
      else{
-        $('.mdl-layout__drawer-right').addClass('active'); 
+        $('.mdl-layout__drawer-right').addClass('active');
      }
-    
+
   },
   'click #delegate-help'(event, template){
     var steps = [

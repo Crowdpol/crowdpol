@@ -66,6 +66,20 @@ CommunitySettings = new SimpleSchema({
       optional: false,
       defaultValue: false
     },
+    showDates: {
+      type: Boolean,
+      optional: false,
+      defaultValue: true
+    },
+    defaultStartDate: {
+      type: Date,
+      optional: true
+    },
+    defaultEndDate: {
+      type: Date,
+      optional: true
+    },
+
 });
 
 Community = new SimpleSchema({
@@ -116,5 +130,3 @@ Communities.deny({
     return true;
   },
 });
-
-

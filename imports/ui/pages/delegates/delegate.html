@@ -2,7 +2,9 @@
 	{{#if currentUser}}
 		<!--{{> backButton text="generic.back-to-proposals" url="/dash"}}-->
 	<div class="app-container search-container">
-		<h3>{{_ "pages.delegates.heading"}}<small><i class="material-icons" id="delegate-help">help_outline</i></small></h3>
+		<h3>{{_ "pages.delegates.heading"}}{{#if notDelegate}}<small><i class="material-icons" id="delegate-help">help_outline</i></small>{{/if}}</h3>
+		<!-- check if user is a delegate: delegates cannot delegate
+		{{#if notDelegate}}-->
 		<small>{{_ "pages.delegates.instructions-1"}}</small>
 		<br/>
 		<br/>
@@ -115,7 +117,11 @@
 		{{else}}
 			{{> loader}}
   	{{/if}}
+		<!-- end delegate check
+		{{else}}
+			<p>You are currently a delegate and can vote on behalf of your followers. As such, you cannot delegate votes to others.</p>
+			<p>If you no longer wish to be a delegate, you can update your <a href="/profile">profile</a>.</p>
+		{{/if}} -->
 	</div>
  {{/if}}
 </template>
-

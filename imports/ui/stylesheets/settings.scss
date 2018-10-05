@@ -1,0 +1,45 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+#datecheckboxlabel{
+    top: -10px;
+}
+.settings-checkbox{
+  label{
+    font-size: 12pt;
+  }
+}
+label.mdl-checkbox{
+  span.mdl-checkbox__label{
+    top: -10px;
+  }
+}
+
+section.settings-section {
+  //border-bottom: solid 1px grey;
+  span.settings-subsection{
+    font-weight: bold;
+  }
+  div.settings-subsection{
+    padding: 20px;
+    div.row{
+      div.column{
+
+      }
+    }
+    div.mdl-textfield{
+        width: 100%;
+    }
+  }
+}
+.row{
+	display: flex;
+	width: 100%;
+}
+
+.column{
+	order: 1;
+	flex: 1;
+  flex-basis: auto;
+  padding: .5rem;
+}
