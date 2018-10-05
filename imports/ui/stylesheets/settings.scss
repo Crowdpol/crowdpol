@@ -4,7 +4,11 @@
 #datecheckboxlabel{
     top: -10px;
 }
-
+.settings-checkbox{
+  label{
+    font-size: 12pt;
+  }
+}
 label.mdl-checkbox{
   span.mdl-checkbox__label{
     top: -10px;

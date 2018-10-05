@@ -8,14 +8,14 @@
         <section class="settings-section">
           <span class="section-heading">Proposal start and end dates</span>
           <div class="settings-subsection">
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="user-dates">
-              <input type="radio" id="user-dates" class="mdl-radio__button" name="proposal-dates" value="true">
-              <span class="mdl-radio__label">User defined</span>
-            </label>
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="static-dates">
-              <input type="radio" id="static-dates" class="mdl-radio__button" name="proposal-dates" value="false">
-              <span class="mdl-radio__label">Static</span>
-            </label>
+            <div class="settings-checkbox">
+              <input type="radio" id="user-dates" name="proposal-dates" value="true">
+              <span >User defined</span>
+            </div>
+            <div class="settings-checkbox">
+              <input type="radio" id="static-dates" name="proposal-dates" value="false">
+              <span >Static</span>
+            </div>
             <div id="setDates" class="settings-subsection">
               <div class="small-inputs-wrap">
                 <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="startDate">
@@ -37,10 +37,10 @@
           <div class="settings-subsection">
             <div class="row">
               <div class="column">
-                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="languageSelector">
-                    <input type="checkbox" id="languageSelector" class="mdl-checkbox__input" >
-                  <span class="mdl-checkbox__label">Show Language Selector</span>
-                </label>
+                <div class="settings-checkbox">
+                    <input type="checkbox" id="languageSelector" >
+                    <label>Show Language Selector</label>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -147,10 +147,10 @@
           <span class="section-heading">Whitelist</span>
           <div class="settings-subsection">
             <!-- enforce whitelist -->
-        		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="enforceWhitelist">
-        			<input type="checkbox" id="enforceWhitelist" class="mdl-checkbox__input" checked>
-        			<span class="mdl-checkbox__label">{{_"admin.communities.enforceWhitelist"}}</span>
-        		</label>
+            <div class="settings-checkbox">
+                <input type="checkbox" id="enforceWhitelist" >
+                <label>{{_"admin.communities.enforceWhitelist"}}</label>
+            </div>
 
             <!-- email whitelist -->
         		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="emailWhitelistContainer">

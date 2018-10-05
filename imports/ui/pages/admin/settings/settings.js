@@ -18,11 +18,11 @@ Template.AdminSettings.onCreated(function(){
       // Edit an existing proposal
       self.subscribe('community', communityId, function(){
         settings = Communities.findOne({_id: communityId}).settings;
-        dict.set( 'showDates', settings.showDates || true);
+        dict.set( 'showDates', settings.showDates);
         dict.set( 'startDate', moment(settings.defaultStartDate).format('YYYY-MM-DD') || defaultStartDate );
         dict.set( 'endDate', moment(settings.defaultEndDate).format('YYYY-MM-DD') || defaultEndDate);
-        dict.set( 'colorScheme', settings.colorScheme)
-        dict.set( 'logoUrl', settings.logoUrl || null);
+        dict.set( 'colorScheme', settings.colorScheme || 'default');
+        dict.set( 'logoUrl', settings.logoUrl || "img/wave-bg.jpg");
         dict.set( 'homepageImageUrl', settings.homepageImageUrl || null);
         dict.set( 'homepageBannerText', settings.homepageBannerText || null);
         dict.set( 'homepageIntroText', settings.homepageIntroText  || null);
@@ -30,10 +30,12 @@ Template.AdminSettings.onCreated(function(){
         dict.set( 'languageSelector', settings.languageSelector);
         dict.set( 'defaultLanguage', settings.defaultLanguage || null);
         dict.set( 'languages', settings.languages || []);
-        dict.set( 'emailWhitelist', settings.emailWhitelist || null);
-        dict.set( 'enforceWhitelist', settings.enforceWhitelist || null);
+        dict.set( 'emailWhitelist', settings.emailWhitelist || []);
+        dict.set( 'enforceWhitelist', settings.enforceWhitelist);
         console.log(communityId);
-        console.log(settings);
+        console.log(settings.languageSelector);
+        console.log(self.dict.get('languageSelector'))
+        setupParameters(self);
       });
     } else {
       console.log("could not find community Id");
@@ -43,47 +45,7 @@ Template.AdminSettings.onCreated(function(){
 });
 
 Template.AdminSettings.onRendered(function(){
-  let showDates = Template.instance().dict.get('showDates');
-  if(showDates==true){
-    $("#user-dates").prop('checked',true);
-    $('#static-dates').prop('checked',false);
-    $("#setDates").hide()
-  }else{
-    $("#user-dates").prop('checked',false);
-    $('#static-dates').prop('checked',true);
-    $('#start-datepicker').val(moment(Template.instance().dict.get('startDate')).format('YYYY-MM-DD'))
-    $('#end-datepicker').val(moment(Template.instance().dict.get('endDate')).format('YYYY-MM-DD'))
-    $("#setDates").show()
-  }
-  $('#end-datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
-  $('#start-datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
 
-
-
-  $("#languageOptions").hide();
-  let languageSelector = Template.instance().dict.get('languageSelector');
-
-  if(languageSelector==true){
-    console.log("languageSelector is true");
-    $("#languageSelector").prop('checked', true);
-    $("#languageOptions").show()
-  }else{
-    console.log("languageSelector is false");
-    $("#languageSelector").prop('checked', false);
-    $("#languageOptions").hide()
-  }
-
-  let enforceWhitelist = Template.instance().dict.get('enforceWhitelist');
-  console.log(enforceWhitelist);
-  if(enforceWhitelist==true){
-    console.log("enforceWhitelistis true");
-    $("#enforceWhitelist").prop('checked', true);
-    $("#emailWhitelistContainer").show()
-  }else{
-    console.log("enforceWhitelistis false");
-    $("#enforceWhitelist").prop('checked', false);
-    $("#emailWhitelistContainer").hide()
-  }
 
 });
 
@@ -167,12 +129,12 @@ Template.AdminSettings.events({
   'blur #start-datepicker' (event, template){
     var startDate = moment(template.find("#start-datepicker").value,'YYYY-MM-DD');
     if(!startDate.isValid()){
-      Bert.alert('Start date needs to be valid','danger');
+      //Bert.alert('Start date needs to be valid','danger');
       $("#start-datepicker").val(moment().format('YYYY-MM-DD'));
     }
     var endDate = moment(template.find("#end-datepicker").value,'YYYY-MM-DD');
     if(moment(endDate).isSameOrBefore(startDate)){
-      Bert.alert('End date is less than or same as start date');
+      //Bert.alert('End date is less than or same as start date','danger');
       $("#end-datepicker").val(moment(startDate).add(1, 'year').format('YYYY-MM-DD'));
     }
 
@@ -180,8 +142,13 @@ Template.AdminSettings.events({
   'blur #end-datepicker' (event, template){
     var endDate = moment(template.find("#end-datepicker").value,'YYYY-MM-DD');
     if(!endDate.isValid()){
-      Bert.alert('End date needs to be valid','danger');
+      //Bert.alert('End date needs to be valid','danger');
       $("#end-datepicker").val(moment().add(2, 'week').format('YYYY-MM-DD'));
+    }
+    var startDate = moment(template.find("#start-datepicker").value,'YYYY-MM-DD');
+    if(moment(startDate).isSameOrAfter(endDate)){
+      //Bert.alert('End date is less than or same as start date','danger');
+      $("#end-datepicker").val(moment(startDate).add(1, 'year').format('YYYY-MM-DD'));
     }
   },
   'click .add-language' (event, template){
@@ -197,6 +164,7 @@ Template.AdminSettings.events({
   },
   'submit form': function(event, template){
 		event.preventDefault();
+    console.log(Template.instance().dict.get('showDates'));
 		var settings = {
 				colorScheme: template.find("#colorScheme").value,
 				homepageImageUrl: template.find("#homepageImageUrl").value,
@@ -223,3 +191,56 @@ Template.AdminSettings.events({
 		});
 	}
 });
+
+function setupParameters(template){
+  //set dates
+  let showDates = template.dict.get('showDates');
+  console.log("showDates: " + showDates);
+  if(showDates==true){
+    $("#user-dates").prop('checked',true);
+    $('#static-dates').prop('checked',false);
+    $("#setDates").hide();
+    console.log("date hiddens");
+  }else{
+    $("#user-dates").prop('checked',false);
+    $('#static-dates').prop('checked',true);
+
+    $("#setDates").show()
+    console.log("date show");
+  }
+  $('#start-datepicker').val(moment(template.dict.get('startDate')).format('YYYY-MM-DD'))
+  $('#end-datepicker').val(moment(template.dict.get('endDate')).format('YYYY-MM-DD'))
+  $('#end-datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
+  $('#start-datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
+
+
+  //set language options
+  $("#languageOptions").hide();
+  let languageSelector = template.dict.get('languageSelector');
+  console.log("languageSelector: " + languageSelector);
+  if(languageSelector==true){
+    console.log("languageSelector is true");
+    $("#languageSelector").prop('checked', true);
+    $("#languageOptions").show()
+  }else{
+    console.log("languageSelector is false");
+    $("#languageSelector").prop('checked', false);
+    $("#languageOptions").hide()
+  }
+  //setup whitelist
+  let enforceWhitelist = template.dict.get('enforceWhitelist');
+  console.log("enforceWhitelist: " + enforceWhitelist);
+  if(enforceWhitelist==true){
+    console.log("enforceWhitelistis true");
+    $("#enforceWhitelist").prop('checked', true);
+    $("#emailWhitelistContainer").show()
+  }else{
+    console.log("enforceWhitelistis false");
+    $("#enforceWhitelist").prop('checked', false);
+    $("#emailWhitelistContainer").hide()
+  }
+  var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
+  for (var i = 0, l = mdlInputs.length; i < l; i++) {
+    mdlInputs[i].MaterialTextfield.checkDirty();
+  }
+}
