@@ -10,7 +10,12 @@ Template.delegateVoteButtons.onCreated(function(){
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				self.vote.set(result.vote);
+				//check if the delegate has already voted
+				if(typeof result !='undefined'){
+					if(typeof result.vote !='undefined'){
+						self.vote.set(result.vote);
+					}
+				}
 			}
 		});
 	});
@@ -39,7 +44,6 @@ Template.delegateVoteButtons.helpers({
     	var now = new Date();
     	var voteClose = endDate.subtract(2,'weeks');
     	if (voteClose.isAfter(now)) {
-    		console.log(true)
     		return true;
     	} else {
     		return false;
@@ -74,7 +78,7 @@ Template.delegateVoteButtons.events({
 		}
 	},
 	'click .mdl-custom-close': function(event, template){
-		'use strict';	
+		'use strict';
 		template.find('#mdl-custom-modal').style.display = "none";
 	},
 	'click window': function(event, template){

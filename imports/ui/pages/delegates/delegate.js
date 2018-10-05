@@ -63,9 +63,14 @@ Template.Delegate.helpers({
     return Meteor.users.find( { _id : { $in :  Session.get('ranked')} },{sort: ["ranking"]} );
   },
   delegates: function() {
+    /* DO NOT SHOW CURRENT USER IN DELEGATE SEARCH
     delegates = Meteor.users.find( { $and: [
       { _id : { $nin : Session.get('ranked')}},
       { _id : { $ne: Meteor.userId()} }
+    ]});
+    */
+    delegates = Meteor.users.find( { $and: [
+      { _id : { $nin : Session.get('ranked')}}
     ]});
     console.log(delegates);
     return delegates;
