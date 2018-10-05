@@ -26,7 +26,7 @@ Template.AdminUsers.helpers({
 	  	var emails = settings.emailWhitelist;
 		  if (emails) {
 		  	self.find("#emailWhitelist").value = emails.join(',');
-		  	self.find("#whitelistInput").MaterialTextfield.checkDirty()
+		  	//self.find("#whitelistInput").MaterialTextfield.checkDirty()
 		  }
 	  	var checkbox = self.find('#whitelist-checkbox-label').MaterialCheckbox;
 	  	checkbox.check();

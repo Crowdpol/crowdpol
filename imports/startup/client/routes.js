@@ -346,6 +346,7 @@ function loadCommunityInfo() {
           Bert.alert(err.reason, 'danger');
         } else {
           LocalStore.set('communityId', result._id);
+					LocalStore.set('settings',result.settings);
         }
       });
   } else {
