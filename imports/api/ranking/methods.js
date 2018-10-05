@@ -32,7 +32,7 @@ Meteor.methods({
       check(userId, String);
       check(type, String);
       check(communityId, String);
-      console.log("getRank: userId: " + userId + " type: " + type + " communityId:" + communityId);
+      //console.log("getRank: userId: " + userId + " type: " + type + " communityId:" + communityId);
       results = Ranks.aggregate([
         { $match: {"supporterId" : userId,"entityType" : type,"communityId":communityId}},
         {$project:{"_id": 0,"entityId" :1}}
