@@ -1,7 +1,7 @@
 import "./tags.html";
 import { Proposals } from '../../../api/proposals/Proposals.js'
 
-Template.TagSearch.onCreated(function(){	   
+Template.TagSearch.onCreated(function(){
 	var self = this;
 	var keyword = FlowRouter.getParam('keyword');
 	var communityId = LocalStore.get('communityId');
@@ -9,7 +9,7 @@ Template.TagSearch.onCreated(function(){
 	self.autorun(function() {
 		Meteor.subscribe('proposals.public', '', communityId);
 		Meteor.subscribe('proposals.author', '', communityId);
-		Meteor.subscribe('proposals.invited', Meteor.userId(), '', communityId);
+		Meteor.subscribe('proposals.invited', '', communityId);
 		Meteor.subscribe('users.delegatesWithTag', keyword, communityId);
 		//Meteor.subscribe('users.candidatesWithTag', keyword, communityId);
 	});
@@ -41,7 +41,7 @@ Template.TagSearch.helpers({
 	}
 });
 
-function transformProposal(proposal) { 
+function transformProposal(proposal) {
   proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');
   proposal.startDate = moment(proposal.startDate).format('YYYY-MM-DD');
   return proposal;
