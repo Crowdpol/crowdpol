@@ -48,12 +48,16 @@ Template.Voting.helpers({
     return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: 1}});
   },
   openProposals: function(isVotingAsDelegate) {
-    var now = new Date();
+    let now = moment().toDate();//new Date();
+    let end = now;
     //TO DO: add option for admin to select delgate expiry date (currently 14 days before end date)
     if(isVotingAsDelegate){
-      var now =  now.setDate(now.getDate()-14);;
+      //console.log(now);
+      end =  moment(now).subtract(2, 'weeks').toDate();//now.setDate(now.getDate()-14).toString();
+      //console.log(end);
     }
-    return Proposals.find({startDate:{"$lte": now}, endDate:{"$gte": now}, stage: "live"}, {transform: transformProposal, sort: {endDate: 1}});
+
+    return Proposals.find({startDate:{"$lte": now}, endDate:{"$gte": end}, stage: "live"}, {transform: transformProposal, sort: {endDate: 1}});
   },
   openSelected: function(){
     return Template.instance().openProposals.get();
@@ -97,7 +101,7 @@ Template.Voting.helpers({
 Template.Voting.events({
   'keyup #vote-search' ( event, template ) {
     let value = event.target.value.trim();
-    console.log(value);
+    //console.log(value);
     template.searchQuery.set(value);
   },
   'click .role-menu-item' : function(){
@@ -121,7 +125,7 @@ Template.Voting.events({
   },
 });
 
-function transformProposal(proposal) { 
+function transformProposal(proposal) {
   var currentLang = TAPi18n.getLanguage();
   var endDate = proposal.endDate;
   var startDate = proposal.startDate;
@@ -133,7 +137,7 @@ function transformProposal(proposal) {
   var content = proposal.content;
   content.forEach(function (lang, index) {
     if(lang.language==currentLang){
-      
+
       //var langContent = {
         proposal.title = lang.title
         proposal.abstract =lang.abstract;
@@ -144,7 +148,7 @@ function transformProposal(proposal) {
       //proposal.langContent = langContent;
     }
   });
-  console.log(proposal);
+  //console.log(proposal);
   return proposal;
 };
 

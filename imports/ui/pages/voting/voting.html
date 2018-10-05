@@ -98,13 +98,15 @@
 					</a>
 				</h6>
 				<div class="card-actions-wrap">
-					<span>23</span>
+					<!--
+					<span>23</span>-->
 					<button class="mdl-button mdl-js-button mdl-button--icon">
 						<i class="material-icons">favorite</i>
 					</button>
+
 				</div>
 				<div class="card-actions-wrap">
-					<span>23</span>
+					<!--<span>23</span>-->
 					<button class="mdl-button mdl-js-button mdl-button--icon">
 						<i class="material-icons">share</i>
 					</button>
@@ -153,6 +155,8 @@
 				<small class="proposal-percentage-text-left">{{_ "pages.voting.no-votes-used"}}</small>
 			{{/if}}
 				<!-- Show More/Less Button -->
+				{{#if isVotingAsDelegate}}
+				{{else}}
 				<center>
 					<a id="toggle-voting-info" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
 						{{#if showVotingInfo}}
@@ -162,7 +166,7 @@
 						{{/if}}
 					</a>
 				</center>
-
+				{{/if}}
 		</div>
 
 	</div>
@@ -232,15 +236,16 @@
 				<small class="proposal-percentage-text-left">{{_ "pages.voting.no-votes-used"}}</small>
 			{{/if}}
 				<!-- Show More/Less Button -->
-				<center>
-					<a id="toggle-voting-info" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-						{{#if showVotingInfo}}
-							{{_ "pages.voting.show-less"}} <i class="material-icons">expand_less</i>
-						{{else}}
-							{{_ "pages.voting.show-more"}} <i class="material-icons">expand_more</i>
-						{{/if}}
-					</a>
-				</center>
+
+					<center>
+						<a id="toggle-voting-info" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+							{{#if showVotingInfo}}
+								{{_ "pages.voting.show-less"}} <i class="material-icons">expand_less</i>
+							{{else}}
+								{{_ "pages.voting.show-more"}} <i class="material-icons">expand_more</i>
+							{{/if}}
+						</a>
+					</center>
 		</div>
 	</div>
 
