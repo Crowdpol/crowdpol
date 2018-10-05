@@ -12,6 +12,15 @@ Meteor.methods({
       	}
 	    return Communities.insert(community);
     },
+    updateCommunity: function(communityId,settings) {
+      console.log(settings);
+      var existing = Communities.findOne({_id: communityId});
+      if (existing) {
+        return Communities.update({_id: communityId}, {$set: {'settings': settings}});
+      }else{
+        throw new Meteor.Error(422, 'Could not find community');
+      }
+    },
 
     getCommunityBySubdomain: function(subdomain) {
     	return Communities.findOne({subdomain: subdomain});
@@ -35,6 +44,6 @@ Meteor.methods({
 
     },
     disableDefaultDates: function(){
-      
+
     }
 });
