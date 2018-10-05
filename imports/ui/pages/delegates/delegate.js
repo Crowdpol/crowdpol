@@ -72,7 +72,7 @@ Template.Delegate.helpers({
     delegates = Meteor.users.find( { $and: [
       { _id : { $nin : Session.get('ranked')}}
     ]});
-    console.log(delegates);
+    //console.log(delegates);
     return delegates;
   },
   searchPhrase: function() {
@@ -92,7 +92,7 @@ Template.Delegate.events({
       Bert.alert(TAPi18n.__('pages.delegates.alerts.delegate-limit'), 'danger');
       event.target.checked = false;
     }else{
-      console.log(communityId);
+      //console.log(communityId);
       Meteor.call('addRank','delegate',delegateId,(ranks.length +1),communityId,function(error,result){
         if (error) {
           RavenClient.captureException(error);
@@ -111,7 +111,7 @@ Template.Delegate.events({
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
-          console.log(result);
+          //console.log(result);
           Session.set('ranked',result);
         }
       });

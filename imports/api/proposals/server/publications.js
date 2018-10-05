@@ -11,6 +11,7 @@ Meteor.publish('proposals.one', function(id) {
 
 //Proposals that are live and open to the public
 Meteor.publish('proposals.public', function(search, communityId) {
+	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
 	query.stage = 'live';
 	return Proposals.find(query);
@@ -18,6 +19,7 @@ Meteor.publish('proposals.public', function(search, communityId) {
 
 //Proposals that are live and open to the public
 Meteor.publish('proposals.public.stats', function(search, communityId) {
+	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
 	query.stage = 'live';
 	//return Proposals.find(query);
@@ -50,6 +52,7 @@ Meteor.publish('proposals.author', function(search, communityId) {
 
 //Proposals that the user is invited to collaborate on
 Meteor.publish('proposals.invited', function(search, communityId) {
+	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
 	query.invited = this.userId;
 	return Proposals.find(query);

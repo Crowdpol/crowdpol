@@ -21,7 +21,8 @@ Template.Voting.onCreated(function () {
   self.autorun(function(){
     self.subscribe('proposals.public', self.searchQuery.get(), communityId);
     self.subscribe('proposals.author', self.searchQuery.get(), communityId);
-    self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
+    //self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
+    self.subscribe('proposals.invited', self.searchQuery.get(), communityId);
   })
 });
 
