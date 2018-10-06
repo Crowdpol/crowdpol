@@ -109,7 +109,10 @@ Template.ViewProposal.events({
     if (Meteor.user()){
       var comment = {
         message: template.find('#comment-message').value,
-        proposalId: proposalId}
+        proposalId: proposalId,
+        authorId: Meteor.user()._id,
+        type: 'comment'
+      }
       Meteor.call('comment', comment, function(error){
         if(error){
           RavenClient.captureException(error);

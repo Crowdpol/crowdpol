@@ -8,10 +8,6 @@ CommentsSchema = new SimpleSchema({
     type: String,
 		optional: false
   },
-	language: {
-			type: String,
-			optional: false
-	},
 	type: {
 		type: String,
 		allowedValues: ['comment','for', 'against'],
@@ -22,7 +18,7 @@ CommentsSchema = new SimpleSchema({
 		optional: false,
 	},
 	authorId: {
-		type: Boolean,
+		type: String,
 		optional: false,
 	},
 	createdAt: {

@@ -5,8 +5,8 @@ import { Comments } from './Comments.js'
 
 Meteor.methods({
   comment: function(commentAttributes) {
-    check(commentAttributes, { message: String, proposalId: String });
-    var user = Meteor.user();
+    check(commentAttributes, { message: String, proposalId: String, authorId: String, type: String });
+    var user = Meteor.users.findOne({_id: commentAttributes.authorId});
     var proposal = Proposals.findOne(commentAttributes.proposalId);
     // ensure the user is logged in
     if (!user)
@@ -21,7 +21,8 @@ Meteor.methods({
     comment = {
       message: commentAttributes.message,
       proposalId: commentAttributes.proposalId,
-      authorId: user._id
+      authorId: Meteor.user()._id,
+      type: commentAttributes.type
     }
 
     return Comments.insert(comment);
