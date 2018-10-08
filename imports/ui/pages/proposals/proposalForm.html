@@ -1,5 +1,5 @@
 <template name='ProposalForm'>
-
+	{{#if Template.subscriptionsReady}}
 		<!-- Title -->
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.title"}}</label>
@@ -20,10 +20,30 @@
 		<input type="hidden" name="body" id="body-{{language}}" class="mdl-textfield__input">
 		<br/>
 
-		<!-- Arguments-->
+		<!-- Arguments
 		{{>Arguments forArguments=forArguments againstArguments=againstArguments lang=language}}
+		-->
 
-
+		<div class="argument-container">
+	    <div class="for-container arguments-column">
+	      <h5>Arguments For</h5>
+	      <ul class="arguments-list">
+	        {{#each argument in forArguments}}
+	          {{>ArgumentsListItem argument=argument lang=language type="for"}}
+	        {{/each}}
+	      </ul>
+	      {{>ArgumentsBox type="for" lang=language args=argumentsFor fudge=fudge}}
+	    </div>
+	    <div class="against-container arguments-column">
+	      <h5>Arguments Against</h5>
+	      <ul class="arguments-list">
+	        {{#each argument in againstArguments}}
+	          {{>ArgumentsListItem  argument=argument lang=language type="against"}}
+	        {{/each}}
+	      </ul>
+	      {{>ArgumentsBox type="against" lang=language args=argumentsAgainst}}
+	    </div>
+	  </div>
 		<!-- Points for and against -->
 		<div>
 			<small>{{_ "pages.proposals.edit.forAndAgainst"}}</small>
@@ -70,4 +90,5 @@
 				{{/each}}
 			</ul>
 		</div>
+	{{/if}}
 </template>

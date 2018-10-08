@@ -10,7 +10,7 @@ CommentsSchema = new SimpleSchema({
   },
 	type: {
 		type: String,
-		allowedValues: ['comment','for', 'against'],
+		allowedValues: ['comment'],
 		optional: false,
 	},
 	message: {

@@ -22,11 +22,19 @@ Template.ProposalForm.onRendered(function(){
 
 	var allContent = self.data.content;
 	if(typeof allContent==='undefined'){
-		console.log("here is your problem");
+		//console.log("here is your problem");
+		Bert.alert("Could not find proposals",'danger');
 	}
-	var language = self.data.language
-	var content = _.find(allContent, function(item){ return item.language == language});
-
+	var language = self.data.language;
+	let argumentsArray = [];
+	var content = _.find(allContent, function(item){
+		//argumentsArray.push(item.argumentsFor);
+		//argumentsArray.push(item.argumentsAgainst);
+	 	return item.language == language
+	});
+	//Session.set('arguments',argumentsArray);
+	//console.log("Checking session");
+	//console.log(Session.get('arguments'));
 	// Initialise Quill editor
 	var editor = new Quill(`#body-editor-${language}`, {
 		modules: {
@@ -52,6 +60,16 @@ Template.ProposalForm.onRendered(function(){
 		if (content.pointsAgainst != null){
 			self.pointsAgainst.set(content.pointsAgainst);
 		}
+		/*
+		if (content.argumentsFor != null){
+			argumentsArray.push(content.argumentsFor);
+			//self.argumentsFor.set(content.argumentsFor);
+		}
+		if (content.argumentsAgainst != null){
+			argumentsArray.push(content.argumentsFor);
+			//self.argumentsAgainst.set(content.argumentsAgainst);
+		}
+		*/
 
 		// Initialise content fields
 		self.find(`#title-${language}`).value = content.title || '';
@@ -59,7 +77,6 @@ Template.ProposalForm.onRendered(function(){
 		self.find(`#body-${language}`).value = content.body || '';
 		self.find('.ql-editor').innerHTML = content.body || '';
 	}
-
 	// Set session so parent template can initialise form validation
 	Session.set("formRendered", true);
 });
@@ -69,7 +86,7 @@ Template.ProposalForm.events({
 		event.preventDefault();
 		let argumentType = event.currentTarget.getAttribute('data-type');
 		//let argumentTextIdentifier = $("#argument-message-against").val();
-		console.log($("#argument-against-message").val());
+		//console.log($("#argument-against-message").val());
 		let argument = {
 			_id: Random.id(),
       type: argumentType,
@@ -162,6 +179,7 @@ Template.ProposalForm.events({
 });
 
 Template.ProposalForm.helpers({
+
 	pointsFor() {
 		return Template.instance().pointsFor.get();
 	},
@@ -169,56 +187,28 @@ Template.ProposalForm.helpers({
 		return Template.instance().pointsAgainst.get();
 	},
 	forArguments() {
-		return [
-			{
-				_id: Random.id(),
-				type: 'for',
-				message: 'sample for message - sv',
-				authorId: 'Ba6WhQRTSxCGBTNMY',
-				createdAt: moment().format('YYYY-MM-DD'),
-				lastModified: moment().format('YYYY-MM-DD'),
-				upVote: ['123','321'],
-				downVote: ['321','123'],
-				language:'sv'
-			},
-			{
-				_id: Random.id(),
-				type: 'for',
-				message: 'sample for message - en',
-				authorId: 'pQmkc7Rtpg3Yoajqi',
-				createdAt: moment().format('YYYY-MM-DD'),
-				lastModified: moment().format('YYYY-MM-DD'),
-				upVote: ['123','321'],
-				downVote: ['321','123'],
-				language:'en'
+		//console.log("forArguments called");
+
+		let lang = this.language;
+		let argumentsArray = Session.get('arguments');
+		let forArguments = [];
+		argumentsArray.forEach(function (argument, index) {
+			if(argument.type=='for'&&argument.language==lang){
+				forArguments.push(argument);
 			}
-		];
+		});
+		return forArguments;
 	},
 	againstArguments() {
-		return [
-			{
-				_id: Random.id(),
-				type: 'against',
-				message: 'sample against message - sv',
-				authorId: 'acYAwSGKCwrnRvg57',
-				createdAt: moment().format('YYYY-MM-DD'),
-				lastModified: moment().format('YYYY-MM-DD'),
-				upVote: ['456','654'],
-				downVote: ['1','2'],
-				language:'sv'
-			},
-			{
-				_id: Random.id(),
-				type: 'against',
-				message: 'sample against message - en',
-				authorId: 'pQmkc7Rtpg3Yoajqi',
-				createdAt: moment().format('YYYY-MM-DD'),
-				lastModified: moment().format('YYYY-MM-DD'),
-				upVote: ['123','321'],
-				downVote: ['3','1'],
-				language:'en'
+		let lang = this.language;
+		let argumentsArray = Session.get('arguments');
+		let againstArguments = [];
+		argumentsArray.forEach(function (argument, index) {
+			if(argument.type=='against'&&argument.language==lang){
+		  	againstArguments.push(argument);
 			}
-		]
+		});
+		return againstArguments;
 	}
 });
 

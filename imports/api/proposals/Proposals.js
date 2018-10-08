@@ -7,6 +7,59 @@ export const Proposals = new Mongo.Collection('proposals');
 if ( Meteor.isServer ) {
   //Proposals._ensureIndex( { title: 1, abstract: 1, body: 1 } );
 }
+ArgumentsSchema = new SimpleSchema({
+  argumentId: {
+		type: String,
+		optional: false,
+	},
+	type: {
+		type: String,
+		allowedValues: ['for', 'against'],
+		optional: false,
+	},
+	message: {
+		type: String,
+		optional: false,
+	},
+	authorId: {
+		type: String,
+		optional: false,
+	},
+  language: {
+    type: String,
+		optional: false,
+	},
+	createdAt: {
+			type: Date,
+			autoValue: function() {
+					if (this.isInsert) {
+							return new Date();
+					}
+			}
+	},
+	lastModified: {
+			type: Date,
+			autoValue: function() {
+					if (this.isInsert) {
+							return new Date();
+					}
+			}
+	},
+	"upVote": {
+			type: Array,
+			optional: true
+	},
+	'upVote.$': {
+			type: String
+	},
+	"downVote": {
+			type: Array,
+			optional: true
+	},
+	'downVote.$': {
+			type: String
+	},
+});
 
 TranslationSchema = new SimpleSchema({
     language: {
@@ -38,6 +91,22 @@ TranslationSchema = new SimpleSchema({
     },
     'pointsAgainst.$': {
         type: String
+    },
+    "argumentsFor": {
+        type: Array,
+        optional: true
+    },
+    'argumentsFor.$': {
+      type: ArgumentsSchema,
+      optional: true,
+    },
+    "argumentsAgainst": {
+        type: Array,
+        optional: true
+    },
+    'argumentsAgainst.$': {
+      type: ArgumentsSchema,
+      optional: true,
     }
 });
 

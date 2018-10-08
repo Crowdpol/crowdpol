@@ -91,7 +91,6 @@ Meteor.methods({
       let proposalOld = Proposals.findOne(proposalId);
       if(typeof proposalOld !=='undefined'){
         if (typeof(proposalOld.invited) !== 'undefined'){
-          console.log("found old invites");
           oldInvites = proposalOld.invited;
         }
       }
@@ -116,7 +115,7 @@ Meteor.methods({
         oldInvites.push(newInvites);
         proposal.invites = oldInvites;
       }
-
+      console.log(proposal.content);
       proposal.lastModified = new Date();
       Proposals.update({_id: proposalId}, {$set: proposal });
     },

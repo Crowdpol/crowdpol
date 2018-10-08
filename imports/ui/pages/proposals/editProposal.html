@@ -3,6 +3,7 @@
 		{{#if Template.subscriptionsReady}}
 
 		{{> backButton text="generic.back-to-proposals" url="/dash"}}
+
 		<!-- Include Quill stylesheet -->
 		<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
@@ -21,39 +22,39 @@
 					<h3 class="proposal-heading">{{_ "pages.proposals.edit.heading"}}</h3>
 					{{#each languages}}
 						<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
-							{{> ProposalForm content=proposalContent language=this }}
+							{{> ProposalForm content=proposalContent language=this}}
 						</div>
 					{{/each}}
 				</div>
-
 				<!-- Non-Translated Content -->
 
 				<!-- Start and end dates -->
 				{{#if showDates}}
-				<div class="small-inputs-wrap">
-					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label class="mdl-textfield__label">{{_ "pages.proposals.edit.startDate"}}</label>
-						<input type="date" name="startDate" id="startDate" class="mdl-textfield__input">
-					</div>
+					<div class="small-inputs-wrap">
+						<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label class="mdl-textfield__label">{{_ "pages.proposals.edit.startDate"}}</label>
+							<input type="date" name="startDate" id="startDate" class="mdl-textfield__input">
+						</div>
 
-					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<label class="mdl-textfield__label">{{_ "pages.proposals.edit.endDate"}}</label>
-						<input type="date" name="endDate" id="endDate" class="mdl-textfield__input">
+						<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label class="mdl-textfield__label">{{_ "pages.proposals.edit.endDate"}}</label>
+							<input type="date" name="endDate" id="endDate" class="mdl-textfield__input">
+						</div>
 					</div>
-				</div>
 				{{else}}
-				<h5>
-					<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
-				</h5>
+					<h5>
+						<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
+					</h5>
 				{{/if}}
 				<!-- Tags
 				{{> taggle }}
 				<hr>-->
 				{{> NewTaggle showTags=true selectedTags=selectedTags}}
-				<!-- User invitation field -->
+				<!-- User invitation field
 				<div class="form-group">
 					{{> UserSearch}}
 				</div>
+				-->
 				<div class="form-group">
 					<div id="invited-users">
 						{{#each selectedInvites}}
