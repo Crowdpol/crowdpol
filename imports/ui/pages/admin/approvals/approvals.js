@@ -14,7 +14,7 @@ Template.AdminApprovals.helpers({
     //var result = Meteor.users.find({"approvals" : {$exists: true}, $where : "this.approvals.length > 0"});
     var result = Meteor.users.find({"approvals": {$elemMatch: {status:'Requested'}}});
     //var result = Meteor.call('getRequests');
-    console.log(result);
+    //console.log(result);
     return result;
   },
   checkStatus: (status)=> {
@@ -29,7 +29,7 @@ Template.AdminApprovals.helpers({
   	userId = Session.get('userId');
   	if (userId) {
 		user = Meteor.users.findOne({_id: userId});
-		console.log(user);
+		//console.log(user);
 		return user;
 	} else {
 		return false;
@@ -56,7 +56,7 @@ Template.AdminApprovals.events({
 				Bert.alert(TAPi18n.__('admin.alerts.user-approved'), 'success');//TAPi18n.__('profile-msg-private');
 				closeApprovalModal();
 			}
-		});  
+		});
 		//
 	},
 	'click #reject-button': function(event, template){
@@ -74,7 +74,7 @@ Template.AdminApprovals.events({
 				Bert.alert("User rejected", 'success');//TAPi18n.__('profile-msg-private');
 				closeApprovalModal();
 			}
-		});  
+		});
 	},
 	'click #preview-button': function(event, template){
 		openApprovalModal();

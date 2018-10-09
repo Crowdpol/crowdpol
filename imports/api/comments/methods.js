@@ -44,7 +44,7 @@ Meteor.methods({
       argumentsArray.forEach(function (argument, index) {
         argument.proposalId=proposalId;
       	//console.log(index);
-      	console.log(argument);
+      	//console.log(argument);
         Comments.insert(argument);
       });
     }
@@ -60,7 +60,7 @@ Meteor.methods({
   updateComment: function(commentId,message){
     check(commentId, String);
     check(message, String);
-    console.log("conentId: " + commentId + " message: " + message);
+    //console.log("conentId: " + commentId + " message: " + message);
     Comments.update({_id: commentId}, {$set: {"message": message}});
   },
   upvoteComment: function(commentId){

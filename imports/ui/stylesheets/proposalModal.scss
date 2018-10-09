@@ -31,3 +31,13 @@
   right: 10%;
   overflow: scroll
 }
+
+.admin-comment-textarea{
+  position: relative;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: $space ($space / 2) ($space * 3);
+  #admin-comment{
+    color: black;
+  }
+}

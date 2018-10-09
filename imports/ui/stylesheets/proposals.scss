@@ -1,5 +1,24 @@
 @import 'variables.scss';
 
+.proposal-admin-comment{
+  border: solid 1px red;
+  padding: 15px;
+  background: pink;
+  border-radius: 15px;
+  margin-bottom: 5px;
+  .admin-comments-header{
+    .comment-title{
+
+      .comment-author{
+        font-size: 12pt;
+        font-weight: bold;
+      }
+      .comment-date{
+        font-size: 12pt;
+      }
+    }
+  }
+}
 .proposal-view-menu {
   position: -webkit-sticky;
   position: sticky;

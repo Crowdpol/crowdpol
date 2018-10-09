@@ -72,7 +72,7 @@ Meteor.methods({
     },
     deleteProposal: function(proposalId) {
       check(proposalId, String);
-      console.log(proposalId);
+      //console.log(proposalId);
       var user = Meteor.user();
 
       var proposal = Proposals.findOne(proposalId);
@@ -114,10 +114,11 @@ Meteor.methods({
 
 
     },
-    updateProposalStage: function(proposalId, stage){
+    updateProposalStage: function(proposalId, stage,status){
       check(proposalId, String);
       check(stage, String);
-      Proposals.update({_id: proposalId}, {$set: {"stage": stage}});
+      check(status, String);
+      Proposals.update({_id: proposalId}, {$set: {"stage": stage,"status":status}});
     },
     saveProposalChanges: function (proposalId, proposal) {
       check(proposalId, String);
@@ -149,7 +150,7 @@ Meteor.methods({
         oldInvites.push(newInvites);
         proposal.invites = oldInvites;
       }
-      console.log(proposal.content);
+      //console.log(proposal.content);
       proposal.lastModified = new Date();
       Proposals.update({_id: proposalId}, {$set: proposal });
     },
@@ -203,7 +204,7 @@ Meteor.methods({
     var now = moment().toDate();
     var proposals = Proposals.find({ $and: [ { endDate: { $lte: now } }, { votesFinalised: false } ] } );
     var ids = proposals.pluck('_id');
-    console.log(ids)
+    //console.log(ids)
     return ids
 
   },
