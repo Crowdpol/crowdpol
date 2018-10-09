@@ -40,7 +40,7 @@ ArgumentsSchema = new SimpleSchema({
 	lastModified: {
 			type: Date,
 			autoValue: function() {
-					if (this.isInsert) {
+					if (this.isInsert||this.isUpdate) {
 							return new Date();
 					}
 			}
@@ -91,7 +91,7 @@ TranslationSchema = new SimpleSchema({
     },
     'pointsAgainst.$': {
         type: String
-    },
+    },/*
     "argumentsFor": {
         type: Array,
         optional: true
@@ -107,7 +107,7 @@ TranslationSchema = new SimpleSchema({
     'argumentsAgainst.$': {
       type: ArgumentsSchema,
       optional: true,
-    }
+    }*/
 });
 
 ProposalSchema = new SimpleSchema({

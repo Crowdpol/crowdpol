@@ -10,8 +10,12 @@ CommentsSchema = new SimpleSchema({
   },
 	type: {
 		type: String,
-		allowedValues: ['comment'],
+		allowedValues: ['comment','for','against'],
 		optional: false,
+	},
+	language: {
+		type: String,
+		optional: true
 	},
 	message: {
 		type: String,
@@ -20,6 +24,10 @@ CommentsSchema = new SimpleSchema({
 	authorId: {
 		type: String,
 		optional: false,
+	},
+	argumentId:{
+		type: String,
+		optional: true,
 	},
 	createdAt: {
 			type: Date,
@@ -36,6 +44,22 @@ CommentsSchema = new SimpleSchema({
 							return new Date();
 					}
 			}
+	},
+	"upVoteCount": {
+		type: Number,
+		autoValue: function() {
+				if (this.isInsert) {
+						return 0;
+				}
+		}
+	},
+	"downVoteCount": {
+		type: Number,
+		autoValue: function() {
+				if (this.isInsert) {
+						return 0;
+				}
+		}
 	},
 	"upVote": {
 			type: Array,

@@ -194,27 +194,25 @@
 		{{{ body }}}
 	</div>
 
-	<!-- Points for and against -->
-	<div class="proposal-points-wrap" id="proposal-points">
-		<div>
-			{{#if showPointsFor}}
-			<h6>{{_ "pages.proposals.view.pointsFor"}}</h6>
-			<ul id="points-for-list" class="points-list">
-				{{#each pointsFor}}
-				<li>{{this}}</li>
+	<!-- Arguments for and against -->
+	<div class="argument-container">
+		<div class="for-container arguments-column">
+			<p>{{_ "pages.proposals.edit.pointFor"}}</p>
+			<ul class="arguments-list">
+				{{#each argument in argumentsFor}}
+					{{>ArgumentsListItem argument=argument lang=language type="for" state="view"}}
 				{{/each}}
 			</ul>
-			{{/if}}
+			{{>ArgumentsBox type="for" lang=language args=argumentsFor state="view"}}
 		</div>
-		<div>
-			{{#if showPointsAgainst}}
-			<h6>{{_ "pages.proposals.view.pointsAgainst"}}</h6>
-			<ul id="points-against-list" class="points-list">
-				{{#each pointsAgainst}}
-				<li>{{this}}</li>
+		<div class="against-container arguments-column">
+			<p>{{_ "pages.proposals.edit.pointAgainst"}}</p>
+			<ul class="arguments-list">
+				{{#each argument in argumentsAgainst}}
+					{{>ArgumentsListItem  argument=argument lang=language type="against" state="view"}}
 				{{/each}}
 			</ul>
-			{{/if}}
+			{{>ArgumentsBox type="against" lang=language args=argumentsAgainst state="view"}}
 		</div>
 	</div>
 

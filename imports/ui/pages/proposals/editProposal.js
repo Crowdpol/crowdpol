@@ -2,6 +2,7 @@ import './editProposal.html'
 import './proposalForm.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Communities } from '../../../api/communities/Communities.js'
+import { Comments } from '../../../api/comments/Comments.js'
 //import { setupTaggle } from '../../components/taggle/taggle.js'
 import { getTags } from '../../components/taggle/taggle.js'
 import { getForArguments } from '../../components/arguments/arguments.js'
@@ -92,9 +93,10 @@ Template.EditProposal.helpers({
 				let content = proposal.content;
 				if(typeof content!=='undefined'){
 					//set arguments array before passing content to proposal form else arguments don't render
-					let argumentsArray = [];
+					/*let argumentsArray = [];
 					var contentAll = _.find(content, function(item){
 						argumentsFor = item.argumentsFor;
+						if(argumentsFor)
 						argumentsFor.forEach(function (argument, index) {
 							argumentsArray.push(argument);
 						});
@@ -103,7 +105,7 @@ Template.EditProposal.helpers({
 							argumentsArray.push(argument);
 						});
 					});
-					Session.set('arguments',argumentsArray);
+					Session.set('arguments',argumentsArray);*/
 					return content;
 				}
 			}
@@ -327,6 +329,17 @@ function createProposal(propsalId,newProposal,returnTo,template){
 			Bert.alert(error.reason, 'danger');
 			return false;
 		} else {
+			 //add arguments
+			 argumentsArray = Session.get("arguments");
+			 Meteor.call('addArguments',argumentsArray,proposalId, function(error, proposalId){
+				 if (error){
+			 			RavenClient.captureException(error);
+			 			Bert.alert(error.reason, 'danger');
+			 			return false;
+				 } else {
+					 //console.log("arguments added");
+				 }
+			 });
 			 //Create notifications for collaborators
 			 if (newProposal.invited) {
 						for (i=0; i < newProposal.invited.length; i++) {

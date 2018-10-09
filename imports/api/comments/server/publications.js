@@ -7,4 +7,3 @@ Meteor.publish('comments', function(proposalId) {
 Meteor.publish('comments.all', function() {
   return Comments.find();
 });
-

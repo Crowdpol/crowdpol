@@ -32,6 +32,40 @@ Meteor.methods({
         //return err;
       //}
     },
+    /*
+    deleteProposalArgument: function(proposalId, argumentId){
+      check(proposalId, String);
+      check(argumentId, String);
+      return ;///Proposals.update({_id: proposalId}, {$pull: {content.forArguments: Meteor.userId()}})
+    },
+    updateProposalArgumentText: function(proposalId, argumentId, text,language){
+      check(proposalId, String);
+      check(argumentId, String);
+      check(text, String);
+      check(language, String);
+      let proposal = Proposals.findOne(proposalId);
+      if(typeof proposal != 'undefined'){
+        var contentAll = _.find(proposal.content, function(item){
+          argumentsFor = item.argumentsFor;
+          argumentsFor.forEach(function (argument, index) {
+            if(argument.argumentId==argumentId){
+              console.log("argument found");
+              argument.message = text;
+            }
+          });
+          argumentsAgainst = item.argumentsAgainst;
+          argumentsAgainst.forEach(function (argument, index) {
+            if(argument.argumentId==argumentId){
+              console.log("argument found");
+              argument.message = text;
+            }
+          });
+        });
+        return Proposals.update({_id: proposalId}, {$set: {"content": proposal.content}});
+      }else{
+        throw new Meteor.Error(422, "Proposal does not exist.");
+      }
+    },*/
     getProposal: function (proposalId) {
       check(proposalId, String);
       return Proposals.findOne({_id: proposalId});

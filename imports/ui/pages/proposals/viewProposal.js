@@ -6,7 +6,6 @@ import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(language){
   var self = this;
-
   var dict = new ReactiveDict();
   this.templateDictionary = dict;
   var communityId = LocalStore.get('communityId');
@@ -172,7 +171,7 @@ Template.ViewProposal.helpers({
     }
   },
   comments: function() {
-    return Comments.find({proposalId: proposalId},{transform: transformComment, sort: {createdAt: -1}});
+    return Comments.find({proposalId: proposalId,type:'comment'},{transform: transformComment, sort: {createdAt: -1}});
   },
   commentUsername: function(userId){
     Meteor.call('getProfile', userId, function(error, result){
@@ -297,9 +296,8 @@ Template.ProposalContent.onCreated(function(language){
         dict.set( 'title', translation.title || '');
         dict.set( 'abstract', translation.abstract || '' );
         dict.set( 'body', translation.body || '' );
-        dict.set( 'pointsFor', translation.pointsFor || [] );
-        dict.set( 'pointsAgainst', translation.pointsAgainst || [] );
         dict.set( 'status', proposal.status );
+        //dict.set('argumentsFor',Comments.find({proposalId:FlowRouter.getParam("id"),type:'against',language: language}))
       }
     })
   });
@@ -327,29 +325,22 @@ Template.ProposalContent.helpers({
     }
     return body;
   },
-  showPointsFor: function(){
-    results = Template.instance().templateDictionary.get( 'pointsFor' );
-    if (results === undefined || results.length == 0) {
-      return false;
-    }
-    return true;
+  argumentsFor: function() {
+    let language = this.toString();
+    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'for',language: language});
+    //return Template.instance().templateDictionary.get( 'argumentsFor' );
   },
-  showPointsAgainst: function(){
-    results = Template.instance().templateDictionary.get( 'pointsAgainst' );
-    if (results === undefined || results.length == 0) {
-      return false;
-    }
-    return true;
-  },
-  pointsFor: function() {
-    return Template.instance().templateDictionary.get( 'pointsFor' );
-  },
-  pointsAgainst: function() {
-    return Template.instance().templateDictionary.get( 'pointsAgainst' );
+  argumentsAgainst: function() {
+    let language = this.toString();
+    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'against',language: language});
+    //return Template.instance().templateDictionary.get( 'argumentsAgainst' );
   },
   status: function() {
     return Template.instance().templateDictionary.get( 'status' );
   },
+  language: function(){
+    return this;
+  }
 });
 
 Template.Comment.events({
