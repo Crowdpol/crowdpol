@@ -1,60 +1,16 @@
 import './arguments.html'
 import { Random } from 'meteor/random';
+import RavenClient from 'raven-js';
 
-let argumentsForArray = [];
-let argumentsAgainstArray = [];
-Template.Arguments.onCreated(function () {
-
-  let self = this;
-  self.argumentsFor = new ReactiveVar([]);
-	self.argumentsAgainst = new ReactiveVar([]);
+Template.ArgumentsListItem.onCreated(function(){
+  proposalId = FlowRouter.getParam("id");
+  this.proposalId = new ReactiveVar(proposalId);
 });
-
-Template.Arguments.helpers({
-  forArgumentsLang(lang){
-    return Template.instance().argumentsFor.get();
-  },
-  againstArgumentsLang(lang){
-    return Template.instance().argumentsAgainst.get();
-  },
-  setArguments(argumentsFor,argumentsAgainst,lang){
-    //let parentView = Blaze.currentView.parentView.parentView.parentView;
-    //let parentInstance = parentView.templateInstance();
-    //console.log(parentView);
-    if(typeof argumentsFor!='undefined'){
-      let langArray = [];
-      for(arg in argumentsFor){
-        if(argumentsFor[arg].language == lang){
-          langArray.push(argumentsFor[arg]);
-        };
-      }
-      Template.instance().argumentsFor.set(langArray);
-    }
-    if(typeof argumentsAgainst!='undefined'){
-      let langArray = [];
-      for(arg in argumentsFor){
-        if(argumentsAgainst[arg].language == lang){
-          langArray.push(argumentsAgainst[arg]);
-        };
-      }
-      Template.instance().argumentsAgainst.set(langArray);
-    }
-    if(typeof lang!='undefined'){
-      //console.log(lang);
-    }
-  }
-});
-
-Template.Arguments.events({
-
-});
-
 Template.ArgumentsListItem.events({
   'mouseenter .argument': function(e) {
     let argumentId = event.target.dataset.id;
     let menuIdentifier = "[data-id="+argumentId+"].argument-menu";
     if(typeof argumentId !='undefined'){
-      //console.log(menuIdentifier);
       $(menuIdentifier).show();
     }
   },
@@ -63,10 +19,13 @@ Template.ArgumentsListItem.events({
   },
   'click .delete-argument-button' (event, template){
     event.preventDefault();
-    /*
-    let commentId = event.currentTarget.getAttribute("data-id");
-    if(checkIfOwner(commentId)){
-      Meteor.call('deleteComment', commentId, function(error){
+    let argumentId = event.target.dataset.id;
+    let argumentLang = event.target.dataset.lang;
+    let argumentType = event.target.dataset.type;
+    let argumentIdentifier = "[data-id='" + argumentId + "'].argument";
+
+    if(this.state=='view'){
+      Meteor.call('deleteComment', argumentId, function(error){
         if (error){
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
@@ -74,12 +33,32 @@ Template.ArgumentsListItem.events({
           Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentDeleted'), 'success');
         }
       });
+    }else{
+      argumentsArray = Session.get('arguments');
+
+      let index = argumentsArray.findIndex(argument => argument._id === argumentId);
+      var argument = argumentsArray.find(function (argument) { return argument._id === argumentId; });
+
+      if(typeof argument !='undefined'){
+
+        if(typeof index !='undefined'){
+          if (index > -1) {
+            argumentsArray.splice(index, 1);
+            Session.set('arguments',argumentsArray);
+          }else{
+            //console.log("could not find argument in array");
+          }
+        }
+
+      }
     }
-    */
+    $(argumentIdentifier).remove();
   },
   'click .edit-argument-button' (event, template){
     event.preventDefault();
     let argumentId = event.target.dataset.id;
+
+
     if(typeof argumentId !='undefined'){
       let messageIdentifier = "[data-id='" + argumentId + "'].argument-text";
       let textareaIdentifier = "[data-id='" + argumentId + "'].argument-textarea";
@@ -94,6 +73,7 @@ Template.ArgumentsListItem.events({
   'click .close-argument-button' (event, template){
     event.preventDefault();
     let argumentId = event.target.dataset.id;
+    //console.log("close id: " + argumentId)
     if(typeof argumentId !='undefined'){
       let messageIdentifier = "[data-id='" + argumentId + "'].argument-text";
       let textareaIdentifier = "[data-id='" + argumentId + "'].argument-textarea";
@@ -107,21 +87,79 @@ Template.ArgumentsListItem.events({
   },
   'click .save-argument-button' (event, template){
     event.preventDefault();
-    let authorId = Meteor.user()._id;
-    let argumentId = event.target.dataset.id;
-    if(typeof argumentId !='undefined'){
-      //get Parent Template instance for reactiveVar
-      let parentView = Blaze.currentView.parentView.parentView;
-      let parentInstance = parentView.templateInstance();
 
-      let messageIdentifier = "[data-id='" + argumentId + "'].argument-text";
-      let textareaIdentifier = "[data-id='" + argumentId + "'].argument-textarea";
-      let editMenuIdentifier = "[data-id='" + argumentId + "'].edit-menu"
-      let saveMenuIdentifier = "[data-id='" + argumentId + "'].save-menu";
-      $(messageIdentifier).show();
-      $(textareaIdentifier).hide();
-      $(editMenuIdentifier).show();
-      $(saveMenuIdentifier).hide();
+    let argumentId = event.target.dataset.id;
+    let argumentLang = event.target.dataset.lang;
+    let argumentType = event.target.dataset.type;
+
+    let messageIdentifier = "[data-id='" + argumentId + "'].argument-text";
+    let textareaIdentifier = "[data-id='" + argumentId + "'][data-type='" + argumentType + "'].argument-textarea-input";
+    let textareaDivIdentifier = "[data-id='" + argumentId + "'].argument-textarea";
+    let editMenuIdentifier = "[data-id='" + argumentId + "'].edit-menu";
+    let saveMenuIdentifier = "[data-id='" + argumentId + "'].save-menu";
+
+    if(this.state=='view'){
+        Meteor.call('updateComment', argumentId, $(textareaIdentifier).val(),function(error){
+          if (error){
+            RavenClient.captureException(error);
+            Bert.alert(error.reason, 'danger');
+          } else {
+            Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentUpdated'), 'success');
+          }
+        });
+    }else{
+      argumentsArray = Session.get('arguments');
+
+      let index = argumentsArray.findIndex(argument => argument._id === argumentId);
+      var argument = argumentsArray.find(function (argument) { return argument._id === argumentId; });
+
+      if(typeof argument !='undefined'){
+
+
+        if(typeof index !='undefined'){
+          argument.message = $(textareaIdentifier).val();
+          argumentsArray[index] = argument;
+          Session.set('arguments',argumentsArray);
+        }
+      }
+    }
+    //update menu display
+    $(messageIdentifier).show();
+    $(textareaDivIdentifier).hide();
+    $(editMenuIdentifier).show();
+    $(saveMenuIdentifier).hide();
+  },
+  'click .like-argument-button' (event, template){
+    event.preventDefault();
+    let argumentId = event.target.dataset.id;
+
+    if(typeof argumentId !='undefined'){
+
+      Meteor.call('upvoteComment', argumentId,function(error){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          //Bert.alert('upvoted', 'success');
+          //let buttonIdentifier = "[data-id='" + argumentId + "'].like-argument-button";
+          //$(buttonIdentifier).addClass("mdl-button--primary");
+        }
+      });
+    }
+  },
+  'click .dislike-argument-button' (event, template){
+    event.preventDefault();
+    let argumentId = event.target.dataset.id;
+
+    if(typeof argumentId !='undefined'){
+      Meteor.call('downvoteComment', argumentId,function(error){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          //Bert.alert('downvoted', 'success');
+        }
+      });
     }
   }
 })
@@ -132,6 +170,16 @@ function checkIfOwner(authorId){
   return false;
 }
 Template.ArgumentsListItem.helpers({
+  argumentDate(lastModified){
+    lastUpdated = moment(lastModified).fromNow();
+    return lastUpdated;
+  },
+  setArgumentId(argumentId){
+    if(typeof argumentId !='undefined'){
+      return argumentId;
+    }
+    return Random.id();
+  },
 	authorName(authorId){
 		let name = "";
 		let user = Meteor.users.findOne({"_id":authorId});
@@ -154,6 +202,22 @@ Template.ArgumentsListItem.helpers({
 		}
     return "anonymous";
 	},
+  isLiked(){
+    upVotes = this.argument.upVote;
+    if(typeof upVotes != 'undefined'){
+      if(upVotes.indexOf(Meteor.user()._id)>-1){
+        return "mdl-button--primary";
+      }
+    }
+  },
+  isDisliked(){
+    downVotes = this.argument.downVote;
+    if(typeof downVotes != 'undefined'){
+      if(downVotes.indexOf(Meteor.user()._id)>-1){
+        return "mdl-button--primary";
+      }
+    }
+  },
   isOwnArgument(authorId){
     if(authorId==Meteor.user()._id){
       return true;
@@ -165,52 +229,56 @@ Template.ArgumentsListItem.helpers({
 Template.ArgumentsBox.events({
   'click .add-argument-button .add-argument-icon' (event, template){
     event.preventDefault();
-    //get Parent Template instance for reactiveVar
-    let parentView = Blaze.currentView.parentView.parentView;
-    let parentInstance = parentView.templateInstance();
     //get the correct input field by language and argument
     let argumentType = event.target.dataset.type;
     let argumentLang = event.target.dataset.lang;
     let argumentTextIdentifier = "[data-type='" + argumentType + "'][data-lang='" + argumentLang + "'].argument-input";
+    //console.log(argumentTextIdentifier);
     if(typeof argumentType !='undefined'){
       //create arguments
-      let argument = {
-        _id: Random.id(),
-        type: argumentType,
-        message: $(argumentTextIdentifier).val(),
-        authorId: Meteor.user()._id,
-        createdAt: moment().format('YYYY-MM-DD'),
-        lastModified: moment().format('YYYY-MM-DD'),
-        upVote: [],
-        downVote: [],
-        language: argumentLang
-      };
-      //update reactiveVar
-      if(argumentType=='for'){
-        argumentsForArray = parentInstance.argumentsFor.get();
-        argumentsForArray.push(argument);
-        parentInstance.argumentsFor.set(argumentsForArray);
+      let message = $(argumentTextIdentifier).val();
+      let proposalId = FlowRouter.getParam("id");
+      if(this.state=='view'){
+        let argument = {
+          type: argumentType,
+          message: message,
+          authorId: Meteor.user()._id,
+          upVote: [],
+          language: argumentLang,
+          downVote: [],
+          proposalId: FlowRouter.getParam("id")
+        }
+
+        Meteor.call('comment', argument, function(error){
+          if(error){
+            RavenClient.captureException(error);
+            Bert.alert(error.reason, 'danger');
+          } else {
+            Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentPosted'), 'success');
+          }
+        });
+      }else{
+
+        let argument = {
+          _id: Random.id(),
+          type: argumentType,
+          message: message,
+          authorId: Meteor.user()._id,
+          createdAt: moment().format('YYYY-MM-DD'),
+          lastModified: moment().format('YYYY-MM-DD'),
+          upVote: [],
+          language: argumentLang,
+          downVote: [],
+          proposalId: FlowRouter.getParam("id")
+        }
+        argumentsArray = Session.get('arguments');
+        argumentsArray.push(argument);
+        Session.set('arguments',argumentsArray);
+
       }
-      if(argumentType=='against'){
-        argumentsAgainstArray = parentInstance.argumentsAgainst.get();
-        argumentsAgainstArray.push(argument);
-        parentInstance.argumentsAgainst.set(argumentsAgainstArray);
-      }
+
+
+      $(argumentTextIdentifier).val('');
     }
   }
 });
-
-export function getForArguments(){
-  if (typeof argumentsForArray == 'undefined') {
-      argumentsForArray = [];
-  }
-  //console.log(argumentsForArray);
-  return argumentsForArray;
-}
-export function getAgainstArguments(){
-  if (typeof argumentsAgainstArray == 'undefined') {
-      argumentsAgainstArray = [];
-  }
-  //console.log(argumentsAgainstArray);
-  return argumentsAgainstArray;
-}

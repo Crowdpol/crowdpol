@@ -2,6 +2,7 @@ import './editProposal.html'
 import './proposalForm.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Communities } from '../../../api/communities/Communities.js'
+import { Comments } from '../../../api/comments/Comments.js'
 //import { setupTaggle } from '../../components/taggle/taggle.js'
 import { getTags } from '../../components/taggle/taggle.js'
 import { getForArguments } from '../../components/arguments/arguments.js'
@@ -17,9 +18,11 @@ Template.EditProposal.onCreated(function(){
 	// Reactive and Session Vars
 	self.currentLang = new ReactiveVar(TAPi18n.getLanguage());
 	self.invites = new ReactiveVar(null);
+	self.fudge = new ReactiveVar(['hello']);
 	Session.set('invited',[]);
 	Session.set('invitedUsers',null);
 	Session.set('emailInvites',[]);
+	Session.set('arguments',[]);
 	//Session.set('setupTaggle', true);
 
 	var dict = new ReactiveDict();
@@ -74,7 +77,8 @@ Template.EditProposal.onRendered(function(){
 				self.find('#startDate').value = self.templateDictionary.get('startDate');
 				self.find('#endDate').value = self.templateDictionary.get('endDate');
 			}
-			Session.set("formRendered", false)
+			Session.set("formRendered", false);
+			//console.log(this);
 		}
 	});
 
@@ -88,6 +92,20 @@ Template.EditProposal.helpers({
 			if(typeof proposal!=='undefined'){
 				let content = proposal.content;
 				if(typeof content!=='undefined'){
+					//set arguments array before passing content to proposal form else arguments don't render
+					/*let argumentsArray = [];
+					var contentAll = _.find(content, function(item){
+						argumentsFor = item.argumentsFor;
+						if(argumentsFor)
+						argumentsFor.forEach(function (argument, index) {
+							argumentsArray.push(argument);
+						});
+						argumentsAgainst = item.argumentsAgainst;
+						argumentsAgainst.forEach(function (argument, index) {
+							argumentsArray.push(argument);
+						});
+					});
+					Session.set('arguments',argumentsArray);*/
 					return content;
 				}
 			}
@@ -206,17 +224,35 @@ function saveChanges(event, template, returnTo){
 		// Points For and Against
 		var pointsFor = [];
 		var pointsAgainst = [];
+		//var argumentsFor = [];
+		//var argumentsAgainst = [];
+
 		$(`#points-for-list-${language}`).children('input').each(function() { pointsFor.push(this.value) });
 		$(`#points-against-list-${language}`).children('input').each(function() { pointsAgainst.push(this.value) });
-
+		//$("[data-type='for'][data-lang='${language}'].argument-text").each(function() {console.log(this.html())});
+		//$("[data-type='for'][data-lang='" + language + "'].argument-object").each(function() {argumentsFor.push(this.value)});
+		//$("[data-type='against'][data-lang='" + language + "'].argument-object").each(function() {argumentsAgainst.push(this.value)});
+		argumentsArray = Session.get("arguments");
+		let forArguments = [];
+		let againstArguments = [];
+		argumentsArray.forEach(function (argument, index) {
+			if(argument.type=='for'&&argument.language==language){
+				forArguments.push(argument);
+			}
+			if(argument.type=='against'&&argument.language==language){
+		  	againstArguments.push(argument);
+			}
+		});
 		var translation = {
 			title: $(`#title-${language}`).val(),
 			abstract: $(`#abstract-${language}`).val(),
 			body: $(`#body-${language}`).val(),
-			argumentsFor: getForArguments(),
-			argumentsAgainst: getAgainstArguments(),
+			argumentsFor: forArguments,
+			argumentsAgainst: againstArguments,
 			pointsFor: pointsFor,
-			pointsAgainst: pointsAgainst
+			pointsAgainst: pointsAgainst,
+			argumentsFor: forArguments,
+			argumentsAgainst: againstArguments
 		};
 
 		hasContent = false;
@@ -293,6 +329,17 @@ function createProposal(propsalId,newProposal,returnTo,template){
 			Bert.alert(error.reason, 'danger');
 			return false;
 		} else {
+			 //add arguments
+			 argumentsArray = Session.get("arguments");
+			 Meteor.call('addArguments',argumentsArray,proposalId, function(error, proposalId){
+				 if (error){
+			 			RavenClient.captureException(error);
+			 			Bert.alert(error.reason, 'danger');
+			 			return false;
+				 } else {
+					 //console.log("arguments added");
+				 }
+			 });
 			 //Create notifications for collaborators
 			 if (newProposal.invited) {
 						for (i=0; i < newProposal.invited.length; i++) {

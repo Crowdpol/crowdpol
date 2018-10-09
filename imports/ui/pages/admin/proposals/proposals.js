@@ -139,9 +139,19 @@ Template.ProposalModal.events({
         Bert.alert(error.reason, 'danger');
       } else {
         // Create notification
-            var message = TAPi18n.__('notifications.proposals.approved');
-            var url = '/proposals/view/' + proposalId;
-            Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'check'});
+        var message = TAPi18n.__('notifications.proposals.approved');
+        var reason = $('#admin-comment').val();
+        if(reason.length){
+          var comment = {
+            message: reason,
+            proposalId: proposalId,
+            authorId: Meteor.user()._id,
+            type: 'admin'
+          }
+          Meteor.call('comment', comment);
+        }
+        var url = '/proposals/view/' + proposalId;
+        Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'check'});
         Bert.alert(TAPi18n.__('admin.alerts.proposal-approved'), 'success');
         closeProposalModal();
       }
@@ -155,9 +165,19 @@ Template.ProposalModal.events({
         RavenClient.captureException(error);
         Bert.alert(error.reason, 'danger');
       } else {
+        var reason = $('#admin-comment').val();
+        if(reason.length){
+          var comment = {
+            message: reason,
+            proposalId: proposalId,
+            authorId: Meteor.user()._id,
+            type: 'admin'
+          }
+          Meteor.call('comment', comment);
+        }
         var message = TAPi18n.__('notifications.proposals.rejected');
-            var url = '/proposals/view/' + proposalId;
-            Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'do_not_disturb'})
+        var url = '/proposals/view/' + proposalId;
+        Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'do_not_disturb'})
         Bert.alert(TAPi18n.__('admin.alerts.proposal-rejected'), 'success');
         closeProposalModal();
       }
@@ -165,6 +185,9 @@ Template.ProposalModal.events({
   },
 });
 Template.ProposalModal.onCreated(function(language){
+  //this.autorun(function() {
+    this.subscribe('comments.all');
+  //});
 
 });
 Template.ProposalModal.helpers({
@@ -229,6 +252,19 @@ Template.ProposalModal.helpers({
   },
   showApproval: function(){
     return Session.get("showApproval");
+  },
+  argumentsFor: function(language){
+    //console.log(language)
+    proposal = Session.get("proposal");
+    //console.log("{proposalId: " + proposal._id + ",type:'for',language:" + language + "}");
+    //console.log(Comments.find({proposalId: proposal._id,type:"for",language:language}).count());
+    return Comments.find({proposalId: proposal._id,type:"for",language:language});
+  },
+  argumentsAgainst: function(language){
+    //console.log(language)
+    proposal = Session.get("proposal");
+    //console.log(Comments.find({proposalId: proposal._id,type:"against",language:language}).count());
+    return Comments.find({proposalId: proposal._id,type:"against",language:language});
   }
 });
 

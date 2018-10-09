@@ -6,7 +6,6 @@ import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(language){
   var self = this;
-
   var dict = new ReactiveDict();
   this.templateDictionary = dict;
   var communityId = LocalStore.get('communityId');
@@ -88,7 +87,7 @@ Template.ViewProposal.events({
   'click #submit-proposal' (event, template){
     if (proposalIsComplete(proposalId)){
       if (window.confirm(TAPi18n.__('pages.proposals.view.confirmSubmit'))){
-        Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
+        Meteor.call('updateProposalStage', proposalId, 'submitted','unreviewed', function(error){
           if (error){
             RavenClient.captureException(error);
             Bert.alert(error.reason, 'danger');
@@ -109,7 +108,10 @@ Template.ViewProposal.events({
     if (Meteor.user()){
       var comment = {
         message: template.find('#comment-message').value,
-        proposalId: proposalId}
+        proposalId: proposalId,
+        authorId: Meteor.user()._id,
+        type: 'comment'
+      }
       Meteor.call('comment', comment, function(error){
         if(error){
           RavenClient.captureException(error);
@@ -169,7 +171,7 @@ Template.ViewProposal.helpers({
     }
   },
   comments: function() {
-    return Comments.find({proposalId: proposalId},{transform: transformComment, sort: {createdAt: -1}});
+    return Comments.find({proposalId: proposalId,type:'comment'},{transform: transformComment, sort: {createdAt: -1}});
   },
   commentUsername: function(userId){
     Meteor.call('getProfile', userId, function(error, result){
@@ -294,15 +296,44 @@ Template.ProposalContent.onCreated(function(language){
         dict.set( 'title', translation.title || '');
         dict.set( 'abstract', translation.abstract || '' );
         dict.set( 'body', translation.body || '' );
-        dict.set( 'pointsFor', translation.pointsFor || [] );
-        dict.set( 'pointsAgainst', translation.pointsAgainst || [] );
         dict.set( 'status', proposal.status );
+        //dict.set('argumentsFor',Comments.find({proposalId:FlowRouter.getParam("id"),type:'against',language: language}))
       }
     })
   });
 });
 
 Template.ProposalContent.helpers({
+  authorName(authorId){
+    /*
+		let name = "";
+		let user = Meteor.users.findOne({"_id":authorId});
+		if(typeof user != 'undefined'){
+			let profile = user.profile;
+
+			if(typeof profile != 'undefined'){
+				if('firstName' in profile){
+					name+=profile.firstName + " ";
+				}
+				if('lastName' in profile){
+					name+=profile.lastName;
+				}
+				/*
+				if('username' in profile){
+					name+="(" + profile.username + ")";
+				}
+				return name;
+			}
+		}*/
+    return "admin";
+  },
+  argumentDate(lastModified){
+    lastUpdated = moment(lastModified).fromNow();
+    return lastUpdated;
+  },
+  isAuthor: function() {
+    return userIsAuthor();
+  },
   title: function() {
     var title =  Template.instance().templateDictionary.get( 'title' );
     if(title==undefined||title.length==0){
@@ -317,6 +348,16 @@ Template.ProposalContent.helpers({
     }
     return abstract;
   },
+  showAdminComments: function(){
+    let status = Template.instance().templateDictionary.get( 'status' )
+    if(status=="rejected"){
+      return true;
+    }
+    return false;
+  },
+  adminComments: function(status){
+    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'admin'});
+  },
   body: function() {
     var body = Template.instance().templateDictionary.get( 'body' );
     if(body==undefined||body.length==0){
@@ -324,29 +365,22 @@ Template.ProposalContent.helpers({
     }
     return body;
   },
-  showPointsFor: function(){
-    results = Template.instance().templateDictionary.get( 'pointsFor' );
-    if (results === undefined || results.length == 0) {
-      return false;
-    }
-    return true;
+  argumentsFor: function() {
+    let language = this.toString();
+    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'for',language: language});
+    //return Template.instance().templateDictionary.get( 'argumentsFor' );
   },
-  showPointsAgainst: function(){
-    results = Template.instance().templateDictionary.get( 'pointsAgainst' );
-    if (results === undefined || results.length == 0) {
-      return false;
-    }
-    return true;
-  },
-  pointsFor: function() {
-    return Template.instance().templateDictionary.get( 'pointsFor' );
-  },
-  pointsAgainst: function() {
-    return Template.instance().templateDictionary.get( 'pointsAgainst' );
+  argumentsAgainst: function() {
+    let language = this.toString();
+    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'against',language: language});
+    //return Template.instance().templateDictionary.get( 'argumentsAgainst' );
   },
   status: function() {
     return Template.instance().templateDictionary.get( 'status' );
   },
+  language: function(){
+    return this;
+  }
 });
 
 Template.Comment.events({
@@ -456,7 +490,6 @@ function userIsAuthor(){
 
 function userIsInvited(){
   // If the user is the author, they have all the same access rights as contributors
-
   if (userIsAuthor()){
     return true;
   } else {
@@ -469,10 +502,10 @@ function userIsInvited(){
 
 function proposalIsLive(){
   if (Template.instance().templateDictionary.get( 'stage' ) == 'live'){
-      return true;
-    } else {
-      return false;
-    }
+    return true;
+  } else {
+    return false;
+  }
 };
 
 function transformComment(comment) {

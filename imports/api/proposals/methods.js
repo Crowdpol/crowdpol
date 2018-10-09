@@ -32,13 +32,47 @@ Meteor.methods({
         //return err;
       //}
     },
+    /*
+    deleteProposalArgument: function(proposalId, argumentId){
+      check(proposalId, String);
+      check(argumentId, String);
+      return ;///Proposals.update({_id: proposalId}, {$pull: {content.forArguments: Meteor.userId()}})
+    },
+    updateProposalArgumentText: function(proposalId, argumentId, text,language){
+      check(proposalId, String);
+      check(argumentId, String);
+      check(text, String);
+      check(language, String);
+      let proposal = Proposals.findOne(proposalId);
+      if(typeof proposal != 'undefined'){
+        var contentAll = _.find(proposal.content, function(item){
+          argumentsFor = item.argumentsFor;
+          argumentsFor.forEach(function (argument, index) {
+            if(argument.argumentId==argumentId){
+              console.log("argument found");
+              argument.message = text;
+            }
+          });
+          argumentsAgainst = item.argumentsAgainst;
+          argumentsAgainst.forEach(function (argument, index) {
+            if(argument.argumentId==argumentId){
+              console.log("argument found");
+              argument.message = text;
+            }
+          });
+        });
+        return Proposals.update({_id: proposalId}, {$set: {"content": proposal.content}});
+      }else{
+        throw new Meteor.Error(422, "Proposal does not exist.");
+      }
+    },*/
     getProposal: function (proposalId) {
       check(proposalId, String);
       return Proposals.findOne({_id: proposalId});
     },
     deleteProposal: function(proposalId) {
       check(proposalId, String);
-      console.log(proposalId);
+      //console.log(proposalId);
       var user = Meteor.user();
 
       var proposal = Proposals.findOne(proposalId);
@@ -80,10 +114,11 @@ Meteor.methods({
 
 
     },
-    updateProposalStage: function(proposalId, stage){
+    updateProposalStage: function(proposalId, stage,status){
       check(proposalId, String);
       check(stage, String);
-      Proposals.update({_id: proposalId}, {$set: {"stage": stage}});
+      check(status, String);
+      Proposals.update({_id: proposalId}, {$set: {"stage": stage,"status":status}});
     },
     saveProposalChanges: function (proposalId, proposal) {
       check(proposalId, String);
@@ -91,7 +126,6 @@ Meteor.methods({
       let proposalOld = Proposals.findOne(proposalId);
       if(typeof proposalOld !=='undefined'){
         if (typeof(proposalOld.invited) !== 'undefined'){
-          console.log("found old invites");
           oldInvites = proposalOld.invited;
         }
       }
@@ -116,7 +150,7 @@ Meteor.methods({
         oldInvites.push(newInvites);
         proposal.invites = oldInvites;
       }
-
+      //console.log(proposal.content);
       proposal.lastModified = new Date();
       Proposals.update({_id: proposalId}, {$set: proposal });
     },
@@ -170,7 +204,7 @@ Meteor.methods({
     var now = moment().toDate();
     var proposals = Proposals.find({ $and: [ { endDate: { $lte: now } }, { votesFinalised: false } ] } );
     var ids = proposals.pluck('_id');
-    console.log(ids)
+    //console.log(ids)
     return ids
 
   },
