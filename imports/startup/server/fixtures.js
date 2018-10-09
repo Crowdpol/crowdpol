@@ -47,8 +47,8 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 	bgSubdomain = 'bangor';
 	bgLanguages = ['en'];
 	bgId = createCommunity('elop*10', 'bangor', {
-		colorScheme: 'greyscale', 
-		homepageImageUrl: 'img/bangor.jpg', 
+		colorScheme: 'greyscale',
+		homepageImageUrl: 'img/bangor.jpg',
 		languageSelector: true,
 		homepageBannerText: "Innovation can start with the question 'What if?'",
 		homepageIntroText: "A public presentation of four visions of a future High Street.",
@@ -60,7 +60,7 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 	cpSubdomain = 'global';
 	cpLanguages = ['en'];
 	cpId = createCommunity('Crowdpol Global', 'global', {
-		colorScheme: 'default', 
+		colorScheme: 'default',
 		homepageImageUrl: 'img/wave-bg.jpg',
 		languageSelector: true,
 		homepageBannerText: "A new wave of democracy is coming.",
@@ -72,7 +72,7 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 	});
 	cpLanguages = ['en','ja'];
 	cpId = createCommunity('Crowdpol Japan', 'japan', {
-		colorScheme: 'default', 
+		colorScheme: 'default',
 		homepageImageUrl: 'img/wave-bg.jpg',
 		languageSelector: true,
 		homepageBannerText: "A new wave of democracy is coming.",
@@ -97,7 +97,7 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		registerDemoUsers(Meteor.settings.private.demoUsers, [bgId], bgSubdomain);
 		registerDemoUsers(Meteor.settings.private.demoUsers, [cpId], cpSubdomain);
 	}
-	
+
 	/* Create demo proposals if in dev environment */
 	if (Meteor.isDevelopment) {
 		createDemoProposal(mdId, mdSubdomain, mdLanguages);
@@ -108,7 +108,7 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 	/* Convert existing proposals to new format*/
 	convertProposals();
 
-	
+
 });
 
 function registerAdmins(communityIds){
@@ -182,7 +182,7 @@ function registerDemoUsers(numUsers, communityIds, subdomain){
 			     This will return the HTTP response object that looks something like this:
 			     {
 			       content: "String of content...",
-			       data: Array[100], <-- Our actual data lives here. 
+			       data: Array[100], <-- Our actual data lives here.
 			       headers: {  Object containing HTTP response headers }
 			       statusCode: 200
 			     }
@@ -194,7 +194,7 @@ function registerDemoUsers(numUsers, communityIds, subdomain){
 			    }else{
 			    	console.log("Error: Could not generate random users.");
 			    }
-				
+
 			  }
 			});
 	}
@@ -296,7 +296,7 @@ function createDemoUsers(users, communityIds, subdomain){
 		    }
 		    Meteor.call('togglePublic', id, true);
 		    successCount+=1;
-		
+
 	}
 	console.log(successCount + " demo users generated.");
 }
@@ -316,7 +316,57 @@ function createDemoProposal(communityId, subdomain, languages){
 			title: language + ' Demo Proposal for ' + subdomain,
 			abstract: language + ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ante ligula, tempor et risus feugiat, posuere semper enim. Etiam eleifend lacus a libero blandit, a placerat felis aliquam.',
 			body: language + ' Praesent at laoreet risus. Mauris eleifend nunc quis orci venenatis vestibulum. Nam ante elit, bibendum sed tempus sed, bibendum eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
-			tags: tagObjects
+			tags: tagObjects,
+			pointsFor: ['point for one','point for two'],
+			pointsAgainst: ['point for one','point for two'],
+			argumentsFor:[
+				{
+					argumentId: Random.id(),
+					type: 'for',
+					message: 'sample for message - sv',
+					authorId: 'Ba6WhQRTSxCGBTNMY',
+					createdAt: moment().format('YYYY-MM-DD'),
+					lastModified: moment().format('YYYY-MM-DD'),
+					upVote: ['123','321'],
+					downVote: ['321','123'],
+					language:'sv'
+				},
+				{
+					argumentId: Random.id(),
+					type: 'for',
+					message: 'sample for message - en',
+					authorId: 'pQmkc7Rtpg3Yoajqi',
+					createdAt: moment().format('YYYY-MM-DD'),
+					lastModified: moment().format('YYYY-MM-DD'),
+					upVote: ['123','321'],
+					downVote: ['321','123'],
+					language:'en'
+				}
+			],
+			argumentsAgainst:[
+				{
+					argumentId: Random.id(),
+					type: 'against',
+					message: 'sample against message - sv',
+					authorId: 'acYAwSGKCwrnRvg57',
+					createdAt: moment().format('YYYY-MM-DD'),
+					lastModified: moment().format('YYYY-MM-DD'),
+					upVote: ['456','654'],
+					downVote: ['1','2'],
+					language:'sv'
+				},
+				{
+					argumentId: Random.id(),
+					type: 'against',
+					message: 'sample against message - en',
+					authorId: 'pQmkc7Rtpg3Yoajqi',
+					createdAt: moment().format('YYYY-MM-DD'),
+					lastModified: moment().format('YYYY-MM-DD'),
+					upVote: ['123','321'],
+					downVote: ['3','1'],
+					language:'en'
+				}
+			]
 		}
 		content.push(translation)
 	});
@@ -334,6 +384,7 @@ function createDemoProposal(communityId, subdomain, languages){
 			stage: 'live',
 			status: 'approved'
 		};
+		console.log(proposal);
 		Proposals.insert(proposal);
 	}
 }
@@ -347,7 +398,7 @@ function createCommunity(name, subdomain, settings){
 		console.log(name + ' Community already exists.')
 		return existing._id;
 	}
-	
+
 }
 
 function convertProposals() {

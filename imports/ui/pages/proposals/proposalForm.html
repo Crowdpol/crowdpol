@@ -23,51 +23,26 @@
 		<!-- Arguments
 		{{>Arguments forArguments=forArguments againstArguments=againstArguments lang=language}}
 		-->
-
-		<!-- Points for and against -->
-		<div>
-			<small>{{_ "pages.proposals.edit.forAndAgainst"}}</small>
-			<div class="">
-				<!-- Points For -->
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label proposal-points" id="pointsForWrap">
-					<label class="mdl-textfield__label" >{{_ "pages.proposals.edit.pointFor"}}</label>
-					<textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointFor-{{language}}" name="inputPointFor"></textarea>
-				</div>
-				<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored points-button add-point-for" id="add-point-for" data-lang="{{language}}">
-					<i class="material-icons" data-lang="{{language}}">add</i>
-				</button>
-				<ul id="points-for-list-{{language}}" class="pointsList">
-					{{#each pointsFor}}
-					<li id="point-for-{{@index}}" class="pointsListItem">
-						{{this}}
-						<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored points-button remove-point-for" id="remove-point-for" data-lang="{{language}}" data-id="{{@index}}" style="display: none;">
-							<i class="material-icons" data-lang="{{language}}">remove</i>
-						</button>
-					</li>
-					<input type="hidden" class="point-for-hidden" id="point-for-{{@index}}-hidden" value={{this}}>
-					{{/each}}
-				</ul>
-			</div>
-
-			<!-- Points Against -->
-			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pointsAgainstWrap">
-				<textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointAgainst-{{language}}" name="inputPointAgainst"></textarea>
-				<label class="mdl-textfield__label" for="inputPointAgainst">{{_ "pages.proposals.edit.pointAgainst"}}</label>
-			</div>
-			<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored points-button add-point-against" id="add-point-against" data-lang="{{language}}">
-				<i class="material-icons" data-lang="{{language}}">add</i>
-			</button>
-
-			<ul id="points-against-list-{{language}}" class="pointsList">
-				{{#each pointsAgainst}}
-				<li  id="point-against-{{@index}}" class="pointsListItem">
-					{{this}}
-					<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored points-button remove-point-against" id="remove-point-against" data-lang="{{language}}" style="display: none;">
-						<i class="material-icons" data-lang="{{language}}">remove</i>
-					</button>
-				</li>
-				<input type="hidden" class="point-against-hidden" id="point-against-{{@index}}-hidden" value={{this}}>
-				{{/each}}
-			</ul>
-		</div>
+	{{#if Template.subscriptionsReady}}
+		<div class="argument-container">
+	    <div class="for-container arguments-column">
+	      <p>{{_ "pages.proposals.edit.pointFor"}}</p>
+	      <ul class="arguments-list">
+	        {{#each argument in forArguments}}
+	          {{>ArgumentsListItem argument=argument lang=language type="for" state=getState}}
+	        {{/each}}
+	      </ul>
+	      {{>ArgumentsBox type="for" lang=language args=argumentsFor state=getState}}
+	    </div>
+	    <div class="against-container arguments-column">
+	      <p>{{_ "pages.proposals.edit.pointAgainst"}}</p>
+	      <ul class="arguments-list">
+	        {{#each argument in againstArguments}}
+	          {{>ArgumentsListItem  argument=argument lang=language type="against" state=getState}}
+	        {{/each}}
+	      </ul>
+	      {{>ArgumentsBox type="against" lang=language args=argumentsAgainst state=getState}}
+	    </div>
+	  </div>
+	{{/if}}
 </template>

@@ -5,8 +5,16 @@ import { Comments } from './Comments.js'
 
 Meteor.methods({
   comment: function(commentAttributes) {
-    check(commentAttributes, { message: String, proposalId: String });
-    var user = Meteor.user();
+    check(commentAttributes, {
+      message: String,
+      proposalId: String,
+      authorId: String,
+      type: String,
+      upVote: Match.Maybe([String]),
+      downVote: Match.Maybe([String]),
+      language: Match.Maybe(String)
+    });
+    var user = Meteor.users.findOne({_id: commentAttributes.authorId});
     var proposal = Proposals.findOne(commentAttributes.proposalId);
     // ensure the user is logged in
     if (!user)
@@ -21,10 +29,25 @@ Meteor.methods({
     comment = {
       message: commentAttributes.message,
       proposalId: commentAttributes.proposalId,
-      authorId: user._id
+      authorId: Meteor.user()._id,
+      type: commentAttributes.type,
+      language: commentAttributes.language,
+      downVote: commentAttributes.downVote,
+      upVote: commentAttributes.upVote
     }
 
     return Comments.insert(comment);
+  },
+  addArguments: function(argumentsArray,proposalId) {
+    check(proposalId, String);
+    if(argumentsArray.length>0){
+      argumentsArray.forEach(function (argument, index) {
+        argument.proposalId=proposalId;
+      	//console.log(index);
+      	console.log(argument);
+        Comments.insert(argument);
+      });
+    }
   },
   deleteComment: function(commentId) {
     check(commentId, String);
@@ -39,5 +62,45 @@ Meteor.methods({
     check(message, String);
     console.log("conentId: " + commentId + " message: " + message);
     Comments.update({_id: commentId}, {$set: {"message": message}});
-  }
+  },
+  upvoteComment: function(commentId){
+    check(commentId, String);
+    let comment = Comments.findOne(commentId);
+    let downVotes = comment.downVote;
+    let upVotes = comment.upVote;
+    let upVoteCount = comment.upVoteCount;
+    let downVoteCount = comment.downVoteCount;
+    if(downVotes.indexOf(Meteor.user()._id)>-1){
+      downVoteCount = parseInt(downVoteCount - 1);
+      Comments.update({_id: commentId}, {$pull: {downVote: Meteor.user()._id} });
+      Comments.update({_id: commentId}, {$set: {"downVoteCount": downVoteCount}});
+    }
+    if(upVotes.indexOf(Meteor.user()._id)==-1){
+      upVoteCount = parseInt(upVoteCount  + 1);
+      Comments.update({_id: commentId},{$push: {upVote: Meteor.user()._id} });
+      return Comments.update({_id: commentId}, {$set: {"upVoteCount": upVoteCount}});
+    }else{
+      throw new Meteor.Error(422, 'You have already liked this');
+    }
+  },
+  downvoteComment: function(commentId){
+    check(commentId, String);
+    let comment = Comments.findOne(commentId);
+    let downVotes = comment.downVote;
+    let upVotes = comment.upVote;
+    let upVoteCount = comment.upVoteCount;
+    let downVoteCount = comment.downVoteCount;
+    if(upVotes.indexOf(Meteor.user()._id)>-1){
+      upVoteCount = parseInt(upVoteCount -1);
+      Comments.update({_id: commentId},{$pull: {upVote: Meteor.user()._id} });
+      Comments.update({_id: commentId}, {$set: {"upVoteCount": upVoteCount}});
+    }
+    if(downVotes.indexOf(Meteor.user()._id)==-1){
+      downVoteCount = parseInt(downVoteCount + 1);
+      Comments.update({_id: commentId}, {$push: {downVote: Meteor.user()._id} });
+      return Comments.update({_id: commentId}, {$set: {"downVoteCount": downVoteCount}});
+    }else{
+      throw new Meteor.Error(422, 'You have already disliked this');
+    }
+  },
 });
