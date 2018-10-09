@@ -72,7 +72,7 @@ Meteor.methods({
     },
     deleteProposal: function(proposalId) {
       check(proposalId, String);
-      console.log(proposalId);
+      //console.log(proposalId);
       var user = Meteor.user();
 
       var proposal = Proposals.findOne(proposalId);
@@ -150,7 +150,7 @@ Meteor.methods({
         oldInvites.push(newInvites);
         proposal.invites = oldInvites;
       }
-      console.log(proposal.content);
+      //console.log(proposal.content);
       proposal.lastModified = new Date();
       Proposals.update({_id: proposalId}, {$set: proposal });
     },
@@ -204,7 +204,7 @@ Meteor.methods({
     var now = moment().toDate();
     var proposals = Proposals.find({ $and: [ { endDate: { $lte: now } }, { votesFinalised: false } ] } );
     var ids = proposals.pluck('_id');
-    console.log(ids)
+    //console.log(ids)
     return ids
 
   },

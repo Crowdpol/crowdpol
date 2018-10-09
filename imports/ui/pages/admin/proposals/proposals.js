@@ -256,14 +256,14 @@ Template.ProposalModal.helpers({
   argumentsFor: function(language){
     //console.log(language)
     proposal = Session.get("proposal");
-    console.log("{proposalId: " + proposal._id + ",type:'for',language:" + language + "}");
-    console.log(Comments.find({proposalId: proposal._id,type:"for",language:language}).count());
+    //console.log("{proposalId: " + proposal._id + ",type:'for',language:" + language + "}");
+    //console.log(Comments.find({proposalId: proposal._id,type:"for",language:language}).count());
     return Comments.find({proposalId: proposal._id,type:"for",language:language});
   },
   argumentsAgainst: function(language){
     //console.log(language)
     proposal = Session.get("proposal");
-    console.log(Comments.find({proposalId: proposal._id,type:"against",language:language}).count());
+    //console.log(Comments.find({proposalId: proposal._id,type:"against",language:language}).count());
     return Comments.find({proposalId: proposal._id,type:"against",language:language});
   }
 });
