@@ -30,7 +30,7 @@ Template.ArgumentsListItem.events({
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
-          Bert.alert('found', 'success');
+          Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentDeleted'), 'success');
         }
       });
     }else{
@@ -46,7 +46,7 @@ Template.ArgumentsListItem.events({
             argumentsArray.splice(index, 1);
             Session.set('arguments',argumentsArray);
           }else{
-            console.log("could not find argument in array");
+            //console.log("could not find argument in array");
           }
         }
 
@@ -104,7 +104,7 @@ Template.ArgumentsListItem.events({
             RavenClient.captureException(error);
             Bert.alert(error.reason, 'danger');
           } else {
-            Bert.alert('updated', 'success');
+            Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentUpdated'), 'success');
           }
         });
     }else{
@@ -140,7 +140,9 @@ Template.ArgumentsListItem.events({
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
-          Bert.alert('upvoted', 'success');
+          //Bert.alert('upvoted', 'success');
+          //let buttonIdentifier = "[data-id='" + argumentId + "'].like-argument-button";
+          //$(buttonIdentifier).addClass("mdl-button--primary");
         }
       });
     }
@@ -155,7 +157,7 @@ Template.ArgumentsListItem.events({
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
-          Bert.alert('downvoted', 'success');
+          //Bert.alert('downvoted', 'success');
         }
       });
     }
@@ -200,6 +202,22 @@ Template.ArgumentsListItem.helpers({
 		}
     return "anonymous";
 	},
+  isLiked(){
+    upVotes = this.argument.upVote;
+    if(typeof upVotes != 'undefined'){
+      if(upVotes.indexOf(Meteor.user()._id)>-1){
+        return "mdl-button--primary";
+      }
+    }
+  },
+  isDisliked(){
+    downVotes = this.argument.downVote;
+    if(typeof downVotes != 'undefined'){
+      if(downVotes.indexOf(Meteor.user()._id)>-1){
+        return "mdl-button--primary";
+      }
+    }
+  },
   isOwnArgument(authorId){
     if(authorId==Meteor.user()._id){
       return true;

@@ -17,15 +17,18 @@
           </div>
           {{else}}
           <div class="like-menu">
-            <button class="mdl-button mdl-js-button mdl-button--icon like-argument-button" data-id="{{argument._id}}">
+            <!--{{argument.upVoteCount}}-->
+            <button class="mdl-button mdl-js-button mdl-button--icon like-argument-button {{isLiked argument}}" data-id="{{argument._id}}">
               <i class="material-icons like-argument-icon" data-id="{{argument._id}}">thumb_up</i>
             </button>
-            <button class="mdl-button mdl-js-button mdl-button--icon dislike-argument-button" data-id="{{argument._id}}">
+            <!--{{argument.downVoteCount}}-->
+            <button class="mdl-button mdl-js-button mdl-button--icon dislike-argument-button {{isDisliked argument}}" data-id="{{argument._id}}">
               <i class="material-icons dislike-argument-icon" data-id="{{argument._id}}">thumb_down</i>
             </button>
           </div>
           {{/if}}
           <div class="save-menu" style="display:none;"  data-id='{{argument._id}}'>
+
             <button class="mdl-button mdl-js-button mdl-button--icon close-argument-button" data-id="{{argument._id}}">
               <i class="material-icons close-argument-icon" data-id="{{argument._id}}">close</i>
             </button>

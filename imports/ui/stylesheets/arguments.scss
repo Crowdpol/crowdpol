@@ -65,6 +65,16 @@ div.argument-container{
                     color: #b2b1b1;
                   }
                 }
+                .mdl-button--primary {
+                  .material-icons{
+                    color: $bright-blue;
+                  }
+                }
+                .mdl-button--accent {
+                  .material-icons{
+                    color: red;//$bright-blue;
+                  }
+                }
               }
               div.edit-menu{
 
@@ -77,7 +87,7 @@ div.argument-container{
 
           div.argument-message{
             //border: solid 1px purple;
-            font-size: 0.8rem;
+            font-size: 0.4rem;
             font-weight: 300;
             line-height: 1.6rem;
             font-family: $body-font;
