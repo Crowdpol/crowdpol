@@ -192,16 +192,16 @@
 								<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 									<p>{{_ "pages.proposals.view.pointsFor"}}</p>
 									<ul id="points-for-list" class="points-list">
-										{{#each pointsFor}}
-										<li>{{this}}</li>
+										{{#each argumentsFor language}}
+										<li>{{this.message}}</li>
 										{{/each}}
 									</ul>
 								</div>
 								<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
 									<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
 									<ul id="points-against-list" class="points-list">
-										{{#each pointsAgainst}}
-										<li>{{this}}</li>
+										{{#each argumentsAgainst language}}
+										<li>{{this.message}}</li>
 										{{/each}}
 									</ul>
 								</div>
@@ -221,16 +221,22 @@
 	    </div>
 	    {{/if}}
 			{{#if showApproval}}
-	    <div class="btn-wrapper">
-	      <button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
-					<i class="material-icons" data-proposal-id="{{_id}}">check</i>
-					{{_'admin.proposals.approve-button'}}
-				</button>
-				<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
-					<i class="material-icons" data-proposal-id="{{_id}}">close</i>
-					{{_'admin.proposals.reject-button'}}
-				</button>
-	    </div>
+			<div class="proposal-wrap admin-comment-textarea">
+				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<textarea class="argument-input mdl-textfield__input" type="text" rows= "3" id="admin-comment"></textarea>
+					<label class="mdl-textfield__label">Comment on decision</label>
+				</div>
+			</div>
+		    <div class="btn-wrapper">
+		      <button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
+						<i class="material-icons" data-proposal-id="{{_id}}">check</i>
+						{{_'admin.proposals.approve-button'}}
+					</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
+						<i class="material-icons" data-proposal-id="{{_id}}">close</i>
+						{{_'admin.proposals.reject-button'}}
+					</button>
+		    </div>
 			{{/if}}
 	  </form>
 	</div>

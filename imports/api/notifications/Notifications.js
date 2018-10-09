@@ -32,8 +32,7 @@ NotificationsSchema = new SimpleSchema({
           return new Date();
         }
       },
-  },
-
+  }
 });
 
 Notifications.attachSchema(NotificationsSchema);

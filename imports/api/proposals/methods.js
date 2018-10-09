@@ -114,10 +114,11 @@ Meteor.methods({
 
 
     },
-    updateProposalStage: function(proposalId, stage){
+    updateProposalStage: function(proposalId, stage,status){
       check(proposalId, String);
       check(stage, String);
-      Proposals.update({_id: proposalId}, {$set: {"stage": stage}});
+      check(status, String);
+      Proposals.update({_id: proposalId}, {$set: {"stage": stage,"status":status}});
     },
     saveProposalChanges: function (proposalId, proposal) {
       check(proposalId, String);

@@ -87,7 +87,7 @@ Template.ViewProposal.events({
   'click #submit-proposal' (event, template){
     if (proposalIsComplete(proposalId)){
       if (window.confirm(TAPi18n.__('pages.proposals.view.confirmSubmit'))){
-        Meteor.call('updateProposalStage', proposalId, 'submitted', function(error){
+        Meteor.call('updateProposalStage', proposalId, 'submitted','unreviewed', function(error){
           if (error){
             RavenClient.captureException(error);
             Bert.alert(error.reason, 'danger');
@@ -304,6 +304,36 @@ Template.ProposalContent.onCreated(function(language){
 });
 
 Template.ProposalContent.helpers({
+  authorName(authorId){
+    /*
+		let name = "";
+		let user = Meteor.users.findOne({"_id":authorId});
+		if(typeof user != 'undefined'){
+			let profile = user.profile;
+
+			if(typeof profile != 'undefined'){
+				if('firstName' in profile){
+					name+=profile.firstName + " ";
+				}
+				if('lastName' in profile){
+					name+=profile.lastName;
+				}
+				/*
+				if('username' in profile){
+					name+="(" + profile.username + ")";
+				}
+				return name;
+			}
+		}*/
+    return "admin";
+  },
+  argumentDate(lastModified){
+    lastUpdated = moment(lastModified).fromNow();
+    return lastUpdated;
+  },
+  isAuthor: function() {
+    return userIsAuthor();
+  },
   title: function() {
     var title =  Template.instance().templateDictionary.get( 'title' );
     if(title==undefined||title.length==0){
@@ -317,6 +347,16 @@ Template.ProposalContent.helpers({
       return "<i>" + TAPi18n.__('pages.proposals.view.abstract-empty') + "</i>";
     }
     return abstract;
+  },
+  showAdminComments: function(){
+    let status = Template.instance().templateDictionary.get( 'status' )
+    if(status=="rejected"){
+      return true;
+    }
+    return false;
+  },
+  adminComments: function(status){
+    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'admin'});
   },
   body: function() {
     var body = Template.instance().templateDictionary.get( 'body' );
@@ -450,7 +490,6 @@ function userIsAuthor(){
 
 function userIsInvited(){
   // If the user is the author, they have all the same access rights as contributors
-
   if (userIsAuthor()){
     return true;
   } else {
@@ -463,10 +502,10 @@ function userIsInvited(){
 
 function proposalIsLive(){
   if (Template.instance().templateDictionary.get( 'stage' ) == 'live'){
-      return true;
-    } else {
-      return false;
-    }
+    return true;
+  } else {
+    return false;
+  }
 };
 
 function transformComment(comment) {
