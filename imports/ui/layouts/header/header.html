@@ -5,12 +5,16 @@
 		<div class="header-inner mdl-layout__header-row">
 			{{#if currentUser}}
 				<a href="/dash" class="header-link-signed-in">
-				<span class="mdl-layout-title">
-					<!-- This should be the page title -->
-					{{#if Template.subscriptionsReady}}
-						{{ title }}
+					<span class="mdl-layout-title">
+					{{#if logoUrlSet}}
+						<img class="header-logo" src='{{logoUrl}}'/>
 					{{/if}}
-				</span>
+
+						<!-- This should be the page title -->
+						{{#if Template.subscriptionsReady}}
+							{{ title }}
+						{{/if}}
+					</span>
 				</a>
 			{{else}}
 
@@ -19,6 +23,10 @@
 					<i class="material-icons">add</i>
 					<h5>-->
 					<span class="mdl-layout-title">
+					{{#if logoUrlSet}}
+						<img src='{{logoUrl}}'/>
+					{{/if}}
+
 						{{#if Template.subscriptionsReady}}
 							{{ title }}
 						{{/if}}

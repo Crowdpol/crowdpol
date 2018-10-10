@@ -18,6 +18,10 @@ CommunitySettings = new SimpleSchema({
         type: String,
         optional: true,
     },
+    faviconUrl: {
+        type: String,
+        optional: true,
+    },
     homepageImageUrl: {
         type: String,
         optional: true

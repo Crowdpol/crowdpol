@@ -337,7 +337,10 @@ function loadCommunityInfo() {
         subdomain = window.location.host.split('.')[0];
   }
   //console.log(hostname + " - " + subdomain);
+
+	//set title to commuinty name
 	document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
+
   // set LocalStorage info
   if (subdomain){
       LocalStore.set('subdomain', subdomain);
@@ -347,9 +350,30 @@ function loadCommunityInfo() {
         } else {
           LocalStore.set('communityId', result._id);
 					LocalStore.set('settings',result.settings);
+					let settings = result.settings;
+
+					//set favicon if community icon is set
+					if(typeof settings.faviconUrl != 'undefined'){
+						var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+						//link.type = 'image/x-icon';
+						link.rel = 'shortcut icon';
+						link.href = settings.faviconUrl;
+						document.getElementsByTagName('head')[0].appendChild(link);
+					}else{
+						console.log("favicon not set");
+					}
         }
       });
   } else {
     Bert.alert(TAPi18n.__('pages.routes.alerts.no-subdomain'), 'danger');
   }
 }
+/*
+(function() {
+    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = 'http://www.stackoverflow.com/favicon.ico';
+    document.getElementsByTagName('head')[0].appendChild(link);
+})();
+*/
