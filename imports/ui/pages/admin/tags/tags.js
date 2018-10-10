@@ -25,9 +25,11 @@ Template.AdminTagsTable.helpers({
 });
 
 Template.AdminTagsTable.events({
-	'click #approve-button' (event, template){
+	'click .approve-button-class' (event, template){
 		event.preventDefault();
-		Meteor.call('toggleAuthorized', event.target.dataset.tagId,!event.target.dataset.tagAuthorized, function(error){
+    let tagId = event.target.dataset.tagId;
+    let authorised = !event.target.dataset.tagAuthorized;
+		Meteor.call('toggleAuthorized', tagId,authorised, function(error){
 			if (error){
 				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
@@ -37,7 +39,7 @@ Template.AdminTagsTable.events({
 		});
 	},
 
-	'click #delete-button': function(event, template){
+	'click .delete-button-class': function(event, template){
 		event.preventDefault();
 		Meteor.call('deleteTag', event.target.dataset.tagId, function(error){
 			if (error){
