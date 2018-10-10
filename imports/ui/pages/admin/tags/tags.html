@@ -25,17 +25,17 @@
 								<td data-label='{{_"admin.tags.keyword"}}' class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{keyword}}</a></td>
 								<td data-label='{{_"admin.tags.created"}}' class="mdl-data-table__cell--non-numeric">{{tagDate}}</td>
 								<td data-label='{{_"admin.tags.approved"}}' class="mdl-data-table__cell--non-numeric">
-									<button id="approve-button" class="mdl-button mdl-js-button mdl-button--raised" data-tag-id={{_id}} data-tag-authorized="{{authorized}}">
+									<button id="approve-button" class="mdl-button mdl-js-button mdl-button--raised approve-button-class" data-tag-id={{_id}} data-tag-authorized="{{authorized}}">
 										{{#if authorized}}
-											<i class="material-icons">check</i>
+											<i class="material-icons approve-button-class" data-tag-id={{_id}} data-tag-authorized="{{authorized}}">check</i>
 										{{else}}
-											<i class="material-icons">close</i>
+											<i class="material-icons approve-button-class" data-tag-id={{_id}} data-tag-authorized="{{authorized}}">close</i>
 										{{/if}}
 									</button>
 								</td>
 								<td data-label='{{_"admin.tags.delete"}}' >
-									<button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised" data-tag-id="{{_id}}">
-										<i class="material-icons">delete</i>
+									<button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised delete-button-class" data-tag-id="{{_id}}">
+										<i class="material-icons delete-button-class" data-tag-id="{{_id}}">delete</i>
 									</button>
 								</td>
 							</tr>

@@ -48,6 +48,23 @@ Template.Header.helpers({
   title: function() {
     return Template.instance().community.get().name;
   },
+  logoUrlSet: function(){
+    let community = Template.instance().community.get();
+    if(typeof community !='undefined'){
+      let settings = community.settings;
+      if(typeof settings !='undefined'){
+        if(typeof settings.logoUrl !='undefined'){
+          return true;
+        }
+      }
+    }
+    return false;
+  },
+  logoUrl: function() {
+    let community = Template.instance().community.get();
+    let settings = community.settings;
+    return settings.logoUrl;
+  },
   hideHamburger() {
     //$(".mdl-layout__drawer-button").hide();
   },
@@ -58,7 +75,7 @@ Template.Header.helpers({
     var str = Session.get("i18n_lang")
     return str.toUpperCase();
   },
-  
+
   matchedTags(){
     return Template.instance().matchedTags.get();
   },
@@ -83,7 +100,7 @@ Template.Header.helpers({
     return moment(createdAt).fromNow();
   },
   unreadClass(){
-    if (Notifications.find({read: false}).count() == 0){ 
+    if (Notifications.find({read: false}).count() == 0){
       return 'noUnreads'
     }
   },
@@ -118,7 +135,7 @@ Template.Header.helpers({
       case 'ja':
           text = TAPi18n.__('layout.header.lang_ja');
           break;
-      default: 
+      default:
           text = TAPi18n.__('layout.header.lang_en');
     }
     return text;
@@ -222,7 +239,7 @@ Template.Header.events({
     Meteor.call('markAllAsRead', Meteor.userId());
   },
   'click .mdl-layout__obfuscator-right': function(event, template) {
-    $('#notifications-menu').removeClass('active'); 
+    $('#notifications-menu').removeClass('active');
   }
   */
 });
@@ -231,11 +248,11 @@ function toggleNotificationsDrawer(){
   var items = document.getElementsByClassName('mdl-list__item-text-body notification-item-text')
     _.map(items, function(el){$clamp(el, {clamp: 3});})
 
-    if($('#notifications-menu').hasClass('active')){       
-        $('#notifications-menu').removeClass('active'); 
+    if($('#notifications-menu').hasClass('active')){
+        $('#notifications-menu').removeClass('active');
      }
      else{
-        $('#notifications-menu').addClass('active'); 
+        $('#notifications-menu').addClass('active');
      }
 }
 
@@ -251,6 +268,5 @@ function matchTags(input, tags) {
     });
   } else {
     return [];
-  } 
+  }
 }
-
