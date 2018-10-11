@@ -59,11 +59,13 @@ export const wrapMethods = function() {
 
 Meteor.startup(() => {
   // code to run on server at startup
-  console.log("Crowdpol - started...");
+  console.log("Welcome to ");
+  console.log("╔═╗╦═╗╔═╗╦ ╦╔╦╗╔═╗╔═╗╦  ");
+  console.log("║  ╠╦╝║ ║║║║ ║║╠═╝║ ║║  ");
+  console.log("╚═╝╩╚═╚═╝╚╩╝═╩╝╩  ╚═╝╩═╝");
   wrapMethods();
-  
+
 });
 
 //http://blog.mailgun.com/25-465-587-what-port-should-i-use/
 process.env.MAIL_URL = Meteor.settings.private.mailGun;
-
