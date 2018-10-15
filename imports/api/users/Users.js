@@ -124,18 +124,6 @@ Schema.UserProfile = new SimpleSchema({
         optional: true,
     },
     "tags.$": {
-        type: Object,
-        optional: true
-    },
-    "tags.$.keyword": {
-        type: String,
-        optional: true
-    },
-    "tags.$._id": {
-        type: String,
-        optional: true
-    },
-    "tags.$.url": {
         type: String,
         optional: true
     },

@@ -1,6 +1,7 @@
 import './proposalCard.html'
 import "../../components/proposals/proposalCard.js"
 import RavenClient from 'raven-js';
+import { Tags } from '../../../api/tags/Tags.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 
 Template.ProposalCard.onCreated(function () {
@@ -48,7 +49,8 @@ Template.ProposalCard.helpers({
 
   },
   tags: function(proposal){
-    return proposal.tags;
+    //console.log(proposal.tags);
+    return Tags.find({_id: {$in: proposal.tags}});
   },
   userIsAuthor: function(proposalId) {
     var proposal = Proposals.findOne(proposalId);
@@ -92,7 +94,7 @@ Template.ProposalCard.events({
     if (window.confirm(TAPi18n.__('pages.proposals.list.confirmDelete'))){
       Meteor.call('deleteProposal', proposalId, function(error){
         if (error){
-          console.log(error.reason);
+          //console.log(error.reason);
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {
