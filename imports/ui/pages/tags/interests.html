@@ -4,15 +4,13 @@
 		<p>{{_ "pages.interests.intro-text"}}</p>
 		<br>
 		{{> NewTaggle showTags=true selectedTags=selectedTags}}
-		<button class="mdl-button mdl-js-button" id="update-tags" style="float: right;">
-			Save
-		</button>
+		<button class="mdl-button mdl-js-button" id="update-tags" style="float: right;">Save</button>
 		<br>
 		<h4>{{_ "pages.interests.popular"}}</h4>
 		<div class="tags-wrap" >
-		{{#each tags}}
-			<a class="tag tag-chip mdl-badge" data-keyword="{{keyword}}" data-badge="{{tagCount keyword}}">{{keyword}}</a>
-		{{/each}}
+			{{#each tags}}
+				<a class="tag tag-chip display-tag mdl-badge" data-id="{{_id}}" data-badge="{{tagCount keyword}}">{{keyword}}</a>
+			{{/each}}
 		</div>
 	</div>
 </template>

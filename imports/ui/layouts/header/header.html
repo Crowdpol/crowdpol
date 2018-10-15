@@ -6,10 +6,9 @@
 			{{#if currentUser}}
 				<a href="/dash" class="header-link-signed-in">
 					<span class="mdl-layout-title">
-					{{#if logoUrlSet}}
-						<img class="header-logo" src='{{logoUrl}}'/>
-					{{/if}}
-
+						{{#if logoUrlSet}}
+							<img class="header-logo" src='{{logoUrl}}'/>
+						{{/if}}
 						<!-- This should be the page title -->
 						{{#if Template.subscriptionsReady}}
 							{{ title }}
@@ -17,22 +16,16 @@
 					</span>
 				</a>
 			{{else}}
-
-				<!--{{hideHamburger}}{{showHamburger}}-->
-				<a href="/"><!--
-					<i class="material-icons">add</i>
-					<h5>-->
+				<a href="/">
 					<span class="mdl-layout-title">
-					{{#if logoUrlSet}}
-						<img src='{{logoUrl}}'/>
-					{{/if}}
-
+						{{#if logoUrlSet}}
+							<img class="header-logo" src='{{logoUrl}}'/>
+						{{/if}}
 						{{#if Template.subscriptionsReady}}
 							{{ title }}
 						{{/if}}
 					</span>
-					<!--</h5>-->
-			</a>
+				</a>
 			{{/if}}
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>

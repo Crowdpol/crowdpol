@@ -20,7 +20,7 @@ Template.Home.onCreated(function() {
 Template.Home.helpers({
 	backgroundImage: function() {
 		var imagePath = Template.instance().community.get().settings.homepageImageUrl;
-		console.log(imagePath);
+		//console.log(imagePath);
 		return "url('" + imagePath + "')"
 	},
 	heading: function() {
@@ -67,7 +67,7 @@ Template.Home.events({
 });
 /*
 $.validator.addMethod(
-        "isEmail", 
+        "isEmail",
         function(value, element) {
         	var regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
             email = $("#submit-newsletter").val();

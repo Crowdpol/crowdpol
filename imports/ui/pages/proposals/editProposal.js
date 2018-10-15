@@ -3,7 +3,7 @@ import './proposalForm.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Communities } from '../../../api/communities/Communities.js'
 import { Comments } from '../../../api/comments/Comments.js'
-//import { setupTaggle } from '../../components/taggle/taggle.js'
+import { Tags } from '../../../api/tags/Tags.js'
 import { getTags } from '../../components/taggle/taggle.js'
 import { getForArguments } from '../../components/arguments/arguments.js'
 import { getAgainstArguments } from '../../components/arguments/arguments.js'
@@ -37,17 +37,23 @@ Template.EditProposal.onCreated(function(){
 			// Edit an existing proposal
 			self.subscribe('proposals.one', proposalId, function(){
 				proposal = Proposals.findOne({_id: proposalId})
-				dict.set( 'showDates',false);
-				dict.set( 'createdAt', proposal.createdAt );
-				dict.set( '_id', proposal._id);
-				dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate );
-				dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate);
-				dict.set( 'authorId', proposal.authorId );
-				dict.set( 'stage', proposal.stage );
-				dict.set( 'status', proposal.status );
-				dict.set( 'signatures', proposal.signatures || []);
-				dict.set( 'tags', proposal.tags || []);
-				Session.set('invited',proposal.invited);
+				if(typeof proposal != 'undefined'){
+					dict.set( 'showDates',false);
+					dict.set( 'createdAt', proposal.createdAt );
+					dict.set( '_id', proposal._id);
+					dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') || defaultStartDate );
+					dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') || defaultEndDate);
+					dict.set( 'authorId', proposal.authorId );
+					dict.set( 'stage', proposal.stage );
+					dict.set( 'status', proposal.status );
+					dict.set( 'signatures', proposal.signatures || []);
+					dict.set( 'tags', proposal.tags || []);
+					Session.set('invited',proposal.invited);
+				}else{
+					dict.set( 'startDate', defaultStartDate );
+					dict.set( 'endDate', defaultEndDate);
+					dict.set( 'tags',[]);
+				}
 			});
 		} else {
 			dict.set( 'startDate', defaultStartDate );
@@ -81,7 +87,15 @@ Template.EditProposal.onRendered(function(){
 			//console.log(this);
 		}
 	});
-
+	//THIS IS VERY IMPORTANT, WEIRD SHIT HAPPENS IF YOU LEAVE THIS OUT
+	$(document).ready(function() {
+	  $(window).keydown(function(event){
+	    if(event.keyCode == 13) {
+	      event.preventDefault();
+	      return false;
+	    }
+	  });
+	});
 });
 
 Template.EditProposal.helpers({
@@ -92,20 +106,6 @@ Template.EditProposal.helpers({
 			if(typeof proposal!=='undefined'){
 				let content = proposal.content;
 				if(typeof content!=='undefined'){
-					//set arguments array before passing content to proposal form else arguments don't render
-					/*let argumentsArray = [];
-					var contentAll = _.find(content, function(item){
-						argumentsFor = item.argumentsFor;
-						if(argumentsFor)
-						argumentsFor.forEach(function (argument, index) {
-							argumentsArray.push(argument);
-						});
-						argumentsAgainst = item.argumentsAgainst;
-						argumentsAgainst.forEach(function (argument, index) {
-							argumentsArray.push(argument);
-						});
-					});
-					Session.set('arguments',argumentsArray);*/
 					return content;
 				}
 			}
@@ -135,12 +135,8 @@ Template.EditProposal.helpers({
 	},
 	selectedTags: ()=> {
     tagsArray = Template.instance().templateDictionary.get('tags');
-    tags = [];
-    for(i=0;i<tagsArray.length;i++){
-      tags.push(tagsArray[i].keyword);
-    }
-		//console.log(tags);
-    return tags;
+		return tagsArray;
+		//return matchingTags = Tags.find({_id: {$in: tagsArray}});
   },
 	showDates: ()=> {
 		let settings = LocalStore.get('settings');
@@ -222,19 +218,18 @@ function saveChanges(event, template, returnTo){
 	// Get Translatable field for each language
 	_.each(languages, function(language) {
 		// Points For and Against
+		/*
 		var pointsFor = [];
 		var pointsAgainst = [];
-		//var argumentsFor = [];
-		//var argumentsAgainst = [];
 
 		$(`#points-for-list-${language}`).children('input').each(function() { pointsFor.push(this.value) });
 		$(`#points-against-list-${language}`).children('input').each(function() { pointsAgainst.push(this.value) });
-		//$("[data-type='for'][data-lang='${language}'].argument-text").each(function() {console.log(this.html())});
-		//$("[data-type='for'][data-lang='" + language + "'].argument-object").each(function() {argumentsFor.push(this.value)});
-		//$("[data-type='against'][data-lang='" + language + "'].argument-object").each(function() {argumentsAgainst.push(this.value)});
+		*/
 		argumentsArray = Session.get("arguments");
+
 		let forArguments = [];
 		let againstArguments = [];
+
 		argumentsArray.forEach(function (argument, index) {
 			if(argument.type=='for'&&argument.language==language){
 				forArguments.push(argument);
@@ -249,8 +244,8 @@ function saveChanges(event, template, returnTo){
 			body: $(`#body-${language}`).val(),
 			argumentsFor: forArguments,
 			argumentsAgainst: againstArguments,
-			pointsFor: pointsFor,
-			pointsAgainst: pointsAgainst,
+			//pointsFor: pointsFor,
+			//pointsAgainst: pointsAgainst,
 			argumentsFor: forArguments,
 			argumentsAgainst: againstArguments
 		};
@@ -284,12 +279,18 @@ function saveChanges(event, template, returnTo){
 			startDate = new Date(template.find('#startDate').value);
 			endDate = new Date(template.find('#endDate').value);
 		}
-		Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
+		//console.log("getTags()");
+		//console.log(getTags());
+		/*Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
 			if (error){
 				RavenClient.captureException(error);
 				Bert.alert(error, 'reason');
 				return false;
 			} else {
+
+				console.log("retrn from transformTags");
+				console.log(proposalTags);
+		*/
 				let newProposal = {
 					content: content,
 					// Non-translatable fields
@@ -297,10 +298,11 @@ function saveChanges(event, template, returnTo){
 					endDate: endDate,//new Date(2018, 8, 1),
 					authorId: Meteor.userId(),
 					invited: Session.get('invited'),
-					tags: proposalTags,
+					tags: getTags(),//proposalTags,
 					communityId: LocalStore.get('communityId'),
 					stage: "draft"
 				};
+				//console.log(newProposal);
 				var proposalId = FlowRouter.getParam("id");
 
 				template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
@@ -313,8 +315,8 @@ function saveChanges(event, template, returnTo){
 					//create new proposal
 					createProposal(proposalId,newProposal,returnTo,template);
 				}
-			}
-		});
+			//}
+		//});
 	}else{
 		return false;
 	}

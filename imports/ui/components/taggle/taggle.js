@@ -1,52 +1,21 @@
 import './taggle.html'
-import Taggle from 'taggle'
 import { Tags } from '../../../api/tags/Tags.js'
-/*
-Template.taggle.onCreated(function(){
-  var self = this;
-  self.availableTags = new ReactiveVar([]);
-  self.matchedTags = new ReactiveVar([]);
-  var communityId = LocalStore.get('communityId')
-  self.autorun(function(){
-    //subscribe to list of existing tags
-    self.subscribe('tags.community', communityId);
-    self.availableTags.set(Tags.find().pluck('keyword'));
-  });
-});
+import RavenClient from 'raven-js';
 
-Template.taggle.events({
-  'keyup input' (event, template) {
-    var input = event.target.value;
-    var matchedTags = matchTags(input, template.availableTags.get());
-    template.matchedTags.set(matchedTags);
-  },
-  'mousedown .dropdown-item' (event, template) {
-    taggle.add(event.target.dataset.keyword);
-    template.matchedTags.set([]);
-  },
-  'focusout input' (event, template){
-   template.matchedTags.set([]);
-  }
-})
 
-Template.taggle.helpers({
-  'matchedTags'() {
-    //console.log(Template.instance().matchedTags.get());
-    return Template.instance().matchedTags.get();
-  }
-})
-*/
+/* SIMPLE COMPONENT THAT ACCEPTS AN ARRAY OF TAG IDS AND RETURNS THE SAME */
+
 
 Template.NewTaggle.onCreated(function(){
   var self = this;
   self.availableTags = new ReactiveVar([]);
   self.matchedTags = new ReactiveVar([]);
-  Session.set("selectedTags",[]);
+  //Session.set("selectedTags",[]);
   var communityId = LocalStore.get('communityId')
   self.autorun(function(){
     //subscribe to list of existing tags
     self.subscribe('tags.community', communityId);
-    self.availableTags.set(Tags.find().pluck('keyword'));
+    //self.availableTags.set(Tags.find().pluck('keyword'));
   });
 });
 /*
@@ -58,7 +27,9 @@ Template.NewTaggle.onRendered(function(){
 */
 Template.NewTaggle.events({
   'keyup input' (event, template) {
+    event.preventDefault();
     var key = event.keyCode;
+    //console.log(key);
     //check if return key was pressed
     if (key === 13) {
       addTag(event.target.value);
@@ -68,6 +39,8 @@ Template.NewTaggle.events({
       $('#matchedTagsList').show();
       var input = event.target.value;
       var matchedTags = matchTags(input, template.availableTags.get());
+      //console.log("outputting matchedTags: ");
+      //console.log(matchedTags);
       if(matchedTags.length){
         template.matchedTags.set(matchedTags);
       }else{
@@ -93,7 +66,8 @@ Template.NewTaggle.events({
    $('#matchedTagsList').show();
   },
   'click .tag-chip-delete' (event, template){
-    removeTag(event.target.dataset.keyword);
+    //console.log(event.target.dataset.id)
+    removeTag(event.target.dataset.id);
   }
 })
 
@@ -103,26 +77,36 @@ Template.NewTaggle.helpers({
     return Template.instance().matchedTags.get();
   },
   'setTags'(tags) {
+    //tags are the array
     if(typeof tags === 'undefined'){
       tags = [];
     }
-    Session.set("selectedTags",tags);
+    //console.log("set tags");
+    //console.log(tags);
+    updateSessionTags(tags);
+  },
+  'foundTags'(){
+    let idArray = Session.get("selectedTags");
+    //console.log(idArray);
+    let foundTags = Tags.find({_id: {$in: idArray}});
+    //console.log(foundTags.count());
+    return foundTags;
+  },
+  'isAuthorised'(tag){
+    //console.log("isAuthorised: " + tag.keyword);
+    if(tag.authorized){
+      return 'tag-authorised';
+    }else{
+      return 'tag-not-authorised';
+    }
   }
 })
 
-export function setupTaggle(){
-  var placeholder = TAPi18n.__('components.taggle.placeholder')
-  taggle = new Taggle('tags', {placeholder: placeholder, duplicateTagClass: 'bounce'});
-
-  var container = taggle.getContainer();
-  var input = taggle.getInput();
-
-  return taggle;
-}
-
 export function getTags(){
   selectedTags = Session.get("selectedTags");
+  //console.log(selectedTags);
     if (typeof selectedTags == 'undefined') {
+      //console.log("session is undefined");
       selectedTags = [];
     }
   //console.log(selectedTags);
@@ -141,47 +125,72 @@ function matchTags(input, tags) {
     });
 }
 
-export function addTag(keyword){
+export function addTag(id){
     selectedTags = Session.get("selectedTags");//Template.instance().selectedTags.get();
     if (typeof selectedTags == 'undefined') {
       selectedTags = [];
     }
-    keywordIndex = selectedTags.indexOf(keyword.toLowerCase());
-    if(keywordIndex == -1){
-      selectedTags.push(keyword.toLowerCase());
-      //matchedTags = Template.instance().matchedTags.get();
-      //removeStringFromArray(keyword,matchedTags);
-      //Template.instance().selectedTags.set(selectedTags);
-      Session.set("selectedTags",selectedTags);
-      updateTags(keyword);
+    let communityId = LocalStore.get('communityId')
+    let idIndex = selectedTags.indexOf(id);
+    if(idIndex == -1){
+      Meteor.call('addTag',id,communityId, function(error,tag){
+      	if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+          return false;
+        }else{
+          selectedTags.push(tag);
+          //matchedTags = Template.instance().matchedTags.get();
+          //removeStringFromArray(keyword,matchedTags);
+          //Template.instance().selectedTags.set(selectedTags);
+          updateSessionTags(selectedTags);
+          //updateTags(keyword);
+        }
+      });
     }else{
-      bounceTag(keyword);
+      //console.log("bouncing: " + id);
+      bounceTag(id);
     }
     return;
 }
-
+export function updateSessionTags(tagsArray){
+  if(typeof tagsArray != 'undefined'){
+    let sanitisedArray = tagsArray.filter((element, index) => (tagsArray.indexOf(element) == index));
+    Session.set("selectedTags",tagsArray);
+  }
+}
 function updateTags(keyword){
-  newTag = '<a class="tag tag-chip" id="keyword-'+keyword.toLowerCase()+'">'+keyword+
-              '<button type="button" class="mdl-chip__action tag-chip-delete" data-keyword="'+keyword.toLowerCase()+'"><i class="material-icons tag-chip-delete" data-keyword="'+keyword.toLowerCase()+'">cancel</i></button>'+
+  newTag = '<a class="tag tag-chip" id="keyword-'+keyword.toLowerCase()+'">'
+              +keyword+
+              '<button type="button" class="mdl-chip__action tag-chip-delete" data-keyword="'+keyword.toLowerCase()+'">'+
+                '<i class="material-icons tag-chip-delete" data-keyword="'+keyword.toLowerCase()+'">cancel</i>'+
+              '</button>'+
            '</a>';
-  $(".add-tags-wrap").append(newTag);
+  //$(".add-tags-wrap").append(newTag);
 }
 function removeTag(keyword){
   selectedTags = Session.get("selectedTags");//Template.instance().selectedTags.get();
   if (typeof selectedTags == 'undefined') {
     selectedTags = [];
   }
+  //console.log(selectedTags);
   keywordIndex = selectedTags.indexOf(keyword);
   if(keywordIndex > -1){
-    removeStringFromArray(keyword,selectedTags);
-    Session.set("selectedTags",selectedTags);
+    //console.log(selectedTags);
+    updatedArray = removeStringFromArray(keyword,selectedTags);
+    //console.log(selectedTags);
+    //console.log(updatedArray);
+    updateSessionTags(selectedTags);
     selector = "#keyword-"+keyword;
     $(selector).remove();
+  }else{
+    //console.log("could not find: " + keyword);
   }
 }
 
-function bounceTag(keyword) {
-  selector = "#keyword-"+keyword.toLowerCase();
+function bounceTag(id) {
+  selector = "[data-id='"+id+"'].taggle-tag";
+  //console.log(selector);
   for(i = 0; i < 3; i++) {
     $(selector).fadeTo("fast", 0.15).fadeTo("fast", 1);
   }
@@ -202,4 +211,12 @@ window.onresize = function(event) {
   //console.log(topPosition);
   //$("#matchedTagsList").css({ top: topPosition });
 };
+
+
+function sanitizeTagArray(tagArray){
+  //console.log(tagArray)
+  var b = tagArray.filter((element, index) => (tagArray.indexOf(element) == index));
+  //console.log(b);
+  return b;
+}
 */
