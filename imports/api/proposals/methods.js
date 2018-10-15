@@ -19,11 +19,12 @@ Meteor.methods({
           endDate: Date,
           authorId: String,
           invited: Match.Maybe([String]),
-          tags: Match.Maybe([Object]),
+          tags: Match.Maybe([String]),
           references: Match.Maybe([String]),
           communityId: String,
           stage: String
         });
+
         proposalId = Proposals.insert(proposal);
 
         return proposalId;

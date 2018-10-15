@@ -5,13 +5,18 @@ import { convertToSlug } from '../../utils/functions';
 
 Meteor.methods({
     addTag: function (keyword, communityId) {
+      console.log("tag is being added!");
       check(keyword, String);
       check(communityId, String);
+      console.log("Add tag Methogd, keyword: " + keyword + ", communityId: " + communityId);
       var existingTag = Tags.findOne({keyword: convertToSlug(keyword), communityId: communityId});
       if (!existingTag){
-        return Tags.insert({ keyword: keyword, communityId: communityId });
+        let tag = Tags.insert({ keyword: keyword, communityId: communityId });
+        console.log(tag);
+        return tag;
       } else {
-        return false;
+        console.log("return false");
+        return existingTag._id;
       }
     },
     getTag: function (tagID) {
@@ -39,14 +44,16 @@ Meteor.methods({
       check(keywords, [String]);
       check(communityId, String);
       var tags = []
+      console.log("transformTags: " + keywords + " " + communityId);
       for (i=0; i<keywords.length; i++){
-        var tag = Tags.findOne({keyword: keywords[i]});
+        console.log(keywords[i]);
+        var tag = Meteor.call('addTag',keywords[i],communityId);
+        console.log('logging return from addTag: ');
+        console.log(tag);
         // If a tag doesn't exist yet, create a new one
-        if (!tag) {
-          var id = Tags.insert({ keyword: keywords[i], communityId: communityId });
-          tag = Tags.findOne({_id: id})
+        if (tag) {
+          tags.push(tag);
         }
-        tags.push({keyword: tag.keyword, url: tag.url, _id: tag._id})
       }
       console.log(tags);
       return tags;

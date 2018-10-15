@@ -49,7 +49,7 @@ const TagSchema = new SimpleSchema({
     optional: true,
     autoValue: function () {
       if (this.isInsert) {
-        return true;
+        return false;
       }
     }
   },

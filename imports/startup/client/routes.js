@@ -359,8 +359,6 @@ function loadCommunityInfo() {
 						link.rel = 'shortcut icon';
 						link.href = settings.faviconUrl;
 						document.getElementsByTagName('head')[0].appendChild(link);
-					}else{
-						console.log("favicon not set");
 					}
         }
       });
