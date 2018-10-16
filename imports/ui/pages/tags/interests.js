@@ -59,7 +59,8 @@ Template.Interests.onCreated(function() {
 
 Template.Interests.helpers({
   tags: ()=> {
-    return Tags.find();
+    //let tags = Tags.find({"authorized" : true});
+    return Tags.find({"authorized" : true});
   },
   selectedTags: ()=> {
 

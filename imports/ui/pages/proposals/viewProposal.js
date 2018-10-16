@@ -205,7 +205,17 @@ Template.ViewProposal.helpers({
   tags: function() {
     let tagsArray = Template.instance().templateDictionary.get( 'tags' );
     console.log(tagsArray);
-    return Tags.find({_id: {$in: tagsArray}});
+    if(userIsAuthor()){
+      return Tags.find({_id: {$in: tagsArray}});
+    }
+    return Tags.find({_id: {$in: tagsArray},"authorized" : true});
+  },
+  isAuthorised: function(tag){
+    if(tag.authorized){
+      return 'tag-authorised';
+    }else{
+      return 'tag-not-authorised';
+    }
   },
   showComments(){
     var commentCount = Template.instance().templateDictionary.get( 'commentCount' );
