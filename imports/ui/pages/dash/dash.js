@@ -2,6 +2,7 @@ import './dash.html';
 import RavenClient from 'raven-js';
 import { Proposals } from '../../../api/proposals/Proposals.js';
 import { Ranks } from '../../../api/ranking/Ranks.js';
+import { Tags } from '../../../api/tags/Tags.js'
 import { walkThrough } from '../../../utils/functions';
 
 Template.Dash.onCreated(function () {
@@ -15,22 +16,22 @@ Template.Dash.onCreated(function () {
       Session.set('ranked', result);
     }
   });
-  
+
   var self = this;
   self.ranks = new ReactiveVar([]);
-  
+
   self.autorun(function() {
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
     self.subscribe('ranks.all');
-    
+
   });
-  
+
 });
 
 
 Template.Dash.helpers({
 	isUnapprovedEntity: ()=> {
-		if ((Roles.userIsInRole(Meteor.userId(), ['organisation-delegate', 'party-delegate'])) && 
+		if ((Roles.userIsInRole(Meteor.userId(), ['organisation-delegate', 'party-delegate'])) &&
 			(!Meteor.call('isApproved', Meteor.userId()))) {
 			return true;
 		} else {
@@ -104,8 +105,13 @@ Template.DashProfile.helpers({
 	    return "Private";
 	},
 	tags: ()=> {
-		users = Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1}}).fetch();
-    return users[0].profile.tags;
+    users = Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1}}).fetch();
+    tagsArray = users[0].profile.tags;
+    console.log(users);
+    if(typeof tagsArray != 'undefined'){
+      console.log(tagsArray);
+      return Tags.find({_id: {$in: tagsArray}});
+    }
 	},
 });
 
@@ -117,7 +123,13 @@ Template.DashInterests.onCreated(function () {
 Template.DashInterests.helpers({
 	tags: ()=> {
 		users = Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1}}).fetch();
-    return users[0].profile.tags;
+    tagsArray = users[0].profile.tags;
+    console.log(users);
+    if(typeof tagsArray != 'undefined'){
+      console.log(tagsArray);
+      return Tags.find({_id: {$in: tagsArray}});
+    }
+    //return users[0].profile.tags;
 	},
 });
 
@@ -152,13 +164,13 @@ Template.DashDelegates.helpers({
 Template.DashDelegates.events({
 	'click .delegate-dash-item': function(event, template){
     Session.set('drawerId',this._id);
-    if($('.mdl-layout__drawer-right').hasClass('active')){       
-        $('.mdl-layout__drawer-right').removeClass('active'); 
+    if($('.mdl-layout__drawer-right').hasClass('active')){
+        $('.mdl-layout__drawer-right').removeClass('active');
      }
      else{
-        $('.mdl-layout__drawer-right').addClass('active'); 
+        $('.mdl-layout__drawer-right').addClass('active');
      }
-    
+
   }
  });
 

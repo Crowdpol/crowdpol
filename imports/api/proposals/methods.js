@@ -71,6 +71,13 @@ Meteor.methods({
       check(proposalId, String);
       return Proposals.findOne({_id: proposalId});
     },
+    deleteProposalTags: function (tagId){
+      check(tagId,String);
+      let proposals = Proposals.find({tags: tagId});
+      proposals.forEach(function (value) {
+        Proposals.update({"_id":value._id},{$pull: {tags: tagId}})
+      });
+    },
     deleteProposal: function(proposalId) {
       check(proposalId, String);
       //console.log(proposalId);
