@@ -2,6 +2,7 @@ import './viewProposal.html'
 import './signInModal/signInModal.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import { Tags } from '../../../api/tags/Tags.js'
 import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(language){
@@ -202,7 +203,9 @@ Template.ViewProposal.helpers({
     return Template.instance().templateDictionary.get( 'endDate' );
   },
   tags: function() {
-    return Template.instance().templateDictionary.get( 'tags' );
+    let tagsArray = Template.instance().templateDictionary.get( 'tags' );
+    console.log(tagsArray);
+    return Tags.find({_id: {$in: tagsArray}});
   },
   showComments(){
     var commentCount = Template.instance().templateDictionary.get( 'commentCount' );
@@ -305,7 +308,6 @@ Template.ProposalContent.onCreated(function(language){
 
 Template.ProposalContent.helpers({
   authorName(authorId){
-    /*
 		let name = "";
 		let user = Meteor.users.findOne({"_id":authorId});
 		if(typeof user != 'undefined'){
@@ -321,10 +323,10 @@ Template.ProposalContent.helpers({
 				/*
 				if('username' in profile){
 					name+="(" + profile.username + ")";
-				}
+				}*/
 				return name;
 			}
-		}*/
+		}
     return "admin";
   },
   argumentDate(lastModified){

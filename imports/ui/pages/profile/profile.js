@@ -8,6 +8,7 @@ import { walkThrough } from '../../../utils/functions';
 Template.Profile.onCreated(function() {
   var self = this;
   Session.set('showSettings',Meteor.user().isPublic);
+  console.log(Meteor.user());
 });
 
 Template.Profile.events({
@@ -43,4 +44,3 @@ Template.Profile.helpers({
     return Session.get('showSettings');
   }
 });
-
