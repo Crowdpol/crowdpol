@@ -50,7 +50,7 @@ Template.ProposalCard.helpers({
   },
   tags: function(proposal){
     //console.log(proposal.tags);
-    return Tags.find({_id: {$in: proposal.tags}});
+    return Tags.find({_id: {$in: proposal.tags},"authorized" : true});
   },
   userIsAuthor: function(proposalId) {
     var proposal = Proposals.findOne(proposalId);

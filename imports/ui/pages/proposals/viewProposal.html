@@ -91,7 +91,7 @@
 		<!-- Tags -->
 		<div class="proposal-wrap">
 			{{#each tags}}
-			<span class="mdl-chip mdl-chip-hoverable">
+			<span class="mdl-chip mdl-chip-hoverable  {{isAuthorised this}}">
 				<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
 			</span>
 			{{/each}}
@@ -168,14 +168,15 @@
 		{{/if}}
 	</div>
 
-	<!-- Sign and Share buttons -->
+	<!-- Sign and Share buttons
 	<div class="proposal-view-menu">
 		<div class="proposal-view-menu-buttons">
-			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+			<button class="mdl-button mdl-button-icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
 				<i class="material-icons">share</i>
 			</button>
 		</div>
 	</div>
+	-->
 	{{else}}
 	{{> loader}}
 	{{/if}}

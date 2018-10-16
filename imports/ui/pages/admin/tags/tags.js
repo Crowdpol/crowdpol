@@ -46,7 +46,7 @@ Template.AdminTagsTable.events({
 				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-added'), 'success');
+				Bert.alert("Tag Deleted", 'success');
 			}
 		});
 	},

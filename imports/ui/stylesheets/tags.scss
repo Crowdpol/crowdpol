@@ -1,13 +1,36 @@
 @import 'variables.scss';
 
+.taggle-tag{
+  padding-left: 0.5rem;
+}
+.tag-chip.tag-not-authorised, .mdl-chip.tag-not-authorised{
+  background-color: transparent;
+  border: solid 1px $light-blue-dark;
+  color: $light-blue-dark;
+
+  .mdl-chip__text {
+    color: $light-blue-dark;
+  }
+
+  .mdl-chip__action {
+    color: $light-blue-dark;
+  }
+
+  &:hover {
+    background-color: transparent;
+    border: solid 1px $light-blue;
+    color: $light-blue;;
+  }
+}
+
 .tag {
   display: inline-block;
-  padding: 0 ($space / 2);
-  margin-right: $space / 8;
+  padding: 0 0.5rem;
+  margin-right: 0.2rem;
   border-radius: 1rem;
   font-size: $xsmall-font-size;
   color: $white;
-  line-height: 1.1rem;
+  line-height: 0.9rem;
   text-decoration: none;
   font-weight: 300;
   letter-spacing: 0.5px;
@@ -16,6 +39,10 @@
 
 .tag-chip {
   background-color: $light-blue;
+
+  .mdl-chip__action {
+    color: $white;
+  }
 
   &:hover {
     background-color: $light-blue-dark;
