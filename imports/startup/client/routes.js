@@ -336,7 +336,6 @@ function loadCommunityInfo() {
     default:
         subdomain = window.location.host.split('.')[0];
   }
-  //console.log(hostname + " - " + subdomain);
 
 	//set title to commuinty name
 	document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);

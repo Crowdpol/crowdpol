@@ -27,7 +27,6 @@ Template.Interests.onRendered(function(){
       Bert.alert(error.reason, 'danger');
     } else {
       var keywords = _.map(result, function(tag){ return tag.keyword; });
-      console.log(keywords);
       //self.taggle.get().add(keywords);
     }
   });
@@ -66,20 +65,15 @@ Template.Interests.helpers({
 
     let userProfile = Meteor.user().profile;
     if(typeof userProfile == 'undefined'){
-      console.log("could not determine user profile");
       return [];
     }
-    //console.log(Meteor.user());
     let tagsArray = userProfile.tags;
     if(typeof tagsArray == 'undefined'){
-      //console.log("could not find profile tags");
       tagsArray = [];
       //selectedTags = Tags.find({_id: {$in: tagsArray}});
       //Session.set("selectedTags",selectedTags);
       //return selectedTags;
     }
-    //console.log("tagsArray: ");
-    //console.log(tagsArray);
     return tagsArray;
   },
   tagCount: (keyword)=>{

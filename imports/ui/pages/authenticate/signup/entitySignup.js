@@ -90,8 +90,6 @@ Template.entitySignup.events({
          'isPublic' : true,
          profile: profile
        };
-       console.log("termsAccepted: " + termsAccepted);
-       console.log(entity);
 
        Accounts.createUser(entity, (error) => {
          if (error) {

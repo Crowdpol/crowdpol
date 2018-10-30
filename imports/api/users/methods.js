@@ -5,7 +5,6 @@ import { Notifications } from '../notifications/Notifications.js'
 
 Meteor.methods({
     checkIfUserExists: function (email,communityId) {
-      console.log("check if user email exists: " + email + " communityid: " + communityId);
       let user = Accounts.findUserByEmail(email);
       if (typeof user === 'undefined' || user === null) {
           return false;// variable is undefined or null
@@ -15,24 +14,20 @@ Meteor.methods({
       }
     },
     addUser: function (newUser) {
-      //console.log("method addUser called");
       userId = Accounts.createUser(newUser);
       return userId;
     },
     isPublic: function (userId) {
       check(userID, String);
       user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1}});;
-      //console.log("isPublic: " + user.isPublic);
       return user.isPublic;
     },
     getUser: function (userID) {
-      //console.log("method getUser called");
       check(userID, String);
       const users = Meteor.users.find({_id: userID}).fetch();
         return users[0];
     },
     deleteUser: function (userID) {
-      //console.log("method deleteUser called");
       check(userID, String);
       //TODO: Delete all user's content
       Meteor.users.remove({_id:userID});
@@ -43,10 +38,8 @@ Meteor.methods({
       Meteor.users.update({_id: userID}, {$set: {"isDisabled": isDisabled}});
     },
     getProfile: function (userID) {
-      //console.log("method getUserProfile called: " + userID);
       check(userID, String);
       const users = Meteor.users.find({_id: userID},{fields: {profile: 1, isPublic:1}}).fetch();
-      //console.log(users);
       return users[0];
     },
     getUserTags: function(userID) {
@@ -163,7 +156,6 @@ Meteor.methods({
         });
         Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
       } else {
-        console.log("profileIsComplete() has failed");
         throw new Meteor.Error(422, TAPi18n.__('pages.profile.alerts.profile-incomplete'));
       }
 

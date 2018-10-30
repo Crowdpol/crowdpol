@@ -4,7 +4,6 @@ import { Communities } from './Communities.js'
 
 Meteor.methods({
     createCommunity: function (community) {
-      console.log(community);
       	// Check if subdomain is unique
       	var existing = Communities.findOne({subdomain: community.subdomain});
       	if (existing) {
@@ -13,7 +12,6 @@ Meteor.methods({
 	    return Communities.insert(community);
     },
     updateCommunity: function(communityId,settings) {
-      console.log(settings);
       var existing = Communities.findOne({_id: communityId});
       if (existing) {
         return Communities.update({_id: communityId}, {$set: {'settings': settings}});

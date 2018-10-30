@@ -38,7 +38,6 @@ export const timeRemaining = (finalDate) => {
 
 export const daysRemaining = (finalDate) => {
     var eventdate = moment(finalDate);
-    console.log(moment(finalDate).fromNow());
     var todaysdate = moment();
     return eventdate.diff(todaysdate, 'days');
 }

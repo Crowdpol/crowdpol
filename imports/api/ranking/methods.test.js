@@ -31,7 +31,6 @@ if (Meteor.isServer) {
         expect(ranks).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -42,7 +41,6 @@ if (Meteor.isServer) {
         expect(remainingRanks).to.have.lengthOf(0);
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -54,7 +52,6 @@ if (Meteor.isServer) {
         expect(rank).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -66,7 +63,6 @@ if (Meteor.isServer) {
         expect(Meteor.call('getRank', id)).to.not.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -78,7 +74,6 @@ if (Meteor.isServer) {
         expect(ranks).to.have.lengthOf(5);
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -90,7 +85,6 @@ if (Meteor.isServer) {
         testRank = Meteor.call('updateRanks', ranks, "delegate");
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });

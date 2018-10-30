@@ -6,7 +6,7 @@ import RavenClient from 'raven-js';
 Template.ProfileForm.onCreated(function() {
   var self = this;
   self.type = new ReactiveVar("Waiting for response from server...");
-  
+
   self.autorun(function() {
     self.subscribe('user.current');
     self.subscribe('users.usernames');
@@ -78,26 +78,6 @@ Template.ProfileForm.events({
           $("#valid-url").text("");
         }
   },
-  /*
-  'change isPublic' (event,template){
-    console.log("isPublic clicked");
-    //Check if user is public
-    if( Meteor.user().isPublic) {
-      //True: - go private
-        //1 Check if user is delegate
-        if (isInRole('delegate')) {
-          //true - let user know they cannot go private while delegate
-            Bert.alert("Remove delegate role before going private", 'danger');
-        }else{
-          //false - make user private
-          togglePublic(false, template);
-        }
-    }else{
-      togglePublic(true,template);
-
-    } 
-  },
-  */
   'click #goPrivate' (event,template){
     if( Meteor.user().isPublic) {
       //True: - go private
@@ -121,7 +101,7 @@ Template.ProfileForm.events({
   },
   'click #profile-public-switch' (event, template) {
     event.preventDefault();
-    
+
     //Check if user is public
     if( Meteor.user().isPublic) {
       //True: - go private
@@ -183,7 +163,7 @@ Template.ProfileForm.events({
     }
     Session.set('showCompleteStatus',!Session.get('showCompleteStatus'));
   }
-  
+
 });
 
 Template.ProfileForm.onRendered(function() {
@@ -197,7 +177,7 @@ Template.ProfileForm.onRendered(function() {
 
   Tracker.autorun(() => {
     const isReady = handle.ready();
-    
+
     if (isReady){
       // Set public/private switch
       //updatePublicSwitch(self);
@@ -208,7 +188,7 @@ Template.ProfileForm.onRendered(function() {
     }
   });
 
-  
+
   //Session.set('showCompleteStatus', false);
   /*
   Meteor.call('getUserTags', Meteor.userId(), function(error, result){
@@ -225,21 +205,20 @@ Template.ProfileForm.onRendered(function() {
   Session.set('showSettings',false);
   //$( "#public-form-details" ).hide();
 
-  
+
   //Go through mdl inputs and check if dirty
   var form = document.forms[2];
   var mdlInputs = form.querySelectorAll('.mdl-js-textfield');
   for (var i = 0, l = mdlInputs.length; i < l; i++) {
     var classes = mdlInputs[i].getAttribute('class') + " is-dirty";
     var nodes = mdlInputs[i].querySelector('input,textarea');
-    console.log(nodes);
     mdlInputs[i].setAttribute('class', classes);
     //mdlInputs[i].addClass("is-dirty");
     //mdlInputs[i].get(0).MaterialTextfield.checkDirty();
-  }  
-  
+  }
+
   //$('[name="profileFirstName"]').get(0).MaterialTextfield.change(template.templateDictionary.get('firstname'));
-  
+
   $.validator.addMethod('usernameUnique', (username) => {
     let exists = Meteor.users.findOne({"_id":{$ne: Meteor.userId()},"profile.username": username});
     return exists ? false : true;
@@ -252,7 +231,7 @@ Template.ProfileForm.onRendered(function() {
         minlength: 5,
         maxlength: 16,
         usernameUnique: true
-        
+
       },
       profileWebsite: {
         url: true
@@ -299,9 +278,9 @@ Template.ProfileForm.onRendered(function() {
             }
           });
 
-        //} 
+        //}
       //});
-      
+
     }
   });
 });
@@ -379,12 +358,9 @@ Template.ProfileForm.helpers({
   },
   isEntity: function() {
     var type = Template.instance().type.get();
-    //console.log(type);
     if (type == 'Entity') {
-      //console.log("should be hidden");
       return true;
     }
-    //console.log("show lastname");
     return false;
   },
   isPublic: function() {
@@ -420,7 +396,7 @@ Template.ProfileForm.helpers({
       status = false;
       if (status == TAPi18n.__('generic.approved')){
         /*if the status is approved, but the user is not in the role, then
-        they were previously approved, but revoked the role themselves*/ 
+        they were previously approved, but revoked the role themselves*/
         status = '';
       }
     }
@@ -434,7 +410,7 @@ Template.ProfileForm.helpers({
       status = Template.instance().candidateStatus.get()
       if (status == TAPi18n.__('generic.approved')){
         /*if the status is approved, but the user is not in the role, then
-        they were previously approved, but revoked the role themselves*/ 
+        they were previously approved, but revoked the role themselves*/
         status = '';
       }
     }
@@ -469,7 +445,7 @@ function hasOwnProperty(obj, prop) {
 function checkProfileIsComplete(template){
   var completedScore = 0;
   var isComplete = false;
-  
+
   //var template = Template.instance();
   var profile = {
     username: template.find('[name="profileUsername"]').value,
@@ -480,12 +456,12 @@ function checkProfileIsComplete(template){
     website: template.find('[name="profileWebsite"]').value,
     //tags: template.taggle.get().getTagValues()
   };
-  
+
   var profileFields = _.keys(profile);
   public = profile;
   var bio = event.currentTarget.value;
 
-  //1. Check username: 
+  //1. Check username:
   if(template.templateDictionary.get('usernameCompleted')){
     completedScore++;
   }
@@ -514,7 +490,7 @@ function checkProfileIsComplete(template){
     template.templateDictionary.set('photoCompleted',false);
   }
 
-  //5. Check bio: 
+  //5. Check bio:
   template.templateDictionary.set('bioCount',profile.bio.length);
   if((profile.bio.length >= 50)&&(profile.bio.length <=160)){
     template.templateDictionary.set('bioCompleted',true);
@@ -531,8 +507,6 @@ function checkProfileIsComplete(template){
   }
   /*
   //7. Check tags: NOTE! Something a bit iffy with template.taggle.get().getTagValues()
-  //console.log(profile.tags);
-  //console.log(template.taggle.get().getTagValues());
   template.templateDictionary.set('tagsCount',profile.tags.length);
   if (profile.tags.length >= 5){
     template.templateDictionary.set('tagsCompleted',true);
@@ -549,7 +523,7 @@ function checkProfileIsComplete(template){
   if(profileType == 'Entity'){
     totalScore = 5;
   }
-  
+
   //9. Update progress bar
   var percentage = completedScore * 100 / totalScore + '%';
   $('#progress-status').width(percentage);
@@ -558,22 +532,18 @@ function checkProfileIsComplete(template){
   /*
   template.templateDictionary.set('tagsCompleted', profile.tags.length);
   if (profile.tags.length < 5){
-    console.log("not enough tags");
-
     isComplete = false;
   } else {
     _.map(profileFields, function(field){
       if (profile[field].length == 0){
         isComplete = false;
-        console.log("empty field: " + profile[field]);
-      } 
+      }
     });
   }
   */
   if(completedScore==totalScore){
     isComplete = true;
   }
-  console.log("completedScore: " + completedScore + " totalScore: " + totalScore + " isComplete");
   return isComplete;
 }
 
@@ -600,7 +570,7 @@ function updateDisplayedStatus(type, template){
             statusSwitch.off();
           }
         }
-      } 
+      }
       return status;
     }
   }
@@ -611,25 +581,20 @@ function updatePublicSwitch(template){
   var delegateSwitch = template.find('#profile-delegate-switch-label').MaterialSwitch;
   /*
   if(!checkProfileIsComplete(template)){
-    //console.log("profile is incomplete, disabling public toggle");
     publicSwitch.disable();
     delegateSwitch.disable();
     return;
   }
   */
   if (isInRole('candidate') || isInRole('delegate')){
-    //console.log("user is delegate/candidate, disabling public toggle");
     publicSwitch.disable();
   } else {
-    //console.log("enabling public toggle");
     publicSwitch.enable();
   }
   if( Meteor.user().isPublic) {
-    //console.log("user isPublic, turning toggle on");
     publicSwitch.on();
     delegateSwitch.enable();
   } else {
-    //console.log("user isPublic, turning toggle off");
     publicSwitch.off();
     delegateSwitch.disable();
   }
@@ -663,4 +628,3 @@ function validateUrl(url){
   var regExp = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
   return regExp.test(url);
 }
-

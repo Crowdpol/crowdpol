@@ -30,9 +30,6 @@ Meteor.publish('proposals.public.stats', function(search, communityId) {
 	        .forEach(function(proposal) {
 	            individualVotes = Meteor.call('getProposalIndividualVotes', proposal._id);
 	            delegateVotes = Meteor.call('getProposalDelegateVotes', proposal._id);
-	           	//console.log(proposal._id);
-	            //console.log(individualVotes);
-	            //console.log(delegateVotes);
 
 	            proposal["individualVotes"] = yesNoResults(individualVotes[0]);
 	            proposal["delegateVotes"] = yesNoResults(delegateVotes[0]);

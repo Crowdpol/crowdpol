@@ -6,7 +6,6 @@ import { Ranks } from '../ranking/Ranks.js';
 
 Meteor.methods({
   createProposal: function (proposal) {
-    //console.log(proposal);
       //try{
         check(proposal, {
           title: Match.Maybe(String),
@@ -29,7 +28,6 @@ Meteor.methods({
 
         return proposalId;
       //} catch (err) {
-        //console.log(err);
         //return err;
       //}
     },
@@ -50,14 +48,12 @@ Meteor.methods({
           argumentsFor = item.argumentsFor;
           argumentsFor.forEach(function (argument, index) {
             if(argument.argumentId==argumentId){
-              console.log("argument found");
               argument.message = text;
             }
           });
           argumentsAgainst = item.argumentsAgainst;
           argumentsAgainst.forEach(function (argument, index) {
             if(argument.argumentId==argumentId){
-              console.log("argument found");
               argument.message = text;
             }
           });
@@ -80,7 +76,6 @@ Meteor.methods({
     },
     deleteProposal: function(proposalId) {
       check(proposalId, String);
-      //console.log(proposalId);
       var user = Meteor.user();
 
       var proposal = Proposals.findOne(proposalId);
@@ -99,7 +94,6 @@ Meteor.methods({
       try{
         Proposals.remove(proposalId);
       } catch (err) {
-        console.log(err);
         return err;
       }
     },
@@ -158,7 +152,6 @@ Meteor.methods({
         oldInvites.push(newInvites);
         proposal.invites = oldInvites;
       }
-      //console.log(proposal.content);
       proposal.lastModified = new Date();
       Proposals.update({_id: proposalId}, {$set: proposal });
     },
@@ -212,7 +205,6 @@ Meteor.methods({
     var now = moment().toDate();
     var proposals = Proposals.find({ $and: [ { endDate: { $lte: now } }, { votesFinalised: false } ] } );
     var ids = proposals.pluck('_id');
-    //console.log(ids)
     return ids
 
   },
@@ -322,7 +314,6 @@ Meteor.methods({
             },
         }},
       ]);
-      //console.log(result);
       return result;
     }
 });

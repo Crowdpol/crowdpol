@@ -5,7 +5,6 @@ import "./styles.css"
 Template.ProposalStatsPage.onCreated(function(){
 	var self = this;
 	proposalId = FlowRouter.getParam("id");
-	console.log(proposalId);
 	var dict = new ReactiveDict();
 
 	Meteor.call('getProposal',proposalId,function(error,result){
@@ -61,7 +60,6 @@ Template.ProposalStatsPage.helpers({
 
 Template.ProposalStatsPage.events({
   'click #showHideButton' (event, template){
-  	console.log(event);
   	//$("#hidden-content").toggleClass("hidden");
   	$("#hidden-content").slideToggle(function (){
         $("#showHideIcon").text("keyboard_arrow_down")

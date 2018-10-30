@@ -45,8 +45,6 @@ Template.ArgumentsListItem.events({
           if (index > -1) {
             argumentsArray.splice(index, 1);
             Session.set('arguments',argumentsArray);
-          }else{
-            //console.log("could not find argument in array");
           }
         }
 
@@ -73,7 +71,6 @@ Template.ArgumentsListItem.events({
   'click .close-argument-button' (event, template){
     event.preventDefault();
     let argumentId = event.target.dataset.id;
-    //console.log("close id: " + argumentId)
     if(typeof argumentId !='undefined'){
       let messageIdentifier = "[data-id='" + argumentId + "'].argument-text";
       let textareaIdentifier = "[data-id='" + argumentId + "'].argument-textarea";
@@ -233,7 +230,6 @@ Template.ArgumentsBox.events({
     let argumentType = event.target.dataset.type;
     let argumentLang = event.target.dataset.lang;
     let argumentTextIdentifier = "[data-type='" + argumentType + "'][data-lang='" + argumentLang + "'].argument-input";
-    //console.log(argumentTextIdentifier);
     if(typeof argumentType !='undefined'){
       //create arguments
       let message = $(argumentTextIdentifier).val();

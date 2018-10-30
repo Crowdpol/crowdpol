@@ -53,9 +53,7 @@ Template.Voting.helpers({
     let end = now;
     //TO DO: add option for admin to select delgate expiry date (currently 14 days before end date)
     if(isVotingAsDelegate){
-      //console.log(now);
       end =  moment(now).subtract(2, 'weeks').toDate();//now.setDate(now.getDate()-14).toString();
-      //console.log(end);
     }
 
     return Proposals.find({startDate:{"$lte": now}, endDate:{"$gte": end}, stage: "live"}, {transform: transformProposal, sort: {endDate: 1}});
@@ -102,7 +100,6 @@ Template.Voting.helpers({
 Template.Voting.events({
   'keyup #vote-search' ( event, template ) {
     let value = event.target.value.trim();
-    //console.log(value);
     template.searchQuery.set(value);
   },
   'click .role-menu-item' : function(){
@@ -149,7 +146,6 @@ function transformProposal(proposal) {
       //proposal.langContent = langContent;
     }
   });
-  //console.log(proposal);
   return proposal;
 };
 
@@ -172,7 +168,6 @@ Template.VotingCard.helpers({
     }
   },
   abstract: function(proposal){
-    //console.log(proposal);
     var language = TAPi18n.getLanguage();
     var translation = _.find(proposal.content, function(item){ return item.language == language});
     if (translation){
@@ -222,7 +217,6 @@ Template.VotingCard.events({
   'click #toggle-voting-info': function(event, template){
      var showVotingInfo = template.showVotingInfo.get();
      template.showVotingInfo.set(!showVotingInfo);
-     //console.log(template.showVotingInfo.get())
   },
 });
 
@@ -268,7 +262,6 @@ Template.ResultCard.helpers({
     }
   },
   proposalStatus: function(proposal) {
-    //console.log(proposal);
     /*
     return proposal.stage;;
     // If looking at public proposals, show open/closed
@@ -282,7 +275,7 @@ Template.ResultCard.helpers({
     } else if (Session.get('myProposals')){
       var stage = proposal.stage;
       return stage.charAt(0).toUpperCase() + stage.slice(1);
-    }*/
+    }*///TODO: Lookin into this...?
     return "test"
   },
   tags: function(proposal){

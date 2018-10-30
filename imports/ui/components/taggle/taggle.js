@@ -21,7 +21,6 @@ Template.NewTaggle.onCreated(function(){
 /*
 Template.NewTaggle.onRendered(function(){
   //var topPosition = ($('#tag-input-wrap').offset().top - 10) + 'px';
-  //console.log(topPosition);
   //$("#matchedTagsList").css({ top: topPosition });
 })
 */
@@ -29,7 +28,6 @@ Template.NewTaggle.events({
   'keyup input' (event, template) {
     event.preventDefault();
     var key = event.keyCode;
-    //console.log(key);
     //check if return key was pressed
     if (key === 13) {
       addTag(event.target.value);
@@ -39,8 +37,6 @@ Template.NewTaggle.events({
       $('#matchedTagsList').show();
       var input = event.target.value;
       var matchedTags = matchTags(input, template.availableTags.get());
-      //console.log("outputting matchedTags: ");
-      //console.log(matchedTags);
       if(matchedTags.length){
         template.matchedTags.set(matchedTags);
       }else{
@@ -50,7 +46,6 @@ Template.NewTaggle.events({
 
   },
   'mousedown .dropdown-item' (event, template) {
-    //console.log(event.target.dataset.keyword);
     addTag(event.target.dataset.keyword);
     $('#add-tag').val('');
     //taggle.add(event.target.dataset.keyword);
@@ -66,14 +61,12 @@ Template.NewTaggle.events({
    $('#matchedTagsList').show();
   },
   'click .tag-chip-delete' (event, template){
-    //console.log(event.target.dataset.id)
     removeTag(event.target.dataset.id);
   }
 })
 
 Template.NewTaggle.helpers({
   'matchedTags'() {
-    //console.log(Template.instance().matchedTags.get());
     return Template.instance().matchedTags.get();
   },
   'setTags'(tags) {
@@ -81,19 +74,14 @@ Template.NewTaggle.helpers({
     if(typeof tags === 'undefined'){
       tags = [];
     }
-    //console.log("set tags");
-    //console.log(tags);
     updateSessionTags(tags);
   },
   'foundTags'(){
     let idArray = Session.get("selectedTags");
-    //console.log(idArray);
     let foundTags = Tags.find({_id: {$in: idArray}});
-    //console.log(foundTags.count());
     return foundTags;
   },
   'isAuthorised'(tag){
-    //console.log("isAuthorised: " + tag.keyword);
     if(tag.authorized){
       return 'tag-authorised';
     }else{
@@ -104,12 +92,9 @@ Template.NewTaggle.helpers({
 
 export function getTags(){
   selectedTags = Session.get("selectedTags");
-  //console.log(selectedTags);
     if (typeof selectedTags == 'undefined') {
-      //console.log("session is undefined");
       selectedTags = [];
     }
-  //console.log(selectedTags);
   return selectedTags;
 }
 
@@ -148,7 +133,6 @@ export function addTag(id){
         }
       });
     }else{
-      //console.log("bouncing: " + id);
       bounceTag(id);
     }
     return;
@@ -173,24 +157,17 @@ function removeTag(keyword){
   if (typeof selectedTags == 'undefined') {
     selectedTags = [];
   }
-  //console.log(selectedTags);
   keywordIndex = selectedTags.indexOf(keyword);
   if(keywordIndex > -1){
-    //console.log(selectedTags);
     updatedArray = removeStringFromArray(keyword,selectedTags);
-    //console.log(selectedTags);
-    //console.log(updatedArray);
     updateSessionTags(selectedTags);
     selector = "#keyword-"+keyword;
     $(selector).remove();
-  }else{
-    //console.log("could not find: " + keyword);
   }
 }
 
 function bounceTag(id) {
   selector = "[data-id='"+id+"'].taggle-tag";
-  //console.log(selector);
   for(i = 0; i < 3; i++) {
     $(selector).fadeTo("fast", 0.15).fadeTo("fast", 1);
   }
@@ -208,15 +185,12 @@ function removeStringFromArray(keyword,array){
 /*
 window.onresize = function(event) {
   //var topPosition = ($('#tag-input-wrap').offset().top - 10) + 'px';
-  //console.log(topPosition);
   //$("#matchedTagsList").css({ top: topPosition });
 };
 
 
 function sanitizeTagArray(tagArray){
-  //console.log(tagArray)
   var b = tagArray.filter((element, index) => (tagArray.indexOf(element) == index));
-  //console.log(b);
   return b;
 }
 */

@@ -40,7 +40,6 @@ Template.AdminDash.helpers({
 
 Template.AdminDashHeader.events({
 	'click .menu__link': function(event, template){
-		//console.log(event.target.dataset.template);
 		Session.set("adminTemplate",event.target.dataset.template);
 	},
 });
