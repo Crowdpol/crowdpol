@@ -282,7 +282,17 @@ Template.ViewProposal.helpers({
     }
   },
   getProposalLink: function() {
+    /*
+    console.log(Meteor.absoluteUrl());
+    var url = window.location.href;
+    var hostname = window.location.host;
+    var subdomain = window.location.host.split('.')[0];
+    console.log(url);
+    console.log(hostname);
+    console.log(subdomain);
     return Meteor.absoluteUrl() + "proposals/view/" + proposalId;
+    */
+    return window.location.href;
   },
   signatureCount: function(){
     return Template.instance().templateDictionary.get('signatures').length
