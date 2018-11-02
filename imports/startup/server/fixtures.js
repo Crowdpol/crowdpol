@@ -112,7 +112,6 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 });
 
 function registerAdmins(communityIds){
-	console.log('Registering admins');
 	var admins = Meteor.settings.private.admins;
 	for(var x = 0; x < admins.length; x++){
 		createAdmins(admins[x], communityIds);
@@ -175,7 +174,6 @@ function registerDemoUsers(numUsers, communityIds, subdomain){
 		let response = [];
 			HTTP.call( 'GET', url, {}, function( error, response ) {
 			  if ( error ) {
-			    console.log( error );
 			    return false;
 			  } else {
 			    /*
@@ -384,7 +382,6 @@ function createDemoProposal(communityId, subdomain, languages){
 			stage: 'live',
 			status: 'approved'
 		};
-		console.log(proposal);
 		Proposals.insert(proposal);
 	}
 }
@@ -406,7 +403,6 @@ function convertProposals() {
 	/*
 	proposals.forEach(function(proposal){
 		if (!proposal.content){
-			console.log('converting proposal with id ' + proposal._id + ' to new format');
 			var defaultLanguage = Communities.findOne({_id: proposal.communityId}).settings.defaultLanguage;
 			//Get content
 			var title = proposal.title;
@@ -426,7 +422,6 @@ function convertProposals() {
 				pointsAgainst: pointsAgainst
 			}];
 			Proposals.update({_id: proposal._id}, {$set: {content:content}});
-			console.log('finished converting proposal')
 		}
 	});
 	*/

@@ -60,7 +60,6 @@ Meteor.methods({
             }
         }},
     ]);
-    //console.log(results);
     return results;
   },
   getDelegateVote: function(voteId){
@@ -71,7 +70,6 @@ Meteor.methods({
     check(proposalId, String);
     check(delegateId, String);
     let delegateVotes = DelegateVotes.findOne({proposalId: proposalId, delegateId: delegateId});
-    //console.log(delegateVotes);
     return delegateVotes;
   },
   getDelegateVotes: function(proposalId, userId){
@@ -120,7 +118,6 @@ Meteor.methods({
       {$sort: {ranking: 1}}
     ])
 
-    //console.log('running')
     return thing
   },
   getUserDelegateVote: function(proposalId){

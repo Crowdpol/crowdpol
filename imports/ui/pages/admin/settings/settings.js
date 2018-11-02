@@ -35,8 +35,6 @@ Template.AdminSettings.onCreated(function(){
         dict.set( 'enforceWhitelist', settings.enforceWhitelist);
         setupParameters(self);
       });
-    } else {
-      console.log("could not find community Id");
     }
 
   });
@@ -90,7 +88,7 @@ Template.AdminSettings.helpers({
   },
   aboutText: function(){
     return Template.instance().dict.get('aboutText');
-  },
+  }
 });
 
 Template.AdminSettings.events({
@@ -109,7 +107,6 @@ Template.AdminSettings.events({
 	},
   'change #enforceWhitelist' (event, template){
     let enforceWhitelist = Template.instance().dict.get('enforceWhitelist');
-    //console.log(enforceWhitelist);
     if(enforceWhitelist){
       Template.instance().dict.set('enforceWhitelist',false);
       $("#enforceWhitelist").prop('checked', false);
@@ -129,6 +126,11 @@ Template.AdminSettings.events({
     Template.instance().dict.set('showDates',false)
 		$("#setDates").show()
 	},
+  'change #bgSelect' (event, template){
+    var path = "/img/" + template.find("#bgSelect").value;
+    $('img#background-image-preview').prop('src', path);
+    $('#homepageImageUrl').val(path);
+  },
   'blur #start-datepicker' (event, template){
     var startDate = moment(template.find("#start-datepicker").value,'YYYY-MM-DD');
     if(!startDate.isValid()){
@@ -167,7 +169,6 @@ Template.AdminSettings.events({
   },
   'submit form': function(event, template){
 		event.preventDefault();
-    //console.log(Template.instance().dict.get('showDates'));
 		var settings = {
 				colorScheme: template.find("#colorScheme").value,
         logoUrl: template.find("#logoUrl").value,
@@ -201,18 +202,14 @@ Template.AdminSettings.events({
 function setupParameters(template){
   //set dates
   let showDates = template.dict.get('showDates');
-  //console.log("showDates: " + showDates);
   if(showDates==true){
     $("#user-dates").prop('checked',true);
     $('#static-dates').prop('checked',false);
     $("#setDates").hide();
-    //console.log("date hiddens");
   }else{
     $("#user-dates").prop('checked',false);
     $('#static-dates').prop('checked',true);
-
     $("#setDates").show()
-    //console.log("date show");
   }
   $('#start-datepicker').val(moment(template.dict.get('startDate')).format('YYYY-MM-DD'))
   $('#end-datepicker').val(moment(template.dict.get('endDate')).format('YYYY-MM-DD'))
@@ -223,25 +220,19 @@ function setupParameters(template){
   //set language options
   $("#languageOptions").hide();
   let languageSelector = template.dict.get('languageSelector');
-  //console.log("languageSelector: " + languageSelector);
   if(languageSelector==true){
-    //console.log("languageSelector is true");
     $("#languageSelector").prop('checked', true);
     $("#languageOptions").show()
   }else{
-    //console.log("languageSelector is false");
     $("#languageSelector").prop('checked', false);
     $("#languageOptions").hide()
   }
   //setup whitelist
   let enforceWhitelist = template.dict.get('enforceWhitelist');
-  //console.log("enforceWhitelist: " + enforceWhitelist);
   if(enforceWhitelist==true){
-    //console.log("enforceWhitelistis true");
     $("#enforceWhitelist").prop('checked', true);
     $("#emailWhitelistContainer").show()
   }else{
-    //console.log("enforceWhitelistis false");
     $("#enforceWhitelist").prop('checked', false);
     $("#emailWhitelistContainer").hide()
   }

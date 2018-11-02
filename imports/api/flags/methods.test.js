@@ -22,7 +22,6 @@ if (Meteor.isServer) {
         expect(testFlag).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -33,7 +32,6 @@ if (Meteor.isServer) {
         expect(testFlag).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -45,7 +43,6 @@ if (Meteor.isServer) {
         expect(testFlag).to.not.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });

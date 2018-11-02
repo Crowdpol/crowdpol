@@ -28,7 +28,7 @@ if (Meteor.isServer) {
     afterEach(()=>{
       sinon.restore(Meteor, 'user');
     });
-    
+
     it("Creates a notification", (done) => {
       try {
         expect(notificationId).to.exist;
@@ -37,7 +37,6 @@ if (Meteor.isServer) {
         expect(notification.read).to.equal(false);
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -48,7 +47,6 @@ if (Meteor.isServer) {
         expect(notification).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -60,7 +58,6 @@ if (Meteor.isServer) {
         expect(notification).to.not.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -69,14 +66,11 @@ if (Meteor.isServer) {
       try {
         var notification = Meteor.call('getNotification', notificationId);
         expect(notification.read).to.equal(false);
-        //console.log(Notifications.find().fetch())
         Meteor.call('readNotification', notificationId);
         notification = Meteor.call('getNotification', notificationId);
-        //console.log(Notifications.find().fetch())
         expect(notification.read).to.equal(true);
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });

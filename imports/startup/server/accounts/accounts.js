@@ -13,7 +13,6 @@ function generateSearchString(user){
 }
 
 function normalizeFacebookUser(profile, user) {
-  //console.log("0.2 normalizeFacebookUser");
   const credential = profile.credentials || [];
   credential.push({
     source: 'facebook',
@@ -47,7 +46,6 @@ function normalizeFacebookUser(profile, user) {
 }
 
 function normalizeGoogleUser(profile, user) {
-  //console.log("0.2 normalizeGoogleUser");
   const credential = profile.credentials || [];
   credential.push({
     source: 'google',
@@ -78,9 +76,6 @@ function normalizeGoogleUser(profile, user) {
 }
 
 function normalizeTwitterUser(profile, user) {
-  //console.log(profile);
-  //console.log(user);
-  //console.log("0.2 normalizeTwitterUser");
   const credential = profile.credentials || [];
   credential.push({
     source: 'twitter',
@@ -164,8 +159,6 @@ function normalizeEntity(profile, user) {
 }
 
 function normalizeScriptUser(profile, user) {
-  //console.log("0.2 normalizeScriptUser");
-  //console.log(profile);
   const credential =[];
   credential.push({
     source: 'script',
@@ -188,7 +181,6 @@ function normalizeScriptUser(profile, user) {
 }
 
 function normalizeDemoUser(profile, user) {
-  console.log("0.2 normalizeDemoUser");
   const credential =[];
   credential.push({
     source: 'demo',
@@ -229,10 +221,6 @@ function slugName(firstName,lastName) {
 }
 
 Accounts.onCreateUser((options, user) => {
-  console.log("0. let's start the oncreate process");
-  //console.log(options);
-  //console.log("-");
-  //console.log(user);
   const profile = options.profile;
   if (profile) {
     if (user.services.facebook) {
@@ -248,7 +236,6 @@ Accounts.onCreateUser((options, user) => {
       normalizeDemoUser(profile, user);
       Meteor.call('profiles.initiate_demo', user._id,(error) => {
         if(error){
-          console.log("this is the error: " + error);
           Bert.alert({
               title: 'oh dear',
               message: error,
@@ -268,7 +255,7 @@ Accounts.onCreateUser((options, user) => {
       }
     }
   }
-  normalizeSignupUser(profile, user); 
+  normalizeSignupUser(profile, user);
   generateSearchString(user);
   return user;
 });
@@ -276,12 +263,10 @@ Accounts.onCreateUser((options, user) => {
 
 
 Accounts.onLogin(function(user){
-  //console.log(user);
+
 });
 
 Accounts.validateNewUser((user) => {
-
-  console.log("1. validating username on creation");
 
   //assign random username
   let username = Random.id();
@@ -307,5 +292,3 @@ generateUsername = function(firstName,lastName) {
   }
   return username;
 }
-
-

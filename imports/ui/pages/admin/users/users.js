@@ -77,7 +77,6 @@ Template.AdminUsers.events({
 			fromEmail = Meteor.user().emails[0].address;
 			var hostname = window.location.host;
 			url = 'https://' + hostname + '/login';
-			console.log(url);
 		Meteor.call('sendInvite', email, role, url, fromEmail, function(error){
 			if (error){
 				RavenClient.captureException(error);

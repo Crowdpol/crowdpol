@@ -35,12 +35,11 @@ if (Meteor.isServer) {
           references: ['ref1','ref2'],
           communityId: communityId
         }
-        
+
         id = Meteor.call('createProposal', proposalData);
         expect(id).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -51,7 +50,6 @@ if (Meteor.isServer) {
         expect(proposal).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -75,7 +73,7 @@ if (Meteor.isServer) {
           references: ['ref1','ref2'],
           communityId: communityId
         }
-        
+
         var deletableProposalId = Meteor.call('createProposal', proposalData);
         // stub Meteor's user method to simulate a logged in user
         stub = sinon.stub(Meteor, 'user');
@@ -88,7 +86,6 @@ if (Meteor.isServer) {
         sinon.restore(Meteor, 'user');
       } catch (err) {
         sinon.restore(Meteor, 'user');
-        console.log(err);
         assert.fail();
       }
     });
@@ -101,7 +98,6 @@ if (Meteor.isServer) {
         expect(proposal.status).to.equal('approved');
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -113,7 +109,6 @@ if (Meteor.isServer) {
         expect(proposal.status).to.equal('rejected');
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -122,11 +117,9 @@ if (Meteor.isServer) {
       try {
         Meteor.call('saveProposalChanges', proposalId, {body: 'new body'});
         var proposal = Meteor.call('getProposal', proposalId);
-        console.log(proposal);
         expect(proposal.body).to.equal('new body');
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -138,7 +131,6 @@ if (Meteor.isServer) {
         expect(proposal.tags).to.have.lengthOf(1);
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -152,7 +144,6 @@ if (Meteor.isServer) {
         expect(proposal.tags).to.have.lengthOf(0);
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -163,8 +154,8 @@ if (Meteor.isServer) {
         resetDatabase(null);
         // Create an expired proposal
         proposalToTallyId = Proposals.insert({
-          title: 'title', 
-          abstract: 'abstract', 
+          title: 'title',
+          abstract: 'abstract',
           body: 'body',
           startDate: moment().subtract(3, 'days').toDate(),
           endDate: moment().subtract(1, 'days').toDate(),
@@ -187,7 +178,7 @@ if (Meteor.isServer) {
         for (i=0; i<8; i++){
           var user = allUsers[i];
           Roles.addUsersToRoles(user, 'individual')
-          voters.push(user);  
+          voters.push(user);
         }
 
         // Create 8 delegates
@@ -234,7 +225,7 @@ if (Meteor.isServer) {
 
         //voter 7 has delegate 7
         Ranks.insert({entityType: 'delegate', entityId: delegates[7], supporterId: voters[7]  , ranking: 1})
-        
+
         // Create user votes
         // voters 0, 1, 2 voted yes
         Votes.insert({proposalId: proposalToTallyId, vote: 'yes', voterHash: voters[0]})
@@ -251,7 +242,7 @@ if (Meteor.isServer) {
         // delegates 3, 4 voted yes
         DelegateVotes.insert({proposalId: proposalToTallyId, vote: 'yes', delegateId: delegates[3]})
         DelegateVotes.insert({proposalId: proposalToTallyId, vote: 'yes', delegateId: delegates[4]})
-        // delegates 5, 6, 7 voted no 
+        // delegates 5, 6, 7 voted no
         DelegateVotes.insert({proposalId: proposalToTallyId, vote: 'no', delegateId: delegates[5]})
         DelegateVotes.insert({proposalId: proposalToTallyId, vote: 'no', delegateId: delegates[6]})
         DelegateVotes.insert({proposalId: proposalToTallyId, vote: 'no', delegateId: delegates[7]})
@@ -266,7 +257,6 @@ if (Meteor.isServer) {
           expect(Proposals.findOne({_id: proposalToTallyId}).readyToTally).to.equal(true);
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -275,8 +265,8 @@ if (Meteor.isServer) {
       it("Does not break if no one voted", (done) => {
         try {
           unvotedProposalId = Proposals.insert({
-            title: 'title', 
-            abstract: 'abstract', 
+            title: 'title',
+            abstract: 'abstract',
             body: 'this proposal has not yet been voted on',
             startDate: moment().subtract(3, 'days').toDate(),
             endDate: moment().subtract(1, 'days').toDate(),
@@ -290,7 +280,6 @@ if (Meteor.isServer) {
           expect(Votes.find({vote: 'no', proposalId: unvotedProposalId}).count()).to.equal(0);
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });

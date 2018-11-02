@@ -4,7 +4,6 @@ import { Ranks } from './Ranks.js';
 
 Meteor.methods({
     addRank: function (entityType,entityId,ranking,communityId) {
-      //console.log(communityId);
       check(entityType, String);
       check(entityId, String);
       check(ranking, Number);
@@ -21,7 +20,6 @@ Meteor.methods({
     },
     getRank: function (rankID) {
       check(rankID, String);
-      //console.log("method getRank called");
       return Ranks.findOne({_id: rankID});
     },
     deleteRank: function (rankID) {
@@ -32,7 +30,6 @@ Meteor.methods({
       check(userId, String);
       check(type, String);
       check(communityId, String);
-      //console.log("getRank: userId: " + userId + " type: " + type + " communityId:" + communityId);
       results = Ranks.aggregate([
         { $match: {"supporterId" : userId,"entityType" : type,"communityId":communityId}},
         {$project:{"_id": 0,"entityId" :1}}
