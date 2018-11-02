@@ -139,10 +139,18 @@
               <span class="section-heading">Homepage</span>
               <div class="settings-subsection">
                 <!-- homepageImageUrl -->
-            		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="homepageImageUrl" name="homepageImageUrl" value="{{homepageImageUrl}}">
-            			<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.homepageImageUrl"}}</label>
-            		</div>
+                  <input type="hidden" id="homepageImageUrl" name="homepageImageUrl" value="{{homepageImageUrl}}">
+                <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="startDate">
+                  <label class="mdl-textfield__label">{{_"admin.communities.homepageImageUrl"}}</label>
+                  <select class="mdl-textfield__input" id="bgSelect">
+                    <option value="syntropi_grey.jpg">syntropi_grey.jpg</option>
+                    <option value="syntropi_hands.jpg">syntropi_hands.jpg</option>
+                    <option value="wave-bg.jpg">wave-bg.jpg</option>
+                    <option value="deep_blue_hands.jpg">deep_blue_hands.jpg</option>
+                    <option value="bangor.jpg">bangor.jpg</option>
+                  </select>
+                </div>
+                <img src="{{homepageImageUrl}}" alt="Homepage Image" class="image-preview" id="background-image-preview">
                 <br>
             		<!-- homepageBannerText -->
             		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

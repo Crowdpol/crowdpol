@@ -88,7 +88,7 @@ Template.AdminSettings.helpers({
   },
   aboutText: function(){
     return Template.instance().dict.get('aboutText');
-  },
+  }
 });
 
 Template.AdminSettings.events({
@@ -126,6 +126,11 @@ Template.AdminSettings.events({
     Template.instance().dict.set('showDates',false)
 		$("#setDates").show()
 	},
+  'change #bgSelect' (event, template){
+    var path = "/img/" + template.find("#bgSelect").value;
+    $('img#background-image-preview').prop('src', path);
+    $('#homepageImageUrl').val(path);
+  },
   'blur #start-datepicker' (event, template){
     var startDate = moment(template.find("#start-datepicker").value,'YYYY-MM-DD');
     if(!startDate.isValid()){
