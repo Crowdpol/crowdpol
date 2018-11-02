@@ -50,7 +50,7 @@ entityData = {
 if (Meteor.isServer) {
 
   describe('User Methods', () => {
-    
+
     beforeEach(()=>{
       Factory.define('user', Meteor.users, schema.User);
       userId = Factory.create('user', generateDoc(schema.User))._id
@@ -69,7 +69,6 @@ if (Meteor.isServer) {
           expect(Accounts.users.find({_id: id}).count()).to.equal(1);
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -80,7 +79,6 @@ if (Meteor.isServer) {
           expect(user).to.exist
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -91,7 +89,6 @@ if (Meteor.isServer) {
           expect(Meteor.call('getUser', userId)).to.not.exist
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -113,14 +110,13 @@ if (Meteor.isServer) {
           // Add a role
           Meteor.call('toggleRole', 'delegate', true);
           var user = Meteor.call('getUser', userId);
-          expect(user.roles).to.include('delegate'); 
+          expect(user.roles).to.include('delegate');
           // Remove a role
           Meteor.call('toggleRole', 'delegate', false);
           var user = Meteor.call('getUser', userId);
-          expect(user.roles).to.not.include('delegate');     
+          expect(user.roles).to.not.include('delegate');
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -135,7 +131,6 @@ if (Meteor.isServer) {
           expect(profile).to.exist;
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -148,7 +143,6 @@ if (Meteor.isServer) {
           expect(user.profile.lastName).to.equal(updateProfile.lastName)
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -160,7 +154,6 @@ if (Meteor.isServer) {
           expect(user.profile.tags).to.have.lengthOf(1);
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -173,7 +166,6 @@ if (Meteor.isServer) {
           expect(tags[0].keyword).to.equal('text');
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -186,7 +178,6 @@ if (Meteor.isServer) {
           expect(user.profile.tags).to.have.lengthOf(0);
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -203,7 +194,6 @@ if (Meteor.isServer) {
           expect(user.isPublic).to.equal(false)
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -216,23 +206,21 @@ if (Meteor.isServer) {
           expect(Meteor.call('updateUsernameIsUnique', 'uniqueUsername')).to.equal(false);
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
-      
+
     }); // End of Profile Methods
 
     describe('Entity Methods', () => {
 
-      it("Creates an entity", (done) => {  
+      it("Creates an entity", (done) => {
         try {
           var id = Meteor.call('addEntity', entityData);
           entity = Meteor.call('getUser', id);
           expect(entity).to.exist;
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -269,7 +257,6 @@ if (Meteor.isServer) {
           expect(testEntity.approvals).to.have.lengthOf(1);
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -282,7 +269,6 @@ if (Meteor.isServer) {
           expect(testEntity.approvals).to.have.lengthOf(0);
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -297,7 +283,6 @@ if (Meteor.isServer) {
           expect(testEntity.approvals[0].status).to.equal('Approved')
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });
@@ -312,7 +297,6 @@ if (Meteor.isServer) {
           expect(Meteor.call('isApproved', testEntityId)).to.equal(true);
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });

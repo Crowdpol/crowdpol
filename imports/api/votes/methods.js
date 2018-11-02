@@ -16,7 +16,7 @@ Meteor.methods({
       throw new Meteor.Error(422, 'Please vote yes or no');
     if (!proposal)
       throw new Meteor.Error(422, 'You must vote on a proposal');
-   
+
     var salt = user.username;
     var voterHash = CryptoJS.SHA256(user._id + salt).toString(CryptoJS.enc.SHA256);
 
@@ -26,7 +26,7 @@ Meteor.methods({
         delegateId: voteData.delegateId,
         voterHash: voterHash
       }
-  
+
     //if the user has already voted for that proposal, update their vote
     var existingVote = Votes.findOne({proposalId: vote.proposalId, voterHash: voterHash});
     if (existingVote){
@@ -69,7 +69,6 @@ Meteor.methods({
             }
         }},
     ]);
-    //console.log(results);
     return results;
   },
 });

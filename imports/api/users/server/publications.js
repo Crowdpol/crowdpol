@@ -24,14 +24,14 @@ Meteor.publish('users.usernames', function() {
   return Meteor.users.find({}, {fields: {'profile.username': 1}});
 });
 
-// Publish approvals to list 
+// Publish approvals to list
 Meteor.publish('users.pendingApprovals', function(communityId) {
 	return Meteor.users.find(
     {
       "profile.communityIds" : communityId,
-      "approvals" : {$exists: true}, 
+      "approvals" : {$exists: true},
       $where : "this.approvals.length > 0"
-    }, 
+    },
     {fields: {_id: 1, profile: 1,roles: 1,isPublic: 1, approvals: 1}}
   );
 })
@@ -58,7 +58,7 @@ Meteor.publish('users.delegates', function (communityId) {
   if (tag){
     return Meteor.users.find(
     {
-      roles: 'candidate', 
+      roles: 'candidate',
       'profile.tags': { $elemMatch: {_id: tag._id}}
     },
     defaultUserProjection);
@@ -70,40 +70,13 @@ Meteor.publish('users.delegatesWithTag', function (keyword, communityId) {
   if (tag){
     return Meteor.users.find(
     {
-      roles: 'delegate', 
+      roles: 'delegate',
       'profile.tags': { $elemMatch: {_id: tag._id}},
       'profile.communityIds': communityId
     },
     defaultUserProjection);
   }
 });
-
-/*Meteor.publish("user.ranks", function(userId,type) {
-  results = Ranks.aggregate([
-        { $match: {"supporterId" : "ayekMtRQgoj3PAchM","entityType" : "delegate"}},
-        {$project:{"_id": 0,"entityId" :1}}
-  ]).map(function(el) { return el.entityId });
-  console.log(results);
-  return Meteor.users.find( {_id : {$in : result}}, defaultUserProjection );
-  
-  check(userId, String);
-  check(type, String);
-  console.log("ranks.type: userId: " + userId + " type: " + type);
-  var ranks = [];
-  Meteor.call('getRank',Meteor.userId(),'delegate',function(error,result){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("meteor call return: " + result.length);
-        ranks = result;
-        console.log(ranks);
-        users =  Meteor.users.find( { _id : { $in : ranks } } );
-        console.log(users);
-        return users;
-      }
-  });
-  
-});*/
 
 Meteor.publish('simpleSearch', function(search, type, communityId) {
   check( search, Match.OneOf( String, null, undefined ) );

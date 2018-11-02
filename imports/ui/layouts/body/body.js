@@ -37,7 +37,6 @@ Template.App_body.onCreated(function() {
               import '../../stylesheets/color-schemes/default.scss';
         }
       } catch(err) {
-        console.log(err)
         import '../../stylesheets/color-schemes/default.scss';
         Bert.alert(TAPi18n.__('layout.body.no-styles'), 'danger');
       }
@@ -53,13 +52,12 @@ Template.App_body.helpers({
 
 Template.App_body.onRendered(function () {
   $('.mdl-layout__obfuscator-right').click(function(){
-    console.log("obfuscator");
-   if($('.mdl-layout__drawer-right').hasClass('active')){    
-      $('.mdl-layout__drawer-right').removeClass('active'); 
+   if($('.mdl-layout__drawer-right').hasClass('active')){
+      $('.mdl-layout__drawer-right').removeClass('active');
       Session.set('drawerId','');
    }
    else{
-      $('.mdl-layout__drawer-right').addClass('active'); 
+      $('.mdl-layout__drawer-right').addClass('active');
    }
   });
 })

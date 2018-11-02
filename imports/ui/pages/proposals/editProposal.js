@@ -84,7 +84,6 @@ Template.EditProposal.onRendered(function(){
 				self.find('#endDate').value = self.templateDictionary.get('endDate');
 			}
 			Session.set("formRendered", false);
-			//console.log(this);
 		}
 	});
 	//THIS IS VERY IMPORTANT, WEIRD SHIT HAPPENS IF YOU LEAVE THIS OUT
@@ -279,18 +278,6 @@ function saveChanges(event, template, returnTo){
 			startDate = new Date(template.find('#startDate').value);
 			endDate = new Date(template.find('#endDate').value);
 		}
-		//console.log("getTags()");
-		//console.log(getTags());
-		/*Meteor.call('transformTags', getTags(), communityId, function(error, proposalTags){
-			if (error){
-				RavenClient.captureException(error);
-				Bert.alert(error, 'reason');
-				return false;
-			} else {
-
-				console.log("retrn from transformTags");
-				console.log(proposalTags);
-		*/
 				let newProposal = {
 					content: content,
 					// Non-translatable fields
@@ -302,7 +289,7 @@ function saveChanges(event, template, returnTo){
 					communityId: LocalStore.get('communityId'),
 					stage: "draft"
 				};
-				//console.log(newProposal);
+
 				var proposalId = FlowRouter.getParam("id");
 
 				template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
@@ -338,8 +325,6 @@ function createProposal(propsalId,newProposal,returnTo,template){
 			 			RavenClient.captureException(error);
 			 			Bert.alert(error.reason, 'danger');
 			 			return false;
-				 } else {
-					 //console.log("arguments added");
 				 }
 			 });
 			 //Create notifications for collaborators
@@ -361,39 +346,12 @@ function createProposal(propsalId,newProposal,returnTo,template){
 }
 
 function saveProposal(proposalId,newProposal,returnTo,template){
-	//console.log("Save Proposal function called");
 	Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
 	if (error){
 			RavenClient.captureException(error);
 			Bert.alert(error.reason, 'danger');
 			return false;
 		} else {
-			/*
-			console.log("catch the problematic old invites");
-			console.log(newProposal);
-			console.log(Proposals.findOne(proposalId));
-			var oldInvites = Proposals.findOne(proposalId).invited;
-
-			var newInvites = null;
-			if('invited' in newProposal){
-				newInvites = newProposal.invited;
-			}
-	 		if (oldInvites && newInvites) {
-				// Only send new invites if new collaborators have been added
-				var newCollaborators = _.difference(newInvites, oldInvites);
-				if (newCollaborators) {
-					// Create notification for each new collaborator
-					for (i=0; i<newCollaborators.length; i++) {
-						var notification = {
-							message: TAPi18n.__('notifications.proposals.invite'),
-							userId: newCollaborators[i],
-							url: '/proposals/view/' + proposalId,
-							icon: 'people'
-						}
-						Meteor.call('createNotification', notification);
-					}
-				}
-			}*/
 			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
 			FlowRouter.go(returnTo, {id: proposalId});
 		}

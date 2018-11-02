@@ -45,10 +45,7 @@ Template.AdminVoting.helpers({
   },
   title: function(proposal) {
     var language = TAPi18n.getLanguage();
-    //console.log(language);
-    //console.log(this.content);
     var translation = _.find(proposal.content, function(item){ return item.language == language});
-    //console.log(translation);
     if (translation) {
       var title = translation.title;
       if (title && /\S/.test(title)) {

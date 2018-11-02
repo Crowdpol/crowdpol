@@ -14,7 +14,6 @@ Template.AdminApprovals.helpers({
     //var result = Meteor.users.find({"approvals" : {$exists: true}, $where : "this.approvals.length > 0"});
     var result = Meteor.users.find({"approvals": {$elemMatch: {status:'Requested'}}});
     //var result = Meteor.call('getRequests');
-    //console.log(result);
     return result;
   },
   checkStatus: (status)=> {
@@ -29,7 +28,6 @@ Template.AdminApprovals.helpers({
   	userId = Session.get('userId');
   	if (userId) {
 		user = Meteor.users.findOne({_id: userId});
-		//console.log(user);
 		return user;
 	} else {
 		return false;

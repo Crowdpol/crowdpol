@@ -4,7 +4,6 @@ import "./styles.css"
 
 Template.DelegateVotes.onRendered( function() {
 	proposalId = FlowRouter.getParam("id");
-	console.log(proposalId);
 	var data = {labels: ['Error'],series: [100]};
 	Meteor.call('getProposalDelegateVotes', proposalId, function(error, result){
 	    if (error){
@@ -42,7 +41,7 @@ Template.DelegateVotes.onRendered( function() {
 	    }
 	  })
 
-	
+
 });
 
 Template.DelegateVotes.onCreated(function () {});
@@ -55,7 +54,6 @@ Template.DelegateVotes.events({});
 
 Template.IndividualVotes.onRendered( function() {
 	proposalId = FlowRouter.getParam("id");
-	console.log(proposalId);
 	var data = {labels: ['Error'],series: [100]};
 	Meteor.call('getProposalIndividualVotes', proposalId, function(error, result){
 	    if (error){
@@ -93,7 +91,7 @@ Template.IndividualVotes.onRendered( function() {
 	    }
 	  })
 
-	
+
 });
 
 Template.IndividualVotes.onCreated(function () {});
@@ -111,34 +109,27 @@ Template.DelegateVoteBar.onCreated(function () {
 });
 Template.DelegateVoteBar.onRendered( function() {
 	var id = $("#delegateVoteBar").data("proposal-id");
-	
+
 	if(id){
 		Template.instance().proposalId.set(id)
-		console.log(Template.instance().proposalId.get());
 		Meteor.call('getProposalDelegateVotes', id, function(error, result){
 			if (error){
 		      Bert.alert(error.reason, 'danger');
 		    } else {
-		      console.log(result);
-
 		      if(result.length == 1){
 		      	percent = yesNoPercent(result[0].yesCount,result[0].noCount);
 		      	$('div#delegateYesBar').width(percent.yes);
 				$('div#delegateNoBar').width(percent.no);
-				console.log("setting propertiesSet to true");
 				Template.instance().propertiesSet.set(true);
 			  }
 			}
 		});
-	}else{
-		console.log("could not determine id");
 	}
 
 });
 
 Template.DelegateVoteBar.helpers({
 	propertiesSet() {
-		console.log(Template.instance().propertiesSet.get());
 		return Template.instance().propertiesSet.get();
 	},
 	yesTotals(){
@@ -158,34 +149,27 @@ Template.IndividualVoteBar.onCreated(function () {
 });
 Template.IndividualVoteBar.onRendered( function() {
 	var id = $("#individualVoteBar").data("proposal-id");
-	
+
 	if(id){
 		Template.instance().proposalId.set(id)
-		console.log(Template.instance().proposalId.get());
 		Meteor.call('getProposalDelegateVotes', id, function(error, result){
 			if (error){
 		      Bert.alert(error.reason, 'danger');
 		    } else {
-		      console.log(result);
-
 		      if(result.length == 1){
 		      	percent = yesNoPercent(result[0].yesCount,result[0].noCount);
 		      	$('div#individualYesBar').width(percent.yes);
 				$('div#individualNoBar').width(percent.no);
-				console.log("setting propertiesSet to true");
 				Template.instance().propertiesSet.set(true);
 			  }
 			}
 		});
-	}else{
-		console.log("could not determine id");
 	}
 
 });
 
 Template.IndividualVoteBar.helpers({
 	propertiesSet() {
-		console.log(Template.instance().propertiesSet.get());
 		return Template.instance().propertiesSet.get();
 	},
 	yesTotals(){
@@ -207,6 +191,5 @@ function yesNoPercent(yesCount,noCount){
 	yesPercent = Math.round(yesCount * 100 / total);
 	noPercent = Math.round(noCount * 100 / total);
 	var result = {"yes":yesPercent + "%","no":noPercent+"%"};
-	//console.log(result);
 	return result;
 }

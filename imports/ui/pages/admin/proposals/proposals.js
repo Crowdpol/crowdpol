@@ -18,12 +18,10 @@ Template.AdminProposals.helpers({
   },
   liveProposals: function() {
     let liveProposals = Proposals.find({stage: "live"});
-    //console.log("liveProposals: " + liveProposals.count());
     return liveProposals;
   },
   allProposals: function() {
     let allProposals = Proposals.find();
-    //console.log("allProposals: " + allProposals.count());
     return allProposals;
   },
 });
@@ -38,12 +36,8 @@ Template.AdminProposal.onCreated(function() {
 
 Template.AdminProposal.helpers({
   title: function(proposal) {
-    //console.log(proposal);
     var language = TAPi18n.getLanguage();
-    //console.log(language);
-    //console.log(this.content);
     var translation = _.find(proposal.content, function(item){ return item.language == language});
-    //console.log(translation);
     if (translation) {
       var title = translation.title;
       if (title && /\S/.test(title)) {
@@ -70,7 +64,6 @@ Template.AdminProposal.helpers({
     return moment(this.lastModified).format('MMMM Do YYYY');
   },
   contributerCount: function(proposal){
-    //console.log(proposal)
     //return proposal.invited.length;
   }
 });
@@ -254,16 +247,11 @@ Template.ProposalModal.helpers({
     return Session.get("showApproval");
   },
   argumentsFor: function(language){
-    //console.log(language)
     proposal = Session.get("proposal");
-    //console.log("{proposalId: " + proposal._id + ",type:'for',language:" + language + "}");
-    //console.log(Comments.find({proposalId: proposal._id,type:"for",language:language}).count());
     return Comments.find({proposalId: proposal._id,type:"for",language:language});
   },
   argumentsAgainst: function(language){
-    //console.log(language)
     proposal = Session.get("proposal");
-    //console.log(Comments.find({proposalId: proposal._id,type:"against",language:language}).count());
     return Comments.find({proposalId: proposal._id,type:"against",language:language});
   }
 });

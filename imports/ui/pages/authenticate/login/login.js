@@ -25,7 +25,6 @@ Template.Login.onRendered( function() {
 Template.Login.events({
 	'submit #login-form' (event, template){
 		event.preventDefault();
-		console.log('running')
 
 		let email = template.find('[name="login-email"]').value;
 			password = template.find('[name="login-password"]').value;
@@ -56,7 +55,7 @@ Template.Login.events({
               } else {
                 FlowRouter.go('/proposals');
               }
-            } 
+            }
           }
 			}
 		});

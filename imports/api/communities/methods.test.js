@@ -28,7 +28,6 @@ if (Meteor.isServer) {
           expect(Communities.find({_id: id}).count()).to.equal(1);
           done();
         } catch (err) {
-          console.log(err);
           assert.fail();
         }
       });

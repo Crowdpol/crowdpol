@@ -39,7 +39,6 @@ Template.ProposalCard.helpers({
     return Session.get("canVote");
   },
   proposalStage: function(proposal) {
-    //console.log(proposal);
     var stage = proposal.stage;
     return stage.charAt(0).toUpperCase() + stage.slice(1);
   },
@@ -49,7 +48,6 @@ Template.ProposalCard.helpers({
 
   },
   tags: function(proposal){
-    //console.log(proposal.tags);
     return Tags.find({_id: {$in: proposal.tags},"authorized" : true});
   },
   userIsAuthor: function(proposalId) {
@@ -94,7 +92,6 @@ Template.ProposalCard.events({
     if (window.confirm(TAPi18n.__('pages.proposals.list.confirmDelete'))){
       Meteor.call('deleteProposal', proposalId, function(error){
         if (error){
-          //console.log(error.reason);
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
         } else {

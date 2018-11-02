@@ -10,7 +10,6 @@ Template.Authenticate.events({
 		Meteor.logout();
 	},
 	'click #login-facebook'(event) {
-		console.log("fb click");
 		event.preventDefault();
 		Meteor.loginWithFacebook({requestPermissions: ['public_profile', 'email']}, function(err){
 			if (err) {
@@ -69,16 +68,16 @@ Template.Authenticate.events({
 		    case 'party':
 		        $("#individual-signup-form").hide();
 		        $("#entity-signup-form").show();
-		        break; 
+		        break;
 		    case 'organisation':
 		        $("#individual-signup-form").hide();
 		        $("#entity-signup-form").show();
-		        break; 
+		        break;
 		    case 'individual':
 		    	$("#individual-signup-form").show();
 		        $("#entity-signup-form").hide();
-		        break; 
-		    default: 
+		        break;
+		    default:
 		        $("#individual-signup-form").show();
 		        $("#entity-signup-form").hide();
 		}
@@ -86,7 +85,7 @@ Template.Authenticate.events({
 	'click #terms-checkbox-label' (event, template) {
 		var termsCheckbox = self.find('#terms-checkbox-label').MaterialCheckbox;
 		var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
-		if (termsAccepted) {  
+		if (termsAccepted) {
 			termsCheckbox.uncheck();
 			Session.set('termsAccepted', false);
 		} else {
@@ -98,9 +97,5 @@ Template.Authenticate.events({
 });
 
 Template.Authenticate.onRendered( function() {
-	if (Meteor.user()){
-		console.log("user signed in... redirect");
-	}else{
-		console.log("login page rendered");
-	}
+
 });

@@ -107,9 +107,7 @@ Template.DashProfile.helpers({
 	tags: ()=> {
     users = Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1}}).fetch();
     tagsArray = users[0].profile.tags;
-    console.log(users);
     if(typeof tagsArray != 'undefined'){
-      console.log(tagsArray);
       return Tags.find({_id: {$in: tagsArray}});
     }
 	},
@@ -124,9 +122,7 @@ Template.DashInterests.helpers({
 	tags: ()=> {
 		users = Meteor.users.find({_id: Meteor.userId()},{fields: {profile: 1}}).fetch();
     tagsArray = users[0].profile.tags;
-    console.log(users);
     if(typeof tagsArray != 'undefined'){
-      console.log(tagsArray);
       return Tags.find({_id: {$in: tagsArray}});
     }
     //return users[0].profile.tags;

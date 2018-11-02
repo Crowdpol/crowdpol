@@ -2,6 +2,13 @@
 
 /* Create new Community form */
 
+img.image-preview{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+
 #new-community-form {
   .mdl-textfield {
     display: block;
@@ -28,7 +35,7 @@
   .mdl-data-table tbody tr {
     height: auto;
   }
-  
+
   .mdl-data-table tbody tr:nth-child(even) {
     background-color: #eee;
   }
@@ -52,9 +59,9 @@
     font-family: Helvetica, Arial, sans-serif;
     font-size: 12px;
   }
-  
+
   .mdl-data-table td:last-of-type {
     padding-right: 18px;
   }
-  
+
 }

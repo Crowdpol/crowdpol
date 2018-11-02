@@ -66,7 +66,6 @@ Template.ViewProposal.onRendered(function(language){
 
 Template.ViewProposal.events({
   'click .minilogo, click .proposal-author' (event,template){
-    //console.log("show right drawer: " + Template.instance().templateDictionary.get( 'authorId' ));
     Session.set('drawerId',Template.instance().templateDictionary.get( 'authorId' ));
     if($('.mdl-layout__drawer-right').hasClass('active')){
       $('.mdl-layout__drawer-right').removeClass('active');
@@ -204,7 +203,6 @@ Template.ViewProposal.helpers({
   },
   tags: function() {
     let tagsArray = Template.instance().templateDictionary.get( 'tags' );
-    console.log(tagsArray);
     if(userIsAuthor()){
       return Tags.find({_id: {$in: tagsArray}});
     }
@@ -255,7 +253,6 @@ Template.ViewProposal.helpers({
     var startDate = Template.instance().templateDictionary.get('startDate');
     var endDate = Template.instance().templateDictionary.get('endDate');
     var isOpen = ((moment().isAfter(startDate, 'minute')) && (moment().isBefore(endDate, 'minute')))
-    //console.log("stage: " + stage + " status: " + status);
     //Should be live, approved and between the start and end dates
     if ((stage == 'live') && (status == 'approved') && (isOpen)) {
       return true;
@@ -282,16 +279,6 @@ Template.ViewProposal.helpers({
     }
   },
   getProposalLink: function() {
-    /*
-    console.log(Meteor.absoluteUrl());
-    var url = window.location.href;
-    var hostname = window.location.host;
-    var subdomain = window.location.host.split('.')[0];
-    console.log(url);
-    console.log(hostname);
-    console.log(subdomain);
-    return Meteor.absoluteUrl() + "proposals/view/" + proposalId;
-    */
     return window.location.href;
   },
   signatureCount: function(){
