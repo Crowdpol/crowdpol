@@ -307,6 +307,13 @@ adminRoutes.route('/communities', {
   }
 });
 
+adminRoutes.route('/upload', {
+  name: 'App.admin.upload',
+  action() {
+    BlazeLayout.render('App_body', {main: 'AdminUpload'});
+  }
+});
+
 function loadCommunityInfo() {
   //check for crowdpol:
   var hostname = window.location.host;

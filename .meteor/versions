@@ -111,6 +111,8 @@ oauth1@1.2.0
 oauth2@1.2.0
 observe-sequence@1.0.16
 ordered-dict@1.0.9
+ostrio:cookies@2.2.7
+ostrio:files@1.9.7
 percolate:synced-cron@1.3.2
 practicalmeteor:chai@2.1.0_1
 practicalmeteor:loglevel@1.2.0_2
