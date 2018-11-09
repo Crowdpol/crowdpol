@@ -80,7 +80,7 @@ Template.entitySignup.events({
           'contactPerson': template.find('#entity-contact').value,
           'type': 'Entity',
           'communityIds': [communityId],
-          'roles': [role, 'delegate'],
+          'roles': [role],
           termsAccepted: termsAccepted
         };
 
