@@ -338,15 +338,30 @@ Meteor.methods({
 });
 
 function profileIsComplete(user){
-  var profile = {
-    username: user.profile.username,
-    firstName: user.profile.firstName,
-    lastName: user.profile.lastName,
-    photo: user.profile.photo,
-    bio: user.profile.bio,
-    website: user.profile.website,
-    //tags: user.profile.tags
-  };
+  if(typeof user.profile.type == 'undefined'){
+    var profile = {
+      username: user.profile.username,
+      firstName: user.profile.firstName,
+      lastName: user.profile.lastName,
+      photo: user.profile.photo,
+      bio: user.profile.bio,
+      website: user.profile.website,
+      //tags: user.profile.tags
+    };
+  }else{
+    var profile = {
+      username: user.profile.username,
+      firstName: user.profile.firstName,
+      photo: user.profile.photo,
+      bio: user.profile.bio,
+      website: user.profile.website,
+      phoneNumber: user.profile.phoneNumber,
+      contactPerson: user.profile.contactPerson
+      //credentials: template.templateDictionary.get('credentials'),
+      //type: template.type.get(),
+    }
+  }
+
   var isComplete = true;
   var profileFields = _.keys(profile);
   public = profile;
