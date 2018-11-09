@@ -363,7 +363,6 @@ function profileIsComplete(user){
   }
 
   var isComplete = true;
-  console.log(profile);
   var profileFields = _.keys(profile);
   public = profile;
   //if (!profile.tags || profile.tags.length < 5){
@@ -379,6 +378,5 @@ function profileIsComplete(user){
       }
     });
   //}
-  console.log("isComplete: " + isComplete);
   return isComplete;
 }

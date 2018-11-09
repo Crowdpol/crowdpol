@@ -592,7 +592,7 @@ function checkProfileIsComplete(template){
 
   //8. Calculate score total based on profile type (individual = 6, entity = 5)
   //var profileType = template.templateDictionary.get('profileType');
-  console.log("completedScore: " + completedScore);
+  //console.log("completedScore: " + completedScore);
 
   //9. Update progress bar
   var percentage = completedScore * 100 / totalScore + '%';
