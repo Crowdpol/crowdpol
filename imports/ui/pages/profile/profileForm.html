@@ -96,7 +96,7 @@
 						</div>
 						<div style="float: right;">
 						{{#if bioCompleted}}
-							<span style="color: grey; font-size: 10px">{{bioCount}} {{_ "pages.profile.characters"}} ({{_ "pages.profile.min"}} 50, {{_ "pages.profile.max"}} 160)</span>
+							<span style="color: grey; font-size: 10px">{{bioCount}} {{_ "pages.profile.characters"}} ({{_ "pages.profile.min"}} 50, {{_ "pages.profile.max"}} 520)</span>
 						{{else}}
 							<span style="color: red; font-size: 10px">{{_ "pages.profile.bio-count" bioCount=bioCount}}</span>
 						{{/if}}
@@ -123,12 +123,12 @@
 							<span id="valid-url" class="valid-username"></span>
 						</div>
 						<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							<textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio" id="profile-bio">{{bio}}</textarea>
+							<textarea class="mdl-textfield__input" type="text" rows="10" name="profileBio" id="profile-bio">{{bio}}</textarea>
 							<label class="mdl-textfield__label" for="profile-bio">{{_ "form.bio"}}</label>
 						</div>
 						<div style="float: right;">
 						{{#if bioCompleted}}
-							<span style="color: grey; font-size: 10px">{{bioCount}} {{_ "pages.profile.characters"}} ({{_ "pages.profile.min"}} 50, {{_ "pages.profile.max"}} 160)</span>
+							<span style="color: grey; font-size: 10px">{{bioCount}} {{_ "pages.profile.characters"}} ({{_ "pages.profile.min"}} 50, {{_ "pages.profile.max"}} 520)</span>
 						{{else}}
 							<span style="color: red; font-size: 10px">{{_ "pages.profile.bio-count" bioCount=bioCount}}</span>
 						{{/if}}
