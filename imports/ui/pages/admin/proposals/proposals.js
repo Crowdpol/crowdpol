@@ -70,24 +70,24 @@ Template.AdminProposal.helpers({
 
 Template.AdminProposal.events({
   'click .delete-proposal': function(event, template){
+    if (window.confirm('Are you sure you want to delete this proposal?')){
+  		proposalId = event.target.dataset.id;
 
-		proposalId = event.target.dataset.id;
-
-    Meteor.call('deleteProposal',proposalId, function(error){
-      if (error){
-        RavenClient.captureException(error);
-        Bert.alert(error.reason, 'danger');
-      } else {
-        // Create notification
-        /*
-        var message = TAPi18n.__('notifications.proposals.approved');
-        var url = '/proposals/view/' + proposalId;
-        Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'check'});
-        */
-        Bert.alert("Proposal deleted", 'success');
-      }
-    });
-
+      Meteor.call('deleteProposal',proposalId, function(error){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          // Create notification
+          /*
+          var message = TAPi18n.__('notifications.proposals.approved');
+          var url = '/proposals/view/' + proposalId;
+          Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'check'});
+          */
+          Bert.alert("Proposal deleted", 'success');
+        }
+      });
+    }
   },
 	'click .preview-proposal': function(event, template){
 		proposalId = event.target.dataset.id;

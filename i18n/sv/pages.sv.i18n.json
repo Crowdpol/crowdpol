@@ -271,6 +271,7 @@
 				"invited": "Samarbete brukar ge bästa resultat. Bjud in andra att hjälpa till med detta förslag genom att fylla i deras användarnamn. Saknar du användarnamn går det även att fylla i deras e-postadress.",
 				"tags": "Tagga ditt förslag:",
 				"pointFor": "Argument För:",
+				"argument": "Lägg till ett argument",
 				"pointAgainst": "Argument Emot:",
 				"alerts": {
 					"saving": "Sparar...",

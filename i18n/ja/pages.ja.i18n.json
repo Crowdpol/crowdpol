@@ -269,6 +269,7 @@
 				"tags": "JA: Add some tags your proposal:",
 				"pointFor": "JA: Points For:",
 				"pointAgainst": "JA: Points Against:",
+				"argument": "JA: Add an argument",
 				"alerts": {
 					"saving": "JA: Saving...",
 					"changes-saved": "JA: Changes Saved",

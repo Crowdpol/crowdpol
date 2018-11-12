@@ -269,6 +269,7 @@
 				"tags": "CY: Add some tags your proposal:",
 				"pointFor": "CY: Points For:",
 				"pointAgainst": "CY: Points Against:",
+				"argument": "CY: Add an argument",
 				"alerts": {
 					"saving": "CY: Saving...",
 					"changes-saved": "CY: Changes Saved",
