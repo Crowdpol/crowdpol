@@ -15,6 +15,11 @@
 						{{/if}}
 					</span>
 				</a>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="/about">{{_ "layout.header.nav_about"}}</a>
+					<a class="mdl-navigation__link" href="/faq">{{_ "layout.header.nav_faq"}}</a>
+					<a class="mdl-navigation__link" href="/contact">{{_ "layout.header.nav_contact"}}</a>
+				</nav>
 			{{else}}
 				<a href="/">
 					<span class="mdl-layout-title">
@@ -60,6 +65,21 @@
 					<!--
 					<a class="mdl-navigation__link" href="/candidate">{{_ "layout.header.nav_nominate"}}</a>
 					-->
+					<a id="profile-image-header" class="mdl-navigation__link" href="/profile">
+						<img src="{{userPhoto}}" class="mdl-list__item-avatar">
+					</a>
+					<a id="profile-dropdown" class="mdl-navigation__link">
+						<i class="material-icons">arrow_drop_down</i>
+					</a>
+					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="profile-dropdown">
+						<li class="mdl-menu__item role-menu-item" data-role="Individual">
+								{{_ "pages.voting.heading.individual"}}
+									<i class="material-icons small">check</i>
+						</li>
+						<li class="mdl-menu__item">
+							<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
+						</li>
+					</ul>
 					{{#unless currentUser}}
 						<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
 					{{/unless}}
@@ -77,9 +97,7 @@
 							<button id="language-menu" class="mdl-button mdl-js-button">
 								<i class="material-icons">language</i>{{ lang }}
 							</button>
-
-							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-									for="language-menu">
+							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="language-menu">
 									{{#each langs}}
 										<li class="mdl-menu__item lang-sel" id="{{this}}">{{getLang this}}</li>
 									{{/each}}
