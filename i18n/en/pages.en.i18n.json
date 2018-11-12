@@ -270,6 +270,7 @@
 				"confirm-back": "Are you sure you want to go back? Any unsaved changes will be lost.",
 				"invited": "Invite others to collaborate by entering their usernames. If not found, enter an email address.",
 				"tags": "Add some tags your proposal:",
+				"argument": "Add an argument",
 				"pointFor": "Points For:",
 				"pointAgainst": "Points Against:",
 				"alerts": {
