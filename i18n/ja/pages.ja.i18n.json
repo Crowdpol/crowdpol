@@ -269,6 +269,7 @@
 				"tags": "JA: Add some tags your proposal:",
 				"pointFor": "JA: Points For:",
 				"pointAgainst": "JA: Points Against:",
+				"argument": "JA: Add an argument",
 				"alerts": {
 					"saving": "JA: Saving...",
 					"changes-saved": "JA: Changes Saved",
@@ -383,8 +384,8 @@
 			"alerts": {
 				"invalid-url": "JA: Please enter a valid url, starting with 'http' or 'https'.",
 				"username": "JA: Username required.",
-				"username-min": "JA: Minimum of 5 characters",
-				"username-max": "JA: Maximum of 16 characters",
+				"username-min": "JA: Minimum of 3 characters",
+				"username-max": "JA: Maximum of 64 characters",
 				"username-unique": "JA: Username already exists.",
 				"profile-updated": "JA: Profile updated.",
 				"profile-private": "JA: Profile is now private.",
@@ -411,7 +412,7 @@
 			"interests": "JA: interests",
 			"public-switch-description": "JA: Make your profile visible to others. Requires completed profile form. Required become a delegate.",
 			"delegate-switch-description": "JA: By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
-			"bio-count": "JA: __bioCount__ characters (min 50, max 160)",
+			"bio-count": "JA: __bioCount__ characters (min 50, max 520)",
 			"photo-url": "JA: Enter an image url",
 			"change-photo": "JA: Change profile photo URL",
 			"password-reset": "JA: Password reset",

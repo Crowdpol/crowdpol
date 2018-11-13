@@ -34,8 +34,8 @@ Template.delegateVoteButtons.helpers({
 	},
 	'charCountString': function(){
 		var charCount = Template.instance().charCount.get();
-		if (charCount <= 160){
-			return charCount + '/160'
+		if (charCount <= 420){
+			return charCount + '/420'
 		}
 	},
 	'isOpen': function() {
@@ -64,7 +64,7 @@ Template.delegateVoteButtons.events({
 		template.vote.set('no');
 	},
 	'click #final-vote': function(event, template){
-		if (template.charCount.get() <= 160){
+		if (template.charCount.get() <= 420){
 			var reason = template.find('#delegate-reason').value;
 			var vote = template.vote.get()
 			Meteor.call('voteAsDelegate', {vote: vote, reason: reason, proposalId: template.proposalId}, function(error){

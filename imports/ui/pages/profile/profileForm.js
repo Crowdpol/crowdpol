@@ -2,7 +2,6 @@ import "./profileForm.html"
 //import { setupTaggle } from '../../components/taggle/taggle.js'
 import RavenClient from 'raven-js';
 
-
 Template.ProfileForm.onCreated(function() {
   var self = this;
   self.type = new ReactiveVar("Waiting for response from server...");
@@ -233,8 +232,8 @@ Template.ProfileForm.onRendered(function() {
     rules: {
       profileUsername: {
         required: true,
-        minlength: 5,
-        maxlength: 16,
+        minlength: 3,
+        maxlength: 64,
         usernameUnique: true
 
       },
@@ -574,7 +573,7 @@ function checkProfileIsComplete(template){
 
   //5. Check bio:
   template.templateDictionary.set('bioCount',profile.bio.length);
-  if((profile.bio.length >= 50)&&(profile.bio.length <=160)){
+  if((profile.bio.length >= 50)&&(profile.bio.length <=520)){
     template.templateDictionary.set('bioCompleted',true);
     completedScore++;
   }else{

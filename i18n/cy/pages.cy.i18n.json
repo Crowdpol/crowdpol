@@ -269,6 +269,7 @@
 				"tags": "CY: Add some tags your proposal:",
 				"pointFor": "CY: Points For:",
 				"pointAgainst": "CY: Points Against:",
+				"argument": "CY: Add an argument",
 				"alerts": {
 					"saving": "CY: Saving...",
 					"changes-saved": "CY: Changes Saved",
@@ -383,8 +384,8 @@
 			"alerts": {
 				"invalid-url": "CY: Please enter a valid url, starting with 'http' or 'https'.",
 				"username": "CY: Username required.",
-				"username-min": "CY: Minimum of 5 characters",
-				"username-max": "CY: Maximum of 16 characters",
+				"username-min": "CY: Minimum of 3 characters",
+				"username-max": "CY: Maximum of 64 characters",
 				"username-unique": "CY: Username already exists.",
 				"profile-updated": "CY: Profile updated.",
 				"profile-private": "CY: Profile is now private.",
@@ -411,7 +412,7 @@
 			"interests": "CY: interests",
 			"public-switch-description": "CY: Make your profile visible to others. Requires completed profile form. Required become a delegate.",
 			"delegate-switch-description": "CY: By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
-			"bio-count": "CY: __bioCount__ characters (min 50, max 160)",
+			"bio-count": "CY: __bioCount__ characters (min 50, max 520)",
 			"photo-url": "CY: Enter an image url",
 			"change-photo": "CY: Change profile photo URL",
 			"password-reset": "CY: Password reset",
