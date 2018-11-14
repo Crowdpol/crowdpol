@@ -45,6 +45,9 @@ Template.Header.onCreated(function(){
 });
 
 Template.Header.helpers({
+  userPhoto: function() {
+    return "https://media.licdn.com/dms/image/C4D03AQFnjfIGYDf91Q/profile-displayphoto-shrink_200_200/0?e=1545264000&v=beta&t=mM29aed0BZ7d3Uk2tUaHL3CzVBUDRJ8_EXAMpASu0LY";
+  },
   title: function() {
     return Template.instance().community.get().name;
   },
