@@ -108,6 +108,27 @@ publicRoutes.route('/about', {
   },
 });
 
+publicRoutes.route('/feed', {
+  name: 'App.feed',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Feed' });
+  },
+});
+
+publicRoutes.route('/faq', {
+  name: 'App.faq',
+  action() {
+    BlazeLayout.render('App_body', { main: 'FAQ' });
+  },
+});
+
+publicRoutes.route('/settings', {
+  name: 'App.settings',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Settings' });
+  },
+});
+
 //USER SEARCH
 FlowRouter.route('/search/users', {
   name: 'App.search.users',

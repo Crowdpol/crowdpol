@@ -16,9 +16,9 @@
 					</span>
 				</a>
 				<nav class="mdl-navigation">
-					<a class="mdl-navigation__link" href="/about">{{_ "layout.header.nav_about"}}</a>
-					<a class="mdl-navigation__link" href="/faq">{{_ "layout.header.nav_faq"}}</a>
-					<a class="mdl-navigation__link" href="/contact">{{_ "layout.header.nav_contact"}}</a>
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/about">{{_ "layout.header.nav_about"}}</a>
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/faq">{{_ "layout.header.nav_faq"}}</a>
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/contact">{{_ "layout.header.nav_contact"}}</a>
 				</nav>
 			{{else}}
 				<a href="/">
@@ -57,29 +57,50 @@
 				</form>
 				-->
 				<!-- Navigation. We hide it in small screens. -->
-				<nav class="mdl-navigation mdl-layout--large-screen-only" id="main-menu">
-					<a class="mdl-navigation__link" href="/dash" id="dash-menu">{{_ "layout.header.nav_dash"}}</a>
-					<a class="mdl-navigation__link" href="/voting" id="vote-menu">{{_ "layout.header.nav_vote"}}</a>
-					<a class="mdl-navigation__link" href="/proposals" id="proposals-menu">{{_ "layout.header.nav_proposals"}}</a>
-					<a class="mdl-navigation__link" href="/delegate" id="delegate-menu">{{_ "layout.header.nav_delegate"}}</a>
-					<!--
-					<a class="mdl-navigation__link" href="/candidate">{{_ "layout.header.nav_nominate"}}</a>
-					-->
-					<a id="profile-image-header" class="mdl-navigation__link" href="/profile">
+				<nav class="mdl-navigation" id="main-menu">
+					<a id="profile-image-header" class="mdl-navigation__link mdl-layout--large-screen-only" href="/feed">
 						<img src="{{userPhoto}}" class="mdl-list__item-avatar">
 					</a>
-					<a id="profile-dropdown" class="mdl-navigation__link">
+					<a id="profile-dropdown" class="mdl-navigation__link mdl-layout--large-screen-only">
 						<i class="material-icons">arrow_drop_down</i>
 					</a>
 					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="profile-dropdown">
+						<!--
 						<li class="mdl-menu__item role-menu-item" data-role="Individual">
 								{{_ "pages.voting.heading.individual"}}
 									<i class="material-icons small">check</i>
 						</li>
-						<li class="mdl-menu__item">
-							<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
+						<li class="mdl-menu__item role-menu-item" data-role="Individual">
+								{{_ "pages.voting.heading.delegate"}}
+						</li>
+						-->
+						<li class="mdl-menu__item mdl-layout--large-screen-only">
+							<a class="mdl-navigation__link" href="/profile">{{_ "layout.header.nav_profile"}}</a>
+						</li>
+						<li class="mdl-menu__item  mdl-layout--large-screen-only">
+							<a class="mdl-navigation__link" href="/settings">{{_ "layout.header.nav_settings"}}</a>
+						</li>
+						{{#if currentUserIsAdmin}}
+							<li class="mdl-menu__item mdl-layout--large-screen-only">
+								<a class="mdl-navigation__link" href="/admin/dash">{{_ "layout.header.nav_admin"}}</a>
+							</li>
+						{{/if}}
+						<li class="mdl-menu__item mdl-layout--large-screen-only">
+							{{#if currentUser}}
+								<a class="mdl-navigation__link" href="" id="nav-logout">{{_ "layout.drawer.nav_logout"}}</a>
+							{{else}}
+								<a class="mdl-navigation__link" href="/login">{{_ "layout.drawer.nav_login"}}</a>
+							{{/if}}
 						</li>
 					</ul>
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/dash" id="dash-menu">{{_ "layout.header.nav_dash"}}</a>
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/voting" id="vote-menu">{{_ "layout.header.nav_vote"}}</a>
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/proposals" id="proposals-menu">{{_ "layout.header.nav_proposals"}}</a>
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/delegate" id="delegate-menu">{{_ "layout.header.nav_delegate"}}</a>
+					<!--
+					<a class="mdl-navigation__link" href="/candidate">{{_ "layout.header.nav_nominate"}}</a>
+					-->
+
 					{{#unless currentUser}}
 						<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
 					{{/unless}}

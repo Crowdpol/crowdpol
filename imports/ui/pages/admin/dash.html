@@ -1,12 +1,15 @@
 <template name="AdminDash">
 	<div class="admin">
+		{{#if currentUserIsAdmin}}
 		{{>AdminDashHeader}}
 	  <main class="admin__main">
 	    <div class="dashboard">
 				{{>Template.dynamic template=currentTemplate}}
 			</div>
 	  </main>
-
+		{{else}}
+			<h1>You do not have access to this page</h1>
+		{{/if}}
 	</div>
 </template>
 <template name="Overview">

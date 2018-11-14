@@ -14,6 +14,8 @@
 			</div>
 		{{/if}}
 		<nav class="side-nav-link-wrap mdl-navigation">
+			<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/feed">{{_ "layout.drawer.nav_feed"}}</a>
+			<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/dash" id="dash-menu">{{_ "layout.header.nav_dash"}}</a>
 			{{#if currentUser}}
 				{{#if isInRole 'admin, superadmin'}}
 					<a class="side-nav-link mdl-navigation__link" href="/admin/dash">{{_ "layout.drawer.nav_admin_dash"}}</a>
@@ -25,6 +27,7 @@
 						</span>
 					{{/if}}
 				</a>
+				<a class="side-nav-link mdl-navigation__link" href="/settings">{{_ "layout.header.nav_settings"}}</a>
 				<!-- We don't have the real content yet - hiding for now
 					<a class="side-nav-link mdl-navigation__link" href="/privacy">{{_ "drawer_nav_privacy"}}</a>
 				<a class="side-nav-link mdl-navigation__link" href="/terms">{{_ "drawer_nav_terms"}}</a> -->
@@ -34,6 +37,7 @@
     <div class="mdl-layout-spacer"></div>
     <nav class="side-nav-link-wrap mdl-navigation">
 			<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/about">{{_ "layout.header.nav_about"}}</a>
+			<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/faq">{{_ "layout.header.nav_faq"}}</a>
 			<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/contact">{{_ "layout.header.nav_contact"}}</a>
 			{{#if currentUser}}
 				<a class="side-nav-link mdl-navigation__link" href="" id="drawer-nav-logout">{{_ "layout.drawer.nav_logout"}}</a>

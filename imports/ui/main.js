@@ -3,7 +3,7 @@
  __   __   __        __   __   __
 /  ` |__) /  \ |  | |  \ |__) /  \ |
 \__, |  \ \__/ |/\| |__/ |    \__/ |___
-                                        
+
 */
 
 import { Meteor } from 'meteor/meteor';
@@ -19,6 +19,9 @@ import './components/delegateVoteButtons/delegateVoteButtons.js';
 import './components/voteButtons/voteButtons.js';
 import './components/delegateVoteList/delegateVoteList.js';
 import './pages/home/home.js';
+import './pages/faq/faq.js';
+import './pages/feed/feed.js';
+import './pages/settings/settings.js';
 import './pages/not-found/not-found.js';
 import './pages/authenticate/authenticate.js';
 import './pages/dash/dash.js';
