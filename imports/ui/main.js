@@ -44,7 +44,7 @@ import './pages/candidates/candidates.js';
 import './pages/notifications/notifications.js';
 import './pages/tags/interests.js';
 import './stylesheets/stylesheets.js';
-
+import './v2/main.js';
 
 Meteor.startup(function () {
 	// setup language
