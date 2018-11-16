@@ -30,3 +30,5 @@ import './introjs.min.css';
 import './arguments.scss';
 import './admindash.scss';
 import './settings.scss';
+import './accordian.scss';
+import './quill.css';

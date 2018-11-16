@@ -2,12 +2,15 @@ import './proposals.html';
 import { Comments } from '../../../../api/comments/Comments.js'
 import { Proposals } from '../../../../api/proposals/Proposals.js'
 import RavenClient from 'raven-js';
+import { Tags } from '../../../../api/tags/Tags.js'
 
 Template.AdminProposals.onCreated(function() {
   var self = this;
   var communityId = LocalStore.get('communityId')
   self.autorun(function() {
     self.subscribe('proposals.community', communityId);
+    self.subscribe('users.admin');
+    self.subscribe('tags.community', communityId);
   });
 });
 
@@ -50,8 +53,9 @@ Template.AdminProposal.helpers({
     }
   },
   author: function(id) {
-
-  	var author = Meteor.users.findOne({ _id : id});
+    let proposal = this.proposal;
+    let authorId = proposal.authorId;
+    var author = Meteor.users.findOne({ "_id" : authorId});
     if(typeof author!=='undefined'){
       if(author.profile.firstName==null){
       	return author.profile.username;
@@ -180,6 +184,7 @@ Template.ProposalModal.events({
 Template.ProposalModal.onCreated(function(language){
   //this.autorun(function() {
     this.subscribe('comments.all');
+    this.subscribe('users.admin');
   //});
 
 });
@@ -210,15 +215,21 @@ Template.ProposalModal.helpers({
     var languages = _.pluck(content, 'language');
     return languages;
   },
-  activeClass: function(language){
-    var currentLang = TAPi18n.getLanguage();
-    if (language == currentLang){
+  activeClass: function(index){
+    if(index==0){
       return 'is-active';
     }
   },
   tags: function() {
     proposal = Session.get("proposal");
-    return proposal.tags;
+    return Tags.find({_id: {$in: proposal.tags}});
+  },
+  isAuthorised: function(tag){
+    if(tag.authorized){
+      return 'tag-authorised';
+    }else{
+      return 'tag-not-authorised';
+    }
   },
   comments: function() {
     return Comments.find({proposalId: proposalId},{transform: transformComment, sort: {createdAt: -1}});

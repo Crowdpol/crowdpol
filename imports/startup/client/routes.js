@@ -108,6 +108,27 @@ publicRoutes.route('/about', {
   },
 });
 
+publicRoutes.route('/feed', {
+  name: 'App.feed',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Feed' });
+  },
+});
+
+publicRoutes.route('/faq', {
+  name: 'App.faq',
+  action() {
+    BlazeLayout.render('App_body', { main: 'FAQ' });
+  },
+});
+
+publicRoutes.route('/settings', {
+  name: 'App.settings',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Settings' });
+  },
+});
+
 //USER SEARCH
 FlowRouter.route('/search/users', {
   name: 'App.search.users',
@@ -239,6 +260,37 @@ loggedInRoutes.route('/candidate', {
   },
 });
 
+// v2 routes
+var v2Routes = FlowRouter.group({
+  prefix: '/v2',
+  name: 'v2',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.user(), ['admin','superadmin'])){
+      FlowRouter.go('App.v2.home');
+    }
+  }]
+});
+
+publicRoutes.route('/v2', {
+  name: 'App.v2',
+  action() {
+    BlazeLayout.render('v2_body', { main: 'v2Home' });
+  },
+});
+
+publicRoutes.route('/v2/feed', {
+  name: 'App.v2.feed',
+  action() {
+    BlazeLayout.render('v2_body', { main: 'v2Feed' });
+  },
+});
+
+publicRoutes.route('/v2/profile', {
+  name: 'App.v2.profile',
+  action() {
+    BlazeLayout.render('v2_body', { main: 'v2Profile' });
+  },
+});
 // Admin Routes:
 
 var adminRoutes = FlowRouter.group({

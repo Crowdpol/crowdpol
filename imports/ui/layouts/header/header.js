@@ -45,6 +45,9 @@ Template.Header.onCreated(function(){
 });
 
 Template.Header.helpers({
+  userPhoto: function() {
+    return Meteor.user().profile.photo;
+  },
   title: function() {
     return Template.instance().community.get().name;
   },
@@ -110,7 +113,7 @@ Template.Header.helpers({
     if(langs.length > 1){
       return true;
     }
-    return false;
+    return true;//false;
   },
   langs(){
     var langs = LocalStore.get('languages');

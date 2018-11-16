@@ -15,6 +15,10 @@ Meteor.publish('users.community', function(communityId) {
   return Meteor.users.find({"profile.communityIds" : communityId}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
 });
 
+Meteor.publish('users.admin', function() {
+  return Meteor.users.find();
+});
+
 Meteor.publish('user.profile', function(userId) {
   check(userId,String);
   return Meteor.users.find({_id: userId}, defaultUserProjection);

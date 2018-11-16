@@ -14,6 +14,21 @@
   }
 }
 
+#profile-image-header{
+  padding-right: 0px;
+  img{
+    height: 30px;
+    width: 30px;
+  }
+}
+#profile-dropdown{
+  padding: 0 0;
+
+  i{
+    padding: 0px;
+  }
+}
+
 .logged-in-header {
   background-color: $white;
 
@@ -23,6 +38,7 @@
     small {
       color: $blue;
       text-decoration: none;
+      padding: 0 10px;
     }
   }
 
@@ -94,6 +110,18 @@
   color: $blue;
 }
 
+#language-menu{
+  padding: 0px;
+  min-width: 0px;
+  i{
+    padding: 0px;
+  }
+}
+
+#help-menu{
+  padding: 0px;
+}
+
 .logged-out-header {
   display: block;
   background-color: $white;
@@ -152,5 +180,3 @@
 
   }
 }
-
-

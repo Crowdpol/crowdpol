@@ -4,6 +4,31 @@ import { Tracker } from 'meteor/tracker';
 
 export const Communities = new Meteor.Collection('communities');
 
+FAQs = new SimpleSchema({
+  _id: {
+    type: String,
+    optional: false
+  },
+  lang: {
+    type: String,
+    optional: true,
+    allowedValues: ['en','ja','se','cy'],
+    defaultValue: 'en'
+  },
+  question: {
+    type: String,
+    optional: true,
+  },
+  answer: {
+    type: String,
+    optional: true,
+  },
+  userId: {
+    type: String,
+    optional: false
+  }
+});
+
 CommunitySettings = new SimpleSchema({
     /*
         These settings include all customisable options
@@ -107,6 +132,14 @@ Community = new SimpleSchema({
     settings: {
         type: CommunitySettings,
         optional: true
+    },
+    faqs: {
+        type: Array,
+        optional: true,
+    },
+    'faqs.$': {
+        type: FAQs,
+        optional: true,
     }
 });
 Communities.attachSchema(Community);

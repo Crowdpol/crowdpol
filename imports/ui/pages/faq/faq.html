@@ -1,0 +1,43 @@
+<template name="FAQ">
+  <div class="container narrow-container static-content-wrap">
+    {{#if Template.subscriptionsReady}}
+      <h1>FAQs</h1>
+      <div class="accordian">
+        {{#each faq}}
+          <div class="accordian-item">
+            <div class="accordian-item-header">
+              <div class="accordian-item-menu">
+                <i class="material-icons expanded-icon">expand_less</i>
+                <i class="material-icons collapsed-icon">expand_more</i>
+              </div>
+              <div class="accordian-item-title">
+                <h4>{{question}}</h4>
+              </div>
+            </div>
+            <div class="accordian-item-body">
+              {{{answer}}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+    {{#if currentUserIsAdmin}}
+      <br>
+      <form>
+        <!-- Include Quill stylesheet -->
+        <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="faq-question-container">
+          <textarea class="mdl-textfield__input" type="text" rows= "3" id="faq-question" ></textarea>
+          <label class="mdl-textfield__label" for="faq-question">Add a new question:</label>
+        </div>
+        <small>Add the answer:</small>
+        <!-- Quill editor container -->
+        <div id="answer-editor"></div>
+        <br>
+        <button class="mdl-button mdl-js-button mdl-button--raised" id="add-faq">
+          Add
+        </button>
+      </form>
+    {{/if}}
+  </div>
+</template>

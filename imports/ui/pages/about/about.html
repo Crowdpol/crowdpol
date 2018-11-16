@@ -1,6 +1,7 @@
 <template name="About">
-    {{#if Template.subscriptionsReady}}
-        <div class="container narrow-container static-content-wrap">
+
+        <div class="container narrow-container">
+          <!--
             <h1 class="title-underline center">{{_ "pages.about.heading"}}</h1>
             <br>
             <p class="center p-subtitle">{{_ "pages.about.subtitle"}}</p>
@@ -18,6 +19,35 @@
             <p class="paragraph">{{_ "pages.about.section.how-it-works.paragraph-4"}}</p>
             <h4>{{_ "pages.about.section.about-us.heading"}}</h4>
             <p class="paragraph">{{_ "pages.about.section.about-us.paragraph-1"}}</p>
+          -->
+
+            {{#if currentUserIsAdmin}}
+              {{>AboutEdit}}
+            {{else}}
+              {{#if Template.subscriptionsReady}}
+                {{{aboutText}}}
+              {{/if}}
+            {{/if}}
         </div>
-    {{/if}}
+</template>
+<template name="AboutEdit">
+  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+    <div class="mdl-tabs__tab-bar">
+      <a href="#edit-panel" class="mdl-tabs__tab" id="edit-panel-link">Edit</a>
+      <a href="#preview-panel" class="mdl-tabs__tab is-active">Preview</a>
+      <a href="#preview-panel" class="mdl-tabs__tab" id="save-about">Save</a>
+    </div>
+    <div class="mdl-tabs__panel" id="edit-panel">
+      <!-- Include Quill stylesheet
+      <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet"> -->
+      <!-- Quill editor container -->
+      <div id="about-editor"></div>
+    </div>
+    <div class="mdl-tabs__panel is-active" id="preview-panel">
+      {{#if Template.subscriptionsReady}}
+        {{{aboutText}}}
+      {{/if}}
+    </div>
+    <div class="mdl-tabs__panel" id="save-panel"></div>
+  </div>
 </template>
