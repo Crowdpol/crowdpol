@@ -169,54 +169,55 @@
 							</div>
 						{{/if}}
 					</div>
-					{{#each content}}
-						<!-- Tabs for translations -->
-						<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-							<div class="mdl-tabs__tab-bar">
-								<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{language}}</a>
-							</div>
+					<!-- Tabs for translations -->
+					<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+						<div class="mdl-tabs__tab-bar">
+							{{#each content}}
+								<a href="#{{language}}-panel" class="mdl-tabs__tab {{activeClass @index}}">{{language}}</a>
+							{{/each}}
 						</div>
-
-						<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
-							<!-- Main Content -->
-							<div class="proposal-wrap">
-								<h1 class="proposal-title">{{{ title }}}</h1><span class="status-chip">{{proposal.status}}</span>
-								<p class="proposal-info">{{{ abstract }}}</p>
-							</div>
-							<div id="proposal-body-wrap">
-								{{{ body }}}
-							</div>
-
-							<!-- Points for and against -->
-							<div class="proposal-wrap mdl-grid" id="proposal-points">
-								<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-									<p>{{_ "pages.proposals.view.pointsFor"}}</p>
-									<ul id="points-for-list" class="points-list">
-										{{#each argumentsFor language}}
-										<li>{{this.message}}</li>
-										{{/each}}
-									</ul>
+						{{#each content}}
+							<div class="mdl-tabs__panel {{activeClass @index}}" id="{{language}}-panel">
+								<!-- Main Content -->
+								<div class="proposal-wrap">
+									<h1 class="proposal-title">{{{ title }}}</h1>
+									<span class="tag status-chip {{proposal.status}}">{{proposal.status}}</span>
+									<p class="proposal-info">{{{ abstract }}}</p>
 								</div>
-								<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-									<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
-									<ul id="points-against-list" class="points-list">
-										{{#each argumentsAgainst language}}
-										<li>{{this.message}}</li>
-										{{/each}}
-									</ul>
+								<div id="proposal-body-wrap">
+									{{{ body }}}
+								</div>
+
+								<!-- Points for and against -->
+								<div class="proposal-wrap mdl-grid" id="proposal-points">
+									<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+										<p>{{_ "pages.proposals.edit.pointFor"}}</p>
+										<ul id="points-for-list" class="points-list">
+											{{#each argumentsFor language}}
+											<li>{{this.message}}</li>
+											{{/each}}
+										</ul>
+									</div>
+									<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+										<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
+										<ul id="points-against-list" class="points-list">
+											{{#each argumentsAgainst language}}
+											<li>{{this.message}}</li>
+											{{/each}}
+										</ul>
+									</div>
 								</div>
 							</div>
-						</div>
-					{{/each}}
+						{{/each}}
+					</div>
 					<!-- Tags -->
 					<div class="proposal-wrap">
-						{{#each proposal.tags}}
-						<span class="mdl-chip mdl-chip-hoverable">
+						{{#each tags}}
+						<span class="mdl-chip mdl-chip-hoverable  {{isAuthorised this}}">
 							<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
 						</span>
 						{{/each}}
 					</div>
-
 	      </div>
 	    </div>
 	    {{/if}}
