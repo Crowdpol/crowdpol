@@ -1,0 +1,51 @@
+
+.accordian{
+  .accordian-item.active{
+    .accordian-item-header{
+      .accordian-item-menu{
+        .expanded-icon{
+          display: block;
+        }
+        .collapsed-icon{
+          display: none;
+        }
+      }
+    }
+    .accordian-item-body{
+      display: block;
+    }
+  }
+  .accordian-item{
+    .accordian-item-header{
+      font-weight: bold;
+      font-size: 16px;
+      display: flex;
+      .accordian-item-title{
+        h4 {
+          color:#3d3d3d;
+          font-size: 1rem;
+          line-height: 1.3rem;
+        }
+        flex: 1;
+      }
+      .accordian-item-menu{
+        .expanded-icon{
+          display: none;
+        }
+        .collapsed-icon{
+          display: block;
+        }
+      }
+    }
+    .accordian-item-body{
+      display: none;
+      padding: 0px 5px 0px 25px;
+    }
+  }
+}
+.mdl-textfield#faq-question-container{
+  min-width: 100%;
+  #faq-question{
+    //width: 100%;
+  }
+}

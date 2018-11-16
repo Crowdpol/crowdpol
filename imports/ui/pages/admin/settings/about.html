@@ -1,0 +1,15 @@
+<template name="AdminSettingsAbout">
+  <!-- Include Quill stylesheet -->
+  <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+  <center>
+    <button id="edit-about" class="mdl-button mdl-js-button mdl-button--raised" >Edit</button>
+    <button id="preview-about" class="mdl-button mdl-js-button mdl-button--raised" >Preview</button>
+  </center>
+  <br>
+  <!-- Quill editor container -->
+  <div id="about-editor"></div>
+
+  <div id="about-preview" style="border: 1px solid #ccc;">
+    {{{aboutTextPreview}}}
+  </div>
+</template>
