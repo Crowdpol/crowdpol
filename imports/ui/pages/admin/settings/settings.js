@@ -1,5 +1,7 @@
 import './settings.html';
+import './about.js';
 import { Communities } from '../../../../api/communities/Communities.js'
+import { getAboutText } from './about.js'
 import RavenClient from 'raven-js';
 
 
@@ -34,6 +36,8 @@ Template.AdminSettings.onCreated(function(){
         dict.set( 'emailWhitelist', settings.emailWhitelist || []);
         dict.set( 'enforceWhitelist', settings.enforceWhitelist);
         setupParameters(self);
+        Session.set( 'aboutText', settings.aboutText || null);
+        console.log(Session.get('aboutText'));
       });
     }
 
@@ -177,7 +181,8 @@ Template.AdminSettings.events({
 				homepageImageUrl: template.find("#homepageImageUrl").value,
 				homepageBannerText: template.find("#homepageBannerText").value,
 				homepageIntroText: template.find("#homepageIntroText").value,
-				aboutText: template.find("#aboutText").value,
+				//aboutText: template.find("#aboutText").value,
+        aboutText: getAboutText(),
 				defaultLanguage: template.find("#defaultLanguage").value,
 				languages: Template.instance().dict.get('languages'),
 				languageSelector: template.find("#languageSelector").checked,

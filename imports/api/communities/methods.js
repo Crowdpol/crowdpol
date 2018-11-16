@@ -43,5 +43,24 @@ Meteor.methods({
     },
     disableDefaultDates: function(){
 
-    }
+    },
+    updateAbout: function(aboutText, communityId) {
+      return Communities.update({_id: communityId}, {$set: {'settings.aboutText': aboutText}});
+    },
+    addFAQ: function(communityId,faqContent){
+      console.log(communityId);
+      check(communityId, String);
+      check(faqContent, {
+        lang: String,
+        userId: String,
+        question: String,
+        answer: String,
+        _id: String });
+      var result = Communities.update({_id: communityId}, {$push: {faqs: faqContent}});
+      console.log(result);
+    },
+    removeFAQ: function(communityId,faqId){
+      console.log(communityId);
+      console.log(faqId);
+    },
 });
