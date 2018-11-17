@@ -36,7 +36,6 @@
                       <input type="text" id="end-datepicker" class="mdl-textfield__input">
                     </div>
                   </div>
-
                 </div>
               </div>
             </section>
@@ -77,7 +76,7 @@
                           <select class="mdl-textfield__input" id="available-languages">
                             <option value="en">English</option>
                             <option value="sv">Swedish</option>
-                            <option value="ja">Mercedes</option>
+                            <option value="ja">Japan</option>
                             <option value="cy">Welsh</option>
                           </select>
                         </div>
@@ -100,7 +99,26 @@
                 </div>
               </div>
             </section>
-
+            <section class="settings-section">
+              <span class="section-heading">User Delegate Limit</span>
+              <div class="settings-subsection">
+                <div class="settings-subsection">
+                  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="endDate">
+                    <input type="text" id="delegate-limit" class="mdl-textfield__input" value={{delegateLimit}}>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="settings-section">
+              <span class="section-heading">Proposal Collaborator Limit</span>
+              <div class="settings-subsection">
+                <div class="settings-subsection">
+                  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="endDate">
+                    <input type="text" id="collaborator-limit" class="mdl-textfield__input" value={{collaboratorLimit}}>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
           <div class="mdl-tabs__panel" id="display-panel">
             <!-- display section -->

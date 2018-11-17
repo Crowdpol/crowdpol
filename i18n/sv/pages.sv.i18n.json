@@ -277,7 +277,8 @@
 					"saving": "Sparar...",
 					"changes-saved": "Dina Ändringar är Sparade",
 					"proposal-created": "Förslag Skapat",
-					"bad-email": "Det här verkar inte vara en riktig e-postadress. Har du skrivit rätt?"
+					"bad-email": "Det här verkar inte vara en riktig e-postadress. Har du skrivit rätt?",
+					"not-saved": "TODO: Proposal not saved as there was no content"
 				}
 			},
 			"view": {

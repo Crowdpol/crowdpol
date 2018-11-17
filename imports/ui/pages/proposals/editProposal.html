@@ -1,7 +1,8 @@
 <template name='EditProposal' >
 	{{#if currentUser}}
 		{{#if Template.subscriptionsReady}}
-
+		<!--
+		{{> InviteModal}} -->
 		{{> backButton text="generic.back-to-proposals" url="/dash"}}
 
 		<!-- Include Quill stylesheet -->
@@ -11,7 +12,7 @@
 
 			<!-- Proposal Form -->
 			<form id="edit-proposal-form">
-				
+
 				<!-- Tabs for translations -->
 				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 					<div class="button-tabs mdl-tabs__tab-bar">
@@ -95,4 +96,39 @@
 		{{/if}}
 	{{/if}}
 
+</template>
+
+<template name="InviteModal">
+  <div id="overlay"></div>
+	<div class="proposal-modal">
+	  <div class='content-wrapper'>
+	    <div class="content">
+	      <div class="app-container">
+					<h4>Selected Invites</h4>
+					<p>Are you sure you want to invite the following people to be co-authors on this proposal:</p>
+					<strong>Invited existing users:</strong>
+					<div id="invited-users">
+						{{#each selectedInvites}}
+						<span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
+							<img class="mdl-chip__contact" src="{{profile.photo}}">
+							<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+							<a href="#" class="mdl-chip__action remove-invite" data-user-id="{{_id}}"><i class="material-icons">cancel</i></a>
+						</span>
+						{{/each}}
+					</div>
+					<br/>
+					<strong>Email addresses invited:</strong>
+					<div id="invited-users-email">
+						{{#each value in emailedInvites}}
+						<span class="mdl-chip mdl-chip--contact">
+							<span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons email-invites">mail</i></span>
+							<span class="mdl-chip__text">{{value}}</span>
+							<a href="#" class="mdl-chip__action remove-invite-email" data-array-index="{{@index}}"><i class="material-icons">cancel</i></a>
+						</span>
+						{{/each}}
+					</div>
+	      </div>
+	    </div>
+		</div>
+	</div>
 </template>

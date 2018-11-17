@@ -274,7 +274,8 @@
 					"saving": "JA: Saving...",
 					"changes-saved": "JA: Changes Saved",
 					"proposal-created": "JA: Proposal Created",
-					"bad-email": "JA: Not a valid email format."
+					"bad-email": "JA: Not a valid email format.",
+					"not-saved": "JA: Proposal not saved as there was no content"
 				}
 			},
 			"view":{

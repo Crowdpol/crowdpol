@@ -277,7 +277,8 @@
 					"saving": "Saving...",
 					"changes-saved": "Changes Saved",
 					"proposal-created": "Proposal Created",
-					"bad-email": "Not a valid email format."
+					"bad-email": "Not a valid email format.",
+					"not-saved": "Proposal not saved as there was no content"
 				}
 			},
 			"view":{

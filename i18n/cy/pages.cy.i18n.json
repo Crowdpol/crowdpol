@@ -274,7 +274,8 @@
 					"saving": "CY: Saving...",
 					"changes-saved": "CY: Changes Saved",
 					"proposal-created": "CY: Proposal Created",
-					"bad-email": "CY: Not a valid email format."
+					"bad-email": "CY: Not a valid email format.",
+					"not-saved": "CY: Proposal not saved as there was no content"
 				}
 			},
 			"view":{
