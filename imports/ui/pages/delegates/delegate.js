@@ -87,7 +87,20 @@ Template.Delegate.events({
     var communityId = Template.instance().templateDictionary.get( 'communityId' );
     delegateId = this._id;
     var ranks = Session.get('ranked');
-    if(ranks.length>=5){
+    let settings = LocalStore.get('settings');
+    let delegateLimit = -1;
+    if(typeof settings != 'undefined'){
+      if(typeof settings.delegateLimit != 'undefined'){
+        delegateLimit = settings.delegateLimit;
+
+      }else{
+        console.log('settings.default not found');
+      }
+    }else{
+      console.log('settings not found');
+    }
+    console.log('delegateLimit: ' + delegateLimit);
+    if((delegateLimit==0)||(ranks.length>=delegateLimit)){
       Bert.alert(TAPi18n.__('pages.delegates.alerts.delegate-limit'), 'danger');
       event.target.checked = false;
     }else{

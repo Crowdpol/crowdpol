@@ -216,7 +216,7 @@
 			"instructions-2": "En delegat röstar åt dig i de frågor du själv inte aktivt röstar i. Din delegats röst är aldrig mer än en rekommendation eftersom du närsomhelst kan gå in och rösta efter eget huvud.  Ändrar du inte på din delegats röst kommer den dock att räknas som din egen.",
 			"instructions-3": "Du kan välja upp till fem delegater. Dessa delegater behöver du sedan rangorda. Det gör du genom att dra och släppa dem i den ordning du föredrar. Den deleagt du placerat högst kommer att räknas först. Har den delegaten inte gjort ett val i en fråga går rösten vidare till nästa delegat i ordningen och så vidare.",
 			"alerts": {
-				"delegate-limit": "Du får välja max fem delegater",
+				"delegate-limit": "Du har nått din delegatgräns",
 				"ranking-updated": "Dina delegaters inbördes ordning har uppdaterats"
 			}
 		},
