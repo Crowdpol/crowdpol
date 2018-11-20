@@ -213,9 +213,10 @@
 			"instructions-2": "If you do not vote on a proposal, your vote will automatically go to your highest-ranking delegate who voted. However, you can override your delegate's vote at any time.",
 			"instructions-3": "You can select up to five delegates. You can reorder your list of chosen delegates by dragging and dropping them into place once you have selected them.",
 			"alerts": {
-				"delegate-limit": "You can only have 5 delegates",
+				"delegate-limit": "You have reached your delegate limit",
 				"ranking-updated": "Delegate ranking updated"
-			}
+			},
+			"delegation-disabled":"Delegation has been disabled by the administrator."
 		},
 		"candidates": {
 			"heading": "Candidates",
@@ -277,7 +278,8 @@
 					"saving": "Saving...",
 					"changes-saved": "Changes Saved",
 					"proposal-created": "Proposal Created",
-					"bad-email": "Not a valid email format."
+					"bad-email": "Not a valid email format.",
+					"not-saved": "Proposal not saved as there was no content"
 				}
 			},
 			"view":{

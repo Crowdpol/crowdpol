@@ -154,7 +154,8 @@ Template.EditProposal.helpers({
 Template.EditProposal.events({
 	'click #save-proposal' (event, template){
 		event.preventDefault();
-		saveChanges(event, template, 'App.proposal.edit');
+		openInviteModal();
+		//saveChanges(event, template, 'App.proposal.edit');
 	},
 	'click #back-button' (event, template) {
 		//if (!window.confirm(TAPi18n.__('pages.proposals.edit.confirm-back'))){
@@ -182,6 +183,25 @@ Template.EditProposal.events({
 	}
 });
 
+Template.InviteModal.events({
+  'click #overlay' (event, template){
+    closeProposalModal();
+  }
+});
+/*
+Template.InviteModal.helpers({
+	selectedInvites: function() {
+		var invited = Session.get('invited');
+		if (invited) {
+			//Make the query non-reactive so that the selected invites don't get updated with a new search
+			var users = Meteor.users.find({ _id : { $in :  invited} },{reactive: false});
+			return users;
+		}
+	},
+	emailedInvites: function() {
+		return Session.get('emailInvites');
+	}
+});*/
 // Autosave function
 function autosave(event, template) {
 	// Save user input after 3 seconds of not typing
@@ -292,6 +312,8 @@ function saveChanges(event, template, returnTo){
 
 				var proposalId = FlowRouter.getParam("id");
 
+
+
 				template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
 
 				// If working on an existing proposal, save it, else create a new one
@@ -305,6 +327,7 @@ function saveChanges(event, template, returnTo){
 			//}
 		//});
 	}else{
+		Bert.alert(TAPi18n.__('pages.proposals.edit.alerts.not-saved'), 'danger');
 		return false;
 	}
 	return true;
@@ -368,4 +391,20 @@ function removeUserEmail(index){
 	emails = Session.get('emailInvites');
 	emails.splice(index, 1);
 	Session.set('emailInvites',emails);
+}
+
+openInviteModal = function(event) {
+  if (event) event.preventDefault();
+  $(".proposal-modal").addClass('active');
+  $("#overlay").addClass('dark-overlay');
+}
+
+closeInviteModal = function(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
+  Session.set("showApproval",false);
+  $(".proposal-modal").removeClass('active');
+  $("#overlay").removeClass('dark-overlay');
 }

@@ -29,7 +29,7 @@ Template.UserSearch.events({
   },
   'keyup #invited': function(event, template) {
     ($('#invited').val().length) ? $("#autosuggest-results").show() : $("#autosuggest-results").hide();
-    
+
     var key = event.keyCode;
     var list = document.querySelector("#autosuggest-results");
     var listItems = document.getElementById("autosuggest-results").getElementsByTagName("li");
@@ -61,7 +61,7 @@ Template.UserSearch.events({
       var selectedIndex = $('#autosuggest-results li.selected').index();
       if(selectedIndex > -1){
         addUser(listItems[selectedIndex].getAttribute('data-user-id'))
-        
+
       }else{
         if(validateEmail($('#invited').val())){
           emails = Session.get('emailInvites');
@@ -77,10 +77,11 @@ Template.UserSearch.events({
 
 Template.UserSearch.helpers({
   userMatches: function() {
-   result = Meteor.users.find({ $and: [ 
+   result = Meteor.users.find({ $and: [
       { _id : { $nin : Session.get('invited')}},
       { _id : { $ne: Meteor.userId()} }
     ]}).fetch();
+    console.log(result);
     return result;
   }
 });
@@ -91,16 +92,16 @@ function addUser(id){
         Session.set("invited",invited);
         $('#invited').val('');
 }
-function validateEmail(mail){  
- if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(mail))  
-  {  
-    return (true)  
-  }  
+function validateEmail(mail){
+ if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(mail))
+  {
+    return (true)
+  }
     Bert.alert({
       title: TAPi18n.__('pages.proposals.edit.alerts.bad-email'),
       type: 'danger',
       style: 'growl-bottom-right',
       icon: 'fa-exclamation-triangle'
     });
-    return (false)  
+    return (false)
 }

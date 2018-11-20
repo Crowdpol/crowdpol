@@ -35,9 +35,10 @@ Template.AdminSettings.onCreated(function(){
         dict.set( 'languages', settings.languages || []);
         dict.set( 'emailWhitelist', settings.emailWhitelist || []);
         dict.set( 'enforceWhitelist', settings.enforceWhitelist);
+        dict.set( 'delegateLimit', settings.delegateLimit || 0);
+        dict.set( 'collaboratorLimit', settings.collaboratorLimit || 0);
         setupParameters(self);
         Session.set( 'aboutText', settings.aboutText || null);
-        console.log(Session.get('aboutText'));
       });
     }
 
@@ -92,6 +93,12 @@ Template.AdminSettings.helpers({
   },
   aboutText: function(){
     return Template.instance().dict.get('aboutText');
+  },
+  delegateLimit: function(){
+    return Template.instance().dict.get('delegateLimit');
+  },
+  collaboratorLimit: function(){
+    return Template.instance().dict.get('collaboratorLimit');
   }
 });
 
@@ -190,7 +197,9 @@ Template.AdminSettings.events({
 				enforceWhitelist: template.find("#enforceWhitelist").checked,
         showDates: Template.instance().dict.get('showDates'),
         defaultStartDate: template.find("#start-datepicker").value,
-        defaultEndDate: template.find("#end-datepicker").value
+        defaultEndDate: template.find("#end-datepicker").value,
+        delegateLimit: template.find("#delegate-limit").value,
+        collaboratorLimit: template.find("#collaborator-limit").value,
 		}
     let communityId = LocalStore.get('communityId');
 
