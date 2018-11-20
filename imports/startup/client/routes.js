@@ -412,7 +412,7 @@ function loadCommunityInfo() {
 						document.getElementsByTagName('head')[0].appendChild(link);
 					}
 					if(typeof settings.defaultLanguage != 'undefined'){
-						console.log(settings.defaultLanguage);
+						//console.log(settings.defaultLanguage);
 						moment.locale(settings.defaultLanguage);
 					}
         }

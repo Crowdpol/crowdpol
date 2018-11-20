@@ -108,6 +108,14 @@ CommunitySettings = new SimpleSchema({
       type: Date,
       optional: true
     },
+    delegateLimit: {
+      type: Number,
+      optional: true
+    },
+    collaboratorLimit: {
+      type: Number,
+      optional: true
+    }
 
 });
 
