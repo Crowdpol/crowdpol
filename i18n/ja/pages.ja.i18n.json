@@ -215,7 +215,8 @@
 			"alerts": {
 				"delegate-limit": "JA: You have reached your delegate limit",
 				"ranking-updated": "JA: Delegate ranking updated"
-			}
+			},
+			"delegation-disabled":"JA: Delegation has been disabled by the administrator."
 		},
 		"candidates": {
 			"heading": "JA: Candidates",

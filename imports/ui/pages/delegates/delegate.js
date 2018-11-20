@@ -76,6 +76,20 @@ Template.Delegate.helpers({
   },
   searchPhrase: function() {
   	return Session.get('searchPhrase');
+  },
+  delegatesEnabled: function(){
+    let settings = LocalStore.get('settings');
+    let delegateLimit = -1;
+
+    if(typeof settings != 'undefined'){
+      if(typeof settings.delegateLimit != 'undefined'){
+        delegateLimit = settings.delegateLimit;
+      }
+    }
+    if(delegateLimit==0){
+      return false;
+    }
+    return true;
   }
 });
 
@@ -89,30 +103,25 @@ Template.Delegate.events({
     var ranks = Session.get('ranked');
     let settings = LocalStore.get('settings');
     let delegateLimit = -1;
+
     if(typeof settings != 'undefined'){
       if(typeof settings.delegateLimit != 'undefined'){
         delegateLimit = settings.delegateLimit;
-
-      }else{
-        console.log('settings.default not found');
       }
-    }else{
-      console.log('settings not found');
     }
-    console.log('delegateLimit: ' + delegateLimit);
-    if((delegateLimit==0)||(ranks.length>=delegateLimit)){
+
+    if(delegateLimit==0){
+      Bert.alert('Delegate feature disabled', 'danger');
+      return false;
+    }
+    if(delegateLimit==-1){
+      addRank(delegateId, (ranks.length +1), communityId);
+    }else if(ranks.length>=delegateLimit){
       Bert.alert(TAPi18n.__('pages.delegates.alerts.delegate-limit'), 'danger');
       event.target.checked = false;
     }else{
-      Meteor.call('addRank','delegate',delegateId,(ranks.length +1),communityId,function(error,result){
-        if (error) {
-          RavenClient.captureException(error);
-          Bert.alert(error.reason, 'danger');
-        } else {
-          Session.set('ranked',result);
-        }
-      });
-   }
+      addRank(delegateId, (ranks.length +1), communityId);
+    }
   },
   'click .rank-select': function(event, template){
     delegateId = this._id;
@@ -172,6 +181,17 @@ function sortEventHandler(){
           Bert.alert(TAPi18n.__('pages.delegates.alerts.ranking-updated'), 'success');
         }
       });
+    }
+  });
+}
+
+function addRank(delegateId, newRank, communityId){
+  Meteor.call('addRank','delegate',delegateId,newRank,communityId,function(error,result){
+    if (error) {
+      RavenClient.captureException(error);
+      Bert.alert(error.reason, 'danger');
+    } else {
+      Session.set('ranked',result);
     }
   });
 }

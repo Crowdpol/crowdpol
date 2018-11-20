@@ -218,7 +218,8 @@
 			"alerts": {
 				"delegate-limit": "Du har nått din delegatgräns",
 				"ranking-updated": "Dina delegaters inbördes ordning har uppdaterats"
-			}
+			},
+			"delegation-disabled":"Delegationen har inaktiverats av systemadministratören."
 		},
 		"candidates": {
 			"heading": "Kandidater",
