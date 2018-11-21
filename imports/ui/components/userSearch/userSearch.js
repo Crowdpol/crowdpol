@@ -81,16 +81,46 @@ Template.UserSearch.helpers({
       { _id : { $nin : Session.get('invited')}},
       { _id : { $ne: Meteor.userId()} }
     ]}).fetch();
-    console.log(result);
+    //console.log(result);
     return result;
+    //return getUserSearch(Session.get('searchPhrase'), LocalStore.get('communityId'),Session.get('invited'));
   }
 });
 
 function addUser(id){
-        invited = Session.get("invited");
-        invited.push(id);
-        Session.set("invited",invited);
-        $('#invited').val('');
+  let settings = LocalStore.get('settings');
+  let maxCount = -1;
+  if(typeof settings != 'undefined'){
+    if(typeof settings.collaboratorLimit != 'undefined'){
+      maxCount = settings.collaboratorLimit;
+    }
+  }
+  if(maxCount==0){
+    Bert.alert('Collaborator invite disabled by system administrator', 'danger');
+    return;
+  }
+  //get existing invited ids
+  invited = Session.get("invited");
+  let invitedCount = 0;
+  if(typeof invited.length != 'undefined'){
+    invitedCount = invited.length;
+  }
+  if(maxCount==-1){
+    invited.push(id);
+    Session.set("invited",invited);
+    $('#invited').val('');
+    return;
+  }
+
+  if(invitedCount<maxCount){
+    invited.push(id);
+    Session.set("invited",invited);
+    $('#invited').val('');
+  }else{
+    Bert.alert(TAPi18n.__('pages.proposals.edit.alerts.collaborator-limit-exceeded',{limit: maxCount}),'danger');
+  }
+
+
 }
 function validateEmail(mail){
  if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(mail))

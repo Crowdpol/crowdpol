@@ -49,12 +49,16 @@ Template.EditProposal.onCreated(function(){
 					dict.set( 'signatures', proposal.signatures || []);
 					dict.set( 'tags', proposal.tags || []);
 					Session.set('invited',proposal.invited);
+					//console.log(proposal.invited);
+					self.subscribe('InvitedUsers',proposal.invited);
 				}else{
 					dict.set( 'startDate', defaultStartDate );
 					dict.set( 'endDate', defaultEndDate);
 					dict.set( 'tags',[]);
 				}
 			});
+			//self.subscribe('users.proposal',proposalId);
+
 		} else {
 			dict.set( 'startDate', defaultStartDate );
 			dict.set( 'endDate', defaultEndDate);
@@ -121,13 +125,30 @@ Template.EditProposal.helpers({
 			return 'is-active';
 		}
 	},
+	invitationEnabled: function(){
+		let settings = LocalStore.get('settings');
+	  let maxCount = -1;
+	  if(typeof settings != 'undefined'){
+	    if(typeof settings.collaboratorLimit != 'undefined'){
+	      maxCount = settings.collaboratorLimit;
+	    }
+	  }
+	  if(maxCount==0){
+	    return false;
+	  }
+		return true;
+	},
 	selectedInvites: function() {
 		var invited = Session.get('invited');
 		if (invited) {
 			//Make the query non-reactive so that the selected invites don't get updated with a new search
-			var users = Meteor.users.find({ _id : { $in :  invited} },{reactive: false});
-			return users;
+			var userLength = Meteor.users.find({ _id : { $in :  invited} }).count();
+			//return Meteor.users.find({ _id : { $in :  invited} });
+			return getInvitedUsers(invited);
+		}else{
+			console.log("not invited");
 		}
+
 	},
 	emailedInvites: function() {
 		return Session.get('emailInvites');
