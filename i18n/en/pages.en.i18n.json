@@ -279,7 +279,8 @@
 					"changes-saved": "Changes Saved",
 					"proposal-created": "Proposal Created",
 					"bad-email": "Not a valid email format.",
-					"not-saved": "Proposal not saved as there was no content"
+					"not-saved": "Proposal not saved as there was no content",
+					"collaborator-limit-exceeded": "Collaborator limit exceeded. (__limit__)"
 				}
 			},
 			"view":{

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Users } from '../Users.js';
 import { Ranks } from '../../ranking/Ranks.js';
+import { Proposals } from '../../proposals/Proposals.js';
 // on the server
 
 // The info we usually want to publish for users
@@ -13,6 +14,14 @@ Meteor.publish('users.all', function() {
 
 Meteor.publish('users.community', function(communityId) {
   return Meteor.users.find({"profile.communityIds" : communityId}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
+});
+
+Meteor.publish("UserSearch", function(search,communityId) {
+   return getUserSearch(search,communityId);
+});
+
+Meteor.publish("InvitedUsers", function(invited) {
+   return getInvitedUsers(invited);
 });
 
 Meteor.publish('users.admin', function() {
@@ -42,6 +51,15 @@ Meteor.publish('users.pendingApprovals', function(communityId) {
 
 Meteor.publish('users.current', function () {
   return Meteor.users.find({_id: Meteor.userId()}, {fields: {profile: 1,roles: 1,isPublic: 1, approvals:1}});
+});
+
+//find all users invited to a proposal
+Meteor.publish('users.proposal', function (profileId) {
+  let invited = Proposals.findOne({_id: profileId}).invited;
+  if(typeof invited != 'undefined'){
+    return Meteor.users.find({_id: invited}, {fields: {profile: 1,roles: 1,isPublic: 1, approvals:1}});
+  }
+  return;
 });
 
 //null publish updates default currentUser Spacebar

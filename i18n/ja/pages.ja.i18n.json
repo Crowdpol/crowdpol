@@ -276,7 +276,8 @@
 					"changes-saved": "JA: Changes Saved",
 					"proposal-created": "JA: Proposal Created",
 					"bad-email": "JA: Not a valid email format.",
-					"not-saved": "JA: Proposal not saved as there was no content"
+					"not-saved": "JA: Proposal not saved as there was no content",
+					"collaborator-limit-exceeded": "JA: Collaborator limit exceeded. (__limit__)"
 				}
 			},
 			"view":{

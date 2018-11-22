@@ -49,12 +49,16 @@ Template.EditProposal.onCreated(function(){
 					dict.set( 'signatures', proposal.signatures || []);
 					dict.set( 'tags', proposal.tags || []);
 					Session.set('invited',proposal.invited);
+					//console.log(proposal.invited);
+					self.subscribe('InvitedUsers',proposal.invited);
 				}else{
 					dict.set( 'startDate', defaultStartDate );
 					dict.set( 'endDate', defaultEndDate);
 					dict.set( 'tags',[]);
 				}
 			});
+			//self.subscribe('users.proposal',proposalId);
+
 		} else {
 			dict.set( 'startDate', defaultStartDate );
 			dict.set( 'endDate', defaultEndDate);
@@ -121,13 +125,33 @@ Template.EditProposal.helpers({
 			return 'is-active';
 		}
 	},
+	totalInvites: function(language){
+		return getTotalInvites();
+	},
+	invitationEnabled: function(){
+		let settings = LocalStore.get('settings');
+	  let maxCount = -1;
+	  if(typeof settings != 'undefined'){
+	    if(typeof settings.collaboratorLimit != 'undefined'){
+	      maxCount = settings.collaboratorLimit;
+	    }
+	  }
+	  if(maxCount==0){
+	    return false;
+	  }
+		return true;
+	},
 	selectedInvites: function() {
 		var invited = Session.get('invited');
 		if (invited) {
 			//Make the query non-reactive so that the selected invites don't get updated with a new search
-			var users = Meteor.users.find({ _id : { $in :  invited} },{reactive: false});
-			return users;
+			var userLength = Meteor.users.find({ _id : { $in :  invited} }).count();
+			//return Meteor.users.find({ _id : { $in :  invited} });
+			return getInvitedUsers(invited);
+		}else{
+			console.log("not invited");
 		}
+
 	},
 	emailedInvites: function() {
 		return Session.get('emailInvites');
@@ -154,8 +178,11 @@ Template.EditProposal.helpers({
 Template.EditProposal.events({
 	'click #save-proposal' (event, template){
 		event.preventDefault();
-		openInviteModal();
-		//saveChanges(event, template, 'App.proposal.edit');
+		if(getTotalInvites()>0){
+			openInviteModal();
+		}else{
+			saveChanges(event, template, 'App.proposal.edit');
+		}
 	},
 	'click #back-button' (event, template) {
 		//if (!window.confirm(TAPi18n.__('pages.proposals.edit.confirm-back'))){
@@ -170,7 +197,11 @@ Template.EditProposal.events({
 	},
 	'click #preview-proposal': function(event, template){
 		event.preventDefault();
-		saveChanges(event, template, 'App.proposal.view');
+		if(getTotalInvites()>0){
+			openInviteModal();
+		}else{
+			saveChanges(event, template, 'App.proposal.edit');
+		}
 	},
 	'click .remove-invite': function(e,t){
 		removeUserInvite($(e.currentTarget).attr("data-user-id"));
@@ -184,12 +215,26 @@ Template.EditProposal.events({
 });
 
 Template.InviteModal.events({
-  'click #overlay' (event, template){
-    closeProposalModal();
-  }
+  'click #overlay, click #reject-button' (event, template){
+    closeInviteModal();
+  },
+	'click #approve-button' (event, template){
+		//console.log(findParentTemplate('EditProposal'));
+		let parentTemplate = template.view.parentView.parentView.parentView._templateInstance;
+		//getParentTemplateInstanceData();
+		saveChanges(event, parentTemplate, 'App.proposal.view');
+		closeInviteModal();
+	}
 });
-/*
+
 Template.InviteModal.helpers({
+	selectedInvitesCount: function(){
+		var invited = Session.get('invited');
+		if (invited) {
+			return invited.length;
+		}
+		return 0;
+	},
 	selectedInvites: function() {
 		var invited = Session.get('invited');
 		if (invited) {
@@ -198,10 +243,17 @@ Template.InviteModal.helpers({
 			return users;
 		}
 	},
+	emailInviteCount: function() {
+		var invited = Session.get('emailInvites');
+		if (invited) {
+			return invited.length;
+		}
+		return 0;
+	},
 	emailedInvites: function() {
 		return Session.get('emailInvites');
 	}
-});*/
+});
 // Autosave function
 function autosave(event, template) {
 	// Save user input after 3 seconds of not typing
@@ -333,7 +385,6 @@ function saveChanges(event, template, returnTo){
 	return true;
 };
 
-
 function createProposal(propsalId,newProposal,returnTo,template){
 	Meteor.call('createProposal', newProposal, function(error, proposalId){
 		if (error){
@@ -352,16 +403,8 @@ function createProposal(propsalId,newProposal,returnTo,template){
 			 });
 			 //Create notifications for collaborators
 			 if (newProposal.invited) {
-						for (i=0; i < newProposal.invited.length; i++) {
-							var notification = {
-								message: TAPi18n.__('notifications.proposals.invite'),
-								userId: newProposal.invited[i],
-								url: '/proposals/view/' + proposalId,
-								icon: 'people'
-							}
-							Meteor.call('createNotification', notification);
-						}
-			}
+				 sendNotifications(newProposal.invited);
+				}
 			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
 			FlowRouter.go(returnTo, {id: proposalId});
 		}
@@ -375,6 +418,10 @@ function saveProposal(proposalId,newProposal,returnTo,template){
 			Bert.alert(error.reason, 'danger');
 			return false;
 		} else {
+			//Create notifications for collaborators
+			if (newProposal.invited) {
+				sendNotifications(newProposal.invited);
+			}
 			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
 			FlowRouter.go(returnTo, {id: proposalId});
 		}
@@ -388,14 +435,28 @@ function removeUserInvite(id){
 	Session.set("invited",invited);
 }
 function removeUserEmail(index){
-	emails = Session.get('emailInvites');
+	invited = Session.get("invited");
 	emails.splice(index, 1);
 	Session.set('emailInvites',emails);
 }
 
+
+export function getTotalInvites(){
+	let invitedUsers = Session.get("invited");
+	let invitedEmails = Session.get('emailInvites');;
+	let totalCount = 0;
+	if(invitedUsers){
+		totalCount=totalCount+invitedUsers.length;
+	}
+	if(invitedEmails){
+		totalCount=totalCount+invitedEmails.length;
+	}
+	return totalCount;
+}
+
 openInviteModal = function(event) {
   if (event) event.preventDefault();
-  $(".proposal-modal").addClass('active');
+  $(".invite-modal").addClass('active');
   $("#overlay").addClass('dark-overlay');
 }
 
@@ -405,6 +466,25 @@ closeInviteModal = function(event) {
     event.stopImmediatePropagation();
   }
   Session.set("showApproval",false);
-  $(".proposal-modal").removeClass('active');
+  $(".invite-modal").removeClass('active');
   $("#overlay").removeClass('dark-overlay');
+}
+
+function sendNotifications(invited){
+	let emailInvites = Session.get('emailInvites');
+	console.log(emailInvites);
+	console.log(invited);
+	/*
+	for (i=0; i < invited.length; i++) {
+		var notification = {
+			message: TAPi18n.__('notifications.proposals.invite'),
+			userId: newProposal.invited[i],
+			url: '/proposals/view/' + proposalId,
+			icon: 'people'
+		}
+		Meteor.call('createNotification', notification);
+	}
+	*/
+	//STEP 1: See if notifcation has been sent
+	//
 }
