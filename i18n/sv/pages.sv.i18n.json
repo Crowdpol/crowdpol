@@ -290,6 +290,18 @@
 					"paragraph-2": "Att skapa ett konto är enkelt, och tillåter dig att välja delegater, rösta på förslag och samarbeta med andra om att skriva egna.",
 					"button": "Skapa Konto"
 				},
+				"removeInviteModal": {
+					"header": "TODO: Reject Invitation to Collaborate",
+					"paragraph-1": "TODO: Are you sure you want to reject the invitation to colloborate on this proposal:",
+					"reason-input-label": "TODO: Give a reason:",
+					"decline-button": "TODO: Decline Invitation"
+				},
+				"inviteModal":{
+					"header":"TODO: Selected Invites",
+					"paragraph-1":"TODO: Are you sure you want to invite the following people to be co-authors on this proposal:",
+					"existing-table-heading":"TODO: Existing users invited to collaborate:",
+					"email-table-heading":"TODO: Existing users invited to collaborate:"
+				},
 				"signature-tooltip": "Visa ditt stöd för detta förslag genom att signera den. Genom att signera det blir dock ditt ställningstagande offentligt.",
 				"confirmSubmit": "Är du helt säker på att du vill skicka in ditt förslag? När du väl har skickat in det kan det inte ändras. Om den inte blir godkänd måste du dessutom börja om från början. Bättre att först vara helt säker på att den är så bra som den kan bli med andra ord!",
 				"voteCast": "Din röst har lagts",
@@ -316,7 +328,8 @@
 					"linkToClipboardFailed": "Kopiering av länk till urklipp misslyckdes",
 					"proposalSubmitted": "Förslag inlämnad till redaktionen",
 					"proposalIncomplete": "Du måste fylla i alla fält innan du kan lämna in ett förslag.",
-					"commentPosted": "Kommentar upplagd"
+					"commentPosted": "Kommentar upplagd",
+					"invitationRemoved": "TODO: Invitation successfully declined"
 				},
 				"userNotFound": "Användaren kunde inte hittas",
 				"anonymous": "Anonym",

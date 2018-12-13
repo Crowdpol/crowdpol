@@ -287,6 +287,18 @@
 					"paragraph-2": "JA: Creating an account is simple, and will allow you to join others in writing proposals, voting and choosing delegates.",
 					"button": "JA: Sign Up"
 				},
+				"removeInviteModal": {
+					"header": "JA: Reject Invitation to Collaborate",
+					"paragraph-1": "JA: Are you sure you want to reject the invitation to colloborate on this proposal:",
+					"reason-input-label": "JA: Give a reason:",
+					"decline-button": "JA: Decline Invitation"
+				},
+				"inviteModal":{
+					"header":"JA: Selected Invites",
+					"paragraph-1":"JA: Are you sure you want to invite the following people to be co-authors on this proposal:",
+					"existing-table-heading":"JA: Existing users invited to collaborate:",
+					"email-table-heading":"JA: Existing users invited to collaborate:"
+				},
 				"signature-tooltip": "JA: Show support for this proposal by signing it.",
 				"confirmSubmit": "JA: Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
 				"voteCast": "JA: Your vote has been cast",
@@ -316,7 +328,8 @@
 					"proposalIncomplete": "JA: You must complete your proposal before submitting it.",
 					"commentPosted":"JA: Comment posted",
 					"commentUpdated": "JA: Comment Updated",
-					"commentDeleted": "JA: Comment Deleted"
+					"commentDeleted": "JA: Comment Deleted",
+					"invitationRemoved": "JA: Invitation successfully declined"
 				},
 				"userNotFound":"User could not be found",
 				"anonymous": "JA: Anonymous",
@@ -424,8 +437,7 @@
 			"new-password": "JA: New password",
 			"confirm-password": "JA: Confirm password",
 			"reset": "JA: Reset",
-			"password-mismatch": "JA: Passwords do not match",
-			"password-reset": "JA: Password successfully reset"
+			"password-mismatch": "JA: Passwords do not match"
 		},
 		"routes": {
 			"alerts": {
