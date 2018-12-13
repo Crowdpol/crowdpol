@@ -51,6 +51,10 @@ Meteor.methods({
     check(commentId, String);
     Comments.remove(commentId);
   },
+  closeComment: function(commentId,message){
+    check(commentId, String);
+    Comments.update({_id: commentId}, {$set: {"closed": true}});
+  },
   getComment: function(commentId){
     check(commentId, String);
     return Comments.findOne({_id: commentId});

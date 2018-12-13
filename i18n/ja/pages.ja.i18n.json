@@ -373,7 +373,8 @@
 			"no-votes-used": "JA: No users voted on this proposal.",
 			"for": "JA: For:",
 			"against": "JA: Against:",
-			"expires": "JA: Voting closes"
+			"expires": "JA: Voting closes",
+			"invited": "JA: Invited"
 		},
 		"profile": {
 			"profile-tags" : "Fill in at least five of your interests",

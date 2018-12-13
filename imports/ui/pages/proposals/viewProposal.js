@@ -1,4 +1,5 @@
 import './viewProposal.html'
+import './removeInviteModal/removeInviteModal.js'
 import './signInModal/signInModal.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
@@ -74,11 +75,16 @@ Template.ViewProposal.events({
     }
   },
   'click .collab-author' (event,template){
-    Session.set('drawerId',this._id);
-    if($('.mdl-layout__drawer-right').hasClass('active')){
-      $('.mdl-layout__drawer-right').removeClass('active');
+    if(this._id==Meteor.userId()){
+      console.log("deleting this person");
+      openRemoveInviteModal();
     }else{
-      $('.mdl-layout__drawer-right').addClass('active');
+      Session.set('drawerId',this._id);
+      if($('.mdl-layout__drawer-right').hasClass('active')){
+        $('.mdl-layout__drawer-right').removeClass('active');
+      }else{
+        $('.mdl-layout__drawer-right').addClass('active');
+      }
     }
   },
   'click #edit-proposal' (event, template){
@@ -169,6 +175,12 @@ Template.ViewProposal.helpers({
     if (invited) {
       return Meteor.users.find({ _id : { $in : invited } });
     }
+  },
+  isCurrentUser: function(id){
+    if(this._id==Meteor.userId()){
+      return true;
+    }
+    return false;
   },
   comments: function() {
     return Comments.find({proposalId: proposalId,type:'comment'},{transform: transformComment, sort: {createdAt: -1}});
@@ -365,7 +377,10 @@ Template.ProposalContent.helpers({
     return false;
   },
   adminComments: function(status){
-    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'admin'});
+    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'admin',closed:false});
+  },
+  invitationDeclinedComments: function(status){
+    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'invite-rejection',closed:false});
   },
   body: function() {
     var body = Template.instance().templateDictionary.get( 'body' );
@@ -389,6 +404,23 @@ Template.ProposalContent.helpers({
   },
   language: function(){
     return this;
+  }
+});
+
+Template.ProposalContent.events({
+  'click .close-comment' (event, template){
+    console.log(this._id);
+    let commentId = event.currentTarget.getAttribute("data-id");
+    //if(checkIfOwner(commentId)){
+      Meteor.call('closeComment', commentId, function(error){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentClosed'), 'success');
+        }
+      });
+    //}
   }
 });
 
@@ -419,6 +451,20 @@ Template.Comment.events({
         }
       });
     }
+  },
+  'click .close-comment' (event, template){
+    console.log(this._id);
+    let commentId = event.currentTarget.getAttribute("data-id");
+    //if(checkIfOwner(commentId)){
+      Meteor.call('closeComment', commentId, function(error){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentClosed'), 'success');
+        }
+      });
+    //}
   },
   'click .edit-comment-button' (event, template){
     let commentId = event.currentTarget.getAttribute("data-id");

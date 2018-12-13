@@ -20,6 +20,7 @@ import './signInModal.scss';
 import './voting.scss';
 import './admin.scss';
 import './termsModal.scss';
+import './removeInviteModal.scss';
 import './proposalModal.scss';
 import './modals.scss';
 import './delegate-profile.scss';

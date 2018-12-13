@@ -372,7 +372,8 @@
 			"no-votes-used": "Inga användare har röstat på detta förslag.",
 			"for": "För:",
 			"against": "Emot:",
-			"expires": "Omröstningen avslutas"
+			"expires": "Omröstningen avslutas",
+			"invited": "Inbjuden"
 		},
 		"profile": {
 			"profile-tags": "Fyll i minst fem intressen",

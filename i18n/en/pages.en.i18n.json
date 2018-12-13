@@ -376,7 +376,8 @@
 			"no-votes-used": "No users voted on this proposal.",
 			"for": "For:",
 			"against": "Against:",
-			"expires": "Voting closes"
+			"expires": "Voting closes",
+			"invited": "Invited"
 		},
 		"profile": {
 			"profile-tags" : "Fill in at least five of your interests",

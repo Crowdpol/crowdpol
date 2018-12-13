@@ -373,7 +373,8 @@
 			"no-votes-used": "CY: No users voted on this proposal.",
 			"for": "CY: For:",
 			"against": "CY: Against:",
-			"expires": "CY: Voting closes"
+			"expires": "CY: Voting closes",
+			"invited": "CY: Invited"
 		},
 		"profile": {
 			"profile-tags" : "Fill in at least five of your interests",

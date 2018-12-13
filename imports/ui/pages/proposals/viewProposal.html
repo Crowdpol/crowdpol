@@ -1,5 +1,6 @@
 <template name="ViewProposal">
 	{{> SignInModal}}
+	{{> RemoveInviteModal}}
 	{{#if currentUser }}
 		{{> backButton text="generic.back-to-proposals" url=backUrl}}
 	{{/if}}
@@ -59,14 +60,19 @@
 			</div>
 			<div class="mdl-color-text--grey-700 mdl-card__supporting-text" id="collab-chips">
 				{{#each selectedInvites}}
-				<div class="collab-author">
-					<img class="mdl-chip__contact" src="{{profile.photo}}">
-					{{#if profile.firstName}}
-						<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
-					{{else}}
-						<span class="mdl-chip__text">{{profile.username}}</span>
-					{{/if}}
-				</div>
+					<div class="collab-author {{#if isCurrentUser}}invited{{/if}}">
+						<img class="mdl-chip__contact" src="{{profile.photo}}">
+						{{#if profile.firstName}}
+							<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+						{{else}}
+							<span class="mdl-chip__text">{{profile.username}}</span>
+						{{/if}}
+						{{#if isCurrentUser}}
+							<button type="button" class="mdl-chip__action tag-chip-delete" data-id="{{_id}}">
+								<i class="material-icons tag-chip-delete" data-id="{{_id}}">cancel</i>
+							</button>
+						{{/if}}
+					</div>
 				{{/each}}
 			</div>
 			{{/if}}
@@ -199,7 +205,26 @@
 					<div class="comment-title">
 						<span class="comment-author">{{authorName authorId}}</span>
 						<span class="comment-date">{{argumentDate lastModified}}</span>
+						<button type="button" class="mdl-chip__action tag-chip-delete close-comment" data-id="{{_id}}">
+							<i class="material-icons tag-chip-delete close-comment" data-id="{{_id}}">cancel</i>
+						</button>
 					</div>
+				</div>
+				<div class="comment-message">
+					{{this.message}}
+				</div>
+			</div>
+		{{/each}}
+		{{#each invitationDeclinedComments status}}
+			<div class="proposal-invite-comment">
+				<div class="invite-comments-header">
+					<div class="comment-title">
+						<span class="comment-author">{{authorName authorId}}</span>
+						<span class="comment-date">{{argumentDate lastModified}}</span>
+					</div>
+					<button type="button" class="mdl-chip__action tag-chip-delete close-comment" data-id="{{_id}}">
+						<i class="material-icons tag-chip-delete close-comment" data-id="{{_id}}">cancel</i>
+					</button>
 				</div>
 				<div class="comment-message">
 					{{this.message}}

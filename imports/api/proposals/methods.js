@@ -97,6 +97,11 @@ Meteor.methods({
         return err;
       }
     },
+    removeInvitation: function(userId,proposalId){
+      check(userId, String);
+      check(proposalId, String);
+      return Proposals.update({_id: proposalId}, {$pull: {invited: Meteor.userId()}});
+    },
     rejectProposal: function (proposalId) {
       check(proposalId, String);
       var userId = Proposals.findOne(proposalId).authorId;
