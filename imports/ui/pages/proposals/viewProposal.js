@@ -382,6 +382,10 @@ Template.ProposalContent.helpers({
   invitationDeclinedComments: function(status){
     return Comments.find({proposalId:FlowRouter.getParam("id"),type:'invite-rejection',closed:false});
   },
+  getAvatar: function(authorId){
+    var user = Meteor.users.findOne(authorId);
+    return user.profile.photo;
+  },
   body: function() {
     var body = Template.instance().templateDictionary.get( 'body' );
     if(body==undefined||body.length==0){

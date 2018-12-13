@@ -1,14 +1,20 @@
 @import 'variables.scss';
 
 .proposal-admin-comment{
-  border: solid 1px red;
-  padding: 15px;
-  background: pink;
+  border: solid 1px $red;
+  padding: 10px;
+  background: $red;
   border-radius: 15px;
   margin-bottom: 5px;
+  color: $white;
   .admin-comments-header{
     .comment-title{
-
+      line-height: 1rem;
+      .comment__avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 24px;
+      }
       .comment-author{
         font-size: 12pt;
         font-weight: bold;
@@ -18,16 +24,25 @@
       }
     }
   }
+  .comment-message{
+    font-size: 10pt;
+    line-height: 1rem;
+  }
 }
 .proposal-invite-comment{
   border: solid 1px $yellow;
-  padding: 15px;
+  padding: 10px;
   background: $yellow;
   border-radius: 15px;
   margin-bottom: 5px;
   .invite-comments-header{
     .comment-title{
-
+      line-height: 1rem;
+      .comment__avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 24px;
+      }
       .comment-author{
         font-size: 12pt;
         font-weight: bold;
@@ -36,6 +51,10 @@
         font-size: 12pt;
       }
     }
+  }
+  .comment-message{
+    font-size: 10pt;
+    line-height: 1rem;
   }
 }
 .proposal-view-menu {
