@@ -29,7 +29,7 @@ Template.ProfileForm.onCreated(function() {
       RavenClient.captureException(error);
       Bert.alert(error.reason, 'danger');
     } else {
-      console.log(result);
+      //console.log(result);
       dict.set('isPublic', result.isPublic);
       dict.set('username', result.profile.username);
       //self.find(`[name="profileFirstName"]`).value = result.profile.firstName || '';
@@ -141,6 +141,7 @@ Template.ProfileForm.events({
       }
     } else {
       // Profile is complete, submit approval request
+      //console.log("requesting approval");
       Meteor.call('requestApproval', Meteor.userId(), 'delegate', function(error) {
         if (error) {
           RavenClient.captureException(error);
