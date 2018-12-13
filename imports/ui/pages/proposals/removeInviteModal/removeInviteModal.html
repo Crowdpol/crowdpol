@@ -1,0 +1,29 @@
+<template name="RemoveInviteModal">
+  <div id="overlay"></div>
+  <div class="remove-invite-modal">
+    <div class='content-wrapper invite-wrapper'>
+	    <div class="content invite-content">
+	      <!--<div class="app-container"> -->
+					<h4>{{_'pages.proposals.view.removeInviteModal.header'}}</h4>
+					<p>{{_'pages.proposals.view.removeInviteModal.paragraph-1'}}</p>
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <textarea class="mdl-textfield__input" type="text" rows="5" name="rejectInviteReason" id="reject-invite-reason"></textarea>
+            <label class="mdl-textfield__label" for="reject-invite-reason">{{_'pages.proposals.view.removeInviteModal.reason-input-label'}}</label>
+          </div>
+
+          <div class="btn-wrapper">
+            <button class="mdl-button mdl-js-button mdl-button--raised" id="reject-cancel-button">
+              <i class="material-icons">close</i>
+              {{_'form.cancel'}}
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised" id="reject-approve-button">
+              <i class="material-icons">check</i>
+              {{_'pages.proposals.view.removeInviteModal.decline-button'}}
+            </button>
+
+          </div>
+      </div>
+    </div>
+  </div>
+
+</template>

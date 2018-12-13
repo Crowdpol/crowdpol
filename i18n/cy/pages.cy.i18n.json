@@ -287,6 +287,18 @@
 					"paragraph-2": "CY: Creating an account is simple, and will allow you to join others in writing proposals, voting and choosing delegates.",
 					"button": "CY: Sign Up"
 				},
+				"removeInviteModal": {
+					"header": "CY: Reject Invitation to Collaborate",
+					"paragraph-1": "CY: Are you sure you want to reject the invitation to colloborate on this proposal:",
+					"reason-input-label": "CY: Give a reason:",
+					"decline-button": "CY: Decline Invitation"
+				},
+				"inviteModal":{
+					"header":"CY: Selected Invites",
+					"paragraph-1":"CY: Are you sure you want to invite the following people to be co-authors on this proposal:",
+					"existing-table-heading":"CY: Existing users invited to collaborate:",
+					"email-table-heading":"CY: Existing users invited to collaborate:"
+				},
 				"signature-tooltip": "CY: Show support for this proposal by signing it.",
 				"confirmSubmit": "CY: Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
 				"voteCast": "CY: Your vote has been cast",
@@ -316,7 +328,8 @@
 					"proposalIncomplete": "CY: You must complete your proposal before submitting it.",
 					"commentPosted":"CY: Comment posted",
 					"commentUpdated": "CY: Comment Updated",
-					"commentDeleted": "CY: Comment Deleted"
+					"commentDeleted": "CY: Comment Deleted",
+					"invitationRemoved": "CY: Invitation successfully declined"
 				},
 				"userNotFound":"User could not be found",
 				"anonymous": "CY: Anonymous",
@@ -373,7 +386,8 @@
 			"no-votes-used": "CY: No users voted on this proposal.",
 			"for": "CY: For:",
 			"against": "CY: Against:",
-			"expires": "CY: Voting closes"
+			"expires": "CY: Voting closes",
+			"invited": "CY: Invited"
 		},
 		"profile": {
 			"profile-tags" : "Fill in at least five of your interests",
@@ -423,8 +437,7 @@
 			"new-password": "CY: New password",
 			"confirm-password": "CY: Confirm password",
 			"reset": "CY: Reset",
-			"password-mismatch": "CY: Passwords do not match",
-			"password-reset": "CY: Password successfully reset"
+			"password-mismatch": "CY: Passwords do not match"
 		},
 		"routes": {
 			"alerts": {

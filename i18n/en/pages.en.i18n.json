@@ -290,6 +290,18 @@
 					"paragraph-2": "Creating an account is simple, and will allow you to join others in writing proposals, voting and choosing delegates.",
 					"button": "Sign Up"
 				},
+				"removeInviteModal": {
+					"header": "Reject Invitation to Collaborate",
+					"paragraph-1": "Are you sure you want to reject the invitation to colloborate on this proposal:",
+					"reason-input-label": "Give a reason:",
+					"decline-button": "Decline Invitation"
+				},
+				"inviteModal":{
+					"header":"Selected Invites",
+					"paragraph-1":"Are you sure you want to invite the following people to be co-authors on this proposal:",
+					"existing-table-heading":"Existing users invited to collaborate:",
+					"email-table-heading":"Existing users invited to collaborate:"
+				},
 				"signature-tooltip": "Show support for this proposal by signing it.",
 				"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
 				"voteCast": "Your vote has been cast",
@@ -319,7 +331,8 @@
 					"proposalIncomplete": "You must complete your proposal before submitting it.",
 					"commentPosted":"Comment posted",
 					"commentUpdated": "Comment Updated",
-					"commentDeleted": "Comment Deleted"
+					"commentDeleted": "Comment Deleted",
+					"invitationRemoved": "Invitation successfully declined"
 				},
 				"userNotFound":"User could not be found",
 				"anonymous": "Anonymous",
@@ -376,7 +389,8 @@
 			"no-votes-used": "No users voted on this proposal.",
 			"for": "For:",
 			"against": "Against:",
-			"expires": "Voting closes"
+			"expires": "Voting closes",
+			"invited": "Invited"
 		},
 		"profile": {
 			"profile-tags" : "Fill in at least five of your interests",
@@ -426,8 +440,7 @@
 			"new-password": "New password",
 			"confirm-password": "Confirm password",
 			"reset": "Reset",
-			"password-mismatch": "Passwords do not match",
-			"password-reset": "Password successfully reset"
+			"password-mismatch": "Passwords do not match"
 		},
 		"routes": {
 			"alerts": {

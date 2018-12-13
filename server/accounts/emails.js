@@ -1,5 +1,5 @@
 Accounts.emailTemplates.siteName = "Common Democracy";
-Accounts.emailTemplates.from     = "Common Democracy <info@commondemocracy.com>";
+Accounts.emailTemplates.from     = "Common Democracy <info@commondemocracy.org>";
 
 Accounts.emailTemplates.verifyEmail = {
   subject() {

@@ -1,5 +1,5 @@
 Meteor.methods({
-  sendInvite(email, role, url, fromEmail) {
+  sendEmailInvite(email, role, url, fromEmail) {
     console.log('sendInvite called');
     Meteor.defer(() => {
       Email.send({

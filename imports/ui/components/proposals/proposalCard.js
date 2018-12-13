@@ -54,6 +54,21 @@ Template.ProposalCard.helpers({
     var proposal = Proposals.findOne(proposalId);
     return proposal.authorId == Meteor.userId();
   },
+  userIsCollaborator: function(proposal) {
+    //check if anyone has been invited
+    if(typeof proposal.invited != 'undefined'){
+      let invitedArray = proposal.invited;
+      if(invitedArray.indexOf(Meteor.userId()) > -1){
+          console.log("user match");
+          return true;
+      }
+    }
+    return false;
+  },
+  userId: function(){
+    console.log(Meteor.userId());
+    return Meteor.userId();
+  },
   yesPercentage: function(proposalId) {
     var yesCount = Votes.find({proposalId: proposalId, vote: 'yes'}).count();
     var totalCount = Votes.find({proposalId: proposalId}).count();

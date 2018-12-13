@@ -10,7 +10,7 @@ CommentsSchema = new SimpleSchema({
   },
 	type: {
 		type: String,
-		allowedValues: ['comment','for','against','admin'],
+		allowedValues: ['comment','for','against','admin','invite-rejection'],
 		optional: false,
 	},
 	language: {
@@ -28,6 +28,15 @@ CommentsSchema = new SimpleSchema({
 	argumentId:{
 		type: String,
 		optional: true,
+	},
+	closed:{
+		type: Boolean,
+		optional: true,
+		autoValue: function() {
+				if (this.isInsert) {
+						return false;
+				}
+		}
 	},
 	createdAt: {
 			type: Date,

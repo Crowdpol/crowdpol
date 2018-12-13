@@ -3,6 +3,11 @@
 		<li class="proposal-item">
 			<div class="card-main-wrap">
 				<div class="tag-wrap">
+					{{#if userIsCollaborator proposal}}
+						<span class="tag status-chip invited">
+							{{_ "pages.voting.invited"}}
+						</span>
+					{{/if}}
 					{{#if showStatus}}
 						<span class="tag status-chip {{proposal.status}}">
 							{{proposalStatus proposal}}
