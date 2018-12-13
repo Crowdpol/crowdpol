@@ -472,19 +472,26 @@ closeInviteModal = function(event) {
 
 function sendNotifications(invited){
 	let emailInvites = Session.get('emailInvites');
-	console.log(emailInvites);
-	console.log(invited);
-	/*
+
 	for (i=0; i < invited.length; i++) {
 		var notification = {
 			message: TAPi18n.__('notifications.proposals.invite'),
-			userId: newProposal.invited[i],
+			userId: invited[i],
 			url: '/proposals/view/' + proposalId,
 			icon: 'people'
 		}
 		Meteor.call('createNotification', notification);
 	}
+
+	for (i=0; i < emailInvites.length; i++) {
+		console.log(emailInvites[i]);
+		Meteor.call('sendInvite', emailInvites[i], 'individual', 'http://www.google.com', 'Common Democracy <info@commondemocracy.org>')
+	}
+	/*
+	console.log(emailInvites);
+	console.log(invited);
 	*/
-	//STEP 1: See if notifcation has been sent
-	//
+	//STEP 1: See if notifcation has been sent, else send new
+	//STEP 2: Create proposal Invitations
+	//STEP 3: Send email invitations
 }

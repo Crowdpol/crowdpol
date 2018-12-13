@@ -5,18 +5,19 @@ export const Invitations = new Meteor.Collection('invitations');
 
 InviteSchema = new SimpleSchema({
   userId: {
-      type: String,
-      optional: false,
-  },
-	url: {
     type: String,
+    optional: false,
+  },
+	type: {
+    type: String,
+    allowedValues: ['proposal'],
     optional: true
   },
-  message: {
+  objectId: {
     type: String,
-    optional: false
+    optional: false,
   },
-  icon: {
+  message: {
     type: String,
     optional: true
   },
@@ -39,9 +40,9 @@ InviteSchema = new SimpleSchema({
   }
 });
 
-Notifications.attachSchema(NotificationsSchema);
+Invitations.attachSchema(InviteSchema);
 
-Notifications.allow({
+Invitations.allow({
   insert() {
     return false;
   },
@@ -53,7 +54,7 @@ Notifications.allow({
   },
 });
 
-Notifications.deny({
+Invitations.deny({
   insert() {
     return true;
   },

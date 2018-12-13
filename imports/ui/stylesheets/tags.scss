@@ -73,6 +73,9 @@
   &.approved {
     background-color: $green;
   }
+  &.invited {
+    background-color: $yellow;
+  }
 }
 
 .add-tags-wrap {

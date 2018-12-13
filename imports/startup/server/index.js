@@ -5,6 +5,7 @@ import './register-api.js';
 import './cron-jobs.js';
 import "./accounts/accounts.js";
 import "./accounts/configure-services.js";
+import './email.js';
 import Raven from 'raven';
 
 var sentryDSN = Meteor.settings.private.sentryPrivateDSN;

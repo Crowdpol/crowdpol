@@ -113,14 +113,14 @@
 	  <div class='content-wrapper invite-wrapper'>
 	    <div class="content invite-content">
 	      <!--<div class="app-container"> -->
-					<h4>Selected Invites</h4>
-					<p>Are you sure you want to invite the following people to be co-authors on this proposal:</p>
+					<h4>{{_'pages.proposals.view.inviteModal.header'}}</h4>
+					<p>{{_'pages.proposals.view.inviteModal.paragraph-1'}}</p>
 					<div id="invited-users-table">
 						<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 							{{#if selectedInvitesCount}}
 									<thead>
 										<tr>
-											<th class="mdl-data-table__cell--non-numeric">Existing users invited to collaborate:</th>
+											<th class="mdl-data-table__cell--non-numeric">{{_'pages.proposals.view.inviteModal.existing-table-heading'}}</th>
 											<th></th>
 											<th></th>
 										</tr>
@@ -140,7 +140,7 @@
 							{{#if emailInviteCount}}
 									<thead>
 										<tr>
-											<th class="mdl-data-table__cell--non-numeric"><strong>Send and invitation to the following addresses:</strong></th>
+											<th class="mdl-data-table__cell--non-numeric"><strong>{{_'pages.proposals.view.inviteModal.email-table-heading'}}</strong></th>
 											<th></th>
 											<th></th>
 										</tr>
@@ -171,13 +171,13 @@
 					</div>
 					<br/>
 					<div class="btn-wrapper">
-			      <button class="mdl-button mdl-js-button mdl-button--raised" id="approve-button">
-							<i class="material-icons">check</i>
-							{{_'admin.proposals.approve-button'}}
-						</button>
 						<button class="mdl-button mdl-js-button mdl-button--raised" id="reject-button">
 							<i class="material-icons">close</i>
 							{{_'form.cancel'}}
+						</button>
+			      <button class="mdl-button mdl-js-button mdl-button--raised" id="approve-button">
+							<i class="material-icons">check</i>
+							{{_'admin.proposals.approve-button'}}
 						</button>
 			    </div>
 	      </div>
