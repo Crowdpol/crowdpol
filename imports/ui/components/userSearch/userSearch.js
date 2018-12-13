@@ -1,5 +1,6 @@
 import "./userSearch.html";
 import "./styles.css"
+import { getTotalInvites } from '../../pages/proposals/editProposal.js'
 
 Template.UserSearch.onCreated(function() {
   Session.set('searchPhrase', '');
@@ -18,8 +19,11 @@ Template.UserSearch.events({
     $(e.currentTarget).addClass("selected");
   },
   'mousedown .autosuggest-suggestion': function(e,t){
-    addUser($(e.currentTarget).attr("data-user-id"));
+    if(canAdd()){
+      addUser($(e.currentTarget).attr("data-user-id"));
+    }
     $("#autosuggest-results").hide();
+
   },
   'blur #invited': function(e,t) {
     $("#autosuggest-results").hide();
@@ -59,15 +63,18 @@ Template.UserSearch.events({
     }
     if(key == 13 || key == 9){
       var selectedIndex = $('#autosuggest-results li.selected').index();
-      if(selectedIndex > -1){
-        addUser(listItems[selectedIndex].getAttribute('data-user-id'))
-
+      if(canAdd()){
+        console.log("true");
       }else{
-        if(validateEmail($('#invited').val())){
-          emails = Session.get('emailInvites');
-          emails.push($('#invited').val())
-          Session.set('emailInvites',emails);
-          $('#invited').val('');
+        console.log("false");
+      }
+      if(selectedIndex > -1){
+        if(canAdd()){
+          addUser(listItems[selectedIndex].getAttribute('data-user-id'))
+        }
+      }else{
+        if(validateEmail($('#invited').val())&&canAdd()){
+          addEmail($('#invited').val());
         }
       }
     }
@@ -81,16 +88,49 @@ Template.UserSearch.helpers({
       { _id : { $nin : Session.get('invited')}},
       { _id : { $ne: Meteor.userId()} }
     ]}).fetch();
-    console.log(result);
+    //console.log(result);
     return result;
+    //return getUserSearch(Session.get('searchPhrase'), LocalStore.get('communityId'),Session.get('invited'));
   }
 });
 
 function addUser(id){
-        invited = Session.get("invited");
-        invited.push(id);
-        Session.set("invited",invited);
-        $('#invited').val('');
+  //get existing invited ids
+  invited = Session.get("invited");
+  invited.push(id);
+  Session.set("invited",invited);
+  $('#invited').val('');
+}
+function addEmail(email){
+  emails = Session.get('emailInvites');
+  emails.push(email);
+  Session.set('emailInvites',emails);
+  $('#invited').val('');
+}
+
+function canAdd(){
+  let settings = LocalStore.get('settings');
+  let maxCount = -1;
+  if(typeof settings != 'undefined'){
+    if(typeof settings.collaboratorLimit != 'undefined'){
+      maxCount = settings.collaboratorLimit;
+    }
+  }
+  //if 0, then disabled
+  if(maxCount==0){
+    Bert.alert('Collaborator invite disabled by system administrator', 'danger');
+    return false;
+  }
+  //if -1 then unlimited
+  if(maxCount==-1){
+    return true;
+  }
+  let invitedCount = getTotalInvites();
+  if(invitedCount<maxCount){
+    return true;
+  }
+  Bert.alert(TAPi18n.__("pages.proposals.edit.alerts.collaborator-limit-exceeded",{limit:maxCount}),'danger');
+  return false;
 }
 function validateEmail(mail){
  if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(mail))

@@ -4,8 +4,9 @@
 /* mdl - popup */
 .dark-overlay {
   position: fixed;
+  top: -50px;
   width: 100%;
-  height: 100%;
+  height: 120%;
   background: rgba(0, 0, 0, 0.3);
   z-index: 5;
   -webkit-transition: all 600ms cubic-bezier(0.200, 0.965, 0.000, 1.005);
@@ -112,4 +113,92 @@
   right: 10%;
   top: 10%;
   overflow: scroll
+}
+
+.invite-modal {
+  display: none;
+  z-index: 5;
+  cursor: pointer;
+  border-radius: 50%;
+  position: fixed;
+  right: 10%;
+  top: 10%;
+  //color: #fff;
+  background: #d35400;
+  height: 80%;
+  width: 80%;
+  box-shadow: 0 5px 5px rgba(126, 111, 111, 0.39);
+  -webkit-transition: all 600ms cubic-bezier(0.200, 0.965, 0.000, 1.005);
+  transition: all 600ms cubic-bezier(0.200, 0.965, 0.000, 1.005);
+}
+
+.invite-modal.active {
+  display: block;
+  cursor: default;
+  background: #FFF;
+  border-radius: .125em;
+  height: 70%;
+  width: 50%;
+  box-shadow: 0 25px 35px 0 rgba(0, 0, 0, 0.35);
+  top: 15%;
+  right: 25%;
+  overflow: scroll;
+  @include breakpoint($tiny) {
+    height: 80%;
+    width: 90%;
+    top: 10%;
+    right: 5%;
+  }
+  @include breakpoint($mobile) {
+    height: 80%;
+    width: 80%;
+    top: 10%;
+    right: 10%;
+  }
+  @include breakpoint($tablet) {
+    height: 60%;
+    width: 50%;
+    top: 20%;
+    right: 25%;
+  }
+  @include breakpoint($laptop) {
+    height: 60%;
+    width: 50%;
+    top: 20%;
+    right: 25%;
+  }
+  @include breakpoint($desktop) {
+    height: 60%;
+    width: 50%;
+    top: 20%;
+    right: 25%;
+  }
+}
+
+.invite-content{
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+#invited-users-table{
+  @include breakpoint($tiny) {
+    display: none;
+  }
+  @include breakpoint($mobile) {
+    display: block;
+  }
+}
+
+#invited-users-list{
+  display: none;
+  @include breakpoint($tiny) {
+    display: block;
+    ul {
+      list-style-type: none;
+      padding: 0px;
+    }
+  }
+  @include breakpoint($mobile) {
+    display: none;
+  }
 }
