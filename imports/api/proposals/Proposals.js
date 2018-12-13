@@ -172,6 +172,14 @@ ProposalSchema = new SimpleSchema({
         type: String,
         optional: true,
     },
+    invitedEmail: {
+        type: Array,
+        optional: true,
+    },
+    'invitedEmail.$': {
+        type: String,
+        optional: true,
+    },
     signatures: {
         type: Array,
         optional: true,

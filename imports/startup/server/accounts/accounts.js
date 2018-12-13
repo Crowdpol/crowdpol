@@ -260,8 +260,6 @@ Accounts.onCreateUser((options, user) => {
   return user;
 });
 
-
-
 Accounts.onLogin(function(user){
 
 });
