@@ -338,6 +338,7 @@ Meteor.methods({
 });
 
 function profileIsComplete(user){
+  //console.log("user.profile.type: " + user.profile.type);
   if(typeof user.profile.type == 'undefined'){
     var profile = {
       username: user.profile.username,
@@ -349,16 +350,28 @@ function profileIsComplete(user){
       //tags: user.profile.tags
     };
   }else{
-    var profile = {
-      username: user.profile.username,
-      firstName: user.profile.firstName,
-      photo: user.profile.photo,
-      bio: user.profile.bio,
-      website: user.profile.website,
-      phoneNumber: user.profile.phoneNumber,
-      contactPerson: user.profile.contactPerson
-      //credentials: template.templateDictionary.get('credentials'),
-      //type: template.type.get(),
+    if(user.profile.type == 'Individual'){
+      var profile = {
+        username: user.profile.username,
+        firstName: user.profile.firstName,
+        lastName: user.profile.lastName,
+        photo: user.profile.photo,
+        bio: user.profile.bio,
+        website: user.profile.website,
+        //tags: user.profile.tags
+      };
+    }else{
+      var profile = {
+        username: user.profile.username,
+        firstName: user.profile.firstName,
+        photo: user.profile.photo,
+        bio: user.profile.bio,
+        website: user.profile.website,
+        phoneNumber: user.profile.phoneNumber,
+        contactPerson: user.profile.contactPerson
+        //credentials: template.templateDictionary.get('credentials'),
+        //type: template.type.get(),
+      }
     }
   }
 
@@ -370,13 +383,17 @@ function profileIsComplete(user){
   //} else {
     _.map(profileFields, function(field){
       if (profile[field]){
+        //console.log("profile[field]: " + profile[field]);
         if (profile[field].length == 0) {
+          //console.log("profile[field]: " + profile[field] + " is breaking this.");
           isComplete = false;
         }
       } else {
+        //console.log("!profile[field]: " + profile[field]);
         isComplete = false;
       }
     });
   //}
+  //console.log("isComplete: " + isComplete)
   return isComplete;
 }
