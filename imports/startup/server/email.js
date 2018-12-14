@@ -1,4 +1,4 @@
-Meteor.methods({
+/*Meteor.methods({
   sendEmailInvite(email, role, url, fromEmail) {
     console.log('sendInvite called');
     Meteor.defer(() => {
@@ -10,4 +10,4 @@ Meteor.methods({
       });
     });
   }
-});
+});*/

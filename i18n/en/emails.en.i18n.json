@@ -27,6 +27,11 @@
 			"from": "__name__ __fromEmail__",
 			"subject": "Invitation to Crowdpol",
 			"body": "You have been invited to participate in Crowdpol as a __role__. Click the link to register: __url__"
+		},
+		"send-proposal-invite": {
+			"from": "__authorName__ __fromEmail__",
+			"subject": "Crowdpol: Invitation to collaborate on a proposal",
+			"body": "__authorName__ has invited you to contribute to a proposal in CrowdPol. Click the link to view: __url__"
 		}
 	}
 }

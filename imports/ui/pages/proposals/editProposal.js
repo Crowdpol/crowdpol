@@ -385,7 +385,7 @@ function saveChanges(event, template, returnTo){
 	return true;
 };
 
-function createProposal(propsalId,newProposal,returnTo,template){
+function createProposal(proposalId,newProposal,returnTo,template){
 	Meteor.call('createProposal', newProposal, function(error, proposalId){
 		if (error){
 			RavenClient.captureException(error);
@@ -403,7 +403,7 @@ function createProposal(propsalId,newProposal,returnTo,template){
 			 });
 			 //Create notifications for collaborators
 			 if (newProposal.invited) {
-				 sendNotifications(newProposal.invited);
+				 sendNotifications(newProposal.invited,proposalId,newProposal.authorId);
 				}
 			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
 			FlowRouter.go(returnTo, {id: proposalId});
@@ -420,7 +420,7 @@ function saveProposal(proposalId,newProposal,returnTo,template){
 		} else {
 			//Create notifications for collaborators
 			if (newProposal.invited) {
-				sendNotifications(newProposal.invited);
+				sendNotifications(newProposal.invited,proposalId,newProposal.authorId);
 			}
 			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
 			FlowRouter.go(returnTo, {id: proposalId});
@@ -470,22 +470,29 @@ closeInviteModal = function(event) {
   $("#overlay").removeClass('dark-overlay');
 }
 
-function sendNotifications(invited){
+function sendNotifications(invited,proposalId,authorId){
 	let emailInvites = Session.get('emailInvites');
-
+	let url = '/proposals/view/' + proposalId;
+	let author = Meteor.users.findOne({"_id":authorId});
+	let authorName = author.profile.firstName;
+	let fromEmail = author.emails[0].address;
+	if(typeof author.profile.lastName != 'undefined'){
+		authorName = authorName + ' ' + author.profile.lastName;
+	}
 	for (i=0; i < invited.length; i++) {
 		var notification = {
-			message: TAPi18n.__('notifications.proposals.invite'),
+			message: TAPi18n.__('notifications.proposals.invite',{authorName:authorName}),
 			userId: invited[i],
-			url: '/proposals/view/' + proposalId,
-			icon: 'people'
+			url: url,
+			icon: 'description'
 		}
 		Meteor.call('createNotification', notification);
 	}
 
 	for (i=0; i < emailInvites.length; i++) {
-		console.log(emailInvites[i]);
-		Meteor.call('sendInvite', emailInvites[i], 'individual', 'http://www.google.com', 'Common Democracy <info@commondemocracy.org>')
+		url = window.location.origin + '/proposals/view/' + proposalId;
+		console.log("sending email");
+		Meteor.call('sendProposalInvite', emailInvites[i], authorName, url, fromEmail);
 	}
 	/*
 	console.log(emailInvites);

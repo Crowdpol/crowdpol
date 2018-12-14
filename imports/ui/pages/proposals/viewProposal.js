@@ -273,6 +273,7 @@ Template.ViewProposal.helpers({
     }
   },
   isVisible: function() {
+    /*
     //Proposals should be visible to superadmin at all times
     if(Roles.userIsInRole(Meteor.userId(), 'superadmin')){
       return true;
@@ -289,6 +290,8 @@ Template.ViewProposal.helpers({
         return false;
       }
     }
+    */
+    return true;
   },
   getProposalLink: function() {
     return window.location.href;

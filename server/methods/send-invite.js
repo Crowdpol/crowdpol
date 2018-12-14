@@ -9,5 +9,16 @@ Meteor.methods({
         text: TAPi18n.__('emails.send-invite.body', {role: role, url: url})
       });
     });
+  },
+  sendProposalInvite(toEmail, authorName, url, proposalName, fromEmail) {
+    console.log('sendProposalInvite called');
+    Meteor.defer(() => {
+      Email.send({
+        to: `${toEmail}`,
+        from: TAPi18n.__('emails.send-proposal-invite.from', {authorName: authorName, email: fromEmail}),
+        subject: TAPi18n.__('emails.send-proposal-invite.subject'),
+        text: TAPi18n.__('emails.send-proposal-invite.body', {authorName:authorName, proposalName: proposalName, url: url})
+      });
+    });
   }
 });

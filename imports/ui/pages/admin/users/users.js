@@ -76,7 +76,7 @@ Template.AdminUsers.events({
 			//url = Meteor.absoluteUrl('login');
 			fromEmail = Meteor.user().emails[0].address;
 			var hostname = window.location.host;
-			url = 'https://' + hostname + '/login';
+			url = 'https://' + hostname + '/signup';
 		Meteor.call('sendInvite', email, role, url, fromEmail, function(error){
 			if (error){
 				RavenClient.captureException(error);
@@ -105,7 +105,7 @@ Template.AdminUsers.events({
 
 	'click .dropdown-item': function(event, template){
 		template.find('#invite-role').dataset.val = event.target.dataset.val;
-		template.find('#invite-role').value = TAPi18n.__('roles.' + event.target.dataset.val);
+		template.find('#invite-role').value = TAPi18n.__('components.role-selector.' + event.target.dataset.val);
 	}
 });
 
