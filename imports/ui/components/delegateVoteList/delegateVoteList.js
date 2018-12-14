@@ -13,7 +13,7 @@ Template.delegateVoteList.onCreated(function(){
 	      }
 	    });
   	}
-	
+
 });
 
 Template.delegateVoteList.helpers({
@@ -22,6 +22,16 @@ Template.delegateVoteList.helpers({
     var delegatesFor = [];
     _.map(delegates, function(delegate){
       if (delegate.vote_info[0].vote == 'yes'){
+        delegatesFor.push(delegate);
+      }
+    });
+    return delegatesFor;
+  },
+	delegatesAbstain: function(){
+    var delegates = Template.instance().delegates.get();
+    var delegatesFor = [];
+    _.map(delegates, function(delegate){
+      if (delegate.vote_info[0].vote == 'abstain'){
         delegatesFor.push(delegate);
       }
     });
@@ -37,7 +47,7 @@ Template.delegateVoteList.helpers({
     });
     return delegatesAgainst;
   },
-	
+
 });
 
 

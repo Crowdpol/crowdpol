@@ -9,7 +9,7 @@ VotesSchema = new SimpleSchema({
     },
     vote: {
         type: String,
-        allowedValues: ['yes', 'no'],
+        allowedValues: ['yes', 'no', 'abstain'],
         defaultValue: 'yes'
     },
     voterHash: {
