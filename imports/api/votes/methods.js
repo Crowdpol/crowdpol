@@ -13,7 +13,7 @@ Meteor.methods({
     if (!user)
       throw new Meteor.Error(401, "You need to login to vote");
     if (!voteData.vote)
-      throw new Meteor.Error(422, 'Please vote yes or no');
+      throw new Meteor.Error(422, 'Please vote yes, no or abstain');
     if (!proposal)
       throw new Meteor.Error(422, 'You must vote on a proposal');
 
@@ -65,6 +65,11 @@ Meteor.methods({
             "noCount": {
                 "$sum": {
                     $cond: [ { $eq: [ "$vote", "no" ] }, 1, 0 ]
+                }
+            },
+            "abstainCount": {
+                "$sum": {
+                    $cond: [ { $eq: [ "$vote", "abstain" ] }, 1, 0 ]
                 }
             }
         }},
