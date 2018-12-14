@@ -226,55 +226,60 @@ Template.ArgumentsListItem.helpers({
 Template.ArgumentsBox.events({
   'click .add-argument-button .add-argument-icon' (event, template){
     event.preventDefault();
-    //get the correct input field by language and argument
-    let argumentType = event.target.dataset.type;
-    let argumentLang = event.target.dataset.lang;
-    let argumentTextIdentifier = "[data-type='" + argumentType + "'][data-lang='" + argumentLang + "'].argument-input";
-    if(typeof argumentType !='undefined'){
-      //create arguments
-      let message = $(argumentTextIdentifier).val();
-      let proposalId = FlowRouter.getParam("id");
-      if(this.state=='view'){
-        let argument = {
-          type: argumentType,
-          message: message,
-          authorId: Meteor.user()._id,
-          upVote: [],
-          language: argumentLang,
-          downVote: [],
-          proposalId: FlowRouter.getParam("id")
-        }
-
-        Meteor.call('comment', argument, function(error){
-          if(error){
-            RavenClient.captureException(error);
-            Bert.alert(error.reason, 'danger');
-          } else {
-            Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentPosted'), 'success');
+    if (Meteor.user()){
+      //get the correct input field by language and argument
+      let argumentType = event.target.dataset.type;
+      let argumentLang = event.target.dataset.lang;
+      let argumentTextIdentifier = "[data-type='" + argumentType + "'][data-lang='" + argumentLang + "'].argument-input";
+      if(typeof argumentType !='undefined'){
+        //create arguments
+        let message = $(argumentTextIdentifier).val();
+        let proposalId = FlowRouter.getParam("id");
+        if(this.state=='view'){
+          let argument = {
+            type: argumentType,
+            message: message,
+            authorId: Meteor.user()._id,
+            upVote: [],
+            language: argumentLang,
+            downVote: [],
+            proposalId: FlowRouter.getParam("id")
           }
-        });
-      }else{
 
-        let argument = {
-          _id: Random.id(),
-          type: argumentType,
-          message: message,
-          authorId: Meteor.user()._id,
-          createdAt: moment().format('YYYY-MM-DD'),
-          lastModified: moment().format('YYYY-MM-DD'),
-          upVote: [],
-          language: argumentLang,
-          downVote: [],
-          proposalId: FlowRouter.getParam("id")
+          Meteor.call('comment', argument, function(error){
+            if(error){
+              RavenClient.captureException(error);
+              Bert.alert(error.reason, 'danger');
+            } else {
+              Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentPosted'), 'success');
+            }
+          });
+        }else{
+
+          let argument = {
+            _id: Random.id(),
+            type: argumentType,
+            message: message,
+            authorId: Meteor.user()._id,
+            createdAt: moment().format('YYYY-MM-DD'),
+            lastModified: moment().format('YYYY-MM-DD'),
+            upVote: [],
+            language: argumentLang,
+            downVote: [],
+            proposalId: FlowRouter.getParam("id")
+          }
+          argumentsArray = Session.get('arguments');
+          argumentsArray.push(argument);
+          Session.set('arguments',argumentsArray);
+
         }
-        argumentsArray = Session.get('arguments');
-        argumentsArray.push(argument);
-        Session.set('arguments',argumentsArray);
 
+
+        $(argumentTextIdentifier).val('');
+      }  else {
+        console.log("not signed in");
+        openSignInModal();
       }
-
-
-      $(argumentTextIdentifier).val('');
     }
   }
 });
