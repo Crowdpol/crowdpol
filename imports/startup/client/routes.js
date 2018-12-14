@@ -72,6 +72,16 @@ publicRoutes.route('/login', {
     }
   },
 });
+publicRoutes.route('/signup', {
+  name: 'App.login',
+  action() {
+    if (!Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'Authenticate' });
+    }else{
+      BlazeLayout.render('App_body', { main: 'ProposalsList' });
+    }
+  },
+});
 
 publicRoutes.route('/contact', {
   name: 'App.contact',

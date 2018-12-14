@@ -20,7 +20,7 @@
 			"approved": "The proposal you submitted has been approved.",
 			"rejected": "The proposal you submitted has been rejected.",
 			"comments": "There is a new comment on your proposal.",
-			"invite": "You have been invited to collaborate on a proposal."
+			"invite": "__authorName__ has invited you to collaborate on a proposal."
 		},
 		"users": {
 			"delegate-deselect": "%s has stopped being a delegate."

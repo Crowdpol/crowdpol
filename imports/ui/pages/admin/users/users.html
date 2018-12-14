@@ -29,15 +29,15 @@
 			<form id="invite">
 				<div class="mdl-card__supporting-text">
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-						<input class="mdl-textfield__input" type="text" id="invite-role" data-val="voter" value="{{_'components.role-selector.voter'}}" readonly tabIndex="-1">
+						<input class="mdl-textfield__input" type="text" id="invite-role" data-val="voter" value="{{_'components.role-selector.individual'}}" readonly tabIndex="-1">
 						<label for="invite-role" class="dropdown-icon">
 								<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
 							</label>
 						<label for="invite-role" class="mdl-textfield__label">{{_'admin.users.invite-role'}}</label>
 						<ul for="invite-role" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-							<li class="mdl-menu__item dropdown-item" data-val="voter">{{_'components.role-selector.voter'}}</li>
-							<li class="mdl-menu__item dropdown-item" data-val="party-delegate">{{_'components.role-selector.party-delegate'}}</li>
-							<li class="mdl-menu__item dropdown-item" data-val="organisation-delegate">{{_'components.role-selector.organisation-delegate'}}</li>
+							<li class="mdl-menu__item dropdown-item" data-val="individual">{{_'components.role-selector.individual'}}</li>
+							<li class="mdl-menu__item dropdown-item" data-val="party">{{_'components.role-selector.party'}}</li>
+							<li class="mdl-menu__item dropdown-item" data-val="organisation">{{_'components.role-selector.organisation'}}</li>
 						</ul>
 					</div>
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
