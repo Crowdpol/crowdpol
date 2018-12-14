@@ -322,6 +322,7 @@
 				"proposal": "Förslag",
 				"yes": "Ja",
 				"no": "Nej",
+				"abstain": "TODO: Abstain",
 				"voteInstructions": "Klicka på Ja/Nej för att lägga din röst. Om du väljer att inte rösta kommer din röst att gå till din högst rankade delegat som har röstat på förslaget. Du kan dock ändra din röst vid ett senare tillfälle.",
 				"alerts": {
 					"linkToClipboardSuccess": "Länk kopierad till urklipp",

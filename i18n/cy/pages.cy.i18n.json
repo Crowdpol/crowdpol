@@ -320,6 +320,7 @@
 				"proposal": "CY: Proposal",
 				"yes": "CY: For",
 				"no": "CY: Against",
+				"abstain": "CY: Abstain",
 				"voteInstructions": "CY: Click the buttons below to cast your vote. If you do not vote, your vote will go to your highest-ranking delegate who has voted. However, you may override your delegate's vote at any point.",
 				"alerts": {
 					"linkToClipboardSuccess": "CY: Link copied to clipboard",
