@@ -230,7 +230,7 @@ Template.Header.events({
     walkThrough(steps);
   },
   'click #notifications-menu-icon': function(event, template) {
-    toggleNotificationsDrawer();
+    toggleNotificationsMenu();
   },
   /*
   'click .notification-item': function(event, template) {
@@ -248,6 +248,7 @@ Template.Header.events({
 });
 
 function toggleNotificationsDrawer(){
+
   var items = document.getElementsByClassName('mdl-list__item-text-body notification-item-text')
     _.map(items, function(el){$clamp(el, {clamp: 3});})
 
@@ -258,7 +259,14 @@ function toggleNotificationsDrawer(){
         $('#notifications-menu').addClass('active');
      }
 }
-
+function toggleNotificationsMenu(){
+    if($('.notification-menu-content').hasClass('active')){
+        $('.notification-menu-content').removeClass('active');
+     }
+     else{
+        $('.notification-menu-content').addClass('active');
+     }
+}
 
 
 function matchTags(input, tags) {

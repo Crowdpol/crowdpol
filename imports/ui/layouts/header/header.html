@@ -108,7 +108,10 @@
 					<!-- Notification Menu -->
 					<div id="notifications-menu-icon" class="material-icons mdl-badge mdl-badge--overlap {{ unreadClass }}" data-badge="{{ unreadNotificationCount }}">notifications</div>
 
-					{{> NotificationsDrawer}}
+					<!---->
+					<div class="notification-menu-content">
+				  	{{> NotificationsDrawer}}
+				  </div>
 
 					<a id="help-menu" class="mdl-navigation__link mdl-layout--large-screen-only" href="/"><i class="material-icons" id="main-help">help_outline</i></a>
 					<!-- Language Menu -->
