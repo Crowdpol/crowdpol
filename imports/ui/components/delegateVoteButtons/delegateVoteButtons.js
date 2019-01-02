@@ -27,6 +27,11 @@ Template.delegateVoteButtons.helpers({
 			return 'mdl-button--colored'
 		}
 	},
+	'delegateAbstainClass': function(){
+		if (Template.instance().vote.get() == 'abstain'){
+			return 'mdl-button--colored'
+		}
+	},
 	'delegateNoClass': function(){
 		if (Template.instance().vote.get() == 'no'){
 			return 'mdl-button--colored'
@@ -58,6 +63,11 @@ Template.delegateVoteButtons.events({
 		template.find('#mdl-custom-modal').style.display = "block";
 		template.vote.set('yes');
 	},
+	'click #delegate-vote-abstain': function(event, template){
+		'use strict';
+		template.find('#mdl-custom-modal').style.display = "block";
+		template.vote.set('abstain');
+	},
 	'click #delegate-vote-no': function(event, template){
 		'use strict';
 		template.find('#mdl-custom-modal').style.display = "block";
@@ -69,6 +79,7 @@ Template.delegateVoteButtons.events({
 			var vote = template.vote.get()
 			Meteor.call('voteAsDelegate', {vote: vote, reason: reason, proposalId: template.proposalId}, function(error){
 				if (error){
+					console.log("error: "+error.reason);
 					Bert.alert(error.reason, 'danger');
 				} else {
 					template.find('#mdl-custom-modal').style.display = "none";

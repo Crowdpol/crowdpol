@@ -36,6 +36,11 @@ Template.voteButtons.helpers({
 			return "mdl-button--colored-no";
 		}
 	},
+	userAbstainClass: function(){
+		if(Template.instance().templateDictionary.get('userVote') == 'abstain'){
+			return "mdl-button--colored-abstain";
+		}
+	},
 	delegateYesClass: function(){
 		if (Template.instance().templateDictionary.get('delegateVote') == 'yes'){
 			return 'delegate-color'
@@ -46,6 +51,11 @@ Template.voteButtons.helpers({
 			return 'delegate-color'
 		}
 	},
+	delegateAbstainClass: function(){
+		if (Template.instance().templateDictionary.get('delegateVote') == 'abstain'){
+			return 'delegate-color'
+		}
+	}
 });
 
 Template.voteButtons.events({
@@ -62,6 +72,15 @@ Template.voteButtons.events({
 		if (Meteor.user()){
 			vote('no', template.proposalId);
 			template.templateDictionary.set('userVote', 'no');
+		} else {
+			openSignInModal();
+		}
+	},
+
+	'click #vote-abstain' (event, template){
+		if (Meteor.user()){
+			vote('abstain', template.proposalId);
+			template.templateDictionary.set('userVote', 'abstain');
 		} else {
 			openSignInModal();
 		}

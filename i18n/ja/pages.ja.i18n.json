@@ -320,6 +320,7 @@
 				"proposal": "JA: Proposal",
 				"yes": "JA: For",
 				"no": "JA: Against",
+				"abstain": "JA: Abstain",
 				"voteInstructions": "JA: Click the buttons below to cast your vote. If you do not vote, your vote will go to your highest-ranking delegate who has voted. However, you may override your delegate's vote at any point.",
 				"alerts": {
 					"linkToClipboardSuccess": "JA: Link copied to clipboard",

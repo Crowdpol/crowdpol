@@ -39,7 +39,7 @@ Template.NotificationsDrawer.helpers({
     return moment(createdAt).fromNow();
   },
   unreadClass(){
-    if (Notifications.find({read: false}).count() == 0){ 
+    if (Notifications.find({read: false}).count() == 0){
       return 'noUnreads'
     }
   }
@@ -50,15 +50,18 @@ Template.NotificationsDrawer.events({
     FlowRouter.go(event.target.dataset.url);
     location.reload();
     Meteor.call('readNotification', event.target.dataset.id);
+    $('.notification-menu-content').removeClass('active');
   },
   'click #mark-as-read': function(event, template) {
     Meteor.call('markAllAsRead', Meteor.userId());
+    $('.notification-menu-content').removeClass('active');
   },
   'click .mdl-layout__obfuscator-right': function(event, template) {
-    $('#notifications-menu').removeClass('active'); 
+    $('#notifications-menu').removeClass('active');
+    $('.notification-menu-content').removeClass('active');
+  },
+  'click .view-all-link': function(event,template){
+    $('.notification-menu-content').removeClass('active');
   }
 
 });
-
-
-
