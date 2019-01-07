@@ -1,3 +1,102 @@
 <template name="Feed">
-  <h1>Feed<small>coming soon...</small></h1>
+  <div class="feed-wrapper">
+    <header class="header cover">
+      <img src="https://images.pexels.com/photos/259915/pexels-photo-259915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Header Pic" >
+    </header>
+    <article class="main">
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+          <a href="#feed-panel" class="mdl-tabs__tab">Feed</a>
+          <a href="#activity-panel" class="mdl-tabs__tab is-active">Activity</a>
+        </div>
+
+        <div class="mdl-tabs__panel is-active" id="activity-panel">
+
+          <ul class="feed-list">
+            <li class="feed-post">
+              {{>ActivityFeed}}
+            </li>
+          </ul>
+        </div>
+        <div class="mdl-tabs__panel" id="feed-panel">
+          <ul class="demo-list-three mdl-list">
+            <li class="mdl-list__item mdl-list__item--three-line">
+              <span class="mdl-list__item-primary-content">
+                <i class="material-icons mdl-list__item-avatar">person</i>
+                <span>Bryan Cranston<small>@bryan_cranston </small></span>
+                <span class="mdl-list__item-text-body">
+                  Bryan Cranston played the role of Walter in Breaking Bad. He is also known
+                  for playing Hal in Malcom in the Middle.
+                </span>
+              </span>
+              <span class="mdl-list__item-secondary-content">
+                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+              </span>
+            </li>
+            <li class="mdl-list__item mdl-list__item--three-line">
+              <span class="mdl-list__item-primary-content">
+                <i class="material-icons  mdl-list__item-avatar">person</i>
+                <span>Aaron Paul</span>
+                <span class="mdl-list__item-text-body">
+                  Aaron Paul played the role of Jesse in Breaking Bad. He also featured in
+                  the "Need For Speed" Movie.
+                </span>
+              </span>
+              <span class="mdl-list__item-secondary-content">
+                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+              </span>
+            </li>
+            <li class="mdl-list__item mdl-list__item--three-line">
+              <span class="mdl-list__item-primary-content">
+                <i class="material-icons  mdl-list__item-avatar">person</i>
+                <span>Bob Odenkirk</span>
+                <span class="mdl-list__item-text-body">
+                  Bob Odinkrik played the role of Saul in Breaking Bad. Due to public fondness for the
+                  character, Bob stars in his own show now, called "Better Call Saul".
+                </span>
+              </span>
+              <span class="mdl-list__item-secondary-content">
+                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    <aside class="aside aside-1">
+      <a href="#" class="profile-image-link"><img src="{{profilePic}}" class="profile-image"/></a>
+      <div class="profile-card">
+        <h5>{{profileName}}</h5>
+        <small>{{profileUsername}}</small>
+      </div>
+
+    </aside>
+    <aside class="aside aside-2">
+      This is a side column.
+    </aside>
+    <!--
+    <footer class="footer">Footer</footer>
+    -->
+  </div>
+</template>
+
+<template name="ActivityFeed">
+  <div class="post-header">
+    <div class="author-pic">
+      <img src="https://pbs.twimg.com/profile_images/496399879548452864/H_wAA4sN_400x400.jpeg" class="">
+    </div>
+    <div class="post-content">
+      <div class="author-name">
+        <strong>Firstname Lastname</strong>&nbsp;<small>@username - 11 January 2019 10:55</small>
+        <i class="material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="post-message">
+        This is a feed post. It can have some content that can be displayed
+      </div>
+      <div class="post-footer">
+        <i class="material-icons">chat_bubble_outline</i>
+        <i class="material-icons">favorite_border</i>
+      </div>
+    </div>
+  </div>
 </template>

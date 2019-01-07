@@ -6,7 +6,7 @@
   display: none;
   position: absolute;
   top: 70px;
-  margin-right: 120px;
+  margin-right: 125px;
   right: 0;
   background-color: #f9f9f9;
   min-width: 160px;
@@ -141,7 +141,7 @@
 	position: absolute;
 	pointer-events: none;
 	border-color: rgba(61, 61, 61, 0);
-	border-bottom-color: #3d3d3d;
+	border-bottom-color: $blue;
 	border-width: 10px;
 	margin-left: -10px;
 }

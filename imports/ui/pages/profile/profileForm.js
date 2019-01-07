@@ -82,78 +82,7 @@ Template.ProfileForm.events({
           $("#valid-url").text("");
         }
   },
-  'click #goPrivate' (event,template){
-    if( Meteor.user().isPublic) {
-      //True: - go private
-        //1 Check if user is delegate
-        if (isInRole('delegate')) {
-          //true - let user know they cannot go private while delegate
-            Bert.alert("Remove delegate role before going private", 'danger');
-            if(event.currentTarget.checked){
-              $( "#goPrivate" ).prop( "checked", false );
-            }
-        }else{
-          //false - make user private
-          togglePublic(false, template);
-        }
-    }
-  },
-  'click #goPublic' (event,template){
-    if(! Meteor.user().isPublic) {
-      togglePublic(true, template);
-    }
-  },
-  'click #profile-public-switch' (event, template) {
-    event.preventDefault();
 
-    //Check if user is public
-    if( Meteor.user().isPublic) {
-      //True: - go private
-        //1 Check if user is delegate
-        if (isInRole('delegate')) {
-          //true - let user know they cannot go private while delegate
-            Bert.alert("Remove delegate role before going private", 'danger');
-        }else{
-          //false - make user private
-          togglePublic(false, template);
-        }
-    }else{
-      togglePublic(true,template);
-
-    }
-
-  },
-  'click #profile-delegate-switch' (event, template) {
-    event.preventDefault();
-    // Check if person already is a delegate, if so remove role
-    if (isInRole('delegate')) {
-      if (window.confirm(TAPi18n.__('pages.profile.alerts.profile-stop-delegate'))){
-        Meteor.call('toggleRole', 'delegate', false, function(error) {
-          if (error) {
-            RavenClient.captureException(error);
-            Bert.alert(error.reason, 'danger');
-          } else {
-            Meteor.call('removeRanks', 'delegate', Meteor.userId());
-            var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-removed');
-            Bert.alert(msg, 'success');
-          }
-        });
-      }
-    } else {
-      // Profile is complete, submit approval request
-      //console.log("requesting approval");
-      Meteor.call('requestApproval', Meteor.userId(), 'delegate', function(error) {
-        if (error) {
-          RavenClient.captureException(error);
-          Bert.alert(error.reason, 'danger');
-          updateDisplayedStatus('delegate', template)
-        } else {
-          var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
-          Bert.alert(msg, 'success');
-        }
-      });
-    }
-  },
   'submit form' (event, template) {
     event.preventDefault();
   },
@@ -399,21 +328,7 @@ Template.ProfileForm.helpers({
     }
     return true;
   },
-  isPublic: function() {
-    return Meteor.user().isPublic;
-  },
-  publicChecked: function() {
-    if(Meteor.user().isPublic){
-      return "checked";
-    }
-    return null;
-  },
-  privateChecked: function() {
-    if(!Meteor.user().isPublic){
-      return "checked";
-    }
-    return null;
-  },
+
   saveDisabled: function(){
     if (Meteor.user().isPublic && !Session.get('profileIsComplete')){
       return 'disabled';
@@ -423,20 +338,6 @@ Template.ProfileForm.helpers({
   },
   isPublic: function() {
     return Meteor.user().isPublic;
-  },
-  delegateStatus: function() {
-    var status;
-    if(isInRole('delegate')){
-      status = TAPi18n.__('generic.approved');
-    } else {
-      status = false;
-      if (status == TAPi18n.__('generic.approved')){
-        /*if the status is approved, but the user is not in the role, then
-        they were previously approved, but revoked the role themselves*/
-        status = '';
-      }
-    }
-    return status;
   },
   candidateStatus: function() {
     var status;
@@ -469,6 +370,113 @@ Template.ProfileForm.helpers({
       return '<i class="material-icons">expand_less</i>' + TAPi18n.__('generic.show-less');
     }
     return '<i class="material-icons">expand_more</i>' + TAPi18n.__('generic.show-more');;
+  }
+});
+
+Template.ProfileSettingsForm.events({
+  'click #goPrivate' (event,template){
+    if( Meteor.user().isPublic) {
+      //True: - go private
+        //1 Check if user is delegate
+        if (isInRole('delegate')) {
+          //true - let user know they cannot go private while delegate
+            Bert.alert("Remove delegate role before going private", 'danger');
+            if(event.currentTarget.checked){
+              $( "#goPrivate" ).prop( "checked", false );
+            }
+        }else{
+          //false - make user private
+          togglePublic(false, template);
+        }
+    }
+  },
+  'click #goPublic' (event,template){
+    if(! Meteor.user().isPublic) {
+      togglePublic(true, template);
+    }
+  },
+  'click #profile-public-switch' (event, template) {
+    event.preventDefault();
+
+    //Check if user is public
+    if( Meteor.user().isPublic) {
+      //True: - go private
+        //1 Check if user is delegate
+        if (isInRole('delegate')) {
+          //true - let user know they cannot go private while delegate
+            Bert.alert("Remove delegate role before going private", 'danger');
+        }else{
+          //false - make user private
+          togglePublic(false, template);
+        }
+    }else{
+      togglePublic(true,template);
+
+    }
+
+  },
+  'click #profile-delegate-switch' (event, template) {
+    event.preventDefault();
+    // Check if person already is a delegate, if so remove role
+    if (isInRole('delegate')) {
+      if (window.confirm(TAPi18n.__('pages.profile.alerts.profile-stop-delegate'))){
+        Meteor.call('toggleRole', 'delegate', false, function(error) {
+          if (error) {
+            RavenClient.captureException(error);
+            Bert.alert(error.reason, 'danger');
+          } else {
+            Meteor.call('removeRanks', 'delegate', Meteor.userId());
+            var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-removed');
+            Bert.alert(msg, 'success');
+          }
+        });
+      }
+    } else {
+      // Profile is complete, submit approval request
+      //console.log("requesting approval");
+      Meteor.call('requestApproval', Meteor.userId(), 'delegate', function(error) {
+        if (error) {
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+          updateDisplayedStatus('delegate', template)
+        } else {
+          var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
+          Bert.alert(msg, 'success');
+        }
+      });
+    }
+  }
+});
+
+Template.ProfileSettingsForm.helpers({
+  isPublic: function() {
+    return Meteor.user().isPublic;
+  },
+  publicChecked: function() {
+    if(Meteor.user().isPublic){
+      return "checked";
+    }
+    return null;
+  },
+  privateChecked: function() {
+    if(!Meteor.user().isPublic){
+      return "checked";
+    }
+    return null;
+  },
+  delegateStatus: function() {
+    var status;
+    if(isInRole('delegate')){
+      status = TAPi18n.__('generic.approved');
+    } else {
+      status = false;
+      if (status == TAPi18n.__('generic.approved')){
+        /*if the status is approved, but the user is not in the role, then
+        they were previously approved, but revoked the role themselves*/
+        status = '';
+      }
+    }
+    return status;
   }
 });
 
