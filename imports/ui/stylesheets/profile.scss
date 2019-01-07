@@ -181,3 +181,43 @@ div#profile-delegate-status{
     margin-top: 10px;
   }
 }
+
+//profile header
+.profile-card{
+  max-width: 300px;
+  .profile-header{
+    border: solid 1px #fff;
+
+    img{
+      max-width:100%;
+      max-height:100%;
+    }
+  }
+  .profile-details{
+    border: solid 1px #fff;
+    background-color: #fff;
+    //display: flex;
+    //flex-flow: row wrap;
+    //justify-content: space-between;
+    .profile-image{
+      border: solid 3px #fff;
+      flex: 1 20%;
+      img{
+        margin: -50px 0 0 8px;
+        width: 100px;
+        height: 100px;
+        border: solid 3px #fff;
+      }
+    }
+    .profile-name{
+      //border: solid 1px blue;
+      flex: 4 80%;
+      .profile-names{
+        font-size: 12pt;
+      }
+      .profile-username{
+        font-size: 8pt;
+      }
+    }
+  }
+}

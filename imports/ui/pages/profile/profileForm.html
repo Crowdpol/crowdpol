@@ -1,29 +1,8 @@
 <template name="ProfileForm">
+	<h5>Profile</h5>
 	<form id="profile-form" class="profile" name="profile-form">
 		<div class="mdl-grid profile-grid ">
-			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone" id="profile-radios">
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="goPrivate">
-				  <input type="radio" id="goPrivate" class="mdl-radio__button" name="isPublic" value="1" {{privateChecked}}>
-				  <span class="mdl-radio__label">
-				  	Make my profile private
-				  	<small>(Others will only be able to view your username)</small>
-				  </span>
-				</label>
-				<br>
-				<br>
-				<br>
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="goPublic">
-				  <input type="radio" id="goPublic" class="mdl-radio__button" name="isPublic" value="2" {{publicChecked}}>
-				  <span class="mdl-radio__label">
-				  	Make my profile visible to others<br>
-				  	<small>(Others will only be able to view your name, website and about info)</small>
-				  </span>
-				</label>
-				<br>
-				<br>
-				<br>
-			</div>
-			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone" id="profile-delegate-status">
+			<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" id="profile-delegate-status">
 				<div id="progress-container">
 					<div id="progress-header">
 						{{_ "pages.profile.status" completedScore=completedScore totalScore=totalScore}}
@@ -32,18 +11,6 @@
 						</div>
 					</div>
 					<small>Your profile must be complete in order to become a delegate.</small>
-				</div>
-				<div id="delegate-switch-container">
-					<div class="switch-wrap">
-						<label id='profile-delegate-switch-label' class="swich mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-							<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
-							<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
-						</label>
-					</div>
-					<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
-						{{_ "pages.profile.tooltips.delegateSwitch"}}
-					</div>
-					<small>{{_ "pages.profile.delegate-switch-description"}}</small>
 				</div>
 				<div class="mdl-tooltip mdl-tooltip--large" for="progress-header">
 					<div id="profile-status-complete">
@@ -164,8 +131,9 @@
 				-->
 
 	</form>
+	<!--
 	{{> ResetPassword}}
-			<!-- Helper list: Don't delete, useful for testing
+			 Helper list: Don't delete, useful for testing
 			isEntity: |{{isEntity}}|<br>
 			profilePic: |{{profilePic}}|<br>
 			type: |{{type}}|<br>
@@ -177,4 +145,43 @@
 			isDelegate: |{{isDelegate}}|<br>
 			isCandidate: |{{isCandidate}}|<br>
 			-->
+</template>
+<template name="ProfileSettingsForm">
+	<h5>Profile Settings</h5>
+	<div class="mdl-grid profile-grid ">
+		<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" id="profile-radios">
+			<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="goPrivate">
+				<input type="radio" id="goPrivate" class="mdl-radio__button" name="isPublic" value="1" {{privateChecked}}>
+				<span class="mdl-radio__label">
+					Make my profile private
+					<small>(Others will only be able to view your username)</small>
+				</span>
+			</label>
+			<br>
+			<br>
+			<br>
+			<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="goPublic">
+				<input type="radio" id="goPublic" class="mdl-radio__button" name="isPublic" value="2" {{publicChecked}}>
+				<span class="mdl-radio__label">
+					Make my profile visible to others<br>
+					<small>(Others will only be able to view your name, website and about info)</small>
+				</span>
+			</label>
+			<br>
+			<br>
+			<br>
+			<div id="delegate-switch-container">
+				<div class="switch-wrap">
+					<label id='profile-delegate-switch-label' class="swich mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
+						<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
+					</label>
+				</div>
+				<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
+					{{_ "pages.profile.tooltips.delegateSwitch"}}
+				</div>
+				<small>{{_ "pages.profile.delegate-switch-description"}}</small>
+			</div>
+		</div>
+	</div>
 </template>
