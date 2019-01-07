@@ -1,7 +1,7 @@
-import "./feed.html"
+import './profileHeader.html';
 import '../../components/profileHeader/profileHeader.js';
 
-Template.Feed.helpers({
+Template.ProfileHeader.helpers({
   profilePic: function() {
   	return Meteor.user().profile.photo;
   },

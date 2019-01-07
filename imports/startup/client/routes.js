@@ -135,7 +135,7 @@ publicRoutes.route('/faq', {
 publicRoutes.route('/settings', {
   name: 'App.settings',
   action() {
-    BlazeLayout.render('App_body', { main: 'Settings' });
+    BlazeLayout.render('App_body', { main: 'ProfileSettings' });
   },
 });
 
