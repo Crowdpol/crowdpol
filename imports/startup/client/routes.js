@@ -125,6 +125,13 @@ publicRoutes.route('/feed', {
   },
 });
 
+publicRoutes.route('/feed/:id', {
+  name: 'App.feed',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Feed' });
+  },
+});
+
 publicRoutes.route('/faq', {
   name: 'App.faq',
   action() {

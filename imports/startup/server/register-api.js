@@ -36,5 +36,8 @@ import '../../api/communities/server/publications.js';
 import '../../api/flags/methods.js';
 import '../../api/flags/server/publications.js';
 
+import '../../api/posts/methods.js';
+import '../../api/posts/server/publications.js';
 
-
+import '../../api/likes/methods.js';
+import '../../api/likes/server/publications.js';
