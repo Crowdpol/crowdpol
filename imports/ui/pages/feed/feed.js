@@ -128,6 +128,9 @@ Template.Feed.events({
     		}
     	});
     }
+  },
+  'click .comment-post': function(event,tempate){
+    console.log("make comment");
   }
 });
 

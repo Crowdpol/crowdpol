@@ -77,8 +77,12 @@
         </p>
       </div>
       <div class="post-footer">
-        <i class="material-icons">chat_bubble_outline</i>
+        <i class="material-icons comment-post">chat_bubble_outline</i>
         <span class="like-counter"><i class="material-icons like-post" data-id="{{post._id}}">{{likeIcon post._id}}</i>{{likeCount post._id}}</span>
+        <div class="comment-box hidden" data-id="{{post._id}}">
+          <textarea class="post-textarea-large" type="text" rows= "3" placeholder="Make comment..."></textarea>
+          <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
+        </div>
       </div>
     </div>
   </div>
