@@ -78,6 +78,7 @@
 ul.feed-list{
   list-style-type: none;
   padding-inline-start: 0px;
+  margin-top: 0px;
   li.feed-post{
     //border: solid 1px red;
     //line-height: $small-font-size;
@@ -89,9 +90,10 @@ ul.feed-list{
       .author-pic{
         //border: solid 1px green;
         display: flex;
+        align-self: flex-start;
         align-items: center;
-        vertical-align: top;
-        margin-right: 20px;
+        margin-right: 15px;
+        padding-left: 10px;
         img{
           width: 48px;
           height: 48px;
@@ -99,6 +101,38 @@ ul.feed-list{
         }
       }
       .post-content{
+        width: 100%;
+        .post-area{
+          .post-textarea-small{
+            outline: none;
+            border: solid 1px #ccc;
+            border-radius: 5px;
+            width: 90%;
+            height: 33px;
+            max-height: 33px;
+            min-height: 33px;
+            font-size: $small-font-size;
+            padding: 5px;
+            resize: none;
+          }
+          .post-textarea-large{
+            outline: none;
+            border: solid 1px #ccc;
+            border-radius: 5px;
+            width: 90%;
+            height: 80px;
+            min-height: 33px;
+            max-height: 300px;
+            font-size: $small-font-size;
+            padding: 5px;
+            resize: vertical;
+          }
+          #create-post{
+            float: right;
+            margin-right: 2%;
+          }
+        }
+
         .author-name{
           display: flex;
           align-items: center;
@@ -114,9 +148,21 @@ ul.feed-list{
         div.post-message{
           display: flex;
           align-items: center;
+          p{
+            font-size: $small-font-size;
+            a {
+              font-size: $small-font-size;
+            }
+          }
+
         }
         .post-footer{
           //border: solid 1px orange;
+          .like-counter{
+            font-size: $xsmall-font-size;
+            color: $light-grey-dark;
+            line-height: 0px;
+          }
           .material-icons{
             font-size: 17px;
             color: $light-grey-dark;
@@ -124,6 +170,12 @@ ul.feed-list{
         }
       }
     }
+  }
+
+  li.feed-form{
+    margin-bottom: 15px;
+    background-color: $light-grey-xlight;
+    padding-top: 10px;
   }
 }
 
