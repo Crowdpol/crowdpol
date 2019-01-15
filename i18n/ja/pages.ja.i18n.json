@@ -415,7 +415,8 @@
 				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
 				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete.",
 				"password-incorrect": "JA: Your existing password was incorrect, please try again",
-				"password-reset": "JA: Your password was successfully reset"
+				"password-reset": "JA: Your password was successfully reset",
+				"profile-delegate-request-removed": "JA: Delegate request removed"
 			},
 			"tooltips": {
 				"delegateSwitch": "JA: Apply to be a delegate. This will allow other users to let you vote on their behalf.",
@@ -438,7 +439,8 @@
 			"new-password": "JA: New password",
 			"confirm-password": "JA: Confirm password",
 			"reset": "JA: Reset",
-			"password-mismatch": "JA: Passwords do not match"
+			"password-mismatch": "JA: Passwords do not match",
+			"profile-delegate-removed": "JA: Delegate request removed"
 		},
 		"routes": {
 			"alerts": {

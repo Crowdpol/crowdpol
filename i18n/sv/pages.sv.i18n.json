@@ -414,7 +414,8 @@
 				"profile-candidate-requested": "Kandidatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats.",
 				"profile-incomplete": "Du behöver en fullständig profil om du vill bli delegat.",
 				"password-incorrect": "Lösenordet du skrev verkar inte stämma. Prova igen!",
-				"password-reset": "Ditt lösenord har återställts"
+				"password-reset": "Ditt lösenord har återställts",
+				"profile-delegate-request-removed": "Delegera förfrågan borttagen"
 			},
 			"tooltips": {
 				"delegateSwitch": "Ansök för att bli delegat. Detta kommer tillåta andra användare att låta dig rösta i deras ställe.",

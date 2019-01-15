@@ -172,10 +172,8 @@
 			<br>
 			<div id="delegate-switch-container">
 				{{#if delegateChecked}}
-				true
 					<input type="checkbox" id="profile-delegate-switch" name="profile-delegate-switch" class="switch-input switch-checked {{delegateSwitchClass}}" checked="checked">
 				{{else}}
-				false
 					<input type="checkbox" id="profile-delegate-switch" name="profile-delegate-switch" class="switch-input">
 				{{/if}}
 				<label for="profile-delegate-switch" class="switch-label">{{_ "pages.profile.delegate"}} <span class="toggle--on">{{delegateStatus}}</span><span class="toggle--off">{{delegateStatus}}</span></label>
