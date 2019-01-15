@@ -34,3 +34,4 @@ import './settings.scss';
 import './feed.scss';
 import './accordian.scss';
 import './quill.css';
+import './switch.scss';

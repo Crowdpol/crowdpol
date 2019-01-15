@@ -53,7 +53,7 @@ Template.ProfileForm.onCreated(function() {
     }
   });
 
-  this.templateDictionary = dict;
+  this.dict = dict;
 });
 
 Template.ProfileForm.events({
@@ -118,7 +118,7 @@ Template.ProfileForm.onRendered(function() {
       // Set approval statuses and switches
       self.delegateStatus.set(updateDisplayedStatus('delegate', self));
       //self.candidateStatus.set(updateDisplayedStatus('candidate', self));
-      Session.set('profileIsComplete', checkProfileIsComplete(self));
+      Session.set('profileIsComplete', true);//checkProfileIsComplete(self));
     }
   });
 
@@ -373,6 +373,27 @@ Template.ProfileForm.helpers({
   }
 });
 
+Template.ProfileSettingsForm.onCreated(function() {
+  var self = this;
+  var dictionary = new ReactiveDict();
+  dictionary.set('approvalStatus', 'Off');
+  userData = Meteor.user();
+  //check if user object has approvals property
+  for ( var prop in userData ) {
+      if(hasOwnProperty(userData,"approvals")){
+        console.log("userData has approvals");
+        approvals = userData.approvals;
+        //loop through approvals and check for delegate requests
+        approvals.forEach(function (approval, index) {
+          if(approval.type=="delegate"){
+            dictionary.set('approvalStatus', approval.status);
+          }
+        });
+      }
+  }
+  this.dict = dictionary;
+});
+
 Template.ProfileSettingsForm.events({
   'click #goPrivate' (event,template){
     if( Meteor.user().isPublic) {
@@ -416,7 +437,7 @@ Template.ProfileSettingsForm.events({
 
   },
   'click #profile-delegate-switch' (event, template) {
-    event.preventDefault();
+    //event.preventDefault();
     // Check if person already is a delegate, if so remove role
     if (isInRole('delegate')) {
       if (window.confirm(TAPi18n.__('pages.profile.alerts.profile-stop-delegate'))){
@@ -432,6 +453,25 @@ Template.ProfileSettingsForm.events({
         });
       }
     } else {
+      //check if request has already been submitted
+      approvalStatus = Template.instance().dict.get('approvalStatus');
+      if(approvalStatus=='Requested'){
+        console.log("removing existing approval request");
+        Meteor.call('removeRequest', Meteor.userId(), 'delegate', function(error) {
+          if (error) {
+            RavenClient.captureException(error);
+            Bert.alert(error.reason, 'danger');
+            updateDisplayedStatus('delegate', template)
+          } else {
+            var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-request-removed');
+            //$("#profile-delegate-switch").addClass("switch-disabled");
+            template.dict.set('approvalStatus','');
+            Bert.alert(msg, 'success');
+
+          }
+        });
+        return;
+      }
       // Profile is complete, submit approval request
       //console.log("requesting approval");
       Meteor.call('requestApproval', Meteor.userId(), 'delegate', function(error) {
@@ -441,6 +481,8 @@ Template.ProfileSettingsForm.events({
           updateDisplayedStatus('delegate', template)
         } else {
           var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
+          $("#profile-delegate-switch").addClass("switch-disabled");
+          template.dict.set('approvalStatus','Requested');
           Bert.alert(msg, 'success');
         }
       });
@@ -465,18 +507,39 @@ Template.ProfileSettingsForm.helpers({
     return null;
   },
   delegateStatus: function() {
-    var status;
+    var status='';
     if(isInRole('delegate')){
       status = TAPi18n.__('generic.approved');
     } else {
-      status = false;
-      if (status == TAPi18n.__('generic.approved')){
-        /*if the status is approved, but the user is not in the role, then
-        they were previously approved, but revoked the role themselves*/
-        status = '';
+      approvalStatus = Template.instance().dict.get('approvalStatus');
+      if(approvalStatus=='Requested'){
+        status = TAPi18n.__('generic.requested');
+      } else if(approvalStatus=='Rejected'){
+        status = TAPi18n.__('generic.rejected');
+      }else{
+        status = TAPi18n.__('generic.off');
       }
     }
     return status;
+  },
+  delegateChecked: function() {
+    if(isInRole('delegate')){
+      return true;
+    }else{
+      approvalStatus = Template.instance().dict.get('approvalStatus');
+      if(approvalStatus=='Requested'){
+        return true;
+      }
+      //if approval status set return it, or return "off"
+      //console.log(approvalStatus);
+    }
+    return false;
+  },
+  delegateSwitchClass: function(){
+    approvalStatus = Template.instance().dict.get('approvalStatus');
+    if(approvalStatus=='Requested'){
+      return "switch-disabled";
+    }
   }
 });
 
@@ -636,20 +699,21 @@ function updateDisplayedStatus(type, template){
     var currentApproval = approvals.find(approval => approval.type === type)
     if (currentApproval){
       var status = currentApproval.status
-      var statusSwitch = template.find('#profile-' + type + '-switch-label').MaterialSwitch;
-      if (statusSwitch) {
+      //console.log('#profile-' + type + '-switch-label');
+      //var statusSwitch = template.find('#profile-' + type + '-switch-label').MaterialSwitch;
+      /*if (statusSwitch) {
         if(status=='Requested'){
-          statusSwitch.disable();
-          statusSwitch.on();
+          //statusSwitch.disable();
+          //statusSwitch.on();
         } else {
-          statusSwitch.enable();
+          //statusSwitch.enable();
           if(isInRole(type)){
-            statusSwitch.on();
+            //statusSwitch.on();
           } else {
-            statusSwitch.off();
+            //statusSwitch.off();
           }
         }
-      }
+      }*/
       return status;
     }
   }
@@ -701,7 +765,6 @@ function togglePublic(isPublic,template){
     }
   });
 }
-
 
 function validateUrl(url){
   var regExp = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
