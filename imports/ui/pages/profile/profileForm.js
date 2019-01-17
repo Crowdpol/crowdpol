@@ -3,18 +3,17 @@ import "./profileForm.html"
 import RavenClient from 'raven-js';
 
 Template.ProfileForm.onCreated(function() {
+  ////console.log("onCreated started");
   var self = this;
-  self.type = new ReactiveVar("Waiting for response from server...");
-
-  self.autorun(function() {
-    self.subscribe('user.current');
-    self.subscribe('users.usernames');
-  });
+  self.isDataReady = new ReactiveVar(false);
+  //set reactive vars
   var dict = new ReactiveDict();
+  let userData = Meteor.user();
+  ////console.log("checker reactive vars set");
   dict.set('completedScore', 0);
   dict.set('photoCompleted', true);
-  dict.set('usernameCompleted', true);
-  dict.set('firstnameCompleted', true);
+  dict.set('usernameCompleted', false);
+  dict.set('firstnameCompleted', false);
   dict.set('lastnameCompleted', false);
   dict.set('phoneNumberCompleted', false);
   dict.set('contactPersonCompleted', false);
@@ -23,42 +22,90 @@ Template.ProfileForm.onCreated(function() {
   dict.set('bioCount', 0);
   dict.set('tagsCompleted', false);
   dict.set('tagsCount', 0);
-
-  Meteor.call('getProfile', Meteor.userId(), function(error, result) {
-    if (error) {
-      RavenClient.captureException(error);
-      Bert.alert(error.reason, 'danger');
-    } else {
-      //console.log(result);
-      dict.set('isPublic', result.isPublic);
-      dict.set('username', result.profile.username);
-      //self.find(`[name="profileFirstName"]`).value = result.profile.firstName || '';
-      dict.set('firstname', result.profile.firstName);
-      dict.set('lastname', result.profile.lastName);
-      dict.set('bio', result.profile.bio);
-      dict.set('website', result.profile.website);
-      dict.set('isPublic', result.isPublic);
-      dict.set('type', result.profile.type);
-      dict.set('credentials', result.profile.credentials);
-      dict.set('showPublic', result.isPublic);
-      dict.set('profileType', result.profile.type);
-      dict.set('phoneNumber', result.profile.phoneNumber);
-      dict.set('contactPerson', result.profile.contactPerson);
-      self.type.set(result.profile.type);
-      if (result.profile.hasOwnProperty("photo")) {
-        dict.set('photo', result.profile.photo);
-      } else {
-        dict.set('photo', "/img/default-user-image.png");
-      }
-    }
-  });
-
+  //console.log("Setting reactive vars from Meteor.user()");
+  dict.set('isPublic', userData.isPublic);
+  dict.set('username', userData.profile.username);
+  dict.set('firstname', userData.profile.firstName);
+  dict.set('lastname', userData.profile.lastName);
+  dict.set('bio', userData.profile.bio);
+  dict.set('website', userData.profile.website);
+  dict.set('type', userData.profile.type);
+  dict.set('credentials', userData.profile.credentials);
+  dict.set('showPublic', userData.isPublic);
+  dict.set('profileType', userData.profile.type);
+  dict.set('phoneNumber', userData.profile.phoneNumber);
+  dict.set('contactPerson', userData.profile.contactPerson);
+  if (hasOwnProperty(userData.profile,"photo")) {
+    dict.set('photo',userData.profile.photo);
+  } else {
+    dict.set('photo',"/img/default-user-image.png");
+  }
   this.dict = dict;
+  ////console.log("reactive vars set");
+  self.autorun(function() {
+    ////console.log("onCreated autorun started");
+    //self.subscribe('user.current');
+    //self.subscribe('users.usernames');
+    /*
+    var dict = new ReactiveDict();
+    dict.set('completedScore', 0);
+    dict.set('photoCompleted', true);
+    dict.set('usernameCompleted', false);
+    dict.set('firstnameCompleted', false);
+    dict.set('lastnameCompleted', false);
+    dict.set('phoneNumberCompleted', false);
+    dict.set('contactPersonCompleted', false);
+    dict.set('urlCompleted', false);
+    dict.set('bioCompleted', false);
+    dict.set('bioCount', 0);
+    dict.set('tagsCompleted', false);
+    dict.set('tagsCount', 0);
+    //console.log("onCreated: reactive vars set");
+
+    Meteor.call('getProfile', Meteor.userId(), function(error, result) {
+      if (error) {
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        ////console.log(result);
+        dict.set('isPublic', result.isPublic);
+        dict.set('username', result.profile.username);
+        //self.find(`[name="profileFirstName"]`).value = result.profile.firstName || '';
+        dict.set('firstname', result.profile.firstName);
+        dict.set('lastname', result.profile.lastName);
+        dict.set('bio', result.profile.bio);
+        dict.set('website', result.profile.website);
+        dict.set('isPublic', result.isPublic);
+        dict.set('type', result.profile.type);
+        dict.set('credentials', result.profile.credentials);
+        dict.set('showPublic', result.isPublic);
+        dict.set('profileType', result.profile.type);
+        dict.set('phoneNumber', result.profile.phoneNumber);
+        dict.set('contactPerson', result.profile.contactPerson);
+        self.type.set(result.profile.type);
+        //console.log("result.profile.phoneNumber: " + result.profile.phoneNumber);
+        /*if (hasOwnProperty(result.profile,"photo")) {
+          dict.set('photo', result.profile.photo);
+        } else {
+          dict.set('photo', "/img/default-user-image.png");
+        }
+        dict.set('photo', "/img/default-user-image.png");
+        //console.log("onCreated: getProfile method returned, reactive vars reset with response");
+      }
+    });
+    */
+
+  });
+  self.isDataReady.set(true);
+  //console.log("isDataReady set to true");
+  //console.log("onCreated ended");
 });
 
 Template.ProfileForm.events({
   'keyup input, keyup textarea' (event, template){
-    Session.set('profileIsComplete', checkProfileIsComplete(template));
+    let profileType = Template.instance().dict.get('profileType');
+    //console.log("profileType: " + profileType);
+    Session.set('profileIsComplete', checkProfileIsComplete(template,profileType));
   },
   /*
   'click #show-settings' (event, template) {
@@ -74,11 +121,11 @@ Template.ProfileForm.events({
   */
   'blur #profile-website' (event, template) {
         if (validateUrl(event.currentTarget.value)) {
-          template.templateDictionary.set('urlCompleted',true);
+          template.dict.set('urlCompleted',true);
           $("#valid-url").html('<i class="material-icons">check</i>');
 
         } else {
-          template.templateDictionary.set('urlCompleted',false);
+          template.dict.set('urlCompleted',false);
           $("#valid-url").text("");
         }
   },
@@ -101,61 +148,39 @@ Template.ProfileForm.events({
 });
 
 Template.ProfileForm.onRendered(function() {
-    var self = this;
-  self.delegateStatus = new ReactiveVar(false);
-  self.candidateStatus = new ReactiveVar(false);
-
-  //self.taggle = new ReactiveVar(setupTaggle());
-
+  //console.log("onRendered started");
+  var self = this;
+  //self.delegateStatus = new ReactiveVar(false);
+  //self.candidateStatus = new ReactiveVar(false);
+  /*
   const handle = Meteor.subscribe('users.current');
+  */
 
+  //console.log(this.dict.get("completedScore"));
   Tracker.autorun(() => {
-    const isReady = handle.ready();
+    //console.log("onRendered: autorun started");
+    //const isReady = handle.ready();
 
-    if (isReady){
+    //if (isReady){
+      //self.isDataReady.set(true);
       // Set public/private switch
       //updatePublicSwitch(self);
       // Set approval statuses and switches
-      self.delegateStatus.set(updateDisplayedStatus('delegate', self));
+      //self.delegateStatus.set(updateDisplayedStatus('delegate', self));
       //self.candidateStatus.set(updateDisplayedStatus('candidate', self));
-      Session.set('profileIsComplete', true);//checkProfileIsComplete(self));
-    }
+      //console.log("check if profile is complete, this should run after all data is loaded");
+      Session.set('profileIsComplete', checkProfileIsComplete(self,Template.instance().dict.get('profileType')));
+      //console.log("onRendered: autorun ended");
+    //}
   });
 
 
-  //Session.set('showCompleteStatus', false);
-  /*
-  Meteor.call('getUserTags', Meteor.userId(), function(error, result){
-    if (error){
-      RavenClient.captureException(error);
-      Bert.alert(error.reason, 'danger');
-    } else {
-      var keywords = _.map(result, function(tag){ return tag.keyword; });
-      self.taggle.get().add(keywords);
-    }
-  });
-  */
+
   let template = Template.instance();
-  Session.set('showSettings',false);
-  //$( "#public-form-details" ).hide();
-
-/*
-  //Go through mdl inputs and check if dirty
-  var form = document.forms[2];
-  var mdlInputs = form.querySelectorAll('.mdl-js-textfield');
-  for (var i = 0, l = mdlInputs.length; i < l; i++) {
-    var classes = mdlInputs[i].getAttribute('class') + " is-dirty";
-    var nodes = mdlInputs[i].querySelector('input,textarea');
-    mdlInputs[i].setAttribute('class', classes);
-    //mdlInputs[i].addClass("is-dirty");
-    //mdlInputs[i].get(0).MaterialTextfield.checkDirty();
-  }
-*/
-  //$('[name="profileFirstName"]').get(0).MaterialTextfield.change(template.templateDictionary.get('firstname'));
-
+  //console.log("username validator being called");
   $.validator.addMethod('usernameUnique', (username) => {
-    let exists = Meteor.users.findOne({"_id":{$ne: Meteor.userId()},"profile.username": username});
-    return exists ? false : true;
+    ////console.log("checkusername: " + checkUsername(username));
+    return checkUsername(username);
   });
 
   $("#profile-form").validate({
@@ -191,7 +216,7 @@ Template.ProfileForm.onRendered(function() {
           Bert.alert(error, 'reason');
         } else {
           */
-      let profileType = template.templateDictionary.get('profileType');
+      let profileType = template.dict.get('profileType');
       if(profileType == 'Entity'){
         var profile = {
           username: template.find('[name="profileUsername"]').value,
@@ -201,8 +226,8 @@ Template.ProfileForm.onRendered(function() {
           website: template.find('[name="profileWebsite"]').value,
           phoneNumber: template.find('[name="profilePhoneNumber"]').value,
           contactPerson: template.find('[name="profileContactPerson"]').value,
-          credentials: template.templateDictionary.get('credentials'),
-          type: template.type.get(),
+          credentials: template.dict.get('credentials'),
+          type: template.dict.get("type"),
         };
       }else{
         var profile = {
@@ -212,8 +237,8 @@ Template.ProfileForm.onRendered(function() {
           photo: template.find('[name="profilePhotoPath"]').value,
           bio: template.find('[name="profileBio"]').value,
           website: template.find('[name="profileWebsite"]').value,
-          credentials: template.templateDictionary.get('credentials'),
-          type: template.type.get(),
+          credentials: template.dict.get('credentials'),
+          type: template.dict.get("type"),
           //tags: proposalTags
         };
       }
@@ -231,98 +256,107 @@ Template.ProfileForm.onRendered(function() {
 
     }
   });
+  //console.log("onRendered ended");
 });
 
 Template.ProfileForm.helpers({
+  isDataReady: function(template){
+    //console.log("isDataReady called");
+    //updateFormLabels();
+    return Template.instance().isDataReady.get();
+  },
   totalScore: function(){
     //remember to check if type is entity as only uses firstname (thus return 6), individual requires firstname and lastname (thus 7)
-    if(Template.instance().type.get()=='Entity'){
-      return 7;
+    if(Template.instance().dict.get('type')=='Entity'){
+      return 6;
     }
-    return 6;
+    return 5;
   },
   photoCompleted: function(){
-    return Template.instance().templateDictionary.get('photoCompleted');
+    return Template.instance().dict.get('photoCompleted');
   },
   usernameCompleted: function(){
-    return Template.instance().templateDictionary.get('usernameCompleted');
+    return Template.instance().dict.get('usernameCompleted');
   },
   firstnameCompleted: function(){
     //remember to check if type is entity as only uses firstname, individual requires firstname and lastname
-    return Template.instance().templateDictionary.get('firstnameCompleted');
+    ////console.log(Template.instance().dict.get('firstnameCompleted'));
+    return Template.instance().dict.get('firstnameCompleted');
   },
   lastnameCompleted: function(){
     //remember to check if type is entity as only uses firstname, individual requires firstname and lastname
-    return Template.instance().templateDictionary.get('lastnameCompleted');
+    return Template.instance().dict.get('lastnameCompleted');
   },
   urlCompleted: function(){
-    return Template.instance().templateDictionary.get('urlCompleted');
+    return Template.instance().dict.get('urlCompleted');
   },
   phoneNumberCompleted: function(){
-    return Template.instance().templateDictionary.get('phoneNumberCompleted');
+    //console.log("phonenumber set");
+    return Template.instance().dict.get('phoneNumberCompleted');
   },
   contactPersonCompleted: function(){
-    return Template.instance().templateDictionary.get('contactPersonCompleted');
+    return Template.instance().dict.get('contactPersonCompleted');
   },
   bioCompleted: function(){
-    return Template.instance().templateDictionary.get('bioCompleted');
+    return Template.instance().dict.get('bioCompleted');
   },
   bioCount: function(){
-    return Template.instance().templateDictionary.get('bioCount');
+    return Template.instance().dict.get('bioCount');
   },
   /*
   tagsCompleted: function(){
-    return Template.instance().templateDictionary.get('tagsCompleted');
+    return Template.instance().dict.get('tagsCompleted');
   },
 
   tagsCount: function(){
-    return Template.instance().templateDictionary.get('tagsCount');
+    return Template.instance().dict.get('tagsCount');
   },
     */
   completedScore: function(){
-    return Template.instance().templateDictionary.get('completedScore');
+    return Template.instance().dict.get('completedScore');
   },
   profile: function() {
     user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1, roles: 1, isPublic: 1, isParty: 1, isOrganisation: 1 } });
     return user.profile;
   },
   profilePic: function() {
-    return Template.instance().templateDictionary.get('photo');
+    return Template.instance().dict.get('photo');
   },
   firstName: function() {
-    return Template.instance().templateDictionary.get('firstname');
+    return Template.instance().dict.get('firstname');
   },
   lastName: function() {
-    return Template.instance().templateDictionary.get('lastname');
+    return Template.instance().dict.get('lastname');
   },
   username: function() {
-    return Template.instance().templateDictionary.get('username');
+    return Template.instance().dict.get('username');
   },
   bio: function() {
-    return Template.instance().templateDictionary.get('bio');
+    return Template.instance().dict.get('bio');
   },
   website: function() {
-    return Template.instance().templateDictionary.get('website');
+    return Template.instance().dict.get('website');
   },
   phoneNumber: function() {
-    return Template.instance().templateDictionary.get('phoneNumber');
+    return Template.instance().dict.get('phoneNumber');
   },
   contactPerson: function() {
-    return Template.instance().templateDictionary.get('contactPerson');
+    return Template.instance().dict.get('contactPerson');
   },
   type: function() {
-    //return Template.instance().templateDictionary.get('type');
-    return Template.instance().type.get();
+    //return Template.instance().dict.get('type');
+    return Template.instance().dict.get("type");
   },
   isEntity: function() {
-    var type = Template.instance().type.get();
+    //console.log("setting entity type");
+    var type = Template.instance().dict.get("type");
     if (type == 'Entity') {
       return true;
     }
     return false;
   },
   isIndividual: function() {
-    var type = Template.instance().type.get();
+    var type = Template.instance().dict.get("type");
     if (type == 'Entity') {
       return false;
     }
@@ -381,7 +415,7 @@ Template.ProfileSettingsForm.onCreated(function() {
   //check if user object has approvals property
   for ( var prop in userData ) {
       if(hasOwnProperty(userData,"approvals")){
-        console.log("userData has approvals");
+        ////console.log("userData has approvals");
         approvals = userData.approvals;
         //loop through approvals and check for delegate requests
         approvals.forEach(function (approval, index) {
@@ -456,7 +490,6 @@ Template.ProfileSettingsForm.events({
       //check if request has already been submitted
       approvalStatus = Template.instance().dict.get('approvalStatus');
       if(approvalStatus=='Requested'){
-        console.log("removing existing approval request");
         Meteor.call('removeRequest', Meteor.userId(), 'delegate', function(error) {
           if (error) {
             RavenClient.captureException(error);
@@ -473,12 +506,12 @@ Template.ProfileSettingsForm.events({
         return;
       }
       // Profile is complete, submit approval request
-      //console.log("requesting approval");
       Meteor.call('requestApproval', Meteor.userId(), 'delegate', function(error) {
         if (error) {
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
-          updateDisplayedStatus('delegate', template)
+          updateDisplayedStatus('delegate', template);
+          document.getElementById("profile-delegate-switch").checked = false;
         } else {
           var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
           $("#profile-delegate-switch").addClass("switch-disabled");
@@ -531,7 +564,7 @@ Template.ProfileSettingsForm.helpers({
         return true;
       }
       //if approval status set return it, or return "off"
-      //console.log(approvalStatus);
+      ////console.log(approvalStatus);
     }
     return false;
   },
@@ -549,130 +582,158 @@ function hasOwnProperty(obj, prop) {
     (!(prop in proto) || proto[prop] !== obj[prop]);
 }
 
-function checkProfileIsComplete(template){
-  //console.log(template);
+function checkProfileIsComplete(template,profileType){
+  //console.clear();
+  //console.log("profileType: " + profileType);
+  //console.log("starting complete check");
+  //updateFormLabels();
   var completedScore = 0;
   var isComplete = false;
 
-  let profileType = template.templateDictionary.get('profileType');
-  var totalScore = 6;
-  //console.log(template.find('[name="profilePhoneNumber"]'));
+  var totalScore = 5;
+  ////console.log(template.find('[name="profilePhoneNumber"]'));
   if(profileType == 'Entity'){
-    var totalScore = 7;
+    //console.log("i am an entity");
+    var totalScore = 6;
     var phoneNumber = $('[name="profilePhoneNumber"]').val();
     if(typeof phoneNumber == 'undefined'){
       phoneNumber = '';
+      //console.log("undefined phoneNumber: " + phoneNumber);
+    }else{
+      //console.log("defined phoneNumber: " + phoneNumber);
     }
     var contactPerson = $('#profile-contact-person').val();
     if(typeof contactPerson == 'undefined'){
       contactPerson = '';
     }
-    //console.log('phoneNumber: ' + phoneNumber + ', contactPerson: ' + contactPerson);
-    //console.log(template.find('[name="profilePhoneNumber"]').value);
+    //console.log("about to populate profile");
+    //console.log($("#profile-username"));
     var profile = {
-      username: template.find('[name="profileUsername"]').value,
-      firstName: template.find('[name="profileFirstName"]').value,
-      photo: template.find('[name="profilePhotoPath"]').value,
-      bio: template.find('[name="profileBio"]').value,
-      website: template.find('[name="profileWebsite"]').value,
+      username: $("#profile-username").val(),//template.find('[name="profileUsername"]').value,
+      firstName: $("#profileFirstName").val(),//template.find('[name="profileFirstName"]').value,
+      photo: $("#profile-photo-path").val(),//template.find('[name="profilePhotoPath"]').value,
+      bio: $("#profile-bio").val(),//template.find('[name="profileBio"]').value,
+      website: $("#profile-website").val(),//template.find('[name="profileWebsite"]').value,
       phoneNumber: phoneNumber,
       contactPerson: contactPerson,
       //tags: template.taggle.get().getTagValues()
     };
+
   }else{
     //var template = Template.instance();
     var profile = {
-      username: template.find('[name="profileUsername"]').value,
-      firstName: template.find('[name="profileFirstName"]').value,
-      lastName: template.find('[name="profileLastName"]').value,
-      photo: template.find('[name="profilePhotoPath"]').value,
-      bio: template.find('[name="profileBio"]').value,
-      website: template.find('[name="profileWebsite"]').value,
-      //tags: template.taggle.get().getTagValues()
+      username: $("#profile-username").val(),//template.find('[name="profileUsername"]').value,
+      firstName: $("#profileFirstName").val(),//template.find('[name="profileFirstName"]').value,
+      lastName: $("#profile-lastname").val(),//template.find('[name="profileLastName"]').value,
+      photo: $("#profile-photo-path").val(),//template.find('[name="profilePhotoPath"]').value,
+      bio: $("#profile-bio").val(),//template.find('[name="profileBio"]').value,
+      website: $("#profile-website").val(),//template.find('[name="profileWebsite"]').value,
     };
   }
-
+  //console.log(profile);
   public = profile;
   var bio = event.currentTarget.value;
 
   //1. Check username:
-  if(template.templateDictionary.get('usernameCompleted')){
+  if(profile.username.length){
+    ////console.log("username completed: " + checkUsername(profile.username));
     completedScore++;
+    template.dict.set('usernameCompleted',true);
+  }else{
+    ////console.log("username incomplete: " + checkUsername(profile.username));
+    template.dict.set('usernameCompleted',false);
   }
-
+  ////console.log(template.dict);
   //2. Check Firstname
   if(profile.firstName.length){
-    template.templateDictionary.set('firstNameCompleted',true);
+    template.dict.set('firstnameCompleted',true);
     completedScore++;
+    ////console.log("firstname completed");
   }else{
-    template.templateDictionary.set('firstNameCompleted',false);
+    template.dict.set('firstnameCompleted',false);
+    ////console.log("firstname incomplete");
   }
   if(profileType == 'Entity'){
-
     //check phone number
-    //console.log(profile.phoneNumber);
+    //console.log("profile.phoneNumber: " + profile.phoneNumber);
+    //console.log("$('[name=profilePhoneNumber]').val(): " + $('[name="profilePhoneNumber"]').val());
+    //console.log("$('#profile-phone-number').val(): " + $('#profile-phone-number').val());
     if(profile.phoneNumber.length){
-      //console.log('phoneNumber valid');
-      template.templateDictionary.set('phoneNumberCompleted',true);
+      ////console.log('phoneNumber valid');
+      template.dict.set('phoneNumberCompleted',true);
       completedScore++;
+      ////console.log("phonenumber completed");
     }else{
-      //console.log('phoneNumber invalid');
-      template.templateDictionary.set('phoneNumberCompleted',false);
+      ////console.log('phoneNumber invalid');
+      template.dict.set('phoneNumberCompleted',false);
+      //console.log("phonenumber incomplete");
     }
     //check contact profileContactPerson
     if(profile.contactPerson.length){
-      template.templateDictionary.set('contactPersonCompleted',true);
+      template.dict.set('contactPersonCompleted',true);
       completedScore++;
+      ////console.log("contact person completed");
     }else{
-      template.templateDictionary.set('contactPersonCompleted',false);
+      template.dict.set('contactPersonCompleted',false);
+      //console.log("contact person incomplete");
     }
   }else{
     //3. Check if Individual: check lastname
     if(profile.lastName.length){
-      template.templateDictionary.set('lastnameCompleted',true);
+      template.dict.set('lastnameCompleted',true);
       completedScore++;
+      ////console.log("last name completed");
     }else{
-      template.templateDictionary.set('lastnameCompleted',false);
+      template.dict.set('lastnameCompleted',false);
+      //console.log("lastname not complete");
     }
   }
+  /*
   //4. Check photo: MAY NOT BE NECCESSARY
   if(profile.photo.length){
-    template.templateDictionary.set('photoCompleted',true);
+    template.dict.set('photoCompleted',true);
     completedScore++;
+    //console.log("photo completed");
   }else{
-    template.templateDictionary.set('photoCompleted',false);
+    template.dict.set('photoCompleted',false);
+    //console.log("photo incomplete");
   }
-
+  */
   //5. Check bio:
-  template.templateDictionary.set('bioCount',profile.bio.length);
+  template.dict.set('bioCount',profile.bio.length);
   if((profile.bio.length >= 50)&&(profile.bio.length <=520)){
-    template.templateDictionary.set('bioCompleted',true);
+    template.dict.set('bioCompleted',true);
     completedScore++;
+    ////console.log("bio complete");
   }else{
-    template.templateDictionary.set('bioCompleted',false);
+    template.dict.set('bioCompleted',false);
+    ////console.log("bio incomplete");
   }
   //6. Check website: ADD CHECK FOR VALID URL
   if(profile.website.length){
-    template.templateDictionary.set('urlCompleted',true);
+    template.dict.set('urlCompleted',true);
     completedScore++;
+    ////console.log("url complete");
   }else{
-    template.templateDictionary.set('urlCompleted',false);
+    template.dict.set('urlCompleted',false);
+    ////console.log("url incomplete");
   }
-
-  template.templateDictionary.set('completedScore',completedScore);
+  ////console.log("completedScore: "+completedScore);
+  template.dict.set('completedScore',completedScore);
 
   //8. Calculate score total based on profile type (individual = 6, entity = 5)
-  //var profileType = template.templateDictionary.get('profileType');
-  //console.log("completedScore: " + completedScore);
+  //var profileType = template.dict.get('profileType');
+  ////console.log("completedScore: " + completedScore);
 
   //9. Update progress bar
+  //console.log("completedScore: " + completedScore + " totalScore: " + totalScore);
   var percentage = completedScore * 100 / totalScore + '%';
   $('#progress-status').width(percentage);
 
 
   /*
     var profileFields = _.keys(profile);
-  template.templateDictionary.set('tagsCompleted', profile.tags.length);
+  template.dict.set('tagsCompleted', profile.tags.length);
   if (profile.tags.length < 5){
     isComplete = false;
   } else {
@@ -694,34 +755,24 @@ function isInRole(role){
 }
 
 function updateDisplayedStatus(type, template){
-  var approvals = Meteor.user().approvals
-  if (approvals) {
-    var currentApproval = approvals.find(approval => approval.type === type)
-    if (currentApproval){
-      var status = currentApproval.status
-      //console.log('#profile-' + type + '-switch-label');
-      //var statusSwitch = template.find('#profile-' + type + '-switch-label').MaterialSwitch;
-      /*if (statusSwitch) {
-        if(status=='Requested'){
-          //statusSwitch.disable();
-          //statusSwitch.on();
-        } else {
-          //statusSwitch.enable();
-          if(isInRole(type)){
-            //statusSwitch.on();
-          } else {
-            //statusSwitch.off();
-          }
-        }
-      }*/
-      return status;
+  if(hasOwnProperty(Meteor.user(),"approvals")){
+    var approvals = Meteor.user().approvals
+    if (approvals) {
+      var currentApproval = approvals.find(approval => approval.type === type)
+      if (currentApproval){
+        return status;
+      }
     }
+  }else{
+    //console.log("could not find approvals");
+    return "";
   }
+
 }
 
 function updatePublicSwitch(template){
-  var publicSwitch = template.find('#profile-public-switch-label').MaterialSwitch;
-  var delegateSwitch = template.find('#profile-delegate-switch-label').MaterialSwitch;
+  var publicSwitch = template.find('#profile-public-switch-label');//.MaterialSwitch;
+  var delegateSwitch = template.find('#profile-delegate-switch-label');//.MaterialSwitch;
   /*
   if(!checkProfileIsComplete(template)){
     publicSwitch.disable();
@@ -769,4 +820,34 @@ function togglePublic(isPublic,template){
 function validateUrl(url){
   var regExp = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
   return regExp.test(url);
+}
+
+function checkUsername(username){
+  ////console.log("checking username: " + username);
+  let exists = Meteor.users.findOne({"_id":{$ne: Meteor.userId()},"profile.username": username});
+  ////console.log(exists);
+  return exists ? false : true;
+}
+
+function updateFormLabels(){
+  //Go through mdl inputs and check if dirty
+  var form = document.forms["profile-form"];
+  //console.log(form);
+  var formElements = document.forms["profile-form"].elements;//getElementByClassName('.mdl-js-textfield');
+  for (var i = 0, l = formElements.length; i < l; i++) {
+    if(formElements[i].classList.contains('mdl-textfield__input')){
+      //console.log(formElements[i])
+      formElements[i].focus();
+      formElements[i].parentNode.classList.add('is-dirty');
+    }
+    /*
+    var classes = mdlInputs[i].getAttribute('class') + " is-dirty";
+    //console.log(classes);
+    var nodes = mdlInputs[i].querySelector('input,textarea');
+    //console.log(nodes);
+    mdlInputs[i].setAttribute('class', classes);
+    mdlInputs[i].addClass("is-dirty");
+    mdlInputs[i].get(0).MaterialTextfield.checkDirty();
+    */
+  }
 }

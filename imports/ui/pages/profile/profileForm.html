@@ -1,5 +1,6 @@
 <template name="ProfileForm">
 	<h5>Profile</h5>
+	{{#if isDataReady}}
 	<form id="profile-form" class="profile" name="profile-form">
 		<div class="mdl-grid profile-grid ">
 			<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" id="profile-delegate-status">
@@ -14,7 +15,7 @@
 				</div>
 				<div class="mdl-tooltip mdl-tooltip--large" for="progress-header">
 					<div id="profile-status-complete">
-						{{_ "form.profile-photo"}}: <i class="material-icons">{{#if photoCompleted}}check{{else}}error{{/if}}</i><br>
+						<!--{{_ "form.profile-photo"}}: <i class="material-icons">{{#if photoCompleted}}check{{else}}error{{/if}}</i><br>-->
 						{{_ "form.username"}}: <i class="material-icons">{{#if usernameCompleted}}check{{else}}error{{/if}}</i><br>
 							{{#if isEntity}}
 								Entity name: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i><br>
@@ -131,6 +132,9 @@
 				-->
 
 	</form>
+	{{else}}
+		loading...
+	{{/if}}
 	<!--
 	{{> ResetPassword}}
 			 Helper list: Don't delete, useful for testing
