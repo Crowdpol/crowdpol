@@ -160,6 +160,11 @@ Meteor.methods({
       }
 
     },
+    removeRequest: function (userId, type) {
+      check(userId, String);
+      check(type, String);
+      Meteor.users.update({_id: Meteor.userId()},{$pull: {approvals: {status: 'Requested',type: type}}});
+    },
     toggleRole: function (role,state) {
       check(role, String);
       check(state, Boolean);

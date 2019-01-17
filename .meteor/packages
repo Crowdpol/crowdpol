@@ -55,6 +55,7 @@ zenorocha:clipboard				# lets users copy text with one click
 http@1.3.0 							# allows for HTTP: GET, POST, PUT & DELETE
 frozeman:storage				# Reactive wrapper for localstorage
 
+
 #-- dev tools --
 meteortoys:allthings
 
@@ -76,4 +77,3 @@ meteorblackbelt:force-ssl
 rzymek:moment-locale-sv
 mikowals:batch-insert
 aramix:introjs
-

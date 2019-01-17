@@ -5,12 +5,16 @@ import { Proposals } from '../../proposals/Proposals.js';
 // on the server
 
 // The info we usually want to publish for users
-defaultUserProjection = {fields: {profile: 1,roles: 1,isPublic: 1}};
+defaultUserProjection = {fields: {profile: 1,roles: 1,isPublic: 1,username:1}};
 
 Meteor.publish('users.all', function() {
   /* to count how many users we have per community */
   return Meteor.users.find({}, {fields: {"profile.communityIds": 1}});
 });
+
+Meteor.publish('users.profile', function () {
+  return Meteor.users.find({},{fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
+})
 
 Meteor.publish('users.community', function(communityId) {
   return Meteor.users.find({"profile.communityIds" : communityId}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});

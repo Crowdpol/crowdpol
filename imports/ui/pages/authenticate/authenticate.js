@@ -83,6 +83,8 @@ Template.Authenticate.events({
 		}
 	},
 	'click #terms-checkbox-label' (event, template) {
+		openTermsModal();
+		/*
 		var termsCheckbox = self.find('#terms-checkbox-label').MaterialCheckbox;
 		var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
 		if (termsAccepted) {
@@ -92,7 +94,7 @@ Template.Authenticate.events({
 			event.preventDefault();
 			openTermsModal();
 		}
-
+		*/
 	}
 });
 

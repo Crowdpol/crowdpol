@@ -4,6 +4,12 @@ Template.TermsModal.events({
   'click #overlay' (event, template){
     closeTermsModal();
   },
+  'click #decline-button' (event, template){
+    event.preventDefault();
+    document.querySelector('#terms-checkbox-label').MaterialCheckbox.uncheck();
+    Session.set('termsAccepted', false);
+    closeTermsModal();
+  },
   'click #accept-button' (event, template){
     event.preventDefault();
     document.querySelector('#terms-checkbox-label').MaterialCheckbox.check();

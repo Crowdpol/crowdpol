@@ -14,7 +14,10 @@
 		"show-more": "Show More",
 		"show-less": "Show Less",
 		"approved": "Approved",
-		"back-to-proposals": "Back to Proposals"
+		"back-to-proposals": "Back to Proposals",
+		"on": "On",
+		"off": "Off",
+		"requested": "Requested"
 	},
 	"form": {
 		"email": "Email address",

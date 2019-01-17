@@ -8,7 +8,7 @@ Template.AdminVoting.onCreated(function() {
   self.tallyInProgress = new ReactiveVar(false);
   var communityId = LocalStore.get('communityId');
   self.autorun(function() {
-    self.subscribe('proposals.public', communityId);
+    self.subscribe('proposals.public', '', communityId);
     self.subscribe('votes.all');
   });
 });

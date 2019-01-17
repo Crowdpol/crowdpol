@@ -104,7 +104,7 @@ Template.Signup.events({
 			Bert.alert(TAPi18n.__('pages.signup.not-in-whitelist'), 'danger')
 		}
 
-		
+
 	}
 });
 
@@ -116,7 +116,7 @@ function checkUserExists(email,communityId){
 			return false;
 		} else {
 			//user email found, adding community to user profile
-			Bert.alert("found email", 'success');
+			//Bert.alert("found email", 'success');
 			return true;
 		}
 	});
