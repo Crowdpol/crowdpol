@@ -1,0 +1,25 @@
+
+
+.unsplash-gallery{
+
+  .unsplash-gallery-thumb{
+    position: relative;
+    float: left;
+    padding: 5px;
+    //border: solid 1px black;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    .unsplash-thumb-image{
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 100%
+    }
+    .unsplash-thumb-desc{
+
+    }
+  }
+}

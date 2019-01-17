@@ -1,0 +1,31 @@
+<template name="Unsplash">
+  <h5>Unsplash</h5>
+  <input type="text" id="search-unsplash" name="search-unsplash">
+  <button name="search-images-button" id="search-images-button">Search</button>
+  <br>
+  Results found: {{totalImages}}<br>
+  <button name="prev-images-page" id="prev-images-page">Prev</button>
+  Page {{currentPage}} of {{totalPages}}
+  <button name="next-image-page" id="next-image-page">Next</button>
+  <div class="unsplash-gallery">
+    {{#each images}}
+      <div class="unsplash-gallery-thumb">
+        <img class="unsplash-thumb-image" src="{{this.urls.thumb}}">
+        <!--<br>
+        <span class="unsplash-thumb-desc">
+          {{this.description}}
+        </span>
+
+          {{this.urls.creditLink}}<br>
+          {{this.urls.full}}
+          {{this.urls.raw}}
+          {{this.urls.thumb}}
+          <br>
+          {{this.id}}<br>
+          {{this.author.name}}<br>
+          {{this.author.profile}}<br>
+          -->
+      </div>
+    {{/each}}
+  </div>
+</template>
