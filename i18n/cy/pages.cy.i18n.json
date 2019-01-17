@@ -415,7 +415,8 @@
 				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
 				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete.",
 				"password-incorrect": "CY: Your existing password was incorrect, please try again",
-				"password-reset": "CY: Your password was successfully reset"
+				"password-reset": "CY: Your password was successfully reset",
+				"profile-delegate-request-removed": "CY: Delegate request removed"
 			},
 			"tooltips": {
 				"delegateSwitch": "CY: Apply to be a delegate. This will allow other users to let you vote on their behalf.",

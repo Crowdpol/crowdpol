@@ -17,7 +17,8 @@
 		},
 		"termsModal": {
 			"heading": "Terms of Use",
-			"accept": "I Accept"
+			"accept": "I Accept",
+			"decline": "Decline"
 		}
 	}
 }

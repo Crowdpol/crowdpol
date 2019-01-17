@@ -14,7 +14,10 @@
 		"show-more": "Visa mer",
 		"show-less": "Visa mindre",
 		"approved": "Godkänd",
-		"back-to-proposals": "Tillbaka till Föreslå"
+		"back-to-proposals": "Tillbaka till Föreslå",
+		"on": "På",
+		"off": "Av",
+		"requested": "Begäran lämnats in"
 	},
 	"form": {
 		"email": "E-postadress",

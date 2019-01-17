@@ -14,7 +14,10 @@
 		"show-more": "JA: Show More",
 		"show-less": "JA: Show Less",
 		"approved": "JA: Approved",
-		"back-to-proposals": "JA: Back to Proposals"
+		"back-to-proposals": "JA: Back to Proposals",
+		"on": "JA: On",
+		"off": "JA: Off",
+		"requested": "JA: Requested"
 	},
 	"form": {
 		"email": "JA: Email address",

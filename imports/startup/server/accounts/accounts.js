@@ -112,11 +112,11 @@ function normalizeSignupUser(profile, user) {
   const credential =[];
   credential.push({
     source: 'signup',
-    URL: 'http://www.commondemocracy.org/',
+    URL: 'http://www.crowdpol.com/',
     validated: false,
   });
   const userProfile = _.extend(profile, {
-    photo: Meteor.settings.private.defaultPhotoUrl,
+    photo: "/img/default-user-image.png",
     username: generateUsername("anonymous"),
     firstName: "Anonymous",
     lastName: "User",

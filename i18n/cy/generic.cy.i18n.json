@@ -14,7 +14,10 @@
 		"show-more": "CY: Show More",
 		"show-less": "CY: Show Less",
 		"approved": "CY: Approved",
-		"back-to-proposals": "CY: Back to Proposals"
+		"back-to-proposals": "CY: Back to Proposals",
+		"on": "CY: On",
+		"off": "CY: Off",
+		"requested": "CY: Requested"
 	},
 	"form": {
 		"email": "CY: Email address",
