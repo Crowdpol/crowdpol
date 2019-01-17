@@ -35,11 +35,13 @@ Template.ProfileForm.onCreated(function() {
   dict.set('profileType', userData.profile.type);
   dict.set('phoneNumber', userData.profile.phoneNumber);
   dict.set('contactPerson', userData.profile.contactPerson);
+  dict.set('photo',userData.profile.photo);
+  /*
   if (hasOwnProperty(userData.profile,"photo")) {
     dict.set('photo',userData.profile.photo);
   } else {
     dict.set('photo',"/img/default-user-image.png");
-  }
+  }*/
   this.dict = dict;
   ////console.log("reactive vars set");
   self.autorun(function() {
@@ -836,7 +838,7 @@ function updateFormLabels(){
   var formElements = document.forms["profile-form"].elements;//getElementByClassName('.mdl-js-textfield');
   for (var i = 0, l = formElements.length; i < l; i++) {
     if(formElements[i].classList.contains('mdl-textfield__input')){
-      //console.log(formElements[i])
+      console.log(formElements[i].value);
       formElements[i].focus();
       formElements[i].parentNode.classList.add('is-dirty');
     }

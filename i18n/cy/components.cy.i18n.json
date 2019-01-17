@@ -17,7 +17,8 @@
 		},
 		"termsModal": {
 			"heading": "CY: Terms of Use",
-			"accept": "CY: I Accept"
+			"accept": "CY: I Accept",
+			"decline": "CY: Decline"
 		}
 	}
 }
