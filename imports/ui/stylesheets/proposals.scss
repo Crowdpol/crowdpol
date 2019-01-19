@@ -135,9 +135,20 @@
     background-color: $white;
   }
 }
-
+#edit-proposal-container{
+  margin-top: -50px;
+}
 .edit-proposal-wrap {
   padding-top: 0;
+  #edit-proposal-form{
+    .proposal-header{
+      border: solid 1px green;
+      
+    }
+    .unsplash-selector{
+      border: solid 1px pink;
+    }
+  }
 }
 
 .proposal-body-wrap {

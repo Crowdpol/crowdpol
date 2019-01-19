@@ -146,6 +146,13 @@ publicRoutes.route('/settings', {
   },
 });
 
+publicRoutes.route('/unsplash', {
+  name: 'App.unsplash',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Unsplash' });
+  },
+});
+
 //USER SEARCH
 FlowRouter.route('/search/users', {
   name: 'App.search.users',

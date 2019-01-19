@@ -1,0 +1,45 @@
+.header-image-container{
+  background-image: url("https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2");
+  background-size: cover;
+  height: 400px;
+  width: 100%;
+  //margin-top: -20%;
+  h5{
+    border: solid 1px red;
+  }
+  display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.unsplash-search-box{
+  border: solid 1px red;
+  //margin-top: -150px;
+}
+.unsplash-gallery{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .unsplash-gallery-thumb{
+    padding: 5px;
+    //border: solid 1px black;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    .unsplash-thumb-image{
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 100%
+    }
+    .unsplash-thumb-desc{
+
+    }
+  }
+}
