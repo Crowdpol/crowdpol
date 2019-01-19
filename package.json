@@ -22,6 +22,7 @@
     "simpl-schema": "^0.3.2",
     "snarkdown": "^1.2.2",
     "taggle": "^1.12.0",
-    "unsplash-js": "^4.8.0"
+    "unsplash-js": "^4.8.0",
+    "unsplash-search": "^1.0.2"
   }
 }

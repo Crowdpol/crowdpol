@@ -1,0 +1,45 @@
+<template name="Unsplash">
+  <div class="unsplash-search-box">
+    <center>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" id="sample6">
+          <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+        </div>
+      </div>
+      <input type="text" id="search-unsplash" name="search-unsplash">
+      <button name="search-images-button" id="search-images-button"><i class="material-icons search-icon">search</i></button>
+      <br>
+      <span class="search-images-count">Results found: {{totalImages}}</span><br>
+      <div class="search-images-pagination">
+        <button name="prev-images-page" id="prev-images-page">Prev</button>
+        <span class="pagination-count">Page {{currentPage}} of {{totalPages}}</span>
+        <button name="next-images-page" id="next-images-page">Next</button>
+      </div>
+    </center>
+    <div class="unsplash-gallery">
+      {{#each images}}
+        <div class="unsplash-gallery-thumb">
+          <img class="unsplash-thumb-image" src="{{this.urls.thumb}}" data-id="{{this.id}}">
+          <!--<br>
+          <span class="unsplash-thumb-desc">
+            {{this.description}}
+          </span>
+
+            {{this.urls.creditLink}}<br>
+            {{this.urls.full}}
+            {{this.urls.raw}}
+            {{this.urls.thumb}}
+            <br>
+            {{this.id}}<br>
+            {{this.author.name}}<br>
+            {{this.author.profile}}<br>
+            -->
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
