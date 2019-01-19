@@ -5,7 +5,6 @@ import { Communities } from '../../../../api/communities/Communities.js'
 
 Template.entitySignup.onCreated(function() {
   var self = this;
-
   self.autorun(function(){
     self.subscribe('communities.subdomain', LocalStore.get('subdomain'));
   });
@@ -44,6 +43,8 @@ Template.entitySignup.onRendered( function() {
       },
     }
   });
+  Session.set("termsAccepted",true);
+  document.querySelector('.terms-checkbox').checked = true;
 });
 
 Template.entitySignup.events({

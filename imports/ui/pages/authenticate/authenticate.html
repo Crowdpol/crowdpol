@@ -30,13 +30,6 @@
 			<div class="mdl-tabs__panel" id="signup-panel">
 				<div id="indivdual-signup" class="container narrow-container auth-wrap">
 					<h3>{{_ "pages.authenticate.signup"}}</h3>
-					<div class="form-group">
-						<!-- Terms and conditions of usage-->
-						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="terms-checkbox" >
-							<input type="checkbox" id="terms-checkbox" name="terms-checkbox" class="mdl-checkbox__input" checked="checked" required />
-						  	<span class="light mdl-checkbox__label" id="terms-checkbox-label">{{_ "pages.profile.terms-accepted"}}</span>
-						</label>
-					</div>
 					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
 						<input class="mdl-textfield__input" type="text" name="entity-type" id="entity-type" data-val="individual" value="{{_ 'components.role-selector.individual'}}" readonly tabIndex="-1">
 						<label for="entity-type" class="dropdown-icon">

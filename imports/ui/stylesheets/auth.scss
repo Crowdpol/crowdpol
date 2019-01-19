@@ -44,10 +44,9 @@
 #login-google {
   background-color: #d34836;
 }
-
-#terms-checkbox-label {
-  display: flex;
-  span.mdl-checkbox__label{
-    top: 0;
-  }
+.terms-checkbox-group{
+  margin-bottom: 10px;
+}
+.terms-checkbox-label {
+  font-size: $xsmall-font-size;
 }
