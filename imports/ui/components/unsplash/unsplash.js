@@ -1,4 +1,6 @@
+import './unsplashHeader.js';
 import './unsplash.html'
+
 import UnsplashSearch from 'unsplash-search';
 
 const accessKey = 'a40bf3876f230abedda23394e4df9111ec3699037213fc002140e3a80693df13';
@@ -8,52 +10,52 @@ Template.Unsplash.onCreated(function() {
   var self = this;
   Session.set("data",null);
   Session.set("page",1);
+  Session.set("searchTerm","berlin");
   self.autorun(function(){
-    provider
-      .searchLandscapes('berlin', Session.get("page"))
-      .then(data => {
-        console.log(data);
-        //self.data = new ReactiveVar(data);
-        Session.set("data",data);
-      })
-      .catch(error => error);
+    updateImages();
   });
 });
 Template.Unsplash.events({
 	'click #search-images-button' (event, template){
 		event.preventDefault();
     let searchTerm = $("#search-unsplash").val();
-    console.log("searchTerm: " + searchTerm);
     if(searchTerm){
-      provider
-        .searchLandscapes(searchTerm, Session.get("page"))
-        .then(data => {
-          console.log(data);
-          //self.data = new ReactiveVar(data);
-          Session.set("data",data);
-        })
-        .catch(error => error);
+      Session.set("searchTerm",searchTerm);
+      Session.set("page",1);
+      updateImages();
     }
   },
   'click #prev-images-page' (event, template){
+    event.preventDefault();
     let data = Session.get("data");
     let currentPage = Session.get("page");
-    if(currentPage){
-      return currentPage;
+    if(currentPage > 2){
+      Session.set("page",(currentPage - 1));
+      updateImages();
     }
-    return 0;
   },
   'click #next-images-page' (event, template){
-
+    event.preventDefault();
+    let data = Session.get("data");
+    let currentPage = Session.get("page");
+    if(data){
+      if(currentPage < data.totalPages){
+        Session.set("page",(currentPage + 1));
+        updateImages();
+      }
+    }
+  },
+  'click .unsplash-thumb-image' (event, template){
+    let imageURL = "url('"+this.urls.raw + "&w=1500&dpi=2')";
+    console.log(this);
+    $('#cover-image').css("background-image", imageURL);
+    $('#cover-image').css("background-color", this.color);
+    console.log(invertColor(this.color,true));
+    $("#header-title").css("color",this.color)
   }
 });
 
 Template.Unsplash.helpers({
-  data: function() {
-    console.log(Session.get("data"));
-    // Search 'berlin' and get 3rd page
-    return "this is data";
-  },
   currentPage: function(){
     let currentPage = Session.get("page");
     if(currentPage){
@@ -65,7 +67,6 @@ Template.Unsplash.helpers({
   },
   totalPages: function(){
     let data = Session.get("data");
-    console.log(Session.get("data"));
     if(data){
       return data.totalPages;
     }else{
@@ -75,7 +76,6 @@ Template.Unsplash.helpers({
   },
   totalImages: function(){
     let data = Session.get("data");
-    console.log(Session.get("data"));
     if(data){
       return data.totalImages;
     }else{
@@ -91,14 +91,59 @@ Template.Unsplash.helpers({
     return;
   },
   queryLimit: function(){
-    console.log(provider.getQueryLimit());
+    //console.log(provider.getQueryLimit());
     return provider.getQueryLimit();
   },
   remainingQuery: function(){
-    console.log(provider.getRemaingQuery());
+    //console.log(provider.getRemaingQuery());
     return provider.getRemaingQuery();
   }
 });
+
+function updateImages(searchTerm){
+  provider
+    .searchLandscapes(Session.get("searchTerm"), Session.get("page"))
+    .then(data => {
+      //console.log(data);
+      //self.data = new ReactiveVar(data);
+      Session.set("data",data);
+    })
+    .catch(error => error);
+}
+
+function invertColor(hex, bw) {
+    if (hex.indexOf('#') === 0) {
+        hex = hex.slice(1);
+    }
+    // convert 3-digit hex to 6-digits.
+    if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    if (hex.length !== 6) {
+        throw new Error('Invalid HEX color.');
+    }
+    var r = parseInt(hex.slice(0, 2), 16),
+        g = parseInt(hex.slice(2, 4), 16),
+        b = parseInt(hex.slice(4, 6), 16);
+    if (bw) {
+        // http://stackoverflow.com/a/3943023/112731
+        return (r * 0.299 + g * 0.587 + b * 0.114) > 186
+            ? '#000000'
+            : '#FFFFFF';
+    }
+    // invert color components
+    r = (255 - r).toString(16);
+    g = (255 - g).toString(16);
+    b = (255 - b).toString(16);
+    // pad each with zeros and return
+    return "#" + padZero(r) + padZero(g) + padZero(b);
+}
+
+function padZero(str, len) {
+    len = len || 2;
+    var zeros = new Array(len).join('0');
+    return (zeros + str).slice(-len);
+}
 
 /*
 import Unsplash, { toJson } from 'unsplash-js';

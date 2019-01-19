@@ -188,7 +188,14 @@ ProposalSchema = new SimpleSchema({
         type: String,
         optional: true,
     },
-
+    hasImage: {
+      type: Boolean,
+      optional: true
+    },
+    headerImage: {
+      type: String,
+      optional: true
+    },
     votesFinalised: {
         /* If a proposal is expired and the votes have been prepared for tallying */
         type: Boolean,

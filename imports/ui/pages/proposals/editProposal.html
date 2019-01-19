@@ -3,16 +3,19 @@
 		{{#if Template.subscriptionsReady}}
 		<!-- -->
 		{{> InviteModal}}
+		{{> UnsplashHeader}}
 		{{> backButton text="generic.back-to-proposals" url="/dash"}}
 
 		<!-- Include Quill stylesheet -->
 		<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
-		<div class="app-container edit-proposal-wrap">
+		<div class="app-container edit-proposal-wrap" id="edit-proposal-container">
 
 			<!-- Proposal Form -->
 			<form id="edit-proposal-form">
-
+				<div class="unsplash-selector">
+					
+				</div>
 				<!-- Tabs for translations -->
 				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 					<div class="button-tabs mdl-tabs__tab-bar">
