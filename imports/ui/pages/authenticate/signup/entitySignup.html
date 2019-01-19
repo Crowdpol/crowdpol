@@ -29,7 +29,11 @@
 			<label class="mdl-textfield__label" for="entity-password">{{_ "form.password"}}</label>
 			<input type="password" name="entity-password" id="entity-password" class="mdl-textfield__input">
 		</div>
-
+		<div class="terms-checkbox-group">
+			<!-- Terms and conditions of usage-->
+			<input type="checkbox" id="entity-terms" name="entity-terms" class="terms-checkbox" checked="checked">
+			<span  class="terms-checkbox-label">{{_ "pages.profile.terms-accepted"}}</span>
+		</div>
 		<div class="form-group">
 			<input type="submit" class="primary-button mdl-button mdl-js-button mdl-button--raised" value='{{_ "generic.signup"}}'>
 		</div>

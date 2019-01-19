@@ -61,6 +61,10 @@ Template.Authenticate.events({
 	},
 	*/
 	'click .dropdown-item': function(event, template){
+		Session.set("termsAccepted",true);
+	  $('.terms-checkbox').prop('checked', true);
+		$('#entity-terms').prop('checked', true);
+		$('#individual-terms').prop('checked', true);
 		entity = event.target.dataset.val
 		template.find('#entity-type').dataset.val = entity;
 		template.find('#entity-type').value = TAPi18n.__('components.role-selector.' + entity);
@@ -82,22 +86,16 @@ Template.Authenticate.events({
 		        $("#entity-signup-form").hide();
 		}
 	},
-	'click #terms-checkbox-label' (event, template) {
+	'click .terms-checkbox-label' (event, template) {
 		openTermsModal();
-		/*
-		var termsCheckbox = self.find('#terms-checkbox-label').MaterialCheckbox;
-		var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
-		if (termsAccepted) {
-			termsCheckbox.uncheck();
-			Session.set('termsAccepted', false);
-		} else {
-			event.preventDefault();
-			openTermsModal();
-		}
-		*/
+	},
+	'click .terms-checkbox' (event, template) {
+		Session.set('termsAccepted',!Session.get('termsAccepted'));
+		console.log(document.querySelector('.terms-checkbox'));
+		document.querySelector('.terms-checkbox').checked = Session.get('termsAccepted');
 	}
 });
 
 Template.Authenticate.onRendered( function() {
-
+	Session.set('termsAccepted', true);
 });

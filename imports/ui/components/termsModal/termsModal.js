@@ -6,13 +6,17 @@ Template.TermsModal.events({
   },
   'click #decline-button' (event, template){
     event.preventDefault();
-    document.querySelector('#terms-checkbox-label').MaterialCheckbox.uncheck();
+    $('.terms-checkbox').prop('checked', false);
+		$('#entity-terms').prop('checked', false);
+		$('#individual-terms').prop('checked', false);
     Session.set('termsAccepted', false);
     closeTermsModal();
   },
   'click #accept-button' (event, template){
     event.preventDefault();
-    document.querySelector('#terms-checkbox-label').MaterialCheckbox.check();
+    $('.terms-checkbox').prop('checked', true);
+		$('#entity-terms').prop('checked', true);
+		$('#individual-terms').prop('checked', true);
     Session.set('termsAccepted', true);
     closeTermsModal();
   }

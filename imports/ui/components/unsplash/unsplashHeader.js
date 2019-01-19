@@ -22,7 +22,7 @@ Template.UnsplashHeader.events({
   },
   'mousedown #cover-image': function(event){
     Session.set("mouseStart",event.clientY);
-    console.log('drag starts');
+    console.log('drag starts - event.clientY: ' + event.clientY + " ");
     Session.set("mouseMove",true);
   },
   'mouseup #cover-image': function(event){
