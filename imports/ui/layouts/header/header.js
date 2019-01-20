@@ -135,6 +135,9 @@ Template.Header.helpers({
   otherRoleText(){
     let otherRole = LocalStore.get('otherRole');
     switch (otherRole) {
+      case 'delegate':
+          text = TAPi18n.__('layout.header.nav_use_delegate');
+          break;
       case 'individual':
           text = TAPi18n.__('layout.header.nav_use_individual');
           break;
