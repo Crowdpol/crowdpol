@@ -234,6 +234,9 @@ Template.Header.events({
   },
   'click #nav-logout' : function(e){
     event.preventDefault();
+    LocalStore.set('currentUserRole','');
+    LocalStore.set('isDelegate','');
+    $('.logged-in-header').removeClass('delegate_header');
     Meteor.logout();
   },
   'keyup input' (event, template) {

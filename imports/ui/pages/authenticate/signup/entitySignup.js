@@ -103,6 +103,34 @@ Template.entitySignup.events({
             if (redirect) {
              window.location.href = redirect;
            } else {
+             var user = Meteor.user();
+             var userRoles = user.roles;
+             console.log(userRoles);
+             if (user && userRoles) {
+               if(userRoles.indexOf("delegate") > -1){
+                 LocalStore.set('isDelegate',true);
+               }else{
+                 LocalStore.set('isDelegate',false);
+               }
+               if(userRoles.indexOf("individual") > -1){
+                 LocalStore.set('currentUserRole','individual');
+               }
+               if(userRoles.indexOf("organisation") > -1){
+                 LocalStore.set('currentUserRole','organisation');
+               }
+               if(userRoles.indexOf("party") > -1){
+                 LocalStore.set('currentUserRole','party');
+               }
+               if(userRoles.indexOf("delegate") > -1){
+                 LocalStore.set('isDelegate',true);
+                 LocalStore.set('otherRole','delegate');
+               }else{
+                 LocalStore.set('isDelegate',false);
+                 LocalStore.set('otherRole','');
+               }
+             }
+             console.log(LocalStore.get('currentUserRole'));
+             console.log(LocalStore.get('isDelegate'));
              FlowRouter.go('/proposals');
            }
          }

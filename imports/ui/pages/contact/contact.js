@@ -31,8 +31,6 @@ Template.contact.onRendered( function() {
       },
     }
   });
-  LocalStore.set('currentUserRole','reset');
-  LocalStore.set('isDelegate','reset');
 });
 
 Template.contact.events({
