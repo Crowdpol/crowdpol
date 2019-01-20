@@ -6,7 +6,7 @@
 		"read-more": "Läs Mer",
 		"preview": "Förhandsvisning",
 		"loading": "Läser in...",
-		"not-found_message": "Sidan existerar tyvärr inte",
+		"not-found_message": "Den sidan existerar tyvärr inte",
 		"not-found_home-link": "Tillbaka hem",
 		"alerts": {
 			"welcome": "Välkommen"
@@ -14,10 +14,7 @@
 		"show-more": "Visa mer",
 		"show-less": "Visa mindre",
 		"approved": "Godkänd",
-		"back-to-proposals": "Tillbaka till Föreslå",
-		"on": "På",
-		"off": "Av",
-		"requested": "Begäran lämnats in"
+		"back-to-proposals": "Tillbaka till Föreslå"
 	},
 	"form": {
 		"email": "E-postadress",

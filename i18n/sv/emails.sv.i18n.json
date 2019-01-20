@@ -1,11 +1,11 @@
 {
 	"emails": {
 		"verify-email": {
-			"subject": "Syntropi: Bekräfta din e-post",
+			"subject": "Crowdpol: Bekräfta din e-post",
 			"body": "Klicka på följande länk:\n\n __url__ \n\n för att verifera din e-postadress __emailAddress__  Ignorera detta meddelande om du inte har ansökt om att bekräfta din e-postsadress hos oss. Om du har frågor eller misstänker att någon försöker använda din e-postadress kontakta vår support: __supportEmail__."
 		},
 		"reset-password": {
-			"subject": "Syntropi: Återställ Ditt Lösenord",
+			"subject": "Crowdpol: Återställ Ditt Lösenord",
 			"body": "Klicka på följande länk för att återställa ditt lösenord: \n\n __url__ \n\n Om du inte begärt att få återställa ditt lösenord kan du ignorera detta meddelande. Om du har frågor eller misstänker att någon försöker komma åt ditt konto, kontakta vår support: __supportEmail__."
 		},
 		"rejection-email": {
@@ -26,7 +26,7 @@
 		"send-invite": {
 			"from": "__name__ __fromEmail__",
 			"subject": "Inbjudan till Syntropi",
-			"body": "Du är inbjuden att delta i Syntropi som en __role__. Klicka på denna länk om du är intresserad: __url__"
+			"body": "Du är inbjuden att delta i Crowdpol som en __role__. Klicka på denna länk om du är intresserad: __url__"
 		}
 	}
 }
