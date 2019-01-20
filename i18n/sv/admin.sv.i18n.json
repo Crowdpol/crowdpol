@@ -1,149 +1,54 @@
 {
-	"admin":{
-		"dash":{
-			"heading" : "Admin Dashboard",
-			"sub-heading" : "SuperAdmin Dash",
-			"card": {
-				"users": {
-					"heading": "Användare",
-					"text": "Lägg till, ändra samt ta bort användare, bjud in nya användare eller ändra användares roll.",
-					"link": "Hantera Användare"
-				},
-				"tags": {
-					"heading": "Taggar",
-					"text": "Lägg till, ändra eller ta bort taggar som används för filtrering av innehåll.",
-					"link": "Hantera Taggar"
-				},
-				"approvals": {
-					"heading": "Godkännanden",
-					"text": "Godkänn eller avvisa användares ansökningar om att bli delegater.",
-					"link": "Hantera Godkännanden"
-				},
-				"proposals": {
-					"heading": "Förslag",
-					"text": "Granska förslag som användare skickat in.",
-					"link": "Hantera Förslag"
-				},
-				"voting": {
-					"heading": "Röstning",
-					"text": "Se valresultat och förbered röster i avslutade omröstningar för sammanräkning.",
-					"link": "Se Röstresultat"
-				},
-				"stats":{
-					"heading": "Statistik",
-					"text": "Granska webbsajtens statistik",
-					"link": "Se Statistik"
-				},
-				"communities":{
-					"heading": "Grupper",
-					"text": "Hantera Grupper",
-					"link": "Visa Grupper"
-				}
-			}
+	"layout": {
+		"header": {
+			"app_title": "Crowdpol",
+			"home_title": "Crowdpol",
+			"nav_home": "Hem",
+			"nav_dash": "Instrumentpanel",
+			"nav_delegate" : "Delegera",
+			"nav_vote": "Rösta",
+			"nav_proposals": "Föreslå",
+			"nav_nominate": "Nominera",
+			"nav_about": "Om",
+			"nav_contact": "Kontakt",
+			"nav_login": "Logga in",
+			"nav_logout": "Logga ut",
+			"nav_faq": "FAQ",
+			"nav_feed": "Nyhetsflöde",
+			"nav_profile": "Profil",
+			"nav_settings": "Inställningar",
+			"lang_en": "English",
+			"lang_sv": "Svenska",
+			"lang_cy": "Walesiska",
+			"lang_ja": "Japanska",
+			"role_selector": "Byt Roll",
+			"no_notifications": "Du har inga meddelanden.",
+			"search_tags": "Sök efter taggar...",
+			"vote_as_individual": "Du röstar nu som privatperson",
+			"vote_as_delegate": "Du röstar nu i egenskap av delegat"
 		},
-		"users": {
-			"heading": "Alla Användare",
-			"name": "Fullständigt Namn",
-			"email": "Epostadress",
-			"roles": "Roller",
-			"public": "Offentlig",
-			"delete-button": "Radera",
-			"delete-message": "Är du säker på att du vill radera denna användare?",
-			"delete-title":"Radera användare permanent",
-			"delete-yes":"Ja",
-			"delete-no":"Nej",
-			"invite-heading": "Bjud in en ny användare:",
-			"invite-message": "Fyll i en användarens e-post om du vill skicka dem en inbjudan.",
-			"invite-button": "Skicka inbjudan",
-			"invite-role": "Användares roll",
-			"approve-button": "Godkänn",
-			"reject-button": "Avslå",
-			"whitelist-updated" : "Vitlistan uppdaterad.",
-			"community-whitelist": "Gruppens vitlista",
-			"whitelist-description": "Om en vitlista används kommer bara användare med e'postadreser på vitlistan kunna skapa konton i denna grupp.",
-			"enforceWhitelist": "Tillåt endast dessa användare att skapa konton."
+		"drawer": {
+			"nav_login" : "Logga in",
+			"nav_logout": "Logga ut",
+			"nav_profile" : "Profil",
+			"nav_dash" : "Instrumentpanel",
+			"nav_contact" : "Kontakt",
+			"nav_privacy" : "Sekretesspolicy",
+			"nav_terms" : "Användarvillkor",
+			"nav_admin_dash" : "Adminpanel",
+			"right_about" : "Om",
+			"website": "Webbsida",
+			"recent-votes": "Senaste omröstningar",
+			"no-votes": "Den här delegaten har inte röstat på några förslag ännu."
 		},
-		"proposals":{
-			"heading": "Förslag",
-			"date": "Datum",
-			"author": "Författare",
-			"contributors": "Bidragare",
-			"title": "Titl",
-			"none-waiting": "Inga nya förslag inväntar godkännande.",
-			"approve-button": "Godkänn",
-			"reject-button": "Avslå",
-			"preview": "Förhandsvisning"
+		"body":{
+			"no-styles": "Färgschemat för din webbsida kunde inte laddas upp."
 		},
-		"voting":{
-			"heading": "Röstning",
-			"endDate": "Slutdatum",
-			"author": "Författare",
-			"title": "Titel",
-			"tally-votes": "Uppdatera valresultat",
-			"results": "Resultat",
-			"yes-votes": "Bifallande röster",
-			"no-votes": "Avslående röster",
-			"total-votes": "Totalt antal röster"
-		},
-		"tags": {
-			"heading": "Hantera taggar",
-			"text": "Text",
-			"keyword": "Nyckelord",
-			"url": "Länk",
-			"delete": "Radera",
-			"created": "Datum skapad",
-			"approved": "Godkänd",
-			"add-button": "Lägg till",
-			"delete-button": "Radera",
-			"none-waiting": "För närvarande finns det inga förslag som väntar på att granskas."
-		},
-		"approvals": {
-			"heading": "Godkännanden",
-			"approve-button": "Godkänn",
-			"reject-button": "Avvisa",
-			"date": "Datum",
-			"username":"Användarnamn",
-			"request-type":"Typ av Begäran",
-			"request-status":"Status på Begäran",
-			"approvals-waiting":"Det finns inga väntande önskemål om godkännande."
-		},
-		"alerts": {
-			"user-approved": "Användare godkänd",
-			"user-rejected": "Användare avvisad",
-			"proposal-approved": "Förslaget godkänt",
-			"proposal-rejected": "Förslaget avvisat",
-			"tag-updated": "Tagg uppdaterad",
-			"tag-added": "Tagg tillagd",
-			"tag-deleted": "Tagg raderad",
-			"verification-email-sent": "Verifications e-post skickad till "
-		},
-		"stats": {
-			"proposals":{
-				"tabs": {
-					"overview" : "Översikt",
-					"proposalList" : "Statistik Förslag"
-				}
-			}
-		},
-		"communities": {
-			"heading": "Grupper",
-			"name": "Namn",
-			"subdomain": "Subdomän",
-			"user-count": "Antal Användare",
-			"none": "För tillfället finns inga grupper.",
-			"colorScheme": {
-				"label": "Färgschema",
-				"greyscale": "Gråskala (svart/vit/grå)",
-				"default": "Default (blå/gul)"
-			},
-			"homepageImageUrl": "Länk till hemsidesbild",
-			"homepageBannerText": "Hemsidans bannertext",
-			"homepageIntroText": "Hemsidans introduktiontext",
-			"aboutText": "Om oss text",
-			"languageSelector": "Visa språkväljare i sidhuvudet",
-			"defaultLanguage": "Standardspråk",
-			"emailWhitelist": "E-postadresser till tillåtna användare, separerade med kommatecken.",
-			"enforceWhitelist": "Aktivera vitlistan med e-postadresser "
+		"footer": {
+			"delegate": "Delegera",
+			"propose": "Föreslå",
+			"nominate": "Nominera",
+			"vote": "Rösta"
 		}
 	}
 }

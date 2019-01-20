@@ -8,7 +8,7 @@
 			"candidate": "Kandidat"
 		},
 		"home": {
-			"heading": "Syntropii",
+			"heading": "Crowdpol",
 			"intro-text": "Öppen tankesmedja.",
 			"hero": {
 				"delegate": "Delegera",
@@ -28,29 +28,32 @@
 			"subtitle": "En Inbjudan till Demokratiska (r)Evolutionärer",
 			"section": {
 				"project": {
-					"heading": "SYNTROPI",
-					"paragraph-1": "Det finns konservativa veganer. Det finns vänstersympatisörer som gillar sportbilar. Det finns klimataktivister som är för kärnkraft. Människan rymmer och har alltid rymt mångfalder. Ingen är bara en sak, ingen är den statistiska normen, vi är alla avvikelser. Allt färre människor definierar sig som det ena eller det andra på en klassisk höger-vänster skala. 70 procent av svenskarna betraktar sig inte heller som anhängare av något politiskt parti. Politiken är personlig. De enskilda frågorna är viktigare än ideologierna, kanske för att ideologierna är så svåra att se skillnad på i praktiken idag. Alla tror på något, men detta något är olika från person till person och går för det mesta inte att översätta till något som ryms inom en snäv partipolitisk symbol.",
-					"paragraph-2": "Trots ointresset för partipolitik med bara tre procent av befolkningen medlemmar i ett parti saknas varken politiskt engagemang eller politiska visioner eller förslag hos svenskarna i gemen. Den gamla politiska strukturen håller helt enkelt inte jämna steg med utvecklingen i resten av samhället. Det som behövs är inte nya partier så mycket som nya politiska strukturer, nya metoder och möjligheter att forma politikens innehåll. Nya sätt att mötas och diskutera. I en ofta förvirrande samtid med brist på information behövs pålitliga sätt att identifiera sin egna politiska plattform.",
-					"paragraph-3": "SYNTROPI representerar ett unikt demokratiprojekt som söker vägar bortom etablerade strukturer och vedertagna vanor inom den politiska sfären. Vi vill stödja skapandet av dessa nya strukturer."
+					"heading": "CROWDPOL",
+					"paragraph-1": "Det finns konservativa veganer. Det finns vänstersympatisörer som gillar sportbilar. Det finns klimataktivister som är för kärnkraft. Människan rymmer och har alltid rymt mångfalder. Ingen är bara en sak, ingen är den statistiska normen, vi är alla avvikelser..",
+					"heading": "Vart tog engagemanget vägen?",
+					"paragraph-2": "Allt färre människor definierar sig helt enkelt som det ena eller det andra på en klassisk höger-vänster skala. 70 procent av svenskarna betraktar sig inte heller som anhängare av något politiskt parti. Politiken är personlig. De enskilda frågorna är viktigare än ideologierna, kanske för att ideologierna är så svåra att se skillnad på i praktiken idag. Alla tror på något, men detta något är olika från person till person och går för det mesta inte att översätta till något som ryms inom en snäv partipolitisk symbol.",
+					"paragraph-3": "Trots ointresset för partipolitik med bara tre procent av befolkningen medlemmar i ett parti saknas varken politiskt engagemang eller politiska visioner eller förslag hos svenskarna i gemen. Den gamla politiska strukturen håller helt enkelt inte jämna steg med utvecklingen i resten av samhället. Det som behövs är inte nya partier så mycket som nya politiska strukturer, nya metoder och möjligheter att forma politikens innehåll. Nya sätt att mötas och diskutera. I en ofta förvirrande samtid med motstridig information från otydliga avsändare behövs pålitliga sätt att identifiera sin egna politiska plattform."
+					"paragraph-4": "Crowdpol är ett demokratiprojekt som söker vägar bortom stela strukturer och etablerade vanor inom den politiska sfären, som vill skapa en modern demokrati där alla får vara med och bestämma över vart de gemensamma resurserna riktas och på vilket sätt."
 
 				},
 				"liquid-democracy": {
 					"heading": "Med demokrati som ideologi",
-					"paragraph-1": "SYNTROPI  bygger på de grekiska termerna för tillsammans och närande omsorg. Ett digitalt forum för människor som vill förstå och lösa samhällsutmaningar tillsammans, en slags folkets tankesmedja. Tills skillnad från andra tankesmedjor har vi ingen annan ideologisk grund än tron på demokrati, övertygelsen om allas rätt att vara med och påverka hur det allmänna förvaltas. För att detta ska fungera fullt ut behöver vi även hitta en grund i fakta och i möjligaste mån basera våra förslag evidens snarare än antaganden. Argument och åsikter från alla riktningar och dimensioner är välkomna så länge de skapar en mer nyanserad bild, så de skiljer på åsikt och fakta och så länge de presenteras med respekt till alla andra som använder forumet.",
-					"paragraph-2": "Vårt mål är att bygga upp en databas av politiska förslag i form av motioner där du snabbt kan få överblick i en specifik fråga och, om du vill, själv rösta och genom detta skapa dig en tydligare bild över din egna politiska plattform. Eftersom vi använder oss av så kallad flytande demokrati (liquid democracy) kan du både delegera din röst till andra men även se hur andra, exempelvis våra riksdagspartier, står i de olika frågorna. En tydligare bild  över som är viktigt för dig men även vilket parti som bäst stämmer överens med dina personliga åsikt i en specifik fråga.",
-					"paragraph-3": "SYNTROPI kommer alltså att inte bara erbjuda en plattform för politisk dialog utan även att kontinuerligt följa de olika riksdagspartiernas beslut i sakfrågor för att på ett pålitligt sätt kunna representera partiernas politik i praktiken, En gång per år, på demokratidagen den 15 september, gör vi en sammanställning av de viktigaste frågorna på vår plattform enligt allmänheten och presenterar dessa för regering och media. En slags avstämning mellan vad svenskarna tycker är viktigt och vad den politiska eliten prioriterar. Vi kommer även kontinuerligt att ordna debatter samt diskussionskvällar med djupdykningar i olika frågor och ämnen kopplade till våra omröstningar under namnet Syntropia - utopier för realister."
+					"paragraph-1": "Crowdpol är ett forum för människor som vill förstå och lösa samhällsutmaningar tillsammans, ett slags folkets tankesmedja. Tills skillnad från andra tankesmedjor har vi ingen annan ideologisk grund än tron på demokrati, övertygelsen om allas rätt att vara med och påverka hur det allmänna förvaltas. För att detta ska fungera fullt ut behöver vi även hitta en grund i fakta och i möjligaste mån basera våra förslag evidens snarare än antaganden. Argument och åsikter från alla riktningar och dimensioner är välkomna så länge de bidrar till en mer nyanserad bild, så länge de skiljer på åsikt och fakta och så länge de presenteras med respekt till alla andra som använder forumet.",
+					"paragraph-2": "Vår ambition är att skapa ett forum där du som användare snabbt  kan få överblick i de specifik frågor som berör dig, rösta efter eget huvud och genom detta skapa dig en tydligare bild över din personliga politiska plattform. Eftersom vi använder oss av så kallad flytande demokrati (liquid democracy) kan du även delegera din röst till andra eller se hur andra, exempelvis våra riksdagspartier, står i de olika frågorna. En tydligare bild över som är viktigt för dig men även vilket parti som bäst stämmer överens med dina personliga åsikter i en specifik fråga.",
+					"paragraph-3": "Crowdpol kommer alltså att inte bara erbjuda en plattform för politisk dialog utan även att kontinuerligt följa de olika riksdagspartiernas beslut i sakfrågor för att på ett pålitligt sätt kunna representera partiernas politik i praktiken, En gång per år, på demokratidagen den 15 september, gör vi en sammanställning av de viktigaste frågorna på vår plattform enligt allmänheten och presenterar dessa för regering och media. En slags avstämning mellan vad svenskarna tycker är viktigt och vad det professionella politiska etablissemanget prioriterar."
 				},
 				"how-it-works": {
-					"heading": "SYNTROPI i framtiden",
-					"paragraph-1": "Målet med SYNTROPI är att hitta beröringspunkterna mellan olika förhållningssätt som kan leda till politiska förslag med brett och  långsiktigt stöd hos allmänheten. Målet är även att bli en länk mellan dagens etablerade partier och den breda väljarbasen, mellan specialister och generalister, mellan höger och vänster, mellan där vi är och dit vi vill komma.  ",
-					"paragraph-2": "För att ta oss fram som samhälle måste vi lösa våra utmaningar tillsammans med hjälp av alla de unika perspektiv som alla individer kan bidra med. Genom att samarbeta får vi en betydligt bättre bild om var vi är och vilka vägar fram som finns. Världen tycks bli mer och mer komplex med många nya utmaningar som inte går att förstå med gamla, etablerade glasögon. Vi gör oss själva ingen tjänst genom att förenkla och reducera dessa med ideologiska skygglappar och snäva perspektiv. Istället för att avfärda dem vi inte håller med bör vi lyssna och ta reda på vad vi kan lära oss av våra meningsmotståndare. Det är bara genom att förstå mer som vi kan skapa en gemensam väg fram genom våra gemensamma utmaningar till vår gemensamma framtid.",
-					"paragraph-3": "SYNTROPI söker bli en del i en helt ny typ av folkrörelse, en rörelse som bygger på individens val och som kontinuerligt kan ändra kurs allteftersom samhället och förutsättningarna förändras. Ett samhällsbyggande projekt med blicken på samtiden och utifrån detta tar nästa steg mot de gemensamma målen."
+					"heading": "Mot en hållbar framtid",
+					"paragraph-1": "Målet med Crowdpol är att hitta beröringspunkterna mellan olika förhållningssätt som kan leda till politiska förslag med brett och långsiktigt stöd hos allmänheten. Målet är även att bli en länk mellan dagens etablerade partier och den breda väljarbasen, mellan specialister och generalister, mellan höger och vänster, mellan där vi är och dit vi vill komma.",
+					"paragraph-2": "För att ta oss fram som samhälle måste vi lösa våra utmaningar tillsammans med hjälp av alla de unika perspektiv som alla individer kan bidra med. Genom att samarbeta får vi en betydligt bättre bild om var vi är och vilka vägar fram som finns.",
+					"paragraph-3": "Världen tycks bli mer och mer komplex med många nya utmaningar som inte går att förstå med gamla, etablerade glasögon. Vi gör oss själva ingen tjänst genom att förenkla och reducera dessa med ideologiska skygglappar och snäva perspektiv. Istället för att avfärda dem vi inte håller med bör vi lyssna och ta reda på vad vi kan lära oss av våra meningsmotståndare. Det är bara genom att förstå mer som vi kan skapa en gemensam väg fram genom våra gemensamma utmaningar till vår gemensamma framtid."
+					"paragraph-4": "Crowdpol vill bli en del i en helt ny typ av folkrörelse, en rörelse som bygger på individens val och som kontinuerligt kan ändra kurs allteftersom samhället och förutsättningarna förändras. Ett samhällsbyggande projekt med blicken på samtiden och utifrån detta tar nästa steg mot de gemensamma målen."
 				},
 				"about-us": {
-					"heading": "SYNTROPI i nuet",
-					"paragraph-1": "SYNTROPI är ett praktiskt projekt. Visst finns här plats för de stora visionerna, men framför allt ligger fokus på här och nu, på nästa steg. Hos oss kan du idag rösta i ett antal olika politiska frågor eller delegera din röst till partier, organisationer och individer om du inte är säker på hur du själv står i en fråga. Du kan även skicka in förslag på egna politiska motioner.",
-					"paragraph-2": "Då vi är en ideell förening har vi ganska begränsade medel och kan därför ännu inte husera debatter på vår plattform. Varje enskild motion har därför sin egna närvaro i sociala media för de som vill diskutera på bredden och djupet. Till 2019 bör vår plattform kunna erbjuda mer avancerade förutsättningar för diskussion av sakfrågor. Varefter vi kommer att kunna diskutera och utveckla idéer på en mer praktiskt sätt här på SYNTROPI. Precis som andra traditionella tankesmedjor. Förutom att alla får vara med.",
-					"paragraph-3": "Vill du engagera dig? Vi behöver all hjälp vi kan få, både vad gäller bidrag i form av motioner, redaktionellt arbete, feedback och förslag, stöd med event, marknadsföring, utveckling med mycket mera. Om du tycker det hela verkar kul och intressant skicka en epost till info@syntropi.se. Som den amerikanska arkitekten och visionären Buckminster Fuller sa är det bästa sättet att förutsäga framtiden att skapa den. Vi hoppas du vill vara med och skapa den med oss."
+					"heading": "Plats för avstamp",
+					"paragraph-1": "Crowdpol är ett praktiskt projekt. Visst finns här plats för de stora visionerna, men framför allt ligger fokus på här och nu, på nästa steg. Hos oss kan du idag rösta i ett antal olika politiska frågor eller delegera din röst till partier, organisationer och individer om du inte är säker på hur du själv står i en fråga. Du kan även skicka in förslag på egna politiska motioner eller skriva ett förslag och be resten medlemmarna om hjälp med att utveckla den.",
+					"paragraph-2": "Vill du engagera dig? Vi behöver all hjälp vi kan få, både vad gäller bidrag i form av motioner, redaktionellt arbete, feedback och förslag, stöd med event, marknadsföring, utveckling med mycket mera. Om du tycker det hela verkar kul och intressant skicka en epost till info@crowdpol.se.",
+					"paragraph-3": "Som den amerikanska arkitekten och visionären Buckminster Fuller uttryckte det: Det bästa sättet att förutsäga framtiden är att skapa den. Vi hoppas du vill vara med och skapa den med oss."
 				}
 			}
 		},
@@ -150,7 +153,7 @@
 			"type": "Typ av organisation"
 		},
 		"contact": {
-			"heading": "Kontakta Oss",
+			"heading": "Kontakta oss",
 			"alerts": {
 				"contact-message-sent": "Ditt meddelande har skickats."
 			}
@@ -169,7 +172,7 @@
 					"link": "Se"
 				},
 				"delegates": {
-					"heading": "Delegate",
+					"heading": "Delegera",
 					"text": "Välj dina delegater.",
 					"no-delegates": "Du verkar inte ha valt några delegater ännu",
 					"link": "Delegera"
@@ -200,9 +203,9 @@
 				}
 			},
 			"verify-account-message": "Verifiera din e-postadress innan du fortsätter.",
-			"unapproved-entity-message": "Ditt konto har inte bekräftats as en admin ännu.",
-			"verify-resend-link": "Skicka Verifikationslänken Igen",
-			"verify-success-message": "Verifierad! Du kan göra saker!",
+			"unapproved-entity-message": "Ditt konto har inte bekräftats av en admin ännu.",
+			"verify-resend-link": "Skicka verifikationslänken igen",
+			"verify-success-message": "Verifierad! Nu kan du göra saker!",
 			"verify-success-alert": "Verifikationen lyckades.",
 			"authentication-required-message": "Du har inte tillgång till denna sida. Var vänlig och logga in eller registrera dig för att skapa ett konto",
 			"alerts": {
@@ -217,7 +220,7 @@
 			"instructions-3": "Du kan välja upp till fem delegater. Dessa delegater behöver du sedan rangorda. Det gör du genom att dra och släppa dem i den ordning du föredrar. Den deleagt du placerat högst kommer att räknas först. Har den delegaten inte gjort ett val i en fråga går rösten vidare till nästa delegat i ordningen och så vidare.",
 			"alerts": {
 				"delegate-limit": "Du har nått din delegatgräns",
-				"ranking-updated": "Dina delegaters inbördes ordning har uppdaterats"
+				"ranking-updated": "Dina delegaters inbördes ordning är uppdaterad"
 			},
 			"delegation-disabled":"Delegationen har inaktiverats av systemadministratören."
 		},
@@ -232,7 +235,7 @@
 			"list": {
 				"search": "Sök efter nyckelord bland förslagen",
 				"deletedMessage": "Ditt förslag har raderats.",
-				"confirmDelete": "Är du säker på att du vill radera detta förslag? Du kan inte ändra dig efteråt.",
+				"confirmDelete": "Är du säker på att du vill radera detta förslag? Raderade förslag sparas inte så du kan inte ändra dig efteråt.",
 				"tabs": {
 					"allProposals": "Alla Förslag",
 					"myProposals": "Mina Förslag",
@@ -255,7 +258,7 @@
 				"approvedRejectedSwitch": "Avvisad/Godkänd",
 				"createdInvitedSwitch": "Egen/Gemensam",
 				"untitled": "Namnlös",
-				"untranslated": "Detta försalg har ännu inte översatts.",
+				"untranslated": "Detta förslag har ännu inte översatts.",
 				"no-proposals": "Inga __status__ förslag är .",
 				"your-proposals": "Du har inga __status__ förslag.",
 				"create-link": "Skapa en?"
@@ -279,8 +282,8 @@
 					"changes-saved": "Dina Ändringar är Sparade",
 					"proposal-created": "Förslag Skapat",
 					"bad-email": "Det här verkar inte vara en riktig e-postadress. Har du skrivit rätt?",
-					"not-saved": "TODO: Proposal not saved as there was no content",
-					"collaborator-limit-exceeded": "TODO: Collaborator limit exceeded. (__limit__)"
+					"not-saved": "Förslaget sparades inte eftersom det inte hade något innehåll",
+					"collaborator-limit-exceeded": "Gränsen för antal medarbbetare har överskridits. (__limit__)"
 				}
 			},
 			"view": {
@@ -291,16 +294,16 @@
 					"button": "Skapa Konto"
 				},
 				"removeInviteModal": {
-					"header": "TODO: Reject Invitation to Collaborate",
-					"paragraph-1": "TODO: Are you sure you want to reject the invitation to colloborate on this proposal:",
-					"reason-input-label": "TODO: Give a reason:",
-					"decline-button": "TODO: Decline Invitation"
+					"header": "Avböj inbjudan till att samarbeta",
+					"paragraph-1": "Är du säker på att du vill avböja inbbjudan att samarbeta på detta förslag:",
+					"reason-input-label": "Ange en anledning:",
+					"decline-button": "Avslå inbjudan"
 				},
 				"inviteModal":{
-					"header":"TODO: Selected Invites",
-					"paragraph-1":"TODO: Are you sure you want to invite the following people to be co-authors on this proposal:",
-					"existing-table-heading":"TODO: Existing users invited to collaborate:",
-					"email-table-heading":"TODO: Existing users invited to collaborate:"
+					"header":"Valda inbjudningar",
+					"paragraph-1":"Är du säker på att du bjuda in följande människor till att bli medförfattare på detta förslag:",
+					"existing-table-heading":"Befintliga användare inbjudna till att samarbeta:",
+					"email-table-heading":"Befintliga användare inbjudna till att samarbeta:"
 				},
 				"signature-tooltip": "Visa ditt stöd för detta förslag genom att signera den. Genom att signera det blir dock ditt ställningstagande offentligt.",
 				"confirmSubmit": "Är du helt säker på att du vill skicka in ditt förslag? När du väl har skickat in det kan det inte ändras. Om den inte blir godkänd måste du dessutom börja om från början. Bättre att först vara helt säker på att den är så bra som den kan bli med andra ord!",
@@ -322,7 +325,7 @@
 				"proposal": "Förslag",
 				"yes": "Ja",
 				"no": "Nej",
-				"abstain": "TODO: Abstain",
+				"abstain": "Avstå",
 				"voteInstructions": "Klicka på Ja/Nej för att lägga din röst. Om du väljer att inte rösta kommer din röst att gå till din högst rankade delegat som har röstat på förslaget. Du kan dock ändra din röst vid ett senare tillfälle.",
 				"alerts": {
 					"linkToClipboardSuccess": "Länk kopierad till urklipp",
@@ -330,7 +333,7 @@
 					"proposalSubmitted": "Förslag inlämnad till redaktionen",
 					"proposalIncomplete": "Du måste fylla i alla fält innan du kan lämna in ett förslag.",
 					"commentPosted": "Kommentar upplagd",
-					"invitationRemoved": "TODO: Invitation successfully declined"
+					"invitationRemoved": "Inbjudan avböjdes"
 				},
 				"userNotFound": "Användaren kunde inte hittas",
 				"anonymous": "Anonym",
@@ -414,8 +417,7 @@
 				"profile-candidate-requested": "Kandidatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats.",
 				"profile-incomplete": "Du behöver en fullständig profil om du vill bli delegat.",
 				"password-incorrect": "Lösenordet du skrev verkar inte stämma. Prova igen!",
-				"password-reset": "Ditt lösenord har återställts",
-				"profile-delegate-request-removed": "Delegera förfrågan borttagen"
+				"password-reset": "Ditt lösenord har återställts"
 			},
 			"tooltips": {
 				"delegateSwitch": "Ansök för att bli delegat. Detta kommer tillåta andra användare att låta dig rösta i deras ställe.",
