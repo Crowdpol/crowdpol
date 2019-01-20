@@ -367,6 +367,8 @@
 		},
 		"voting": {
 			"heading": {
+				"organisation": "Voting as Organisation",
+				"party": "Voting as Party",
 				"delegate": "Voting as Delegate",
 				"individual": "Voting as an Individual",
 				"completed": "Completed Voting"
@@ -380,6 +382,8 @@
 			"no-open-proposals": "There are currently no open proposals to vote on.",
 			"show-more": "Show More",
 			"show-less": "Show Less",
+			"organisation-description": "You are now voting on issues on behalf of an organisation you represent. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Organisation votes are public.",
+			"party-description": "You are now voting on behalf of a party. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Party votes are public.",
 			"delegate-description": "Please note: You are now voting on behalf of users who have delegated their vote to you. Delegate votes are public.",
 			"individual-description": "You are now voting on issues as you see fit. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Individual votes are private.",
 			"completed-description": "Review the results of the completed votes. Coming soon...",

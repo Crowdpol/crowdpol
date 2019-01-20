@@ -1,6 +1,12 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
 
+.mdl-layout__header .mdl-layout__drawer-button{
+  background-color: transparent;
+}
+.mdl-layout__header-delegate {
+  background-color: greenyellow;
+}
 /* Make header sticky on desktop, but not on mobile */
 .mdl-layout__container .mdl-layout--fixed-header .mdl-layout__content {
   overflow-y: visible;
@@ -106,6 +112,9 @@
 
 }
 
+.logged-in-header.delegate_header{
+  background-color: greenyellow;
+}
 .mdl-layout__drawer-button i {
   color: $blue;
 }
