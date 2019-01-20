@@ -77,6 +77,8 @@ Template.Voting.helpers({
     if (user && userRoles) {
       var roles = getMenuRoles(userRoles);
       return roles.length > 1;
+    }else{
+      console.log("user && userRoles not passed");
     }
     return false;
   },
@@ -175,8 +177,21 @@ Template.VotingCard.helpers({
       return translation.abstract;
     }
   },
+  currentRole: function(){
+    console.log(LocalStore.get('currentUserRole'));
+    return LocalStore.get('currentUserRole');
+  },
   isVotingAsDelegate: function(){
     return (LocalStore.get('currentUserRole') == 'Delegate');
+  },
+  isVotingAsIndividual: function(){
+    return (LocalStore.get('currentUserRole') == 'Individual');
+  },
+  isVotingAsParty: function(){
+    return (LocalStore.get('currentUserRole') == 'Party');
+  },
+  isVotingAsOrganisation: function(){
+    return (LocalStore.get('currentUserRole') == 'Organisation');
   },
   showVotingInfo: function() {
     return Template.instance().showVotingInfo.get();
@@ -319,6 +334,6 @@ Template.ResultCard.events({
 });
 
 function getMenuRoles(userRoles){
-  var menuRoles = ['individual', 'delegate'];
+  var menuRoles = ['individual', 'delegate','party','entity'];
   return _.intersection(userRoles, menuRoles);
 }

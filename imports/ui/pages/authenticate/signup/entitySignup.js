@@ -71,7 +71,7 @@ Template.entitySignup.events({
     var email = template.find('[name="entity-email"]').value;
 
     if ((!enforceWhitelist) || (enforceWhitelist == false) || ((enforceWhitelist == true) && (emailWhitelist.includes(email)))) {
-      termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
+      termsAccepted = Session.get("termsAccepted");
       if(termsAccepted){
     		// Update profile
         profile = {

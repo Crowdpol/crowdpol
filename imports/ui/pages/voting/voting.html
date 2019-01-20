@@ -23,6 +23,7 @@
 
 				{{#if Template.subscriptionsReady}}
 					<!-- CHECK IF USER HAS MULTIPLE ROLES -->
+					|currentRole: {{currentRole}}|
 					{{#if userHasMultipleRoles}}
 						<!-- Role Selection Menu -->
 						<h4>
@@ -44,14 +45,21 @@
 									{{/if}}
 							</li>
 						</ul>
-						<!-- DISPLAY DESCRIPTION ACCORDING TO ROLE-->
-						{{#if isVotingAsDelegate}}
-							<p>{{_ "pages.voting.delegate-description"}}</p>
-						{{else}}
-							<p>{{_ "pages.voting.individual-description"}}</p>
-						{{/if}}
+
+					<!-- USER ONLY HAS ONE ROLE, DISPLAY THE CORRECT LABELS -->
 					{{else}}
+						{{#if isEntity}}
+							<h4>{{_ "pages.voting.delegate-description"}}</h4>
+							<p>{{_ "pages.voting.individual-description"}}</p>
+						{{else}}
 						<h4>{{_ "pages.voting.heading.individual"}}</h4>
+						<p>{{_ "pages.voting.individual-description"}}</p>
+						{{/if}}
+					{{/if}}
+					<!-- DISPLAY DESCRIPTION ACCORDING TO ROLE-->
+					{{#if isVotingAsDelegate}}
+						<p>{{_ "pages.voting.delegate-description"}}</p>
+					{{else}}
 						<p>{{_ "pages.voting.individual-description"}}</p>
 					{{/if}}
 					<ul class="demo-list-control mdl-list">

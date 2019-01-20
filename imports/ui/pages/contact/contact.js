@@ -30,7 +30,9 @@ Template.contact.onRendered( function() {
         required: 'Please provide a messsage.'
       },
     }
-  })
+  });
+  LocalStore.set('currentUserRole','reset');
+  LocalStore.set('isDelegate','reset');
 });
 
 Template.contact.events({
@@ -54,7 +56,7 @@ Template.contact.events({
         var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
         for (var i = 0, l = mdlInputs.length; i < l; i++) {
           mdlInputs[i].MaterialTextfield.checkDirty();
-        } 
+        }
 			}
 		});
 	}

@@ -14,12 +14,42 @@ Template.Header.onCreated(function(){
   var communityId = LocalStore.get('communityId');
   /* TODO: change date languages dynamically */
   moment.locale('en');
-
+  //console.log("checking user roles");
+  //console.log("localstore currentUserRole: " + LocalStore.get('currentUserRole'));
+  //console.log("localstore isDelegate: " + LocalStore.get('isDelegate'));
   if (user && user.roles){
     var currentRole = LocalStore.get('currentUserRole');
-    if (!currentRole){
-      LocalStore.set('currentUserRole', 'individual');
-    }
+    var userRoles = user.roles;
+    //if (!currentRole){
+      console.log(userRoles);
+      if(userRoles.indexOf("individual") > -1){
+        console.log("user is individual");
+        LocalStore.set('currentUserRole', 'individual');
+        LocalStore.set('otherRole','individual');
+      }
+      if(userRoles.indexOf("organisation") > -1){
+        console.log("user is organisation");
+        LocalStore.set('currentUserRole', 'organisation');
+        LocalStore.set('otherRole','organisation');
+      }
+      if(userRoles.indexOf("party") > -1){
+        console.log("user is organisation");
+        LocalStore.set('currentUserRole', 'party');
+        LocalStore.set('otherRole','party');
+      }
+      if(userRoles.indexOf("delegate") > -1){
+        console.log("user has delegate role");
+        LocalStore.set('isDelegate',true);
+      }else{
+        console.log("user is not a delegate");
+        LocalStore.set('isDelegate',false);
+      }
+      LocalStore.set('usingAsDelegate',false);
+      //console.log("localstore currentUserRole: " + LocalStore.get('currentUserRole'));
+      //console.log("localstore isDelegate: " + LocalStore.get('isDelegate'));
+    //}
+  }else{
+    //console.log("user not signed in");
   }
   self.availableTags = new ReactiveVar([]);
   self.matchedTags = new ReactiveVar([]);
@@ -78,7 +108,56 @@ Template.Header.helpers({
     var str = Session.get("i18n_lang")
     return str.toUpperCase();
   },
-
+  currentUserRole() {
+    return LocalStore.get('currentUserRole');
+  },
+  currentUserRoleText() {
+    let currentUserRole = LocalStore.get('currentUserRole');
+    console.log("currentUserRoleText: " + currentUserRole);
+    switch (currentUserRole) {
+      case 'individual':
+          text = TAPi18n.__('layout.header.nav_using_individual');
+          break;
+      case 'organisation':
+          text = TAPi18n.__('layout.header.nav_using_organisation');
+          break;
+      case 'party':
+          text = TAPi18n.__('layout.header.nav_using_party');
+          break;
+      case 'delegate':
+          text = TAPi18n.__('layout.header.nav_using_delegate');
+          break;
+      default:
+          text = '';
+    }
+    return text;
+  },
+  otherRoleText(){
+    let otherRole = LocalStore.get('otherRole');
+    switch (otherRole) {
+      case 'individual':
+          text = TAPi18n.__('layout.header.nav_use_individual');
+          break;
+      case 'organisation':
+          text = TAPi18n.__('layout.header.nav_use_organisation');
+          break;
+      case 'party':
+          text = TAPi18n.__('layout.header.nav_use_party');
+          break;
+      default:
+          text = TAPi18n.__('layout.header.nav_use_individual');
+    }
+    return text;
+  },
+  otherRole(){
+    return LocalStore.get('otherRole');
+  },
+  usingAsDelegate(){
+    return LocalStore.get('usingAsDelegate');
+  },
+  isDelegate() {
+    return LocalStore.get('isDelegate');
+  },
   matchedTags(){
     return Template.instance().matchedTags.get();
   },
@@ -178,6 +257,21 @@ Template.Header.events({
     } else {
       FlowRouter.go('/tag/' + keyword);
     }
+  },
+  'click .change-role'(event,template){
+    let switchRole = event.target.dataset.role;
+    console.log("switching role from: " + LocalStore.get('currentUserRole') + " to:" + switchRole);
+
+    LocalStore.set('otherRole',LocalStore.get('currentUserRole'));
+    LocalStore.set('currentUserRole', switchRole);
+    if(switchRole=='delegate'){
+      $('.logged-in-header').addClass('delegate_header');
+      LocalStore.set('usingAsDelegate',true);
+    }else{
+      LocalStore.set('usingAsDelegate',false);
+      $('.logged-in-header').removeClass('delegate_header');
+    }
+
   },
   'click #main-help'(event, template){
     event.preventDefault();
