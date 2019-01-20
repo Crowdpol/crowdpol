@@ -1,6 +1,28 @@
 <template name="Unsplash">
+  <div class="header-image-container" id="cover-image">
+    <!--<h5 id="header-title">Unsplash</h5>-->
+    <button id="unsplash-header-button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+      <i class="material-icons">camera_alt</i>
+    </button>
+  </div>
   <div class="unsplash-search-box">
     <center>
+      <button id="unsplash-search-box-button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+        <i class="material-icons">keyboard_arrow_up</i>
+      </button><br>
+      <!-- PLEASE LEAVE THE DIV BELOW INTACT, IMPORTANT FOR DEBUGGING -->
+      <div id="cover-stats-dont-delete" class="hidden">
+        MouseX:<span id="mouseX"></span><br>
+        MouseY:<span id="mouseY"></span><br>
+        coverY:<span id="coverY">{{coverY}}</span><br>
+        mouseStart:<span id="mouseStart">{{mouseStart}}</span><br>
+        mouseEnd:<span id="mouseEnd">{{mouseEnd}}</span><br>
+        amountToMove:<span id="amountToMove">{{amountToMove}}</span><br>
+        mouseMove:<span id="mouseMove">{{mouseMove}}</span><br>
+        coverPosition:<span id="coverPosition">{{coverPosition}}</span><br>
+        coverTop:<span id="coverTop">{{coverTop}}</span><br>
+        coverBottom:<span id="coverBottom">{{coverBottom}}</span><br>
+      </div>
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
         <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
           <i class="material-icons">search</i>
