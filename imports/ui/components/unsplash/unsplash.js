@@ -1,4 +1,3 @@
-import './unsplashHeader.js';
 import './unsplash.html'
 
 import UnsplashSearch from 'unsplash-search';
@@ -8,6 +7,15 @@ const provider = new UnsplashSearch(accessKey);
 provider.setItemsPerPage(30);
 Template.Unsplash.onCreated(function() {
   var self = this;
+  $(".unsplash-search-box").hide();
+  Session.set("coverTop",0);
+  Session.set("coverY",0);
+  Session.set("coverBottom",0);
+  Session.set("mouseStart",null);
+  Session.set("mouseEnd",null);
+  Session.set("amountToMove",null);
+  Session.set("mouseMove",false);
+  Session.set("coverPosition","0px 0px");
   Session.set("data",null);
   Session.set("page",1);
   Session.set("searchTerm","berlin");
@@ -15,7 +23,74 @@ Template.Unsplash.onCreated(function() {
     updateImages();
   });
 });
+Template.Unsplash.onRendered(function() {
+  $(".unsplash-search-box").hide();
+  let element = document.getElementById('cover-image');
+  var rect = element.getBoundingClientRect();
+  Session.set("coverTop",rect.top);
+  Session.set("coverBottom",rect.bottom);
+  getCoverPosition();
+});
 Template.Unsplash.events({
+  'click #unsplash-header-button' (event, template){
+		event.preventDefault();
+    console.log("show/hide unsplash selector");
+    $(".unsplash-search-box").toggle();
+    $("#unsplash-header-button").toggle();
+  },
+  'click #unsplash-search-box-button' (event, template){
+		event.preventDefault();
+    console.log("show/hide unsplash selector");
+    $(".unsplash-search-box").toggle();
+    $("#unsplash-header-button").toggle();
+  },
+  'mousedown #cover-image': function(event){
+    $('#cover-image').css("cursor", "ns-resize");
+    Session.set("mouseStart",event.clientY);
+    Session.set("amountToMove",0);
+    //console.log('drag starts - event.clientY: ' + event.clientY + " ");
+    Session.set("mouseMove",true);
+  },
+  'mouseup #cover-image': function(event){
+    $('#cover-image').css("cursor","default");
+    Session.set("mouseEnd",event.clientY);
+    Session.set("mouseMove",false);
+    let startPosition = Session.get("mouseStart");
+    let amountToMove = event.clientY - startPosition;
+    console.log("drag stops - amountToMove: " + amountToMove);
+    Session.set("coverY",amountToMove);
+    //let startPosition = Session.get("mouseStart");
+    //let amountToMove = event.clientY - startPosition;
+    console.log("cover position: " + getCoverPosition());
+    Session.set("mouseStart",Session.get("amountToMove"));
+    //$('#cover-image').css("background-position", getCoverPosition());
+  },
+  'mousemove #cover-image': function(event){
+    $("#mouseX").html(event.clientX);
+    $("#mouseY").html(event.clientY);
+    //limit response to movements over the cover
+    if((event.clientX>Session.get("coverTop"))&&(event.clientY<Session.get("coverBottom"))){
+      //set appropriate cursor
+      if(!Session.get("mouseMove")){
+        $('#cover-image').css("cursor", "pointer");
+      }
+      //
+      let startPosition = Session.get("mouseStart");
+      let mouseMove = Session.get("mouseMove");
+      //check if mouseMove state is on
+      if((startPosition != null)&&(mouseMove==true)){
+        let coverY = Session.get("coverY");
+        let amountToMove = coverY + (event.clientY - startPosition);
+        Session.set("amountToMove",amountToMove);
+
+        let newPosition = "0px " + amountToMove + "px";
+        Session.set("coverPosition",newPosition);
+        $('#cover-image').css("background-position",newPosition);
+      }
+    }else{
+      $('#cover-image').css("cursor","default");
+    }
+  },
 	'click #search-images-button' (event, template){
 		event.preventDefault();
     let searchTerm = $("#search-unsplash").val();
@@ -56,6 +131,30 @@ Template.Unsplash.events({
 });
 
 Template.Unsplash.helpers({
+  coverY: function(){
+    return Session.get("coverY");
+  },
+  coverTop: function(){
+    return Session.get("coverTop");
+  },
+  coverBottom: function(){
+    return Session.get("coverBottom");
+  },
+  mouseStart: function(){
+    return Session.get("mouseStart");
+  },
+  mouseEnd: function(){
+    return Session.get("mouseEnd");
+  },
+  amountToMove: function(){
+    return Session.get("amountToMove");
+  },
+  mouseMove: function(){
+    return Session.get("mouseMove");
+  },
+  coverPosition: function(){
+    return Session.get("coverPosition");
+  },
   currentPage: function(){
     let currentPage = Session.get("page");
     if(currentPage){
@@ -111,6 +210,7 @@ function updateImages(searchTerm){
     .catch(error => error);
 }
 
+//use these for fonts that are displayed over header
 function invertColor(hex, bw) {
     if (hex.indexOf('#') === 0) {
         hex = hex.slice(1);
@@ -138,235 +238,28 @@ function invertColor(hex, bw) {
     // pad each with zeros and return
     return "#" + padZero(r) + padZero(g) + padZero(b);
 }
-
 function padZero(str, len) {
     len = len || 2;
     var zeros = new Array(len).join('0');
     return (zeros + str).slice(-len);
 }
 
-/*
-import Unsplash, { toJson } from 'unsplash-js';
-
-var UnsplashAPI = require('unsplash-api');
-
-var Unsplash = new UnsplashAPI({
-  applicationID: 'a40bf3876f230abedda23394e4df9111ec3699037213fc002140e3a80693df13'
-});
-
-Unsplash.get( 'photos', function(err, data, res) {
-  console.log(res);
-});
-
-
-const unsplash = new Unsplash({
-  applicationId: "{a40bf3876f230abedda23394e4df9111ec3699037213fc002140e3a80693df13}",
-  secret: "{61be3f43e0d2fd0876b95f2c4613846b65961a72ca520655bdea1e283d7e3691}",
-  callbackUrl: "{urn:ietf:wg:oauth:2.0:oob}"
-});
-
-let authenticationUrl = unsplash.auth.getAuthenticationUrl([
-  "public",
-  "read_user",
-  "write_user",
-  "read_photos",
-  "write_photos",
-  "write_likes",
-  "read_collections",
-  "write_collections"
-]);
-
-console.log(userAuthentication(code));
-currentUser();
-users();
-photos();
-collections();
-stats();
-
-function userAuthentication(code) {
-  return unsplash.auth.userAuthentication(code)
-    .then(toJson)
-    .then(json => json.access_token);
+//
+function getCoverPosition(){
+  let coverPosition = document.getElementById('cover-image');
+  let _position = window.getComputedStyle(coverPosition,null).backgroundPosition.trim().split(/\s+/);
+  let positions = {
+    'left' : _position[0],
+    'top' : _position[1],
+    'numbers' : {
+        'left' : parseFloat(_position[0]),
+        'top' : parseFloat(_position[1])
+    },
+    'units' : {
+        'left' : _position[0].replace(/\d+/,''),
+        'top' : _position[1].replace(/\d+/,'')
+    }
+  };
+  console.log(positions, positions.left, positions.top, positions.numbers.left, positions.numbers.top, positions.units.left, positions.units.top);
+  return positions.left + " " + positions.top;
 }
-
-function currentUser() {
-  console.log("\nCurrent User");
-
-  unsplash.currentUser.profile()
-    .then(toJson)
-    .then(json => {
-      console.log('profile', json);
-    });
-
-  unsplash.currentUser.updateProfile({ location: "¯\_(ツ)_/¯" })
-    .then(toJson)
-    .then(json => {
-      console.log('updateProfile', json);
-    });
-}
-
-function users() {
-  console.log("\nUsers")
-
-  unsplash.users.profile('naoufal')
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
-  unsplash.users.photos("naoufal")
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
-  unsplash.users.likes("naoufal")
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-     });
-}
-
-function photos() {
-  console.log("\nPhotos");
-
-  unsplash.photos.listPhotos(1, 10)
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
-  unsplash.photos.searchPhotos("bear", undefined, 1, 1)
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
-  unsplash.photos.getPhoto("kZ8dyUT0h30")
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
-  unsplash.photos.getRandomPhoto({ featured: true })
-    .then(toJson)
-    .then(json => {
-      console.log(json.links.html);
-    });
-
-  unsplash.photos.likePhoto("kZ8dyUT0h30")
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
-  unsplash.photos.unlikePhoto("kZ8dyUT0h30")
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-}
-
-function categories() {
-  console.log("\nCategories");
-
-  unsplash.categories.listCategories()
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
-  unsplash.categories.category(4)
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
-  unsplash.categories.categoryPhotos(4, 1, 1)
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-}
-
-function collections() {
-  console.log("\nCollections");
-
-   unsplash.collections.listCollections(1, 10)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.listCuratedCollections(1, 10)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.getCollection(151165)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.getCuratedCollection(94)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-
-   unsplash.collections.getCollectionPhotos(151165)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.getCuratedCollectionPhotos(94)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.createCollection("Birds", "Wild birds from 'round the world", true)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.updateCollection(152645, "Wild", "Wild")
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.deleteCollection(152645)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.addPhotoToCollection(151165, '-yPg8cusGD8')
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.removePhotoFromCollection(151165, '-yPg8cusGD8')
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-}
-
-function stats() {
-  console.log("\nStats");
-
-   unsplash.stats.total()
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-}
-*/
