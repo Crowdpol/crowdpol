@@ -70,6 +70,49 @@ Template.Voting.helpers({
   isVotingAsIndividual: function(){
     return (LocalStore.get('currentUserRole') == 'Individual');
   },
+  isDelegate: function(){
+    return LocalStore.get('isDelegate');
+  },
+  roleHeading: function() {
+    let role = LocalStore.get('currentUserRole');
+    switch (role) {
+      case 'delegate':
+          text = TAPi18n.__('pages.voting.heading.delegate');
+          break;
+      case 'individual':
+          text = TAPi18n.__('pages.voting.heading.individual');
+          break;
+      case 'organisation':
+          text = TAPi18n.__('pages.voting.heading.organisation');
+          break;
+      case 'party':
+          text = TAPi18n.__('pages.voting.heading.party');
+          break;
+      default:
+          text = '';
+    }
+    return text;
+  },
+  roleDescription: function() {
+    let role = LocalStore.get('currentUserRole');
+    switch (role) {
+      case 'delegate':
+          text = TAPi18n.__('pages.voting.delegate-description');
+          break;
+      case 'individual':
+          text = TAPi18n.__('pages.voting.individual-description');
+          break;
+      case 'organisation':
+          text = TAPi18n.__('pages.voting.organisation-description');
+          break;
+      case 'party':
+          text = TAPi18n.__('pages.voting.party-description');
+          break;
+      default:
+          text = '';
+    }
+    return text;
+  },
   userHasMultipleRoles(){
     var user = Meteor.user();
     var userRoles = user.roles;
@@ -77,6 +120,8 @@ Template.Voting.helpers({
     if (user && userRoles) {
       var roles = getMenuRoles(userRoles);
       return roles.length > 1;
+    }else{
+      console.log("user && userRoles not passed");
     }
     return false;
   },
@@ -175,8 +220,22 @@ Template.VotingCard.helpers({
       return translation.abstract;
     }
   },
+  currentRole: function(){
+    console.log(LocalStore.get('currentUserRole'));
+    return LocalStore.get('currentUserRole');
+  },
   isVotingAsDelegate: function(){
-    return (LocalStore.get('currentUserRole') == 'Delegate');
+    console.log(LocalStore.get('currentUserRole') == 'delegate');
+    return (LocalStore.get('currentUserRole') == 'delegate');
+  },
+  isVotingAsIndividual: function(){
+    return (LocalStore.get('currentUserRole') == 'individual');
+  },
+  isVotingAsParty: function(){
+    return (LocalStore.get('currentUserRole') == 'party');
+  },
+  isVotingAsOrganisation: function(){
+    return (LocalStore.get('currentUserRole') == 'organisation');
   },
   showVotingInfo: function() {
     return Template.instance().showVotingInfo.get();
@@ -319,6 +378,6 @@ Template.ResultCard.events({
 });
 
 function getMenuRoles(userRoles){
-  var menuRoles = ['individual', 'delegate'];
+  var menuRoles = ['individual', 'delegate','party','entity'];
   return _.intersection(userRoles, menuRoles);
 }

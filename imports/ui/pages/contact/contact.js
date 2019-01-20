@@ -30,7 +30,7 @@ Template.contact.onRendered( function() {
         required: 'Please provide a messsage.'
       },
     }
-  })
+  });
 });
 
 Template.contact.events({
@@ -54,7 +54,7 @@ Template.contact.events({
         var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
         for (var i = 0, l = mdlInputs.length; i < l; i++) {
           mdlInputs[i].MaterialTextfield.checkDirty();
-        } 
+        }
 			}
 		});
 	}

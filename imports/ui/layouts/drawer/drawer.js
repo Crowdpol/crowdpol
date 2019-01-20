@@ -7,11 +7,14 @@ import { DelegateVotes } from '../../../api/delegateVotes/DelegateVotes.js'
 Template.Drawer.events({
 	'click #drawer-nav-logout' (event, template){
 		event.preventDefault();
+		LocalStore.set('currentUserRole','');
+	  LocalStore.set('isDelegate','');
+		$('.logged-in-header').removeClass('delegate_header');
 		Meteor.logout();
 	},
 	'click .side-nav-link' (event, template){
-		$('.side-nav').removeClass('is-visible'); 
-		$('.mdl-layout__obfuscator').removeClass('is-visible'); 
+		$('.side-nav').removeClass('is-visible');
+		$('.mdl-layout__obfuscator').removeClass('is-visible');
 	}
 });
 
@@ -47,7 +50,7 @@ Template.RightDrawer.helpers({
 		} else {
 			return TAPi18n.__('pages.proposals.list.untranslated')
 		}
-		
+
 	},
 	voteIcon: function(vote){
     if (vote=='yes'){
@@ -58,5 +61,3 @@ Template.RightDrawer.helpers({
   }
 
 })
-
-
