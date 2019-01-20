@@ -73,6 +73,7 @@ Template.Voting.helpers({
   userHasMultipleRoles(){
     var user = Meteor.user();
     var userRoles = user.roles;
+    console.log(userRoles);
     if (user && userRoles) {
       var roles = getMenuRoles(userRoles);
       return roles.length > 1;
