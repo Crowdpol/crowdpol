@@ -24,23 +24,23 @@
           coverTop:<span id="coverTop">{{coverTop}}</span><br>
           coverBottom:<span id="coverBottom">{{coverBottom}}</span><br>
         </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-          <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
-            <i class="material-icons">search</i>
-          </label>
-          <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input" type="text" id="sample6">
-            <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
-          </div>
+        <div class="mdl-textfield mdl-js-textfield" id="search-unsplash-wrapper">
+          <input class="mdl-textfield__input" type="text" id="search-unsplash" name="search-unsplash" placeholder="Search for images based on keywords...">
+          <label class="mdl-textfield__label" for="search-unsplash">Search</label>
         </div>
-        <input type="text" id="search-unsplash" name="search-unsplash">
-        <button name="search-images-button" id="search-images-button"><i class="material-icons search-icon">search</i></button>
+        <button class="mdl-button mdl-js-button mdl-button--icon" name="search-images-button" id="search-images-button">
+          <i class="material-icons">search</i>
+        </button>
         <br>
-        <span class="search-images-count">Results found: {{totalImages}}</span><br>
+        <span class="search-images-count">{{totalImages}} matches</span><br>
         <div class="search-images-pagination">
-          <button name="prev-images-page" id="prev-images-page">Prev</button>
+          <button class="mdl-button mdl-js-button mdl-button--icon" id="prev-images-page">
+            <i class="material-icons">keyboard_arrow_left</i>
+          </button>
           <span class="pagination-count">Page {{currentPage}} of {{totalPages}}</span>
-          <button name="next-images-page" id="next-images-page">Next</button>
+          <button class="mdl-button mdl-js-button mdl-button--icon" id="next-images-page">
+            <i class="material-icons">keyboard_arrow_right</i>
+          </button>
         </div>
       </center>
       <div class="unsplash-gallery">
