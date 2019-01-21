@@ -146,6 +146,10 @@ Schema.UserProfile = new SimpleSchema({
     termsAccepted: {
         type: Boolean,
         optional: false
+    },
+    coverURL: {
+      type: String,
+      optional: true
     }
     /*
     birthday: {
