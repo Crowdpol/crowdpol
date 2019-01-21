@@ -5,6 +5,7 @@ import { Communities } from '../../../api/communities/Communities.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Tags } from '../../../api/tags/Tags.js'
 import { getTags } from '../../components/taggle/taggle.js'
+import { setUnsplashState } from '../../components/unsplash/unsplash.js'
 import { getForArguments } from '../../components/arguments/arguments.js'
 import { getAgainstArguments } from '../../components/arguments/arguments.js'
 import { validateForm } from './proposalForm.js'
@@ -32,11 +33,13 @@ Template.EditProposal.onCreated(function(){
 	var defaultEndDate = moment().add(1, 'week').format('YYYY-MM-DD');
 
 	proposalId = FlowRouter.getParam("id");
+	self.subscribe('proposals.one', proposalId, function(){});
 	self.autorun(function(){
+		//console.log("proposalId: " + proposalId);
 		if (proposalId){
 			// Edit an existing proposal
-			self.subscribe('proposals.one', proposalId, function(){
 				proposal = Proposals.findOne({_id: proposalId})
+				//check if proposal exists
 				if(typeof proposal != 'undefined'){
 					dict.set( 'showDates',false);
 					dict.set( 'createdAt', proposal.createdAt );
@@ -48,18 +51,36 @@ Template.EditProposal.onCreated(function(){
 					dict.set( 'status', proposal.status );
 					dict.set( 'signatures', proposal.signatures || []);
 					dict.set( 'tags', proposal.tags || []);
+					Session.set( 'hasCover',proposal.hasCover);
+	        if(proposal.hasCover){
+	          Session.set( 'coverPosition',proposal.coverPosition);
+	          Session.set( 'coverURL',proposal.coverURL);
+						//setUnsplashState('edit-show');
+						Session.set('unsplashState','edit-show');
+	        }else{
+						Session.set('unsplashState','edit-hide');
+					}
 					Session.set('invited',proposal.invited);
 					//console.log(proposal.invited);
 					self.subscribe('InvitedUsers',proposal.invited);
+				//proposal does not exist, create a new one
 				}else{
+					Session.set("coverUrl","https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2");
+				  Session.set( 'hasCover',false);
+					//setUnsplashState('edit-hide');
+					Session.set('unsplashState','edit-show');
+					//console.log("unsplashState set to edit-show");
 					dict.set( 'startDate', defaultStartDate );
 					dict.set( 'endDate', defaultEndDate);
 					dict.set( 'tags',[]);
 				}
-			});
+
 			//self.subscribe('users.proposal',proposalId);
 
 		} else {
+			Session.set("coverURL","https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2");
+		  Session.set( 'hasCover',true);
+			Session.set('unsplashState','edit-show');
 			dict.set( 'startDate', defaultStartDate );
 			dict.set( 'endDate', defaultEndDate);
 			dict.set( 'tags',[]);
@@ -69,7 +90,6 @@ Template.EditProposal.onCreated(function(){
 			dict.set( 'startDate', settings.defaultStartDate );
 			dict.set( 'endDate', settings.defaultEndDate );
 		}
-
 	});
 });
 
@@ -88,8 +108,10 @@ Template.EditProposal.onRendered(function(){
 				self.find('#endDate').value = self.templateDictionary.get('endDate');
 			}
 			Session.set("formRendered", false);
+
 		}
 	});
+
 	//THIS IS VERY IMPORTANT, WEIRD SHIT HAPPENS IF YOU LEAVE THIS OUT
 	$(document).ready(function() {
 	  $(window).keydown(function(event){
@@ -98,6 +120,7 @@ Template.EditProposal.onRendered(function(){
 	      return false;
 	    }
 	  });
+
 	});
 });
 
@@ -288,14 +311,7 @@ function saveChanges(event, template, returnTo){
 	var contentCount = 0;
 	// Get Translatable field for each language
 	_.each(languages, function(language) {
-		// Points For and Against
-		/*
-		var pointsFor = [];
-		var pointsAgainst = [];
-
-		$(`#points-for-list-${language}`).children('input').each(function() { pointsFor.push(this.value) });
-		$(`#points-against-list-${language}`).children('input').each(function() { pointsAgainst.push(this.value) });
-		*/
+		// Arguments For and Against
 		argumentsArray = Session.get("arguments");
 
 		let forArguments = [];
@@ -309,6 +325,7 @@ function saveChanges(event, template, returnTo){
 		  	againstArguments.push(argument);
 			}
 		});
+
 		var translation = {
 			title: $(`#title-${language}`).val(),
 			abstract: $(`#abstract-${language}`).val(),
@@ -336,8 +353,8 @@ function saveChanges(event, template, returnTo){
 			content.push(translation);
 			contentCount+=1;
 		}
-
 	})
+
 	//CHECK IF THERE IS SOME CONTENT IN THE PROPOSAL
 	if(contentCount!=0){
 		let settings = LocalStore.get('settings');
@@ -359,9 +376,12 @@ function saveChanges(event, template, returnTo){
 					invited: Session.get('invited'),
 					tags: getTags(),//proposalTags,
 					communityId: LocalStore.get('communityId'),
-					stage: "draft"
+					stage: "draft",
+					hasCover: Session.get("hasCover"),
+			    coverURL: Session.get("coverURL"),
+			    coverPosition: Session.get("coverPosition")
 				};
-
+				//console.log(newProposal);
 				var proposalId = FlowRouter.getParam("id");
 
 

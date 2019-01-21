@@ -1,6 +1,9 @@
 <template name="ViewProposal">
 	{{> SignInModal}}
 	{{> RemoveInviteModal}}
+	{{#if hasHeader}}
+		{{> Unsplash}}
+	{{/if}}
 	{{#if currentUser }}
 		{{> backButton text="generic.back-to-proposals" url=backUrl}}
 	{{/if}}

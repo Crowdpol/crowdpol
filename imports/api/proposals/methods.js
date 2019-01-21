@@ -21,7 +21,10 @@ Meteor.methods({
           tags: Match.Maybe([String]),
           references: Match.Maybe([String]),
           communityId: String,
-          stage: String
+          stage: String,
+          hasCover: Boolean,
+			    coverURL: Match.Maybe(String),
+			    coverPosition: Match.Maybe(String)
         });
 
         proposalId = Proposals.insert(proposal);
