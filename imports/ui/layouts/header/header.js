@@ -21,27 +21,27 @@ Template.Header.onCreated(function(){
     var currentRole = LocalStore.get('currentUserRole');
     var userRoles = user.roles;
     //if (!currentRole){
-      console.log(userRoles);
+      //console.log(userRoles);
       if(userRoles.indexOf("individual") > -1){
-        console.log("user is individual");
+        //console.log("user is individual");
         LocalStore.set('currentUserRole', 'individual');
         LocalStore.set('otherRole','individual');
       }
       if(userRoles.indexOf("organisation") > -1){
-        console.log("user is organisation");
+        //console.log("user is organisation");
         LocalStore.set('currentUserRole', 'organisation');
         LocalStore.set('otherRole','organisation');
       }
       if(userRoles.indexOf("party") > -1){
-        console.log("user is organisation");
+        //console.log("user is organisation");
         LocalStore.set('currentUserRole', 'party');
         LocalStore.set('otherRole','party');
       }
       if(userRoles.indexOf("delegate") > -1){
-        console.log("user has delegate role");
+        //console.log("user has delegate role");
         LocalStore.set('isDelegate',true);
       }else{
-        console.log("user is not a delegate");
+        //console.log("user is not a delegate");
         LocalStore.set('isDelegate',false);
       }
       LocalStore.set('usingAsDelegate',false);
@@ -113,7 +113,7 @@ Template.Header.helpers({
   },
   currentUserRoleText() {
     let currentUserRole = LocalStore.get('currentUserRole');
-    console.log("currentUserRoleText: " + currentUserRole);
+    //console.log("currentUserRoleText: " + currentUserRole);
     switch (currentUserRole) {
       case 'individual':
           text = TAPi18n.__('layout.header.nav_using_individual');
@@ -266,7 +266,7 @@ Template.Header.events({
   },
   'click .change-role'(event,template){
     let switchRole = event.target.dataset.role;
-    console.log("switching role from: " + LocalStore.get('currentUserRole') + " to:" + switchRole);
+    //console.log("switching role from: " + LocalStore.get('currentUserRole') + " to:" + switchRole);
 
     LocalStore.set('otherRole',LocalStore.get('currentUserRole'));
     LocalStore.set('currentUserRole', switchRole);
