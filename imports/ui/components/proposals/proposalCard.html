@@ -1,6 +1,6 @@
 <template name="ProposalCard">
 	<a href="/proposals/view/{{proposal._id}}" class="proposal-list-item-link">
-		<li class="proposal-item">
+		<li class="proposal-item" data-id="{{proposal._id}}">
 			<div class="card-main-wrap">
 				<div class="tag-wrap">
 					{{#if userIsCollaborator proposal}}

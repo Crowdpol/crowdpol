@@ -1,67 +1,80 @@
 <template name="Unsplash">
-  <div class="header-image-container" id="cover-image">
-    <!--<h5 id="header-title">Unsplash</h5>-->
-    <button id="unsplash-header-button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-      <i class="material-icons">camera_alt</i>
-    </button>
-  </div>
-  <div class="unsplash-search-box">
-    <center>
-      <button id="unsplash-search-box-button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-        <i class="material-icons">keyboard_arrow_up</i>
-      </button><br>
-      <!-- PLEASE LEAVE THE DIV BELOW INTACT, IMPORTANT FOR DEBUGGING -->
-      <div id="cover-stats-dont-delete" class="hidden">
-        MouseX:<span id="mouseX"></span><br>
-        MouseY:<span id="mouseY"></span><br>
-        coverY:<span id="coverY">{{coverY}}</span><br>
-        mouseStart:<span id="mouseStart">{{mouseStart}}</span><br>
-        mouseEnd:<span id="mouseEnd">{{mouseEnd}}</span><br>
-        amountToMove:<span id="amountToMove">{{amountToMove}}</span><br>
-        mouseMove:<span id="mouseMove">{{mouseMove}}</span><br>
-        coverPosition:<span id="coverPosition">{{coverPosition}}</span><br>
-        coverTop:<span id="coverTop">{{coverTop}}</span><br>
-        coverBottom:<span id="coverBottom">{{coverBottom}}</span><br>
-      </div>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-        <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
-          <i class="material-icons">search</i>
-        </label>
-        <div class="mdl-textfield__expandable-holder">
-          <input class="mdl-textfield__input" type="text" id="sample6">
-          <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+  <div id="unsplash-container">
+    <div class="header-image-container" id="cover-image">
+      <!--<h5 id="header-title">Unsplash</h5>-->
+      <button id="unsplash-header-button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"  style="display:none;">
+        <i class="material-icons">insert_photo</i>
+      </button>
+    </div>
+    <div class="unsplash-search-box">
+      <center>
+        <button id="unsplash-search-close" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" >
+          <i class="material-icons">keyboard_arrow_up</i>
+        </button><br>
+        <!-- PLEASE LEAVE THE DIV BELOW INTACT, IMPORTANT FOR DEBUGGING -->
+        <div id="cover-stats-dont-delete" class="hidden">
+          MouseX:<span id="mouseX"></span><br>
+          MouseY:<span id="mouseY"></span><br>
+          coverY:<span id="coverY">{{coverY}}</span><br>
+          mouseStart:<span id="mouseStart">{{mouseStart}}</span><br>
+          mouseEnd:<span id="mouseEnd">{{mouseEnd}}</span><br>
+          amountToMove:<span id="amountToMove">{{amountToMove}}</span><br>
+          mouseMove:<span id="mouseMove">{{mouseMove}}</span><br>
+          coverPosition:<span id="coverPosition">{{coverPosition}}</span><br>
+          coverTop:<span id="coverTop">{{coverTop}}</span><br>
+          coverBottom:<span id="coverBottom">{{coverBottom}}</span><br>
         </div>
-      </div>
-      <input type="text" id="search-unsplash" name="search-unsplash">
-      <button name="search-images-button" id="search-images-button"><i class="material-icons search-icon">search</i></button>
-      <br>
-      <span class="search-images-count">Results found: {{totalImages}}</span><br>
-      <div class="search-images-pagination">
-        <button name="prev-images-page" id="prev-images-page">Prev</button>
-        <span class="pagination-count">Page {{currentPage}} of {{totalPages}}</span>
-        <button name="next-images-page" id="next-images-page">Next</button>
-      </div>
-    </center>
-    <div class="unsplash-gallery">
-      {{#each images}}
-        <div class="unsplash-gallery-thumb">
-          <img class="unsplash-thumb-image" src="{{this.urls.thumb}}" data-id="{{this.id}}">
-          <!--<br>
-          <span class="unsplash-thumb-desc">
-            {{this.description}}
-          </span>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+          <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+            <i class="material-icons">search</i>
+          </label>
+          <div class="mdl-textfield__expandable-holder">
+            <input class="mdl-textfield__input" type="text" id="sample6">
+            <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+          </div>
+        </div>
+        <input type="text" id="search-unsplash" name="search-unsplash">
+        <button name="search-images-button" id="search-images-button"><i class="material-icons search-icon">search</i></button>
+        <br>
+        <span class="search-images-count">Results found: {{totalImages}}</span><br>
+        <div class="search-images-pagination">
+          <button name="prev-images-page" id="prev-images-page">Prev</button>
+          <span class="pagination-count">Page {{currentPage}} of {{totalPages}}</span>
+          <button name="next-images-page" id="next-images-page">Next</button>
+        </div>
+      </center>
+      <div class="unsplash-gallery">
+        {{#each images}}
+          <div class="unsplash-gallery-thumb">
+            <img class="unsplash-thumb-image" src="{{this.urls.thumb}}" data-id="{{this.id}}">
+            <!--<br>
+            <span class="unsplash-thumb-desc">
+              {{this.description}}
+            </span>
 
-            {{this.urls.creditLink}}<br>
-            {{this.urls.full}}
-            {{this.urls.raw}}
-            {{this.urls.thumb}}
-            <br>
-            {{this.id}}<br>
-            {{this.author.name}}<br>
-            {{this.author.profile}}<br>
-            -->
-        </div>
-      {{/each}}
+              {{this.urls.creditLink}}<br>
+              {{this.urls.full}}
+              {{this.urls.raw}}
+              {{this.urls.thumb}}
+              <br>
+              {{this.id}}<br>
+              {{this.author.name}}<br>
+              {{this.author.profile}}<br>
+              -->
+          </div>
+        {{/each}}
+      </div>
     </div>
   </div>
+  <div id="unsplash-controls" style="display:none;">
+    <center>
+    <button id="unsplash-open" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" alt="Add Proposal Cover" style="display:none;">
+      <i class="material-icons">add_photo_alternate</i>
+    </button>
+    <button id="unsplash-close" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" alt="Remove Proposal Cover"  style="display:none;">
+      <i class="material-icons">cancel</i>
+    </button>
+    </center>
+  </div>
+  {{setUnsplashState}}
 </template>

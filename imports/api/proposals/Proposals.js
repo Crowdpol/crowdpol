@@ -188,11 +188,15 @@ ProposalSchema = new SimpleSchema({
         type: String,
         optional: true,
     },
-    hasImage: {
+    hasCover: {
       type: Boolean,
       optional: true
     },
-    headerImage: {
+    coverURL: {
+      type: String,
+      optional: true
+    },
+    coverPosition: {
       type: String,
       optional: true
     },

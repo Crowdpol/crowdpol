@@ -4,6 +4,7 @@ import './signInModal/signInModal.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Tags } from '../../../api/tags/Tags.js'
+import { setUnsplashState } from '../../components/unsplash/unsplash.js'
 import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(language){
@@ -34,6 +35,20 @@ Template.ViewProposal.onCreated(function(language){
         dict.set( 'status', proposal.status );
         dict.set( 'signatures', proposal.signatures || []);
         dict.set( 'tags', proposal.tags || [] );
+        dict.set('hasCover',proposal.hasCover);
+        Session.set('hasCover',proposal.hasCover);
+        if(proposal.hasCover){
+          Session.set('coverPosition',proposal.coverPosition);
+          //console.log("viewProposal: " + proposal.coverPosition);
+          Session.set('coverURL',proposal.coverURL);
+          //setUnsplashState('view');
+          Session.set('unsplashState','view');
+        }else{
+          //console.log("proposal has no cover");
+          //setUnsplashState('hidden');
+          Session.set('unsplashState','hidden');
+        }
+
       }
     })
   });
@@ -62,6 +77,23 @@ Template.ViewProposal.onRendered(function(language){
       icon: 'fa-link'
     });
   });
+  this.autorun(function() {
+    /*
+    let hasCover = Template.instance().templateDictionary.get('hasCover');
+    if(typeof hasCover != 'undefined'){
+  		if(hasCover){
+        $('#cover-image').css("background-image",Template.instance().templateDictionary.get('coverURL'));
+        $('#cover-image').css("background-position",Template.instance().templateDictionary.get('coverPosition'));
+        $('#cover-image').addClass("disable-edit");
+      }else{
+        $('#cover-image').hide();
+      }
+    }else{
+      console.log("hasCover undefined");
+    }
+    */
+
+  });
 
 });
 
@@ -76,7 +108,7 @@ Template.ViewProposal.events({
   },
   'click .collab-author' (event,template){
     if(this._id==Meteor.userId()){
-      console.log("deleting this person");
+      //console.log("deleting this person");
       openRemoveInviteModal();
     }else{
       Session.set('drawerId',this._id);
@@ -150,6 +182,9 @@ Template.ViewProposal.events({
 });
 
 Template.ViewProposal.helpers({
+  hasHeader: function(){
+    return Template.instance().templateDictionary.get('hasCover');
+  },
   backUrl: function(){
     return Session.get('back');
   },
@@ -416,7 +451,7 @@ Template.ProposalContent.helpers({
 
 Template.ProposalContent.events({
   'click .close-comment' (event, template){
-    console.log(this._id);
+    //console.log(this._id);
     let commentId = event.currentTarget.getAttribute("data-id");
     //if(checkIfOwner(commentId)){
       Meteor.call('closeComment', commentId, function(error){
@@ -460,7 +495,7 @@ Template.Comment.events({
     }
   },
   'click .close-comment' (event, template){
-    console.log(this._id);
+    //console.log(this._id);
     let commentId = event.currentTarget.getAttribute("data-id");
     //if(checkIfOwner(commentId)){
       Meteor.call('closeComment', commentId, function(error){

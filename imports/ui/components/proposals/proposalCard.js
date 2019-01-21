@@ -10,7 +10,23 @@ Template.ProposalCard.onCreated(function () {
     self.subscribe('votes.all');
   })
 });
-
+/*
+Template.ProposalCard.onRendered(function () {
+  let proposal = this.data.proposal;
+  let hasCover = proposal.hasCover;
+  if(typeof hasCover!='undefined'){
+    if(hasCover){
+      //console.log(proposal.coverURL);
+      let element = this.find("[data-id]");
+      //element.css("background-image",proposal.coverURL);
+      element.style.background-image=proposal.coverURL;
+      //return "style='background-image:"+this.proposal.coverURL+";'";
+    }
+  }else{
+    console.log("hasCover is undefined");
+  }
+});
+*/
 Template.ProposalCard.helpers({
   title: function(proposal) {
     var language = TAPi18n.getLanguage();
