@@ -29,6 +29,15 @@
    box-shadow:         inset 0px 0px 15px 0px #888888;
    background-color: #f4f4f4;
   //margin-top: -150px;
+  #search-unsplash-wrapper{
+    padding: 0px;
+  }
+  .search-images-count{
+    font-size: $xsmall-font-size;
+  }
+  .pagination-count{
+    font-size: $xsmall-font-size;
+  }
 }
 .unsplash-gallery{
   display: flex;
