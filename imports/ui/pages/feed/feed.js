@@ -11,6 +11,15 @@ Template.Feed.onCreated(function () {
   let userId = FlowRouter.getParam("id");
   if(typeof userId =='undefined'){
     userId = Meteor.userId();
+    user = Meteor.users.findOne({"_id":userId});
+    if(typeof user != 'undefined'){
+      let profile = user.profile;
+      if(typeof profile.coverURL == 'undefined'){
+        console.log("cover undefined, leave blank");
+      }else{
+        console.log("coverURL found");
+      }
+    }
   }
   self.userId = new ReactiveVar(userId);
   self.subscribe('users.profile');
