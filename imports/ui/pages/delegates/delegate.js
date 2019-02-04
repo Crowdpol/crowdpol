@@ -120,12 +120,11 @@ Template.Delegate.helpers({
     return roles;
   },
   showTags: function(tags){
-    if(tags){
-      return Tags.find({"_id":{$in:tags}});//
-    }else{
-      console.log("no tags set for user")
+    if(typeof tags != 'undefined'){
+      if(Array.isArray(tags)){
+        return Tags.find({"_id":{$in:tags}});
+      }
     }
-
   }
 });
 
