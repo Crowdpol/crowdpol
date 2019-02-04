@@ -128,8 +128,8 @@
 
 .card-avatar {
   border-radius: 50%;
-  width: $space * 1.5;
-  height: $space * 1.5;
+  width: $space * 2;
+  height: $space * 2;
 }
 
 .proposal-abstract {
@@ -168,6 +168,8 @@
       margin-bottom: 0;
       letter-spacing: 0;
       word-break: break-word;
+      font-size: 0.8rem;
+      line-height: 1rem;
     }
 
     p {
