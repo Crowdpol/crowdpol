@@ -11,7 +11,7 @@ Template.Unsplash.onCreated(function() {
   var self = this;
   var dict = new ReactiveDict();
 	self.dict = dict;
-  $(".unsplash-search-box").hide();
+  //$(".unsplash-search-box").hide();
   self.dict.set("coverEdit",false);
   self.dict.set("coverTop",0);
   self.dict.set("coverY",0);
@@ -29,9 +29,10 @@ Template.Unsplash.onCreated(function() {
     updateImages(self);
   });
 });
+
 Template.Unsplash.onRendered(function() {
   var self = this;
-  $(".unsplash-search-box").hide();
+  //$(".unsplash-search-box").hide();
   let element = document.getElementById('cover-image');
   var rect = element.getBoundingClientRect();
   self.dict.set("coverTop",rect.top);
@@ -74,10 +75,11 @@ Template.Unsplash.events({
 		event.preventDefault();
     //console.log("show/hide unsplash selector");
     //console.log("setUnsplashState('edit-search') -> click #unsplash-header-button");
-    $(".unsplash-search-box").show();
-    $("#unsplash-header-button").hide();
+    $(".unsplash-search-box").slideDown();
+    //$("#unsplash-header-button").hide();
     $("#unsplash-close").hide();
     //setUnsplashState('edit-search');
+    $("#header-image-overlay").hide();
     Template.instance().dict.set("coverEdit",true);
   },
   'click #unsplash-close' (event, template){
@@ -93,6 +95,7 @@ Template.Unsplash.events({
       console.log("setUnsplashState('edit-show') -> click #unsplash-close");
       setUnsplashState('edit-show');
     }*/
+    $(".back-button").removeClass('has-header');
     setUnsplashState('edit-hide');
     Session.set("hasCover",!Session.get("hasCover"));
     Template.instance().dict.set("coverEdit",false);
@@ -111,12 +114,15 @@ Template.Unsplash.events({
       //console.log("setUnsplashState('edit-open') -> click #unsplash-open");
     }
     Session.set("hasCover",!Session.get("hasCover"));
+    $(".back-button").addClass('has-header');
   },
   'click #unsplash-search-close' (event, template){
 		event.preventDefault();
-    $(".unsplash-search-box").hide();
-    $("#unsplash-header-button").show();
+    $(".unsplash-search-box").slideUp();
+    //$("#unsplash-header-button").show();
     $("#unsplash-close").show();
+    Template.instance().dict.set("coverEdit",false);
+    console.log(Template.instance().dict.get("coverEdit"));
   },
   'mousedown #cover-image': function(event,template){
     if(!$('#cover-image').hasClass("disable-edit")){
@@ -169,6 +175,22 @@ Template.Unsplash.events({
         }
       }else{
         $('#cover-image').css("cursor","default");
+      }
+    }else{
+      //$("#header-image-overlay").show();
+    }
+  },
+  'mouseleave #header-image-overlay': function(event, template){
+    $("#header-image-overlay").hide();
+  },
+  'mouseenter #cover-image': function(event, template){
+    let state = Session.get('unsplashState');
+    if(typeof state!='undefined'){
+      if(state=='view-edit'){
+        coverEdit = Template.instance().dict.get("coverEdit");
+        if(coverEdit==false){
+          $("#header-image-overlay").show();
+        }
       }
     }
   },
@@ -366,7 +388,8 @@ export function setUnsplashState(state){
     case 'edit-show':
       //console.log("edit-show");
       //$(".unsplash-search-box").hide();
-      $("#unsplash-header-button").show();
+      $('#cover-image').removeClass("disable-edit");
+      //$("#unsplash-header-button").show();
       $("#unsplash-controls").show();
       $("#cover-image").show();
       $("#unsplash-close").show();
@@ -394,13 +417,24 @@ export function setUnsplashState(state){
     //cover should be visible but not editable
     case 'view':
       //console.log("view");
+      $('#cover-image').addClass("disable-edit");
       $("#unsplash-container").show();
       $(".unsplash-search-box").hide();
-      $("#unsplash-header-button").hide();
+      $("#header-image-overlay").hide();
       $("#unsplash-controls").hide();
       $("#unsplash-close").hide();
       $("#unsplash-open").hide();
       break;
+    case 'view-edit':
+        //console.log("view");
+        $('#cover-image').addClass("disable-edit");
+        $("#unsplash-container").show();
+        $(".unsplash-search-box").hide();
+        $("#header-image-overlay").show();
+        $("#unsplash-controls").hide();
+        $("#unsplash-close").hide();
+        $("#unsplash-open").hide();
+        break;
     //cover and all control should be completely hidden
     case 'hidden':
       //console.log("hidden");

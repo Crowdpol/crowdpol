@@ -1,22 +1,38 @@
 @import 'variables.scss';
+@import 'breakpoint.scss';
 
+#header-image-overlay{
+  /* default fallback */
+  background: rgb(48,48,48) transparent;
+  /* nice browsers */
+  background: rgba(48,48,48, 0.6);
+  /* IE 6/7 */
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#303030, endColorstr=#303030);
+  /* IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#303030, endColorstr=#303030)";
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-image-container.disable-edit:hover{
+
+}
 .header-image-container{
   background-image: url("https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2");
   background-size: cover;
-  height: 400px;
+  height: $header-height-lg;
   width: 100%;
   //margin-top: -20%;
   h5{
     border: solid 1px red;
   }
-  display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
 }
+
 .header-image-container.disable-edit{
   cursor: default;
   #unsplash-header-button{
@@ -79,4 +95,104 @@
 }
 #unsplash-header-button{
   color: #fff;
+}
+
+/*
+  $tiny: 100px !default;
+  $mobile: 480px !default;
+  $tablet: 768px !default;
+  $laptop: 1024px !default;
+  $desktop: 1200px !default;
+  $big: 1440px !default;
+*/
+
+@media only screen and (min-width: $tiny){
+  #unsplash-container{
+    .header-image-container{
+      border: solid 5px pink;
+      height: $header-height-xs;
+      #unsplash-header-button{
+
+      }
+    }
+    #header-image-overlay{
+      height: $header-height-xs;
+      margin-top: -$header-height-xs;
+    }
+  }
+}
+@media only screen and (min-width: $mobile){
+  #unsplash-container{
+    .header-image-container{
+      border: solid 5px blue;
+      height: $header-height-sm;
+      #unsplash-header-button{
+
+      }
+    }
+    #header-image-overlay{
+      height: $header-height-sm;
+      margin-top: -$header-height-sm;
+    }
+  }
+}
+@media only screen and (min-width: $tablet){
+  #unsplash-container{
+    .header-image-container{
+      border: solid 5px green;
+      height: $header-height-md;
+      #unsplash-header-button{
+
+      }
+    }
+    #header-image-overlay{
+      height: $header-height-md;
+      margin-top: -$header-height-md;
+    }
+  }
+}
+@media only screen and (min-width: $laptop){
+  #unsplash-container{
+    .header-image-container{
+      border: solid 5px red;
+      height: $header-height-lg;
+      #unsplash-header-button{
+
+      }
+    }
+    #header-image-overlay{
+      height: $header-height-lg;
+      margin-top: -$header-height-lg;
+    }
+  }
+}
+@media only screen and (min-width: $desktop){
+  #unsplash-container{
+    .header-image-container{
+      border: solid 5px white;
+      height: $header-height-lg;
+      #unsplash-header-button{
+
+      }
+    }
+    #header-image-overlay{
+      height: $header-height-lg;
+      margin-top: -$header-height-lg;
+    }
+  }
+}
+@media only screen and (min-width: $big){
+  #unsplash-container{
+    .header-image-container{
+      border: solid 5px orange;
+      height: $header-height-xl;
+      #unsplash-header-button{
+
+      }
+    }
+    #header-image-overlay{
+      height: $header-height-xl;
+      margin-top: -$header-height-xl;
+    }
+  }
 }

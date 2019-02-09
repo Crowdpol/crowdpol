@@ -58,7 +58,7 @@
 				-->
 				<!-- Navigation. We hide it in small screens. -->
 				<nav class="mdl-navigation" id="main-menu">
-					<a id="profile-image-header" class="mdl-navigation__link mdl-layout--large-screen-only" href="/feed">
+					<a id="profile-image-header" class="mdl-navigation__link mdl-layout--large-screen-only" href="/home">
 						{{currentUserRoleText}}
 						<img src="{{userPhoto}}" class="mdl-list__item-avatar">
 					</a>
@@ -109,7 +109,15 @@
 					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/dash" id="dash-menu">{{_ "layout.header.nav_dash"}}</a>
 					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/voting" id="vote-menu">{{_ "layout.header.nav_vote"}}</a>
 					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/proposals" id="proposals-menu">{{_ "layout.header.nav_proposals"}}</a>
-					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/delegate" id="delegate-menu">{{_ "layout.header.nav_delegate"}}</a>
+					{{#if isDelegate}}
+						{{#if usingAsDelegate}}
+						{{else}}
+							<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/delegate" id="delegate-menu">{{_ "layout.header.nav_delegate"}}</a>
+						{{/if}}
+					{{else}}
+						<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/delegate" id="delegate-menu">{{_ "layout.header.nav_delegate"}}</a>
+					{{/if}}
+
 					<!--
 					<a class="mdl-navigation__link" href="/candidate">{{_ "layout.header.nav_nominate"}}</a>
 					-->

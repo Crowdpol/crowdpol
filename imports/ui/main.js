@@ -22,6 +22,7 @@ import './components/unsplash/unsplash.js';
 import './pages/home/home.js';
 import './pages/faq/faq.js';
 import './pages/feed/feed.js';
+import './pages/userHome/userHome.js';
 import './pages/settings/settings.js';
 import './pages/not-found/not-found.js';
 import './pages/authenticate/authenticate.js';

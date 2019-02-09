@@ -136,7 +136,7 @@
   }
 }
 #edit-proposal-container{
-  margin-top: -50px;
+  margin-top: 0px;
 }
 .edit-proposal-wrap {
   padding-top: 0;
@@ -175,6 +175,7 @@
 }
 
 .proposal-container {
+  padding-top: 40px;
   .mdl-card {
     display: flex;
     flex-direction: column;

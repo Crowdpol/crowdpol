@@ -2,7 +2,10 @@
 
 .back-button {
 	text-transform: none;
-	margin-top: $space /2;
+	margin-top: $space;
+	margin-left: $space;
+	position: absolute;
+	top: 0px;
 
 	.back-button-text{
 		font-size: $small-font-size;
@@ -10,5 +13,86 @@
 
 	.material-icons {
 		font-size: $base-font-size;
+	}
+}
+
+.back-button.has-header{
+	top: 0px;
+	margin-top: -30px;
+	margin-left: 30px;
+}
+
+@media only screen and (min-width: $tiny){
+	.back-button {
+		display:none;
+	}
+  .back-button.has-header{
+		display:none;
+	}
+}
+@media only screen and (min-width: $mobile){
+	.back-button {
+		display:none;
+	}
+  .back-button.has-header{
+		display:none;
+	}
+}
+@media only screen and (min-width: $tablet){
+	.back-button {
+		display: inline-block;
+		text-transform: none;
+		margin-top: $space;
+		margin-left: $space;
+		position: absolute;
+		top: 0px;
+	}
+  .back-button.has-header{
+		display: inline-block;
+		top: 0px;
+		margin-top: $header-height-md - 30px;
+		margin-left: 30px;
+	}
+}
+@media only screen and (min-width: $laptop){
+	.back-button {
+		text-transform: none;
+		margin-top: $space;
+		margin-left: $space;
+		position: absolute;
+		top: 0px;
+	}
+  .back-button.has-header{
+		top: 0px;
+		margin-top: $header-height-lg - 30px;
+		margin-left: 30px;
+	}
+}
+@media only screen and (min-width: $desktop){
+	.back-button {
+		text-transform: none;
+		margin-top: $space;
+		margin-left: $space;
+		position: absolute;
+		top: 0px;
+	}
+  .back-button.has-header{
+		top: 0px;
+		margin-top: $header-height-lg - 30px;
+		margin-left: 30px;
+	}
+}
+@media only screen and (min-width: $big){
+	.back-button {
+		text-transform: none;
+		margin-top: $space;
+		margin-left: $space;
+		position: absolute;
+		top: 0px;
+	}
+  .back-button.has-header{
+		top: 0px;
+		margin-top: $header-height-xl - 30px;
+		margin-left: 30px;
 	}
 }

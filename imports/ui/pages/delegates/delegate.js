@@ -49,7 +49,11 @@ Template.Delegate.onRendered(function () {
 
 Template.Delegate.helpers({
   rankCount: function(){
-    return Meteor.users.find( { _id : { $in :  Session.get('ranked')} },{sort: ["ranking"]} ).count();
+    ranked = Session.get('ranked');
+    if(Array.isArray(ranked)){
+      return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} ).count();
+    }
+    return;
   },
   notDelegate: function() {
     if(Roles.userIsInRole(Meteor.user(), ['delegate'])){
@@ -65,7 +69,10 @@ Template.Delegate.helpers({
     }
   },
   ranks: function() {
-    return Meteor.users.find( { _id : { $in :  Session.get('ranked')} },{sort: ["ranking"]} );
+    ranked = Session.get('ranked');
+    if(Array.isArray(ranked)){
+      return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} );
+    }
   },
   delegates: function() {
     /* DO NOT SHOW CURRENT USER IN DELEGATE SEARCH

@@ -10,10 +10,28 @@
 .vote-item {
   flex-flow: row wrap;
   position: relative;
-  padding: $space / 2;
+  //padding: $space / 2;
   margin-bottom: 0.5rem;
   background-color: $light-grey-xlight;
   box-shadow: 0 1px 5px rgba($black, 0.2);
+
+  .card-proposal-unsplash{
+    background-size: cover;
+    height: 200px;
+    width: 100%;
+  }
+  .card-main-wrap{
+    padding-top: $space / 2;
+    padding-right: $space / 2;
+    padding-bottom: 0;
+    padding-left: $space / 2;
+  }
+  .card-secondary-wrap{
+    padding-top: 0;
+    padding-right: $space / 2;
+    padding-bottom: $space / 2;
+    padding-left: $space / 2;
+  }
 }
 
 .card-link {
