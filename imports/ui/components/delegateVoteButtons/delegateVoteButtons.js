@@ -24,17 +24,17 @@ Template.delegateVoteButtons.onCreated(function(){
 Template.delegateVoteButtons.helpers({
 	'delegateYesClass': function(){
 		if (Template.instance().vote.get() == 'yes'){
-			return 'mdl-button--colored'
+			return 'mdl-button--colored-yes'
 		}
 	},
 	'delegateAbstainClass': function(){
 		if (Template.instance().vote.get() == 'abstain'){
-			return 'mdl-button--colored'
+			return 'mdl-button--colored-abstain'
 		}
 	},
 	'delegateNoClass': function(){
 		if (Template.instance().vote.get() == 'no'){
-			return 'mdl-button--colored'
+			return 'mdl-button--colored-no'
 		}
 	},
 	'charCountString': function(){

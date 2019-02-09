@@ -11,7 +11,6 @@ Template.Unsplash.onCreated(function() {
   var self = this;
   var dict = new ReactiveDict();
 	self.dict = dict;
-  //$(".unsplash-search-box").hide();
   self.dict.set("coverEdit",false);
   self.dict.set("coverTop",0);
   self.dict.set("coverY",0);
@@ -32,7 +31,6 @@ Template.Unsplash.onCreated(function() {
 
 Template.Unsplash.onRendered(function() {
   var self = this;
-  //$(".unsplash-search-box").hide();
   let element = document.getElementById('cover-image');
   var rect = element.getBoundingClientRect();
   self.dict.set("coverTop",rect.top);
@@ -186,7 +184,7 @@ Template.Unsplash.events({
   'mouseenter #cover-image': function(event, template){
     let state = Session.get('unsplashState');
     if(typeof state!='undefined'){
-      if(state=='view-edit'){
+      if((state=='view-edit')||(state=='edit-show')){
         coverEdit = Template.instance().dict.get("coverEdit");
         if(coverEdit==false){
           $("#header-image-overlay").show();

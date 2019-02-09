@@ -159,10 +159,13 @@
   line-height: $space / 1.5;
 }
 .card-voting-wrap {
-  margin-top: $space / 1.5;
-  padding-top: $space / 2;
+  //margin-top: $space / 1.5;
+  padding: $space / 2;
   border-top: 1px solid $light-grey-mid;
 
+}
+.card-voting-wrap.delegate{
+  background-color: $delegate-color;
 }
 
 .delegate-list {
