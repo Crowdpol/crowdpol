@@ -1,0 +1,68 @@
+<template name="AdminLabels">
+	{{#if currentUserIsAdmin}}
+		{{> AdminLabelsForm}}
+		{{> AdminLabelsTable}}
+	{{/if}}
+</template>
+
+<template name="AdminLabelsTable">
+		<div class="dashboard__item dashboard__item--full">
+			<div class="card">
+				<h5> {{_"admin.labels.heading"}} </h5>
+				{{#if Template.subscriptionsReady}}
+				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+					<thead>
+						<tr>
+							<th>{{_"admin.labels.keyword"}}</th>
+							<th>{{_"admin.labels.created"}}</th>
+							<th>{{_"admin.labels.approved"}}</th>
+							<th>{{_"admin.labels.delete"}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each labels}}
+							<tr>
+								<td data-label='{{_"admin.labels.keyword"}}' class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{keyword}}</a></td>
+								<td data-label='{{_"admin.labels.created"}}' class="mdl-data-table__cell--non-numeric">{{labelDate}}</td>
+								<td data-label='{{_"admin.labels.approved"}}' class="mdl-data-table__cell--non-numeric">
+									<button id="approve-button" class="mdl-button mdl-js-button mdl-button--raised approve-button-class" data-label-id={{_id}} data-label-authorized="{{authorized}}">
+										{{#if authorized}}
+											<i class="material-icons approve-button-class" data-label-id={{_id}} data-label-authorized="{{authorized}}">check</i>
+										{{else}}
+											<i class="material-icons approve-button-class" data-label-id={{_id}} data-label-authorized="{{authorized}}">close</i>
+										{{/if}}
+									</button>
+								</td>
+								<td data-label='{{_"admin.labels.delete"}}' >
+									<button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised delete-button-class" data-label-id="{{_id}}">
+										<i class="material-icons delete-button-class" data-label-id="{{_id}}">delete</i>
+									</button>
+								</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			{{else}}
+				<p> Loading... </p>
+			{{/if}}
+		</div>
+	</div>
+</template>
+
+<template name="AdminLabelsForm">
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			<h5> Add New Label</h5>
+			<form id="add-label">
+				<div class="mdl-textfield mdl-js-textfield">
+					<label class="mdl-textfield__label"> {{_ "admin.labels.text"}}</label>
+					<input type="text" id="label-text" class="mdl-textfield__input" placeholder='{{_ "admin.labels.text"}}'>
+				</div>
+				<div class="form-group" style="margin-bottom: 1rem">
+					<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='{{_ "admin.labels.add-button"}}'>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</template>

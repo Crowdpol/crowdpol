@@ -18,6 +18,8 @@
         <div class="mdl-tabs__tab-bar">
           <a href="#user-home-panel" class="mdl-tabs__tab is-active">Feed</a>
           <a href="#activity-panel" class="mdl-tabs__tab">Activity</a>
+          <a href="#followers-panel" class="mdl-tabs__tab">Followers</a>
+          <a href="#following-panel" class="mdl-tabs__tab">Following</a>
         </div>
 
         <div class="mdl-tabs__panel" id="activity-panel">
@@ -52,13 +54,60 @@
             {{/each}}
           </ul>
         </div>
+        <div class="mdl-tabs__panel" id="followers-panel">
+          {{#unless followers}}
+            No followers
+          {{else}}
+            {{#each follower in followers}}
+            <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-color--indigo mdl-shadow--2dp">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">{{follower.profile.firstName}} {{follower.profile.lastName}}</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                {{follower.profile.bio}}
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Learn More</button>
+              </div>
+            </div>
+            {{/each}}
+          {{/unless}}
+        </div>
+        <div class="mdl-tabs__panel" id="following-panel">
+          {{#unless following}}
+            Not following anyone
+          {{else}}
+            <div class="mdl-grid">
+            {{#each follow in following}}
+              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-color--indigo mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                  <h2 class="mdl-card__title-text">{{follow.profile.firstName}} {{follow.profile.lastName}}</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  {{follow.profile.bio}}
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                  <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Learn More</button>
+                </div>
+              </div>
+            {{/each}}
+            </div>
+          {{/unless}}
+        </div>
       </div>
     </article>
     <aside class="aside aside-1">
       <a href="#" class="profile-image-link"><img src="{{profilePic}}" class="profile-image"/></a>
       <div class="profile-card">
         <h5>{{profileName}}</h5>
-        <small>{{profileUsername}}</small>
+        <small>{{profileUsername}}</small><br/>
+        {{#unless currentUser}}
+          {{#if alreadyFollowing}}
+            <button class="mdl-button mdl-js-button" id="unfollow-me">Unfollow<i class="material-icons">minus</i></button>
+          {{else}}
+            <button class="mdl-button mdl-js-button" id="follow-me">Follow<i class="material-icons">add</i></button>
+          {{/if}}
+        {{/unless}}
       </div>
 
     </aside>

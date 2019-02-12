@@ -26,7 +26,7 @@ Template.UserHome.onCreated(function () {
   }
   self.userId = new ReactiveVar(userId);
   self.subscribe('users.profile');
-  self.subscribe('posts', userId);
+  self.subscribe('feed-posts', userId);
   self.subscribe('likes.all');
   /*
   Meteor.call('getProfile',userId, function(error, result){
@@ -81,18 +81,82 @@ Template.UserHome.helpers({
   	return Meteor.user().profile.username;
   },
   userFeed: function(){
+    userFeedId = Template.instance().userId.get();
+    console.log("userFeedId: " + userFeedId);
+    console.log(Posts.find({"userFeedId":userFeedId}).count());
+  	return Posts.find({"userFeedId":userFeedId}, {sort: {createdAt: -1}});
+  },
+  currentUser: function(){
     userId = Template.instance().userId.get();
-  	return Posts.find({"userId":userId});
+    if(userId==Meteor.userId()){
+      return true;
+    }
+    return false;
+  },
+  alreadyFollowing: function(){
+    userId = Template.instance().userId.get();
+    console.log("Already following: " + Meteor.users.find({_id: Meteor.userId(), "profile.following":userId}).count());
+    return Meteor.users.find({_id: Meteor.userId(), "profile.following":userId}).count()
+  },
+  following: function(){
+    let followers;
+    userId = Template.instance().userId.get();
+    user = Meteor.users.findOne({"_id":userId});
+    if(typeof user != 'undefined'){
+      followers = user.profile.following;
+    }else{
+      followers = Meteor.user().profile.following;
+    }
+    if(Array.isArray(followers)){
+      console.log(Meteor.users.find( { _id : { $in :  followers} }).count());
+      return Meteor.users.find( { _id : { $in :  followers} });
+    }
+    return null;
+  },
+  followers: function(){
+    let followers;
+    userId = Template.instance().userId.get();
+    console.log(Meteor.users.find( { "profile.following" : userId }).count());
+    return Meteor.users.find( { "profile.following" : userId });
   }
 });
 
 Template.UserHome.events({
+  'click #follow-me': function(event,template){
+    followId = Template.instance().userId.get();
+    if(followId!=Meteor.userId()){
+      Meteor.call('addFollower', Meteor.userId(),followId, function(error, postId){
+    		if (error){
+    			RavenClient.captureException(error);
+    			Bert.alert(error.reason, 'danger');
+    			return false;
+    		} else {
+    			 Bert.alert(TAPi18n.__('pages.feed.following'), 'success');
+    		}
+    	});
+    }
+  },
+  'click #unfollow-me': function(event,template){
+    followId = Template.instance().userId.get();
+    if(followId!=Meteor.userId()){
+      Meteor.call('removeFollower',Meteor.userId(),followId, function(error, postId){
+    		if (error){
+    			RavenClient.captureException(error);
+    			Bert.alert(error.reason, 'danger');
+    			return false;
+    		} else {
+    			 Bert.alert(TAPi18n.__('pages.feed.unfollow'), 'success');
+    		}
+    	});
+    }
+  },
   'click #create-post': function(event,template){
     event.preventDefault();
     let message = template.find('#post-message').value
+    let userFeedId = Template.instance().userId.get();
     let post = {
       userId: Meteor.userId(),
-      //url: '',
+      userFeedId: userFeedId,
       message: message,
     };
     Meteor.call('createPost', post, function(error, postId){

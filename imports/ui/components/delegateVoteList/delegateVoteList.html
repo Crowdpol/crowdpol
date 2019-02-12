@@ -43,11 +43,11 @@
 
 <template name="delegateVoteListItem">
 	<li class="selected mdl-list__item delegate-vote-list-item" id="{{_id}}">
-		<div class="card-main-wrap">
-			<span class="card-main mdl-list__item-primary-content">
+		<div class="card-delegate-list-wrap">
+			<span class="card-delegate-list mdl-list__item-primary-content">
 				<i class="material-icons">{{voteIcon vote_info.[0].vote}}</i> &nbsp;
 				<img src={{user_info.[0].profile.photo}} class="mdl-list__item-avatar">
-				#{{ranking}}&nbsp; {{user_info.[0].profile.firstName}}&nbsp;{{user_info.[0].profile.lastName}} ({{user_info.[0].profile.username}})
+				<span class="delegate-name">#{{ranking}}&nbsp;<strong>{{user_info.[0].profile.firstName}}&nbsp;{{user_info.[0].profile.lastName}}</strong><br>({{user_info.[0].profile.username}})</span>
 			</span>
 		</div>
 	</li>
