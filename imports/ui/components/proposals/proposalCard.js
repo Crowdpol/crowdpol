@@ -28,6 +28,12 @@ Template.ProposalCard.onRendered(function () {
 });
 */
 Template.ProposalCard.helpers({
+  proposalHasImage: function(proposal) {
+    if(typeof proposal.hasCover != 'undefined'){
+      return proposal.hasCover;
+    }
+    return false;
+  },
   title: function(proposal) {
     var language = TAPi18n.getLanguage();
     var translation = _.find(proposal.content, function(item){ return item.language == language});

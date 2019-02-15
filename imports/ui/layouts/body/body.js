@@ -60,4 +60,11 @@ Template.App_body.onRendered(function () {
       $('.mdl-layout__drawer-right').addClass('active');
    }
   });
-})
+});
+
+Template.App_body.events({
+  'click #status-ribbon' (event, template){
+		event.preventDefault();
+    console.log("show alpha message");
+  }
+});

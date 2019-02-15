@@ -36,3 +36,5 @@ import './accordian.scss';
 import './quill.css';
 import './switch.scss';
 import './unsplash.scss';
+import './delegate-list.scss';
+import './user-home.scss';

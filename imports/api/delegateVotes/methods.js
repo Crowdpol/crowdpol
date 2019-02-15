@@ -146,6 +146,8 @@ Meteor.methods({
 
       if (rankedDelegates){
         for (i=0; i<rankedDelegates.length; i++){
+          console.log("getUserDelegateInfoForProposal called");
+          console.log(rankedDelegates[i])
           if (rankedDelegates[i]){
             voteInfo = rankedDelegates[i].vote_info[0]
           }

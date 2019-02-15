@@ -1,0 +1,128 @@
+<template name="UserHome">
+  <div class="user-home-wrapper">
+    {{>Unsplash}}
+    <!--
+    <header class="header cover">
+      <img src="https://images.pexels.com/photos/259915/pexels-photo-259915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Header Pic" >
+      <div class="cover-overlay">
+        <a href="#" class="icon" title="Change cover image">
+          <i class="material-icons">
+            camera_alt
+          </i>
+        </a>
+      </div>
+    </header>
+    -->
+    <article class="main">
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+          <a href="#user-home-panel" class="mdl-tabs__tab is-active">Feed</a>
+          <a href="#activity-panel" class="mdl-tabs__tab">Activity</a>
+          <a href="#followers-panel" class="mdl-tabs__tab">Followers</a>
+          <a href="#following-panel" class="mdl-tabs__tab">Following</a>
+        </div>
+
+        <div class="mdl-tabs__panel" id="activity-panel">
+
+          <ul class="user-home-list">
+
+            <li class="user-home-post">
+              {{>ActivityFeed}}
+            </li>
+          </ul>
+        </div>
+        <div class="mdl-tabs__panel is-active" id="user-home-panel">
+
+          <ul class="user-home-list">
+            <li class="user-home-post user-home-form">
+              <div class="post-header">
+                <div class="author-pic">
+                  <img src="{{profilePic post.userId}}" class="">
+                </div>
+                <div class="post-content">
+                  <div class="post-area">
+                    <textarea class="post-textarea-small" type="text" rows= "1" id="post-message" placeholder="Say something..."></textarea>
+                    <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
+                  </div>
+                </div>
+              </div>
+            </li>
+            {{#each post in userFeed}}
+            <li class="user-home-post">
+              {{>ActivityFeed post=post}}
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+        <div class="mdl-tabs__panel" id="followers-panel">
+          {{#unless followers}}
+            No followers
+          {{else}}
+            {{#each follower in followers}}
+              {{>UserCard profile=follower.profile}}
+            {{/each}}
+          {{/unless}}
+        </div>
+        <div class="mdl-tabs__panel" id="following-panel">
+          {{#unless following}}
+            Not following anyone
+          {{else}}
+            <div class="mdl-grid">
+            {{#each follow in following}}
+              {{>UserCard profile=follow.profile}}
+            {{/each}}
+            </div>
+          {{/unless}}
+        </div>
+      </div>
+    </article>
+    <aside class="aside aside-1">
+      <a href="#" class="profile-image-link"><img src="{{profilePic}}" class="profile-image"/></a>
+      <div class="profile-card">
+        <h5>{{profileName}}</h5>
+        <small>{{profileUsername}}</small><br/>
+        {{#unless currentUser}}
+          {{#if alreadyFollowing}}
+            <button class="mdl-button mdl-js-button" id="unfollow-me">Unfollow<i class="material-icons">minus</i></button>
+          {{else}}
+            <button class="mdl-button mdl-js-button" id="follow-me">Follow<i class="material-icons">add</i></button>
+          {{/if}}
+        {{/unless}}
+      </div>
+
+    </aside>
+    <aside class="aside aside-2">
+      This is a side column.
+    </aside>
+    <!--
+    <footer class="footer">Footer</footer>
+    -->
+  </div>
+</template>
+
+<template name="ActivityFeed">
+  <div class="post-header">
+    <div class="author-pic">
+      <img src="{{profilePic post.userId}}" class="">
+    </div>
+    <div class="post-content">
+      <div class="author-name">
+        <strong>{{profileName post.userId}}</strong>&nbsp;<small>@{{profileName post.userId}} - {{profileDate post.createdAt}}</small>
+        <i class="material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="post-message">
+        <p>
+            {{{formatMessage post.message}}}
+        </p>
+      </div>
+      <div class="post-footer">
+        <i class="material-icons comment-post">chat_bubble_outline</i>
+        <span class="like-counter"><i class="material-icons like-post" data-id="{{post._id}}">{{likeIcon post._id}}</i>{{likeCount post._id}}</span>
+        <div class="comment-box hidden" data-id="{{post._id}}">
+          <textarea class="post-textarea-large" type="text" rows= "3" placeholder="Make comment..."></textarea>
+          <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

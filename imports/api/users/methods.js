@@ -292,6 +292,16 @@ Meteor.methods({
 
       return false;
     },
+    addFollower: function(userId,followId) {
+      check(userId, String);
+      check(followId, String);
+      Meteor.users.update({_id: userId}, {$push: {'profile.following': followId} });
+    },
+    removeFollower: function(userId,followId) {
+      check(userId, String);
+      check(followId, String);
+      Meteor.users.update({_id: userId}, {$pull: {'profile.following': followId} });
+    },
     addTagToProfile: function(userId, tag) {
       check(userId, String);
       check(tag, {

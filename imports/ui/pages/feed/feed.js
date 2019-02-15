@@ -1,10 +1,6 @@
 import "./feed.html"
 import '../../components/profileHeader/profileHeader.js';
-import { Posts } from '../../../api/posts/Posts.js'
-import { Likes } from '../../../api/likes/Likes.js'
 import RavenClient from 'raven-js';
-import snarkdown from 'snarkdown';
-
 Template.Feed.onCreated(function () {
   var self = this;
   self.user=null;
@@ -38,7 +34,8 @@ Template.Feed.onCreated(function () {
   });
   */
   self.autorun(function(){
-
+    Session.set("unsplashState","view");
+    $("#unsplash-close").hide();
   });
 });
 /*
@@ -140,50 +137,5 @@ Template.Feed.events({
   },
   'click .comment-post': function(event,tempate){
     console.log("make comment");
-  }
-});
-
-Template.ActivityFeed.helpers({
-  profilePic: function(userId) {
-  	return Meteor.user().profile.photo;
-  },
-  profileName: function(userId) {
-  	return (Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName);
-  },
-  profileUsername: function(userId) {
-  	return Meteor.user().profile.username;
-  },
-  profileDate: function(postDate) {
-    return moment(postDate).fromNow();
-  },
-  formatMessage: function(message){
-    if(typeof message !='undefined'){
-      var matches = message.match(/\bhttps?:\/\/\S+/gi);
-      if(matches == null){
-        //console.log("no matches");
-      }else{
-        matches.forEach(function(item) {
-          //console.log("<a href='"+item+"'>"+item+"</a>");
-          message = message.replace(item, "<a href='"+item+" target='_blank'>"+item+"</a>");
-        });
-      }
-    }
-    return message;
-  },
-  likeCount: function(objectId){
-    let likes = Likes.find({objectId:objectId}).count();
-    if(likes>0){
-      return likes;
-    }
-    return '';
-  },
-  likeIcon: function(objectId){
-    let existing = Likes.findOne({objectId:objectId, userId: Meteor.userId()});
-    if(existing){
-      return 'favorite';
-    }else{
-      return 'favorite_border';
-    }
-
   }
 });

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import "./delegate.html"
 import { Ranks } from '../../../api/ranking/Ranks.js'
+import { Tags } from '../../../api/tags/Tags.js'
 import RavenClient from 'raven-js';
 import { walkThrough } from '../../../utils/functions';
 
@@ -17,6 +18,7 @@ Template.Delegate.onCreated(function () {
   self.autorun(function() {
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
     self.subscribe('ranks.all');
+    self.subscribe('tags.community', LocalStore.get('communityId'));
     // Set user's ranked delegates
     Meteor.call('getRanks', Meteor.userId(), "delegate", communityId, function(error, result){
       if(error) {
@@ -46,6 +48,13 @@ Template.Delegate.onRendered(function () {
 });
 
 Template.Delegate.helpers({
+  rankCount: function(){
+    ranked = Session.get('ranked');
+    if(Array.isArray(ranked)){
+      return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} ).count();
+    }
+    return;
+  },
   notDelegate: function() {
     if(Roles.userIsInRole(Meteor.user(), ['delegate'])){
       return false;
@@ -60,7 +69,10 @@ Template.Delegate.helpers({
     }
   },
   ranks: function() {
-    return Meteor.users.find( { _id : { $in :  Session.get('ranked')} },{sort: ["ranking"]} );
+    ranked = Session.get('ranked');
+    if(Array.isArray(ranked)){
+      return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} );
+    }
   },
   delegates: function() {
     /* DO NOT SHOW CURRENT USER IN DELEGATE SEARCH
@@ -90,6 +102,36 @@ Template.Delegate.helpers({
       return false;
     }
     return true;
+  },
+  filteredRoles: function(roles){
+    let index = roles.indexOf('delegate')
+    if (index !== -1) {
+      roles.splice(index, 1);
+    }
+    index = roles.indexOf('admin')
+    if (index !== -1) {
+      roles.splice(index, 1);
+    }
+    index = roles.indexOf('superadmin')
+    if (index !== -1) {
+      roles.splice(index, 1);
+    }
+    index = roles.indexOf('demo')
+    if (index !== -1) {
+      roles.splice(index, 1);
+    }
+    index = roles.indexOf('candidate')
+    if (index !== -1) {
+      roles.splice(index, 1);
+    }
+    return roles;
+  },
+  showTags: function(tags){
+    if(typeof tags != 'undefined'){
+      if(Array.isArray(tags)){
+        return Tags.find({"_id":{$in:tags}});
+      }
+    }
   }
 });
 

@@ -34,7 +34,7 @@ Template.AdminTagsTable.events({
 				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-updated'), 'success');
+				Bert.alert(TAPi18n.__('admin.alerts.tag-updated'), 'success');
 			}
 		});
 	},
@@ -57,19 +57,20 @@ Template.AdminTagsForm.events({
 	'submit form' (event, template){
 		event.preventDefault();
 		let text = template.find("#tag-text").value;
-
-		Meteor.call('addTag', text, function(error){
+    var communityId = LocalStore.get('communityId')
+    console.log("communityId: " + communityId);
+		Meteor.call('addTag', text, communityId, function(error){
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-added'), 'success');
+				Bert.alert(TAPi18n.__('admin.alerts.tag-added'), 'success');
 			}
 		});
 	},
 
 	'click #delete-button': function(event, template){
 		//Meteor.call('deleteTage', event.target.dataset.userId);
-		//Bert.alert(TAPi18n.__('pages.admin.alerts.tag-deleted'), 'success');
+		//Bert.alert(TAPi18n.__('admin.alerts.tag-deleted'), 'success');
 	},
 
 });

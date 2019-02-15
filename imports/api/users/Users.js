@@ -150,7 +150,15 @@ Schema.UserProfile = new SimpleSchema({
     coverURL: {
       type: String,
       optional: true
-    }
+    },
+    following: {
+        type: Array,
+        optional: true,
+    },
+    "following.$": {
+        type: String,
+        optional: true
+    },
     /*
     birthday: {
         type: Date,
