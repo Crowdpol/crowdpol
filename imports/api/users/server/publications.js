@@ -14,7 +14,11 @@ Meteor.publish('users.all', function() {
 
 Meteor.publish('users.profile', function () {
   return Meteor.users.find({},{fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
-})
+});
+
+Meteor.publish('user', function (userId) {
+  return Meteor.users.find({_id:userId},{fields: {profile: 1,roles: 1,isPublic: 1}});
+});
 
 Meteor.publish('users.community', function(communityId) {
   return Meteor.users.find({"profile.communityIds" : communityId}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});

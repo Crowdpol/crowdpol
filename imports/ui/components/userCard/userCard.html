@@ -1,0 +1,18 @@
+<template name="UserCard">
+  {{#unless userId}}
+    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-color--indigo mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <a href="#" class="profile-image-link"><img src="{{profile.photo}}" class="profile-image"/></a>
+        <h2 class="mdl-card__title-text">{{profile.firstName}} {{profile.lastName}}</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        {{profile.bio}}
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Learn More</button>
+      </div>
+    </div>
+  {{else}}
+    put code to render by user id
+  {{/unless}}
+</template>

@@ -59,17 +59,7 @@
             No followers
           {{else}}
             {{#each follower in followers}}
-            <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-color--indigo mdl-shadow--2dp">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">{{follower.profile.firstName}} {{follower.profile.lastName}}</h2>
-              </div>
-              <div class="mdl-card__supporting-text">
-                {{follower.profile.bio}}
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-                <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Learn More</button>
-              </div>
-            </div>
+              {{>UserCard profile=follower.profile}}
             {{/each}}
           {{/unless}}
         </div>
@@ -79,17 +69,7 @@
           {{else}}
             <div class="mdl-grid">
             {{#each follow in following}}
-              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-color--indigo mdl-shadow--2dp">
-                <div class="mdl-card__title">
-                  <h2 class="mdl-card__title-text">{{follow.profile.firstName}} {{follow.profile.lastName}}</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-                  {{follow.profile.bio}}
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                  <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Learn More</button>
-                </div>
-              </div>
+              {{>UserCard profile=follow.profile}}
             {{/each}}
             </div>
           {{/unless}}

@@ -12,13 +12,7 @@ import { Session } from 'meteor/session';
 
 // Import needed templates
 import './layouts/body/body.js';
-import './components/loader/loader.js';
-import './components/taggle/taggle.js';
-import './components/back-button/back-button.html';
-import './components/delegateVoteButtons/delegateVoteButtons.js';
-import './components/voteButtons/voteButtons.js';
-import './components/delegateVoteList/delegateVoteList.js';
-import './components/unsplash/unsplash.js';
+import './components/main.js';
 import './pages/home/home.js';
 import './pages/faq/faq.js';
 import './pages/feed/feed.js';

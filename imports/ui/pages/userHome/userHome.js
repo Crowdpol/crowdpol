@@ -82,8 +82,8 @@ Template.UserHome.helpers({
   },
   userFeed: function(){
     userFeedId = Template.instance().userId.get();
-    console.log("userFeedId: " + userFeedId);
-    console.log(Posts.find({"userFeedId":userFeedId}).count());
+    //console.log("userFeedId: " + userFeedId);
+    //console.log(Posts.find({"userFeedId":userFeedId}).count());
   	return Posts.find({"userFeedId":userFeedId}, {sort: {createdAt: -1}});
   },
   currentUser: function(){
@@ -95,7 +95,7 @@ Template.UserHome.helpers({
   },
   alreadyFollowing: function(){
     userId = Template.instance().userId.get();
-    console.log("Already following: " + Meteor.users.find({_id: Meteor.userId(), "profile.following":userId}).count());
+    //console.log("Already following: " + Meteor.users.find({_id: Meteor.userId(), "profile.following":userId}).count());
     return Meteor.users.find({_id: Meteor.userId(), "profile.following":userId}).count()
   },
   following: function(){
@@ -108,7 +108,7 @@ Template.UserHome.helpers({
       followers = Meteor.user().profile.following;
     }
     if(Array.isArray(followers)){
-      console.log(Meteor.users.find( { _id : { $in :  followers} }).count());
+      //console.log(Meteor.users.find( { _id : { $in :  followers} }).count());
       return Meteor.users.find( { _id : { $in :  followers} });
     }
     return null;
@@ -116,7 +116,7 @@ Template.UserHome.helpers({
   followers: function(){
     let followers;
     userId = Template.instance().userId.get();
-    console.log(Meteor.users.find( { "profile.following" : userId }).count());
+    //console.log(Meteor.users.find( { "profile.following" : userId }).count());
     return Meteor.users.find( { "profile.following" : userId });
   }
 });
