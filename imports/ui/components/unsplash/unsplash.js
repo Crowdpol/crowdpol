@@ -1,6 +1,13 @@
 import './unsplash.html'
 import UnsplashSearch from 'unsplash-search';
 
+/*
+using the following node libraries:
+---------------------------------------------
+https://www.npmjs.com/package/unsplash-js
+https://www.npmjs.com/package/unsplash-search
+*/
+
 const accessKey = 'a40bf3876f230abedda23394e4df9111ec3699037213fc002140e3a80693df13';
 const provider = new UnsplashSearch(accessKey);
 const defaultURL = 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2';
@@ -11,209 +18,47 @@ Template.Unsplash.onCreated(function() {
   var self = this;
   var dict = new ReactiveDict();
 	self.dict = dict;
-  self.dict.set("coverEdit",false);
-  self.dict.set("coverTop",0);
-  self.dict.set("coverY",0);
-  self.dict.set("coverBottom",0);
-  self.dict.set("mouseStart",null);
-  self.dict.set("mouseEnd",null);
-  self.dict.set("amountToMove",null);
-  self.dict.set("mouseMove",false);
-  //self.dict.set("coverPosition","0px 0px");
   self.dict.set("data",null);
   self.dict.set("page",1);
-  self.dict.set("headerYPosition",0);
-  self.dict.set("searchTerm","berlin");
+  self.dict.set("searchTerm","people");
+  self.dict.set("searchType","all");
   self.autorun(function(){
-    updateImages(self);
+
   });
 });
 
 Template.Unsplash.onRendered(function() {
   var self = this;
-  let element = document.getElementById('cover-image');
-  var rect = element.getBoundingClientRect();
-  self.dict.set("coverTop",rect.top);
-  self.dict.set("coverBottom",rect.bottom);
-  getCoverPosition();
   self.autorun(function(){
-    //console.log("unplash onrendered complete");
-    let coverURL = Session.get('coverURL');
-    let coverPosition = Session.get('coverPosition');
-    if(typeof coverURL=='undefined'){
-      Session.set("coverURL",defaultURL);
-    }
-    if(typeof coverPosition=='undefined'){
-      Session.set("coverPosition",defaultPosition);
-    }
-    let editState = Template.instance().dict.get("coverEdit");
-    //console.log(editState);
-    if(editState==false){
-      //console.log("onredered updating background: " + Session.get('coverPosition'));
-      $('#cover-image').css("background-image",Session.get('coverURL'));
-      $('#cover-image').css("background-position",Session.get('coverPosition'));
-      setUnsplashState();
-    }else{
-      //console.log("onrendered not updating background");
-    }
-
-    //console.log(Session.get("hasCover"));
-    /*
-    if(Session.get("hasCover")){
-      setUnsplashState('edit-show');
-    }else{
-      setUnsplashState('edit-hide');
-    }*/
-    //console.log("setUnsplashState() -> onRendered");
-
+    //updateImages(self);
   });
 });
 Template.Unsplash.events({
-  'click #unsplash-header-button' (event, template){
+	'click .search-images-button' (event, template){
 		event.preventDefault();
-    //console.log("show/hide unsplash selector");
-    //console.log("setUnsplashState('edit-search') -> click #unsplash-header-button");
-    $(".unsplash-search-box").slideDown();
-    //$("#unsplash-header-button").hide();
-    $("#unsplash-close").hide();
-    //setUnsplashState('edit-search');
-    $("#header-image-overlay").hide();
-    Template.instance().dict.set("coverEdit",true);
-  },
-  'click #unsplash-close' (event, template){
-		event.preventDefault();
-    /*
-    let hasCover = Session.get("hasCover");
-    if(hasCover){
-      console.log('set to edit-hide');
-      console.log("setUnsplashState('edit-hide') -> click #unsplash-close");
-      setUnsplashState('edit-hide');
-    }else{
-      console.log('set to edit-show');
-      console.log("setUnsplashState('edit-show') -> click #unsplash-close");
-      setUnsplashState('edit-show');
-    }*/
-    $(".back-button").removeClass('has-header');
-    setUnsplashState('edit-hide');
-    Session.set("hasCover",!Session.get("hasCover"));
-    Template.instance().dict.set("coverEdit",false);
-  },
-  'click #unsplash-open' (event, template){
-    //console.log("unsplash open");
-		event.preventDefault();
-    let hasCover = Session.get("hasCover");
-    if(hasCover){
-      //console.log('set to edit-hide');
-      setUnsplashState('edit-hide');
-      //console.log("setUnsplashState('edit-hide') -> click #unsplash-open");
-    }else{
-      //console.log('set to edit-show');
-      setUnsplashState('edit-show');
-      //console.log("setUnsplashState('edit-open') -> click #unsplash-open");
-    }
-    Session.set("hasCover",!Session.get("hasCover"));
-    $(".back-button").addClass('has-header');
-  },
-  'click #unsplash-search-close' (event, template){
-		event.preventDefault();
-    $(".unsplash-search-box").slideUp();
-    //$("#unsplash-header-button").show();
-    $("#unsplash-close").show();
-    Template.instance().dict.set("coverEdit",false);
-    console.log(Template.instance().dict.get("coverEdit"));
-  },
-  'mousedown #cover-image': function(event,template){
-    if(!$('#cover-image').hasClass("disable-edit")){
-      $('#cover-image').css("cursor", "ns-resize");
-      Template.instance().dict.set("mouseStart",event.clientY);
-      Template.instance().dict.set("amountToMove",0);
-      //console.log('drag starts - event.clientY: ' + event.clientY + " ");
-      Template.instance().dict.set("mouseMove",true);
-    }
-  },
-  'mouseup #cover-image': function(event,template){
-    if(!$('#cover-image').hasClass("disable-edit")){
-      $('#cover-image').css("cursor","default");
-      Template.instance().dict.set("mouseEnd",event.clientY);
-      Template.instance().dict.set("mouseMove",false);
-      let startPosition = Template.instance().dict.get("mouseStart");
-      let amountToMove = event.clientY - startPosition;
-      //console.log("drag stops - amountToMove: " + amountToMove);
-      Template.instance().dict.set("coverY",amountToMove);
-      Session.set("coverPosition",getCoverPosition());
-      //let startPosition = Session.get("mouseStart");
-      //let amountToMove = event.clientY - startPosition;
-      //console.log("cover position: " + getCoverPosition());
-      Template.instance().dict.set("mouseStart",Session.get("amountToMove"));
-      //$('#cover-image').css("background-position", getCoverPosition());
-    }
-  },
-  'mousemove #cover-image': function(event, template){
-    if(!$('#cover-image').hasClass("disable-edit")){
-      $("#mouseX").html(event.clientX);
-      $("#mouseY").html(event.clientY);
-      //limit response to movements over the cover
-      if((event.clientX>Template.instance().dict.get("coverTop"))&&(event.clientY<Template.instance().dict.get("coverBottom"))){
-        //set appropriate cursor
-        if(!Template.instance().dict.get("mouseMove")){
-          $('#cover-image').css("cursor", "pointer");
-        }
-        //
-        let startPosition = Template.instance().dict.get("mouseStart");
-        let mouseMove = Template.instance().dict.get("mouseMove");
-        //check if mouseMove state is on
-        if((startPosition != null)&&(mouseMove==true)){
-          let coverY = Template.instance().dict.get("coverY");
-          let amountToMove = coverY + (event.clientY - startPosition);
-          Template.instance().dict.set("amountToMove",amountToMove);
-
-          let newPosition = "0px " + amountToMove + "px";
-          Template.instance().dict.set("coverPosition",newPosition);
-          $('#cover-image').css("background-position",newPosition);
-        }
-      }else{
-        $('#cover-image').css("cursor","default");
-      }
-    }else{
-      //$("#header-image-overlay").show();
-    }
-  },
-  'mouseleave #header-image-overlay': function(event, template){
-    $("#header-image-overlay").hide();
-  },
-  'mouseenter #cover-image': function(event, template){
-    let state = Session.get('unsplashState');
-    if(typeof state!='undefined'){
-      if((state=='view-edit')||(state=='edit-show')){
-        coverEdit = Template.instance().dict.get("coverEdit");
-        if(coverEdit==false){
-          $("#header-image-overlay").show();
-        }
-      }
-    }
-  },
-	'click #search-images-button' (event, template){
-		event.preventDefault();
-    let searchTerm = $("#search-unsplash").val();
+    console.log(event);
+    let searchTerm = $(".search-unsplash").val();
+    console.log("searchTerm: " + searchTerm);
     if(searchTerm){
       Template.instance().dict.set("searchTerm",searchTerm);
       Template.instance().dict.set("page",1);
       updateImages(template);
     }
   },
-  'click #prev-images-page' (event, template){
+  'click .prev-images-page' (event, template){
     event.preventDefault();
-    let data = self.dict.get("data");
-    let currentPage = self.dict.get("page");
+    let data = Template.instance().dict.get("data");
+    let currentPage = Template.instance().dict.get("page");
     if(currentPage > 2){
       Template.instance().dict.set("page",(currentPage - 1));
       updateImages(template);
     }
   },
-  'click #next-images-page' (event, template){
+  'click .next-images-page' (event, template){
     event.preventDefault();
     let data = Template.instance().dict.get("data");
     let currentPage = Template.instance().dict.get("page");
+    console.log("currentPage: " + currentPage);
     if(data){
       if(currentPage < data.totalPages){
         Template.instance().dict.set("page",(currentPage + 1));
@@ -223,51 +68,44 @@ Template.Unsplash.events({
   },
   'click .unsplash-thumb-image' (event, template){
     let imageURL = "url('"+this.urls.raw + "&w=1500&dpi=2')";
-    //console.log("clicked on image, set coverURL");
-    //console.log('Session.set("coverURL",imageURL) imageURL:' + imageURL);
-    Session.set("coverURL",imageURL);
-    $('#cover-image').css("background-image", imageURL);
-    $('#cover-image').css("background-color", this.color);
-    //console.log(invertColor(this.color,true));
-    $("#header-title").css("color",this.color)
+    Session.set("unsplashURL",imageURL);
+    console.log("unsplashURL: " + imageURL);
+    //$("#header-title").css("color",this.color)
   }
 });
 
 Template.Unsplash.helpers({
-  setUnsplashState: function(){
-    /*
-    $('#cover-image').css("background-image",Session.get('coverURL'));
-    $('#cover-image').css("background-position",Session.get('coverPosition'));
-    console.log("setUnsplashState() -> helpers");
-    setUnsplashState();
-    */
+  source: function(){
+    console.log(this);
+    if(typeof this.source != 'undefined'){
+      return this.source;
+    }
   },
-  hasCover: function(){
-		return Session.get("hasCover");
-	},
-  coverY: function(template){
-    return Template.instance().dict.get("coverY");
+  setSearchType: function(){
+    console.log(this);
+    let searchType = "all";
+    if(typeof this.searchType != 'undefined'){
+      searchType = this.searchType;
+    }
+    console.log("searchType: " + searchType);
+    Template.instance().dict.set("searchType",searchType);
+    updateImages(Template.instance());
   },
-  coverTop: function(template){
-    return Template.instance().dict.get("coverTop");
-  },
-  coverBottom: function(template){
-    return Template.instance().dict.get("coverBottom");
-  },
-  mouseStart: function(template){
-    return Template.instance().dict.get("mouseStart");
-  },
-  mouseEnd: function(template){
-    return Template.instance().dict.get("mouseEnd");
-  },
-  amountToMove: function(template){
-    return Template.instance().dict.get("amountToMove");
-  },
-  mouseMove: function(template){
-    return Template.instance().dict.get("mouseMove");
-  },
-  coverPosition: function(template){
-    return Template.instance().dict.get("coverPosition");
+  searchTypeClass: function(){
+    let searchType = Template.instance().dict.get("searchType");
+    switch (searchType) {
+      //cover should be editable and the image should be visible
+      case 'landscape':
+        return 'landscape';
+      case 'portrait':
+        return 'portrait';
+      case 'square':
+        return 'square';
+      case 'all':
+        return 'square';
+      default:
+        return 'square';
+      }
   },
   currentPage: function(template){
     let currentPage = Template.instance().dict.get("page");
@@ -314,14 +152,66 @@ Template.Unsplash.helpers({
 });
 
 function updateImages(template){
-  provider
-    .searchLandscapes(template.dict.get("searchTerm"), template.dict.get("page"))
-    .then(data => {
-      //console.log(data);
-      //self.data = new ReactiveVar(data);
-      template.dict.set("data",data);
-    })
-    .catch(error => error);
+  console.log("updateImages called");
+  let searchType = template.dict.get("searchType");
+
+  /*
+    Unsplash provider has the following search options:
+
+    landscape: searchLandscapes(query,page)
+    portrait: searchPortraits(query,page)
+    square: searchSquares(query,page)
+    default: searchAll(query,page)
+  */
+  provider.setItemsPerPage(10);
+  switch (searchType) {
+    //cover should be editable and the image should be visible
+    case 'landscape':
+      console.log("landscape search");
+      provider
+        .searchLandscapes(template.dict.get("searchTerm"), template.dict.get("page"))
+        .then(data => {
+          //console.log(data);
+          //self.data = new ReactiveVar(data);
+          template.dict.set("data",data);
+        })
+        .catch(error => error);
+        break;
+    case 'portrait':
+      console.log("portrait search");
+      provider
+        .searchPortraits(template.dict.get("searchTerm"), template.dict.get("page"))
+        .then(data => {
+          //console.log(data);
+          //self.data = new ReactiveVar(data);
+          template.dict.set("data",data);
+        })
+        .catch(error => error);
+        break;
+    case 'square':
+      console.log("square search");
+      provider
+        .searchSquares(template.dict.get("searchTerm"), template.dict.get("page"))
+        .then(data => {
+          //console.log(data);
+          //self.data = new ReactiveVar(data);
+          template.dict.set("data",data);
+        })
+        .catch(error => error);
+        break;
+    default:
+      console.log("default/all search");
+      provider
+        .searchAll(template.dict.get("searchTerm"), template.dict.get("page"))
+        .then(data => {
+          //console.log(data);
+          //self.data = new ReactiveVar(data);
+          template.dict.set("data",data);
+        })
+        .catch(error => error);
+  }
+
+
 }
 
 //use these for fonts that are displayed over header
@@ -356,90 +246,4 @@ function padZero(str, len) {
     len = len || 2;
     var zeros = new Array(len).join('0');
     return (zeros + str).slice(-len);
-}
-function getCoverPosition(){
-  let coverPosition = document.getElementById('cover-image');
-  let _position = window.getComputedStyle(coverPosition,null).backgroundPosition.trim().split(/\s+/);
-  let positions = {
-    'left' : _position[0],
-    'top' : _position[1],
-    'numbers' : {
-        'left' : parseFloat(_position[0]),
-        'top' : parseFloat(_position[1])
-    },
-    'units' : {
-        'left' : _position[0].replace(/\d+/,''),
-        'top' : _position[1].replace(/\d+/,'')
-    }
-  };
-  //console.log(positions, positions.left, positions.top, positions.numbers.left, positions.numbers.top, positions.units.left, positions.units.top);
-  return positions.left + " " + positions.top;
-}
-export function setUnsplashState(state){
-  //console.log("state: "+state);
-  if(typeof state=='undefined'){
-    state = Session.get('unsplashState');
-  }
-  //console.log("state: "+state);
-  switch (state) {
-    //cover should be editable and the image should be visible
-    case 'edit-show':
-      //console.log("edit-show");
-      //$(".unsplash-search-box").hide();
-      $('#cover-image').removeClass("disable-edit");
-      //$("#unsplash-header-button").show();
-      $("#unsplash-controls").show();
-      $("#cover-image").show();
-      $("#unsplash-close").show();
-      $("#unsplash-open").hide();
-      $("#unsplash-container").show();
-      break;
-    //cover should be editable, but the image should be hidden
-    case 'edit-hide':
-      //console.log("edit-hide");
-      $("#cover-image").show();
-      $("#unsplash-controls").show();
-      $("#unsplash-close").hide();
-      $("#unsplash-open").show();
-      $("#unsplash-container").hide();
-      break;
-    /*
-    //cover should be editable, with search bar expanded
-    case 'edit-search':
-      console.log("edit-search");
-      $(".unsplash-search-box").show();
-      $("#unsplash-header-button").hide();
-      $("#unsplash-close").hide();
-      break;
-    */
-    //cover should be visible but not editable
-    case 'view':
-      //console.log("view");
-      $('#cover-image').addClass("disable-edit");
-      $("#unsplash-container").show();
-      $(".unsplash-search-box").hide();
-      $("#header-image-overlay").hide();
-      $("#unsplash-controls").hide();
-      $("#unsplash-close").hide();
-      $("#unsplash-open").hide();
-      break;
-    case 'view-edit':
-        //console.log("view");
-        $('#cover-image').addClass("disable-edit");
-        $("#unsplash-container").show();
-        $(".unsplash-search-box").hide();
-        $("#header-image-overlay").show();
-        $("#unsplash-controls").hide();
-        $("#unsplash-close").hide();
-        $("#unsplash-open").hide();
-        break;
-    //cover and all control should be completely hidden
-    case 'hidden':
-      //console.log("hidden");
-      $("#unsplash-container").hide();
-      $("#unsplash-controls").hide();
-      break;
-    default:
-      console.log("setUnsplashState could not be determined");
-  }
 }

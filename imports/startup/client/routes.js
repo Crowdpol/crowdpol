@@ -153,10 +153,17 @@ publicRoutes.route('/faq', {
   },
 });
 
-publicRoutes.route('/settings', {
-  name: 'App.settings',
+publicRoutes.route('/settings/profile', {
+  name: 'App.profile-settings',
   action() {
     BlazeLayout.render('App_body', { main: 'ProfileSettings' });
+  },
+});
+
+publicRoutes.route('/settings/account', {
+  name: 'App.account-settings',
+  action() {
+    BlazeLayout.render('App_body', { main: 'AccountSettings' });
   },
 });
 
@@ -164,6 +171,13 @@ publicRoutes.route('/unsplash', {
   name: 'App.unsplash',
   action() {
     BlazeLayout.render('App_body', { main: 'Unsplash' });
+  },
+});
+
+publicRoutes.route('/test', {
+  name: 'App.test',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Test' });
   },
 });
 

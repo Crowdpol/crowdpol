@@ -1,0 +1,119 @@
+@import 'variables.scss';
+//profile header
+.profile-card{
+
+  .profile-header{
+
+    img{
+      max-width:100%;
+      max-height:100%;
+
+    }
+  }
+  .profile-details{
+    background-color: #fff;
+
+    //display: flex;
+    //flex-flow: row wrap;
+    //justify-content: space-between;
+    .profile-pic-wrapper{
+      //border: solid 3px #fff;
+      flex: 1 20%;
+      .profile-image-div{
+        margin: -$aside-width/2 0 0 0px;
+        background-size: auto 100%;
+        width: $aside-width;
+        height: $aside-width;
+        border: solid 3px #fff;
+        display: block;
+        border-radius: 100%;
+      }
+    }
+    .profile-name{
+      //border: solid 1px blue;
+      flex: 4 80%;
+      .profile-names{
+        font-size: 12pt;
+      }
+      .profile-username{
+        font-size: 8pt;
+      }
+    }
+  }
+  .profile-details.app-container{
+    padding: 0;
+  }
+}
+///LEGACY
+
+/*
+.profile-picture {
+  display: block;
+  margin: $space auto;
+  width: $space * 5;
+  height: $space * 5;
+  border-radius: 100%;
+}
+*/
+//----
+
+.profile-pic-wrapper {
+  /*
+  position: relative;
+  width: 100%;
+
+  img {
+      display: block;
+      margin: 1.6rem auto;
+      width: 8rem;
+      height: 8rem;
+      border-radius: 100%;
+  }
+  */
+  .profile-image-overlay {
+    /*
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    */
+    opacity: 0;
+    transition: .3s ease;
+    background-color: $black;
+    margin: -$aside-width 0 0 0px;
+    width: $aside-width;
+    height: $aside-width;
+    border: solid 3px grey;
+    display: block;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .icon {
+      color: $white;
+      font-size: 25px;
+      //position: absolute;
+      //top: 50%;
+      //left: 50%;
+      //transform: translate(-50%, -50%);
+      //-ms-transform: translate(-50%, -50%);
+      //text-align: center;
+    }
+  }
+}
+.profile-pic-wrapper:hover .profile-image-overlay {
+  opacity: 0.5;
+}
+
+
+
+#change-photo-icon:hover {
+  opacity: 1;
+}
+
+.profile-photo-form-buttons{
+  float: right;
+}

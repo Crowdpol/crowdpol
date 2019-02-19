@@ -147,6 +147,15 @@ Schema.UserProfile = new SimpleSchema({
         type: Boolean,
         optional: false
     },
+    hasCover: {
+      type: Boolean,
+      optional: false,
+      autoValue() {
+        if (this.isInsert) {
+          return false;
+        }
+      },
+    },
     coverURL: {
       type: String,
       optional: true
