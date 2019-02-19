@@ -17,7 +17,8 @@ import './pages/home/home.js';
 import './pages/faq/faq.js';
 import './pages/feed/feed.js';
 import './pages/userHome/userHome.js';
-import './pages/settings/settings.js';
+import './pages/settings/profileSettings.js';
+import './pages/settings/accountSettings.js';
 import './pages/not-found/not-found.js';
 import './pages/authenticate/authenticate.js';
 import './pages/dash/dash.js';
@@ -39,6 +40,7 @@ import './pages/delegates/delegate.js';
 import './pages/candidates/candidates.js';
 import './pages/notifications/notifications.js';
 import './pages/tags/interests.js';
+import './pages/test/test.js';
 import './stylesheets/stylesheets.js';
 import './v2/main.js';
 

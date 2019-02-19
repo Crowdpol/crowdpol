@@ -11,7 +11,8 @@
 	    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 	</script>
 	-->
-	<div class="site mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	<div id="site-wrapper-div">
+	<div class="site mdl-layout mdl-js-layout mdl-layout--fixed-header" >
 		<!--{{#if showDrawer}}-->
 			<!-- imports/ui/components/layout/header/header.html -->
 			{{> Header}}
@@ -37,4 +38,6 @@
 			{{> Footer}}
 		{{/if}}
 	</div>
+	</div>
+
 </template>

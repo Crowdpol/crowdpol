@@ -16,11 +16,58 @@
 
 .app-container {
   position: relative;
-  max-width: 40rem;
+  max-width: 50rem;
   margin: 0 auto;
   padding: $space ($space / 2) ($space * 3);
 }
 
+.column-container.app-container{
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  height: 100%;
+  font-weight: bold;
+  text-align: center;
+  padding: 0px;
+
+  .main {
+    width: 60%;
+    text-align: left;
+    border: solid $test-border-width pink;
+  }
+  .aside {
+    width: $aside-width;
+  }
+  .aside-1 {
+    border: solid $test-border-width red;
+
+    .settings-menu {
+      list-style-type: none;
+      padding: 0;
+
+      &__item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      &__link {
+        display: block;
+        padding: 1rem;
+        color: #76808f;
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+          color: #fff;
+          background-color: $light-grey-mid;
+        }
+      }
+    }
+  }
+
+  .aside-2 {
+    border: solid $test-border-width orange;
+    width: 20%;
+  }
+}
 .static-content-wrap {
   padding-top: $space * 2;
   padding-bottom: $space * 2;

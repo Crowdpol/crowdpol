@@ -1,4 +1,4 @@
-import './settings.html';
+import './profileSettings.html';
 import '../../components/profileHeader/profileHeader.js';
 
 Template.ProfileSettings.onCreated(function() {

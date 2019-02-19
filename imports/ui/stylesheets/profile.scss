@@ -1,12 +1,6 @@
 @import 'variables.scss';
 
-.profile-picture {
-  display: block;
-  margin: $space auto;
-  width: $space * 5;
-  height: $space * 5;
-  border-radius: 100%;
-}
+
 
 .valid-username {
   position: absolute;
@@ -77,68 +71,6 @@
   margin-bottom: 5px;
 }
 
-//----
-
-.profile-pic-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.image {
-    display: block;
-    margin: 1.6rem auto;
-    width: 8rem;
-    height: 8rem;
-    border-radius: 100%;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: .3s ease;
-  background-color: transparent;
-}
-
-.profile-pic-wrapper:hover .overlay {
-  opacity: 0.5;
-}
-
-.icon {
-  color: black;
-  font-size: 25px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-#change-photo-icon:hover {
-  opacity: 1;
-}
-
-.mdl-chip.square-chip{
-  background-color: $light-grey-xdark;
-  border-radius: 5px;
-  text-align: center;
-  width: 80px;
-  height: 25px;
-  line-height: 22px;
-  padding: 0px;
-  margin: 0px;
-
-  .mdl-chip__text {
-    line-height: 1.2rem;
-  }
-}
-
 
 //UPDATE PROFILE PAGE:
 
@@ -179,45 +111,5 @@ div#profile-delegate-status{
     font-weight: 200;
     font-size: 16px;
     margin-top: 10px;
-  }
-}
-
-//profile header
-.profile-card{
-  max-width: 300px;
-  .profile-header{
-    border: solid 1px #fff;
-
-    img{
-      max-width:100%;
-      max-height:100%;
-    }
-  }
-  .profile-details{
-    border: solid 1px #fff;
-    background-color: #fff;
-    //display: flex;
-    //flex-flow: row wrap;
-    //justify-content: space-between;
-    .profile-image{
-      border: solid 3px #fff;
-      flex: 1 20%;
-      img{
-        margin: -50px 0 0 8px;
-        width: 100px;
-        height: 100px;
-        border: solid 3px #fff;
-      }
-    }
-    .profile-name{
-      //border: solid 1px blue;
-      flex: 4 80%;
-      .profile-names{
-        font-size: 12pt;
-      }
-      .profile-username{
-        font-size: 8pt;
-      }
-    }
   }
 }
