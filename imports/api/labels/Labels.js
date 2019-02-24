@@ -10,23 +10,39 @@ const LabelSchema = new SimpleSchema({
     // Unique identifier in DB as keyword-based-slug
     type: String,
     optional: false,
+    /* probably won't need to slud a label keyword
     autoValue: function () {
       if (this.isInsert) {
         return convertToSlug(this.value);
       }
     }
+    */
   },
   description: {
     type: String,
     optional: false,
   },
+  /*
+  level: {
+    type: Number,
+    optional: false,
+
+    autoValue: function () {
+      if (this.isInsert) {
+        return 0;
+      }
+    }
+  },*/
   url: {
      //URL that identifies this label
     type: String,
     optional: true,
     autoValue: function () {
       if (this.isInsert) {
-        return '/label/' + this.field("keyword").value;
+        return '/label/' + convertToSlug(this.field("keyword").value);
+      }
+      if (this.isUpdate) {
+        return '/label/' + convertToSlug(this.field("keyword").value);
       }
     }
   },
@@ -48,6 +64,13 @@ const LabelSchema = new SimpleSchema({
       return new Date();
     }
   },
+  "parentLabels": {
+			type: Array,
+			optional: true
+	},
+	'parentLabels.$': {
+			type: String
+	},
   authorized: {
     //This label has been authorized
     type: Boolean,
