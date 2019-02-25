@@ -1,0 +1,65 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+ul, #myUL {
+  list-style-type: none;
+  .label-tree-item.active-item > span.caret > span:first-child {
+    font-weight: 500;
+  }
+  .label-tree-item.active-item > span:first-child {
+    font-weight: 500;
+  }
+}
+#add-label{
+
+  .mdl-chip{
+    .mdl-chip__action{
+      display: none;
+    }
+  }
+  .mdl-chip--deletable{
+    .mdl-chip__action{
+      display: inline-block;
+    }
+  }
+
+}
+
+#tree-card{
+  border: solid 1px purple;
+}
+
+#myUL {
+  margin: 0;
+  padding: 0;
+  border: solid 1px red;
+}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */
+  transform: rotate(90deg);
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}

@@ -99,6 +99,22 @@
 			"delete-button": "Delete",
 			"none-waiting": "There are currently no pending proposals."
 		},
+		"labels":{
+			"heading": "Label Details",
+			"parents": "Select the parent labels from the tree structure on the left",
+			"edit-button": "Edit",
+			"add-button": "Add",
+			"cancel-button": "Cancel",
+			"save-button": "Save",
+			"delete-button": "Delete",
+			"keyword": "Keyword",
+			"desc": "Description",
+			"alerts": {
+				"label-updated": "Label Updated",
+				"label-added": "Label Added",
+				"label-deleted": "Label Deleted"
+			}
+		},
 		"approvals": {
 			"heading": "Approvals",
 			"approve-button": "Approve",

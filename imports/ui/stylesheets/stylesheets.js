@@ -40,3 +40,4 @@ import './cover.scss';
 import './unsplash.scss';
 import './delegate-list.scss';
 import './user-home.scss';
+import './labels.scss';

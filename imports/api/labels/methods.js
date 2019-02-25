@@ -5,16 +5,36 @@ import { Proposals } from '../proposals/Proposals.js';
 import { convertToSlug } from '../../utils/functions';
 
 Meteor.methods({
-    addLabel: function (keyword, communityId) {
-      check(keyword, String);
-      check(communityId, String);
-      var existingLabel = Labels.findOne({keyword: convertToSlug(keyword), communityId: communityId});
+    addLabel: function (label) {
+      check(label, {
+        keyword: String,
+        description: String,
+        //level: Number,
+        communityId: String,
+        parentLabels: Match.Maybe([String])
+      });
+      //parentLabels:
+      var existingLabel = Labels.findOne({keyword: label.keyword, communityId: label.communityId});
       if (!existingLabel){
-        let label = Labels.insert({ keyword: keyword, communityId: communityId });
-        return label;
+        let newLabel = Labels.insert({ keyword: label.keyword, description: label.description, communityId: label.communityId, parentLabels: label.parentLabels });
+        return newLabel;
       } else {
         return existingLabel._id;
       }
+    },
+    editLabel: function (label) {
+      check(label, {
+        id: String,
+        keyword: String,
+        description: String,
+        //level: Number,
+        communityId: String,
+        parentLabels: Match.Maybe([String])
+      });
+      console.log(label);
+      let result = Labels.update({_id:label._id},{ $set:{ keyword: label.keyword}});
+      console.log(result);
+       return label.id;
     },
     getLabel: function (labelID) {
       check(labelID, String);
@@ -27,6 +47,7 @@ Meteor.methods({
     },
     deleteLabel: function (labelId) {
       check(labelId, String);
+      /* UPDATE THIS TO STRIP LABEL FROM EXISTING PROPOSALS AND USER PROFILES
       //pull label id from any proposals
       let proposals = Proposals.find({labels: labelId});
       proposals.forEach(function (value) {
@@ -37,8 +58,14 @@ Meteor.methods({
       users.forEach(function (value) {
         Meteor.users.update({"_id":value._id},{$pull: {"profile.labels": labelId}});
       });
+      */
       //kill label
-      return Labels.remove(labelId);
+      let children = Labels.find({parentLabels: labelId});
+      children.forEach(function (value) {
+        Labels.update({"_id":value._id},{$pull: {"parentLabels": labelId}});
+      });
+      //remove all children;
+      return //Labels.remove(labelId);
     },
     transformLabels: function(keywords, communityId){
       /*Takes an array of label keywords and communityId and returns an array of label objects
