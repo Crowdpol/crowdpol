@@ -108,7 +108,12 @@
 			"save-button": "Save",
 			"delete-button": "Delete",
 			"keyword": "Keyword",
-			"desc": "Description"
+			"desc": "Description",
+			"alerts": {
+				"label-updated": "Label Updated",
+				"label-added": "Label Added",
+				"label-deleted": "Label Deleted"
+			}
 		},
 		"approvals": {
 			"heading": "Approvals",

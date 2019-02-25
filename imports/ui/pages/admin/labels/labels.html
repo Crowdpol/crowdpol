@@ -109,7 +109,6 @@
 						<tr>
 							<th>{{_"admin.labels.keyword"}}</th>
 							<th>{{_"admin.labels.created"}}</th>
-							<th>{{_"admin.labels.approved"}}</th>
 							<th>{{_"admin.labels.delete"}}</th>
 						</tr>
 					</thead>
@@ -118,15 +117,6 @@
 							<tr>
 								<td data-label='{{_"admin.labels.keyword"}}' class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{keyword}}</a></td>
 								<td data-label='{{_"admin.labels.created"}}' class="mdl-data-table__cell--non-numeric">{{labelDate}}</td>
-								<td data-label='{{_"admin.labels.approved"}}' class="mdl-data-table__cell--non-numeric">
-									<button id="approve-button" class="mdl-button mdl-js-button mdl-button--raised approve-button-class" data-label-id={{_id}} data-label-authorized="{{authorized}}">
-										{{#if authorized}}
-											<i class="material-icons approve-button-class" data-label-id={{_id}} data-label-authorized="{{authorized}}">check</i>
-										{{else}}
-											<i class="material-icons approve-button-class" data-label-id={{_id}} data-label-authorized="{{authorized}}">close</i>
-										{{/if}}
-									</button>
-								</td>
 								<td data-label='{{_"admin.labels.delete"}}' >
 									<button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised delete-button-class" data-label-id="{{_id}}">
 										<i class="material-icons delete-button-class" data-label-id="{{_id}}">delete</i>

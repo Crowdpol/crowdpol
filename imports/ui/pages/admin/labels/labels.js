@@ -92,7 +92,7 @@ Template.AdminLabels.events({
           console.log(result);
           template.currentLabel.set(result);
           template.editState.set(false);
-  				Bert.alert(TAPi18n.__('admin.alerts.label-updated'), 'success');
+  				Bert.alert(TAPi18n.__('admin.label.alerts.label-updated'), 'success');
   			}
   		});
     }else{
@@ -108,7 +108,7 @@ Template.AdminLabels.events({
   			} else {
           template.currentLabel.set(result);
           template.editState.set(false);
-  				Bert.alert(TAPi18n.__('admin.alerts.label-added'), 'success');
+  				Bert.alert(TAPi18n.__('admin.label.alerts.label-added'), 'success');
   			}
   		});
     }
@@ -122,7 +122,7 @@ Template.AdminLabels.events({
       } else {
         template.currentLabel.set();
         template.editState.set(false);
-        Bert.alert(TAPi18n.__('admin.alerts.label-deleted'), 'success');
+        Bert.alert(TAPi18n.__('admin.label.alerts.label-deleted'), 'success');
       }
     });
   }
@@ -247,7 +247,7 @@ Template.AdminLabelsTable.events({
 				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert(TAPi18n.__('admin.alerts.label-updated'), 'success');
+				Bert.alert(TAPi18n.__('admin.label.alerts.label-updated'), 'success');
 			}
 		});
 	},
