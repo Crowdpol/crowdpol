@@ -259,6 +259,17 @@ Template.AdminLabelsTable.helpers({
   },
   labelDate: function(){
 	   return moment(this.createdAt).format('DD MMMM YYYY');
+  },
+  parentKeyword: function(id){
+    if(id){
+      let label = Labels.findOne({"_id":id})
+      if(label){
+        if(typeof label.keyword != "undefined"){
+          return label.keyword;
+        }
+      }
+    }
+    return;
   }
 });
 
@@ -279,16 +290,18 @@ Template.AdminLabelsTable.events({
 
 	'click .delete-button-class': function(event, template){
 		event.preventDefault();
-		Meteor.call('deleteLabel', event.target.dataset.labelId, function(error){
-			if (error){
-				RavenClient.captureException(error);
-				Bert.alert(error.reason, 'danger');
-			} else {
-				Bert.alert("Label Deleted", 'success');
-			}
-		});
+    let id = event.target.dataset.labelId
+    if(id){
+      Meteor.call('deleteLabel', event.target.dataset.labelId, function(error){
+  			if (error){
+  				RavenClient.captureException(error);
+  				Bert.alert(error.reason, 'danger');
+  			} else {
+  				Bert.alert("Label Deleted", 'success');
+  			}
+  		});
+    }
 	},
-
 });
 
 

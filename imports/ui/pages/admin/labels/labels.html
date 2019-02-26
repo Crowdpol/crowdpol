@@ -20,7 +20,7 @@
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" id="label-form-container">
 				<div class="dashboard__item dashboard__item--full">
 					<div class="card">
-							<h5>{{_ "admin.labels.heading"}}<small>{{currentLabel.keyword}}</small></h5>
+							<h5>{{_ "admin.labels.heading"}}</h5>
 							<form id="add-label">
 								{{#unless editState}}
 									{{#if currentLabel}}
@@ -30,7 +30,7 @@
 										<span><strong>{{_ "admin.labels.desc"}}:</strong></span><br>
 										<p>{{currentLabel.description}}</p>
 										<div class="parent-tags">
-											<p> {{_ "admin.labels.parents"}}</p>
+											<p> {{_ "admin.labels.parents-instructions"}}</p>
 											{{#each label in parentLabels}}
 												<span class="mdl-chip {{chipDeletable}}" data-id="{{label._id}}" >
 												    <span class="mdl-chip__text">{{label.keyword}}</span>
@@ -109,19 +109,27 @@
 						<tr>
 							<th>{{_"admin.labels.keyword"}}</th>
 							<th>{{_"admin.labels.desc"}}</th>
+							<th>{{_"admin.labels.parents"}}</th>
 							<th>{{_"admin.labels.created"}}</th>
 							<th>{{_"admin.labels.delete"}}</th>
 						</tr>
 					</thead>
 					<tbody>
-						{{#each labels}}
+						{{#each label in labels}}
 							<tr>
-								<td data-label='{{_"admin.labels.keyword"}}' class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{keyword}}</a></td>
-								<td data-label='{{_"admin.labels.desc"}}' class="mdl-data-table__cell--non-numeric">{{description}}</td>
+								<td data-label='{{_"admin.labels.keyword"}}' class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{label.keyword}}</a></td>
+								<td data-label='{{_"admin.labels.desc"}}' class="mdl-data-table__cell--non-numeric">{{label.description}}</td>
+								<td data-label='{{_"admin.labels.parents"}}' class="mdl-data-table__cell--non-numeric">
+									{{#each parent in label.parentLabels}}
+										<span class="mdl-chip" data-id="{{parent}}" >
+												<span class="mdl-chip__text">{{parentKeyword parent}}</span>
+										</span>
+									{{/each}}
+								</td>
 								<td data-label='{{_"admin.labels.created"}}' class="mdl-data-table__cell--non-numeric">{{labelDate}}</td>
 								<td data-label='{{_"admin.labels.delete"}}' >
-									<button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised delete-button-class" data-label-id="{{_id}}">
-										<i class="material-icons delete-button-class" data-label-id="{{_id}}">delete</i>
+									<button id="delete-button" class="mdl-button mdl-js-button mdl-button--icon delete-button-class" data-label-id="{{label._id}}">
+									  <i class="material-icons delete-button-class" data-label-id="{{label._id}}">delete</i>
 									</button>
 								</td>
 							</tr>
