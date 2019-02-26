@@ -6,10 +6,10 @@
 					{{#each label in rootLabels}}
 					  <li class="label-tree-item" data-id="{{label._id}}" data-label-level="{{label.level}}">
 							{{#if hasChildren label._id}}
-								<span class="caret"><span class="item-text">{{label._id}} - {{label.keyword}}</span></span>
+								<span class="caret"><span class="item-text">{{label.keyword}}</span></span>
 								{{>LabelChildren label=label}}
 							{{else}}
-								<span class="item-text">{{label._id}} - {{label.keyword}}</span>
+								<span class="item-text">{{label.keyword}}</span>
 							{{/if}}
 					  </li>
 					{{/each}}
@@ -30,7 +30,7 @@
 										<span><strong>{{_ "admin.labels.desc"}}:</strong></span><br>
 										<p>{{currentLabel.description}}</p>
 										<div class="parent-tags">
-											<p> {{_ "admin.labels.parents"}}</p>
+											<p> {{_ "admin.labels.parents-instructions"}}</p>
 											{{#each label in parentLabels}}
 												<span class="mdl-chip {{chipDeletable}}" data-id="{{label._id}}" >
 												    <span class="mdl-chip__text">{{label.keyword}}</span>
@@ -87,9 +87,9 @@
 		{{#each childLabel in childLabels label._id}}
 			<li class="label-tree-item" data-id="{{childLabel._id}}" data-label-level="{{childLabel.level}}">
 				{{#unless hasChildren childLabel._id}}
-					<span class="item-text">{{childLabel._id}} - {{childLabel.keyword}}</span>
+					<span class="item-text">{{childLabel.keyword}}</span>
 				{{else}}
-					<span class="caret"><span class="item-text">{{childLabel._id}} -{{childLabel.keyword}}</span></span>
+					<span class="caret"><span class="item-text">{{childLabel.keyword}}</span></span>
 					{{>LabelChildren label=childLabel}}
 				{{/unless}}
 			</li>
@@ -108,18 +108,28 @@
 					<thead>
 						<tr>
 							<th>{{_"admin.labels.keyword"}}</th>
+							<th>{{_"admin.labels.desc"}}</th>
+							<th>{{_"admin.labels.parents"}}</th>
 							<th>{{_"admin.labels.created"}}</th>
 							<th>{{_"admin.labels.delete"}}</th>
 						</tr>
 					</thead>
 					<tbody>
-						{{#each labels}}
+						{{#each label in labels}}
 							<tr>
-								<td data-label='{{_"admin.labels.keyword"}}' class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{keyword}}</a></td>
+								<td data-label='{{_"admin.labels.keyword"}}' class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{label.keyword}}</a></td>
+								<td data-label='{{_"admin.labels.desc"}}' class="mdl-data-table__cell--non-numeric">{{label.description}}</td>
+								<td data-label='{{_"admin.labels.parents"}}' class="mdl-data-table__cell--non-numeric">
+									{{#each parent in label.parentLabels}}
+										<span class="mdl-chip" data-id="{{parent}}" >
+												<span class="mdl-chip__text">{{parentKeyword parent}}</span>
+										</span>
+									{{/each}}
+								</td>
 								<td data-label='{{_"admin.labels.created"}}' class="mdl-data-table__cell--non-numeric">{{labelDate}}</td>
 								<td data-label='{{_"admin.labels.delete"}}' >
-									<button id="delete-button" class="mdl-button mdl-js-button mdl-button--raised delete-button-class" data-label-id="{{_id}}">
-										<i class="material-icons delete-button-class" data-label-id="{{_id}}">delete</i>
+									<button id="delete-button" class="mdl-button mdl-js-button mdl-button--icon delete-button-class" data-label-id="{{label._id}}">
+									  <i class="material-icons delete-button-class" data-label-id="{{label._id}}">delete</i>
 									</button>
 								</td>
 							</tr>

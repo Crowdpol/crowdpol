@@ -32,8 +32,11 @@ Meteor.methods({
         parentLabels: Match.Maybe([String])
       });
       console.log(label);
-      let result = Labels.update({_id:label._id},{ $set:{ keyword: label.keyword}});
-      console.log(result);
+      var existingLabel = Labels.findOne({"_id":label.id});
+      //console.log(existingLabel);
+      //console.log('db.labels.find({"_id":'+label.id+'},{$set:{ "keyword": '+label.keyword+',"description":'+label.description+',"parentLabels":'+label.parentLabels+'}})');
+      Labels.update({"_id":label.id},{$set:{ "keyword": label.keyword,"description":label.description,"parentLabels":label.parentLabels}});
+
        return label.id;
     },
     getLabel: function (labelID) {
@@ -65,7 +68,7 @@ Meteor.methods({
         Labels.update({"_id":value._id},{$pull: {"parentLabels": labelId}});
       });
       //remove all children;
-      return //Labels.remove(labelId);
+      return Labels.remove(labelId);
     },
     transformLabels: function(keywords, communityId){
       /*Takes an array of label keywords and communityId and returns an array of label objects
