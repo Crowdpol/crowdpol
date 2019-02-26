@@ -7,6 +7,7 @@ Template.AdminLabels.onCreated(function() {
   var self = this;
   var communityId = LocalStore.get('communityId');
   self.editState = new ReactiveVar(false);
+  self.addState = new ReactiveVar(false);
   self.currentLabel = new ReactiveVar();
   self.selectedParents = new ReactiveVar([]);
   self.autorun(function() {
@@ -52,13 +53,23 @@ Template.AdminLabels.events({
   'click #cancel-edit-button'(event, template){
     event.preventDefault();
     template.editState.set(false);
+    template.addState.set(false);
   },
   'click #add-label-button'(event, template){
     event.preventDefault();
     template.selectedParents.set([]);
-    template.currentLabel.set();
+    //template.currentLabel.set();
     document.getElementById("add-label").reset();
     template.editState.set(true);
+    template.addState.set(true);
+    let currentLabel = template.currentLabel.get();
+    if(currentLabel){
+      let selectedParents = template.selectedParents.get();
+      if(!selectedParents.includes(currentLabel)){
+        selectedParents.push(currentLabel);
+        template.selectedParents.set(selectedParents);
+      }
+    }
   },
   'click .delete-parent'(event, template){
     let id = $(event.currentTarget).parent(".mdl-chip").attr("data-id");
@@ -89,7 +100,6 @@ Template.AdminLabels.events({
   			if (error){
   				Bert.alert(error.reason, 'danger');
   			} else {
-          console.log(result);
           template.currentLabel.set(result);
           template.editState.set(false);
   				Bert.alert(TAPi18n.__('admin.label.alerts.label-updated'), 'success');
@@ -108,6 +118,7 @@ Template.AdminLabels.events({
   			} else {
           template.currentLabel.set(result);
           template.editState.set(false);
+          template.addState.set(false);
   				Bert.alert(TAPi18n.__('admin.label.alerts.label-added'), 'success');
   			}
   		});
@@ -141,12 +152,23 @@ Template.AdminLabels.helpers({
   },
   currentLabel: ()=> {
     let id = Template.instance().currentLabel.get();
-    return Labels.findOne({_id:id});
+    if(id){
+      return Labels.findOne({_id:id});
+    }else{
+      id = $(".label-tree-item.active-item").attr('data-id');
+      Template.instance().currentLabel.set(id);
+    }
   },
   currentLabelId: ()=>{
-    return Template.instance().currentLabel.get();;
+    if(Template.instance().addState.get()){
+      return;
+    }
+    return Template.instance().currentLabel.get();
   },
   currentLabelKeyword: ()=> {
+    if(Template.instance().addState.get()){
+      return;
+    }
     let id = Template.instance().currentLabel.get();
     let editState = Template.instance().editState.get();
     if(id&&editState){
@@ -154,6 +176,9 @@ Template.AdminLabels.helpers({
     }
   },
   currentLabelDesc: ()=> {
+    if(Template.instance().addState.get()){
+      return;
+    }
     let id = Template.instance().currentLabel.get();
     let editState = Template.instance().editState.get();
     if(id&&editState){
