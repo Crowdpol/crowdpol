@@ -109,6 +109,8 @@
 			"delete-button": "Delete",
 			"keyword": "Keyword",
 			"desc": "Description",
+			"created": "Date created",
+			"delete": "Delete",
 			"alerts": {
 				"label-updated": "Label Updated",
 				"label-added": "Label Added",
