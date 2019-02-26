@@ -10,7 +10,7 @@ Template.UserHome.onCreated(function () {
   self.user=null;
   let userId = FlowRouter.getParam("id");
   if(typeof userId =='undefined'){
-    Session.set("unsplashState","view-edit");
+    Session.set("coverState","view-edit");
     userId = Meteor.userId();
     user = Meteor.users.findOne({"_id":userId});
     if(typeof user != 'undefined'){
@@ -22,7 +22,7 @@ Template.UserHome.onCreated(function () {
       }
     }
   }else{
-    Session.set("unsplashState","view");
+    Session.set("coverState","view");
   }
   self.userId = new ReactiveVar(userId);
   self.subscribe('users.profile');
@@ -56,6 +56,9 @@ Template.UserHome.onRendered(function(){
 });
 */
 Template.UserHome.helpers({
+  thisUser: function() {
+
+  },
   profilePic: function() {
     let userId = Template.instance().userId.get();
     user = Meteor.users.findOne({"_id":userId});

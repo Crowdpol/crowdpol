@@ -1,12 +1,15 @@
 <template name="ProfileHeader">
+  {{setHeader userId editable}}
   <div class="profile-card">
     <div class="profile-header">
       <!--<img src="https://images.pexels.com/photos/259915/pexels-photo-259915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Header Pic" >-->
+
       {{>Cover editable=editable}}
     </div>
 
-    <div class="profile-details column-container app-container">
-      {{>ProfileImage editable=editable}}
+    <div id="profile-details-header" class="profile-details app-container {{hasCover}}">
+      {{>ProfileImage editable=editable userId=userId}}
     </div>
+
   </div>
 </template>

@@ -12,36 +12,87 @@
   }
   .profile-details{
     background-color: #fff;
-
     //display: flex;
     //flex-flow: row wrap;
     //justify-content: space-between;
-    .profile-pic-wrapper{
-      //border: solid 3px #fff;
-      flex: 1 20%;
-      .profile-image-div{
-        margin: -$aside-width/2 0 0 0px;
-        background-size: auto 100%;
-        width: $aside-width;
-        height: $aside-width;
-        border: solid 3px #fff;
-        display: block;
-        border-radius: 100%;
+    .aside-1{
+      -webkit-transition-property: width, height; /* Safari */
+      //-webkit-transition-duration: 2s; /* Safari */
+      transition-property: width, height;
+      transition-duration: 1s;
+      .profile-pic-wrapper{
+        //border: solid 3px #fff;
+        flex: 1 20%;
+        .profile-image-div{
+          margin: -$aside-width/2 0 0 0px;
+          background-size: auto 100%;
+          background-repeat: no-repeat;
+          background-position: center;
+          width: $aside-width;
+          height: $aside-width;
+          border: solid 3px #fff;
+          display: block;
+          border-radius: 100%;
+
+          -webkit-transition-property: width, height; /* Safari */
+          //-webkit-transition-duration: 2s; /* Safari */
+          transition-property: width, height;
+          //transition-duration: 2s;
+        }
       }
-    }
-    .profile-name{
-      //border: solid 1px blue;
-      flex: 4 80%;
-      .profile-names{
-        font-size: 12pt;
-      }
-      .profile-username{
-        font-size: 8pt;
+      .profile-name{
+        //border: solid 1px blue;
+        flex: 4 80%;
+        .profile-names{
+          font-size: 12pt;
+        }
+        .profile-username{
+          font-size: 8pt;
+        }
       }
     }
   }
   .profile-details.app-container{
     padding: 0;
+
+  }
+  .profile-details.collapsed{
+    border: solid $test-border-width red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    .aside-1{
+      padding-top: 10px;
+      border: solid $test-border-width green;
+      width: $aside-width;
+      .profile-pic-wrapper{
+        border: solid $test-border-width blue;
+
+        .profile-image-div{
+          border: 0;
+          margin-top: 0;
+        }
+        .profile-image-overlay {
+        //  width: 80px;
+        //  height: 80px;
+        }
+      }
+    }
+    .main{
+      padding-bottom: 10px;
+      width: 60%;
+      //display: flex;
+      align-items: center;
+      justify-content: center;
+      .profile-name{
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction:column;
+      }
+    }
   }
 }
 ///LEGACY

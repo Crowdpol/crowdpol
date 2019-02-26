@@ -34,7 +34,7 @@ Template.Feed.onCreated(function () {
   });
   */
   self.autorun(function(){
-    Session.set("unsplashState","view");
+    Session.set("coverState","view");
     $("#unsplash-close").hide();
   });
 });

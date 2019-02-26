@@ -322,7 +322,7 @@ Template.ProfileForm.helpers({
     return user.profile;
   },
   profilePic: function() {
-    return Template.instance().dict.get('photo');
+    return Session.get('photoURL');
   },
   firstName: function() {
     return Template.instance().dict.get('firstname');

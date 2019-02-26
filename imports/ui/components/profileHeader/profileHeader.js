@@ -1,10 +1,12 @@
 import './profileHeader.html';
 import "./profileImage.js"
-//import '../../components/profileHeader/profileHeader.js';
+import { userHasCover } from '../../../utils/users';
+import { userProfilePhoto } from '../../../utils/users';
 
 Template.ProfileHeader.onCreated(function(){
   $(".mdl-layout").on('scroll', detectScroll);
-
+  Session.set('photoURL', "/img/default-user-image.png");
+  Session.set('coverState','view');
   /*
   var wrap = $(".page-content");
   console.log(wrap);
@@ -21,8 +23,30 @@ Template.ProfileHeader.onCreated(function(){
 });
 
 Template.ProfileHeader.helpers({
-  profilePic: function() {
-  	return Meteor.user().profile.photo;
+  setHeader: function(userId,editable) {
+    console.log("setHeader called: " + userId + " editable: " + editable);
+    if(editable==true){
+      Session.set('coverState','edit-show');
+    }
+    if(userId){
+      let coverURL = userHasCover();
+      if(coverURL){
+        Session.set("hasCover",true);
+        Session.set("coverURL",coverURL);
+
+      }else{
+        Session.set("hasCover",false);
+      }
+      let photoURL = userProfilePhoto(userId);
+      console.log("profileHeader.js photoURL: " + photoURL);
+      Session.set('photoURL',photoURL);
+    }
+  },
+  hasCover: function(){
+    if(Session.get("hasCover")){
+      return "column-container ";
+    }
+    return "collapsed";
   }
 });
 
