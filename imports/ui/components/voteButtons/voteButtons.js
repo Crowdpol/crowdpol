@@ -43,17 +43,17 @@ Template.voteButtons.helpers({
 	},
 	delegateYesClass: function(){
 		if (Template.instance().templateDictionary.get('delegateVote') == 'yes'){
-			return 'delegate-color'
+			return 'mdl-button--colored-yes'
 		}
 	},
 	delegateNoClass: function(){
 		if (Template.instance().templateDictionary.get('delegateVote') == 'no'){
-			return 'delegate-color'
+			return 'mdl-button--colored-no'
 		}
 	},
 	delegateAbstainClass: function(){
 		if (Template.instance().templateDictionary.get('delegateVote') == 'abstain'){
-			return 'delegate-color'
+			return 'mdl-button--colored-abstain'
 		}
 	}
 });

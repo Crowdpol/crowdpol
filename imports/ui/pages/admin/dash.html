@@ -80,44 +80,39 @@
 		<a href="#" class="logo">
 			<strong>Admin Dash</strong>
 		</a>
-		<!--
-		<div class="toolbar">
-			<button class="btn btn-primary">Add New Plumbus</button>
-			<a href="#" class="logout">
-				Log Out
-			</a>
-		</div>
-	-->
 	</header>
 	<nav class="admin__nav">
 		<ul class="menu">
 			<li class="menu__item">
-				<a class="menu__link" href="#" data-template="Overview">Dashboard</a>
+				<a class="menu__link" href="#Overview" data-template="Overview">Dashboard</a>
 			</li>
 			<li class="menu__item">
-				<a class="menu__link" href="#" data-template="AdminUsers">Users</a>
+				<a class="menu__link" href="#AdminUsers" data-template="AdminUsers">Users</a>
 			</li>
 			<li class="menu__item">
-				<a class="menu__link" href="#" data-template="AdminApprovals">Requests</a>
+				<a class="menu__link" href="#AdminApprovals" data-template="AdminApprovals">Requests</a>
 			</li>
 			<li class="menu__item">
-				<a class="menu__link" href="#" data-template="AdminProposals">Proposals</a>
+				<a class="menu__link" href="#AdminProposals" data-template="AdminProposals">Proposals</a>
 			</li>
 			<li class="menu__item">
-				<a class="menu__link" href="#" data-template="AdminTags">Tags</a>
+				<a class="menu__link" href="#AdminLabels" data-template="AdminLabels">Labels</a>
 			</li>
 			<li class="menu__item">
-				<a class="menu__link" href="#" data-template="AdminVoting">Votes</a>
+				<a class="menu__link" href="#AdminTags" data-template="AdminTags">Tags</a>
 			</li>
 			<li class="menu__item">
-				<a class="menu__link" href="#" data-template="ProposalStats">Stats</a>
+				<a class="menu__link" href="#AdminVoting" data-template="AdminVoting">Votes</a>
 			</li>
 			<li class="menu__item">
-				<a class="menu__link" href="#" data-template="AdminSettings">Settings</a>
+				<a class="menu__link" href="#ProposalStats" data-template="ProposalStats">Stats</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#AdminSettings" data-template="AdminSettings">Settings</a>
 			</li>
 			{{#if currentUserIsSuperAdmin}}
 				<li class="menu__item">
-					<a class="menu__link" href="#" data-template="AdminCommunities">Super Admin</a>
+					<a class="menu__link" href="#AdminCommunities" data-template="AdminCommunities">Super Admin</a>
 				</li>
 			{{/if}}
 		</ul>
@@ -156,6 +151,27 @@
 	  <div class="mdl-card__actions mdl-card--border">
 	    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/admin/tags">
 	      {{_"admin.dash.card.tags.link"}}
+	    </a>
+	  </div>
+	  <div class="mdl-card__menu">
+	    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+	      <i class="material-icons">loyalty</i>
+	    </button>
+	  </div>
+	</div>
+</template>
+
+<template name="AdminDashLabels">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.labels.heading"}}</h2>
+	  </div>
+	  <div class="dash-card-text mdl-card__supporting-text">
+	    {{_"admin.dash.card.labels.text"}}
+	  </div>
+	  <div class="mdl-card__actions mdl-card--border">
+	    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/admin/labels">
+	      {{_"admin.dash.card.labels.link"}}
 	    </a>
 	  </div>
 	  <div class="mdl-card__menu">

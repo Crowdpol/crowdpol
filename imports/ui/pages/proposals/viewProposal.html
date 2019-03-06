@@ -2,10 +2,10 @@
 	{{> SignInModal}}
 	{{> RemoveInviteModal}}
 	{{#if hasHeader}}
-		{{> Unsplash}}
+		{{>Cover}}
 	{{/if}}
 	{{#if currentUser }}
-		{{> backButton text="generic.back-to-proposals" url=backUrl}}
+		{{> backButton text="generic.back-to-proposals" url=backUrl hasHeader=hasHeader}}
 	{{/if}}
 	{{#if Template.subscriptionsReady}}
 

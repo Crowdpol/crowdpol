@@ -1,13 +1,20 @@
-import './settings.html';
-import '../../components/profileHeader/profileHeader.js';
+import './accountSettings.html';
 
-Template.ProfileSettings.onCreated(function() {
+Template.AccountSettings.onCreated(function() {
   self = this;
 	// Reactive and Session Vars
-	self.currentView = new ReactiveVar('profile');
+	self.currentView = new ReactiveVar('notifications');
 });
-
-Template.ProfileSettings.helpers({
+/*
+Template.AccountSettings.onRendered(function() {
+  self = this;
+	// Reactive and Session Vars
+});
+*/
+Template.AccountSettings.helpers({
+  thisUser: function() {
+    return Meteor.userId();
+  },
   profilePic: function() {
   	return Meteor.user().profile.photo;
   },
@@ -17,30 +24,9 @@ Template.ProfileSettings.helpers({
   profileUsername: function() {
   	return Meteor.user().profile.username;
   },
-  showProfile: function(){
-    var show = Template.instance().currentView.get();
-    if(show=="profile"){
-      return true;
-    }
-    return false;
-  },
-  showInterests: function(){
-    var show = Template.instance().currentView.get();
-    if(show=="interests"){
-      return true;
-    }
-    return false;
-  },
   showPassword: function(){
     var show = Template.instance().currentView.get();
     if(show=="password"){
-      return true;
-    }
-    return false;
-  },
-  showProfileSettings: function(){
-    var show = Template.instance().currentView.get();
-    if(show=="profile-settings"){
       return true;
     }
     return false;
@@ -68,22 +54,10 @@ Template.ProfileSettings.helpers({
   }
 });
 
-Template.ProfileSettings.events({
-  'click #showProfile' (event, template) {
-    event.preventDefault();
-    template.currentView.set('profile')
-  },
+Template.AccountSettings.events({
   'click #showPassword' (event, template) {
     event.preventDefault();
     template.currentView.set('password')
-  },
-  'click #showInterests' (event, template) {
-    event.preventDefault();
-    template.currentView.set('interests')
-  },
-  'click #showProfileSettings' (event, template) {
-    event.preventDefault();
-    template.currentView.set('profile-settings')
   },
   'click #showAccountSettings' (event, template) {
     event.preventDefault();
@@ -96,5 +70,5 @@ Template.ProfileSettings.events({
   'click #showPrivacySettings' (event, template) {
     event.preventDefault();
     template.currentView.set('privacy-settings')
-  },
+  }
 });

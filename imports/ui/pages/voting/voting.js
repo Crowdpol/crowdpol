@@ -204,6 +204,12 @@ Template.VotingCard.onCreated(function () {
 });
 
 Template.VotingCard.helpers({
+  proposalHasImage: function(proposal) {
+    if(typeof this.hasCover!='undefined'){
+      return this.hasCover;
+    }
+    return false;
+  },
   title: function(proposal) {
     var language = TAPi18n.getLanguage();
     var translation = _.find(proposal.content, function(item){ return item.language == language});
@@ -225,7 +231,7 @@ Template.VotingCard.helpers({
     return LocalStore.get('currentUserRole');
   },
   isVotingAsDelegate: function(){
-    console.log(LocalStore.get('currentUserRole') == 'delegate');
+    //console.log(LocalStore.get('currentUserRole') == 'delegate');
     return (LocalStore.get('currentUserRole') == 'delegate');
   },
   isVotingAsIndividual: function(){

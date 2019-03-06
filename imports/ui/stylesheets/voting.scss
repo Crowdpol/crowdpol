@@ -2,6 +2,7 @@
 @import 'breakpoint.scss';
 
 .vote-actions {
+  padding-bottom: $space / 2;
   .mdl-button--colored-yes{
     background-color: $yes-button;
     color: white;

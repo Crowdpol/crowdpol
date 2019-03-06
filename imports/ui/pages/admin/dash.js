@@ -1,5 +1,6 @@
 import './users/users.js';
 import './tags/tags.js';
+import './labels/labels.js';
 import './approvals/approvals.js';
 import './proposals/proposals.js';
 import './voting/voting.js';
@@ -26,8 +27,15 @@ Template.registerHelper('currentUserIsSuperAdmin', function(){
 	}
 });
 
-Template.AdminDash.onCreated(function() {
-	Session.set("adminTemplate","Overview");
+Template.AdminDash.onRendered(function() {
+	let url = window.location.hash;
+	let hashString = url.substring(1,url.length);
+	if(hashString.length){
+		Session.set("adminTemplate",hashString);
+	}else{
+		Session.set("adminTemplate","Overview");
+	}
+
 });
 
 

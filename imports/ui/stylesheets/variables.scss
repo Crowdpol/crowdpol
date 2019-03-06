@@ -15,6 +15,7 @@ $light-grey-light: #f4f4f4;
 $light-grey-mid: #e0e0de;
 $light-grey-dark: #c1c0bd;
 $light-grey-xdark: #b2b1b1;
+$delegate-color: #ccc;
 
 // Colours: Default Branding
 
@@ -46,7 +47,7 @@ $greyscale-light: #ffffff;
 
 $yes-button: $green;
 $no-button: $red;
-$abstain-button: $grey-xdark;
+$abstain-button: $yellow;
 
 // Fonts
 $default-font: 'Roboto', sans-serif;
@@ -66,3 +67,16 @@ $tablet: 768px !default;
 $laptop: 1024px !default;
 $desktop: 1200px !default;
 $big: 1440px !default;
+
+//unsplash header settings
+$header-height-xl: 500px;
+$header-height-lg: 400px;
+$header-height-md: 350px;
+$header-height-sm: 300px;
+$header-height-xs: 200px;
+
+//column sizes
+$aside-width: 200px;
+
+//test border max-width
+$test-border-width: 0px;

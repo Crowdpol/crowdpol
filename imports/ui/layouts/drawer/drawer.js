@@ -18,6 +18,15 @@ Template.Drawer.events({
 	}
 });
 
+//RIGHT DRAWER
+Template.RightDrawer.events({
+	'click #right-drawer-profile-link' (event, template){
+		//event.preventDefault();
+		//console.log("removing active")
+		$(".right-drawer").removeClass('active');
+	}
+});
+
 Template.RightDrawer.onCreated(function() {
 	Session.set('drawerId','');
   var self = this;

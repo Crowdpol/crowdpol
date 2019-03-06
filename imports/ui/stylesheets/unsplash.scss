@@ -1,28 +1,6 @@
 @import 'variables.scss';
+@import 'breakpoint.scss';
 
-.header-image-container{
-  background-image: url("https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2");
-  background-size: cover;
-  height: 400px;
-  width: 100%;
-  //margin-top: -20%;
-  h5{
-    border: solid 1px red;
-  }
-  display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.header-image-container.disable-edit{
-  cursor: default;
-  #unsplash-header-button{
-    display: none;
-  }
-}
 .unsplash-search-box{
   -moz-box-shadow:    inset 0px 0px 15px 0px #888888;
    -webkit-box-shadow: inset 0px 0px 15px 0px #888888;
@@ -47,7 +25,7 @@
   .unsplash-gallery-thumb{
     padding: 5px;
     //border: solid 1px black;
-    width: 200px;
+    width: 100px;
     height: 100px;
     display: flex;
     justify-content: center;
@@ -63,20 +41,29 @@
     }
   }
 }
-#unsplash-controls{
-  //display: flex;
-  //align-items: center;
-  //justify-content: center;
+
+.unsplash-gallery.square{
+  .unsplash-gallery-thumb{
+    width: 100px;
+    height: 100px;
+  }
 }
-#unsplash-open{
-  //margin-bottom: -35px;
-  color: $dark-grey-mid;
+
+.unsplash-gallery.landscape{
+  .unsplash-gallery-thumb{
+    width: 150px;
+    height: 100px;
+  }
 }
-#unsplash-close{
-  //border: solid 1px red;
-  //margin-top: -55px;
-  color: $dark-grey-mid;
-}
-#unsplash-header-button{
-  color: #fff;
+
+.unsplash-gallery.portrait{
+  .unsplash-gallery-thumb{
+    width: 100px;
+    height: 150px;
+    .unsplash-thumb-image{
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 120%
+    }
+  }
 }

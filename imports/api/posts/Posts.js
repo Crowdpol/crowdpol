@@ -8,6 +8,10 @@ PostsSchema = new SimpleSchema({
       type: String,
       optional: false,
   },
+  userFeedId: {
+      type: String,
+      optional: false,
+  },
   /*
 	url: {
     type: String,

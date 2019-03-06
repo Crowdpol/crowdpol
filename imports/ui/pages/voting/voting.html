@@ -22,8 +22,8 @@
 			<div class="mdl-tabs__panel {{votesTabActive}}" id="vote-proposals-panel">
 
 				{{#if Template.subscriptionsReady}}
-					<!-- CHECK IF USER HAS MULTIPLE ROLES -->
-					|currentRole: {{currentRole}}|
+					<!-- CHECK IF USER HAS MULTIPLE ROLES
+					|currentRole: {{currentRole}}|-->
 					<!-- DISPLAY DESCRIPTION ACCORDING TO ROLE-->
 					<h4>{{roleHeading}}</h4>
 					<p>{{roleDescription}}</p>
@@ -56,6 +56,10 @@
 
 <template name="VotingCard">
 	<div class="vote-item">
+		{{#if proposalHasImage}}
+			<div class="card-proposal-unsplash" style="background-image: {{coverURL}}; background-position: center;">
+			</div>
+		{{/if}}
 		<div class="card-main-wrap">
 			<div class="tag-wrap">
 				<span class="tag status-chip">Complete</span>
@@ -93,16 +97,16 @@
 			{{/each}}
 		</div>
 
-		<div class="card-voting-wrap">
+		<div class="card-voting-wrap {{#if isVotingAsDelegate}}delegate{{/if}}">
 			<!-- Vote buttons and Delegates List -->
 			{{#if isVotingAsDelegate}}
 				<div class="voting-card-buttons">
-					{{_ "pages.voting.voting-card-heading.delegate"}}
+					<!--{{_ "pages.voting.voting-card-heading.delegate"}}-->
 					{{> delegateVoteButtons proposalId=_id endDate=endDate}}
 				</div>
 			{{else}}
 				<div class="voting-card-buttons">
-					{{_ "pages.voting.voting-card-heading.individual"}}
+					<!--{{_ "pages.voting.voting-card-heading.individual"}}-->
 					{{> voteButtons proposalId=_id}}
 				</div>
 			{{/if}}
@@ -117,7 +121,7 @@
 					<!-- Vote Tallies -->
 				</div>
 			{{/if}}
-
+			<!-- VOTE PERCENT
 			{{#if hasVotes _id}}
 				<span class="proposal-percentage-text-left">{{_ "pages.voting.for"}} {{ yesPercentage _id }} </span>
 				<span class="proposal-percentage-text-right">{{_ "pages.voting.against"}} {{ noPercentage _id }} </span>
@@ -127,6 +131,7 @@
 			{{else}}
 				<small class="proposal-percentage-text-left">{{_ "pages.voting.no-votes-used"}}</small>
 			{{/if}}
+			-->
 				<!-- Show More/Less Button -->
 				{{#if isVotingAsDelegate}}
 				{{else}}
@@ -185,7 +190,6 @@
 
 		<div class="card-voting-wrap">
 			<!-- Vote buttons and Delegates List -->
-
 			{{#if showVotingInfo}}
 				<div id="voting-info">
 					<!--<span>Graphs coming soon...</span>-->
@@ -198,7 +202,7 @@
 					<!-- Vote Tallies -->
 				</div>
 			{{/if}}
-
+			<!-- VOTE PERCENT STATUS BAR -->
 			{{#if hasVotes _id}}
 				<span class="proposal-percentage-text-left">{{_ "pages.voting.for"}} {{ yesPercentage _id }} </span>
 				<span class="proposal-percentage-text-right">{{_ "pages.voting.against"}} {{ noPercentage _id }} </span>

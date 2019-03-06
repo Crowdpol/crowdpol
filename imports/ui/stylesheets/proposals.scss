@@ -95,20 +95,6 @@
   margin-bottom: 0;
 }
 
-.delegate-vote-list-item {
-  padding: 5px;
-
-  .mdl-list__item-primary-content,
-  .mdl-list__item-secondary-action {
-    font-size: $small-font-size;
-  }
-
-  .mdl-list__item-avatar {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-}
-
 .proposal-list-item-link {
   text-decoration: none;
 }
@@ -136,7 +122,7 @@
   }
 }
 #edit-proposal-container{
-  margin-top: -50px;
+  margin-top: 0px;
 }
 .edit-proposal-wrap {
   padding-top: 0;
@@ -175,6 +161,7 @@
 }
 
 .proposal-container {
+  padding-top: 40px;
   .mdl-card {
     display: flex;
     flex-direction: column;

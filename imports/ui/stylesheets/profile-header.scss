@@ -1,0 +1,205 @@
+@import 'variables.scss';
+//profile header
+.profile-cover{
+
+  .profile-header{
+
+    img{
+      max-width:100%;
+      max-height:100%;
+
+    }
+  }
+  .profile-details{
+    background-color: #fff;
+    //display: flex;
+    //flex-flow: row wrap;
+    //justify-content: space-between;
+    .aside-1{
+      -webkit-transition-property: width, height; /* Safari */
+      //-webkit-transition-duration: 2s; /* Safari */
+      transition-property: width, height;
+      transition-duration: 1s;
+      .profile-pic-wrapper{
+        //border: solid 3px #fff;
+        flex: 1 20%;
+        .profile-image-div{
+          margin: -$aside-width/2 0 0 0px;
+          background-size: auto 100%;
+          background-repeat: no-repeat;
+          background-position: center;
+          width: $aside-width;
+          height: $aside-width;
+          border: solid 3px #fff;
+          display: block;
+          border-radius: 100%;
+
+          -webkit-transition-property: width, height; /* Safari */
+          //-webkit-transition-duration: 2s; /* Safari */
+          transition-property: width, height;
+          //transition-duration: 2s;
+        }
+      }
+      .profile-name{
+        //border: solid 1px blue;
+        flex: 4 80%;
+        .profile-names{
+          font-size: 12pt;
+        }
+        .profile-username{
+          font-size: 8pt;
+        }
+      }
+    }
+    .main{
+      min-height: 100px;
+      max-height: 100px;
+    }
+  }
+  .profile-details.app-container{
+    padding: 0;
+
+  }
+  .profile-details.collapsed{
+    border: solid $test-border-width red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    .aside-1{
+      padding-top: 10px;
+      border: solid $test-border-width green;
+      width: $aside-width;
+      .profile-pic-wrapper{
+        border: solid $test-border-width blue;
+
+        .profile-image-div{
+          border: 0;
+          margin-top: 0;
+        }
+        .profile-image-overlay {
+        //  width: 80px;
+        //  height: 80px;
+        }
+      }
+    }
+    .main{
+      padding-bottom: 10px;
+      width: 60%;
+
+      //display: flex;
+      align-items: center;
+      justify-content: center;
+      .profile-name{
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction:column;
+      }
+    }
+  }
+}
+///LEGACY
+
+/*
+.profile-picture {
+  display: block;
+  margin: $space auto;
+  width: $space * 5;
+  height: $space * 5;
+  border-radius: 100%;
+}
+*/
+//----
+
+.profile-pic-wrapper {
+  /*
+  position: relative;
+  width: 100%;
+
+  img {
+      display: block;
+      margin: 1.6rem auto;
+      width: 8rem;
+      height: 8rem;
+      border-radius: 100%;
+  }
+  */
+  .profile-image-overlay {
+    /*
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    */
+    opacity: 0;
+    transition: .3s ease;
+    background-color: $black;
+    margin: -$aside-width 0 0 0px;
+    width: $aside-width;
+    height: $aside-width;
+    border: solid 3px grey;
+    display: block;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .icon {
+      color: $white;
+      font-size: 25px;
+      //position: absolute;
+      //top: 50%;
+      //left: 50%;
+      //transform: translate(-50%, -50%);
+      //-ms-transform: translate(-50%, -50%);
+      //text-align: center;
+    }
+  }
+}
+.profile-pic-wrapper:hover .profile-image-overlay {
+  opacity: 0.5;
+}
+
+
+
+#change-photo-icon:hover {
+  opacity: 1;
+}
+
+.profile-photo-form-buttons{
+  float: right;
+}
+
+
+@media only screen and (min-width: $tiny){
+  .profile-card{
+    .profile-header{
+
+    }
+    .profile-details{
+      .aside {
+
+      }
+      .aside-1{
+
+      }
+      .main{
+
+      }
+    }
+  }
+}
+@media only screen and (min-width: $mobile){
+}
+@media only screen and (min-width: $tablet){
+}
+@media only screen and (min-width: $laptop){
+}
+@media only screen and (min-width: $desktop){
+}
+@media only screen and (min-width: $big){
+}

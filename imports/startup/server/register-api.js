@@ -9,6 +9,10 @@ import '../../api/users/server/publications.js';
 import '../../api/tags/methods.js';
 import '../../api/tags/server/publications.js';
 
+import '../../api/labels/methods.js';
+import '../../api/labels/server/publications.js';
+
+
 import '../../api/proposals/methods.js';
 import '../../api/proposals/server/publications.js';
 

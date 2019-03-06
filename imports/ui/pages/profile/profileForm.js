@@ -218,12 +218,18 @@ Template.ProfileForm.onRendered(function() {
           Bert.alert(error, 'reason');
         } else {
           */
+      let photoURL = Session.get("photoURL");
+      if(!photoURL){
+        photoURL="/img/default-user-image.png";
+      }
       let profileType = template.dict.get('profileType');
       if(profileType == 'Entity'){
         var profile = {
           username: template.find('[name="profileUsername"]').value,
           firstName: template.find('[name="profileFirstName"]').value,
-          photo: template.find('[name="profilePhotoPath"]').value,
+          photo: photoURL,
+          hasCover: Session.get('hasCover'),
+          coverURL: Session.get('coverURL'),
           bio: template.find('[name="profileBio"]').value,
           website: template.find('[name="profileWebsite"]').value,
           phoneNumber: template.find('[name="profilePhoneNumber"]').value,
@@ -236,7 +242,9 @@ Template.ProfileForm.onRendered(function() {
           username: template.find('[name="profileUsername"]').value,
           firstName: template.find('[name="profileFirstName"]').value,
           lastName: template.find('[name="profileLastName"]').value,
-          photo: template.find('[name="profilePhotoPath"]').value,
+          photo: photoURL,
+          hasCover: Session.get('hasCover'),
+          coverURL: Session.get('coverURL'),
           bio: template.find('[name="profileBio"]').value,
           website: template.find('[name="profileWebsite"]').value,
           credentials: template.dict.get('credentials'),
@@ -322,7 +330,7 @@ Template.ProfileForm.helpers({
     return user.profile;
   },
   profilePic: function() {
-    return Template.instance().dict.get('photo');
+    return Session.get('photoURL');
   },
   firstName: function() {
     return Template.instance().dict.get('firstname');

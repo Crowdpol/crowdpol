@@ -3,7 +3,7 @@
 		<!-- Drawer Content -->
 		{{#if currentUser}}
 			<div class="side-nav-header">
-				<a href="/profile" class="profile-link">
+				<a href="/settings/profile" class="profile-link">
 					<img src="{{currentUser.profile.photo}}">
 					{{#if currentUser.profile.firstname}}
 						<h6>{{currentUser.profile.firstname}} {{currentUser.profile.lastname}}</h6>
@@ -14,12 +14,12 @@
 			</div>
 		{{/if}}
 		<nav class="side-nav-link-wrap mdl-navigation">
-			<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/feed">{{_ "layout.drawer.nav_feed"}}</a>
-			<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/dash" id="dash-menu">{{_ "layout.header.nav_dash"}}</a>
+
 			{{#if currentUser}}
 				{{#if isInRole 'admin, superadmin'}}
 					<a class="side-nav-link mdl-navigation__link" href="/admin/dash">{{_ "layout.drawer.nav_admin_dash"}}</a>
 				{{/if}}
+				<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/home">{{_ "layout.drawer.nav_feed"}}</a>
 				<a class="side-nav-link mdl-navigation__link" href="/profile">{{_ "layout.drawer.nav_profile"}}
 					{{#if currentUser.isPublic}}
 						<span class="mdl-chip" id="public-profile-chip">
@@ -27,7 +27,7 @@
 						</span>
 					{{/if}}
 				</a>
-				<a class="side-nav-link mdl-navigation__link" href="/settings">{{_ "layout.header.nav_settings"}}</a>
+				<a class="side-nav-link mdl-navigation__link" href="/settings">{{_ "layout.header.nav_account_settings"}}</a>
 				<!-- We don't have the real content yet - hiding for now
 					<a class="side-nav-link mdl-navigation__link" href="/privacy">{{_ "drawer_nav_privacy"}}</a>
 				<a class="side-nav-link mdl-navigation__link" href="/terms">{{_ "drawer_nav_terms"}}</a> -->
@@ -51,7 +51,7 @@
 <template name="RightDrawer">
 	<div class="right-drawer mdl-layout__drawer-right">
 		<div class="right-drawer-header mdl-shadow--2dp">
-			<img src="{{user.profile.photo}}" class="profile-picture">
+			<a href="/home/{{user._id}}" id="right-drawer-profile-link"><img src="{{user.profile.photo}}" class="profile-picture"></a>
 			<h4>{{user.profile.firstName}} {{user.profile.lastName}}</h4>
 			<h6>{{user.profile.type}}</h6>
 		</div>
@@ -72,16 +72,16 @@
 			<br/>
 			<h6>{{_ "layout.drawer.recent-votes"}}</h6>
 			{{#if delegateVotes}}
-			<ul class=" mdl-list">
+				<ul class=" mdl-list">
 				{{#each delegateVotes}}
-				 <li class="delegate-item mdl-list__item">
-				 <div class="card-main-wrap">
-					<span class="card-main mdl-list__item-primary-content recent-vote">
-						<i class="material-icons">{{voteIcon vote}}</i>
-						<a href="/proposals/view/{{proposalId}}"> {{proposalTitle proposalId}} </a>
-					</span>
-				 </div>
-				</li>
+					<li class="delegate-item mdl-list__item">
+				 		<div class="card-main-wrap">
+							<span class="card-main mdl-list__item-primary-content recent-vote">
+								<i class="material-icons">{{voteIcon vote}}</i>
+								<a href="/proposals/view/{{proposalId}}"> {{proposalTitle proposalId}} </a>
+							</span>
+				 		</div>
+					</li>
 				{{/each}}
 				</ul>
 			{{else}}

@@ -21,6 +21,18 @@ export const convertToSlug = (text) => {
   return undefined;
 };
 
+//first Letter Caps aka Title Case
+export const titleCase = (string) => {
+  var splitStr = string.toLowerCase().split(' ');
+   for (var i = 0; i < splitStr.length; i++) {
+       // You do not need to check if i is larger than splitStr length, as your for does that for you
+       // Assign it back to the array
+       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+   }
+   // Directly return the joined string
+   return splitStr.join(' ');
+}
+
 //IntroJs tutorial guide
 export const walkThrough = (steps) => {
   var intro = introJs();

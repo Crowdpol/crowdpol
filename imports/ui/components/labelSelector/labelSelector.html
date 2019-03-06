@@ -1,0 +1,16 @@
+<template name="LabelSelector">
+  <h1>Label Selector<small>&nbsp;under constructions</small></h1>
+  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="label-input-wrap">
+		<input class="mdl-textfield__input" type="text" name="add-label" id="add-label">
+		<label for="add-label" class="mdl-textfield__label">Add some labels</label>
+		<ul for="add-label"  class="dropdown" id="matchedTagsList" style="display:none;">
+			{{#each matchedTags}}
+				<li class="dropdown-item" data-keyword={{this}}>
+					<span class="primary-content" data-keyword={{this}}>
+						{{this}}
+					</span>
+				</li>
+			{{/each}}
+		</ul>
+	</div>
+</template>
