@@ -3,7 +3,7 @@
 		<!-- Drawer Content -->
 		{{#if currentUser}}
 			<div class="side-nav-header">
-				<a href="/profile" class="profile-link">
+				<a href="/settings/profile" class="profile-link">
 					<img src="{{currentUser.profile.photo}}">
 					{{#if currentUser.profile.firstname}}
 						<h6>{{currentUser.profile.firstname}} {{currentUser.profile.lastname}}</h6>
@@ -14,12 +14,12 @@
 			</div>
 		{{/if}}
 		<nav class="side-nav-link-wrap mdl-navigation">
-			<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/feed">{{_ "layout.drawer.nav_feed"}}</a>
-			<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/dash" id="dash-menu">{{_ "layout.header.nav_dash"}}</a>
+
 			{{#if currentUser}}
 				{{#if isInRole 'admin, superadmin'}}
 					<a class="side-nav-link mdl-navigation__link" href="/admin/dash">{{_ "layout.drawer.nav_admin_dash"}}</a>
 				{{/if}}
+				<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/home">{{_ "layout.drawer.nav_feed"}}</a>
 				<a class="side-nav-link mdl-navigation__link" href="/profile">{{_ "layout.drawer.nav_profile"}}
 					{{#if currentUser.isPublic}}
 						<span class="mdl-chip" id="public-profile-chip">
@@ -27,7 +27,7 @@
 						</span>
 					{{/if}}
 				</a>
-				<a class="side-nav-link mdl-navigation__link" href="/settings/account">{{_ "layout.header.nav_account_settings"}}</a>
+				<a class="side-nav-link mdl-navigation__link" href="/settings">{{_ "layout.header.nav_account_settings"}}</a>
 				<!-- We don't have the real content yet - hiding for now
 					<a class="side-nav-link mdl-navigation__link" href="/privacy">{{_ "drawer_nav_privacy"}}</a>
 				<a class="side-nav-link mdl-navigation__link" href="/terms">{{_ "drawer_nav_terms"}}</a> -->

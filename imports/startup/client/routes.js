@@ -153,14 +153,7 @@ publicRoutes.route('/faq', {
   },
 });
 
-publicRoutes.route('/settings/profile', {
-  name: 'App.profile-settings',
-  action() {
-    BlazeLayout.render('App_body', { main: 'ProfileSettings' });
-  },
-});
-
-publicRoutes.route('/settings/account', {
+publicRoutes.route('/settings', {
   name: 'App.account-settings',
   action() {
     BlazeLayout.render('App_body', { main: 'AccountSettings' });
@@ -232,7 +225,7 @@ var loggedInRoutes = FlowRouter.group({
 loggedInRoutes.route('/profile', {
   name: 'App.profile',
   action() {
-    BlazeLayout.render('App_body', { main: 'Profile' });
+    BlazeLayout.render('App_body', { main: 'ProfileSettings' });
 
   },
 });
@@ -245,12 +238,21 @@ loggedInRoutes.route('/profile/:id', {
   },
 });
 
-/* NOTE: This routes to the proposals list for now, as replacement for a dashboard */
-
+/*
+USER DASHBOARD REMOVED FOR NOW
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
     BlazeLayout.render('App_body', { main: 'Dash' });
+  },
+});
+
+*/
+
+loggedInRoutes.route('/ideas', {
+  name: 'App.ideas',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Ideas' });
   },
 });
 
@@ -322,7 +324,7 @@ var v2Routes = FlowRouter.group({
     }
   }]
 });
-
+/* v2 Experiment
 publicRoutes.route('/v2', {
   name: 'App.v2',
   action() {
@@ -343,6 +345,7 @@ publicRoutes.route('/v2/profile', {
     BlazeLayout.render('v2_body', { main: 'v2Profile' });
   },
 });
+*/
 // Admin Routes:
 
 var adminRoutes = FlowRouter.group({
