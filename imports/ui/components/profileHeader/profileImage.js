@@ -1,4 +1,6 @@
 import "./profileImage.html"
+import { userfullname } from '../../../utils/users';
+import { username } from '../../../utils/users';
 
 Template.ProfileImage.onCreated(function() {
 	var dict = new ReactiveDict();
@@ -6,28 +8,26 @@ Template.ProfileImage.onCreated(function() {
 	this.templateDictionary = dict;
 });
 Template.ProfileImage.onRendered(function() {
-	let imageURLText = "url(" + Meteor.user().profile.photo + ")";
-	$('.profile-image-div').css("background-image",imageURLText);
-	//$('.profile-image-div').css("background-position","auto 100%");
+	let photoURL = Session.get("photoURL");
+	if(!photoURL){
+		photoURL = "/img/default-user-image.png";
+	}
+	setProfilePic(photoURL);
 });
 
 Template.ProfileImage.helpers({
-  profilePic: function() {
-  	return Meteor.user().profile.photo;
-  },
 	isEditable: function(){
 		return this.editable;
 	},
 	editing: function(){
-		console.log(Template.instance().templateDictionary.get('change-photo'));
 		return Template.instance().templateDictionary.get('change-photo');
 	},
-	profileName: function() {
-  	return (Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName);
+	profileName: function(userId) {
+  	return userfullname(userId);
   },
-  profileUsername: function() {
-  	return Meteor.user().profile.username;
-  }
+  profileUsername: function(userId) {
+  	return username(userId);
+  },
 });
 Template.ProfileImage.events({
 	//show image change form
@@ -54,8 +54,8 @@ Template.ProfileImage.events({
 	//default image: url(/img/default-user-image.png)
 	'click #photo-default' (event, template) {
   	event.preventDefault();
-		console.log("default photo");
     $('.profile-image-div').css("background-image","url(/img/default-user-image.png)");
+		Session.set("photoURL","/img/default-user-image.png");
   },
   'keyup #profilePhoto, paste #profilePhoto, blur #profilePhoto' (event, template){
     var path = $("input#profilePhoto").val();
@@ -67,16 +67,18 @@ Template.ProfileImage.events({
         $('#profile-photo-path').val(path);
 				let imageURLText = "url(" + path + ")";
 				$('.profile-image-div').css("background-image",imageURLText);
+				Session.set('photoURL',path);
     } else {
         $("#valid-photo-path").html("Invalid photo path");
     }
   },
+	/* rather let the user click the save button on the profile
 	'click #profile-image-update' (event,template) {
 		event.preventDefault();
 		$( "#change-photo" ).hide();
     Template.instance().templateDictionary.set('change-photo',false);
 	},
-
+	*/
   'change #fileInput': function (e, template) {
     //try{
       if (e.currentTarget.files && e.currentTarget.files[0]) {
@@ -126,9 +128,8 @@ Template.ProfileImage.events({
   },
 
 });
-/*      if(result.profile.hasOwnProperty("photo")){
-        dict.set('photo', result.profile.photo );
-      }else{
-        dict.set('photo', "/img/default-user-image.png");
-      }
-*/
+
+function setProfilePic(photoURL){
+	let imageURLText = "url(" + photoURL + ")";
+	$('.profile-image-div').css("background-image",imageURLText);
+}

@@ -1,3 +1,48 @@
 <template name="AccountSettings">
-  <h5>Account Settings</h5>
+  <div class="settings-wrapper">
+    <header class="header">
+      {{> ProfileHeader editable=false userId=thisUser}}
+    </header>
+    <div class="column-container app-container">
+      <!-- Profile Card -->
+      <aside class="aside aside-1">
+        <nav class="">
+      		<ul class="settings-menu">
+      			<li class="settings-menu__item">
+      				<a class="settings-menu__link" href="#" id="showNotificationSettings" data-template="AdminApprovals">Notifications</a>
+      			</li>
+            <li class="settings-menu__item">
+      				<a class="settings-menu__link" href="#" id="showPrivacySettings" data-template="AdminProposals">Privacy Settings</a>
+      			</li>
+            <li class="settings-menu__item">
+      				<a class="settings-menu__link" href="#" id="showAccountSettings" data-template="AdminProposals">Account Settings</a>
+      			</li>
+      		</ul>
+      	</nav>
+      </aside>
+      <article class="main">
+        {{#if showNotificationSettings}}
+          {{> NotificationSettings}}
+        {{/if}}
+        {{#if showAccountSettings}}
+          {{> AccountSettings}}
+        {{/if}}
+        {{#if showPrivacySettings}}
+          {{> PrivacySettings}}
+        {{/if}}
+      </article>
+      <aside class="aside aside-2">Aside 2
+      {{thisUser}}</aside>
+    </div>
+  </div>
+</template>
+
+<template name="ProfileSettingsTab">
+  <h5>Profile Settings<small> under construction</small></h5>
+</template>
+<template name="NotificationSettings">
+  <h5>Notification Settings<small> under construction</small></h5>
+</template>
+<template name="PrivacySettings">
+  <h5>Privacy Settings<small> under construction</small></h5>
 </template>

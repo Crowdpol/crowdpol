@@ -1,12 +1,6 @@
 <template name="ProfileImage">
 	<aside class="aside aside-1">
 		<div class="profile-pic-wrapper" id="profile-pic-wrap">
-			{{#if isEditable}}
-			<div class="mdl-tooltip" data-mdl-for="profile-pic-wrap">
-				Click on the camera icon to change Profile Pic
-			</div>
-			{{/if}}
-		  <!--<img src="{{profilePic}}" alt="Profile Pic" class="image" id="profile-pic" align="middle">-->
 			<div class="profile-image-div"></div>
 			{{#if isEditable}}
 		  <div class="profile-image-overlay">
@@ -14,6 +8,12 @@
 		      <i class="material-icons" id="change-photo-icon">camera_alt</i>
 		    </a>
 		  </div>
+
+			{{/if}}
+			{{#if isEditable}}
+			<div class="mdl-tooltip" data-mdl-for="profile-pic-wrap">
+				Click on the camera icon to change Profile Pic
+			</div>
 			{{/if}}
 		</div>
 	</aside>
@@ -39,9 +39,7 @@
 										<span class="mdl-textfield__error" id="valid-photo-path">Invalid URL</span>
 									</div>
 								</div>
-								<button class="mdl-button mdl-js-button mdl-button--icon" name="search-images-button" id="profile-image-refresh">
-				          <i class="material-icons">refresh</i>
-				        </button>
+
 								<!--
 								<div class="mdl-tabs__panel" id="photo-unsplash">
 									{{>Unsplash searchType="portrait" source="profileImage"}}
@@ -65,9 +63,9 @@
 								<button class="mdl-button mdl-js-button mdl-button--icon next-images-page" id="profile-image-cancel">
 			            <i class="material-icons">cancel</i>
 			          </button>
-								<button class="mdl-button mdl-js-button mdl-button--icon next-images-page" id="profile-image-update">
-			            <i class="material-icons">save</i>
-			          </button>
+								<button class="mdl-button mdl-js-button mdl-button--icon" name="search-images-button" id="profile-image-refresh">
+				          <i class="material-icons">refresh</i>
+				        </button>
 							</div>
 						</form>
 					</div>
@@ -75,8 +73,8 @@
 			{{/if}}
 		{{else}}
 			<div class="profile-name">
-				<span class="profile-names">{{profileName}}</span>
-				<span class="profile-username">{{profileUsername}}</span>
+				<div class="profile-names">{{profileName userId}}</div>
+				<div class="profile-username">@{{profileUsername userId}}</div>
 			</div>
 		{{/if}}
 	</article>

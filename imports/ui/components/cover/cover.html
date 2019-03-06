@@ -9,9 +9,9 @@
         <i class="material-icons">insert_photo</i>
       </button>
     </div>
-    <div class="unsplash-search-box" style="display:none;">
+    <div class="cover-search-box" style="display:none;">
       <center>
-        <button id="unsplash-search-close" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" >
+        <button id="cover-search-close" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" >
           <i class="material-icons">keyboard_arrow_up</i>
         </button><br>
         <!-- PLEASE LEAVE THE DIV BELOW INTACT, IMPORTANT FOR DEBUGGING
@@ -28,9 +28,9 @@
           coverBottom:<span id="coverBottom">{{coverBottom}}</span><br>
         </div>
         -->
-        <div class="mdl-textfield mdl-js-textfield" id="search-unsplash-wrapper">
-          <input class="mdl-textfield__input" type="text" id="search-unsplash" name="search-unsplash" placeholder="Search for images based on keywords...">
-          <label class="mdl-textfield__label" for="search-unsplash">Search</label>
+        <div class="mdl-textfield mdl-js-textfield" id="search-cover-wrapper">
+          <input class="mdl-textfield__input" type="text" id="search-cover" name="search-cover" placeholder="Search for images based on keywords...">
+          <label class="mdl-textfield__label" for="search-cover">Search</label>
         </div>
         <button class="mdl-button mdl-js-button mdl-button--icon" name="search-images-button" id="search-images-button">
           <i class="material-icons">search</i>
@@ -47,12 +47,12 @@
           </button>
         </div>
       </center>
-      <div class="unsplash-gallery">
+      <div class="cover-gallery">
         {{#each images}}
-          <div class="unsplash-gallery-thumb">
-            <img class="unsplash-thumb-image" src="{{this.urls.thumb}}" data-id="{{this.id}}">
+          <div class="cover-gallery-thumb">
+            <img class="cover-thumb-image" src="{{this.urls.thumb}}" data-id="{{this.id}}">
             <!--<br>
-            <span class="unsplash-thumb-desc">
+            <span class="cover-thumb-desc">
               {{this.description}}
             </span>
 
@@ -70,15 +70,20 @@
       </div>
     </div>
   </div>
-  <div id="unsplash-controls" style="display:none;">
+  <div id="cover-controls" style="display:none;">
     <center>
-    <button id="unsplash-open" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" alt="Add Proposal Cover" style="display:none;">
+    <button id="cover-open" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" alt="Add Proposal Cover" style="display:none;">
       <i class="material-icons">add_photo_alternate</i>
     </button>
-    <button id="unsplash-close" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" alt="Remove Proposal Cover"  style="display:none;">
+    <button id="cover-close" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" alt="Remove Proposal Cover"  style="display:none;">
       <i class="material-icons">cancel</i>
     </button>
     </center>
   </div>
+  <!--
+  <div class="dev-display">
+    coverState:{{getCoverState}}<br/>
+    hasCover:{{hasCover}}
+  </div>-->
   {{setUnsplashState}}
 </template>

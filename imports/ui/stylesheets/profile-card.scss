@@ -1,0 +1,49 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+.profile-card{
+  min-height: 0;
+  .profile-card-header{
+    background-color: $light-grey-mid;
+    background-size: 100% auto;
+    min-height: 80px;
+  }
+  .mdl-card__supporting-text{
+    padding: 0px;
+    padding-left: 10px;
+    margin-top: -25px;
+    min-height: 120px;
+    h6{
+      font-size:$xsmall-font-size;
+      font-weight: 500;
+      color: $grey-xdark;
+      margin-bottom: 0;
+      margin-top: $space/4;
+    }
+    span.username{
+      font-size: $xsmall-font-size;
+      color: $light-grey;
+    }
+    .profile-image-link{
+      margin-top: -20px;
+
+      img{
+        border: solid 2px $white;
+      }
+    }
+  }
+  .mdl-card__actions{
+
+  }
+}
+.profile-card.has-cover{
+  .profile-card-header{
+
+  }
+  .mdl-card__supporting-text{
+
+  }
+  .mdl-card__actions{
+
+  }
+}

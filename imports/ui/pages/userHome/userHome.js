@@ -1,47 +1,23 @@
 import "./userHome.html"
 import '../../components/profileHeader/profileHeader.js';
+import { userProfilePhoto } from '../../../utils/users';
+import { userfullname } from '../../../utils/users';
+import { username } from '../../../utils/users';
 import { Posts } from '../../../api/posts/Posts.js'
 import { Likes } from '../../../api/likes/Likes.js'
 import RavenClient from 'raven-js';
 import snarkdown from 'snarkdown';
 
 Template.UserHome.onCreated(function () {
+  Session.set("coverURL","");
+  Session.set("hasCover","");
+  Session.set("coverState","");
   var self = this;
-  self.user=null;
-  let userId = FlowRouter.getParam("id");
-  if(typeof userId =='undefined'){
-    Session.set("unsplashState","view-edit");
-    userId = Meteor.userId();
-    user = Meteor.users.findOne({"_id":userId});
-    if(typeof user != 'undefined'){
-      let profile = user.profile;
-      if(typeof profile.coverURL == 'undefined'){
-        console.log("cover undefined, leave blank");
-      }else{
-        console.log("coverURL found");
-      }
-    }
-  }else{
-    Session.set("unsplashState","view");
-  }
-  self.userId = new ReactiveVar(userId);
-  self.subscribe('users.profile');
-  self.subscribe('feed-posts', userId);
-  self.subscribe('likes.all');
-  /*
-  Meteor.call('getProfile',userId, function(error, result){
-    if (error){
-      RavenClient.captureException(error);
-      Bert.alert(error.reason, 'danger');
-      return false;
-    } else {
-      console.log("user set");
-       self.user = new ReactiveVar(result);
-    }
-  });
-  */
+  let ownerId = getOwnerId();
   self.autorun(function(){
-
+    self.subscribe('users.profile');
+    self.subscribe('feed-posts', ownerId);
+    self.subscribe('likes.all');
     $("#unsplash-close").hide();
   });
 });
@@ -56,52 +32,45 @@ Template.UserHome.onRendered(function(){
 });
 */
 Template.UserHome.helpers({
-  profilePic: function() {
-    let userId = Template.instance().userId.get();
+  thisUser: function() {
+    return getOwnerId();
+  },
+  profilePic: function(userId) {
+    return userProfilePhoto(userId);
+    //console.log(userProfilePhoto(userId));
+    /*let userId = Template.instance().userId.get();
     user = Meteor.users.findOne({"_id":userId});
     if(typeof user != 'undefined'){
       return user.profile.photo;
-    }
-  	return Meteor.user().profile.photo;
+    }*/
+  	//return Meteor.user().profile.photo;
   },
   profileName: function(userId) {
-    userId = Template.instance().userId.get();
-    user = Meteor.users.findOne({"_id":userId});
-    if(typeof user != 'undefined'){
-      return (user.profile.firstName + " " + user.profile.lastName);
-    }
-  	return (Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName);
+  	return userfullname(getOwnerId());
   },
   profileUsername: function(userId) {
-    userId = Template.instance().userId.get();
-    user = Meteor.users.findOne({"_id":userId});
-    if(typeof user != 'undefined'){
-      return user.profile.username;
-    }
-  	return Meteor.user().profile.username;
+  	return username(getOwnerId());
   },
   userFeed: function(){
-    userFeedId = Template.instance().userId.get();
-    //console.log("userFeedId: " + userFeedId);
-    //console.log(Posts.find({"userFeedId":userFeedId}).count());
-  	return Posts.find({"userFeedId":userFeedId}, {sort: {createdAt: -1}});
+    let ownerId = getOwnerId();
+    let posts = Posts.find({"userFeedId":ownerId}, {sort: {createdAt: -1}});
+  	return posts;
+  },
+  currentUserId: function(){
+    return Meteor.userId();
   },
   currentUser: function(){
-    userId = Template.instance().userId.get();
-    if(userId==Meteor.userId()){
+    if(getOwnerId()==Meteor.userId()){
       return true;
     }
     return false;
   },
   alreadyFollowing: function(){
-    userId = Template.instance().userId.get();
-    //console.log("Already following: " + Meteor.users.find({_id: Meteor.userId(), "profile.following":userId}).count());
-    return Meteor.users.find({_id: Meteor.userId(), "profile.following":userId}).count()
+    return Meteor.users.find({_id: Meteor.userId(), "profile.following":getOwnerId()}).count()
   },
   following: function(){
     let followers;
-    userId = Template.instance().userId.get();
-    user = Meteor.users.findOne({"_id":userId});
+    let user = Meteor.users.findOne({"_id":getOwnerId()});
     if(typeof user != 'undefined'){
       followers = user.profile.following;
     }else{
@@ -114,16 +83,13 @@ Template.UserHome.helpers({
     return null;
   },
   followers: function(){
-    let followers;
-    userId = Template.instance().userId.get();
-    //console.log(Meteor.users.find( { "profile.following" : userId }).count());
-    return Meteor.users.find( { "profile.following" : userId });
+    return Meteor.users.find( { "profile.following" : getOwnerId() });
   }
 });
 
 Template.UserHome.events({
   'click #follow-me': function(event,template){
-    followId = Template.instance().userId.get();
+    followId = getOwnerId();
     if(followId!=Meteor.userId()){
       Meteor.call('addFollower', Meteor.userId(),followId, function(error, postId){
     		if (error){
@@ -137,7 +103,7 @@ Template.UserHome.events({
     }
   },
   'click #unfollow-me': function(event,template){
-    followId = Template.instance().userId.get();
+    followId = getOwnerId();
     if(followId!=Meteor.userId()){
       Meteor.call('removeFollower',Meteor.userId(),followId, function(error, postId){
     		if (error){
@@ -153,10 +119,9 @@ Template.UserHome.events({
   'click #create-post': function(event,template){
     event.preventDefault();
     let message = template.find('#post-message').value
-    let userFeedId = Template.instance().userId.get();
     let post = {
       userId: Meteor.userId(),
-      userFeedId: userFeedId,
+      userFeedId: getOwnerId(),
       message: message,
     };
     Meteor.call('createPost', post, function(error, postId){
@@ -213,13 +178,13 @@ Template.UserHome.events({
 
 Template.ActivityFeed.helpers({
   profilePic: function(userId) {
-  	return Meteor.user().profile.photo;
+  	return userProfilePhoto(userId);
   },
   profileName: function(userId) {
-  	return (Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName);
+  	return userfullname(userId);
   },
   profileUsername: function(userId) {
-  	return Meteor.user().profile.username;
+  	return username(userId);
   },
   profileDate: function(postDate) {
     return moment(postDate).fromNow();
@@ -255,3 +220,22 @@ Template.ActivityFeed.helpers({
 
   }
 });
+
+function getOwnerId(){
+  let userId = FlowRouter.getParam("id");
+  if(typeof userId =='undefined'){
+    userId = Meteor.userId();
+    /* CONSIDER DELETING
+    user = Meteor.users.findOne({"_id":userId});
+    if(typeof user != 'undefined'){
+      let profile = user.profile;
+      if(typeof profile.coverURL == 'undefined'){
+        console.log("cover undefined, leave blank");
+      }else{
+        console.log("coverURL found");
+      }
+    }*/
+  }
+  console.log("ownerId: " + userId);
+  return userId;
+}

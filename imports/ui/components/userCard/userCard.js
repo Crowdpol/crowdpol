@@ -1,4 +1,6 @@
 import './userCard.html'
+import {titleCase} from '../../../utils/functions';
+import { userHasCover,userfullname,username,userProfilePhoto } from '../../../utils/users';
 
 Template.UserCard.onCreated(function(){
   /*
@@ -27,36 +29,67 @@ Template.UserCard.onRendered(function(){
 
 
 Template.UserCard.helpers({
-  /*
-  profile: function(){
-    //communityId = Template.instance().templateDictionary.get( 'communityId' );
-    return ;//communityId;
+  userPhoto: function(userId){
+    console.log("userPhoto userid: " + userId);
+    return userProfilePhoto(userId);
   },
-  */
-});
-/*
-Template.UserCard.events({
-	'keyup #some-id': function(event, template){
-		Session.set('searchPhrase',event.target.value);
-	},
-  'click .some-class': function(event, template){
-    var communityId = Template.instance().templateDictionary.get( 'communityId' );
-    delegateId = this._id;
-    var ranks = Session.get('ranked');
-    let settings = LocalStore.get('settings');
-    let delegateLimit = -1;
-
-    if(typeof settings != 'undefined'){
-      //do something
+  userFullname: function(userId){
+    return titleCase(userfullname(userId));
+  },
+  username: function(userId){
+    return "@" + username(userId);
+  },
+  hasCover: function(userId){
+    let coverURL = userHasCover(userId);
+    if(coverURL){
+      return "has-cover";
     }
-    Meteor.call('someMethod', someParameter, function(error, result){
-      if(error) {
-        RavenClient.captureException(error);
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert(TAPi18n.__('pages.delegates.alerts.ranking-updated'), 'success');
-      }
-    });
+  },
+  coverURL: function(userId){
+    let coverURL = userHasCover(userId);
+    if(coverURL){
+      return userHasCover(userId);
+    }
+
+  },
+  alreadyFollowing: function(userId){
+    return Meteor.users.find({_id: Meteor.userId(), "profile.following":userId}).count()
+  },
+  notMe: function(userId){
+    if(userd!=Meteor.userId()){
+      return true;
+    }
+    return false;
+  }
+});
+
+Template.UserCard.events({
+  'click #follow-user': function(event,template){
+    followId = event.target.dataset.id;
+    if(followId!=Meteor.userId()){
+      Meteor.call('addFollower', Meteor.userId(),followId, function(error, postId){
+    		if (error){
+    			RavenClient.captureException(error);
+    			Bert.alert(error.reason, 'danger');
+    			return false;
+    		} else {
+    			 Bert.alert(TAPi18n.__('pages.feed.following'), 'success');
+    		}
+    	});
+    }
+  },
+  'click #unfollow-user': function(event,template){
+    followId = event.target.dataset.id;
+    if(followId!=Meteor.userId()){
+      Meteor.call('removeFollower',Meteor.userId(),followId, function(error, postId){
+    		if (error){
+    			RavenClient.captureException(error);
+    			Bert.alert(error.reason, 'danger');
+    			return false;
+    		} else {
+    			 Bert.alert(TAPi18n.__('pages.feed.unfollow'), 'success');
+    		}
+    	});
+    }
   },
 });
-*/
