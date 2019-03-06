@@ -16,7 +16,7 @@ Meteor.methods({
       //parentLabels:
       var existingLabel = Labels.findOne({keyword: label.keyword, communityId: label.communityId});
       if (!existingLabel){
-        let newLabel = Labels.insert({ keyword: label.keyword, description: label.description, communityId: label.communityId, parentLabels: label.parentLabels });
+        let newLabel = Labels.insert({ keyword: label.keyword, description: label.description, communityId: label.communityId, parentLabels: checkParents(label) });
         return newLabel;
       } else {
         return existingLabel._id;
@@ -31,13 +31,8 @@ Meteor.methods({
         communityId: String,
         parentLabels: Match.Maybe([String])
       });
-      console.log(label);
-      var existingLabel = Labels.findOne({"_id":label.id});
-      //console.log(existingLabel);
-      //console.log('db.labels.find({"_id":'+label.id+'},{$set:{ "keyword": '+label.keyword+',"description":'+label.description+',"parentLabels":'+label.parentLabels+'}})');
-      Labels.update({"_id":label.id},{$set:{ "keyword": label.keyword,"description":label.description,"parentLabels":label.parentLabels}});
-
-       return label.id;
+      Labels.update({"_id":label.id},{$set:{ "keyword": label.keyword,"description":label.description,"parentLabels":checkParents(label)}});
+      return label.id;
     },
     getLabel: function (labelID) {
       check(labelID, String);
@@ -87,3 +82,18 @@ Meteor.methods({
 
     }
 });
+
+//checks to see if the
+function checkParents(label){
+  let parents = label.parentLabels;
+  if(Array.isArray(parents)){
+    for (var i in parents) {
+      console.log(parents);
+      console.log("parents[i]:" + parents[i] + ",label.id: " + label.id);
+      if(parents[i]===label.id){
+        parents.splice(i,1);
+      }
+    }
+  }
+  return parents;
+}
