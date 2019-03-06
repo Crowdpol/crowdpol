@@ -4,7 +4,7 @@ import './signInModal/signInModal.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Tags } from '../../../api/tags/Tags.js'
-import { setUnsplashState } from '../../components/unsplash/unsplash.js'
+import { setCoverState } from '../../components/cover/cover.js'
 import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(language){
@@ -41,12 +41,12 @@ Template.ViewProposal.onCreated(function(language){
           Session.set('coverPosition',proposal.coverPosition);
           //console.log("viewProposal: " + proposal.coverPosition);
           Session.set('coverURL',proposal.coverURL);
-          //setUnsplashState('view');
-          Session.set('unsplashState','view');
+          setCoverState('view');
+          Session.set('coverState','view');
         }else{
           //console.log("proposal has no cover");
-          //setUnsplashState('hidden');
-          Session.set('unsplashState','hidden');
+          setCoverState('hidden');
+          Session.set('coverState','hidden');
         }
 
       }

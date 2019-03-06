@@ -1,18 +1,25 @@
 <template name="UserCard">
-  {{#unless userId}}
-    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-color--indigo mdl-shadow--2dp">
-      <div class="mdl-card__title">
-        <a href="#" class="profile-image-link"><img src="{{profile.photo}}" class="profile-image"/></a>
-        <h2 class="mdl-card__title-text">{{profile.firstName}} {{profile.lastName}}</h2>
+  {{#if userId}}
+    <div class="profile-card mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp {{hasCover userId}}" >
+      <div class="mdl-card__title profile-card-header" data-id="{{userId}}"
+        style="background-image:{{coverURL userId}};">
+
       </div>
       <div class="mdl-card__supporting-text">
-        {{profile.bio}}
+        <a href="#" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
+        <h6 class="mdl-card__title-text">{{userFullname userId}}</h6>
+        <span class="username">{{username userId}}</span>
       </div>
       <div class="mdl-card__actions mdl-card--border">
-        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Learn More</button>
+        {{#if notMe userId}}
+          {{#if alreadyFollowing userId}}
+            <button class="mdl-button mdl-js-button" id="unfollow-user" data-id="{{userId}}">Unfollow<i class="material-icons">minus</i></button>
+          {{else}}
+            <button class="mdl-button mdl-js-button" id="follow-user" data-id="{{userId}}">Follow<i class="material-icons">add</i></button>
+          {{/if}}
+        {{/if}}
       </div>
     </div>
-  {{else}}
-    put code to render by user id
-  {{/unless}}
+
+  {{/if}}
 </template>

@@ -4,7 +4,11 @@
 		<!-- -->
 		{{> InviteModal}}
 		{{> Cover}}
-		{{> backButton text="generic.back-to-proposals" url="/dash" hasHeader=true}}
+		{{#if hasHeader}}
+			{{> backButton text="generic.back-to-proposals" url="/dash" hasHeader=true}}
+		{{else}}
+			{{> backButton text="generic.back-to-proposals" url="/dash" hasHeader=false}}
+		{{/if}}
 
 		<!-- Include Quill stylesheet -->
 		<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">

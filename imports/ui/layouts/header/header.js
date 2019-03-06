@@ -1,5 +1,5 @@
 import { Session } from 'meteor/session';
-
+import { userProfilePhoto } from '../../../utils/users';
 import './header.html';
 import './clamp.min.js'
 import { Tags } from '../../../api/tags/Tags.js'
@@ -76,7 +76,10 @@ Template.Header.onCreated(function(){
 
 Template.Header.helpers({
   userPhoto: function() {
-    return Meteor.user().profile.photo;
+    let photoURL = userProfilePhoto(Meteor.userId());
+    if(photoURL){
+      return photoURL;
+    }
   },
   title: function() {
     return Template.instance().community.get().name;

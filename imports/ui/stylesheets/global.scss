@@ -65,7 +65,7 @@
 
   .aside-2 {
     border: solid $test-border-width orange;
-    width: 20%;
+    //width: 20%;
   }
 }
 .static-content-wrap {
@@ -161,4 +161,18 @@
 .button-tabs {
   justify-content: flex-end;
   border-bottom: 0;
+}
+
+@media only screen and (min-width: $tiny){
+  
+}
+@media only screen and (min-width: $mobile){
+}
+@media only screen and (min-width: $tablet){
+}
+@media only screen and (min-width: $laptop){
+}
+@media only screen and (min-width: $desktop){
+}
+@media only screen and (min-width: $big){
 }

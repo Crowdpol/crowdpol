@@ -5,7 +5,7 @@ import { Communities } from '../../../api/communities/Communities.js'
 import { Comments } from '../../../api/comments/Comments.js'
 import { Tags } from '../../../api/tags/Tags.js'
 import { getTags } from '../../components/taggle/taggle.js'
-import { setUnsplashState } from '../../components/unsplash/unsplash.js'
+import { setCoverState } from '../../components/cover/cover.js'
 import { getForArguments } from '../../components/arguments/arguments.js'
 import { getAgainstArguments } from '../../components/arguments/arguments.js'
 import { validateForm } from './proposalForm.js'
@@ -55,21 +55,21 @@ Template.EditProposal.onCreated(function(){
 	        if(proposal.hasCover){
 	          Session.set( 'coverPosition',proposal.coverPosition);
 	          Session.set( 'coverURL',proposal.coverURL);
-						//setUnsplashState('edit-show');
-						Session.set('unsplashState','edit-show');
+						setCoverState('edit-show');
+						Session.set('coverState','edit-show');
 	        }else{
-						Session.set('unsplashState','edit-hide');
+						Session.set('coverState','edit-hide');
 					}
 					Session.set('invited',proposal.invited);
 					//console.log(proposal.invited);
 					self.subscribe('InvitedUsers',proposal.invited);
 				//proposal does not exist, create a new one
 				}else{
-					Session.set("coverUrl","https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2");
+					Session.set("coverUrl",'url("https://images.unsplash.com/photo-1454166155302-ef4863c27e70?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2")');
 				  Session.set( 'hasCover',false);
-					//setUnsplashState('edit-hide');
-					Session.set('unsplashState','edit-show');
-					//console.log("unsplashState set to edit-show");
+					setCoverState('edit-hide');
+					Session.set('coverState','edit-hide');
+					//console.log("coverState set to edit-show");
 					dict.set( 'startDate', defaultStartDate );
 					dict.set( 'endDate', defaultEndDate);
 					dict.set( 'tags',[]);
@@ -78,9 +78,9 @@ Template.EditProposal.onCreated(function(){
 			//self.subscribe('users.proposal',proposalId);
 
 		} else {
-			Session.set("coverURL","https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2");
-		  Session.set( 'hasCover',true);
-			Session.set('unsplashState','edit-show');
+			Session.set("coverURL",'url("https://images.unsplash.com/photo-1454166155302-ef4863c27e70?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2")');
+		  Session.set( 'hasCover',false);
+			Session.set('coverState','hide');
 			dict.set( 'startDate', defaultStartDate );
 			dict.set( 'endDate', defaultEndDate);
 			dict.set( 'tags',[]);
@@ -125,6 +125,9 @@ Template.EditProposal.onRendered(function(){
 });
 
 Template.EditProposal.helpers({
+	hasHeader: function(){
+		return Session.get('hasCover');
+	},
 	proposalContent: function(){
 		proposalId = FlowRouter.getParam("id");
 		if (proposalId){
@@ -221,9 +224,11 @@ Template.EditProposal.events({
 	'click #preview-proposal': function(event, template){
 		event.preventDefault();
 		if(getTotalInvites()>0){
+			console.log("we have invites");
 			openInviteModal();
 		}else{
-			saveChanges(event, template, 'App.proposal.edit');
+			console.log("save and redirect");
+			saveChanges(event, template, 'App.proposal.view');
 		}
 	},
 	'click .remove-invite': function(e,t){

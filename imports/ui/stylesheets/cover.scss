@@ -22,15 +22,18 @@
 
 }
 .cover-image-container{
-  background-image: url("https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2");
+  background-image: url("https://images.cover.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2");
   background-size: cover;
-  height: $header-height-lg;
+  //height: $header-height-lg;
   width: 100%;
+  height: auto;
   //margin-top: -20%;
   h5{
     border: solid 1px red;
   }
-
+  .dev-display{
+    color: #fff;
+  }
 }
 
 .cover-image-container.disable-edit{
@@ -39,17 +42,83 @@
     display: none;
   }
 }
+.cover-search-box{
+  -moz-box-shadow:    inset 0px 0px 15px 0px #888888;
+   -webkit-box-shadow: inset 0px 0px 15px 0px #888888;
+   box-shadow:         inset 0px 0px 15px 0px #888888;
+   background-color: #f4f4f4;
+  //margin-top: -150px;
+  #search-cover-wrapper{
+    padding: 0px;
+  }
+  .search-images-count{
+    font-size: $xsmall-font-size;
+  }
+  .pagination-count{
+    font-size: $xsmall-font-size;
+  }
+}
+.cover-gallery{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 
-#unsplash-controls{
+  .cover-gallery-thumb{
+    padding: 5px;
+    //border: solid 1px black;
+    width: 160px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    .cover-thumb-image{
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 100%
+    }
+    .cover-thumb-desc{
+
+    }
+  }
+}
+/*
+.cover-gallery.square{
+  .cover-gallery-thumb{
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.cover-gallery.landscape{
+  .cover-gallery-thumb{
+    width: 150px;
+    height: 100px;
+  }
+}
+
+.cover-gallery.portrait{
+  .cover-gallery-thumb{
+    width: 100px;
+    height: 150px;
+    .cover-thumb-image{
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 120%
+    }
+  }
+}
+*/
+#cover-controls{
   //display: flex;
   //align-items: center;
   //justify-content: center;
 }
-#unsplash-open{
+#cover-open{
   //margin-bottom: -35px;
   color: $dark-grey-mid;
 }
-#unsplash-close{
+#cover-close{
   //border: solid 1px red;
   //margin-top: -55px;
   color: $dark-grey-mid;
