@@ -12,6 +12,7 @@ import './auth.scss';
 import './dashboard.scss';
 import './profile.scss';
 import './profile-header.scss';
+import './profile-card.scss';
 import './delegate-vote.scss';
 import './drawer-right.scss';
 import './proposals.scss';

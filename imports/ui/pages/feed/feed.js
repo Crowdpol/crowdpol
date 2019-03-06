@@ -34,8 +34,8 @@ Template.Feed.onCreated(function () {
   });
   */
   self.autorun(function(){
-    Session.set("coverState","view");
-    $("#unsplash-close").hide();
+    //Session.set("coverState","view");
+    //$("#unsplash-close").hide();
   });
 });
 /*

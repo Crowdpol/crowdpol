@@ -6,12 +6,12 @@ Template.ProfileSettings.onCreated(function() {
 	// Reactive and Session Vars
 	self.currentView = new ReactiveVar('profile');
 });
+/*
 Template.ProfileSettings.onRendered(function() {
   self = this;
 	// Reactive and Session Vars
-	console.log(self);
 });
-
+*/
 Template.ProfileSettings.helpers({
   thisUser: function() {
     return Meteor.userId();

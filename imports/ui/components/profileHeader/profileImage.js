@@ -1,5 +1,6 @@
 import "./profileImage.html"
-
+import { userfullname } from '../../../utils/users';
+import { username } from '../../../utils/users';
 
 Template.ProfileImage.onCreated(function() {
 	var dict = new ReactiveDict();
@@ -8,7 +9,6 @@ Template.ProfileImage.onCreated(function() {
 });
 Template.ProfileImage.onRendered(function() {
 	let photoURL = Session.get("photoURL");
-	console.log(photoURL);
 	if(!photoURL){
 		photoURL = "/img/default-user-image.png";
 	}
@@ -22,11 +22,11 @@ Template.ProfileImage.helpers({
 	editing: function(){
 		return Template.instance().templateDictionary.get('change-photo');
 	},
-	profileName: function() {
-  	return (Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName);
+	profileName: function(userId) {
+  	return userfullname(userId);
   },
-  profileUsername: function() {
-  	return Meteor.user().profile.username;
+  profileUsername: function(userId) {
+  	return username(userId);
   },
 });
 Template.ProfileImage.events({
@@ -54,7 +54,6 @@ Template.ProfileImage.events({
 	//default image: url(/img/default-user-image.png)
 	'click #photo-default' (event, template) {
   	event.preventDefault();
-		console.log("default photo");
     $('.profile-image-div').css("background-image","url(/img/default-user-image.png)");
 		Session.set("photoURL","/img/default-user-image.png");
   },
@@ -131,7 +130,6 @@ Template.ProfileImage.events({
 });
 
 function setProfilePic(photoURL){
-	console.log("setProfilePic() called");
 	let imageURLText = "url(" + photoURL + ")";
 	$('.profile-image-div').css("background-image",imageURLText);
 }

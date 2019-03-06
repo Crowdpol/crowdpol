@@ -1,112 +1,7 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
-/*
-.user-home-wrapper {
-  display: flex;
-  flex-flow: row wrap;
-  font-weight: bold;
-  text-align: center;
-  .header {
-    background: tomato;
-    height: 300px;
-    overflow: hidden;
-  }
-    .cover {
-      width: 100%;
-      max-height: 300px;
-      overflow: hidden;
-      background-color: black;
-    }
-    .cover > img {
-      //position: relative;
-      width: 100%;
-      top: 50%;
-      margin-top: -50%;
-    }
-    .cover-overlay {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 100%;
-      width: 100%;
-      opacity: 0;
-      transition: .3s ease;
-      background-color: red;
-    }
-    .container:hover .cover-overlay {
-      opacity: 0.7;
-    }
-
-    .icon {
-      color: white;
-      font-size: 100px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    .fa-user:hover {
-      color: #eee;
-    }
 
 
-
-  .footer {
-    //background: lightgreen;
-  }
-
-  .main {
-    text-align: left;
-
-    //background: deepskyblue;
-  }
-
-  .aside-1 {
-    //background: gold;
-  /*
-    padding: 25px;
-    position: relative;
-    text-align: left;
-    .profile-image-link {
-        display: block;
-        border-radius: 100px;
-        border: solid 5px #fff;
-        overflow: hidden;
-        float:left;
-        position: absolute;
-        left: 30px;
-        top: -150px;
-    }
-
-    .profile-image {
-        vertical-align: top;
-        width: 200px;
-        height: 200px;
-
-    }
-    .profile-card{
-      padding-top: 50px;
-      padding-left: 10px;
-      overflow: hidden;
-    }
-
-  }
-
-  .aside-2 {
-    //background: hotpink;
-  }
-}
-
-.user-home-wrapper > * {
-  //padding: 10px;
-  flex: 1 100%;
-}
-*/
 ul.user-home-list{
   list-style-type: none;
   padding-inline-start: 0px;
@@ -211,21 +106,34 @@ ul.user-home-list{
   }
 }
 
-/*
+
 
 @media all and (min-width: 600px) {
-  .user-home-wrapper {
+  .column-container {
     .aside { flex: 1 0 0; }
   }
 }
 
 @media all and (min-width: 800px) {
-  .user-home-wrapper {
+  .column-container {
     .main    { flex: 3 0px; }
     .aside-1 { order: 1; }
     .main    { order: 2; }
     .aside-2 { order: 3; }
     .footer  { order: 4; }
   }
+}
+/*
+@media only screen and (min-width: $tiny){
+}
+@media only screen and (min-width: $mobile){
+}
+@media only screen and (min-width: $tablet){
+}
+@media only screen and (min-width: $laptop){
+}
+@media only screen and (min-width: $desktop){
+}
+@media only screen and (min-width: $big){
 }
 */

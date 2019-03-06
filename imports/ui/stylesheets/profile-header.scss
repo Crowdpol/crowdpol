@@ -1,6 +1,6 @@
 @import 'variables.scss';
 //profile header
-.profile-card{
+.profile-cover{
 
   .profile-header{
 
@@ -167,4 +167,34 @@
 
 .profile-photo-form-buttons{
   float: right;
+}
+
+
+@media only screen and (min-width: $tiny){
+  .profile-card{
+    .profile-header{
+
+    }
+    .profile-details{
+      .aside {
+
+      }
+      .aside-1{
+
+      }
+      .main{
+
+      }
+    }
+  }
+}
+@media only screen and (min-width: $mobile){
+}
+@media only screen and (min-width: $tablet){
+}
+@media only screen and (min-width: $laptop){
+}
+@media only screen and (min-width: $desktop){
+}
+@media only screen and (min-width: $big){
 }
