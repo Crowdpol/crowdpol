@@ -32,6 +32,7 @@
 
   .main {
     width: 60%;
+    min-height: 800px;
     text-align: left;
     border: solid $test-border-width pink;
   }
@@ -164,7 +165,7 @@
 }
 
 @media only screen and (min-width: $tiny){
-  
+
 }
 @media only screen and (min-width: $mobile){
 }

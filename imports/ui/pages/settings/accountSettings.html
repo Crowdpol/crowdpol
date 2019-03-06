@@ -17,6 +17,9 @@
             <li class="settings-menu__item">
       				<a class="settings-menu__link" href="#" id="showAccountSettings" data-template="AdminProposals">Account Settings</a>
       			</li>
+            <li class="settings-menu__item">
+      				<a class="settings-menu__link" href="#" id="showPassword">Change Password</a>
+      			</li>
       		</ul>
       	</nav>
       </aside>
@@ -24,25 +27,26 @@
         {{#if showNotificationSettings}}
           {{> NotificationSettings}}
         {{/if}}
-        {{#if showAccountSettings}}
-          {{> AccountSettings}}
-        {{/if}}
         {{#if showPrivacySettings}}
           {{> PrivacySettings}}
         {{/if}}
+        {{#if showAccountSettings}}
+          {{> AccountSettingsTab}}
+        {{/if}}
+        {{#if showPassword}}
+          {{> ResetPassword}}
+        {{/if}}
       </article>
-      <aside class="aside aside-2">Aside 2
-      {{thisUser}}</aside>
     </div>
   </div>
 </template>
 
-<template name="ProfileSettingsTab">
-  <h5>Profile Settings<small> under construction</small></h5>
-</template>
 <template name="NotificationSettings">
   <h5>Notification Settings<small> under construction</small></h5>
 </template>
 <template name="PrivacySettings">
   <h5>Privacy Settings<small> under construction</small></h5>
+</template>
+<template name="AccountSettingsTab">
+  <h5>Account Settings<small> under construction</small></h5>
 </template>

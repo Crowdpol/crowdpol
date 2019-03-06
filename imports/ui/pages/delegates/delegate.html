@@ -1,14 +1,10 @@
 <template name="Delegate">
 	{{#if currentUser}}
 		<!--{{> backButton text="generic.back-to-proposals" url="/dash"}}-->
-	<div class="app-container search-container">
-		<h3>{{_ "pages.delegates.heading"}}{{#if notDelegate}}<small><i class="material-icons" id="delegate-help">help_outline</i></small>{{/if}}</h3>
+	<div class="search-container">
+		<h5>{{_ "pages.delegates.heading"}}{{#if notDelegate}}<small><i class="material-icons" id="delegate-help">help_outline</i></small>{{/if}}</h5>
 		<!-- If settings.delegateLimt is set to 0 then delegation is disabled -->
 		{{#if delegatesEnabled}}
-
-			<!-- check if user is a delegate: delegates cannot delegate
-			{{#if notDelegate}}-->
-
 			<small>{{_ "pages.delegates.instructions-1"}}</small>
 			<br/>
 			<small>{{_ "pages.delegates.instructions-2"}}</small>
@@ -16,91 +12,96 @@
 			<small>{{_ "pages.delegates.instructions-3"}}</small>
 			<br>
 			<br>
-			<strong>Selected Delegates</strong>
-			<br>
-			{{#if rankCount}}
-				<div id="sortable" class="delegate-list" >
-					{{#if Template.subscriptionsReady}}
-						{{#each ranks}}
-							<div class="delegate-item selected" id="{{_id}}" data-ex="{{getRanking}}">
-								<div class="card-main-wrap delegate-card-main-wrap">
-									<div class="card-main delegate-view">
-										<img src={{profile.photo}} class="card-avatar">
-										<div class="delegate-name">
-											<h6>{{profile.firstName}} {{profile.lastName}}</h6>
-											<p>
-												({{profile.username}})
-												<br>
-												{{#each filteredRoles roles}}
-													<a class="tag tag-chip role-chip">{{this}}</a>
-												{{/each}}
-											</p>
-										</div>
-									</div>
-									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
-										<input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
-									</label>
-								</div>
+			<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+			  <div class="mdl-tabs__tab-bar">
+			      <a href="#available-panel" class="mdl-tabs__tab is-active">Available {{#if delegatesCount}}({{delegatesCount}}){{/if}}</a>
+			      <a href="#selected-panel" class="mdl-tabs__tab">Selected {{#if rankCount}}({{rankCount}}){{/if}}</a>
+			  </div>
 
-								<div class="card-secondary-wrap">
-									{{#each showTags profile.tags}}
-										<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
-									{{/each}}
+			  <div class="mdl-tabs__panel is-active" id="available-panel">
+					<div class="search-wrapper">
+						<i class="material-icons search-icon">search</i>
+						<input type="text" name="focus" required class="search-box" placeholder='{{_ "pages.delegates.search"}}' id="delegate-search"/>
+						<button class="close-icon" type="reset">
+							<i class="material-icons">close</i>
+						</button>
+					</div>
+					{{#if Template.subscriptionsReady}}
+						<div class="delegate-list">
+							{{#each delegates}}
+								<div class="delegate-item">
+									<div class="card-main-wrap">
+										<div class="card-main delegate-view">
+											<img src={{profile.photo}} class="card-avatar">
+											<div class="delegate-name">
+												<h6>{{profile.firstName}} {{profile.lastName}}</h6>
+												<p>
+													({{profile.username}})
+													<br>
+													{{#each filteredRoles roles}}
+														<a class="tag tag-chip role-chip">{{this}}</a>
+													{{/each}}
+												</p>
+											</div>
+										</div>
+										<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delegate-checkbox-{{@index}}">
+											<input type="checkbox" id="delegate-checkbox-{{@index}}" class="mdl-checkbox__input delegate-select" />
+										</label>
+									</div>
+									<div class="card-secondary-wrap">
+										{{#each showTags profile.tags}}
+											<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
+										{{/each}}
+									</div>
 								</div>
-							</div>
-						{{/each}}
+						  {{/each}}
+						</div>
 					{{else}}
 						{{> loader}}
-					{{/if}}
-				</div>
-			{{else}}
-				<p>{{_ "pages.delegates.no-delegates"}}</p>
-			{{/if}}
-			<div class="search-wrapper">
-				<i class="material-icons search-icon">search</i>
-				<input type="text" name="focus" required class="search-box" placeholder='{{_ "pages.delegates.search"}}' id="delegate-search"/>
-				<button class="close-icon" type="reset">
-					<i class="material-icons">close</i>
-				</button>
-			</div>
-			{{#if Template.subscriptionsReady}}
-				<div class="delegate-list">
-					{{#each delegates}}
-						<div class="delegate-item">
-							<div class="card-main-wrap">
-								<div class="card-main delegate-view">
-									<img src={{profile.photo}} class="card-avatar">
-									<div class="delegate-name">
-										<h6>{{profile.firstName}} {{profile.lastName}}</h6>
-										<p>
-											({{profile.username}})
-											<br>
-											{{#each filteredRoles roles}}
-												<a class="tag tag-chip role-chip">{{this}}</a>
+			  	{{/if}}
+			  </div>
+			  <div class="mdl-tabs__panel" id="selected-panel">
+					{{#if rankCount}}
+						<div id="sortable" class="delegate-list" >
+							{{#if Template.subscriptionsReady}}
+								{{#each ranks}}
+									<div class="delegate-item selected" id="{{_id}}" data-ex="{{getRanking}}">
+										<div class="card-main-wrap delegate-card-main-wrap">
+											<div class="card-main delegate-view">
+												<img src={{profile.photo}} class="card-avatar">
+												<div class="delegate-name">
+													<h6>{{profile.firstName}} {{profile.lastName}}</h6>
+													<p>
+														({{profile.username}})
+														<br>
+														{{#each filteredRoles roles}}
+															<a class="tag tag-chip role-chip">{{this}}</a>
+														{{/each}}
+													</p>
+												</div>
+											</div>
+											<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
+												<input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
+											</label>
+										</div>
+
+										<div class="card-secondary-wrap">
+											{{#each showTags profile.tags}}
+												<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
 											{{/each}}
-										</p>
+										</div>
 									</div>
-								</div>
-								<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delegate-checkbox-{{@index}}">
-									<input type="checkbox" id="delegate-checkbox-{{@index}}" class="mdl-checkbox__input delegate-select" />
-								</label>
-							</div>
-							<div class="card-secondary-wrap">
-								{{#each showTags profile.tags}}
-									<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
 								{{/each}}
-							</div>
+							{{else}}
+								{{> loader}}
+							{{/if}}
 						</div>
-				  {{/each}}
-				</div>
-			{{else}}
-				{{> loader}}
-	  	{{/if}}
-			<!-- end delegate check
-			{{else}}
-				<p>You are currently a delegate and can vote on behalf of your followers. As such, you cannot delegate votes to others.</p>
-				<p>If you no longer wish to be a delegate, you can update your <a href="/profile">profile</a>.</p>
-			{{/if}} -->
+					{{else}}
+						<br>
+						<center><p>{{_ "pages.delegates.no-delegates"}}</p></center>
+					{{/if}}
+			  </div>
+			</div>
 		{{else}}
 			<p>{{_ "pages.delegates.delegation-disabled"}}</p>
 		{{/if}}

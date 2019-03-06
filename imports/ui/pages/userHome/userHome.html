@@ -4,7 +4,6 @@
   </header>
   <div class="column-container app-container">
     <aside class="aside aside-1">
-      <!--<a href="#" class="profile-image-link"><img src="{{profilePic}}" class="profile-image"/></a>-->
       <div class="profile-card">
         <h5>{{profileName}}</h5>
         <small>{{profileUsername}}</small><br/>
@@ -15,6 +14,16 @@
             <button class="mdl-button mdl-js-button" id="follow-me">Follow<i class="material-icons">add</i></button>
           {{/if}}
         {{/unless}}
+        <br>
+        {{#if interestsCount}}
+          <strong>Interests</strong>
+          <div class="tags-wrap" >
+        		<!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
+        		{{#each interests}}
+        			<a class="tag taggle-tag tag-chip {{isAuthorised this}}" id="{{this._id}}" data-id="{{this._id}}">{{this.keyword}}</a>
+        		{{/each}}
+        	</div>
+        {{/if}}
       </div>
     </aside>
     <article class="main">
@@ -22,8 +31,8 @@
         <div class="mdl-tabs__tab-bar">
           <a href="#user-home-panel" class="mdl-tabs__tab is-active">Feed</a>
           <a href="#activity-panel" class="mdl-tabs__tab">Activity</a>
-          <a href="#followers-panel" class="mdl-tabs__tab">Followers</a>
-          <a href="#following-panel" class="mdl-tabs__tab">Following</a>
+          <a href="#followers-panel" class="mdl-tabs__tab">Followers {{#if followersCount}}({{followersCount}}){{/if}}</a>
+          <a href="#following-panel" class="mdl-tabs__tab">Following {{#if followingCount}}({{followingCount}}){{/if}}</a>
         </div>
 
         <div class="mdl-tabs__panel" id="activity-panel">
@@ -59,8 +68,9 @@
           </ul>
         </div>
         <div class="mdl-tabs__panel" id="followers-panel">
-          {{#unless followers}}
-            No followers
+          {{#unless followersCount}}
+            <br>
+            <center>No followers</center>
           {{else}}
             {{#each follower in followers}}
               {{>UserCard userId=follower._id}}
@@ -68,8 +78,9 @@
           {{/unless}}
         </div>
         <div class="mdl-tabs__panel" id="following-panel">
-          {{#unless following}}
-            Not following anyone
+          {{#unless followingCount}}
+            <br>
+            <center>Not following anyone</center>
           {{else}}
             <div class="mdl-grid">
             {{#each follow in following}}
@@ -80,9 +91,11 @@
         </div>
       </div>
     </article>
+    <!--
     <aside class="aside aside-2">
       This is a side column.
     </aside>
+    -->
     <!--
     <footer class="footer">Footer</footer>
     -->

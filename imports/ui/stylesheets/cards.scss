@@ -40,7 +40,7 @@
 
 .delegate-item.selected {
   cursor: pointer;
-  outline: ($space / 2) solid $light-blue;
+  //outline: ($space / 2) solid $light-blue;
   &::after {
     content: '';
     position: absolute;
@@ -220,7 +220,7 @@
 
 .delegate-item.selected {
   cursor: pointer;
-  outline: ($space / 2) solid $light-blue;
+  //outline: ($space / 2) solid $light-blue;
 
   &::after {
     content: '';

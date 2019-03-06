@@ -1,14 +1,14 @@
 import "./userHome.html"
 import '../../components/profileHeader/profileHeader.js';
-import { userProfilePhoto } from '../../../utils/users';
-import { userfullname } from '../../../utils/users';
-import { username } from '../../../utils/users';
+import { userProfilePhoto, userfullname, username, userTags } from '../../../utils/users';
+import { Tags } from '../../../api/tags/Tags.js'
 import { Posts } from '../../../api/posts/Posts.js'
 import { Likes } from '../../../api/likes/Likes.js'
 import RavenClient from 'raven-js';
 import snarkdown from 'snarkdown';
 
 Template.UserHome.onCreated(function () {
+  var communityId = LocalStore.get('communityId');
   Session.set("coverURL","");
   Session.set("hasCover","");
   Session.set("coverState","");
@@ -18,6 +18,7 @@ Template.UserHome.onCreated(function () {
     self.subscribe('users.profile');
     self.subscribe('feed-posts', ownerId);
     self.subscribe('likes.all');
+    self.subscribe('tags.community', communityId);
     $("#unsplash-close").hide();
   });
 });
@@ -49,7 +50,7 @@ Template.UserHome.helpers({
   	return userfullname(getOwnerId());
   },
   profileUsername: function(userId) {
-  	return username(getOwnerId());
+  	return "@" + username(getOwnerId());
   },
   userFeed: function(){
     let ownerId = getOwnerId();
@@ -82,8 +83,42 @@ Template.UserHome.helpers({
     }
     return null;
   },
+  followingCount: function(){
+    let followers;
+    let user = Meteor.users.findOne({"_id":getOwnerId()});
+    if(typeof user != 'undefined'){
+      followers = user.profile.following;
+    }else{
+      followers = Meteor.user().profile.following;
+    }
+    if(Array.isArray(followers)){
+      return Meteor.users.find( { _id : { $in :  followers} }).count();
+    }
+    return 0;
+  },
   followers: function(){
     return Meteor.users.find( { "profile.following" : getOwnerId() });
+  },
+  followerCount: function(){
+    return Meteor.users.find( { "profile.following" : getOwnerId() }).count();
+  },
+  interestsCount: function(userId){
+    let tagIdArray = userTags(getOwnerId());
+    console.log(tagIdArray);
+    return Tags.find({_id: {$in: tagIdArray}}).count();
+  },
+  interests: function(userId){
+    let tagIdArray = userTags(getOwnerId());
+    console.log(tagIdArray);
+    let foundTags = Tags.find({_id: {$in: tagIdArray}});
+    return foundTags;
+  },
+  'isAuthorised'(tag){
+    if(tag.authorized){
+      return 'tag-authorised';
+    }else{
+      return 'tag-not-authorised';
+    }
   }
 });
 

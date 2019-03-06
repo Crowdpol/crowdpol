@@ -56,7 +56,7 @@ Template.UserCard.helpers({
     return Meteor.users.find({_id: Meteor.userId(), "profile.following":userId}).count()
   },
   notMe: function(userId){
-    if(userd!=Meteor.userId()){
+    if(userId!=Meteor.userId()){
       return true;
     }
     return false;

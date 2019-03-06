@@ -39,6 +39,7 @@ export const userProfilePhoto = (id) => {
   }
   return "/img/default-user-image.png";;
 };
+
 //check if user has cover, if true, return coverURL or return false
 export const userHasCover = (id) => {
   let user = returnUser(id);
@@ -64,6 +65,17 @@ export const userCover = (id) => {
   return false;
 };
 
+//returns user tags/interests
+export const userTags = (id) => {
+  let user = returnUser(id);
+  if(user){
+    profile = returnProfile(user);
+    if(profile){
+      return returnProfileKey(profile,'tags');
+    }
+  }
+  return false;
+};
 //returns user by id, or current user
 function returnUser(id){
   let user;
