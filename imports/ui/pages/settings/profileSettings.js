@@ -80,7 +80,21 @@ Template.ProfileSettings.helpers({
       return true;
     }
     return false;
-  }
+  },
+  delegatesEnabled: function(){
+    let settings = LocalStore.get('settings');
+    let delegateLimit = -1;
+
+    if(typeof settings != 'undefined'){
+      if(typeof settings.delegateLimit != 'undefined'){
+        delegateLimit = settings.delegateLimit;
+      }
+    }
+    if(delegateLimit==0){
+      return false;
+    }
+    return true;
+  },
 });
 
 Template.ProfileSettings.events({

@@ -66,17 +66,6 @@
 						<i class="material-icons">arrow_drop_down</i>
 					</a>
 					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="profile-dropdown">
-						<li class="mdl-menu__item  mdl-layout--large-screen-only">
-							<a class="mdl-navigation__link" href="/profile">{{_ "layout.header.nav_profile_settings"}}</a>
-						</li>
-						<li class="mdl-menu__item  mdl-layout--large-screen-only">
-							<a class="mdl-navigation__link" href="/settings">{{_ "layout.header.nav_account_settings"}}</a>
-						</li>
-						{{#if currentUserIsAdmin}}
-							<li class="mdl-menu__item mdl-layout--large-screen-only">
-								<a class="mdl-navigation__link" href="/admin/dash">{{_ "layout.header.nav_admin"}}</a>
-							</li>
-						{{/if}}
 						{{#if isDelegate}}
 							{{#if usingAsDelegate}}
 								<li class="mdl-menu__item mdl-layout--large-screen-only">
@@ -87,8 +76,18 @@
 								<a class="mdl-navigation__link change-role" href="#" data-role="delegate">{{_ "layout.header.nav_use_delegate"}}</a>
 							</li>
 							{{/if}}
-
 						{{/if}}
+						<li class="mdl-menu__item  mdl-layout--large-screen-only">
+							<a class="mdl-navigation__link" href="/profile">{{_ "layout.header.nav_profile_settings"}}</a>
+						</li>
+						<li class="mdl-menu__item  mdl-layout--large-screen-only">
+							<a class="mdl-navigation__link" href="/settings">{{_ "layout.header.nav_account_settings"}}</a>
+						</li>
+						{{#if currentUserIsAdmin}}
+							<li class="mdl-menu__item mdl-layout--large-screen-only">
+								<a class="mdl-navigation__link" href="/admin/dash">{{_ "layout.header.nav_admin"}}</a>
+							</li>
+						{{/if}}		
 						<li class="mdl-menu__item mdl-layout--large-screen-only">
 							{{#if currentUser}}
 								<a class="mdl-navigation__link" href="" id="nav-logout">{{_ "layout.drawer.nav_logout"}}</a>
@@ -97,7 +96,7 @@
 							{{/if}}
 						</li>
 					</ul>
-					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/ideas" id="ideas-menu">{{_ "layout.header.nav_ideas"}}</a>	
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/ideas" id="ideas-menu">{{_ "layout.header.nav_ideas"}}</a>
 					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/proposals" id="proposals-menu">{{_ "layout.header.nav_proposals"}}</a>
 					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/voting" id="vote-menu">{{_ "layout.header.nav_vote"}}</a>
 					<!--

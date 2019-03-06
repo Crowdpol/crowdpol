@@ -86,6 +86,18 @@ Template.Delegate.helpers({
     ]});
     return delegates;
   },
+  delegatesCount: function() {
+    /* DO NOT SHOW CURRENT USER IN DELEGATE SEARCH
+    delegates = Meteor.users.find( { $and: [
+      { _id : { $nin : Session.get('ranked')}},
+      { _id : { $ne: Meteor.userId()} }
+    ]});
+    */
+    delegatesCount = Meteor.users.find( { $and: [
+      { _id : { $nin : Session.get('ranked')}}
+    ]}).count();
+    return delegatesCount;
+  },
   searchPhrase: function() {
   	return Session.get('searchPhrase');
   },

@@ -1,6 +1,6 @@
-import './template.html'
+import './labelSelector.html'
 /*
-Template.InsertName.onCreated(function(){
+Template.LabelSelector.onCreated(function(){
   self = this;
   //Local Storage
   var communityId = LocalStore.get('communityId');
@@ -18,11 +18,11 @@ Template.InsertName.onCreated(function(){
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
   });
 
-Template.InsertName.onRendered(function(){
+Template.LabelSelector.onRendered(function(){
 
 });
 
-Template.InsertName.events({
+Template.LabelSelector.events({
 	'keyup #some-id': function(event, template){
 		Session.set('searchPhrase',event.target.value);
 	},
@@ -46,7 +46,7 @@ Template.InsertName.events({
     });
   },
 
-Template.InsertName.helpers({
+Template.LabelSelector.helpers({
 	example: function(){
     communityId = Template.instance().templateDictionary.get( 'communityId' );
     return communityId;
