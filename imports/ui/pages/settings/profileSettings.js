@@ -39,6 +39,13 @@ Template.ProfileSettings.helpers({
     }
     return false;
   },
+  showDelegates: function(){
+    var show = Template.instance().currentView.get();
+    if(show=="delegates"){
+      return true;
+    }
+    return false;
+  },
   showPassword: function(){
     var show = Template.instance().currentView.get();
     if(show=="password"){
@@ -77,6 +84,7 @@ Template.ProfileSettings.helpers({
 });
 
 Template.ProfileSettings.events({
+
   'click #showProfile' (event, template) {
     event.preventDefault();
     template.currentView.set('profile')
@@ -88,6 +96,10 @@ Template.ProfileSettings.events({
   'click #showInterests' (event, template) {
     event.preventDefault();
     template.currentView.set('interests')
+  },
+  'click #showDelegates' (event, template) {
+    event.preventDefault();
+    template.currentView.set('delegates')
   },
   'click #showProfileSettings' (event, template) {
     event.preventDefault();
@@ -104,5 +116,5 @@ Template.ProfileSettings.events({
   'click #showPrivacySettings' (event, template) {
     event.preventDefault();
     template.currentView.set('privacy-settings')
-  },
+  }
 });
