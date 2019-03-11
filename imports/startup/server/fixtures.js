@@ -149,9 +149,9 @@ createAdmins = function (admin, communityIds) {
 		    // after `Accounts.createUser` or `Accounts.onCreate`
 		    Roles.addUsersToRoles(id, admin.roles);
 		}
-		console.log('Created admin ' + admin.email);
+		//console.log('Created admin ' + admin.email);
 	} else {
-		console.log('Admin with email ' + admin.email + ' already exists.')
+		//console.log('Admin with email ' + admin.email + ' already exists.')
 	}
 };
 
@@ -168,7 +168,7 @@ function createDemoTags(communityId){
 function registerDemoUsers(numUsers, communityIds, subdomain){
 	let demoUserCount = Roles.getUsersInRole('demo').count();
 	if(demoUserCount>=numUsers){
-		console.log("Already created demo users for " + subdomain);
+		//console.log("Already created demo users for " + subdomain);
 	}else{
 		let url = 'https://randomuser.me/api/?nat=gb&results=' + numUsers;
 		let response = [];

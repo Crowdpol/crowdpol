@@ -78,7 +78,7 @@ Template.UserHome.helpers({
       followers = Meteor.user().profile.following;
     }
     if(Array.isArray(followers)){
-      //console.log(Meteor.users.find( { _id : { $in :  followers} }).count());
+      console.log(Meteor.users.find( { _id : { $in :  followers} }).count());
       return Meteor.users.find( { _id : { $in :  followers} });
     }
     return null;
@@ -99,17 +99,17 @@ Template.UserHome.helpers({
   followers: function(){
     return Meteor.users.find( { "profile.following" : getOwnerId() });
   },
-  followerCount: function(){
+  followersCount: function(){
     return Meteor.users.find( { "profile.following" : getOwnerId() }).count();
   },
   interestsCount: function(userId){
     let tagIdArray = userTags(getOwnerId());
-    console.log(tagIdArray);
+    //console.log(tagIdArray);
     return Tags.find({_id: {$in: tagIdArray}}).count();
   },
   interests: function(userId){
     let tagIdArray = userTags(getOwnerId());
-    console.log(tagIdArray);
+    //console.log(tagIdArray);
     let foundTags = Tags.find({_id: {$in: tagIdArray}});
     return foundTags;
   },
@@ -271,6 +271,6 @@ function getOwnerId(){
       }
     }*/
   }
-  console.log("ownerId: " + userId);
+  //console.log("ownerId: " + userId);
   return userId;
 }
