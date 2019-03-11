@@ -7,6 +7,13 @@ import '../../ui/main.js';
 // Global onEnter trigger to save communityInfo in LocalStore
 FlowRouter.triggers.enter([loadCommunityInfo]);
 
+// the App_notFound template is used for unknown routes and missing lists
+FlowRouter.notFound = {
+  action() {
+    BlazeLayout.render('App_body', {main: 'App_notFound'});
+  }
+};
+
 // Public Routes (no need to log in):
 
 var publicRoutes = FlowRouter.group({name: 'public'});
@@ -118,34 +125,6 @@ publicRoutes.route('/about', {
   },
 });
 
-publicRoutes.route('/home', {
-  name: 'App.home',
-  action() {
-    BlazeLayout.render('App_body', { main: 'UserHome' });
-  },
-});
-
-publicRoutes.route('/home/:id', {
-  name: 'App.home',
-  action() {
-    BlazeLayout.render('App_body', { main: 'UserHome' });
-  },
-});
-
-publicRoutes.route('/feed', {
-  name: 'App.feed',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Feed' });
-  },
-});
-
-publicRoutes.route('/feed/:id', {
-  name: 'App.feed',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Feed' });
-  },
-});
-
 publicRoutes.route('/faq', {
   name: 'App.faq',
   action() {
@@ -216,25 +195,39 @@ var loggedInRoutes = FlowRouter.group({
   name: 'loggedIn',
   triggersEnter: [function(context, redirect) {
     if ((!Meteor.user()) || (!_.contains(Meteor.user().profile.communityIds, LocalStore.get('communityId')))){
-    FlowRouter.go('App.home');
-    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
-  }
+	    FlowRouter.go('App.home');
+	    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
+  	}
   }]
 });
+
 
 loggedInRoutes.route('/profile', {
   name: 'App.profile',
   action() {
     BlazeLayout.render('App_body', { main: 'ProfileSettings' });
-
   },
 });
-
+/*
 loggedInRoutes.route('/profile/:id', {
   name: 'App.profile',
   action() {
     BlazeLayout.render('App_body', { main: 'Profile' });
 
+  },
+});
+*/
+loggedInRoutes.route('/feed', {
+  name: 'App.feed',
+  action() {
+    BlazeLayout.render('App_body', { main: 'UserHome' });
+  },
+});
+
+loggedInRoutes.route('/feed/:id', {
+  name: 'App.feed',
+  action() {
+    BlazeLayout.render('App_body', { main: 'UserHome' });
   },
 });
 
@@ -314,38 +307,6 @@ loggedInRoutes.route('/candidate', {
   },
 });
 
-// v2 routes
-var v2Routes = FlowRouter.group({
-  prefix: '/v2',
-  name: 'v2',
-  triggersEnter: [function(context, redirect) {
-    if (!Roles.userIsInRole(Meteor.user(), ['admin','superadmin'])){
-      FlowRouter.go('App.v2.home');
-    }
-  }]
-});
-/* v2 Experiment
-publicRoutes.route('/v2', {
-  name: 'App.v2',
-  action() {
-    BlazeLayout.render('v2_body', { main: 'v2Home' });
-  },
-});
-
-publicRoutes.route('/v2/feed', {
-  name: 'App.v2.feed',
-  action() {
-    BlazeLayout.render('v2_body', { main: 'v2Feed' });
-  },
-});
-
-publicRoutes.route('/v2/profile', {
-  name: 'App.v2.profile',
-  action() {
-    BlazeLayout.render('v2_body', { main: 'v2Profile' });
-  },
-});
-*/
 // Admin Routes:
 
 var adminRoutes = FlowRouter.group({

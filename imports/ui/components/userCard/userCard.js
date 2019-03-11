@@ -30,7 +30,7 @@ Template.UserCard.onRendered(function(){
 
 Template.UserCard.helpers({
   userPhoto: function(userId){
-    console.log("userPhoto userid: " + userId);
+    //console.log("userPhoto userid: " + userId);
     return userProfilePhoto(userId);
   },
   userFullname: function(userId){

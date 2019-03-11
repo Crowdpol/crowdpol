@@ -49,7 +49,7 @@ Template.ProfileImage.events({
   },
 	'click #profile-image-refresh' (event, template) {
   	event.preventDefault();
-		console.log("refresh photo");
+		//console.log("refresh photo");
   },
 	//default image: url(/img/default-user-image.png)
 	'click #photo-default' (event, template) {

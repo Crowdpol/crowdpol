@@ -16,10 +16,18 @@ export const username = (id) => {
 
 export const userfullname = (id) => {
   let user = returnUser(id);
+  let fullname;
   if(user){
     profile = returnProfile(user);
     if(profile){
-      let fullname = returnProfileKey(profile,'firstName') + " " + returnProfileKey(profile,'lastName');
+      let firstname = returnProfileKey(profile,'firstName');
+      let lastname = returnProfileKey(profile,'lastName');
+      if(firstname){
+        fullname = firstname;
+      }
+      if(lastname){
+        fullname = fullname + " " + lastname;
+      }
       if(fullname){
         return fullname;
       }
@@ -76,6 +84,18 @@ export const userTags = (id) => {
   }
   return false;
 };
+
+//returns user tags/interests
+export const getUserIdByUsername = (username) => {
+  let user = returnUserByUsername(username);
+  if(user){
+    Bert.alert("user id: " + user._id,"success");
+    return user;
+  }
+  //Bert.alert("can't match usernmae","caution");
+  return false;
+};
+
 //returns user by id, or current user
 function returnUser(id){
   let user;
@@ -83,6 +103,21 @@ function returnUser(id){
   if (id !== undefined) {
     //Bert.alert("user id: " + id,"success");
     user = Meteor.users.findOne({"_id":id});
+  }/*
+  else{
+    //Bert.alert("current user","caution");
+    user = Meteor.user();
+  }*/
+  return user;
+}
+
+function returnUserByUsername(username){
+  let user;
+
+  if (username !== undefined) {
+
+    user = Meteor.users.findOne({"profile.username" :username});
+    Bert.alert(user,"success");
   }/*
   else{
     //Bert.alert("current user","caution");

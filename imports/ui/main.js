@@ -41,6 +41,7 @@ import './pages/candidates/candidates.js';
 import './pages/notifications/notifications.js';
 import './pages/tags/interests.js';
 import './pages/test/test.js';
+import './pages/not-found/not-found.js';
 import './stylesheets/stylesheets.js';
 import './v2/main.js';
 

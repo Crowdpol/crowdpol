@@ -80,7 +80,7 @@ Template.EditProposal.onCreated(function(){
 		} else {
 			Session.set("coverURL",'url("https://images.unsplash.com/photo-1454166155302-ef4863c27e70?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2")');
 		  Session.set( 'hasCover',false);
-			Session.set('coverState','hide');
+			Session.set('coverState','edit-hide');
 			dict.set( 'startDate', defaultStartDate );
 			dict.set( 'endDate', defaultEndDate);
 			dict.set( 'tags',[]);

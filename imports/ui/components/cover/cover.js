@@ -27,7 +27,7 @@ Template.Cover.onCreated(function() {
   //set reactive variables for unsplash search box
   self.dict.set("data",null);
   self.dict.set("page",1);
-  self.dict.set("searchTerm","berlin");
+  self.dict.set("searchTerm","sweden");
   self.autorun(function(){
     updateImages(self);
   });
@@ -43,7 +43,7 @@ Template.Cover.onRendered(function() {
   getCoverPosition();
   */
   self.autorun(function(){
-    console.log("cover.js self autorun");
+    //console.log("cover.js self autorun");
     //check if coverURL has been set, else switch to default
     let coverURL = Session.get('coverURL');
     if(typeof coverURL=='undefined'){
@@ -55,8 +55,8 @@ Template.Cover.onRendered(function() {
       Session.set("hasCover",false);
       Session.set("coverState",'hidden');
     }else{
-      console.log("hasCover defined");
-      console.log("Session.get('coverState'): " + Session.get("coverState"));
+      //console.log("hasCover defined");
+      //console.log("Session.get('coverState'): " + Session.get("coverState"));
     }
 
     /* ONLY USE IF POSITION BACKGROUND ENABLED
@@ -71,7 +71,7 @@ Template.Cover.onRendered(function() {
       $('#cover-image').css("background-image",Session.get('coverURL'));
       $('#cover-image').css("background-position",defaultPosition);//Session.get('coverPosition'));
     }
-    console.log("cover.js self autorun finished,coverState: "+Session.get("coverState"));
+    //console.log("cover.js self autorun finished,coverState: "+Session.get("coverState"));
     setCoverState(Session.get("coverState"));
 
     //EXPERIMENT: Cover state is hidden by default, it is the responsibility of the calling page to setCoverState();
@@ -85,15 +85,15 @@ Template.Cover.events({
   },
   'click #cover-close' (event, template){
     console.clear();
-    console.log("#cover-close click event starting");
+    //console.log("#cover-close click event starting");
 		event.preventDefault();
     $(".back-button").removeClass('has-header');
     Session.set("hasCover",false);
     Session.set('coverState','edit-hide');
     setCoverState('edit-hide');
-    console.log("setCoverState('edit-hide')");
+    //console.log("setCoverState('edit-hide')");
     Template.instance().dict.set("coverEdit",false);
-    console.log("#cover-close click event finished");
+    //console.log("#cover-close click event finished");
   },
   'click #cover-open' (event, template){
 		event.preventDefault();
@@ -301,14 +301,14 @@ function updateImages(template){
 }
 
 export function setCoverState(state){
-  console.log("setCoverState called: "+state);
+  //console.log("setCoverState called: "+state);
   if(typeof state=='undefined'){
     state = Session.get('coverState');
   }
   switch (state) {
     //cover should be editable and the image should be visible
     case 'edit-show':
-      console.log("edit-show");
+      //console.log("edit-show");
       //$(".cover-search-box").hide();
       $('#cover-image').removeClass("disable-edit");
       //$("#cover-edit-button").show();
@@ -320,7 +320,7 @@ export function setCoverState(state){
       break;
     //cover should be editable, but the image should be hidden
     case 'edit-hide':
-      console.log("edit-hide");
+      //console.log("edit-hide");
       $("#cover-image").show();
       $("#cover-controls").show();
       $("#cover-close").hide();
@@ -338,7 +338,7 @@ export function setCoverState(state){
 
     //cover should be visible but not editable
     case 'view':
-      console.log("view");
+      //console.log("view");
       $('#cover-image').addClass("disable-edit");
       $(".cover-search-box").hide();
       $("#cover-image-overlay").hide();
@@ -348,7 +348,7 @@ export function setCoverState(state){
       $("#cover-container").slideDown();
       break;
     case 'view-edit':
-        console.log("view");
+        //console.log("view");
         $('#cover-image').addClass("disable-edit");
         $(".cover-search-box").hide();
         $("#cover-image-overlay").show();
@@ -359,7 +359,7 @@ export function setCoverState(state){
         break;
     //cover and all control should be completely hidden
     case 'hidden':
-      console.log("hidden");
+      //console.log("hidden");
       $("#cover-controls").hide();
       $("#cover-container").hide();
       break;
