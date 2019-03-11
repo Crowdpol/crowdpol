@@ -36,7 +36,7 @@ Template.ProfileHeader.helpers({
         Session.set("coverURL",coverURL);
         //check if cover should be editable or readonly
         if(editable==true){
-          console.log("profileHeader.js - is this the problem?");
+          //console.log("profileHeader.js - is this the problem?");
           Session.set('coverState','edit-show');
         }else{
           Session.set('coverState','view');

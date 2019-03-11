@@ -58,7 +58,7 @@
 				-->
 				<!-- Navigation. We hide it in small screens. -->
 				<nav class="mdl-navigation" id="main-menu">
-					<a id="header_nav-profile-image-header" class="mdl-navigation__link mdl-layout--large-screen-only" href="/home">
+					<a id="header_nav-profile-image-header" class="mdl-navigation__link mdl-layout--large-screen-only" href="#">
 						{{currentUserRoleText}}
 						<img src="{{userPhoto}}" class="mdl-list__item-avatar">
 					</a>
@@ -87,7 +87,7 @@
 							<li class="mdl-menu__item mdl-layout--large-screen-only">
 								<a class="mdl-navigation__link" href="/admin/dash">{{_ "layout.header.nav_admin"}}</a>
 							</li>
-						{{/if}}		
+						{{/if}}
 						<li class="mdl-menu__item mdl-layout--large-screen-only">
 							{{#if currentUser}}
 								<a class="mdl-navigation__link" href="" id="nav-logout">{{_ "layout.drawer.nav_logout"}}</a>
@@ -96,7 +96,7 @@
 							{{/if}}
 						</li>
 					</ul>
-					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/ideas" id="ideas-menu">{{_ "layout.header.nav_ideas"}}</a>
+					<!--<a class="mdl-navigation__link mdl-layout-large-screen-only" href="/ideas" id="ideas-menu">{{_ "layout.header.nav_ideas"}}</a>-->
 					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/proposals" id="proposals-menu">{{_ "layout.header.nav_proposals"}}</a>
 					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/voting" id="vote-menu">{{_ "layout.header.nav_vote"}}</a>
 					<!--
