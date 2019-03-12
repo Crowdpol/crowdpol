@@ -149,7 +149,7 @@ publicRoutes.route('/unsplash', {
 publicRoutes.route('/test', {
   name: 'App.test',
   action() {
-    BlazeLayout.render('App_body', { main: 'Test' });
+    BlazeLayout.render('App_body', { main: 'LabelSelector' });
   },
 });
 

@@ -4,9 +4,9 @@
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" id="label-tree-container">
 				<ul id="myUL">
 					{{#each label in rootLabels}}
-					  <li class="label-tree-item" data-id="{{label._id}}" data-label-level="{{label.level}}">
+					  <li class="label-tree-item">
 							{{#if hasChildren label._id}}
-								<span class="caret"><span class="item-text">{{label.keyword}}</span></span>
+								<span class="caret"><span class="item-text" data-id="{{label._id}}" data-label-level="{{label.level}}">{{label.keyword}}</span></span>
 								{{>LabelChildren label=label}}
 							{{else}}
 								<span class="item-text">{{label.keyword}}</span>
@@ -14,8 +14,6 @@
 					  </li>
 					{{/each}}
 				</ul>
-
-
 			</div>
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" id="label-form-container">
 				<div class="dashboard__item dashboard__item--full">
@@ -85,11 +83,11 @@
 <template name="LabelChildren">
 	<ul class="nested">
 		{{#each childLabel in childLabels label._id}}
-			<li class="label-tree-item" data-id="{{childLabel._id}}" data-label-level="{{childLabel.level}}">
+			<li class="label-tree-item">
 				{{#unless hasChildren childLabel._id}}
-					<span class="item-text">{{childLabel.keyword}}</span>
+					<span class="item-text" data-id="{{childLabel._id}}" data-label-level="{{childLabel.level}}">{{childLabel.keyword}}</span>
 				{{else}}
-					<span class="caret"><span class="item-text">{{childLabel.keyword}}</span></span>
+					<span class="caret"><span class="item-text" data-id="{{childLabel._id}}" data-label-level="{{childLabel.level}}">{{childLabel.keyword}}</span></span>
 					{{>LabelChildren label=childLabel}}
 				{{/unless}}
 			</li>
