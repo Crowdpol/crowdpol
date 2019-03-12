@@ -431,7 +431,13 @@
 			"min": "min",
 			"max": "max",
 			"settings": "Profilinställningar",
-			"status": "Profil status: __completedScore__/__totalScore__ fullständig.",
+			"status": {
+				"heading":"Profil status: __completedScore__/__totalScore__ fullständig.",
+				"description":"TODO: Your profile must be complete in order to become a delegate.",
+				"entity-name": "Namn",
+				"phone":"Telefonnummer",
+				"contact-person":"TODO: Contact Person"
+			},
 			"completed": "fullständig",
 			"interests": "intressen",
 			"public-switch-description": "Gör din profil synlig för andra. Detta krävs om du vill bli delegat. Först krävs dock en fullständig profil.",
@@ -453,8 +459,30 @@
 				"login-to-view": "Du måste logga in för att få tillgång till denna sida.",
 				"no-subdomain": "Kolla att länken du skrev stämmer."
 			}
+		},
+		"interests": {
+			"heading": "Intressen",
+			"intro-text": "TODO: Select some of your personal interests you would like to follow.",
+			"popular": "TODO: Popular Tags"
+		},
+		"settings":{
+			"profile":{
+				"nav":{
+					"profile":"Profilinställningar",
+					"settings":"TODO: Settings",
+					"interests":"Intressen",
+					"delegates":"Delegat"
+				}
+			},
+			"account":{
+				"nav":{
+					"notifications":"TODO: Notifications",
+					"privacy":"TODO: Privacy Settings",
+					"account":"TODO: Account Settings",
+					"password":"Återställ lösenordet"
+				}
+			}
 		}
-
 
 	}
 }
