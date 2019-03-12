@@ -299,14 +299,14 @@ loggedInRoutes.route('/delegate', {
     BlazeLayout.render('App_body', { main: 'Delegate' });
   },
 });
-
+/*
 loggedInRoutes.route('/candidate', {
   name: 'App.candidate',
   action() {
     BlazeLayout.render('App_body', { main: 'Candidate' });
   },
 });
-
+*/
 // Admin Routes:
 
 var adminRoutes = FlowRouter.group({

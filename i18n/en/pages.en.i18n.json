@@ -399,6 +399,7 @@
 			"invited": "Invited"
 		},
 		"profile": {
+
 			"profile-tags" : "Fill in at least five of your interests",
 			"heading": "Profile",
 			"photo" : "Profile photo path",
@@ -434,7 +435,13 @@
 			"min": "min",
 			"max": "max",
 			"settings": "Profile Settings",
-			"status": "Profile status: __completedScore__/__totalScore__ completed.",
+			"status": {
+				"heading":"Profile status: __completedScore__/__totalScore__ completed.",
+				"description":"Your profile must be complete in order to become a delegate.",
+				"entity-name": "Name",
+				"phone":"Phone Number",
+				"contact-person":"Contact Person"
+			},
 			"completed": "completed",
 			"interests": "interests",
 			"public-switch-description": "Make your profile visible to others. Requires completed profile form. Required become a delegate.",
@@ -460,8 +467,25 @@
 			"heading": "My Interests",
 			"intro-text": "Select some of your personal interests you would like to follow.",
 			"popular": "Popular Tags"
+		},
+		"settings":{
+			"profile":{
+				"nav":{
+					"profile":"Profile",
+					"settings":"Settings",
+					"interests":"Interests",
+					"delegates":"Delegates"
+				}
+			},
+			"account":{
+				"nav":{
+					"notifications":"Notifications",
+					"privacy":"Privacy Settings",
+					"account":"Account Settings",
+					"password":"Change Password"
+				}
+			}
 		}
-
 
 	}
 }

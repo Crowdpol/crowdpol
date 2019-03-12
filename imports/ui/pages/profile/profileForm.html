@@ -6,27 +6,27 @@
 			<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" id="profile-delegate-status">
 				<div id="progress-container">
 					<div id="progress-header">
-						{{_ "pages.profile.status" completedScore=completedScore totalScore=totalScore}}
+						{{_ "pages.profile.status.heading" completedScore=completedScore totalScore=totalScore}}
 						<div class="progress-bar">
 							<div class="progress-status" id="progress-status" style=""></div>
 						</div>
 					</div>
-					<small>Your profile must be complete in order to become a delegate.</small>
+					<small>{{_ "pages.profile.status.description"}}</small>
 				</div>
 				<div class="mdl-tooltip mdl-tooltip--large" for="progress-header">
 					<div id="profile-status-complete">
 						<!--{{_ "form.profile-photo"}}: <i class="material-icons">{{#if photoCompleted}}check{{else}}error{{/if}}</i><br>-->
 						{{_ "form.username"}}: <i class="material-icons">{{#if usernameCompleted}}check{{else}}error{{/if}}</i><br>
 							{{#if isEntity}}
-								Entity name: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i><br>
-								Telephone: <i class="material-icons">{{#if phoneNumberCompleted}}check{{else}}error{{/if}}</i><br>
+								{{_ "pages.profile.status.entity-name"}}: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i><br>
+								{{_ "pages.profile.status.phone"}}: <i class="material-icons">{{#if phoneNumberCompleted}}check{{else}}error{{/if}}</i><br>
 								Contact Person: <i class="material-icons">{{#if contactPersonCompleted}}check{{else}}error{{/if}}</i><br>
 							{{else}}
 	  						{{_ "form.firstname"}}: <i class="material-icons">{{#if firstnameCompleted}}check{{else}}error{{/if}}</i><br>
 	  						{{_ "form.lastname"}}: <i class="material-icons">{{#if lastnameCompleted}}check{{else}}error{{/if}}</i><br>
 	  					{{/if}}
 	  					{{_ "form.website"}}: <i class="material-icons">{{#if urlCompleted}}check{{else}}error{{/if}}</i><br><br>
-	  					{{_ "form.bio"}}: {{bioCount}} characters (min: 50, max: 160) <i class="material-icons">{{#if bioCompleted}}check{{else}}error{{/if}}</i><br>
+	  					{{_ "form.bio"}}: {{bioCount}} {{_"generic.characters"}} (min: 50, max: 160) <i class="material-icons">{{#if bioCompleted}}check{{else}}error{{/if}}</i><br>
 					</div>
 				</div>
 			</div>

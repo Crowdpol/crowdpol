@@ -17,7 +17,9 @@
 		"back-to-proposals": "Back to Proposals",
 		"on": "On",
 		"off": "Off",
-		"requested": "Requested"
+		"requested": "Requested",
+		"under-construction": "Under construction",
+		"characters":"characters"
 	},
 	"form": {
 		"email": "Email address",
