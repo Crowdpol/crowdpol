@@ -14,7 +14,12 @@
 		"show-more": "Visa mer",
 		"show-less": "Visa mindre",
 		"approved": "Godkänd",
-		"back-to-proposals": "Tillbaka till Föreslå"
+		"back-to-proposals": "Tillbaka till Föreslå",
+		"on": "TODO: On",
+		"off": "TODO: Off",
+		"requested": "TODO: Requested",
+		"under-construction": "TODO: Under construction",
+		"characters":"TODO: characters"
 	},
 	"form": {
 		"email": "E-postadress",

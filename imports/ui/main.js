@@ -37,7 +37,7 @@ import './pages/proposals/signInModal/signInModal.js';
 import './pages/proposals/proposalsList.js';
 import './pages/voting/voting.js';
 import './pages/delegates/delegate.js';
-import './pages/candidates/candidates.js';
+//import './pages/candidates/candidates.js';
 import './pages/notifications/notifications.js';
 import './pages/tags/interests.js';
 import './pages/test/test.js';
