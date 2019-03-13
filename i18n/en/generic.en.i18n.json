@@ -19,7 +19,10 @@
 		"off": "Off",
 		"requested": "Requested",
 		"under-construction": "Under construction",
-		"characters":"characters"
+		"characters":"characters",
+		"change-cover": "Select the cover image",
+		"remove-cover": "Remove the cover",
+		"add-cover": "Add cover"
 	},
 	"form": {
 		"email": "Email address",
