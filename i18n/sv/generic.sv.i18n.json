@@ -19,7 +19,10 @@
 		"off": "Av",
 		"requested": "Efterfrågad",
 		"under-construction": "Under uppbyggnad",
-		"characters":"tecken"
+		"characters":"tecken",
+		"change-cover": "TODO: Select the cover image",
+		"remove-cover": "TODO: Remove the cover",
+		"add-cover": "TODO: Add cover"
 	},
 	"form": {
 		"email": "E-postadress",

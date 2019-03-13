@@ -113,16 +113,22 @@ Template.Cover.events({
     //console.log("#cover-search-close slideUp");
     $(".cover-search-box").slideUp();
     $("#cover-close").show();
+    $("#cover-edit-button").show();
+    Template.instance().dict.set("coverEdit",false);
   },
   'mouseenter #cover-image': function(event, template){
     let state = Session.get('coverState');
+    console.log("state: " + state);
     if(typeof state!='undefined'){
       if((state=='view-edit')||(state=='edit-show')){
         coverEdit = Template.instance().dict.get("coverEdit");
+        console.log("coverEdit: " + coverEdit);
         if(coverEdit==false){
           $("#cover-image-overlay").show();
         }
       }
+    }else{
+      console.log("state undefined");
     }
   },
   'mouseleave #cover-image-overlay': function(event, template){
@@ -139,9 +145,9 @@ Template.Cover.events({
   },
   'click #prev-images-page' (event, template){
     event.preventDefault();
-    let data = self.dict.get("data");
-    let currentPage = self.dict.get("page");
-    if(currentPage > 2){
+    let data = Template.instance().dict.get("data");
+    let currentPage = Template.instance().dict.get("page");
+    if(currentPage > 1){
       Template.instance().dict.set("page",(currentPage - 1));
       updateImages(template);
     }
@@ -311,7 +317,7 @@ export function setCoverState(state){
       //console.log("edit-show");
       //$(".cover-search-box").hide();
       $('#cover-image').removeClass("disable-edit");
-      //$("#cover-edit-button").show();
+      $("#cover-edit-button").show();
       $("#cover-controls").show();
       $("#cover-image").show();
       $("#cover-close").show();

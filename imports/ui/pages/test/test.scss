@@ -2,6 +2,30 @@
   box-sizing: border-box;
 }
 
+#test-overlay{
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  #button-wrap{
+    border: solid 1px black;
+    height: 400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    
+    #test-close{
+      margin:auto;
+    }
+    #test-edit{
+      margin:0 auto 0;
+    }
+  }
+
+}
+
 .test-wrap {
   width: 320px;
   border: 1px solid #ccc;
