@@ -25,7 +25,7 @@
 		},
 		"send-invite": {
 			"from": "__name__ __fromEmail__",
-			"subject": "Inbjudan till Syntropi",
+			"subject": "Inbjudan till Crowdpol",
 			"body": "Du är inbjuden att delta i Crowdpol som en __role__. Klicka på denna länk om du är intresserad: __url__"
 		}
 	}
