@@ -113,7 +113,7 @@
 			}
 		},
 		"signup": {
-			"accept-terms": "Du måste acceptera villkoren för att bli medlem i Syntropi.",
+			"accept-terms": "Du måste acceptera villkoren för att bli medlem i Crowdpol.",
 			"not-in-whitelist": "Endast redan godkända eller  verifierade användare kan registrera sig i denna grupp.",
 			"tab": {
 				"individual": "Individ",
@@ -149,7 +149,7 @@
 			}
 		},
 		"entitySignup": {
-			"type": "Typ av organisation"
+			"type": "Vilket typ av konto vill du skapa?"
 		},
 		"contact": {
 			"heading": "Kontakta oss",
@@ -216,10 +216,10 @@
 			"search": "Sök efter delegater",
 			"instructions-1": "Här finner du alla individer, organisationer och partier om du i dagsläget kan delegera din röst till.",
 			"instructions-2": "En delegat röstar åt dig i de frågor du själv inte aktivt röstar i. Din delegats röst är aldrig mer än en rekommendation eftersom du närsomhelst kan gå in och rösta efter eget huvud.  Ändrar du inte på din delegats röst kommer den dock att räknas som din egen.",
-			"instructions-3": "Du kan välja upp till fem delegater. Dessa delegater behöver du sedan rangorda. Det gör du genom att dra och släppa dem i den ordning du föredrar. Den deleagt du placerat högst kommer att räknas först. Har den delegaten inte gjort ett val i en fråga går rösten vidare till nästa delegat i ordningen och så vidare.",
-			"no-delegates": "TO DO: You have not selected any delegates",
+			"instructions-3": "Du kan välja hur många delegater du vill, men du behöver rangorda dessa. Det gör du genom att dra och släppa dem i den ordning du föredrar. Den deleagt du placerat högst kommer att räknas först. Har den delegaten inte gjort ett val i en fråga går rösten vidare till nästa delegat i ordningen och så vidare.",
+			"no-delegates": "Du har inte valt någon att delegea din röst till",
 			"alerts": {
-				"delegate-limit": "Du har nått din delegatgräns",
+				"delegate-limit": "Du har nått gränsen för hur många du kan delegera till",
 				"ranking-updated": "Dina delegaters inbördes ordning är uppdaterad"
 			},
 			"delegation-disabled": "Delegationen har inaktiverats av systemadministratören."
@@ -239,14 +239,14 @@
 				"tabs": {
 					"allProposals": "Alla Förslag",
 					"myProposals": "Mina Förslag",
-					"writeProposals": "Skriv ett Förslag",
-					"draftProposals": "Utkast till förslag",
-					"submittedProposals": "Inlämnat förslag"
+					"writeProposals": "Skriv ett Nytt Förslag",
+					"draftProposals": "Mina utkast",
+					"submittedProposals": "Mina inlämnade förslag"
 				},
 				"headings": {
 					"openProposals": "Öppna Förslag",
 					"closedProposals": "Avslutade Förslag",
-					"myProposals": "Mina Förlsag",
+					"myProposals": "Mina Förslag",
 					"notMyProposals": "Gemensamma Förslag"
 				},
 				"cards": {
@@ -266,8 +266,8 @@
 			"edit": {
 				"heading": "Ditt förslag",
 				"title": "Ge ditt förslag en titel.",
-				"abstract": "Beskriv kortfattat vad ditt förslag går ut på. Det är denna text som kommer att synas först så det är bra om det ger läsaren en tydlig överblick om vad förslage går ut på. ",
-				"body": "Beskriv ditt förslag mer utförligt, men tänkt dock på att vara så kortfattad och tydlig som möjligt. Dels för att alla ska vilja läsa och dels för att alla ska kunna förstå vad de röstar på. Inkludera gärna relevanta länkar och referenser här. Det måste vara uppenbart för alla som röstar vad de röstar för eller emot. Om ditt förslag inte möter dessa grandkrav kommer vi inte att kunna godkänna den, så ta dig gärna tiden att utveckla det ordentligt. Samarbete med andra rekommenderas varmt.    ",
+				"abstract": "Beskriv kortfattat vad ditt förslag går ut på. Det är denna text som kommer att synas först så det är bra om det ger läsaren en tydlig överblick om vad förslaget går ut på. ",
+				"body": "Beskriv ditt förslag lite mer utförligt, men tänkt på att vara så tydlig som möjligt, för att alla ska vilja läsa och för att alla ska förstå vad de röstar på. Inkludera gärna relevanta länkar och referenser här. Det måste vara uppenbart för alla som röstar vad de röstar för eller emot. Om ditt förslag inte möter dessa grandkrav kommer vi inte att kunna godkänna det, så ta dig gärna tiden att utveckla det ordentligt. Samarbete med andra rekommenderas varmt.    ",
 				"forAndAgainst": "Alla förslag har för- och nackdelar. Lägg till alla argument som stödjer ditt förslag men även så många motargument du kommer på, i respektive fält nedan. Målet är en nyanserad och balanserad representation av varje fråga, för att kunna fatta bästa möjliga beslut som väljare. ",
 				"startDate": "Startdatum",
 				"endDate": "Slutdatum",
@@ -275,15 +275,15 @@
 				"invited": "Samarbete brukar ge bästa resultat. Bjud in andra att hjälpa till med detta förslag genom att fylla i deras användarnamn. Saknar du användarnamn går det även att fylla i deras e-postadress.",
 				"tags": "Tagga ditt förslag:",
 				"pointFor": "Argument För:",
-				"argument": "Lägg till ett argument",
+				"argument": "Lägg till argument genom att klicka på + ",
 				"pointAgainst": "Argument Emot:",
 				"alerts": {
 					"saving": "Sparar...",
 					"changes-saved": "Dina Ändringar är Sparade",
 					"proposal-created": "Förslag Skapat",
-					"bad-email": "Det här verkar inte vara en riktig e-postadress. Har du skrivit rätt?",
+					"bad-email": "Det här verkar inte vara en riktig e-postadress. Är du säker på att du skrev rätt?",
 					"not-saved": "Förslaget sparades inte eftersom det inte hade något innehåll",
-					"collaborator-limit-exceeded": "Gränsen för antal medarbbetare har överskridits. (__limit__)"
+					"collaborator-limit-exceeded": "Gränsen för antal medarbetare har överskridits. (__limit__)"
 				}
 			},
 			"view": {
@@ -297,7 +297,7 @@
 					"header": "Avböj inbjudan till att samarbeta",
 					"paragraph-1": "Är du säker på att du vill avböja inbbjudan att samarbeta på detta förslag:",
 					"reason-input-label": "Ange en anledning:",
-					"decline-button": "Avslå inbjudan"
+					"decline-button": "Avböj inbjudan"
 				},
 				"inviteModal": {
 					"header": "Valda inbjudningar",
@@ -305,8 +305,8 @@
 					"existing-table-heading": "Befintliga användare inbjudna till att samarbeta:",
 					"email-table-heading": "Befintliga användare inbjudna till att samarbeta:"
 				},
-				"signature-tooltip": "Visa ditt stöd för detta förslag genom att signera den. Genom att signera det blir dock ditt ställningstagande offentligt.",
-				"confirmSubmit": "Är du helt säker på att du vill skicka in ditt förslag? När du väl har skickat in det kan det inte ändras. Om den inte blir godkänd måste du dessutom börja om från början. Bättre att först vara helt säker på att den är så bra som den kan bli med andra ord!",
+				"signature-tooltip": "Visa ditt stöd för detta förslag genom att signera den. Genom att signera det blir ditt ställningstagande offentligt.",
+				"confirmSubmit": "Är du helt säker på att du vill skicka in ditt förslag? När du väl har skickat in det kan det inte ändras. Om den inte blir godkänd måste du dessutom börja om. Bättre att först vara helt säker på att den är så bra som den kan bli med andra ord!",
 				"voteCast": "Din röst har lagts",
 				"editProposal": "Ändra Förslaget",
 				"submitProposal": "Skicka in Förslaget",
@@ -332,7 +332,7 @@
 					"linkToClipboardFailed": "Kopiering av länk till urklipp misslyckdes",
 					"proposalSubmitted": "Förslag inlämnad till redaktionen",
 					"proposalIncomplete": "Du måste fylla i alla fält innan du kan lämna in ett förslag.",
-					"commentPosted": "Kommentar upplagd",
+					"commentPosted": "Din kommentar har publicerats",
 					"invitationRemoved": "Inbjudan avböjdes"
 				},
 				"userNotFound": "Användaren kunde inte hittas",
@@ -369,23 +369,23 @@
 			"heading": {
 				"organisation": "Voting as Organisation",
 				"party": "Voting as Party",
-				"delegate": "Röstar som Delegat",
-				"individual": "Röstar som Individ",
+				"delegate": "Du röstar nu i egenskap av delegat, dina val är synliga för alla",
+				"individual": "Dina privata val",
 				"completed": "Omröstning avslutad"
 			},
 			"tabs": {
-				"voteProposals": "Öppen för omröstning",
-				"completedProposals": "Avslutad"
+				"voteProposals": "Förslag öppna för omröstning",
+				"completedProposals": "Avslutade omröstningar"
 			},
-			"description": "Följande förslag går att rösta på. Klicka på ett förslag för att läsa mer eller expandera förslaget för att se hur dina delegater har röstat och för att själv rösta.",
+			"description": "Följande förslag går att rösta på. Klicka på titel för att läsa mer eller expandera förslaget för att se hur dina delegater har röstat och för att själv rösta.",
 			"not-ready": "Rösterna för detta förslag har inte räknats ännu. Resultatet uppdateras en gång per dygn.",
 			"no-open-proposals": "Det finns för närvarande inga förslag öppna för omröstning.",
-			"show-more": "Visa Mer",
+			"show-more": "Visa Mina Delegaters Val",
 			"show-less": "Visa Mindre",
 			"organisation-description": "You are now voting on issues on behalf of an organisation you represent. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Organisation votes are public.",
 			"party-description": "You are now voting on behalf of a party. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Party votes are public.",
-			"delegate-description": "OBS: Du röstar nu som delegat åt de användare som valt att ge sin röst till dig. Som delegat ör dina val offentliga.",
-			"individual-description": "Du röstar nu som individ och din röst är bara synlig för dig. Skulle du välja att inte rösta i ett specifikt förslag kommer din högst rankade delegats röst att räknas i ditt ställe.",
+			"delegate-description": "OBS: Du röstar nu som en representant åt de användare som valt att delegera sin röst till dig. Som delegat är alla dina val offentliga.",
+			"individual-description": "Du röstar nu som individ och din röst är bara synlig för dig. Röstar du inte i en fråga kommer den högst rankade personen eller organisationen som du delegerat din röst till att räknas i ditt ställe.",
 			"voting-card-heading": {
 				"delegate": "Rösta som delegat:",
 				"individual": "Rösta som privatperson:"
@@ -416,7 +416,7 @@
 				"profile-public": "Din profil är nu offentlig.",
 				"profile-delegate-removed": "Delegatprofil borttagen.",
 				"profile-stop-delegate": "Är du säker på att du vill sluta vara delegat? Användare kommer inte längre att kunna låta dig representera dem.",
-				"profile-delegate-requested": "Delegatansökan skickad. Du kommer att få en bekräftelse per e-post när din ansökan har behandlats.",
+				"profile-delegate-requested": "Din ansäkan om att bli delegat är inskickad. Du kommer att få en bekräftelse per e-post när din ansökan har behandlats.",
 				"profile-candidate-removed": "Kandidatprofil Borttagen.",
 				"profile-candidate-requested": "Kandidatansökan skickad. Du kommer att få en bekräftelse per epost när din ansökan har behandlats.",
 				"profile-incomplete": "Du behöver en fullständig profil om du vill bli delegat.",
@@ -433,14 +433,14 @@
 			"settings": "Profilinställningar",
 			"status": {
 				"heading":"Profil status: __completedScore__/__totalScore__ fullständig.",
-				"description":"TODO: Your profile must be complete in order to become a delegate.",
+				"description":"Din profil måste vara fullständigt ifylld om du vill ble en delegat.",
 				"entity-name": "Namn",
 				"phone":"Telefonnummer",
-				"contact-person":"TODO: Contact Person"
+				"contact-person":"Konntaktperson"
 			},
 			"completed": "fullständig",
 			"interests": "intressen",
-			"public-switch-description": "Gör din profil synlig för andra. Detta krävs om du vill bli delegat. Först krävs dock en fullständig profil.",
+			"public-switch-description": "Gör din profil synlig för andra. Ett måste om du vill bli att andra ska delegera sina röster till dig. Först krävs dock en fullständig profil.",
 			"delegate-switch-description": "Genom att ställa upp som delegat blir det möjligt för andra att anförtro dig med deras röst.",
 			"bio-count": "__bioCount__ tecken (min 50, max 520)",
 			"photo-url": "Fyll i en länk till den profilbild du vill använda",
@@ -462,24 +462,24 @@
 		},
 		"interests": {
 			"heading": "Intressen",
-			"intro-text": "TODO: Select some of your personal interests you would like to follow.",
-			"popular": "TODO: Popular Tags"
+			"intro-text": "Välj några ämnen och områden som du är intresserad av att följa.",
+			"popular": "Polulära Taggar"
 		},
 		"settings":{
 			"profile":{
 				"nav":{
-					"profile":"Profilinställningar",
-					"settings":"TODO: Settings",
-					"interests":"Intressen",
-					"delegates":"Delegat"
+					"profile":"Min Profil",
+					"settings":"Profilinställningar",
+					"interests":"Mina Intressen",
+					"delegates":"Delegera"
 				}
 			},
 			"account":{
 				"nav":{
-					"notifications":"TODO: Notifications",
-					"privacy":"TODO: Privacy Settings",
-					"account":"TODO: Account Settings",
-					"password":"Återställ lösenordet"
+					"notifications":"Aviseringar",
+					"privacy":"Säkerhetsinställningar",
+					"account":"Kontoinställningar",
+					"password":"Återställ lösenord"
 				}
 			}
 		}

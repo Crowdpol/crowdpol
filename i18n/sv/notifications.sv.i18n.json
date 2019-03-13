@@ -17,8 +17,8 @@
 			}
 		},
 		"proposals": {
-			"approved": "Förslaget du lämnade har godkänts.",
-			"rejected": "Förslaget du lämnade har avvisats.",
+			"approved": "Förslaget du lämnade in har godkänts.",
+			"rejected": "Förslaget du lämnade in har avvisats.",
 			"comments": "Det finns en ny kommentar på ditt förslag.",
 			"invite": "Du har blivit inbjuden till att samarbeta på ett förslag."
 		},
