@@ -1,16 +1,48 @@
 <template name="LabelSelector">
-  <h1>Label Selector<small>&nbsp;under constructions</small></h1>
-  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="label-input-wrap">
-		<input class="mdl-textfield__input" type="text" name="add-label" id="add-label">
-		<label for="add-label" class="mdl-textfield__label">Add some labels</label>
-		<ul for="add-label"  class="dropdown" id="matchedTagsList" style="display:none;">
-			{{#each matchedTags}}
-				<li class="dropdown-item" data-keyword={{this}}>
-					<span class="primary-content" data-keyword={{this}}>
-						{{this}}
-					</span>
-				</li>
-			{{/each}}
-		</ul>
-	</div>
+  {{#if labelCount}}
+    <div class="app-container">
+      <h1>Label Selector<small>&nbsp;under constructions</small></h1>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--6-col-phone">
+          {{#each label in selectedLables}}
+            <span class="mdl-chip mdl-chip--deletable" data-id="{{label._id}}">
+              <span class="mdl-chip__text">{{label.keyword}}</span>
+              <button type="button" class="mdl-chip__action delete-parent"><i class="material-icons delete-parent">cancel</i></button>
+            </span>
+          {{/each}}
+        </div>
+  			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--6-col-phone" id="label-tree-container">
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="label-input-wrap">
+        		<input class="mdl-textfield__input" type="text" name="search-label" id="search-label">
+        		<label for="add-label" class="mdl-textfield__label">Search labels</label>
+
+        	</div>
+          <ul class="demo-list-two mdl-list" id="autosuggest-results" style="display:none;">
+            {{#each label in labelMatches}}
+              <li class="mdl-list__item mdl-list__item--two-line autosuggest-suggestion" data-label-id="{{label._id}}" id="{{label._id}}">
+                <span class="mdl-list__item-primary-content">
+                  <span class="autosuggest-suggestion-text">{{label.keyword}}</span>
+                  <span class="mdl-list__item-sub-title">({{label.description}})</span>
+                </span>
+              </li>
+            {{/each}}
+          </ul>
+          <ul id="myUL">
+            {{#each label in rootLabels}}
+              <li class="label-tree-item">
+                {{#if hasChildren label._id}}
+                  <span class="caret"><span class="item-text" data-id="{{label._id}}" data-label-level="{{label.level}}">{{label.keyword}}</span></span>
+                  {{>LabelChildren label=label}}
+                {{else}}
+                  <span class="item-text" data-id="{{childLabel._id}}" data-label-level="{{childLabel.level}}">{{label.keyword}}</span>
+                {{/if}}
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {{else}}
+    no labels
+  {{/if}}
 </template>

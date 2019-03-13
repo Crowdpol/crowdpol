@@ -15,11 +15,11 @@
 		"show-less": "Visa mindre",
 		"approved": "Godkänd",
 		"back-to-proposals": "Tillbaka till Föreslå",
-		"on": "TODO: On",
-		"off": "TODO: Off",
-		"requested": "TODO: Requested",
-		"under-construction": "TODO: Under construction",
-		"characters":"TODO: characters"
+		"on": "På",
+		"off": "Av",
+		"requested": "Efterfrågad",
+		"under-construction": "Under uppbyggnad",
+		"characters":"tecken"
 	},
 	"form": {
 		"email": "E-postadress",

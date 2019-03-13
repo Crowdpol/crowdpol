@@ -17,7 +17,7 @@ Template.AdminLabels.onCreated(function() {
 });
 
 Template.AdminLabels.events({
-  'click .label-tree-item ' (event, template){
+  'click .item-text ' (event, template){
 
     $("#myUL .active-item").each(function() {
        $(this).removeClass("active-item");

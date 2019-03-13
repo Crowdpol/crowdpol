@@ -8,3 +8,4 @@ import './unsplash/unsplash.js';
 //import './grabity/grabity.js';
 import './userCard/userCard.js';
 import './cover/cover.js';
+import './labelSelector/labelSelector.js';
