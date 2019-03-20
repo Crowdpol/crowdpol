@@ -231,8 +231,7 @@ loggedInRoutes.route('/feed/:id', {
   },
 });
 
-/*
-USER DASHBOARD REMOVED FOR NOW
+
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
@@ -240,7 +239,6 @@ loggedInRoutes.route('/dash', {
   },
 });
 
-*/
 
 loggedInRoutes.route('/ideas', {
   name: 'App.ideas',

@@ -311,6 +311,7 @@
 				"pointsFor": "Points For:",
 				"pointsAgainst": "Points Against:",
 				"noDelegatesFor": "None of your delegates voted for this issue",
+				"noDelegatesAbstain": "None of your delegates abstained to vote on this issue",
 				"noDelegatesAgainst": "None of your delegates voted against this issue",
 				"proposalUnvailable": "Sorry, this proposal is not yet visible to the public.",
 				"noDelegateReason": "This delegate did not provide a reason for their voting choice.",
