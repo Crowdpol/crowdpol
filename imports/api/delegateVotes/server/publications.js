@@ -9,3 +9,6 @@ Meteor.publish('delegateVotes.forDelegate', function(delegateId) {
 	return DelegateVotes.find({delegateId: delegateId});
 });
 
+Meteor.publish('delegateVotes.currentUser', function(proposalId) {
+	return DelegateVotes.find({delegateId: Meteor.userId()});
+});
