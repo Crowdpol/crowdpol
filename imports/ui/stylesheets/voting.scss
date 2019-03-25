@@ -17,6 +17,26 @@
     background-color: $abstain-button;
     color: white;
   }
+
+  .mdl-button--colored-delegate{
+    background-color: $light-grey-xdark;
+    color: white;
+  }
+
+  .mdl-button--colored-delegate-yes{
+    background-color: lighten( $yes-button, 10% );
+    color: $black;
+  }
+
+  .mdl-button--colored-delegate-no{
+    background-color: lighten( $no-button, 10% );
+    color: $black;
+  }
+
+  .mdl-button--colored-delegate-abstain{
+    background-color:  lighten($abstain-button, 10% );
+    color: $black;
+  }
 }
 
 #demo-menu-lower-left{

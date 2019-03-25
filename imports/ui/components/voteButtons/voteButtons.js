@@ -6,6 +6,10 @@ Template.voteButtons.onCreated(function(){
 	self.templateDictionary = dict;
 	self.proposalId = Template.currentData().proposalId;
 
+	self.autorun(function(){
+		self.subscribe('delegateVotes.currentUser');
+	});
+
 	if (Meteor.user()) {
 		Meteor.call('getUserDelegateVote', self.proposalId, function(error, result){
 			if (error){
@@ -43,17 +47,17 @@ Template.voteButtons.helpers({
 	},
 	delegateYesClass: function(){
 		if (Template.instance().templateDictionary.get('delegateVote') == 'yes'){
-			return 'mdl-button--colored-yes'
+			return 'mdl-button--colored-delegate'
 		}
 	},
 	delegateNoClass: function(){
 		if (Template.instance().templateDictionary.get('delegateVote') == 'no'){
-			return 'mdl-button--colored-no'
+			return 'mdl-button--colored-delegate'
 		}
 	},
 	delegateAbstainClass: function(){
 		if (Template.instance().templateDictionary.get('delegateVote') == 'abstain'){
-			return 'mdl-button--colored-abstain'
+			return 'mdl-button--colored-delegate'
 		}
 	}
 });
@@ -63,6 +67,7 @@ Template.voteButtons.events({
 		if (Meteor.user()){
 			vote('yes', template.proposalId);
 			template.templateDictionary.set('userVote', 'yes');
+			removeDelegateVoteClass(template.proposalId);
 		} else {
 			openSignInModal();
 		}
@@ -72,6 +77,7 @@ Template.voteButtons.events({
 		if (Meteor.user()){
 			vote('no', template.proposalId);
 			template.templateDictionary.set('userVote', 'no');
+			removeDelegateVoteClass(template.proposalId);
 		} else {
 			openSignInModal();
 		}
@@ -81,6 +87,7 @@ Template.voteButtons.events({
 		if (Meteor.user()){
 			vote('abstain', template.proposalId);
 			template.templateDictionary.set('userVote', 'abstain');
+			removeDelegateVoteClass(template.proposalId);
 		} else {
 			openSignInModal();
 		}
@@ -100,15 +107,27 @@ function vote(voteString, proposalId){
     		Bert.alert(TAPi18n.__('pages.proposals.view.voteCast'), 'success');
     	}
     });
-} else {
-    // Vote as an individual voter
-    var vote = {vote: voteString, proposalId: proposalId, delegateId: ''};
-    Meteor.call('vote', vote, function(error){
-    	if (error){
-    		Bert.alert(error.reason, 'danger');
-    	} else {
-    		Bert.alert(TAPi18n.__('pages.proposals.view.voteCast'), 'success');
-    	}
-    });
-}
+	} else {
+	    // Vote as an individual voter
+	    var vote = {vote: voteString, proposalId: proposalId, delegateId: ''};
+	    Meteor.call('vote', vote, function(error){
+	    	if (error){
+	    		Bert.alert(error.reason, 'danger');
+	    	} else {
+	    		Bert.alert(TAPi18n.__('pages.proposals.view.voteCast'), 'success');
+	    	}
+	    });
+	}
 };
+
+function removeDelegateVoteClass(proposalId){
+	console.log(Meteor.userId());
+	let identifier = "button[data-proposal-id="+proposalId+"]";
+	$(identifier).each(function (index, value) {
+		console.log($(this).hasClass('mdl-button--colored-delegate'));
+		 if($(this).hasClass('mdl-button--colored-delegate')){
+
+			 $(this).removeClass('mdl-button--colored-delegate');
+		 }
+	});
+}

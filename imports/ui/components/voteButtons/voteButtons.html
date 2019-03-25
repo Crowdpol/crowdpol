@@ -1,13 +1,12 @@
 <template name='voteButtons'>
-
  <div class="vote-actions">
-    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userYesClass}} {{delegateYesClass}}" id="vote-yes">
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userYesClass}} {{delegateYesClass}}" id="vote-yes" data-proposal-id="{{proposalId}}">
         {{_"pages.proposals.view.yes"}}
     </button>
-    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userAbstainClass}} {{delegateAbstainClass}}" id="vote-abstain">
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userAbstainClass}} {{delegateAbstainClass}}" id="vote-abstain" data-proposal-id="{{proposalId}}">
         {{_"pages.proposals.view.abstain"}}
     </button>
-    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userNoClass}} {{delegateNoClass}}" id="vote-no">
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised {{userNoClass}} {{delegateNoClass}}" id="vote-no" data-proposal-id="{{proposalId}}">
         {{_"pages.proposals.view.no"}}
     </button>
 </div>
