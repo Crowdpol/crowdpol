@@ -26,7 +26,8 @@ Meteor.methods({
         delegateId: voteData.delegateId,
         voterHash: voterHash
       }
-
+    console.log(Meteor.userId());
+    console.log(vote);
     //if the user has already voted for that proposal, update their vote
     var existingVote = Votes.findOne({proposalId: vote.proposalId, voterHash: voterHash});
     if (existingVote){
@@ -36,9 +37,16 @@ Meteor.methods({
       return Votes.insert(vote);
     }
   },
-  deleteVote: function(voteId) {
-    check(voteId, String);
-    Votes.remove(voteId);
+  deleteVote: function(voteData) {
+    //console.log(voteData);
+
+    check(voteData, { vote: String, proposalId: String});
+    let userId = Meteor.userId();
+    var salt = Meteor.users.findOne({_id: userId}).username;
+    var voterHash = CryptoJS.SHA256(userId + salt).toString(CryptoJS.enc.SHA256);
+    if(userId){
+      Votes.remove({"proposalId" :voteData.proposalId,"voterHash":voterHash,"vote":voteData.vote});
+    }
   },
   getVote: function(voteId){
     check(voteId, String);

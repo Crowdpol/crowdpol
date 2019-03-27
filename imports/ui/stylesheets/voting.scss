@@ -3,17 +3,17 @@
 
 .vote-actions {
   padding-bottom: $space / 2;
-  .mdl-button--colored-yes{
+  #vote-yes.mdl-button--colored{
     background-color: $yes-button;
     color: white;
   }
 
-  .mdl-button--colored-no{
+  #vote-no.mdl-button--colored{
     background-color: $no-button;
     color: white;
   }
 
-  .mdl-button--colored-abstain{
+  #vote-abstain.mdl-button--colored{
     background-color: $abstain-button;
     color: white;
   }
@@ -23,18 +23,25 @@
     color: white;
   }
 
-  .mdl-button--colored-delegate-yes{
-    background-color: lighten( $yes-button, 10% );
-    color: $black;
+  #delegate-vote-yes.mdl-button--colored{
+    background-color: $yes-button;//lighten( $yes-button, 10% );
+    color: $white;
   }
 
-  .mdl-button--colored-delegate-no{
-    background-color: lighten( $no-button, 10% );
-    color: $black;
+  #delegate-vote-no.mdl-button--colored{
+    background-color: $no-button;//lighten( $no-button, 10% );
+    color: $white;
   }
 
-  .mdl-button--colored-delegate-abstain{
-    background-color:  lighten($abstain-button, 10% );
+  #delegate-vote-abstain.mdl-button--colored{
+    background-color:  $abstain-button;//lighten($abstain-button, 10% );
+    color: $white;
+  }
+
+}
+.vote-actions.user-voted{
+  .mdl-button--colored-delegate{
+    background-color: rgba(158,158,158,.2);
     color: $black;
   }
 }

@@ -83,6 +83,14 @@ Meteor.publish('users.delegates', function (communityId) {
   return Meteor.users.find({roles: "delegate", 'profile.communityIds': communityId}, defaultUserProjection);
 });
 
+Meteor.publish('users.currentUsersDelegates', function (communityId) {
+  let ranks =  Ranks.find({entityType: "delegate", supporterId: Meteor.userId(),"communityId":communityId});
+  console.log("ranks count: " + ranks.count());
+  if(ranks){
+    return Meteor.users.find({roles: "delegate", 'profile.communityIds': communityId,}, defaultUserProjection);
+  }
+});
+
 /*Meteor.publish('users.candidatesWithTag', function (keyword) {
   var tag = Meteor.call('getTagByKeyword', keyword)
   if (tag){

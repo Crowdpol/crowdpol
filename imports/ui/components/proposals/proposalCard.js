@@ -7,7 +7,7 @@ import { Proposals } from '../../../api/proposals/Proposals.js'
 Template.ProposalCard.onCreated(function () {
   var self = this;
   self.autorun(function(){
-    self.subscribe('votes.all');
+    //self.subscribe('votes.all');
   })
 });
 /*

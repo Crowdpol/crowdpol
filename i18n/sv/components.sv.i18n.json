@@ -5,6 +5,7 @@
 			"instructions-2": "Klicka på ‘Roller’ menyn för att växla tillbaka och rösta som privatperson.",
 			"reason-message": "Lämna gärna en kortfattad motivering till ditt val.",
 			"finished": "Färdig",
+			"removeVote": "TODO: Remove Vote",
 			"delegateVotingClosed": "Röstning på denna motion är nu stängd för delegater. Delegaters möjlighet att rösta upphör två veckor innan motionens slutdatum för att undvika sista minuten ändringar vilka den som delegerar inte hinner ta ställning till."
 		},
 		"taggle": {

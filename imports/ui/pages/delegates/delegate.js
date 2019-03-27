@@ -51,7 +51,9 @@ Template.Delegate.helpers({
   rankCount: function(){
     ranked = Session.get('ranked');
     if(Array.isArray(ranked)){
-      return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} ).count();
+      if(ranked.length){
+        return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} ).count();
+      }
     }
     return;
   },
@@ -71,7 +73,9 @@ Template.Delegate.helpers({
   ranks: function() {
     ranked = Session.get('ranked');
     if(Array.isArray(ranked)){
-      return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} );
+      if(ranked.length){
+        return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} );
+      }
     }
   },
   delegates: function() {
@@ -141,7 +145,9 @@ Template.Delegate.helpers({
   showTags: function(tags){
     if(typeof tags != 'undefined'){
       if(Array.isArray(tags)){
-        return Tags.find({"_id":{$in:tags}});
+        if(tags.length){
+          return Tags.find({"_id":{$in:tags}});
+        }
       }
     }
   }

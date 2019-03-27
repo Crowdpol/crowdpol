@@ -101,7 +101,6 @@ function returnUser(id){
   let user;
 
   if (id !== undefined) {
-    //Bert.alert("user id: " + id,"success");
     user = Meteor.users.findOne({"_id":id});
   }/*
   else{
