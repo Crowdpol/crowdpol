@@ -314,7 +314,7 @@ function saveChanges(event, template, returnTo){
 	var languages = LocalStore.get('languages');
 	var content = [];
 	var contentCount = 0;
-	// Get Translatable field for each language
+	// Get Translatable field for each language and loop through them
 	_.each(languages, function(language) {
 		// Arguments For and Against
 		argumentsArray = Session.get("arguments");
@@ -372,37 +372,32 @@ function saveChanges(event, template, returnTo){
 			startDate = new Date(template.find('#startDate').value);
 			endDate = new Date(template.find('#endDate').value);
 		}
-				let newProposal = {
-					content: content,
-					// Non-translatable fields
-					startDate: startDate,//new Date(2018, 8, 1),
-					endDate: endDate,//new Date(2018, 8, 1),
-					authorId: Meteor.userId(),
-					invited: Session.get('invited'),
-					tags: getTags(),//proposalTags,
-					communityId: LocalStore.get('communityId'),
-					stage: "draft",
-					hasCover: Session.get("hasCover"),
-			    coverURL: Session.get("coverURL"),
-			    coverPosition: Session.get("coverPosition")
-				};
+		let newProposal = {
+			content: content,
+			// Non-translatable fields
+			startDate: startDate,//new Date(2018, 8, 1),
+			endDate: endDate,//new Date(2018, 8, 1),
+			authorId: Meteor.userId(),
+			invited: Session.get('invited'),
+			tags: getTags(),//proposalTags,
+			communityId: LocalStore.get('communityId'),
+			stage: "draft",
+			hasCover: Session.get("hasCover"),
+			coverURL: Session.get("coverURL"),
+			coverPosition: Session.get("coverPosition")
+		};
 				//console.log(newProposal);
-				var proposalId = FlowRouter.getParam("id");
+		var proposalId = FlowRouter.getParam("id");
 
+		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
 
-
-				template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
-
-				// If working on an existing proposal, save it, else create a new one
-				if (proposalId){
-					saveProposal(proposalId,newProposal,returnTo,template);
-
-				} else {
-					//create new proposal
-					createProposal(proposalId,newProposal,returnTo,template);
-				}
-			//}
-		//});
+		// If working on an existing proposal, save it, else create a new one
+		if (proposalId){
+			saveProposal(proposalId,newProposal,returnTo,template);
+		} else {
+			//create new proposal
+			createProposal(proposalId,newProposal,returnTo,template);
+		}
 	}else{
 		Bert.alert(TAPi18n.__('pages.proposals.edit.alerts.not-saved'), 'danger');
 		return false;

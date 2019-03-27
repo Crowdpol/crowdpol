@@ -4,10 +4,21 @@
       <!--<h5 id="header-title">Unsplash</h5>-->
 
     </div>
-    <div id="cover-image-overlay" style="display:none;">
-      <button id="cover-edit-button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-        <i class="material-icons">insert_photo</i>
-      </button>
+    <div id="cover-image-overlay"  style="display:none;">
+      <div id="button-wrap">
+        <button id="cover-edit-button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+          <i class="material-icons">insert_photo</i>
+        </button>
+        <div class="mdl-tooltip" for="cover-edit-button">
+          {{_ "generic.change-cover"}}
+        </div>
+        <button id="cover-close" class="mdl-button mdl-js-button mdl-button--icon"  style="display:none;">
+          <i class="material-icons">cancel</i>
+        </button>
+        <div class="mdl-tooltip mdl-tooltip--top" for="cover-close">
+          {{_ "generic.remove-cover"}}
+        </div>
+      </div>
     </div>
     <div class="cover-search-box" style="display:none;">
       <center>
@@ -72,12 +83,12 @@
   </div>
   <div id="cover-controls" style="display:none;">
     <center>
-    <button id="cover-open" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" alt="Add Proposal Cover" style="display:none;">
-      <i class="material-icons">add_photo_alternate</i>
-    </button>
-    <button id="cover-close" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" alt="Remove Proposal Cover"  style="display:none;">
-      <i class="material-icons">cancel</i>
-    </button>
+      <button id="cover-open" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" alt="Add Proposal Cover" style="display:none;">
+        <i class="material-icons">add_photo_alternate</i>
+      </button>
+      <div class="mdl-tooltip" for="cover-open">
+        {{_ "generic.add-cover"}}
+      </div>
     </center>
   </div>
   <!--

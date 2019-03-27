@@ -38,9 +38,12 @@ Meteor.methods({
       return DelegateVotes.insert(vote);
     }
   },
-  deleteDelegateVote: function(voteId) {
-    check(voteId, String);
-    DelegateVotes.remove(voteId);
+  deleteVoteAsDelegate: function(voteData) {
+    check(voteData, { vote: String, proposalId: String});
+    let userId = Meteor.userId();
+    if(userId){
+      DelegateVotes.remove({"proposalId" :voteData.proposalId,"delegateId":userId,"vote":voteData.vote});
+    }
   },
   getProposalDelegateVotes: function(proposalId){
     check(proposalId, String);
@@ -146,8 +149,8 @@ Meteor.methods({
 
       if (rankedDelegates){
         for (i=0; i<rankedDelegates.length; i++){
-          console.log("getUserDelegateInfoForProposal called");
-          console.log(rankedDelegates[i])
+          //console.log("getUserDelegateInfoForProposal called");
+          //console.log(rankedDelegates[i])
           if (rankedDelegates[i]){
             voteInfo = rankedDelegates[i].vote_info[0]
           }

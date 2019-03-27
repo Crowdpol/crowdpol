@@ -5,6 +5,7 @@
 			"instructions-2": "To switch to voting as an individual, click the 'Roles' menu.",
 			"reason-message": "Give a brief (optional) reason for your choice. This will be visible to your supporters.",
 			"finished": "Finished",
+			"removeVote": "Remove Vote",
 			"delegateVotingClosed": "Voting for this proposal has closed for delegates. Delegate voting closes two weeks before the proposal's expiry date."
 		},
 		"taggle": {

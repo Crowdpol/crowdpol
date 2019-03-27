@@ -111,7 +111,7 @@
 	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.contributors"}}'>
 	    {{contributerCount proposal}}
 	  </td>
-	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.title"}}'> <a href="/proposals/view/{{_id}}">{{title proposal}}</a></td>
+	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.title"}}'> <a href="/proposals/view/{{proposal._id}}" target="_blank">{{title proposal}}</a></td>
 	  <td class="mdl-data-table__cell--non-numeric" data-label="">
 	    <button class="mdl-button mdl-js-button mdl-button--icon preview-proposal" data-id="{{proposal._id}}" data-type="{{type}}">
 	      <i class="material-icons preview-proposal" data-id="{{proposal._id}}" data-type="{{type}}">visibility</i>
@@ -131,7 +131,7 @@
 	<div class="proposal-modal">
 	  <form class='content-wrapper'>
 	    {{#if proposal}}
-
+	
 	    <div class="content">
 	      <div class="app-container proposal-container">
 					<!-- Author Information -->

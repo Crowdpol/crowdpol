@@ -1,6 +1,5 @@
 import './voting.html'
 import { Proposals } from '../../../api/proposals/Proposals.js'
-import { Votes } from '../../../api/votes/Votes.js'
 import { timeRemaining } from '../../../utils/functions';
 
 Template.Voting.onCreated(function () {
@@ -17,12 +16,13 @@ Template.Voting.onCreated(function () {
   Session.set("votesTab",true);
   Session.set("completedTab",false);
   var communityId = LocalStore.get('communityId');
-
   self.autorun(function(){
     self.subscribe('proposals.public', self.searchQuery.get(), communityId);
     self.subscribe('proposals.author', self.searchQuery.get(), communityId);
     //self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
     self.subscribe('proposals.invited', self.searchQuery.get(), communityId);
+    //self.subscribe('delegateVotes.forUser');
+
   })
 });
 
@@ -199,7 +199,7 @@ Template.VotingCard.onCreated(function () {
   var self = this;
   self.showVotingInfo = new ReactiveVar(false);
   self.autorun(function(){
-    self.subscribe('votes.all');
+    //self.subscribe('votes.all');
   })
 });
 
@@ -291,7 +291,7 @@ Template.ResultCard.onCreated(function () {
   var self = this;
   self.showVotingInfo = new ReactiveVar(false);
   self.autorun(function(){
-    self.subscribe('votes.all');
+    //self.subscribe('votes.all');
   })
 });
 

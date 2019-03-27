@@ -15,8 +15,25 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  #button-wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    height: $header-height-xs;
+    button{
+      color: $white;
+    }
+    #cover-close{
+      margin:0 auto 0;
+    }
+    #cover-edit-button{
+      margin:auto;
+    }
+  }
 }
 .cover-image-container.disable-edit:hover{
 
@@ -109,22 +126,10 @@
   }
 }
 */
-#cover-controls{
-  //display: flex;
-  //align-items: center;
-  //justify-content: center;
-}
+
 #cover-open{
   //margin-bottom: -35px;
   color: $dark-grey-mid;
-}
-#cover-close{
-  //border: solid 1px red;
-  //margin-top: -55px;
-  color: $dark-grey-mid;
-}
-#cover-edit-button{
-  color: #fff;
 }
 
 /*
@@ -148,6 +153,9 @@
     #cover-image-overlay{
       height: $header-height-xs;
       margin-top: -$header-height-xs;
+      #button-wrap{
+        height: $header-height-xs;
+      }
     }
   }
 }
@@ -163,6 +171,9 @@
     #cover-image-overlay{
       height: $header-height-sm;
       margin-top: -$header-height-sm;
+      #button-wrap{
+        height: $header-height-sm;
+      }
     }
   }
 }
@@ -178,6 +189,9 @@
     #cover-image-overlay{
       height: $header-height-md;
       margin-top: -$header-height-md;
+      #button-wrap{
+        height: $header-height-md;
+      }
     }
   }
 }
@@ -193,6 +207,9 @@
     #cover-image-overlay{
       height: $header-height-lg;
       margin-top: -$header-height-lg;
+      #button-wrap{
+        height: $header-height-lg;
+      }
     }
   }
 }
@@ -208,6 +225,9 @@
     #cover-image-overlay{
       height: $header-height-lg;
       margin-top: -$header-height-lg;
+      #button-wrap{
+        height: $header-height-lg;
+      }
     }
   }
 }
@@ -223,6 +243,9 @@
     #cover-image-overlay{
       height: $header-height-xl;
       margin-top: -$header-height-xl;
+      #button-wrap{
+        height: $header-height-xl;
+      }
     }
   }
 }
