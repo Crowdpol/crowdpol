@@ -13,16 +13,11 @@ Template.ViewProposal.onCreated(function(language){
   this.templateDictionary = dict;
   var communityId = LocalStore.get('communityId');
   let proposalId = null;;
-  console.log(self.data.proposalId);
-  console.log(Template.currentData());
   if(self.data.proposalId){
-    console.log("proposal id found in currentData");
     proposalId = Template.currentData().proposalId;
   }else{
-    console.log("proposal id not set, get from url");
     proposalId = FlowRouter.getParam("id");
   }
-  console.log("proposalId: " + proposalId);
   self.autorun(function() {
     self.subscribe('comments', proposalId, function(error){
       dict.set('commentCount',Comments.find({proposalId: proposalId}).count());
@@ -129,9 +124,11 @@ Template.ViewProposal.events({
     }
   },
   'click #edit-proposal' (event, template){
+    let proposalId = Template.instance().templateDictionary.get('_id');
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
   'click #submit-proposal' (event, template){
+    let proposalId = Template.instance().templateDictionary.get('_id');
     if (proposalIsComplete(proposalId)){
       if (window.confirm(TAPi18n.__('pages.proposals.view.confirmSubmit'))){
         Meteor.call('updateProposalStage', proposalId, 'submitted','unreviewed', function(error){
@@ -151,7 +148,7 @@ Template.ViewProposal.events({
 
   'submit #comment-form' (event, template){
     event.preventDefault();
-
+    let proposalId = Template.instance().templateDictionary.get('_id');
     if (Meteor.user()){
       var comment = {
         message: template.find('#comment-message').value,
@@ -174,6 +171,7 @@ Template.ViewProposal.events({
   },
 
   'click #sign-proposal' (event, template){
+    let proposalId = Template.instance().templateDictionary.get('_id');
     if (Meteor.user()) {
       Meteor.call('toggleSignProposal', proposalId, function(error){
         if (error){
@@ -203,7 +201,6 @@ Template.ViewProposal.helpers({
   },
   languages: function() {
     let proposalId = Template.instance().templateDictionary.get('_id');
-    console.log("languages proposalId: " + proposalId)
     var content = Proposals.findOne(proposalId).content;
     var languages = _.pluck(content, 'language');
     return languages;
@@ -279,15 +276,18 @@ Template.ViewProposal.helpers({
     }
   },
   showComments(){
-    if(showControls()){
+    //if(showControls()){
       var commentCount = Template.instance().templateDictionary.get( 'commentCount' );
       if(commentCount>0 || userIsInvited()){
         return true;
       }
-    }
-    return false;
+    //}
+    //return false;
   },
   isInvited: function() {
+    if(!showControls()){
+      return true;
+    }
     return userIsInvited();
   },
   isVotingAsDelegate: function(){
@@ -371,7 +371,6 @@ Template.ProposalContent.onCreated(function(language){
   if(typeof Template.currentData().proposalId!==undefined){
     proposalId = Template.currentData().proposalId;
   }else{
-    console.log("proposal id not set, get from url");
     proposalId = FlowRouter.getParam("id");
   }
   dict.set('proposalId',proposalId);
@@ -382,11 +381,9 @@ Template.ProposalContent.onCreated(function(language){
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
-        console.log(proposal)
         var languageCode = self.data.language;
         var allContent = proposal.content;
         var translation = _.find(allContent, function(item){ return item.language == languageCode})
-        console.log(translation);
         dict.set( 'language', languageCode || '');
         dict.set( 'title', translation.title || '');
         dict.set( 'abstract', translation.abstract || '' );
@@ -399,9 +396,6 @@ Template.ProposalContent.onCreated(function(language){
 });
 
 Template.ProposalContent.helpers({
-  checkThis(){
-    console.log(Template.currentData());
-  },
   authorName(authorId){
 		let name = "";
 		let user = Meteor.users.findOne({"_id":authorId});
@@ -506,7 +500,6 @@ Template.ProposalContent.helpers({
 
 Template.ProposalContent.events({
   'click .close-comment' (event, template){
-    //console.log(this._id);
     let commentId = event.currentTarget.getAttribute("data-id");
     //if(checkIfOwner(commentId)){
       Meteor.call('closeComment', commentId, function(error){
@@ -550,7 +543,6 @@ Template.Comment.events({
     }
   },
   'click .close-comment' (event, template){
-    //console.log(this._id);
     let commentId = event.currentTarget.getAttribute("data-id");
     //if(checkIfOwner(commentId)){
       Meteor.call('closeComment', commentId, function(error){
