@@ -40,6 +40,5 @@ function highestRankedDelegate(proposalId){
 }
 
 function addRanking(delegateVot){
-	console.loog(delegateVote);
 	return delegateVote;
 }

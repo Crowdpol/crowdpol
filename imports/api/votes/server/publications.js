@@ -24,13 +24,8 @@ Meteor.publish('votes.forProposalCurrentUser', function(proposalId) {
 		if(typeof user.username){
 			var salt = user.username;
 			var voterHash = CryptoJS.SHA256(Meteor.userId() + salt).toString(CryptoJS.enc.SHA256);
-			console.log("userId: " + Meteor.userId() + ", salt: " + salt + ", voterHash: " + voterHash);
+			//console.log("userId: " + Meteor.userId() + ", salt: " + salt + ", voterHash: " + voterHash);
 			return Votes.find({voterHash: voterHash,proposalId:proposalId});
-		}else{
-			console.log("cannot find username for: " + Meteor.userId());
 		}
-	}else{
-		console.log("cannot find user: " + Meteor.userId());
 	}
-
 });
