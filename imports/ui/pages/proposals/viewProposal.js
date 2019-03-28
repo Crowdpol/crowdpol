@@ -178,7 +178,11 @@ Template.ViewProposal.events({
       openSignInModal();
     }
 
-  }
+  },
+  'click #back-button' (event, template) {
+		event.preventDefault();
+    window.history.back();
+	},
 });
 
 Template.ViewProposal.helpers({

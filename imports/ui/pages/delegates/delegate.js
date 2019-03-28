@@ -70,6 +70,9 @@ Template.Delegate.helpers({
       return result.ranking;
     }
   },
+  getRank: function(userId) {
+    console.log(userId);
+  },
   ranks: function() {
     ranked = Session.get('ranked');
     if(Array.isArray(ranked)){
