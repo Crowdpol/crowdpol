@@ -1,6 +1,6 @@
 <template name="ViewProposal">
 	{{> SignInModal}}
-	{{> RemoveInviteModal}}
+	{{> RemoveInviteModal proposalId=_id}}
 	{{#if hasHeader}}
 		{{>Cover}}
 	{{/if}}

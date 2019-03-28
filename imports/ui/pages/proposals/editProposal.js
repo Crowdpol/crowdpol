@@ -433,7 +433,10 @@ function saveProposal(proposalId,newProposal,returnTo,template){
 			if (newProposal.invited) {
 				sendNotifications(newProposal.invited,proposalId,newProposal.authorId);
 			}
-			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
+			let toast = template.find('#autosave-toast-container');
+			if(toast){
+				template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
+			}
 			FlowRouter.go(returnTo, {id: proposalId});
 		}
 	});
