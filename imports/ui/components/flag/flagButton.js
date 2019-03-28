@@ -27,10 +27,20 @@ Template.FlagButton.onRendered(function(){
 
 Template.FlagButton.events({
   'click .flag-button': function(event, template){
-    console.log(event.currentTarget.getAttribute("data-content-type"));
-    console.log(event.currentTarget.getAttribute("data-content-id"));
-    $('#draggable-flag-modal').show();
-    $('#draggable-flag-modal').draggable();
+    let contentType = event.currentTarget.getAttribute("data-content-type");
+    let contentId = event.currentTarget.getAttribute("data-content-id");
+    let authorId = event.currentTarget.getAttribute("data-content-author-id");
+    if(contentId && contentType){
+      let flagContent = {
+        contentId: contentId,
+        contentType: contentType,
+        contentAuthor: authorId
+      };
+      Session.set("flagContent",flagContent);
+      $('#draggable-flag-modal').show();
+      $('#draggable-flag-modal').draggable();
+    }
+
   },
   /*
 	'keyup #some-id': function(event, template){

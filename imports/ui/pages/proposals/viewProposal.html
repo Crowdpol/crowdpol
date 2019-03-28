@@ -44,7 +44,7 @@
 						</button>
 					{{else}}
 						<div>
-							{{>FlagButton contentId=_id contentType="proposal"}}
+							{{>FlagButton contentId=_id contentType="proposal" authorId=author._id}}
 						</div>
 						<div>
 							<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
@@ -320,7 +320,7 @@
 				</button>
 			</div>
 			<div class="comment__functions viewer-buttons" style="display:none;" data-buttons-id="{{_id}}">
-				{{>FlagButton contentId=_id contentType="comment"}}
+				{{>FlagButton contentId=_id contentType="comment" authorId=authorId}}
 			</div>
 		</header>
 		<div class="comment__text">
