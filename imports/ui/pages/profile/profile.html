@@ -1,47 +1,50 @@
 <template name="Profile">
 	{{#if currentUser}}
-	{{> backButton text="generic.back-to-proposals" url="/dash"}}
+	<!--{{> backButton text="generic.back" url="/dash"}}-->
 	<div class="container narrow-container">
 		{{#if Template.subscriptionsReady}}
-			<h3>{{_ "pages.profile.heading"}}</h3>
-			{{> ProfileImage}}
-			{{> ProfileForm}}
-			<div class="switches-wrap">
-				{{#if isPublic}}
-					<label id='profile-delegate-switch-label' class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
-						<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
-						<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
-					</label>
-					<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
-						{{_ "pages.profile.tooltips.delegateSwitch"}}
-					</div>
+			{{#if isOwner}}
+				<h3>{{_ "pages.profile.heading"}}<small><i class="material-icons" id="profile-help">help_outline</i></small></h3>
+				{{> ProfileImage}}
+				{{> ProfileForm}}
+				<div class="switches-wrap">
+					{{#if isPublic}}
+						<label id='profile-delegate-switch-label' class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-delegate-switch">
+							<input type="checkbox" id="profile-delegate-switch" class="mdl-switch__input">
+							<span class="mdl-switch__label">{{_ "pages.profile.delegate"}} {{delegateStatus}}</span>
+						</label>
+						<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
+							{{_ "pages.profile.tooltips.delegateSwitch"}}
+						</div>
 
-					<!-- <label id="profile-candidate-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
-						<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input">
-						<span class="mdl-switch__label">{{_ "pages.profile.candidate"}} {{candidateStatus}}</span>
+						<!-- <label id="profile-candidate-switch-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="profile-candidate-switch">
+							<input type="checkbox" id="profile-candidate-switch" class="mdl-switch__input">
+							<span class="mdl-switch__label">{{_ "pages.profile.candidate"}} {{candidateStatus}}</span>
 
-					</label> -->
+						</label> -->
+					{{/if}}
+				</div>
+
+				<!-- Helper list: Don't delete, useful for testing
+				user: |{{user}}|<br>
+				delegateStatus: |{{delegateStatus}}|<br>
+				candidateStatus: |{{candidateStatus}}|<br>
+				isPublic: |{{isPublic}}|<br>
+				isOrganisation: |{{isOrganisation}}|<br>
+				isParty: |{{isParty}}|<br>
+				isDelegate: |{{isDelegate}}|<br>
+				isCandidate: |{{isCandidate}}|<br>
+				publicDisabled: |{{publicDisabled}}|<br>
+				publicChecked: |{{publicChecked}}|<br>
+				delegateChecked: |{{delegateChecked}}|<br>
+				candidateChecked:|{{candidateChecked}}|<br>
+				-->
+				{{else}}
+					Not Owner
 				{{/if}}
-			</div>
-
-			<!-- Helper list: Don't delete, useful for testing 
-			user: |{{user}}|<br>
-			delegateStatus: |{{delegateStatus}}|<br>
-			candidateStatus: |{{candidateStatus}}|<br>
-			isPublic: |{{isPublic}}|<br>
-			isOrganisation: |{{isOrganisation}}|<br>
-			isParty: |{{isParty}}|<br>
-			isDelegate: |{{isDelegate}}|<br>
-			isCandidate: |{{isCandidate}}|<br>
-			publicDisabled: |{{publicDisabled}}|<br>
-			publicChecked: |{{publicChecked}}|<br>
-			delegateChecked: |{{delegateChecked}}|<br>
-			candidateChecked:|{{candidateChecked}}|<br>
-			-->
 		{{else}}
 			{{> loader}}
 		{{/if}}
 	</div>
 	{{/if}}
 </template>
-

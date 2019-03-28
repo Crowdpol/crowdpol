@@ -56,7 +56,6 @@ Template.Home.events({
 					RavenClient.captureException(error);
 					Bert.alert(error.message, 'danger');
 				} else {
-					//console.log("success");
 					Bert.alert(TAPi18n.__('pages.home.alerts.mailing-list-signup-success'), 'success');
 				}
 			});
@@ -64,15 +63,3 @@ Template.Home.events({
 	  });
 	}
 });
-/*
-$.validator.addMethod(
-        "isEmail", 
-        function(value, element) {
-        	var regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-            email = $("#submit-newsletter").val();
-            console.log(regex.test(email));
-            return false;
-        },
-        "Valid email required."
-    );
-    */

@@ -1,45 +1,70 @@
 import './delegateVoteButtons.html'
+import { DelegateVotes } from '../../../api/delegateVotes/DelegateVotes.js'
 
 Template.delegateVoteButtons.onCreated(function(){
 	self = this;
 	self.vote = new ReactiveVar();
+	self.voteReason = new ReactiveVar();
 	self.charCount = new ReactiveVar(0);
 	self.proposalId = Template.currentData().proposalId;
 	self.autorun(function(){
-		Meteor.call('getDelegateVoteFor', self.proposalId, Meteor.userId(), function(error, result){
-			if (error){
-				Bert.alert(error.reason, 'danger');
-			} else {
-				self.vote.set(result.vote);
-			}
-		});
+		self.subscribe('delegateVotes.currentUser');
 	});
 });
 
 Template.delegateVoteButtons.helpers({
-	'delegateYesClass': function(){
-		if (Template.instance().vote.get() == 'yes'){
-			return 'mdl-button--colored'
+	'delegateVote': function(){
+		let result = DelegateVotes.findOne({proposalId: self.proposalId, delegateId: Meteor.userId()});
+		let delegateVote = false;
+		let delegateReason = '';
+		if(result){
+			if(typeof result.vote !== undefined){
+				delegateVote = result.vote;
+				delegateReason = result.reason;
+			}
 		}
+		Template.instance().vote.set(delegateVote);
+		Template.instance().voteReason.set(delegateReason);
 	},
-	'delegateNoClass': function(){
-		if (Template.instance().vote.get() == 'no'){
-			return 'mdl-button--colored'
+	'voteReason': function(){
+		return Template.instance().voteReason.get();
+	},
+	'voteSet': function(){
+		let vote = Template.instance().vote.get();
+		if(vote){
+			return true;
+		}
+
+		return false;
+	},
+	'delegateClass': function(voteValue){
+		let selectedVote = Template.instance().vote.get();
+		if(selectedVote==voteValue){
+			return "mdl-button--colored";
 		}
 	},
 	'charCountString': function(){
 		var charCount = Template.instance().charCount.get();
-		if (charCount <= 160){
-			return charCount + '/160'
+		if (charCount <= 420){
+			return charCount + '/420'
 		}
 	},
 	'isOpen': function() {
+		let delegateVotes = DelegateVotes.findOne({proposalId: Template.currentData().proposalId, delegateId: Meteor.userId()});
+		if(typeof delegateVotes !='undefined'){
+			if(typeof delegateVotes.vote !='undefined'){
+				Template.instance().vote.set(delegateVotes.vote);
+			}
+			if(typeof delegateVotes.reason !='undefined'){
+				Template.instance().voteReason.set(delegateVotes.reason);
+			}
+		}
+
 		// Delegate voting closes two weeks before a proposal expires
 		var endDate = moment(Template.currentData().endDate);
     	var now = new Date();
     	var voteClose = endDate.subtract(2,'weeks');
     	if (voteClose.isAfter(now)) {
-    		console.log(true)
     		return true;
     	} else {
     		return false;
@@ -49,22 +74,18 @@ Template.delegateVoteButtons.helpers({
 });
 
 Template.delegateVoteButtons.events({
-	'click #delegate-vote-yes': function(event, template){
+	'click .delegate-vote-button' (event, template){
 		'use strict';
 		template.find('#mdl-custom-modal').style.display = "block";
-		template.vote.set('yes');
-	},
-	'click #delegate-vote-no': function(event, template){
-		'use strict';
-		template.find('#mdl-custom-modal').style.display = "block";
-		template.vote.set('no');
+		template.vote.set(event.currentTarget.dataset.voteValue);
 	},
 	'click #final-vote': function(event, template){
-		if (template.charCount.get() <= 160){
+		if (template.charCount.get() <= 420){
 			var reason = template.find('#delegate-reason').value;
 			var vote = template.vote.get()
 			Meteor.call('voteAsDelegate', {vote: vote, reason: reason, proposalId: template.proposalId}, function(error){
 				if (error){
+					console.log("error: "+error.reason);
 					Bert.alert(error.reason, 'danger');
 				} else {
 					template.find('#mdl-custom-modal').style.display = "none";
@@ -73,8 +94,25 @@ Template.delegateVoteButtons.events({
 			});
 		}
 	},
+	'click #remove-vote': function(event, template){
+		var delegateVote = {vote: template.vote.get(), proposalId: template.proposalId};
+		Meteor.call('deleteVoteAsDelegate', delegateVote, function(error){
+				if (error){
+					Bert.alert(error.reason, 'danger');
+				} else {
+					Bert.alert(TAPi18n.__('pages.proposals.view.voteRemoved'), 'success');
+					let parentDiv = "#"+template.proposalId;
+					$(parentDiv).children('button').each(function () {
+					  $(this).removeClass("mdl-button--colored");
+					});
+					template.find('#mdl-custom-modal').style.display = "none";
+					template.vote.set();
+					template.voteReason.set();
+				}
+		});
+	},
 	'click .mdl-custom-close': function(event, template){
-		'use strict';	
+		'use strict';
 		template.find('#mdl-custom-modal').style.display = "none";
 	},
 	'click window': function(event, template){

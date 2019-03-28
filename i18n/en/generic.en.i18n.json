@@ -4,7 +4,7 @@
 		"logout": "Logout",
 		"signup": "Sign Up",
 		"read-more": "Read More",
-		"preview": "Preview & Submit",
+		"preview": "Preview",
 		"loading": "Loading...",
 		"not-found_message": "Sorry, that page doesn't exist",
 		"not-found_home-link": "Go to home",
@@ -14,7 +14,15 @@
 		"show-more": "Show More",
 		"show-less": "Show Less",
 		"approved": "Approved",
-		"back-to-proposals": "Back to Proposals"
+		"back-to-proposals": "Back to Proposals",
+		"on": "On",
+		"off": "Off",
+		"requested": "Requested",
+		"under-construction": "Under construction",
+		"characters":"characters",
+		"change-cover": "Select the cover image",
+		"remove-cover": "Remove the cover",
+		"add-cover": "Add cover"
 	},
 	"form": {
 		"email": "Email address",
@@ -34,6 +42,7 @@
 		"submit": "Submit",
 		"update": "Update",
 		"cancel": "Cancel",
-		"signup": "Sign Up"
+		"signup": "Sign Up",
+		"profile-photo": "Profile photo"
 	}
 }

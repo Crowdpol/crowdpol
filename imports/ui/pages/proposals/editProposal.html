@@ -1,170 +1,195 @@
 <template name='EditProposal' >
 	{{#if currentUser}}
-	{{#if Template.subscriptionsReady}}
+		{{#if Template.subscriptionsReady}}
+		<!-- -->
+		{{> InviteModal}}
+		{{> Cover}}
+		{{#if hasHeader}}
+			{{> backButton text="generic.back-to-proposals" url="/dash" hasHeader=true}}
+		{{else}}
+			{{> backButton text="generic.back-to-proposals" url="/dash" hasHeader=false}}
+		{{/if}}
 
-	{{> backButton text="generic.back-to-proposals" url="/dash"}}
-	<!-- Include Quill stylesheet -->
-	<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+		<!-- Include Quill stylesheet -->
+		<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
-	<div class="app-container">
-		<h3>{{_ "pages.proposals.edit.heading"}}</h3>
+		<div class="app-container edit-proposal-wrap" id="edit-proposal-container">
 
-		<!-- Proposal Form -->
-		<form id="edit-proposal-form">
+			<!-- Proposal Form -->
+			<form id="edit-proposal-form">
+				<div class="unsplash-selector">
 
-			<!-- Tabs for translations -->
-			<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-				<div class="mdl-tabs__tab-bar">
+				</div>
+				<!-- Tabs for translations -->
+				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+					<div class="button-tabs mdl-tabs__tab-bar">
+						{{#each languages}}
+							<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
+						{{/each}}
+					</div>
+					<h3 class="proposal-heading">{{_ "pages.proposals.edit.heading"}}</h3>
 					{{#each languages}}
-					<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
+						<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
+							{{> ProposalForm content=proposalContent language=this}}
+						</div>
 					{{/each}}
 				</div>
 
-				{{#each languages}}
-				<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
+				<!-- Tags -->
+				{{> NewTaggle showTags=true selectedTags=selectedTags}}
 
-					{{> ProposalForm content=proposalContent language=this }}
+				<!-- Start and end dates -->
+				{{#if showDates}}
+					<div class="small-inputs-wrap">
+						<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label class="mdl-textfield__label">{{_ "pages.proposals.edit.startDate"}}</label>
+							<input type="date" name="startDate" id="startDate" class="mdl-textfield__input">
+						</div>
 
+						<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<label class="mdl-textfield__label">{{_ "pages.proposals.edit.endDate"}}</label>
+							<input type="date" name="endDate" id="endDate" class="mdl-textfield__input">
+						</div>
+					</div>
+				{{else}}
+					<h5>
+						<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
+					</h5>
+				{{/if}}
+
+
+				<!-- User invitation field -->
+				{{#if invitationEnabled}}
+					<div class="form-group">
+						{{> UserSearch}}
+					</div>
+
+					<div class="form-group">
+						<div id="invited-users">
+							{{#each selectedInvites}}
+							<span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
+								<img class="mdl-chip__contact" src="{{profile.photo}}">
+								<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+								<a href="#" class="mdl-chip__action remove-invite" data-user-id="{{_id}}"><i class="material-icons">cancel</i></a>
+							</span>
+							{{/each}}
+						</div>
+						<div id="invited-users-email">
+							{{#each value in emailedInvites}}
+							<span class="mdl-chip mdl-chip--contact">
+								<span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons email-invites">mail</i></span>
+								<span class="mdl-chip__text">{{value}}</span>
+								<a href="#" class="mdl-chip__action remove-invite-email" data-array-index="{{@index}}"><i class="material-icons">cancel</i></a>
+							</span>
+							{{/each}}
+						</div>
+					</div>
+					<br>
+				{{else}}
+					<hr>
+					<h5>
+						<small>Collaboration has been disabled by the system administrator</small>
+					</h5>
+					<hr>
+				{{/if}}
+				<!-- Save and Preview buttons -->
+				<div class="form-group">
+					<input type="submit" id="save-proposal" class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" value='{{_ "form.save-draft"}}'>
+					<input id="preview-proposal" class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" value='{{_ "generic.preview"}}'>
 				</div>
-				{{/each}}
-			</div>
+			</form>
 
-			<!-- Non-Translated Content -->
+		</div>
 
-			<!-- Start and end dates -->
-			<div class="small-inputs-wrap">
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label class="mdl-textfield__label">{{_ "pages.proposals.edit.startDate"}}</label>
-					<input type="date" name="startDate" id="startDate" class="mdl-textfield__input">
-				</div>
+		<!-- Toast to show autosave progress -->
+		<div id="autosave-toast-container" class="mdl-js-snackbar mdl-snackbar">
+			<div class="mdl-snackbar__text"></div>
+			<button class="mdl-snackbar__action" type="button"></button>
+		</div>
 
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<label class="mdl-textfield__label">{{_ "pages.proposals.edit.endDate"}}</label>
-					<input type="date" name="endDate" id="endDate" class="mdl-textfield__input">
-				</div>
-			</div>
-
-			<!-- Tags -->
-			{{> taggle }}
-
-			<!-- User invitation field -->
-			<div class="form-group">
-				{{> UserSearch}}
-			</div>
-			<div class="form-group">
-				<div id="invited-users">
-					{{#each selectedInvites}}
-					<span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
-						<img class="mdl-chip__contact" src="{{profile.photo}}">
-						<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
-						<a href="#" class="mdl-chip__action remove-invite" data-user-id="{{_id}}"><i class="material-icons">cancel</i></a>
-					</span>
-					{{/each}}
-				</div>
-				<div id="invited-users-email">
-					{{#each value in emailedInvites}}
-					<span class="mdl-chip mdl-chip--contact">
-						<span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons email-invites">mail</i></span>
-						<span class="mdl-chip__text">{{value}}</span>
-						<a href="#" class="mdl-chip__action remove-invite-email" data-array-index="{{@index}}"><i class="material-icons">cancel</i></a>
-					</span>
-					{{/each}}
-				</div>
-			</div>
-			<br>
-
-			<!-- Save and Preview buttons -->
-			<div class="form-group">
-				<input type="submit" id="save-proposal" class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" value='{{_ "form.save-draft"}}'>
-				<input id="preview-proposal" class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" value='{{_ "generic.preview"}}'>
-			</div>
-		</form>
-
-	</div>
-
-	<!-- Toast to show autosave progress -->
-	<div id="autosave-toast-container" class="mdl-js-snackbar mdl-snackbar">
-		<div class="mdl-snackbar__text"></div>
-		<button class="mdl-snackbar__action" type="button"></button>
-	</div>
-
+		{{/if}}
 	{{/if}}
-	{{/if}}
-	
+
 </template>
 
-<template name='ProposalForm'>
-	
-		<!-- Title -->
-		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.title"}}</label>
-			<input type="text" name="title" id="title-{{language}}" class="mdl-textfield__input">
-		</div>
+<template name="InviteModal">
+  <div id="overlay"></div>
+	<div class="invite-modal">
+		{{#if Template.subscriptionsReady}}
 
-		<!-- Abstract -->
-		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<textarea class="mdl-textfield__input" type="text" rows= "5" name="abstract" id="abstract-{{language}}"></textarea>
-			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.abstract"}}</label>
-		</div>
-
-		<!-- Body -->
-		<small>{{_ "pages.proposals.edit.body"}}</small>
-
-		<!-- Quill editor container -->
-		<div id="body-editor-{{language}}"></div>
-		<input type="hidden" name="body" id="body-{{language}}" class="mdl-textfield__input">
-		<br/>
-
-		<!-- Points for and against -->
-		<div class="mdl-grid">
-			<small>{{_ "pages.proposals.edit.forAndAgainst"}}</small>
-			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-				<!-- Points For -->
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label proposal-points" id="pointsForWrap">
-					<label class="mdl-textfield__label" >{{_ "pages.proposals.edit.pointFor"}}</label>
-					<textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointFor-{{language}}" name="inputPointFor"></textarea>
-				</div>
-				<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton add-point-for" id="add-point-for" data-lang="{{language}}" style="position: relative; bottom: 60px; float: right;">
-					<i class="material-icons" data-lang="{{language}}">add</i>
-				</button>
-				<ul id="points-for-list-{{language}}" class="pointsList">
-					{{#each pointsFor}}
-					<li id="point-for-{{@index}}" class="pointsListItem">
-						{{this}}
-						<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton remove-point-for" id="remove-point-for" data-lang="{{language}}" data-id="{{@index}}" style="position: relative; float: right; display: none;">
-							<i class="material-icons" data-lang="{{language}}">remove</i>
+	  <div class='content-wrapper invite-wrapper'>
+	    <div class="content invite-content">
+	      <!--<div class="app-container"> -->
+					<h4>{{_'pages.proposals.view.inviteModal.header'}}</h4>
+					<p>{{_'pages.proposals.view.inviteModal.paragraph-1'}}</p>
+					<div id="invited-users-table">
+						<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+							{{#if selectedInvitesCount}}
+									<thead>
+										<tr>
+											<th class="mdl-data-table__cell--non-numeric">{{_'pages.proposals.view.inviteModal.existing-table-heading'}}</th>
+											<th></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										{{#each selectedInvites}}
+										<tr>
+											<td class="mdl-data-table__cell--non-numeric">
+												<img class="mdl-chip__contact" src="{{profile.photo}}">{{profile.firstName}}&nbsp;{{profile.lastName}}
+											</td>
+											<td></td>
+											<td><a href="#" class="remove-invite" data-user-id="{{_id}}"><i class="material-icons">cancel</i></a></td>
+										</tr>
+										{{/each}}
+									</tbody>
+							{{/if}}
+							{{#if emailInviteCount}}
+									<thead>
+										<tr>
+											<th class="mdl-data-table__cell--non-numeric"><strong>{{_'pages.proposals.view.inviteModal.email-table-heading'}}</strong></th>
+											<th></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										{{#each value in emailedInvites}}
+										<tr>
+											<td class="mdl-data-table__cell--non-numeric">
+												<span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons email-invites">mail</i></span>{{value}}
+											</td>
+											<td></td>
+											<td><a href="#" class="remove-invite" data-user-id="{{_id}}"><i class="material-icons">cancel</i></a></td>
+										</tr>
+										{{/each}}
+									</tbody>
+							{{/if}}
+						</table>
+					</div>
+					<div id="invited-users-list">
+						<ul>
+							{{#each selectedInvites}}
+								<li>
+									<a href="#" class="remove-invite" data-user-id="{{_id}}"><i class="material-icons">cancel</i></a>
+									<img class="mdl-chip__contact" src="{{profile.photo}}">{{profile.firstName}}&nbsp;{{profile.lastName}}
+								</li>
+							{{/each}}
+						</ul>
+					</div>
+					<br/>
+					<div class="btn-wrapper">
+						<button class="mdl-button mdl-js-button mdl-button--raised" id="reject-button">
+							<i class="material-icons">close</i>
+							{{_'form.cancel'}}
 						</button>
-					</li>
-					<input type="hidden" class="point-for-hidden" id="point-for-{{@index}}-hidden" value={{this}}>
-					{{/each}}
-				</ul>
-			</div>
-			<!-- Points Against -->
-			<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pointsAgainstWrap">
-					<textarea class="mdl-textfield__input" type="text" rows= "1" id="inputPointAgainst-{{language}}" name="inputPointAgainst"></textarea>
-					<label class="mdl-textfield__label" for="inputPointAgainst">{{_ "pages.proposals.edit.pointAgainst"}}</label>
-				</div>
-				<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton add-point-against" id="add-point-against" data-lang="{{language}}" style="position: relative; bottom: 60px; float: right;">
-					<i class="material-icons" data-lang="{{language}}">add</i>
-				</button>
-				<ul id="points-against-list-{{language}}" class="pointsList">
-					{{#each pointsAgainst}}
-					<li  id="point-against-{{@index}}" class="pointsListItem">
-						{{this}}
-						<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored pointsButton remove-point-against" id="remove-point-against" data-lang="{{language}}" style="position: relative; float: right; display: none;">
-							<i class="material-icons" data-lang="{{language}}">remove</i>
+			      <button class="mdl-button mdl-js-button mdl-button--raised" id="approve-button">
+							<i class="material-icons">check</i>
+							{{_'admin.proposals.approve-button'}}
 						</button>
-					</li>
-					<input type="hidden" class="point-against-hidden" id="point-against-{{@index}}-hidden" value={{this}}>
-					{{/each}}
-				</ul>
-			</div>
-
+			    </div>
+	      </div>
+	    <!--</div>-->
 		</div>
-
-		
-	
+		{{/if}}
+	</div>
 </template>
-
-

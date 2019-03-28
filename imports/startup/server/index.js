@@ -5,6 +5,7 @@ import './register-api.js';
 import './cron-jobs.js';
 import "./accounts/accounts.js";
 import "./accounts/configure-services.js";
+import './email.js';
 import Raven from 'raven';
 
 var sentryDSN = Meteor.settings.private.sentryPrivateDSN;
@@ -59,11 +60,13 @@ export const wrapMethods = function() {
 
 Meteor.startup(() => {
   // code to run on server at startup
-  console.log("Common Democracy: Sweden - started...");
+  console.log("Welcome to ");
+  console.log("╔═╗╦═╗╔═╗╦ ╦╔╦╗╔═╗╔═╗╦  ");
+  console.log("║  ╠╦╝║ ║║║║ ║║╠═╝║ ║║  ");
+  console.log("╚═╝╩╚═╚═╝╚╩╝═╩╝╩  ╚═╝╩═╝");
   wrapMethods();
-  
+
 });
 
 //http://blog.mailgun.com/25-465-587-what-port-should-i-use/
 process.env.MAIL_URL = Meteor.settings.private.mailGun;
-

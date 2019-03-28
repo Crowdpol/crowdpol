@@ -1,46 +1,63 @@
 {
 	"layout": {
 		"header": {
-			"app_title": "Mer Demokrati",
-			"home_title": "Mer Demokrati",
+			"app_title": "Syntropi",
+			"home_title": "Syntropi",
 			"nav_home": "Hem",
 			"nav_dash": "Instrumentpanel",
+			"nav_ideas": "Forum",
 			"nav_delegate" : "Delegera",
 			"nav_vote": "Rösta",
-			"nav_proposals": "Motionera",
+			"nav_proposals": "Föreslå",
 			"nav_nominate": "Nominera",
 			"nav_about": "Om",
 			"nav_contact": "Kontakt",
 			"nav_login": "Logga in",
 			"nav_logout": "Logga ut",
+			"nav_faq": "Vanliga frågor",
+			"nav_feed": "Nyhetsflöde",
+			"nav_profile_settings": "Profil",
+			"nav_account_settings": "Inställningar",
+			"nav_admin": "Adminpanel",
+			"nav_use_individual": "Använd som privatperson",
+			"nav_use_organisation": "Använd som organisation",
+			"nav_use_party": "Använd som parti",
+			"nav_use_delegate": "Använd som Delegat",
+			"nav_using_individual": "Inloggad som privatperson",
+			"nav_using_organisation": "Du representerar en organisation",
+			"nav_using_party": "Du representerar ett politisk parti",
+			"nav_using_delegate": "Du röstar nu som delegat",
 			"lang_en": "English",
 			"lang_sv": "Svenska",
+			"lang_cy": "Walesiska",
+			"lang_ja": "Japanska",
 			"role_selector": "Byt Roll",
 			"no_notifications": "Du har inga meddelanden.",
 			"search_tags": "Sök efter taggar...",
-			"vote_as_individual": "Rösta som Individ",
-			"vote_as_delegate": "Rösta som Delegat"
+			"vote_as_individual": "Du röstar nu som privatperson",
+			"vote_as_delegate": "Du röstar nu i egenskap av delegat"
 		},
 		"drawer": {
 			"nav_login" : "Logga in",
 			"nav_logout": "Logga ut",
 			"nav_profile" : "Profil",
 			"nav_dash" : "Instrumentpanel",
+			"nav_ideas": "Forum",
 			"nav_contact" : "Kontakt",
 			"nav_privacy" : "Sekretesspolicy",
 			"nav_terms" : "Användarvillkor",
 			"nav_admin_dash" : "Adminpanel",
 			"right_about" : "Om",
-			"website": "TODO Website",
-			"recent-votes": "TODO Recent Votes",
-			"no-votes": "TODO This delegate has not voted on any proposals yet."
+			"website": "Webbsida",
+			"recent-votes": "Senaste Omröstningarna",
+			"no-votes": "Den här delegaten har inte röstat på några förslag ännu."
 		},
 		"body":{
 			"no-styles": "Färgschemat för din webbsida kunde inte laddas upp."
 		},
 		"footer": {
 			"delegate": "Delegera",
-			"propose": "Motionera",
+			"propose": "Föreslå",
 			"nominate": "Nominera",
 			"vote": "Rösta"
 		}

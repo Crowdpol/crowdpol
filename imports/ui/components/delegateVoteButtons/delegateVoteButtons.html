@@ -1,43 +1,51 @@
 <template name='delegateVoteButtons'>
-    {{#if isOpen}}
-
-    <small>{{_ "components.delegateVoteButtons.instructions-1"}}</small><br/>
-    <small>{{_ "components.delegateVoteButtons.instructions-2"}}</small>
-
-    <div class="vote-actions">
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised vote-button {{delegateYesClass}}" id="delegate-vote-yes">
-            {{_"pages.proposals.view.yes"}}
-        </button>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised vote-button {{delegateNoClass}}" id="delegate-vote-no">
-            {{_"pages.proposals.view.no"}}
-        </button>
+  {{#if isOpen}}
+    <center>
+      <small>{{_ "components.delegateVoteButtons.instructions-1"}}</small>
+      <!--<small>{{_ "components.delegateVoteButtons.instructions-2"}}</small>-->
+    </center>
+    <div class="vote-actions {{delegateVote}}" id="{{proposalId}}">
+      <button class="delegate-vote-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised vote-button {{delegateClass 'yes'}}" id="delegate-vote-yes" data-vote-value="yes">
+        {{_"pages.proposals.view.yes"}}
+      </button>
+      <button class="delegate-vote-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised vote-button {{delegateClass 'abstain'}}" id="delegate-vote-abstain" data-vote-value="abstain">
+          {{_"pages.proposals.view.abstain"}}
+      </button>
+      <button class="delegate-vote-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised vote-button {{delegateClass 'no'}}" id="delegate-vote-no" data-vote-value="no">
+        {{_"pages.proposals.view.no"}}
+      </button>
     </div>
-
-<div id="mdl-custom-modal" class="modal">
-    <div class="modal-content mdl-card mdl-shadow--2dp">
+    <div id="mdl-custom-modal" class="modal">
+      <div class="modal-content mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title mdl-card--expand">
-            <form action="#" st>
-                <small>{{_ "components.delegateVoteButtons.reason-message"}}</small>
-                <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <textarea class="mdl-textfield__input" type="text" maxlength='160' rows= "4" name="abstract" id="delegate-reason"></textarea>
-                </div>
-                <small>{{charCountString}}</small>
-            </form>
+          <form action="#" st>
+            <small>{{_ "components.delegateVoteButtons.reason-message"}}</small>
+            <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <textarea class="mdl-textfield__input" type="text" maxlength='420' rows= "12" name="abstract" id="delegate-reason">{{voteReason}}</textarea>
+            </div>
+            <small>{{charCountString}}</small>
+          </form>
         </div>
         <div class="mdl-card__actions mdl-card--border">
-            <a id='final-vote' class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                {{_ "components.delegateVoteButtons.finished"}}
+          <center>
+          <a id='final-vote' class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            {{_ "components.delegateVoteButtons.finished"}}
+          </a>
+          {{#if voteSet}}
+            <a id='remove-vote' class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              {{_ "components.delegateVoteButtons.removeVote"}}
             </a>
+          {{/if}}
+          </center>
         </div>
         <div class="mdl-card__menu">
-            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect mdl-custom-close">
-              <span class="material-icons">close</span>
-            </button>
+          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect mdl-custom-close">
+            <span class="material-icons">close</span>
+          </button>
         </div>
+      </div>
     </div>
-</div>
-
-{{else}}
-{{_ "components.delegateVoteButtons.delegateVotingClosed"}}
-{{/if}}
+  {{else}}
+    {{_ "components.delegateVoteButtons.delegateVotingClosed"}}
+  {{/if}}
 </template>

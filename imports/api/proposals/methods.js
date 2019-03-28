@@ -6,82 +6,140 @@ import { Ranks } from '../ranking/Ranks.js';
 
 Meteor.methods({
   createProposal: function (proposal) {
-    //console.log(proposal);
       //try{
-        check(proposal, { 
+        check(proposal, {
           title: Match.Maybe(String),
           abstract: Match.Maybe(String),
           body: Match.Maybe(String),
           content: Match.Maybe([Object]),
           pointsFor: Match.Maybe([String]),
           pointsAgainst: Match.Maybe([String]),
-          startDate: Date, 
-          endDate: Date, 
+          startDate: Date,
+          endDate: Date,
           authorId: String,
           invited: Match.Maybe([String]),
-          tags: Match.Maybe([Object]),
+          tags: Match.Maybe([String]),
           references: Match.Maybe([String]),
-          communityId: String
+          communityId: String,
+          stage: String,
+          hasCover: Boolean,
+			    coverURL: Match.Maybe(String),
+			    coverPosition: Match.Maybe(String)
         });
+
         proposalId = Proposals.insert(proposal);
-       
+
         return proposalId;
       //} catch (err) {
-        //console.log(err);
         //return err;
       //}
     },
+    /*
+    deleteProposalArgument: function(proposalId, argumentId){
+      check(proposalId, String);
+      check(argumentId, String);
+      return ;///Proposals.update({_id: proposalId}, {$pull: {content.forArguments: Meteor.userId()}})
+    },
+    updateProposalArgumentText: function(proposalId, argumentId, text,language){
+      check(proposalId, String);
+      check(argumentId, String);
+      check(text, String);
+      check(language, String);
+      let proposal = Proposals.findOne(proposalId);
+      if(typeof proposal != 'undefined'){
+        var contentAll = _.find(proposal.content, function(item){
+          argumentsFor = item.argumentsFor;
+          argumentsFor.forEach(function (argument, index) {
+            if(argument.argumentId==argumentId){
+              argument.message = text;
+            }
+          });
+          argumentsAgainst = item.argumentsAgainst;
+          argumentsAgainst.forEach(function (argument, index) {
+            if(argument.argumentId==argumentId){
+              argument.message = text;
+            }
+          });
+        });
+        return Proposals.update({_id: proposalId}, {$set: {"content": proposal.content}});
+      }else{
+        throw new Meteor.Error(422, "Proposal does not exist.");
+      }
+    },*/
     getProposal: function (proposalId) {
       check(proposalId, String);
       return Proposals.findOne({_id: proposalId});
+    },
+    deleteProposalTags: function (tagId){
+      check(tagId,String);
+      let proposals = Proposals.find({tags: tagId});
+      proposals.forEach(function (value) {
+        Proposals.update({"_id":value._id},{$pull: {tags: tagId}})
+      });
     },
     deleteProposal: function(proposalId) {
       check(proposalId, String);
       var user = Meteor.user();
 
       var proposal = Proposals.findOne(proposalId);
+
       // user must be logged in
       if (!user)
         throw new Meteor.Error(401, "You need to login to delete your proposal.");
+
       // proposal must exist
       if (!proposal)
         throw new Meteor.Error(422, "Proposal does not exist.");
+
       // user must be the author of the proposal
-      if (!proposal.authorId == Meteor.userId())
+      if (!proposal.authorId == Meteor.userId() || !Roles.userIsInRole(user, ['admin','superadmin']))
         throw new Meteor.Error(422, "Only the author of a proposal can delete it.");
-      
-      Proposals.remove(proposalId);
-      
+      try{
+        Proposals.remove(proposalId);
+      } catch (err) {
+        return err;
+      }
+    },
+    removeInvitation: function(userId,proposalId){
+      check(userId, String);
+      check(proposalId, String);
+      return Proposals.update({_id: proposalId}, {$pull: {invited: Meteor.userId()}});
     },
     rejectProposal: function (proposalId) {
       check(proposalId, String);
       var userId = Proposals.findOne(proposalId).authorId;
       Proposals.update({_id: proposalId}, {$set: {"status": "rejected"}});
-      
+
     },
     approveProposal: function(proposalId){
       check(proposalId, String);
       var userId = Proposals.findOne(proposalId).authorId;
       Proposals.update({_id: proposalId}, {$set: {"stage": "live"}});
       Proposals.update({_id: proposalId}, {$set: {"status": "approved"}});
-      /* This should be removed after September 2018: 
+      /* This should be removed after September 2018:
       Voting opens from the day the proposal is approved.
       Eventually custom dates should be set by the author.
       */
       //Proposals.update({_id: proposalId}, {$set: {"startDate": new Date()}});
 
-      
+
     },
-    updateProposalStage: function(proposalId, stage){
+    updateProposalStage: function(proposalId, stage,status){
       check(proposalId, String);
       check(stage, String);
-      Proposals.update({_id: proposalId}, {$set: {"stage": stage}});
+      check(status, String);
+      Proposals.update({_id: proposalId}, {$set: {"stage": stage,"status":status}});
     },
     saveProposalChanges: function (proposalId, proposal) {
       check(proposalId, String);
+      let oldInvites = [];
+      let proposalOld = Proposals.findOne(proposalId);
+      if(typeof proposalOld !=='undefined'){
+        if (typeof(proposalOld.invited) !== 'undefined'){
+          oldInvites = proposalOld.invited;
+        }
+      }
       // Find if new collaborators have been added
-      /* moving this to client side
-      var oldInvites = Proposals.findOne(proposalId).invited;
       var newInvites = proposal.invited;
 
       if (oldInvites && newInvites) {
@@ -91,33 +149,33 @@ Meteor.methods({
           // Create notification for each new collaborator
           for (i=0; i<newCollaborators.length; i++) {
             var notification = {
-              message: TAPi18n.__('notifications.proposals.invite'), 
-              userId: newCollaborators[i], 
-              url: '/proposals/view/' + proposalId, 
+              message: TAPi18n.__('notifications.proposals.invite'),
+              userId: newCollaborators[i],
+              url: '/proposals/view/' + proposalId,
               icon: 'people'
             }
             Meteor.call('createNotification', notification);
           }
-        } 
+        }
+        oldInvites.push(newInvites);
+        proposal.invites = oldInvites;
       }
-      */
-
       proposal.lastModified = new Date();
       Proposals.update({_id: proposalId}, {$set: proposal });
     },
     addTagToProposal: function(proposalId, tag) {
       check(proposalId, String);
-      check(tag, { 
-        keyword: String, 
-        url: String, 
+      check(tag, {
+        keyword: String,
+        url: String,
         _id: String });
       Proposals.update({_id: proposalId}, {$push: {tags: tag} });
     },
     removeTagFromProposal: function(proposalId, tag) {
       check(proposalId, String);
-      check(tag, { 
-        keyword: String, 
-        url: String, 
+      check(tag, {
+        keyword: String,
+        url: String,
         _id: String });
       Proposals.update({_id: proposalId}, {$pull: {tags: tag} });
     },
@@ -148,14 +206,13 @@ Meteor.methods({
     Proposals.update({_id: proposalId}, { $push: { pointsFor: text } });
   },
   findProposalsForCronJob: function(){
-    /*  
+    /*
       Finds all expired proposals that have not yet been finalised for vote counting
       and returns an array of their ids
     */
     var now = moment().toDate();
     var proposals = Proposals.find({ $and: [ { endDate: { $lte: now } }, { votesFinalised: false } ] } );
     var ids = proposals.pluck('_id');
-    console.log(ids)
     return ids
 
   },
@@ -181,9 +238,9 @@ Meteor.methods({
         if (delegateInfo){
           // Create Vote for user with delegateId
           Votes.insert({
-            proposalId: proposalId, 
-            vote: delegateInfo.vote, 
-            voterHash: userId, 
+            proposalId: proposalId,
+            vote: delegateInfo.vote,
+            voterHash: userId,
             delegateId: delegateInfo.id
           });
         }
@@ -265,7 +322,6 @@ Meteor.methods({
             },
         }},
       ]);
-      //console.log(result);
       return result;
     }
 });

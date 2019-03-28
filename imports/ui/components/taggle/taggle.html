@@ -1,17 +1,29 @@
-<template name="taggle">
-	<div class="input textarea clearfix" id="tags"></div>
+<template name="NewTaggle">
+	<div class="tags-wrap add-tags-wrap" >
+		<!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
+		{{#if showTags}}
+			{{setTags selectedTags}}
+			{{#each foundTags}}
+				<a class="tag taggle-tag tag-chip {{isAuthorised this}}" id="{{this._id}}" data-id="{{this._id}}">{{this.keyword}}
+					<button type="button" class="mdl-chip__action tag-chip-delete" data-id="{{this._id}}"><i class="material-icons tag-chip-delete" data-id="{{this._id}}">cancel</i></button>
+				</a>
+			{{/each}}
+		{{/if}}
 
-	 <div id='tagsarea'>
-		{{#if matchedTags}}
-			<ul class="demo-list-item mdl-list autocomplete-list" id="matchedTagsList">
-				{{#each matchedTags}}
-				<li class="mdl-list__item autocomplete-item" data-keyword={{this}}>
-					<span class="mdl-list__item-primary-content" data-keyword={{this}}>
+	</div>
+
+	<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="tag-input-wrap">
+		<input class="mdl-textfield__input" type="text" name="add-tag" id="add-tag">
+		<label for="add-tag" class="mdl-textfield__label">Add some tags</label>
+		<ul for="add-tag"  class="dropdown" id="matchedTagsList" style="display:none;">
+			{{#each matchedTags}}
+				<li class="dropdown-item" data-keyword={{this}}>
+					<span class="primary-content" data-keyword={{this}}>
 						{{this}}
 					</span>
 				</li>
-				{{/each}}
-			</ul>
-		{{/if}}
+			{{/each}}
+		</ul>
 	</div>
+	<!-- END TAGS SHOULD BE MOVED TO ITS OWN COMPONENT -->
 </template>

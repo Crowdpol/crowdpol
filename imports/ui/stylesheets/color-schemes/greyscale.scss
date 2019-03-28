@@ -1,7 +1,7 @@
 @import '../variables.scss';
 @import '../breakpoint.scss';
 
-/* 
+/*
   This file contains the default colour scheme.
   Only styles specifying a colour (not including white or greys) should be included here.
 */
@@ -163,8 +163,11 @@
 
 // Proposals ---------------------------------------------
 
-.proposal-date {
-  color: $light-grey;
+.card-date {
+  span,
+  i {
+    color: $light-grey;
+  }
 }
 
 .add-new-proposal {

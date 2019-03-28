@@ -1,0 +1,69 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+.unsplash-search-box{
+  -moz-box-shadow:    inset 0px 0px 15px 0px #888888;
+   -webkit-box-shadow: inset 0px 0px 15px 0px #888888;
+   box-shadow:         inset 0px 0px 15px 0px #888888;
+   background-color: #f4f4f4;
+  //margin-top: -150px;
+  #search-unsplash-wrapper{
+    padding: 0px;
+  }
+  .search-images-count{
+    font-size: $xsmall-font-size;
+  }
+  .pagination-count{
+    font-size: $xsmall-font-size;
+  }
+}
+.unsplash-gallery{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .unsplash-gallery-thumb{
+    padding: 5px;
+    //border: solid 1px black;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    .unsplash-thumb-image{
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 100%
+    }
+    .unsplash-thumb-desc{
+
+    }
+  }
+}
+
+.unsplash-gallery.square{
+  .unsplash-gallery-thumb{
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.unsplash-gallery.landscape{
+  .unsplash-gallery-thumb{
+    width: 150px;
+    height: 100px;
+  }
+}
+
+.unsplash-gallery.portrait{
+  .unsplash-gallery-thumb{
+    width: 100px;
+    height: 150px;
+    .unsplash-thumb-image{
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 120%
+    }
+  }
+}

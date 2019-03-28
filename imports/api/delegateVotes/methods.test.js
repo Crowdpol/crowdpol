@@ -13,7 +13,7 @@ const { schema, generateDoc } = fakerSchema;
 
 if (Meteor.isServer) {
   let testVote;
-  
+
   describe('DelegateVote methods', () => {
     beforeEach(function () {
       // create a fake proposal
@@ -24,7 +24,6 @@ if (Meteor.isServer) {
       // create a fake user
       Factory.define('user', Meteor.users, generateDoc(schema.User));
       const fakeUser = Factory.create('user');
-      console.log(fakeUser);
       userId = fakeUser._id;
       // stub Meteor's user method to simulate a logged in user
       Roles.addUsersToRoles(userId, 'delegate');
@@ -32,7 +31,7 @@ if (Meteor.isServer) {
       stub = sinon.stub(Meteor, 'user');
       stub.returns(user);
       idStub = sinon.stub(Meteor, 'userId');
-      idStub.returns(user._id); 
+      idStub.returns(user._id);
       testVoteId = Meteor.call('voteAsDelegate', {vote: 'yes', proposalId: proposal._id, reason: ''});
     });
     afterEach(function () {
@@ -45,7 +44,6 @@ if (Meteor.isServer) {
         expect(testVoteId).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -61,7 +59,6 @@ if (Meteor.isServer) {
         }, Meteor.Error, 422);
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -72,7 +69,6 @@ if (Meteor.isServer) {
         expect(vote).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -85,7 +81,6 @@ if (Meteor.isServer) {
         expect(voteFor.vote).to.equal('yes');
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -97,7 +92,6 @@ if (Meteor.isServer) {
         expect(vote).to.not.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });

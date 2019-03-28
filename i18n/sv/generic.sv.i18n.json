@@ -4,17 +4,25 @@
 		"logout": "Logga ut",
 		"signup": "Gå Med",
 		"read-more": "Läs Mer",
-		"preview": "Förhandsvisning & Sänd",
+		"preview": "Förhandsvisning",
 		"loading": "Läser in...",
-		"not-found_message": "Sidan existerar tyvärr inte",
+		"not-found_message": "Den sidan existerar tyvärr inte",
 		"not-found_home-link": "Tillbaka hem",
 		"alerts": {
 			"welcome": "Välkommen"
 		},
-		"show-more": "Visa Mer",
-		"show-less": "Visa Mindre",
+		"show-more": "Visa mer",
+		"show-less": "Visa mindre",
 		"approved": "Godkänd",
-		"back-to-proposals": "Tillbaka till Motionera"
+		"back-to-proposals": "Tillbaka till Föreslå",
+		"on": "På",
+		"off": "Av",
+		"requested": "Efterfrågad",
+		"under-construction": "Under uppbyggnad",
+		"characters":"tecken",
+		"change-cover": "TODO: Select the cover image",
+		"remove-cover": "TODO: Remove the cover",
+		"add-cover": "TODO: Add cover"
 	},
 	"form": {
 		"email": "E-postadress",
@@ -30,10 +38,11 @@
 		"contact": "Kontaktperson",
 		"message": "Ditt meddelande",
 		"save": "Spara",
-		"save-draft": "TODO: Save Draft",
+		"save-draft": "Spara utkast",
 		"submit": "Sänd",
 		"update": "Uppdatera",
 		"cancel": "Avbryt",
-		"signup": "Bli Medlem"
+		"signup": "Bli Medlem",
+		"profile-photo": "Profilbild"
 	}
 }

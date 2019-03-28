@@ -1,148 +1,54 @@
 {
-	"admin":{
-		"dash":{
-			"heading" : "Admin Dashboard",
-			"card": {
-				"users": {
-					"heading": "Användare",
-					"text": "Lägg till/Ändra/Ta bort användare, bjud in nya användare, ändra användares roll.",
-					"link": "Hantera Användare"
-				},
-				"tags": {
-					"heading": "Taggar",
-					"text": "Lägg till/Ändra/Ta bort taggar som används för filtrering av innehåll.",
-					"link": "Hantera Taggar"
-				},
-				"approvals": {
-					"heading": "Godkännanden",
-					"text": "Godkänn eller avvisa användares önskemål om att bli delegater, som individ, organisation eller politiskt parti.",
-					"link": "Hantera Godkännanden"
-				},
-				"proposals": {
-					"heading": "Motioner",
-					"text": "Granska motioner som användare lämnat in.",
-					"link": "Hantera Motioner"
-				},
-				"voting": {
-					"heading": "Röstning",
-					"text": "Se resultat av omröstning och förbered röster i stängda motioner för sammanräkning.",
-					"link": "Se Röstresultat"
-				},
-				"stats":{
-					"heading": "Statistik",
-					"text": "Granska webbsajtens statistik",
-					"link": "Se Statistik"
-				},
-				"communities":{
-					"heading": "Att göra: Gemenskaperna",
-					"text": "Att göra: Hantera Gemenskaperna",
-					"link": "Att göra: Visa Gemenskaperna"
-				}
-			}
+	"layout": {
+		"header": {
+			"app_title": "Crowdpol",
+			"home_title": "Crowdpol",
+			"nav_home": "Hem",
+			"nav_dash": "Instrumentpanel",
+			"nav_delegate" : "Delegera",
+			"nav_vote": "Rösta",
+			"nav_proposals": "Föreslå",
+			"nav_nominate": "Nominera",
+			"nav_about": "Om",
+			"nav_contact": "Kontakt",
+			"nav_login": "Logga in",
+			"nav_logout": "Logga ut",
+			"nav_faq": "FAQ",
+			"nav_feed": "Nyhetsflöde",
+			"nav_profile": "Profil",
+			"nav_settings": "Inställningar",
+			"lang_en": "English",
+			"lang_sv": "Svenska",
+			"lang_cy": "Walesiska",
+			"lang_ja": "Japanska",
+			"role_selector": "Byt Roll",
+			"no_notifications": "Du har inga meddelanden.",
+			"search_tags": "Sök efter taggar...",
+			"vote_as_individual": "Du röstar nu som privatperson",
+			"vote_as_delegate": "Du röstar nu i egenskap av delegat"
 		},
-		"users": {
-			"heading": "Alla Användare",
-			"name": "Fullständigt Namn",
-			"email": "Epostadress",
-			"roles": "Roller",
-			"public": "Offentlig",
-			"delete-button": "Radera",
-			"delete-message": "Är du säker på att du vill radera denna användare?",
-			"delete-title":"Radera användare permanent",
-			"delete-yes":"Ja",
-			"delete-no":"Nej",
-			"invite-heading": "Bjud in en Ny Användare:",
-			"invite-message": "Fyll i en användares e-post för att skicka dem en inbjudan att gå med.",
-			"invite-button": "Skicka Inbjudan",
-			"invite-role": "Användares Roll",
-			"approve-button": "Godkän",
-			"reject-button": "Avslå",
-			"invite-role": "Användares Roll",
-			"whitelist-updated" : "TODO Whitelist updated.",
-			"community-whitelist": "TODO Community Whitelist",
-			"whitelist-description": "TODO If the whitelist is enforced, only users with email addresses in the whitelist will be able to create accounts for this community.",
-			"enforceWhitelist": "TODO Only let these users create accounts."
+		"drawer": {
+			"nav_login" : "Logga in",
+			"nav_logout": "Logga ut",
+			"nav_profile" : "Profil",
+			"nav_dash" : "Instrumentpanel",
+			"nav_contact" : "Kontakt",
+			"nav_privacy" : "Sekretesspolicy",
+			"nav_terms" : "Användarvillkor",
+			"nav_admin_dash" : "Adminpanel",
+			"right_about" : "Om",
+			"website": "Webbsida",
+			"recent-votes": "Senaste omröstningar",
+			"no-votes": "Den här delegaten har inte röstat på några förslag ännu."
 		},
-		"proposals":{
-			"heading": "Motioner",
-			"date": "Datum",
-			"author": "Författare",
-			"contributors": "Bidragsgivare",
-			"title": "Titl",
-			"none-waiting": "Det finns inga nya motioner som inväntar godkännande.",
-			"approve-button": "Godkänn",
-			"reject-button": "Avslå"
+		"body":{
+			"no-styles": "Färgschemat för din webbsida kunde inte laddas upp."
 		},
-		"voting":{
-			"heading": "Röstning",
-			"endDate": "Slutdatum",
-			"author": "Författare",
-			"title": "Titel",
-			"tally-votes": "Uppdatera Röster",
-			"results": "Resultat",
-			"yes-votes": "Bifallande Röster",
-			"no-votes": "Avslående Röster",
-			"total-votes": "Totalt Antal Röster"
-		},
-		"tags": {
-			"heading": "Hantera Taggar",
-			"text": "Text",
-			"keyword": "Nyckelord",
-			"url": "URL",
-			"delete": "Radera",
-			"created": "Datum skapad",
-			"approved": "Godkänd",
-			"add-button": "Lägg till",
-			"delete-button": "Radera",
-			"none-waiting": "För tillfället finns det inga motioner som väntar på att granskas."
-		},
-		"approvals": {
-			"heading": "Godkännanden",
-			"approve-button": "Godkänn",
-			"reject-button": "Avvisa",
-			"date": "Datum",
-			"username":"Användarnamn",
-			"request-type":"Typ av Begäran",
-			"request-status":"Status på Begäran",
-			"approvals-waiting":"Det finns inga väntande önskemål om godkännande."
-		},
-		"alerts": {
-			"user-approved": "Användare Godkänd",
-			"user-rejected": "Användare Avvisad",
-			"proposal-approved": "Motion Godkänd",
-			"proposal-rejected": "Motion Avvisad",
-			"tag-updated": "Tagg Uppdaterad",
-			"tag-added": "Tagg Tillagd",
-			"tag-deleted": "Tagd Raderad",
-			"verification-email-sent": "Verifications epost skickad till "
-		},
-		"stats": {
-			"proposals":{
-				"tabs": {
-					"overview" : "Översikt",
-					"proposalList" : "Statistik Motioner"
-				}
-			}
-		},
-		"communities": {
-			"heading": "TODO Communities",
-			"name": "TODO Name",
-			"subdomain": "TODO Subdomain",
-			"user-count": "TODO Number of Users",
-			"none": "TODO There are currently no communities.",
-			"colorScheme": {
-				"label": "TODO Color Scheme",
-				"greyscale": "TODO greyscale (black/white/grey)",
-				"default": "TODO default (blue/yellow)"
-			},
-			"homepageImageUrl": "TODO Homepage image URL",
-			"homepageBannerText": "TODO Homepage banner text",
-			"homepageIntroText": "TODO Homepage introduction text",
-			"aboutText": "TODO About text",
-			"languageSelector": "TODO Show language selector in header",
-			"defaultLanguage": "TODO Default language",
-			"emailWhitelist": "TODO Emails of allowed users, separated by commas.",
-			"enforceWhitelist": "TODO Enforce the current email whitelist."
+		"footer": {
+			"delegate": "Delegera",
+			"propose": "Föreslå",
+			"nominate": "Nominera",
+			"vote": "Rösta"
 		}
 	}
 }

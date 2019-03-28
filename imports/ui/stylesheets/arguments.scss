@@ -1,0 +1,122 @@
+@import 'variables.scss';
+.argument-input{
+  //border: solid 1px green;
+}
+div.argument-container{
+  display: flex;
+  align-content: space-between;
+  p{
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.6rem;
+    font-family: $body-font;
+  }
+  div.arguments-column{
+    width: auto;
+    flex: 50%;
+
+    ul.arguments-list {
+      padding-inline-start: 0px;
+      margin: 0;
+      li.argument{
+        display: flex;
+        //list-style: none;
+        padding-right: 15px;
+
+        div.argument-content{
+          //border: solid 1px red;
+          width: 80%;
+          font-size: 12pt;
+          padding-bottom: 2px;
+          div.argument-header{
+            border-top: solid 1px grey;
+            display: flex;
+            height: 30px;
+            font-size: 10pt;
+            div.argument-author{
+              width: 80%;
+            }
+            div.argument-menu{
+              //border:solid 1px blue;
+              width: 20%;
+              display: flex;
+
+              div {
+                .mdl-button--icon {
+                  min-width: 24px;
+                  width: 24px;
+                  height: 24px;
+                  .material-icons{
+                    font-size: 14pt;
+                    color: #b2b1b1;
+                  }
+                }
+              }
+
+
+              div.like-menu{
+                justify-content: flex-end;
+                .mdl-button--icon {
+                  min-width: 24px;
+                  width: 24px;
+                  height: 24px;
+                  .material-icons{
+                    font-size: 12pt;
+                    color: #b2b1b1;
+                  }
+                }
+                .mdl-button--primary {
+                  .material-icons{
+                    color: $bright-blue;
+                  }
+                }
+                .mdl-button--accent {
+                  .material-icons{
+                    color: red;//$bright-blue;
+                  }
+                }
+              }
+              div.edit-menu{
+
+              }
+              div.save-menu{
+
+              }
+            }
+          }
+
+          div.argument-message{
+            //border: solid 1px purple;
+            font-size: 0.4rem;
+            font-weight: 300;
+            line-height: 1.6rem;
+            font-family: $body-font;
+          }
+
+        }
+
+
+      }
+    }
+    div.argument-box{
+      display: flex;
+      div.argument-box-textarea{
+        width: 80%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+      }
+      div.argument-box-menu{
+        width: 20%;
+        padding-top: 40px;
+      }
+    }
+  }
+  div.for-container{
+    display: flex;
+    flex-direction: column;
+  }
+  div.against-container{
+    display: flex;
+    flex-direction: column;
+  }
+}

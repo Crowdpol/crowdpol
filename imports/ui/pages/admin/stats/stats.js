@@ -5,7 +5,6 @@ import "./styles.css"
 import "./proposalStats.js"
 
 Template.Stats.onRendered(function() {
-  console.log("stats rendered");
 
 });
 
@@ -66,8 +65,6 @@ Template.ProposalStats.onRendered(function() {
     } else {
       if (result != undefined) {
         if (result.length >= 1) {
-          console.log("this is from rendered");
-          console.log(result);
           var overviewData = {
             labels: ['Draft', 'Submitted', 'Live'],
             series: [
@@ -104,7 +101,6 @@ Template.ProposalStats.onRendered(function() {
           new Chartist.Pie('.ct-chart-draft-overview', draftData, options, responsiveOptions);
           new Chartist.Pie('.ct-chart-submitted-overview', submittedData, options, responsiveOptions);
           new Chartist.Pie('.ct-chart-live-overview', liveData, options, responsiveOptions);
-          console.log("made it");
         }
       } else {
         Bert.alert("No result returned from server", 'danger');
@@ -145,7 +141,7 @@ Template.ProposalStats.onCreated(function() {
       } else {
         if (result != undefined) {
           if (result.length >= 1) {
-          	//this is not working for some incredibly frustrating reason. 
+          	//this is not working for some incredibly frustrating reason.
             dict.set('methodSuccess', true);
             dict.set('draftUnreviewedCount', result[0].draftUnreviewedCount);
             dict.set('draftApprovedCount', result[0].draftApprovedCount);
@@ -176,7 +172,6 @@ Template.ProposalStats.helpers({
   },
   openProposals: function() {
     result = Proposals.find({ endDate: { "$gte": new Date() }, stage: "live" }, { transform: transformProposal, sort: { endDate: -1 } });
-    console.log(result);
     return result;
   },
   openSelected: function() {
@@ -226,7 +221,7 @@ Template.ProposalStats.events({
 });
 
 Template.ProposalCardList.onRendered(function() {
-  console.log(this);
+
 });
 
 function updateStats() {
@@ -240,5 +235,5 @@ function updateStats() {
   });
 
   result = ProposalStats.find();
-  console.log(result);
+
 }

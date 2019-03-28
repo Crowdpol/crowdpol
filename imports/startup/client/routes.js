@@ -7,6 +7,13 @@ import '../../ui/main.js';
 // Global onEnter trigger to save communityInfo in LocalStore
 FlowRouter.triggers.enter([loadCommunityInfo]);
 
+// the App_notFound template is used for unknown routes and missing lists
+FlowRouter.notFound = {
+  action() {
+    BlazeLayout.render('App_body', {main: 'App_notFound'});
+  }
+};
+
 // Public Routes (no need to log in):
 
 var publicRoutes = FlowRouter.group({name: 'public'});
@@ -72,11 +79,28 @@ publicRoutes.route('/login', {
     }
   },
 });
+publicRoutes.route('/signup', {
+  name: 'App.login',
+  action() {
+    if (!Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'Authenticate' });
+    }else{
+      BlazeLayout.render('App_body', { main: 'ProposalsList' });
+    }
+  },
+});
 
 publicRoutes.route('/contact', {
   name: 'App.contact',
   action() {
     BlazeLayout.render('App_body', { main: 'contact' });
+  },
+});
+
+publicRoutes.route('/notifications', {
+  name: 'App.notifications',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Notifications' });
   },
 });
 
@@ -101,6 +125,34 @@ publicRoutes.route('/about', {
   },
 });
 
+publicRoutes.route('/faq', {
+  name: 'App.faq',
+  action() {
+    BlazeLayout.render('App_body', { main: 'FAQ' });
+  },
+});
+
+publicRoutes.route('/settings', {
+  name: 'App.account-settings',
+  action() {
+    BlazeLayout.render('App_body', { main: 'AccountSettings' });
+  },
+});
+
+publicRoutes.route('/unsplash', {
+  name: 'App.unsplash',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Unsplash' });
+  },
+});
+
+publicRoutes.route('/test', {
+  name: 'App.test',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Test' });
+  },
+});
+
 //USER SEARCH
 FlowRouter.route('/search/users', {
   name: 'App.search.users',
@@ -110,11 +162,10 @@ FlowRouter.route('/search/users', {
 });
 
 
-//STATISTICS 
+//STATISTICS
 FlowRouter.route('/stats', {
   name: 'App.stats',
   action() {
-    console.log("show me stats");
     BlazeLayout.render('App_body', { main: 'Stats' });
   },
 });
@@ -127,7 +178,6 @@ var statsRoutes = FlowRouter.group({
 statsRoutes.route('/proposals', {
   name: 'App.stats.proposals',
   action() {
-    console.log("going to stats.proposals");
     BlazeLayout.render('App_body', {main: 'ProposalStats'});
   }
 });
@@ -145,20 +195,20 @@ var loggedInRoutes = FlowRouter.group({
   name: 'loggedIn',
   triggersEnter: [function(context, redirect) {
     if ((!Meteor.user()) || (!_.contains(Meteor.user().profile.communityIds, LocalStore.get('communityId')))){
-    FlowRouter.go('App.home');
-    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
-  }
+	    FlowRouter.go('App.home');
+	    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
+  	}
   }]
 });
+
 
 loggedInRoutes.route('/profile', {
   name: 'App.profile',
   action() {
-    BlazeLayout.render('App_body', { main: 'Profile' });
-
+    BlazeLayout.render('App_body', { main: 'ProfileSettings' });
   },
 });
-
+/*
 loggedInRoutes.route('/profile/:id', {
   name: 'App.profile',
   action() {
@@ -166,13 +216,34 @@ loggedInRoutes.route('/profile/:id', {
 
   },
 });
+*/
+loggedInRoutes.route('/feed', {
+  name: 'App.feed',
+  action() {
+    BlazeLayout.render('App_body', { main: 'UserHome' });
+  },
+});
 
-/* NOTE: This routes to the proposals list for now, as replacement for a dashboard */
+loggedInRoutes.route('/feed/:id', {
+  name: 'App.feed',
+  action() {
+    BlazeLayout.render('App_body', { main: 'UserHome' });
+  },
+});
+
 
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
-    BlazeLayout.render('App_body', { main: 'ProposalsList' });
+    BlazeLayout.render('App_body', { main: 'Dash' });
+  },
+});
+
+
+loggedInRoutes.route('/ideas', {
+  name: 'App.ideas',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Ideas' });
   },
 });
 
@@ -180,6 +251,13 @@ loggedInRoutes.route('/tag/:keyword', {
   name: 'App.tag',
   action() {
     BlazeLayout.render('App_body', {main: 'TagSearch'});
+  }
+});
+
+loggedInRoutes.route('/interests', {
+  name: 'App.interests',
+  action() {
+    BlazeLayout.render('App_body', {main: 'Interests'});
   }
 });
 
@@ -219,14 +297,14 @@ loggedInRoutes.route('/delegate', {
     BlazeLayout.render('App_body', { main: 'Delegate' });
   },
 });
-
+/*
 loggedInRoutes.route('/candidate', {
   name: 'App.candidate',
   action() {
     BlazeLayout.render('App_body', { main: 'Candidate' });
   },
 });
-
+*/
 // Admin Routes:
 
 var adminRoutes = FlowRouter.group({
@@ -299,7 +377,6 @@ function loadCommunityInfo() {
   //check for crowdpol:
   var hostname = window.location.host;
   var subdomain = window.location.host.split('.')[0];
-
   switch (hostname) {
     case "crowdpol.com":
         subdomain = "global";
@@ -319,10 +396,15 @@ function loadCommunityInfo() {
     case "www.commondemocracy.org":
         subdomain = "global";
         break;
+    case "www.syntropi.se":
+        subdomain = "syntropi";
+        break;
     default:
-        subdomain = "global";
+        subdomain = window.location.host.split('.')[0];
   }
-  console.log(hostname + " - " + subdomain);
+
+	//set title to commuinty name
+	document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
 
   // set LocalStorage info
   if (subdomain){
@@ -332,9 +414,33 @@ function loadCommunityInfo() {
           Bert.alert(err.reason, 'danger');
         } else {
           LocalStore.set('communityId', result._id);
+					LocalStore.set('settings',result.settings);
+					let settings = result.settings;
+
+					//set favicon if community icon is set
+					if(typeof settings.faviconUrl != 'undefined'){
+						var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+						//link.type = 'image/x-icon';
+						link.rel = 'shortcut icon';
+						link.href = settings.faviconUrl;
+						document.getElementsByTagName('head')[0].appendChild(link);
+					}
+					if(typeof settings.defaultLanguage != 'undefined'){
+						//console.log(settings.defaultLanguage);
+						moment.locale(settings.defaultLanguage);
+					}
         }
       });
   } else {
     Bert.alert(TAPi18n.__('pages.routes.alerts.no-subdomain'), 'danger');
   }
 }
+/*
+(function() {
+    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = 'http://www.stackoverflow.com/favicon.ico';
+    document.getElementsByTagName('head')[0].appendChild(link);
+})();
+*/

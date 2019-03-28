@@ -24,7 +24,6 @@ if (Meteor.isServer) {
         expect(testTag).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -35,7 +34,6 @@ if (Meteor.isServer) {
         expect(testTag).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -47,11 +45,10 @@ if (Meteor.isServer) {
         expect(testTag).to.not.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
-    
+
     it("Toggle tag authorized", (done) => {
       try {
         Meteor.call('toggleAuthorized', tag._id, false);
@@ -62,7 +59,6 @@ if (Meteor.isServer) {
         expect(tag.authorized).to.equal(true);
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -74,7 +70,6 @@ if (Meteor.isServer) {
         expect(tagArray[0].url).to.equal('/tag/tagone');
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });

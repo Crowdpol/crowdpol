@@ -1,0 +1,82 @@
+<template name="ProfileImage">
+	<aside class="aside aside-1">
+		<div class="profile-pic-wrapper" id="profile-pic-wrap">
+			<div class="profile-image-div"></div>
+			{{#if isEditable}}
+		  <div class="profile-image-overlay">
+		    <a href="#" class="icon" title="User Profile" id="change-photo-button">
+		      <i class="material-icons" id="change-photo-icon">camera_alt</i>
+		    </a>
+		  </div>
+
+			{{/if}}
+			{{#if isEditable}}
+			<div class="mdl-tooltip" data-mdl-for="profile-pic-wrap">
+				Click on the camera icon to change Profile Pic
+			</div>
+			{{/if}}
+		</div>
+	</aside>
+	<article class="main">
+		{{#if editing}}
+			{{#if isEditable}}
+				<div class="mdl-grid profile-grid" id="change-photo">
+					<div class="mdl-cell mdl-cell--12-col">
+						<form id="profile-photo-form" class="profile">
+							<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+								<!-- Tab Bars -->
+								<div class="mdl-tabs__tab-bar">
+									<a href="#photo-url" class="mdl-tabs__tab is-active">URL</a>
+									<!--<a href="#photo-unsplash" class="mdl-tabs__tab">Unsplash</a>-->
+									<a href="#photo-default" class="mdl-tabs__tab" id="photo-default">None</a>
+									<!-- <a href="#photo-upload" class="mdl-tabs__tab">Upload</a> -->
+								</div>
+								<!-- MDL tab panels, is-active to denote currently active -->
+								<div class="mdl-tabs__panel is-active" id="photo-url">
+									<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<label class="mdl-textfield__label" for="profile-photo">{{_ "pages.profile.photo-url"}}</label>
+										<input type="url" id="profilePhoto" name="profilePhoto" class="mdl-textfield__input">
+										<span class="mdl-textfield__error" id="valid-photo-path">Invalid URL</span>
+									</div>
+								</div>
+
+								<!--
+								<div class="mdl-tabs__panel" id="photo-unsplash">
+									{{>Unsplash searchType="portrait" source="profileImage"}}
+								</div>
+								-->
+								<div class="mdl-tabs__panel" id="photo-default">
+									no image
+								</div>
+								<div class="mdl-tabs__panel" id="photo-upload">
+									<!-- NOTE: Sol, check out this code pen for an MDL uploader -->
+								  {{#with currentUpload}}
+								    Uploading <b>{{file.name}}</b>:
+								    <span id="progress">{{progress.get}}%</span>
+								  {{else}}
+								    <input id="fileInput" type="file" />
+								    <p><small>Upload file in <code>jpeg</code> or <code>png</code> format, with size less or equal to 10MB</small></p>
+								  {{/with}}
+								</div>
+							</div>
+							<div class="profile-photo-form-buttons">
+								<button class="mdl-button mdl-js-button mdl-button--icon next-images-page" id="profile-image-cancel">
+			            <i class="material-icons">cancel</i>
+			          </button>
+								<button class="mdl-button mdl-js-button mdl-button--icon" name="search-images-button" id="profile-image-refresh">
+				          <i class="material-icons">refresh</i>
+				        </button>
+							</div>
+						</form>
+					</div>
+				</div>
+			{{/if}}
+		{{else}}
+			<div class="profile-name">
+				<div class="profile-names">{{profileName userId}}</div>
+				<div class="profile-username">@{{profileUsername userId}}</div>
+			</div>
+		{{/if}}
+	</article>
+	<!--<aside class="aside aside-2"></aside>-->
+</template>

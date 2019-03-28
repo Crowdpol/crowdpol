@@ -60,11 +60,15 @@
 			"subtitle": "Coming soon..."
 		},
 		"authenticate":{
+			"login" : "Login",
+			"signup": "Sign up",
 			"logged-in-title": "You are already logged in",
 			"logout": "Log out",
 			"tab": {
 				"individual": "Individuals",
-				"entities": "Organisations/Political Parties"
+				"entities": "Organisations/Political Parties",
+				"login":"Login",
+				"signup":"Sign Up"
 			},
 			"links": {
 				"login": "Already have an account? Log in",
@@ -74,7 +78,7 @@
 			"individual": {
 				"register": {
 					"title": "Signup"
-				},	
+				},
 				"login": {
 					"title": "Login",
 					"wrong-community": "You can not log into this community."
@@ -83,7 +87,7 @@
 			"entity": {
 				"register": {
 					"title": "Register as Organisation/Party"
-				},	
+				},
 				"login": {
 					"title": "Login as Organisation/Party"
 				}
@@ -118,7 +122,7 @@
 			"individual": {
 				"register": {
 					"title": "Signup"
-				},	
+				},
 				"login": {
 					"title": "Login"
 				}
@@ -132,7 +136,7 @@
 				"register": {
 					"title": "Signup",
 					"loginlink": "Already have an account? Log in"
-				},	
+				},
 				"login": {
 					"title": "Login",
 					"signuplink": "Don't have an account? Register"
@@ -152,19 +156,44 @@
 			"heading" : "Dashboard",
 			"card": {
 				"proposals": {
-					"heading": "Vote",
-					"text": "Vote on Proposals.",
-					"link": "Vote"
+					"heading": "My Proposals",
+					"text": "Your proposals",
+					"no-proposals": "You haven't written any proposals yet.",
+					"draft-proposals": "Draft proposals",
+					"closed-proposals": "Closed proposals",
+					"open-proposals": "Open proposals",
+					"new-proposal": "Draft a new proposal",
+					"link": "View"
 				},
 				"delegates": {
-					"heading": "Delegate",
+					"heading": "My Delegate",
 					"text": "Select your delegates.",
+					"no-delegates": "You have not selected any delegates",
 					"link": "Delegate"
 				},
 				"candidates": {
 					"heading": "Candidates",
 					"text": "Select your candidates",
 					"link": "Nominate"
+				},
+				"profile": {
+					"heading": "My Profile",
+					"text": "Profile status",
+					"link": "Edit"
+				},
+				"interests": {
+					"heading": "My Interests",
+					"text": "Current interests",
+					"no-interests": "You have not selected any interests yet",
+					"link": "Select"
+				},
+				"vote": {
+					"heading": "Vote on Proposals",
+					"text": "Vote on Proposals and view results",
+					"open-proposals": "Open proposals",
+					"closed-proposals": "Closed proposals",
+					"vote-link": "Vote now",
+					"view-link": "View outcome"
 				}
 			},
 			"verify-account-message": "Please verify your email address before continuing.",
@@ -183,10 +212,12 @@
 			"instructions-1": "Below is a list of users to whom you may delegate your vote.",
 			"instructions-2": "If you do not vote on a proposal, your vote will automatically go to your highest-ranking delegate who voted. However, you can override your delegate's vote at any time.",
 			"instructions-3": "You can select up to five delegates. You can reorder your list of chosen delegates by dragging and dropping them into place once you have selected them.",
+			"no-delegates": "You have not selected any delegates",
 			"alerts": {
-				"delegate-limit": "You can only have 5 delegates",
+				"delegate-limit": "You have reached your delegate limit",
 				"ranking-updated": "Delegate ranking updated"
-			}
+			},
+			"delegation-disabled":"Delegation has been disabled by the administrator."
 		},
 		"candidates": {
 			"heading": "Candidates",
@@ -203,13 +234,18 @@
 				"tabs":{
 					"allProposals": "All Proposals",
 					"myProposals": "My Proposals",
-					"writeProposals": "Write Proposal"
+					"writeProposals": "Write Proposal",
+					"draftProposals": "Draft Proposals",
+					"submittedProposals": "Submitted Proposals"
 				},
 				"headings":{
 					"openProposals": "Open Proposals",
 					"closedProposals": "Closed Proposals",
 					"myProposals": "My proposals",
-					"notMyProposals": "Collaborative Proposals"
+					"notMyProposals": "Collaborative Proposals",
+					"approvedProposals": "Approved Proposals",
+					"rejectedProposals": "Rejected Proposals",
+					"draftProposals": "Draft Proposals"
 				},
 				"cards":{
 					"expires": "Expires",
@@ -217,6 +253,7 @@
 					"vote": "and vote"
 				},
 				"openClosedSwitch": "Open/Closed",
+				"approvedRejectedSwitch": "Rejected/Approved",
 				"createdInvitedSwitch": "Created/Invited",
 				"untitled": "Untitled",
 				"untranslated": "This proposal has not yet been translated.",
@@ -235,13 +272,16 @@
 				"confirm-back": "Are you sure you want to go back? Any unsaved changes will be lost.",
 				"invited": "Invite others to collaborate by entering their usernames. If not found, enter an email address.",
 				"tags": "Add some tags your proposal:",
+				"argument": "Add an argument",
 				"pointFor": "Points For:",
 				"pointAgainst": "Points Against:",
 				"alerts": {
 					"saving": "Saving...",
 					"changes-saved": "Changes Saved",
 					"proposal-created": "Proposal Created",
-					"bad-email": "Not a valid email format."
+					"bad-email": "Not a valid email format.",
+					"not-saved": "Proposal not saved as there was no content",
+					"collaborator-limit-exceeded": "Collaborator limit exceeded. (__limit__)"
 				}
 			},
 			"view":{
@@ -251,6 +291,18 @@
 					"paragraph-2": "Creating an account is simple, and will allow you to join others in writing proposals, voting and choosing delegates.",
 					"button": "Sign Up"
 				},
+				"removeInviteModal": {
+					"header": "Reject Invitation to Collaborate",
+					"paragraph-1": "Are you sure you want to reject the invitation to colloborate on this proposal:",
+					"reason-input-label": "Give a reason:",
+					"decline-button": "Decline Invitation"
+				},
+				"inviteModal":{
+					"header":"Selected Invites",
+					"paragraph-1":"Are you sure you want to invite the following people to be co-authors on this proposal:",
+					"existing-table-heading":"Existing users invited to collaborate:",
+					"email-table-heading":"Existing users invited to collaborate:"
+				},
 				"signature-tooltip": "Show support for this proposal by signing it.",
 				"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
 				"voteCast": "Your vote has been cast",
@@ -259,10 +311,12 @@
 				"pointsFor": "Points For:",
 				"pointsAgainst": "Points Against:",
 				"noDelegatesFor": "None of your delegates voted for this issue",
+				"noDelegatesAbstain": "None of your delegates abstained to vote on this issue",
 				"noDelegatesAgainst": "None of your delegates voted against this issue",
 				"proposalUnvailable": "Sorry, this proposal is not yet visible to the public.",
 				"noDelegateReason": "This delegate did not provide a reason for their voting choice.",
 				"addComment": "Add a comment",
+				"updateComment": "Udate comment",
 				"voteHeading": "Vote on this proposal",
 				"voteStarts": "Starts:",
 				"voteEnds": "Ends: ",
@@ -271,13 +325,17 @@
 				"proposal": "Proposal",
 				"yes": "For",
 				"no": "Against",
+				"abstain": "Abstain",
 				"voteInstructions": "Click the buttons below to cast your vote. If you do not vote, your vote will go to your highest-ranking delegate who has voted. However, you may override your delegate's vote at any point.",
 				"alerts": {
 					"linkToClipboardSuccess": "Link copied to clipboard",
 					"linkToClipboardFailed": "Link copied to clipboard",
 					"proposalSubmitted":"Proposal submitted for admin approval",
 					"proposalIncomplete": "You must complete your proposal before submitting it.",
-					"commentPosted":"Comment posted"
+					"commentPosted":"Comment posted",
+					"commentUpdated": "Comment Updated",
+					"commentDeleted": "Comment Deleted",
+					"invitationRemoved": "Invitation successfully declined"
 				},
 				"userNotFound":"User could not be found",
 				"anonymous": "Anonymous",
@@ -290,7 +348,10 @@
 					"share": "Copy a link to this proposal to your clipboard.",
 					"sign": "Show your support by signing this proposal. Note that this does not constitute a vote."
 				},
-				"submit-comment": "Submit comment"
+				"submit-comment": "Submit comment",
+				"title-empty": "Untitled Proposal",
+				"abstract-empty":"Abstract is empty",
+				"body-empty": "Body is empty"
 			}
 		},
 		"tag-search":{
@@ -308,24 +369,38 @@
 		},
 		"voting": {
 			"heading": {
+				"organisation": "Voting as Organisation",
+				"party": "Voting as Party",
 				"delegate": "Voting as Delegate",
-				"individual": "Voting as an Individual"
+				"individual": "Voting as an Individual",
+				"completed": "Completed Voting"
+			},
+			"tabs":{
+				"voteProposals": "Open for voting",
+				"completedProposals": "Completed"
 			},
 			"description": "The following proposals are all available to vote on. Click on a proposal to read more, or expand the proposal to see how your delegates voted, or to cast your own vote.",
 			"not-ready": "The votes for this proposal have not yet been tallied. Results are updated every 24 hours.",
+			"no-open-proposals": "There are currently no open proposals to vote on.",
 			"show-more": "Show More",
 			"show-less": "Show Less",
+			"organisation-description": "You are now voting on issues on behalf of an organisation you represent. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Organisation votes are public.",
+			"party-description": "You are now voting on behalf of a party. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Party votes are public.",
 			"delegate-description": "Please note: You are now voting on behalf of users who have delegated their vote to you. Delegate votes are public.",
 			"individual-description": "You are now voting on issues as you see fit. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Individual votes are private.",
+			"completed-description": "Review the results of the completed votes. Coming soon...",
 			"voting-card-heading": {
-				"delegate": "Vote as a Delegate:",
-				"individual": "Cast your Individual vote:"
+				"delegate": "Vote as a Delegate",
+				"individual": "Cast your Individual vote"
 			},
 			"no-votes-used": "No users voted on this proposal.",
 			"for": "For:",
-			"against": "Against:"
+			"against": "Against:",
+			"expires": "Voting closes",
+			"invited": "Invited"
 		},
 		"profile": {
+
 			"profile-tags" : "Fill in at least five of your interests",
 			"heading": "Profile",
 			"photo" : "Profile photo path",
@@ -337,8 +412,8 @@
 			"alerts": {
 				"invalid-url": "Please enter a valid url, starting with 'http' or 'https'.",
 				"username": "Username required.",
-				"username-min": "Minimum of 5 characters",
-				"username-max": "Maximum of 16 characters",
+				"username-min": "Minimum of 3 characters",
+				"username-max": "Maximum of 64 characters",
 				"username-unique": "Username already exists.",
 				"profile-updated": "Profile updated.",
 				"profile-private": "Profile is now private.",
@@ -350,7 +425,8 @@
 				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
 				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete.",
 				"password-incorrect": "Your existing password was incorrect, please try again",
-				"password-reset": "Your password was successfully reset"
+				"password-reset": "Your password was successfully reset",
+				"profile-delegate-request-removed": "Delegate request removed"
 			},
 			"tooltips": {
 				"delegateSwitch": "Apply to be a delegate. This will allow other users to let you vote on their behalf.",
@@ -360,12 +436,18 @@
 			"min": "min",
 			"max": "max",
 			"settings": "Profile Settings",
-			"status": "Profile status: __completedScore__/__totalScore__ completed.",
+			"status": {
+				"heading":"Profile status: __completedScore__/__totalScore__ completed.",
+				"description":"Your profile must be complete in order to become a delegate.",
+				"entity-name": "Name",
+				"phone":"Phone Number",
+				"contact-person":"Contact Person"
+			},
 			"completed": "completed",
 			"interests": "interests",
 			"public-switch-description": "Make your profile visible to others. Requires completed profile form. Required become a delegate.",
 			"delegate-switch-description": "By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
-			"bio-count": "__bioCount__ characters (min 50, max 160)",
+			"bio-count": "__bioCount__ characters (min 50, max 520)",
 			"photo-url": "Enter an image url",
 			"change-photo": "Change profile photo URL",
 			"password-reset": "Password reset",
@@ -373,8 +455,7 @@
 			"new-password": "New password",
 			"confirm-password": "Confirm password",
 			"reset": "Reset",
-			"password-mismatch": "Passwords do not match",
-			"password-reset": "Password successfully reset"
+			"password-mismatch": "Passwords do not match"
 		},
 		"routes": {
 			"alerts": {
@@ -382,8 +463,30 @@
 				"login-to-view": "You must log in to access that page.",
 				"no-subdomain": "Please ensure that you've entered a valid URL."
 			}
+		},
+		"interests": {
+			"heading": "My Interests",
+			"intro-text": "Select some of your personal interests you would like to follow.",
+			"popular": "Popular Tags"
+		},
+		"settings":{
+			"profile":{
+				"nav":{
+					"profile":"Profile",
+					"settings":"Settings",
+					"interests":"Interests",
+					"delegates":"Delegates"
+				}
+			},
+			"account":{
+				"nav":{
+					"notifications":"Notifications",
+					"privacy":"Privacy Settings",
+					"account":"Account Settings",
+					"password":"Change Password"
+				}
+			}
 		}
-
 
 	}
 }

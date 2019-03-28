@@ -1,0 +1,460 @@
+{
+	"pages": {
+		"roles":{
+			"voter": "CY: Voter",
+			"individual-delegate": "CY: Individual Delegate",
+			"organisation-delegate": "CY: Organisation Delegate",
+			"party-delegate": "CY: Party Delegate",
+			"candidate": "CY: Candidate"
+		},
+		"home": {
+			"heading": "CY: Common Democracy",
+			"intro-text": "CY: A liquid democracy platform for the Swedish Political system.",
+			"hero": {
+				"delegate": "CY: Delegate",
+				"propose": "CY: Propose",
+				"vote": "CY: Vote"
+			},
+			"newsletter-text": "CY: Get notified when the app is live.",
+			"banner-text": "CY: A new wave of democracy is coming to Sweden.",
+			"alerts": {
+				"mailing-list-signup-success": "CY: Thank you. You have been added to the mailing list.",
+				"no-image": "CY: The image for your community could not be loaded."
+			},
+			"get-started": "CY: Let's get started"
+		},
+		"about": {
+			"heading": "CY: What’s all this about then?",
+			"subtitle": "CY: The (r)evolution explained",
+			"section": {
+				"project": {
+					"heading": "CY: The project",
+					"paragraph-1": "CY: Democracy 2018 is an open project that invites all Swedish citizens to explore the potential of so called liquid democracy and use this platform to select the issues and proposals most important to them. The ten most popular proposals will be presented to the new parliament after the election in September 2018. The purpose is in part to test a modernized version of our democratic system, but also to encourage the population to learn more about the issues this election year as well as find out where the various political parties stand on them. Finally the goal is to inform the members of parliaments and other political elites of how a hopefully representative cross-section of the population feel about various topics, in an effort to create dialogue and trust.",
+    				"paragraph-2": "CY: The project opens on January first and concludes on September 15, Global Democracy Day, after which the results will be tallied and presented to the Minister of Democracy."
+				},
+				"liquid-democracy": {
+					"heading": "CY: Liquid Democracy",
+					"paragraph-1": "CY: Liquid democracy is a voting system that incorporates the benefit of representative democracy with the benefits of direct democracy, yet avoids the pitfalls of both. The system uses delegation, much like traditional delegation of the individual vote through electing a political party or representative, but with a few modernizing tweaks. Through liquid democracy it is possible not only to delegate to a political party but to any organisation or individual that signs up to the system as a delegate. This means that a party, organisation or individual can have political clout without actually holding political office. It is also quite possible for the voter to select several delegates, not merely a single party, and to unselect or change a delegate at any time. Thus the liquid like feature of the democratic system.",
+    				"paragraph-2": "CY: The role of the delegate is to vote on issues on the individuals behalf that he or she does not have time or inclination to delve deeper into, much like the role of the traditional political representative. Unlike the latter the delegate is in effect only an advisor to the individual voter, who must ultimately sign off on each issue. Herein lies the connection to direct democracy. The voter can at any time actively vote on any issue, which will automatically override any vote by a preselected delegate",
+    				"paragraph-3": "CY: The benefits are numerous. The system allows for a customized political platform with almost infinite possibilities as voters can potentially write and submit their own proposals to the scrutiny and potential support of their peers. Voters can also change their minds at any point in time if their selected delegates fall short of expectations, adding fluidity to the system. Delegates who do not live up to their promises will soon find they have lost much of their support, a powerful incentive against corruption. The immediacy of direct voting is tempered by the option of using delegation for more complex issues, avoiding the pitfall of uniformed decision making to a far greater degree than pure direct democracy can provide. The system of delegates allows for a far greater range of organisations and individuals to have direct influence over the political scene without having to hold office. Opening up completely new alleys of influence, provided they have sufficient support of the voting public. To name a few."
+				},
+				"how-it-works": {
+					"heading": "CY: How it works",
+					"paragraph-1": "CY: In our particular project the voter is first invited to join through a social media account or an email. Once the account is confirmed, the voter is presented with a number of political parties, organisations and individuals that act as delegates. The voter selects the delegates of her or his choice, and is then invited to rank them. A more highly ranked delegate will count before a less high one when the delegates voting preferences are calculated. The voter can however easily see which delegate voted in which way on each issue as all delegated votes are completely open.",
+    				"paragraph-2": "CY: Then the voter will be directed to the second step, which is to vote on the issues. The project will start with ten proposals, but will add on average two new proposals per week for the duration of the project. For practical purposes these proposals will be selected by an editorial board. Each proposal will be indicated with a supporting or a rejecting indication, depending on the choices of the selected delegates. The voter will then be invited to confirm the preselected vote, or to vote differently. The voter can change his or her vote, as well as delegates, as any time until the deadline at midnight of 15 September 2018, or the conclusion of this particular project.",
+    				"paragraph-3": "CY: Voters who wish to engage more can become members. Members will be able to write their own proposals, comment on each other’s proposals and vote for which proposals the editorial board should submit to the general public next.",
+    				"paragraph-4":"CY: Individuals and organisations can also register as delegates. This is free of charge but will require proof of identity, in the form of a national ID for individuals or an email address linked to the organisations official webpage."
+				},
+				"about-us": {
+					"heading": "CY: About Us",
+					"paragraph-1": "CY: Democracy 2018 is a project run in cooperation with Common Democracy Sweden and a number of local individuals, companies and organisations."
+				}
+			}
+		},
+		"terms": {
+			"heading": "CY: Terms & Conditions",
+			"subtitle": "CY: Coming soon..."
+		},
+		"privacy": {
+			"heading": "CY: Privacy Policy",
+			"subtitle": "CY: Coming soon..."
+		},
+		"authenticate":{
+			"login" : "CY: Login",
+			"signup": "CY: Sign up",
+			"logged-in-title": "CY: You are already logged in",
+			"logout": "CY: Log out",
+			"tab": {
+				"individual": "CY: Individuals",
+				"entities": "CY: Organisations/Political Parties",
+				"login":"CY: Login",
+				"signup":"CY: Sign Up"
+			},
+			"links": {
+				"login": "CY: Already have an account? Log in",
+				"register": "CY: Don't have an account? Sign up",
+				"forgot": "CY: Forgot your password?"
+			},
+			"individual": {
+				"register": {
+					"title": "CY: Signup"
+				},
+				"login": {
+					"title": "CY: Login",
+					"wrong-community": "CY: You can not log into this community."
+				}
+			},
+			"entity": {
+				"register": {
+					"title": "CY: Register as Organisation/Party"
+				},
+				"login": {
+					"title": "CY: Login as Organisation/Party"
+				}
+			},
+			"new-password":{
+				"heading": "CY: Enter new password",
+				"new-password": "CY: New password",
+				"alerts": {
+					"password-changed": "CY: Your password has been changed successfully."
+				}
+			},
+			"recover-password":{
+				"heading": "CY: Enter your email to receive instructions for resetting your password.",
+				"recovery-email": "CY: Recovery email",
+				"alerts": {
+					"reset-password-sent-message": "CY: An email with password recovery instructions has been sent."
+				}
+			}
+		},
+		"signup":{
+			"accept-terms": "CY: You must accept the terms of use.",
+			"not-in-whitelist" : "CY: Only whitelisted users can sign up for this community.",
+			"tab": {
+				"individual": "CY: Individuals",
+				"entities": "CY: Organisations/Political Parties"
+			},
+			"links": {
+				"login": "CY: Already have an account? Log in",
+				"register": "CY: Don't have an account? Register",
+				"forgot": "CY: Forgot your password?"
+			},
+			"individual": {
+				"register": {
+					"title": "CY: Signup"
+				},
+				"login": {
+					"title": "CY: Login"
+				}
+			},
+			"entity": {
+				"name": "CY: Name of Entity",
+				"website": "CY: Website",
+				"phone-number": "CY: Phone number",
+				"contact-person": "CY: Contact Person",
+				"type": "CY: Entity Type",
+				"register": {
+					"title": "CY: Signup",
+					"loginlink": "CY: Already have an account? Log in"
+				},
+				"login": {
+					"title": "CY: Login",
+					"signuplink": "CY: Don't have an account? Register"
+				}
+			}
+		},
+		"entitySignup":{
+			"type": "CY: Entity Type"
+		},
+		"contact":{
+			"heading": "CY: Contact Us",
+			"alerts": {
+				"contact-message-sent": "CY: Your contact message has been sent."
+			}
+		},
+		"dashboard": {
+			"heading" : "CY: Dashboard",
+			"card": {
+				"proposals": {
+					"heading": "CY: My Proposals",
+					"text": "CY: Your proposals",
+					"no-proposals": "CY: You haven't written any proposals yet.",
+					"draft-proposals": "CY: Draft proposals",
+					"closed-proposals": "CY: Closed proposals",
+					"open-proposals": "CY: Open proposals",
+					"new-proposal": "CY: Draft a new proposal",
+					"link": "CY: View"
+				},
+				"delegates": {
+					"heading": "CY: My Delegate",
+					"text": "CY: Select your delegates.",
+					"no-delegates": "CY: You have not selected any delegates",
+					"link": "CY: Delegate"
+				},
+				"candidates": {
+					"heading": "CY: Candidates",
+					"text": "CY: Select your candidates",
+					"link": "CY: Nominate"
+				},
+				"profile": {
+					"heading": "CY: My Profile",
+					"text": "CY: Profile status",
+					"link": "CY: Edit"
+				},
+				"interests": {
+					"heading": "CY: My Interests",
+					"text": "CY: Current interests",
+					"no-interests": "CY: You have not selected any interests yet",
+					"link": "CY: Select"
+				},
+				"vote": {
+					"heading": "CY: Vote on Proposals",
+					"text": "CY: Vote on Proposals and view results",
+					"open-proposals": "CY: Open proposals",
+					"closed-proposals": "CY: Closed proposals",
+					"vote-link": "CY: Vote now",
+					"view-link": "CY: View outcome"
+				}
+			},
+			"verify-account-message": "CY: Please verify your email address before continuing.",
+			"unapproved-entity-message": "CY: Your account has not yet been approved by an admin.",
+			"verify-resend-link": "CY: Resend Verification Link",
+			"verify-success-message": "CY: Verified! You can do things!",
+			"verify-success-alert": "CY: Verification successful.",
+			"authentication-required-message": "CY: You do not have access to this page. Please login or signup for an account.",
+			"alerts": {
+				"verification-email-sent": "CY: Verification sent to __email__"
+			}
+		},
+		"delegates": {
+			"heading": "CY: Delegates",
+			"search": "CY: Search for Delegates",
+			"instructions-1": "CY: Below is a list of users to whom you may delegate your vote.",
+			"instructions-2": "CY: If you do not vote on a proposal, your vote will automatically go to your highest-ranking delegate who voted. However, you can override your delegate's vote at any time.",
+			"instructions-3": "CY: You can select up to five delegates. You can reorder your list of chosen delegates by dragging and dropping them into place once you have selected them.",
+			"no-delegates": "CY: You have not selected any delegates",
+			"alerts": {
+				"delegate-limit": "CY: You have reached your delegate limit",
+				"ranking-updated": "CY: Delegate ranking updated"
+			},
+			"delegation-disabled":"CY: Delegation has been disabled by the administrator."
+		},
+		"candidates": {
+			"heading": "CY: Candidates",
+			"alerts": {
+				"candidate-limit": "CY: You can only have 5 candidates",
+				"ranking-updated": "CY: Candidate ranking updated"
+			}
+		},
+		"proposals": {
+			"list": {
+				"search": "CY: Search for keywords in proposals",
+				"deletedMessage": "CY: Your proposal has been deleted.",
+				"confirmDelete": "CY: Are you sure you want to permanently delete this proposal?",
+				"tabs":{
+					"allProposals": "CY: All Proposals",
+					"myProposals": "CY: My Proposals",
+					"writeProposals": "CY: Write Proposal",
+					"draftProposals": "CY: Draft Proposals",
+					"submittedProposals": "CY: Submitted Proposals"
+				},
+				"headings":{
+					"openProposals": "CY: Open Proposals",
+					"closedProposals": "CY: Closed Proposals",
+					"myProposals": "CY: My proposals",
+					"notMyProposals": "CY: Collaborative Proposals"
+				},
+				"cards":{
+					"expires": "CY: Expires",
+					"read": "CY: Read More",
+					"vote": "CY: and vote"
+				},
+				"openClosedSwitch": "CY: Open/Closed",
+				"approvedRejectedSwitch": "CY: Rejected/Approved",
+				"createdInvitedSwitch": "CY: Created/Invited",
+				"untitled": "CY: Untitled",
+				"untranslated": "CY: This proposal has not yet been translated.",
+				"no-proposals": "CY: No __status__ proposals are currently available.",
+				"your-proposals": "CY: You have no __status__ proposals.",
+				"create-link": "CY: Create one?"
+			},
+			"edit": {
+				"heading": "CY: Write your proposal",
+				"title": "CY: Give your proposal a descriptive title.",
+				"abstract": "CY: Summarise your proposal",
+				"body": "CY: Expand on your proposal. Provide as much detail as possible, and include links or references where appropriate.",
+				"forAndAgainst": "CY: Every proposal has its pros and cons. Add some brief arguments for and against your proposal by entering them into the fields below and clicking the button.",
+				"startDate": "CY: Start date for voting",
+				"endDate": "CY: Closing date for voting",
+				"confirm-back": "CY: Are you sure you want to go back? Any unsaved changes will be lost.",
+				"invited": "CY: Invite others to collaborate by entering their usernames. If not found, enter an email address.",
+				"tags": "CY: Add some tags your proposal:",
+				"pointFor": "CY: Points For:",
+				"pointAgainst": "CY: Points Against:",
+				"argument": "CY: Add an argument",
+				"alerts": {
+					"saving": "CY: Saving...",
+					"changes-saved": "CY: Changes Saved",
+					"proposal-created": "CY: Proposal Created",
+					"bad-email": "CY: Not a valid email format.",
+					"not-saved": "CY: Proposal not saved as there was no content",
+					"collaborator-limit-exceeded": "CY: Collaborator limit exceeded. (__limit__)"
+				}
+			},
+			"view":{
+				"signInModal": {
+					"header": "CY: Join the discussion",
+					"paragraph-1":"Want to vote on this proposal?",
+					"paragraph-2": "CY: Creating an account is simple, and will allow you to join others in writing proposals, voting and choosing delegates.",
+					"button": "CY: Sign Up"
+				},
+				"removeInviteModal": {
+					"header": "CY: Reject Invitation to Collaborate",
+					"paragraph-1": "CY: Are you sure you want to reject the invitation to colloborate on this proposal:",
+					"reason-input-label": "CY: Give a reason:",
+					"decline-button": "CY: Decline Invitation"
+				},
+				"inviteModal":{
+					"header":"CY: Selected Invites",
+					"paragraph-1":"CY: Are you sure you want to invite the following people to be co-authors on this proposal:",
+					"existing-table-heading":"CY: Existing users invited to collaborate:",
+					"email-table-heading":"CY: Existing users invited to collaborate:"
+				},
+				"signature-tooltip": "CY: Show support for this proposal by signing it.",
+				"confirmSubmit": "CY: Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
+				"voteCast": "CY: Your vote has been cast",
+				"editProposal": "CY: Edit Proposal",
+				"submitProposal": "CY: Submit Proposal",
+				"pointsFor": "CY: Points For:",
+				"pointsAgainst": "CY: Points Against:",
+				"noDelegatesFor": "CY: None of your delegates voted for this issue",
+				"noDelegatesAgainst": "CY: None of your delegates voted against this issue",
+				"proposalUnvailable": "CY: Sorry, this proposal is not yet visible to the public.",
+				"noDelegateReason": "CY: This delegate did not provide a reason for their voting choice.",
+				"addComment": "CY: Add a comment",
+				"updateComment": "CY: Update comment",
+				"voteHeading": "CY: Vote on this proposal",
+				"voteStarts": "CY: Starts:",
+				"voteEnds": "CY: Ends: ",
+				"inactive-vote-message": "CY: Voting on this proposal runs from __startDate__ to __endDate__",
+				"abstract": "CY: Summary",
+				"proposal": "CY: Proposal",
+				"yes": "CY: For",
+				"no": "CY: Against",
+				"abstain": "CY: Abstain",
+				"voteInstructions": "CY: Click the buttons below to cast your vote. If you do not vote, your vote will go to your highest-ranking delegate who has voted. However, you may override your delegate's vote at any point.",
+				"alerts": {
+					"linkToClipboardSuccess": "CY: Link copied to clipboard",
+					"linkToClipboardFailed": "CY: Link copied to clipboard",
+					"proposalSubmitted":"Proposal submitted for admin approval",
+					"proposalIncomplete": "CY: You must complete your proposal before submitting it.",
+					"commentPosted":"CY: Comment posted",
+					"commentUpdated": "CY: Comment Updated",
+					"commentDeleted": "CY: Comment Deleted",
+					"invitationRemoved": "CY: Invitation successfully declined"
+				},
+				"userNotFound":"User could not be found",
+				"anonymous": "CY: Anonymous",
+				"collaborators": "CY: Collaborators",
+				"author": "CY: Author",
+				"delegatesVoteHeading": "CY: How your delegates voted",
+				"delegatesFor": "CY: Delegates For:",
+				"delegatesAgainst": "CY: Delegates Against:",
+				"tooltips": {
+					"share": "CY: Copy a link to this proposal to your clipboard.",
+					"sign": "CY: Show your support by signing this proposal. Note that this does not constitute a vote."
+				},
+				"submit-comment": "CY: Submit comment",
+				"title-empty": "CY: Untitled Proposal",
+				"abstract-empty":"Abstract is empty",
+				"body-empty": "CY: Body is empty"
+			}
+		},
+		"tag-search":{
+			"heading": "CY: Tagged",
+			"no-delegates": "CY: There are no delegates with this tags.",
+			"no-proposals": "CY: There are no proposals with this tags.",
+			"tabs": {
+				"proposals": "CY: Proposals",
+				"delegates": "CY: Delegates",
+				"candidates": "CY: Candidates",
+				"proposals-heading": "CY: Proposals",
+				"delegates-heading": "CY: Delegates",
+				"candidates-heading": "CY: Candidates"
+			}
+		},
+		"voting": {
+			"heading": {
+				"delegate": "CY: Voting as Delegate",
+				"individual": "CY: Voting as an Individual",
+				"completed": "CY: Completed Voting"
+			},
+			"tabs":{
+				"voteProposals": "CY: Open for voting",
+				"completedProposals": "CY: Completed"
+			},
+			"description": "CY: The following proposals are all available to vote on. Click on a proposal to read more, or expand the proposal to see how your delegates voted, or to cast your own vote.",
+			"not-ready": "CY: The votes for this proposal have not yet been tallied. Results are updated every 24 hours.",
+			"no-open-proposals": "CY: There are currently no open proposals to vote on.",
+			"show-more": "CY: Show More",
+			"show-less": "CY: Show Less",
+			"delegate-description": "CY: Please note: You are now voting on behalf of users who have delegated their vote to you. Delegate votes are public.",
+			"individual-description": "CY: You are now voting on issues as you see fit. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Individual votes are private.",
+			"completed-description": "CY: Review the results of the completed votes. Coming soon...",
+			"voting-card-heading": {
+				"delegate": "CY: Vote as a Delegate",
+				"individual": "CY: Cast your Individual vote"
+			},
+			"no-votes-used": "CY: No users voted on this proposal.",
+			"for": "CY: For:",
+			"against": "CY: Against:",
+			"expires": "CY: Voting closes",
+			"invited": "CY: Invited"
+		},
+		"profile": {
+			"profile-tags" : "Fill in at least five of your interests",
+			"heading": "CY: Profile",
+			"photo" : "Profile photo path",
+			"public" : "Public",
+			"private" : "Private Profile",
+			"delegate" : "Delegate",
+			"candidate" : "Candidate",
+			"terms-accepted": "CY: I accept the Terms of Use",
+			"alerts": {
+				"invalid-url": "CY: Please enter a valid url, starting with 'http' or 'https'.",
+				"username": "CY: Username required.",
+				"username-min": "CY: Minimum of 3 characters",
+				"username-max": "CY: Maximum of 64 characters",
+				"username-unique": "CY: Username already exists.",
+				"profile-updated": "CY: Profile updated.",
+				"profile-private": "CY: Profile is now private.",
+				"profile-public": "CY: Profile is now public.",
+				"profile-delegate-removed" : "Delegate Role removed.",
+				"profile-stop-delegate": "CY: Are you sure you want to stop being a delegate? Users will no longer be able to delegate their votes to you.",
+				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-candidate-removed" : "Candidate Role removed.",
+				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete.",
+				"password-incorrect": "CY: Your existing password was incorrect, please try again",
+				"password-reset": "CY: Your password was successfully reset",
+				"profile-delegate-request-removed": "CY: Delegate request removed"
+			},
+			"tooltips": {
+				"delegateSwitch": "CY: Apply to be a delegate. This will allow other users to let you vote on their behalf.",
+				"publicSwitch": "CY: Make your profile visible to the public, or hide it. Your profile must be complete to be public."
+			},
+			"characters": "CY: characters",
+			"min": "CY: min",
+			"max": "CY: max",
+			"settings": "CY: Profile Settings",
+			"status": "CY: Profile status: __completedScore__/__totalScore__ completed.",
+			"completed": "CY: completed",
+			"interests": "CY: interests",
+			"public-switch-description": "CY: Make your profile visible to others. Requires completed profile form. Required become a delegate.",
+			"delegate-switch-description": "CY: By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
+			"bio-count": "CY: __bioCount__ characters (min 50, max 520)",
+			"photo-url": "CY: Enter an image url",
+			"change-photo": "CY: Change profile photo URL",
+			"password-reset": "CY: Password reset",
+			"old-password" : "Old password",
+			"new-password": "CY: New password",
+			"confirm-password": "CY: Confirm password",
+			"reset": "CY: Reset",
+			"password-mismatch": "CY: Passwords do not match"
+		},
+		"routes": {
+			"alerts": {
+				"verify-success-alert-entity": "CY: Verification successful. Your account is pending approval by our admins.",
+				"login-to-view": "CY: You must log in to access that page.",
+				"no-subdomain": "CY: Please ensure that you've entered a valid URL."
+			}
+		},
+		"interests": {
+			"heading": "CY: My Interests",
+			"intro-text": "CY: Select some of your personal interests you would like to follow.",
+			"popular": "CY: Popular Tags"
+		}
+
+
+	}
+}

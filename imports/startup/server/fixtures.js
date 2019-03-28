@@ -11,12 +11,26 @@ Meteor.startup(() => {
 Elop has brought together twenty bright young minds from all over the world to ask that question. Taking on trends in living and working in the digital age, absorbing local information and the culture of the place. Multidisciplinary teams, made up of Architects and Sociologists, Engineers and Psychologists have put together four visions of what the High Street could be, based in the reality of what is here and now.
 At the core of each vision are the people who will live and work on a thriving High Street in a future Bangor. Taking Wellness and coliving as key principles for the brief, with a sprinkling of autonomous transport. Centred on specific sites in the City centre, acting as kernels for regeneration, pushing out towards a realistic future.`
 
-	mdAbout = `Mer Demokrati är ett projekt öppet för alla politik- och samhällsintresserade människor som vill skapa en personlig politisk plattform inför valet 2018 och se hur den stämmer överens med olika partiers. För att göra detta använder vi så kallad flytande demokrati där besökare kan välja att delegera sin röst till någon annan eller själv rösta direkt på ett antal motioner, eller en kombination av de båda. För den som har förslag på motioner går det även att skriva egna och skicka in dem till vår redaktion som kommer lägga ut två nya motioner i veckan. Projektet löper fram till Internatuonella Demokratidagen den 15e september i år.
+	snAbout = `Syntropi är ett projekt öppet för alla politik- och samhällsintresserade människor som vill skapa en personlig politisk plattform inför valet 2018 och se hur den stämmer överens med olika partiers. För att göra detta använder vi så kallad flytande demokrati där besökare kan välja att delegera sin röst till någon annan eller själv rösta direkt på ett antal motioner, eller en kombination av de båda. För den som har förslag på motioner går det även att skriva egna och skicka in dem till vår redaktion som kommer lägga ut två nya motioner i veckan. Projektet löper fram till Internatuonella Demokratidagen den 15e september i år.
 
 Målet är att ge väljarna en upplevelse om hur demokrati skulle kunna fungera i vårt moderan, digitala samhälle, men även att bjuda in till en djupare analys och förståelse av de utmaningar samhället står inför detta valår, samt hur våra politiska partier ställer sig till dem. Slutligen är målet att informera våra riksdagsledamöter om hur ett förhoppningsvis representativt axplock av sveriges medborgare ställer sig till diverse olika politiska områden i hopp om att skapa en djupare dialog och ett fördjupat förtroende.
 
 Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att presenteras för demokratiministern men även riksdagens ledamöter kommer individuellt att bjudas in för att kommentera och ta ställning.`
 	/* Create two communities */;
+	snSubdomain = 'syntropi';
+	snLanguages = ['sv'];
+	snId = createCommunity('syntropi', snSubdomain, {
+		colorScheme: 'syntropi',
+		homepageImageUrl: 'img/riksdag-bw.png',
+		languageSelector: true,
+		homepageBannerText: "A new wave of democracy is coming to Sweden.",
+		homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
+		aboutText: snAbout,
+		defaultLanguage: 'sv',
+		languages: snLanguages,
+		emailWhitelist: []
+	});
+
 	mdSubdomain = 'merdemokrati';
 	mdLanguages = ['en', 'sv'];
 	mdId = createCommunity('Merdemokrati', mdSubdomain, {
@@ -25,33 +39,48 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		languageSelector: true,
 		homepageBannerText: "A new wave of democracy is coming to Sweden.",
 		homepageIntroText: "A liquid democracy platform for the Swedish Political system.",
-		aboutText: mdAbout,
+		aboutText: snAbout,
 		defaultLanguage: 'sv',
-		languages: mdLanguages
+		languages: mdLanguages,
+		emailWhitelist: []
 	});
 	bgSubdomain = 'bangor';
 	bgLanguages = ['en'];
 	bgId = createCommunity('elop*10', 'bangor', {
-		colorScheme: 'greyscale', 
-		homepageImageUrl: 'img/bangor.jpg', 
-		languageSelector: false,
+		colorScheme: 'greyscale',
+		homepageImageUrl: 'img/bangor.jpg',
+		languageSelector: true,
 		homepageBannerText: "Innovation can start with the question 'What if?'",
 		homepageIntroText: "A public presentation of four visions of a future High Street.",
 		aboutText: bgAbout,
 		defaultLanguage: 'en',
-		languages: bgLanguages
+		languages: bgLanguages,
+		emailWhitelist: []
 	});
 	cpSubdomain = 'global';
 	cpLanguages = ['en'];
 	cpId = createCommunity('Crowdpol Global', 'global', {
-		colorScheme: 'default', 
+		colorScheme: 'default',
 		homepageImageUrl: 'img/wave-bg.jpg',
 		languageSelector: true,
 		homepageBannerText: "A new wave of democracy is coming.",
 		homepageIntroText: "A liquid democracy platform for the collective decision making in the commons.",
 		aboutText: "Crowdpol about us page",
 		defaultLanguage: 'en',
-		languages: cpLanguages
+		languages: cpLanguages,
+		emailWhitelist: []
+	});
+	cpLanguages = ['en','ja'];
+	cpId = createCommunity('Crowdpol Japan', 'japan', {
+		colorScheme: 'default',
+		homepageImageUrl: 'img/wave-bg.jpg',
+		languageSelector: true,
+		homepageBannerText: "A new wave of democracy is coming.",
+		homepageIntroText: "A liquid democracy platform for the collective decision making in the commons.",
+		aboutText: "Crowdpol Japan about us page, coming soon.",
+		defaultLanguage: 'en',
+		languages: cpLanguages,
+		emailWhitelist: []
 	});
 
 	/* Register admins for both communities */
@@ -68,7 +97,7 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 		registerDemoUsers(Meteor.settings.private.demoUsers, [bgId], bgSubdomain);
 		registerDemoUsers(Meteor.settings.private.demoUsers, [cpId], cpSubdomain);
 	}
-	
+
 	/* Create demo proposals if in dev environment */
 	if (Meteor.isDevelopment) {
 		createDemoProposal(mdId, mdSubdomain, mdLanguages);
@@ -79,11 +108,10 @@ Efter projektets slutdatum kommer de tio motioner med bredast folkligt stöd att
 	/* Convert existing proposals to new format*/
 	convertProposals();
 
-	
+
 });
 
 function registerAdmins(communityIds){
-	console.log('Registering admins');
 	var admins = Meteor.settings.private.admins;
 	for(var x = 0; x < admins.length; x++){
 		createAdmins(admins[x], communityIds);
@@ -108,7 +136,7 @@ createAdmins = function (admin, communityIds) {
 				credentials : [
 				{
 					"source" : "default",
-					"URL" : "https://www.commondemocracy.org/",
+					"URL" : "https://www.crowdpol.org/",
 					"validated" : true
 				}
 				],
@@ -121,9 +149,9 @@ createAdmins = function (admin, communityIds) {
 		    // after `Accounts.createUser` or `Accounts.onCreate`
 		    Roles.addUsersToRoles(id, admin.roles);
 		}
-		console.log('Created admin ' + admin.email);
+		//console.log('Created admin ' + admin.email);
 	} else {
-		console.log('Admin with email ' + admin.email + ' already exists.')
+		//console.log('Admin with email ' + admin.email + ' already exists.')
 	}
 };
 
@@ -140,20 +168,19 @@ function createDemoTags(communityId){
 function registerDemoUsers(numUsers, communityIds, subdomain){
 	let demoUserCount = Roles.getUsersInRole('demo').count();
 	if(demoUserCount>=numUsers){
-		console.log("Already created demo users for " + subdomain);
+		//console.log("Already created demo users for " + subdomain);
 	}else{
 		let url = 'https://randomuser.me/api/?nat=gb&results=' + numUsers;
 		let response = [];
 			HTTP.call( 'GET', url, {}, function( error, response ) {
 			  if ( error ) {
-			    console.log( error );
 			    return false;
 			  } else {
 			    /*
 			     This will return the HTTP response object that looks something like this:
 			     {
 			       content: "String of content...",
-			       data: Array[100], <-- Our actual data lives here. 
+			       data: Array[100], <-- Our actual data lives here.
 			       headers: {  Object containing HTTP response headers }
 			       statusCode: 200
 			     }
@@ -165,7 +192,7 @@ function registerDemoUsers(numUsers, communityIds, subdomain){
 			    }else{
 			    	console.log("Error: Could not generate random users.");
 			    }
-				
+
 			  }
 			});
 	}
@@ -267,7 +294,7 @@ function createDemoUsers(users, communityIds, subdomain){
 		    }
 		    Meteor.call('togglePublic', id, true);
 		    successCount+=1;
-		
+
 	}
 	console.log(successCount + " demo users generated.");
 }
@@ -287,7 +314,57 @@ function createDemoProposal(communityId, subdomain, languages){
 			title: language + ' Demo Proposal for ' + subdomain,
 			abstract: language + ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ante ligula, tempor et risus feugiat, posuere semper enim. Etiam eleifend lacus a libero blandit, a placerat felis aliquam.',
 			body: language + ' Praesent at laoreet risus. Mauris eleifend nunc quis orci venenatis vestibulum. Nam ante elit, bibendum sed tempus sed, bibendum eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
-			tags: tagObjects
+			tags: tagObjects,
+			pointsFor: ['point for one','point for two'],
+			pointsAgainst: ['point for one','point for two'],
+			argumentsFor:[
+				{
+					argumentId: Random.id(),
+					type: 'for',
+					message: 'sample for message - sv',
+					authorId: 'Ba6WhQRTSxCGBTNMY',
+					createdAt: moment().format('YYYY-MM-DD'),
+					lastModified: moment().format('YYYY-MM-DD'),
+					upVote: ['123','321'],
+					downVote: ['321','123'],
+					language:'sv'
+				},
+				{
+					argumentId: Random.id(),
+					type: 'for',
+					message: 'sample for message - en',
+					authorId: 'pQmkc7Rtpg3Yoajqi',
+					createdAt: moment().format('YYYY-MM-DD'),
+					lastModified: moment().format('YYYY-MM-DD'),
+					upVote: ['123','321'],
+					downVote: ['321','123'],
+					language:'en'
+				}
+			],
+			argumentsAgainst:[
+				{
+					argumentId: Random.id(),
+					type: 'against',
+					message: 'sample against message - sv',
+					authorId: 'acYAwSGKCwrnRvg57',
+					createdAt: moment().format('YYYY-MM-DD'),
+					lastModified: moment().format('YYYY-MM-DD'),
+					upVote: ['456','654'],
+					downVote: ['1','2'],
+					language:'sv'
+				},
+				{
+					argumentId: Random.id(),
+					type: 'against',
+					message: 'sample against message - en',
+					authorId: 'pQmkc7Rtpg3Yoajqi',
+					createdAt: moment().format('YYYY-MM-DD'),
+					lastModified: moment().format('YYYY-MM-DD'),
+					upVote: ['123','321'],
+					downVote: ['3','1'],
+					language:'en'
+				}
+			]
 		}
 		content.push(translation)
 	});
@@ -318,15 +395,14 @@ function createCommunity(name, subdomain, settings){
 		console.log(name + ' Community already exists.')
 		return existing._id;
 	}
-	
+
 }
 
 function convertProposals() {
 	proposals = Proposals.find();
-
+	/*
 	proposals.forEach(function(proposal){
 		if (!proposal.content){
-			console.log('converting proposal with id ' + proposal._id + ' to new format');
 			var defaultLanguage = Communities.findOne({_id: proposal.communityId}).settings.defaultLanguage;
 			//Get content
 			var title = proposal.title;
@@ -346,8 +422,7 @@ function convertProposals() {
 				pointsAgainst: pointsAgainst
 			}];
 			Proposals.update({_id: proposal._id}, {$set: {content:content}});
-			console.log('finished converting proposal')
 		}
 	});
-
+	*/
 }

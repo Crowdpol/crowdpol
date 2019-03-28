@@ -2,22 +2,25 @@
 	"components" :{
 		"delegateVoteButtons":{
 			"instructions-1": "Du röstar nu i egenskap av delegat. Din röst kommer alltså att vara offentlig.",
-			"instructions-2": "Klicka på ‘Roller’ menyn för att växla tillbaka och rösta som en anonym användare.",
-			"reason-message": "Lämna gärna en kortfattad anledning till ditt val. Den kommer att vara synlig för de som delegerat sin röst till dig.",
+			"instructions-2": "Klicka på ‘Roller’ menyn för att växla tillbaka och rösta som privatperson.",
+			"reason-message": "Lämna gärna en kortfattad motivering till ditt val.",
 			"finished": "Färdig",
-			"delegateVotingClosed": "Röstning på denna motion är nu stängd för delegater. Delegaters möjlighet att rösta upphör två veckor innan motionens slutdatum."
+			"removeVote": "TODO: Remove Vote",
+			"delegateVotingClosed": "Röstning på denna motion är nu stängd för delegater. Delegaters möjlighet att rösta upphör två veckor innan motionens slutdatum för att undvika sista minuten ändringar vilka den som delegerar inte hinner ta ställning till."
 		},
 		"taggle": {
 			"placeholder": "Lägg till några taggar..."
 		},
 		"role-selector":{
-			"voter": "TODO: Individual",
-			"party-delegate": "TODO: Party Delegate",
-			"organisation-delegate": "TODO: Organisation Delegate"
+			"individual": "Individ",
+			"party": "Politiskt parti",
+			"organisation": "Organisation"
 		},
 		"termsModal": {
-			"heading": "TODO Terms of Use",
-			"accept": "TODO I Accept"
+			"heading": "Användarpolicy",
+			"body": "Här  ansvarar vi alla för att skapa en varm miljö där alla känner sig trygga. Vi möter varandra med respekt. Det är naturligt att vi har olika politiska åsikter och kommer från olika bakgrunder och därför tar vi extra ansvar här att hålla dialogen konstruktiv och i god ton.<br/><br/>Nedsättande kommentarer om något, till exempel  ras, religion, kultur, sexuell läggning, kön och identitet tolereras inte i någon form.<br/><br/>Att vara aktiv på denna plattform förutsätter ömsesidigt förtroende. Autentiska, intensiva diskussioner gör närvaron här unik, men här förutsätts fortsatt ett ansvar att hålla en neutral inställning till personen bakom de politiska åsikterna och värna varandras personliga integritet. Här diskuterar vi politik och inte person.<br/><br/>Tänk även på att detta är ett idéellt projekt som till största delen drivs av volontärer. Det kan därför dröja innan vi kan ge återkoppling på frågor och annan kommunikation. Vill du hjälpa till att utveckla Crowdpol och stödja våra användare, hör gärna av dig!",
+			"accept": "Jag accepterar",
+			"decline": "Avböj"
 		}
 	}
 }

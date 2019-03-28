@@ -25,26 +25,28 @@ Template.AdminTagsTable.helpers({
 });
 
 Template.AdminTagsTable.events({
-	'click #approve-button' (event, template){
+	'click .approve-button-class' (event, template){
 		event.preventDefault();
-		Meteor.call('toggleAuthorized', event.target.dataset.tagId,!event.target.dataset.tagAuthorized, function(error){
+    let tagId = event.target.dataset.tagId;
+    let authorised = !event.target.dataset.tagAuthorized;
+		Meteor.call('toggleAuthorized', tagId,authorised, function(error){
 			if (error){
 				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-updated'), 'success');
+				Bert.alert(TAPi18n.__('admin.alerts.tag-updated'), 'success');
 			}
 		});
 	},
 
-	'click #delete-button': function(event, template){
+	'click .delete-button-class': function(event, template){
 		event.preventDefault();
 		Meteor.call('deleteTag', event.target.dataset.tagId, function(error){
 			if (error){
 				RavenClient.captureException(error);
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-added'), 'success');
+				Bert.alert("Tag Deleted", 'success');
 			}
 		});
 	},
@@ -55,19 +57,20 @@ Template.AdminTagsForm.events({
 	'submit form' (event, template){
 		event.preventDefault();
 		let text = template.find("#tag-text").value;
-
-		Meteor.call('addTag', text, function(error){
+    var communityId = LocalStore.get('communityId')
+    console.log("communityId: " + communityId);
+		Meteor.call('addTag', text, communityId, function(error){
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert(TAPi18n.__('pages.admin.alerts.tag-added'), 'success');
+				Bert.alert(TAPi18n.__('admin.alerts.tag-added'), 'success');
 			}
 		});
 	},
 
 	'click #delete-button': function(event, template){
 		//Meteor.call('deleteTage', event.target.dataset.userId);
-		//Bert.alert(TAPi18n.__('pages.admin.alerts.tag-deleted'), 'success');
+		//Bert.alert(TAPi18n.__('admin.alerts.tag-deleted'), 'success');
 	},
 
 });

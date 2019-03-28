@@ -1,0 +1,16 @@
+<template name="Interests">
+	<!--<div class="app-container">-->
+		<h5>{{_ "pages.interests.heading"}}</h5>
+		<p>{{_ "pages.interests.intro-text"}}</p>
+		{{> NewTaggle showTags=true selectedTags=selectedTags}}
+		<button class="mdl-button mdl-js-button" id="update-tags" style="float: right;">Save</button>
+		<br>
+		<br>
+		<h5>{{_ "pages.interests.popular"}}</h5>
+		<div class="tags-wrap" >
+			{{#each tags}}
+				<a class="tag tag-chip display-tag mdl-badge" data-id="{{_id}}" data-badge="{{tagCount keyword}}">{{keyword}}</a>
+			{{/each}}
+		</div>
+	<!--</div>-->
+</template>

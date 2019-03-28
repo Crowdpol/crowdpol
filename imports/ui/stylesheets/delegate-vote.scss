@@ -1,62 +1,6 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
 
-.proposal-item,
-.delegate-item {
-  flex-flow: row wrap;
-  position: relative;
-  padding: $space / 2;
-  margin-bottom: 1rem;
-  background-color: $light-grey-xlight;
-  box-shadow: 0 1px 5px rgba($black, 0.2);
-}
-
-.delegate-item.selected {
-  cursor: pointer;
-  outline: ($space / 2) solid $light-blue;
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: $space / 4;
-    top: $space / 4;
-    bottom: $space / 4;
-    width: 3px;
-    border-left: 2px dotted $light-grey-dark;
-    border-right: 2px dotted $light-grey-dark;
-  }
-
-  .card-avatar {
-    margin-left: $space / 2;
-  }
-}
-
-.card-main-wrap {
-  display: flex;
-  flex-basis: 100%;
-
-  h6 {
-    line-height: $base-line-height / 1.5;
-    letter-spacing: normal;
-    word-break: break-word;
-  }
-
-  .card-main {
-    flex: 1;
-  }
-}
-
-.card-secondary-wrap {
-  flex-basis: 100%;
-  flex-flow: row wrap;
-  margin-top: $space / 2;
-}
-
-.card-avatar {
-  width: $space * 1.5;
-  height: $space * 1.5;
-}
-
 // Proposal single view
 
 .proposal-container {
@@ -112,7 +56,7 @@
 .vote-actions {
   display: flex;
   justify-content: space-around;
-  margin: $space/2 0;
+  //margin: $space/2 0;
   button {
     flex-basis: 30%;
   }
@@ -121,13 +65,63 @@
 .delegate-vote-grid {
   padding-top: 0;
   padding-bottom: 0;
-  .mdl-cell{
+
+  .mdl-cell {
     margin-top: 0;
-    margint-bottom: 0;
-    .mdl-list{
+    margin-bottom: 0;
+
+    .mdl-list {
       padding: 0;
       margin: 0;
     }
   }
 }
+.mdl-list.delegate-vote-list-for{
+  .delegate-vote-list-item.selected {
+    background: lighten($yes-button, 10%);
+  }
+}
+.mdl-list.delegate-vote-list-abstain{
+  .delegate-vote-list-item.selected {
+    background: lighten($abstain-button, 10%);
+  }
+}
+.mdl-list.delegate-vote-list-against{
+  .delegate-vote-list-item.selected {
+    background: lighten($no-button, 10%);
+  }
+}
 
+.delegate-vote-list-item {
+  padding: 0px;
+  padding-left: 5px;
+  padding-right: 5px;
+  .card-delegate-list{
+    padding: 0px;
+    i.material-icons{
+      font-size: $xsmall-font-size;
+      margin-left: 0.2rem;
+    }
+  }
+  .mdl-list__item-primary-content,
+  .mdl-list__item-secondary-action {
+    font-size: $xsmall-font-size;
+  }
+
+  .mdl-list__item-avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .delegate-name{
+    font-size: $xsmall-font-size;
+    line-height: $small-font-size;
+  }
+}
+
+#toggle-voting-info{
+  width: 100%;
+  font-size: $xsmall-font-size;
+  line-height: 2rem;
+  color: $black;
+  background-color: $light-grey-xlight;
+}

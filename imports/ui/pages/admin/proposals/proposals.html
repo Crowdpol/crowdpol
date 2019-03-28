@@ -1,58 +1,153 @@
 <template name="AdminProposals">
+	{{> ProposalModal}}
 	{{#if currentUserIsAdmin}}
-	{{> backButton text="Back to Dashboard" url="/admin/dash"}}
-	<div class="container">
-		<h3>{{_"admin.proposals.heading"}}</h3>
-		{{#if Template.subscriptionsReady}}
-			{{#if proposals.count}}
-				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
-						<thead>
-								<tr>
-										<th>{{_"admin.proposals.date"}}</th>
-										<th>{{_"admin.proposals.author"}}</th>
-										<th>{{_"admin.proposals.contributors"}}</th>
-										<th>{{_"admin.proposals.title"}}</th>
-										<th></th>
-										<th></th>
-								</tr>
-						</thead>
-						<tbody>
-								{{#each proposals}}
-								<tr>
-										<td data-label='{{_"admin.proposals.date"}}'>{{createdAt}}</td>
-										<td data-label='{{_"admin.proposals.author"}}'>{{authorId}}</td>
-										<td data-label='{{_"admin.proposals.contributors"}}'>
-												{{#each user in invited}}
-														{{user}} <br>
-												{{/each}}
-										</td>
-										<td data-label='{{_"admin.proposals.title"}}'> <a href="/proposals/view/{{_id}}">{{title}}</a></td>
-										<td>
-												<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
-														<i class="material-icons">check</i>
-														{{_'admin.proposals.approve-button'}}
-												</button>
-										</td>
-										<td data-label="">
-												<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
-														<i class="material-icons">close</i>
-														{{_'admin.proposals.reject-button'}}
-												</button>
-										</td>
-								</tr>
-								{{/each}}
-						</tbody>
-				</table>
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			{{#if Template.subscriptionsReady}}
+				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+					<div class="mdl-tabs__tab-bar">
+							<a href="#submitted-proposals" class="mdl-tabs__tab is-active">Submitted</a>
+							<a href="#live-proposals" class="mdl-tabs__tab">Live</a>
+							<a href="#all-proposals" class="mdl-tabs__tab">All</a>
+					</div>
+					<div class="mdl-tabs__panel is-active" id="submitted-proposals">
+							{{#if submittedProposals.count}}
+								<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+										<thead>
+												<tr>
+														<th>{{_"admin.proposals.date"}}</th>
+														<th>{{_"admin.proposals.author"}}</th>
+														<th>{{_"admin.proposals.contributors"}}</th>
+														<th>{{_"admin.proposals.title"}}</th>
+														<th></th>
+												</tr>
+										</thead>
+										<tbody>
+											{{#each proposal in submittedProposals}}
+												{{> AdminProposal proposal=proposal type="submitted"}}
+											{{/each}}
+										</tbody>
+								</table>
+							{{else}}
+								<br>
+								<center>
+									<p>
+										{{_"admin.tags.none-waiting"}}
+									</p>
+								</center>
+							{{/if}}
+					</div>
+					<div class="mdl-tabs__panel" id="live-proposals">
+							{{#if liveProposals.count}}
+								<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+										<thead>
+												<tr>
+														<th>{{_"admin.proposals.date"}}</th>
+														<th>{{_"admin.proposals.author"}}</th>
+														<th>{{_"admin.proposals.contributors"}}</th>
+														<th>{{_"admin.proposals.title"}}</th>
+														<th></th>
+														<th></th>
+												</tr>
+										</thead>
+										<tbody>
+											{{#each proposal in  liveProposals}}
+												{{> AdminProposal proposal=proposal type="live"}}
+											{{/each}}
+										</tbody>
+								</table>
+							{{else}}
+								<br>
+								<center>
+									<p>
+										"There are currently no live proposals"
+									</p>
+								</center>
+							{{/if}}
+					</div>
+					<div class="mdl-tabs__panel" id="all-proposals">
+							{{#if allProposals.count}}
+								<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+										<thead>
+												<tr>
+														<th>{{_"admin.proposals.date"}}</th>
+														<th>{{_"admin.proposals.author"}}</th>
+														<th>{{_"admin.proposals.contributors"}}</th>
+														<th>{{_"admin.proposals.title"}}</th>
+														<th></th>
+												</tr>
+										</thead>
+										<tbody>
+											{{#each proposal in  allProposals}}
+												{{> AdminProposal proposal=proposal  type="all"}}
+											{{/each}}
+										</tbody>
+								</table>
+							{{else}}
+								<br>
+								<center>
+									<p>
+										There are currently no proposals in the system.
+									</p>
+								</center>
+							{{/if}}
+					</div>
+				</div>
 			{{else}}
 				<p>
-					{{_"admin.tags.none-waiting"}}
+					{{_ "generic.loading"}}
 				</p>
 			{{/if}}
-		{{else}}
-			<p>
-				{{_ "generic.loading"}}
-			</p>
+		</div>
+	</div>
+
+	{{/if}}
+</template>
+
+<template name="AdminProposal">
+	<tr>
+	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.date"}}'>{{lastModified}}</td>
+	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.author"}}'>{{author proposal.authorId}}</td>
+	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.contributors"}}'>
+	    {{contributerCount proposal}}
+	  </td>
+	  <td class="mdl-data-table__cell--non-numeric" data-label='{{_"admin.proposals.title"}}'> <a href="/proposals/view/{{proposal._id}}" target="_blank">{{title proposal}}</a></td>
+	  <td class="mdl-data-table__cell--non-numeric" data-label="">
+	    <button class="mdl-button mdl-js-button mdl-button--icon preview-proposal" data-id="{{proposal._id}}" data-type="{{type}}">
+	      <i class="material-icons preview-proposal" data-id="{{proposal._id}}" data-type="{{type}}">visibility</i>
+	    </button>
+		</td>
+		<td class="mdl-data-table__cell--non-numeric">
+			<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal" data-id="{{proposal._id}}" data-type="{{type}}">
+	      <i class="material-icons delete-proposal" data-id="{{proposal._id}}" data-type="{{type}}">delete</i>
+	    </button>
+	  </td>
+	</tr>
+</template>
+
+<template name="ProposalModal">
+  <div id="overlay"></div>
+	<div class="proposal-modal">
+		{{#if proposalId}}
+			{{> ViewProposal proposalId=proposalId}}
+			{{#if showApproval}}
+				<div class="proposal-wrap admin-comment-textarea">
+					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<textarea class="argument-input mdl-textfield__input" type="text" rows= "3" id="admin-comment"></textarea>
+						<label class="mdl-textfield__label">Comment on decision</label>
+					</div>
+				</div>
+					<div class="btn-wrapper">
+						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
+							<i class="material-icons" data-proposal-id="{{_id}}">check</i>
+							{{_'admin.proposals.approve-button'}}
+						</button>
+						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
+							<i class="material-icons" data-proposal-id="{{_id}}">close</i>
+							{{_'admin.proposals.reject-button'}}
+						</button>
+					</div>
+			{{/if}}
 		{{/if}}
 	</div>
-	{{/if}}
 </template>

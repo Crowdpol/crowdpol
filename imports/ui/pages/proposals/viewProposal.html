@@ -1,7 +1,13 @@
 <template name="ViewProposal">
 	{{> SignInModal}}
-	{{#if currentUser }}
-		{{> backButton text="generic.back-to-proposals" url="/dash"}}
+	{{> RemoveInviteModal}}
+	{{#if hasHeader}}
+		{{>Cover}}
+	{{/if}}
+	{{#if showEditable}}
+		{{#if currentUser }}
+			{{> backButton text="generic.back-to-proposals" url=backUrl hasHeader=hasHeader}}
+		{{/if}}
 	{{/if}}
 	{{#if Template.subscriptionsReady}}
 
@@ -15,122 +21,137 @@
 		<div class="mdl-tooltip" data-mdl-for="copy-proposal-link">
 			{{_ "pages.proposals.view.tooltips.share"}}
 		</div>
-		<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
-			<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+		<div class="proposal-details">
+			<div class="meta">
 				<div class="minilogo">
 					<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
 				</div>
 				<div class="proposal-author">
-					<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
+					{{#if author.profile.firstName}}
+						<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
+					{{else}}
+						<strong>{{author.profile.username}}</strong>
+					{{/if}}
 					<span>{{createdAt}}</span>
 				</div>
 
 				<div class="section-spacer"></div>
-				{{#if isEditable }}
-					<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
-						{{_ "pages.proposals.view.editProposal"}}<i class="material-icons">create</i>
-					</button>
-				{{else}}
-					<div>
-						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
-							<i class="material-icons">share</i>
+				{{#if showEditable}}
+					{{#if isEditable }}
+						<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
+							{{_ "pages.proposals.view.editProposal"}}<i class="material-icons">create</i>
 						</button>
-					</div>
-					<div class="signature-button">
-						<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
-							<i class="material-icons">fingerprint</i>
-						</button>
-					</div>
-					<div class="signature-count">
-						{{ signatureCount }}
-					</div>
+					{{else}}
+						<div>
+							<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+								<i class="material-icons">share</i>
+							</button>
+						</div>
+						<div class="signature-button">
+							<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
+								<i class="material-icons">{{#if isSigned}}favorite{{else}}favorite_border{{/if}}</i>
+							</button>
+						</div>
+						<div class="signature-count">
+							{{ signatureCount }}
+						</div>
+					{{/if}}
 				{{/if}}
 			</div>
-			<span class="status-chip">{{status}}</span>
+
 			{{#if selectedInvites.count}}
 			<div>
 				<span id="collab-text">
 					{{_ "pages.proposals.view.collaborators"}}
 				</span>
 			</div>
-			<div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+			<div class="mdl-color-text--grey-700 mdl-card__supporting-text" id="collab-chips">
 				{{#each selectedInvites}}
-				<div class="collab-author">
-					<img class="mdl-chip__contact" src="{{profile.photo}}">
-					<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
-				</div>
+					<div class="collab-author {{#if isCurrentUser}}invited{{/if}}">
+						<img class="mdl-chip__contact" src="{{profile.photo}}">
+						{{#if profile.firstName}}
+							<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+						{{else}}
+							<span class="mdl-chip__text">{{profile.username}}</span>
+						{{/if}}
+						{{#if isCurrentUser}}
+							<button type="button" class="mdl-chip__action tag-chip-delete" data-id="{{_id}}">
+								<i class="material-icons tag-chip-delete" data-id="{{_id}}">cancel</i>
+							</button>
+						{{/if}}
+					</div>
 				{{/each}}
 			</div>
 			{{/if}}
+
 		</div>
 
 		<!-- Tabs for translations -->
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-			<div class="mdl-tabs__tab-bar">
+			<div class="button-tabs mdl-tabs__tab-bar">
 				{{#each languages}}
 				<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
 				{{/each}}
 			</div>
 
 			{{#each languages}}
-			<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
-
-				{{> ProposalContent this}}
-
-			</div>
+				<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
+					{{> ProposalContent language=this proposalId=_id}}
+				</div>
 			{{/each}}
 		</div>
 
 		<!-- Tags -->
 		<div class="proposal-wrap">
 			{{#each tags}}
-			<span class="mdl-chip">
+			<span class="mdl-chip mdl-chip-hoverable  {{isAuthorised this}}">
 				<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
 			</span>
 			{{/each}}
 		</div>
-
-		<!-- Edit and Submit Buttons -->
-		<div class="proposal-wrap proposal-actions">
-			{{#if isSubmittable }}
-			<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
-				{{_ "pages.proposals.view.submitProposal"}}
-			</button>
-			{{/if}}
-		</div>
+		{{#if showEditable}}
+			<!-- Edit and Submit Buttons -->
+			<div class="proposal-wrap proposal-actions">
+				{{#if isSubmittable }}
+				<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
+					{{_ "pages.proposals.view.submitProposal"}}
+				</button>
+				{{/if}}
+			</div>
+		{{/if}}
 
 		<!-- Voting Buttons -->
 		<div class="proposal-wrap proposal-vote">
 			<hr>
 			{{#if isVotable}}
-			<div class="mdl-card mdl-cell mdl-cell--12-col vote-details">
-				<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-					<div>
-						<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
-					</div>
-					<div class="section-spacer"></div>
+				<div class="mdl-card mdl-cell mdl-cell--12-col vote-details">
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+						<div>
+							<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
+						</div>
+						<div class="section-spacer"></div>
 
-					<div class="signature-count">
-						{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
+						<div class="signature-count">
+							{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
+						</div>
+						<div class="signature-count"><i class="material-icons">date_range</i></div>
 					</div>
-					<div class="signature-count"><i class="material-icons">date_range</i></div>
 				</div>
-			</div>
-			<div class="voting-content">
-				{{#if isVotingAsDelegate}}
-					{{> delegateVoteButtons proposalId=_id endDate=endDate}}
-				{{else}}
-					<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
-					{{> voteButtons proposalId=_id}}
-					{{> delegateVoteList proposalId=_id}}
-				{{/if}}
-			</div>
+				<div class="voting-content">
+					{{#if isVotingAsDelegate}}
+						{{> delegateVoteButtons proposalId=_id endDate=endDate}}
+					{{else}}
+						<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
+						{{> voteButtons proposalId=_id}}
+						{{> delegateVoteList proposalId=_id}}
+					{{/if}}
+				</div>
 			{{else}}
-			<center>
-				<h5>
-					<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
-				</h5>
-			</center>
+				<center>
+					<h5>
+						<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
+					</h5>
+				</center>
 			{{/if}}
 			<hr>
 		</div>
@@ -138,8 +159,8 @@
 		<!-- Commenting -->
 		{{#if showComments}}
 			<div class="proposal-wrap">
-				<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-					<div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments">
+				<div class="">
+					<div class="comments">
 						{{#if isInvited }}
 						{{> CommentForm}}
 						{{/if}}
@@ -161,14 +182,15 @@
 		{{/if}}
 	</div>
 
-	<!-- Sign and Share buttons -->
+	<!-- Sign and Share buttons
 	<div class="proposal-view-menu">
 		<div class="proposal-view-menu-buttons">
-			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+			<button class="mdl-button mdl-button-icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
 				<i class="material-icons">share</i>
 			</button>
 		</div>
 	</div>
+	-->
 	{{else}}
 	{{> loader}}
 	{{/if}}
@@ -177,40 +199,86 @@
 <!--=========== Proposal Content =========-->
 
 <template name="ProposalContent">
-
+	{{checkThis}}
 	<!-- Main Content -->
 	<div class="proposal-wrap">
-		<h1 class="proposal-title">{{ title }}</h1>
-		<p class="proposal-info">{{ abstract }}</p>
+		<h1 class="proposal-title">{{{ title }}}</h1>
+		<span class="tag status-chip {{status}}">{{status}}</span>
+		<p class="proposal-info">{{{ abstract }}}</p>
 	</div>
-	<div id="proposal-body-wrap">
+	{{#if showAdminComments}}
+		{{#each adminComments status}}
+			<div class="proposal-admin-comment">
+				<div class="admin-comments-header">
+					<div class="comment-title">
+						<img src="{{getAvatar authorId}}" class="comment__avatar">
+						<span class="comment-author">{{authorName authorId}}</span>
+						<span class="comment-date">{{argumentDate lastModified}}</span>
+						<button type="button" class="mdl-chip__action tag-chip-delete close-comment" data-id="{{_id}}">
+							<i class="material-icons tag-chip-delete close-comment" data-id="{{_id}}">cancel</i>
+						</button>
+					</div>
+				</div>
+				<div class="comment-message">
+					{{this.message}}
+				</div>
+			</div>
+		{{/each}}
+		{{#each invitationDeclinedComments status}}
+			<div class="proposal-invite-comment">
+				<div class="invite-comments-header">
+					<div class="comment-title">
+						<img src="{{getAvatar authorId}}" class="comment__avatar">
+						<span class="comment-author">{{authorName authorId}}</span>
+						<span class="comment-date">{{argumentDate lastModified}}</span>
+						<button type="button" class="mdl-chip__action tag-chip-delete close-comment" data-id="{{_id}}">
+							<i class="material-icons tag-chip-delete close-comment" data-id="{{_id}}">cancel</i>
+						</button>
+					</div>
+				</div>
+				<div class="comment-message">
+					{{this.message}}
+				</div>
+			</div>
+		{{/each}}
+	{{else}}
+		<!--<p>you are not the owner</p>-->
+	{{/if}}
+	<br>
+	<div id="proposal-body-wrap" class="proposal-body-wrap">
 		{{{ body }}}
 	</div>
 
-	<!-- Points for and against -->
-	<div class="proposal-wrap mdl-grid" id="proposal-points">
-		<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-			{{#if showPointsFor}}
-			<p>{{_ "pages.proposals.view.pointsFor"}}</p>
-			<ul id="points-for-list" class="points-list">
-				{{#each pointsFor}}
-				<li>{{this}}</li>
-				{{/each}}
-			</ul>
+	<!-- Arguments for and against -->
+	<div class="argument-container">
+		<div class="for-container arguments-column">
+			{{#if argumentsForCount}}
+				<p>{{_ "pages.proposals.edit.pointFor"}}</p>
+				<ul class="arguments-list">
+					{{#each argument in argumentsFor language}}
+						{{>ArgumentsListItem argument=argument lang=language type="for" state="view"}}
+					{{/each}}
+				</ul>
+				{{#if showEditable}}
+					{{>ArgumentsBox type="for" lang=language args=argumentsFor state="view"}}
+				{{/if}}
 			{{/if}}
 		</div>
-		<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-			{{#if showPointsAgainst}}
-			<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
-			<ul id="points-against-list" class="points-list">
-				{{#each pointsAgainst}}
-				<li>{{this}}</li>
-				{{/each}}
-			</ul>
+		<div class="against-container arguments-column">
+			{{#if argumentsAgainstCount}}
+				<p>{{_ "pages.proposals.edit.pointAgainst"}}</p>
+				<ul class="arguments-list">
+					{{#each argument in argumentsAgainst language}}
+						{{>ArgumentsListItem  argument=argument lang=language type="against" state="view"}}
+					{{/each}}
+				</ul>
+				{{#if showEditable}}
+					{{>ArgumentsBox type="against" lang=language args=argumentsAgainst state="view"}}
+				{{/if}}
 			{{/if}}
 		</div>
 	</div>
-	
+
 </template>
 
 
@@ -231,17 +299,46 @@
 <!--============ Single Comment ============-->
 
 <template name="Comment">
-	<div class="comment mdl-color-text--grey-700">
+
+	<div class="comment mdl-color-text--grey-700" data-comment-id="{{_id}}">
 		<header class="comment__header">
 			<img src="{{avatar}}" class="comment__avatar">
 			<div class="comment__author">
 				<strong>{{ username }}</strong>
 				<span>{{ date }}</span>
 			</div>
+			<div class="comment__functions" style="display:none;" data-buttons-id="{{_id}}">
+				<button class="mdl-button mdl-js-button mdl-button--icon delete-comment-button" data-id="{{_id}}">
+					<i class="material-icons delete-comment-icon" data-id="{{_id}}">delete</i>
+				</button>
+				<button class="mdl-button mdl-js-button mdl-button--icon edit-comment-button" data-id="{{_id}}">
+					<i class="material-icons edit-comment-icon" data-id="{{_id}}">edit</i>
+				</button>
+			</div>
 		</header>
 		<div class="comment__text">
-			{{ message }}
+			<div class="comment_message" data-comment-message-id="{{_id}}">{{ message }}</div>
+			<div class="comment_message_edit" style="display:none;"  data-comment-textarea-id="{{_id}}">
+				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<textarea class="mdl-textfield__input" type="text" rows= "3" data-textarea-id="{{_id}}">{{ message }}</textarea>
+					<label class="mdl-textfield__label">{{_ "pages.proposals.view.updateComment"}}</label>
+				</div>
+				<button class="mdl-button mdl-js-button mdl-button--icon close-comment-button" data-id="{{_id}}">
+					<i class="material-icons close-comment-icon" data-id="{{_id}}">close</i>
+				</button>
+				<button class="mdl-button mdl-js-button mdl-button--icon save-comment-button" data-id="{{_id}}">
+					<i class="material-icons save-comment-icon" data-id="{{_id}}">save</i>
+				</button>
+			</div>
 		</div>
+		<!--<nav class="comment__actions">
+			<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button-icon">
+				<i class="material-icons" role="presentation">thumb_up</i><span class="visuallyhidden">like comment</span>
+			</button>
+			<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button-icon">
+				<i class="material-icons" role="presentation">thumb_down</i><span class="visuallyhidden">dislike comment</span>
+			</button>
+		</nav>-->
 	</div>
 	<hr>
 </template>

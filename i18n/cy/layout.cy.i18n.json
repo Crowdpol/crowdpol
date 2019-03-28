@@ -1,0 +1,55 @@
+{
+	"layout": {
+		"header": {
+			"app_title": "CY: Common Democracy",
+			"home_title": "CY: Democracy 2018",
+			"nav_home": "CY: Home",
+			"nav_dash": "CY: Dashboard",
+			"nav_ideas": "CY:Ideas",
+			"nav_delegate" : "CY: My Delegates",
+			"nav_vote": "CY: Vote",
+			"nav_proposals": "CY: My Proposals",
+			"nav_nominate": "CY: Nominate",
+			"nav_about": "CY: About",
+			"nav_contact": "CY: Contact",
+			"nav_login": "CY: Login",
+			"nav_logout": "CY: Logout",
+			"nav_feed": "CY: Feed",
+			"nav_profile_settings": "CY: Profile",
+			"nav_account_settings": "CY: Settings",
+			"nav_faq": "CY: FAQ",
+			"lang_en": "CY: English",
+			"lang_sv": "CY: Swedish",
+			"lang_cy": "CY: Welsh",
+			"role_selector": "CY: Switch Roles",
+			"no_notifications": "CY: You don't have any notifications yet.",
+			"search_tags": "CY: Search for tags...",
+			"vote_as_individual": "CY: Vote as Individual",
+			"vote_as_delegate": "CY: Vote as Delegate"
+		},
+		"drawer": {
+			"nav_login" : "CY: Log in",
+			"nav_logout": "CY: Log out",
+			"nav_profile" : "CY: Profile",
+			"nav_dash" : "CY: Dashboard",
+			"nav_ideas": "CY: Ideas",
+			"nav_contact" : "CY: Contact",
+			"nav_privacy" : "CY: Privacy policy",
+			"nav_terms" : "CY: Terms & conditions",
+			"nav_admin_dash" : "CY: Admin dashboard",
+			"right_about" : "CY: About",
+			"website": "CY: Website",
+			"recent-votes": "CY: Recent Votes",
+			"no-votes": "CY: This delegate has not voted on any proposals yet."
+		},
+		"body":{
+			"no-styles": "CY: The color scheme for your community could not be loaded."
+		},
+		"footer": {
+			"delegate": "CY: Delegate",
+			"propose": "CY: Propose",
+			"nominate": "CY: Nominate",
+			"vote": "CY: Vote"
+		}
+	}
+}

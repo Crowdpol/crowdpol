@@ -1,18 +1,39 @@
 import { Meteor } from 'meteor/meteor';
 import { Users } from '../Users.js';
 import { Ranks } from '../../ranking/Ranks.js';
+import { Proposals } from '../../proposals/Proposals.js';
 // on the server
 
 // The info we usually want to publish for users
-defaultUserProjection = {fields: {profile: 1,roles: 1,isPublic: 1}};
+defaultUserProjection = {fields: {profile: 1,roles: 1,isPublic: 1,username:1}};
 
 Meteor.publish('users.all', function() {
   /* to count how many users we have per community */
   return Meteor.users.find({}, {fields: {"profile.communityIds": 1}});
 });
 
+Meteor.publish('users.profile', function () {
+  return Meteor.users.find({},{fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
+});
+
+Meteor.publish('user', function (userId) {
+  return Meteor.users.find({_id:userId},{fields: {profile: 1,roles: 1,isPublic: 1}});
+});
+
 Meteor.publish('users.community', function(communityId) {
   return Meteor.users.find({"profile.communityIds" : communityId}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
+});
+
+Meteor.publish("UserSearch", function(search,communityId) {
+   return getUserSearch(search,communityId);
+});
+
+Meteor.publish("InvitedUsers", function(invited) {
+   return getInvitedUsers(invited);
+});
+
+Meteor.publish('users.admin', function() {
+  return Meteor.users.find();
 });
 
 Meteor.publish('user.profile', function(userId) {
@@ -24,20 +45,29 @@ Meteor.publish('users.usernames', function() {
   return Meteor.users.find({}, {fields: {'profile.username': 1}});
 });
 
-// Publish approvals to list 
+// Publish approvals to list
 Meteor.publish('users.pendingApprovals', function(communityId) {
 	return Meteor.users.find(
     {
       "profile.communityIds" : communityId,
-      "approvals" : {$exists: true}, 
+      "approvals" : {$exists: true},
       $where : "this.approvals.length > 0"
-    }, 
+    },
     {fields: {_id: 1, profile: 1,roles: 1,isPublic: 1, approvals: 1}}
   );
 })
 
 Meteor.publish('users.current', function () {
   return Meteor.users.find({_id: Meteor.userId()}, {fields: {profile: 1,roles: 1,isPublic: 1, approvals:1}});
+});
+
+//find all users invited to a proposal
+Meteor.publish('users.proposal', function (profileId) {
+  let invited = Proposals.findOne({_id: profileId}).invited;
+  if(typeof invited != 'undefined'){
+    return Meteor.users.find({_id: invited}, {fields: {profile: 1,roles: 1,isPublic: 1, approvals:1}});
+  }
+  return;
 });
 
 //null publish updates default currentUser Spacebar
@@ -53,12 +83,20 @@ Meteor.publish('users.delegates', function (communityId) {
   return Meteor.users.find({roles: "delegate", 'profile.communityIds': communityId}, defaultUserProjection);
 });
 
+Meteor.publish('users.currentUsersDelegates', function (communityId) {
+  let ranks =  Ranks.find({entityType: "delegate", supporterId: Meteor.userId(),"communityId":communityId});
+  console.log("ranks count: " + ranks.count());
+  if(ranks){
+    return Meteor.users.find({roles: "delegate", 'profile.communityIds': communityId,}, defaultUserProjection);
+  }
+});
+
 /*Meteor.publish('users.candidatesWithTag', function (keyword) {
   var tag = Meteor.call('getTagByKeyword', keyword)
   if (tag){
     return Meteor.users.find(
     {
-      roles: 'candidate', 
+      roles: 'candidate',
       'profile.tags': { $elemMatch: {_id: tag._id}}
     },
     defaultUserProjection);
@@ -70,40 +108,13 @@ Meteor.publish('users.delegatesWithTag', function (keyword, communityId) {
   if (tag){
     return Meteor.users.find(
     {
-      roles: 'delegate', 
+      roles: 'delegate',
       'profile.tags': { $elemMatch: {_id: tag._id}},
       'profile.communityIds': communityId
     },
     defaultUserProjection);
   }
 });
-
-/*Meteor.publish("user.ranks", function(userId,type) {
-  results = Ranks.aggregate([
-        { $match: {"supporterId" : "ayekMtRQgoj3PAchM","entityType" : "delegate"}},
-        {$project:{"_id": 0,"entityId" :1}}
-  ]).map(function(el) { return el.entityId });
-  console.log(results);
-  return Meteor.users.find( {_id : {$in : result}}, defaultUserProjection );
-  
-  check(userId, String);
-  check(type, String);
-  console.log("ranks.type: userId: " + userId + " type: " + type);
-  var ranks = [];
-  Meteor.call('getRank',Meteor.userId(),'delegate',function(error,result){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("meteor call return: " + result.length);
-        ranks = result;
-        console.log(ranks);
-        users =  Meteor.users.find( { _id : { $in : ranks } } );
-        console.log(users);
-        return users;
-      }
-  });
-  
-});*/
 
 Meteor.publish('simpleSearch', function(search, type, communityId) {
   check( search, Match.OneOf( String, null, undefined ) );

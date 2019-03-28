@@ -1,6 +1,7 @@
 import './signup.html';
 import './entitySignup.js';
 import "../../../components/termsModal/termsModal.js"
+import { hasOwnProperty } from '../../../../utils/functions';
 import { Communities } from '../../../../api/communities/Communities.js'
 import RavenClient from 'raven-js'
 
@@ -43,10 +44,21 @@ Template.Signup.events({
 		event.preventDefault();
 
 		var community = Communities.findOne({subdomain: LocalStore.get('subdomain')});
+		if(!hasOwnProperty(community,'settings')){
+			Bert.alert('Community does not have settings', 'danger');
+			return;
+		}
 		var enforceWhitelist = community.settings.enforceWhitelist;
+		if(!hasOwnProperty(community.settings,'enforceWhitelist')){
+			Bert.alert('Community does not have settings.enforceWhitelist', 'danger');
+			return;
+		}
 		var emailWhitelist = community.settings.emailWhitelist;
+		if(!hasOwnProperty(community.settings,'emailWhitelist')){
+			Bert.alert('Community does not have settings.emailWhitelist', 'danger');
+			return;
+		}
 		var email = template.find('[name="emailAddress"]').value;
-
 		if ((!enforceWhitelist) || (enforceWhitelist == false) || ((enforceWhitelist == true) && (emailWhitelist.includes(email)))) {
 			if(Session.get('termsAccepted')){
 				communityId = community._id;
@@ -57,30 +69,62 @@ Template.Signup.events({
 					password: template.find('[name="password"]').value,
 					profile: {communityIds: [communityId], termsAccepted: termsAccepted}
 				};
-
-				Accounts.createUser(user, (error) => {
-					if (error) {
-						RavenClient.captureException(error);
-						Bert.alert(error.reason, 'danger');
-					} else {
-						/* Check if redirect route saved */
-						var redirect = LocalStore.get('signUpRedirectURL');
-						LocalStore.set('signUpRedirectURL', '');
-						if (redirect) {
-							window.location.href = redirect;
+				//check if the user email already has an account
+				if(checkUserExists(email,communityId)){
+					FlowRouter.go('/dash');
+				}else{
+					Accounts.createUser(user, (error) => {
+						if (error) {
+							RavenClient.captureException(error);
+							Bert.alert(error.reason, 'danger');
 						} else {
-							FlowRouter.go('/proposals');
-						}
+							/* Check if redirect route saved */
+							var redirect = LocalStore.get('signUpRedirectURL');
+							LocalStore.set('signUpRedirectURL', '');
+							if (redirect) {
+								window.location.href = redirect;
+							} else {
+								var user = Meteor.user();
+	              var userRoles = user.roles;
+	              console.log(userRoles);
+	              if (user && userRoles) {
+	                if(userRoles.indexOf("delegate") > -1){
+	                  LocalStore.set('isDelegate',true);
+	                }else{
+	                  LocalStore.set('isDelegate',false);
+	                }
+	                if(userRoles.indexOf("individual") > -1){
+	                  LocalStore.set('currentUserRole','individual');
+	                }
+	                if(userRoles.indexOf("organisation") > -1){
+	                  LocalStore.set('currentUserRole','organisation');
+	                }
+	                if(userRoles.indexOf("party") > -1){
+	                  LocalStore.set('currentUserRole','party');
+	                }
+	                if(userRoles.indexOf("delegate") > -1){
+	                  LocalStore.set('isDelegate',true);
+	                  LocalStore.set('otherRole','delegate');
+	                }else{
+	                  LocalStore.set('isDelegate',false);
+	                  LocalStore.set('otherRole','');
+	                }
+	              }
+	              console.log(LocalStore.get('currentUserRole'));
+	              console.log(LocalStore.get('isDelegate'));
+								FlowRouter.go('/dash');
+							}
 
-							/*Meteor.call('sendVerificationLink', (error, response) => {
-								if (error){
-									Bert.alert(error.reason, 'danger');
-								} else {
-									Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
-								}
-							});*/
+								/*Meteor.call('sendVerificationLink', (error, response) => {
+									if (error){
+										Bert.alert(error.reason, 'danger');
+									} else {
+										Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
+									}
+								});*/
 						}
 					});
+				}
 			} else {
 				Bert.alert(TAPi18n.__('pages.signup.accept-terms'), 'danger')
 			}
@@ -88,18 +132,21 @@ Template.Signup.events({
 			Bert.alert(TAPi18n.__('pages.signup.not-in-whitelist'), 'danger')
 		}
 
-		
-	},
-	'click #terms-checkbox-label' (event, template) {
-		var termsCheckbox = self.find('#terms-checkbox-label').MaterialCheckbox;
-		var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
-		if (termsAccepted) {  
-			termsCheckbox.uncheck();
-			Session.set('termsAccepted', false);
-		} else {
-			event.preventDefault();
-			openTermsModal();
-		}
 
 	}
 });
+
+function checkUserExists(email,communityId){
+	Meteor.call('checkIfUserExists',email,communityId, (error, response) => {
+		if (error){
+			//user email not found, create a new account
+			Bert.alert(error.reason, 'danger');
+			return false;
+		} else {
+			//user email found, adding community to user profile
+			//Bert.alert("found email", 'success');
+			return true;
+		}
+	});
+	return false;
+}

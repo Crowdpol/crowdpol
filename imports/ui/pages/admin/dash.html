@@ -1,24 +1,128 @@
 <template name="AdminDash">
+	<div class="admin">
+		{{#if currentUserIsAdmin}}
+		{{>AdminDashHeader}}
+	  <main class="admin__main">
+	    <div class="dashboard">
+				{{>Template.dynamic template=currentTemplate}}
+			</div>
+	  </main>
+		{{else}}
+			<h1>You do not have access to this page</h1>
+		{{/if}}
+	</div>
+</template>
+<template name="Overview">
 	{{#if currentUserIsAdmin}}
-	<div class="container">
-		<h3> {{_ "admin.dash.heading"}} </h3>
-		<div class="dashboard-wrap">
-			{{> AdminDashUsers}}
-			{{> AdminDashTags}}
-			{{> AdminDashApprovals}}
-			{{> AdminDashProposals}}
-			{{> AdminDashVoting}}
-			{{> AdminDashStats}}
-			{{#if currentUserIsSuperAdmin}}
-				{{> AdminDashCommunities}}
-			{{/if}}
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			<img src="https://imgs.xkcd.com/comics/voting_software.png" alt="" />
 		</div>
 	</div>
+	<!--
+		<div class="container app-container">
+
+
+			<h3> {{_ "admin.dash.heading"}} </h3>
+			<div class="dashboard-wrap  mdl-grid">
+				{{> AdminDashUsers}}
+				{{> AdminDashTags}}
+				{{> AdminDashApprovals}}
+				{{> AdminDashProposals}}
+				{{> AdminDashVoting}}
+				{{> AdminDashStats}}
+				{{#if currentUserIsSuperAdmin}}
+						{{> AdminDashCommunities}}
+				{{/if}}
+			</div>
+
+		</div>
+		-->
 	{{/if}}
+</template>
+<template name="AdminDashFooter">
+	<footer class="admin__footer">
+	</footer>
+</template>
+<template name="DashBasic">
+	<div class="dashboard__item">
+		<div class="card">
+			<strong>41</strong> Foobars
+		</div>
+	</div>
+	<div class="dashboard__item">
+		<div class="card">
+			<strong>81.712</strong> Doohickeys
+		</div>
+	</div>
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			<img src="https://imgs.xkcd.com/comics/voting_software.png" alt="" />
+		</div>
+	</div>
+	<div class="dashboard__item dashboard__item--col">
+		<div class="card">A</div>
+	</div>
+	<div class="dashboard__item dashboard__item--col">
+		<div class="card">B</div>
+	</div>
+	<div class="dashboard__item dashboard__item--col">
+		<div class="card">C</div>
+	</div>
+	<div class="dashboard__item dashboard__item--col">
+		<div class="card">D</div>
+	</div>
+	<p>read more about this in <a href="https://mxb.at/blog/css-grid-admin-dashboard/">this blogpost</a>.</p>
+</template>
+
+<template name="AdminDashHeader">
+	<header class="admin__header">
+		<a href="#" class="logo">
+			<strong>Admin Dash</strong>
+		</a>
+	</header>
+	<nav class="admin__nav">
+		<ul class="menu">
+			<li class="menu__item">
+				<a class="menu__link" href="#Overview" data-template="Overview">Dashboard</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#AdminUsers" data-template="AdminUsers">Users</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#AdminApprovals" data-template="AdminApprovals">Requests</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#AdminProposals" data-template="AdminProposals">Proposals</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#AdminLabels" data-template="AdminLabels">Labels</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#AdminTags" data-template="AdminTags">Tags</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="#AdminVoting" data-template="AdminVoting">Votes</a>
+			</li>
+			<!--
+			<li class="menu__item">
+				<a class="menu__link" href="#ProposalStats" data-template="ProposalStats">Stats</a>
+			</li>
+			-->
+			<li class="menu__item">
+				<a class="menu__link" href="#AdminSettings" data-template="AdminSettings">Settings</a>
+			</li>
+			{{#if currentUserIsSuperAdmin}}
+				<li class="menu__item">
+					<a class="menu__link" href="#AdminCommunities" data-template="AdminCommunities">Super Admin</a>
+				</li>
+			{{/if}}
+		</ul>
+	</nav>
 </template>
 
 <template name="AdminDashUsers">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.users.heading"}}</h2>
 	  </div>
@@ -39,7 +143,7 @@
 </template>
 
 <template name="AdminDashTags">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.tags.heading"}}</h2>
 	  </div>
@@ -59,8 +163,29 @@
 	</div>
 </template>
 
+<template name="AdminDashLabels">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.labels.heading"}}</h2>
+	  </div>
+	  <div class="dash-card-text mdl-card__supporting-text">
+	    {{_"admin.dash.card.labels.text"}}
+	  </div>
+	  <div class="mdl-card__actions mdl-card--border">
+	    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/admin/labels">
+	      {{_"admin.dash.card.labels.link"}}
+	    </a>
+	  </div>
+	  <div class="mdl-card__menu">
+	    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+	      <i class="material-icons">loyalty</i>
+	    </button>
+	  </div>
+	</div>
+</template>
+
 <template name="AdminDashApprovals">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.approvals.heading"}}</h2>
 	  </div>
@@ -81,7 +206,7 @@
 </template>
 
 <template name="AdminDashProposals">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.proposals.heading"}}</h2>
 	  </div>
@@ -102,7 +227,7 @@
 </template>
 
 <template name="AdminDashVoting">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.voting.heading"}}</h2>
 	  </div>
@@ -123,7 +248,7 @@
 </template>
 
 <template name="AdminDashStats">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.stats.heading"}}</h2>
 	  </div>
@@ -144,7 +269,7 @@
 </template>
 
 <template name="AdminDashCommunities">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
 		<div class="mdl-card__title">
 	    <h2 class="mdl-card__title-text">{{_"admin.dash.card.communities.heading"}}</h2>
 	  </div>

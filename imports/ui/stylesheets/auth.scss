@@ -1,5 +1,10 @@
 @import 'variables.scss';
 
+.auth-tab-bar {
+  max-width: 25rem;
+  margin: 0 auto;
+}
+
 .auth-wrap {
   max-width: 25rem;
 
@@ -39,7 +44,9 @@
 #login-google {
   background-color: #d34836;
 }
-
-#terms-checkbox-label {
-  display: flex;
+.terms-checkbox-group{
+  margin-bottom: 10px;
+}
+.terms-checkbox-label {
+  font-size: $xsmall-font-size;
 }

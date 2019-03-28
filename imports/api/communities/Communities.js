@@ -4,6 +4,31 @@ import { Tracker } from 'meteor/tracker';
 
 export const Communities = new Meteor.Collection('communities');
 
+FAQs = new SimpleSchema({
+  _id: {
+    type: String,
+    optional: false
+  },
+  lang: {
+    type: String,
+    optional: true,
+    allowedValues: ['en','ja','se','cy'],
+    defaultValue: 'en'
+  },
+  question: {
+    type: String,
+    optional: true,
+  },
+  answer: {
+    type: String,
+    optional: true,
+  },
+  userId: {
+    type: String,
+    optional: false
+  }
+});
+
 CommunitySettings = new SimpleSchema({
     /*
         These settings include all customisable options
@@ -11,10 +36,14 @@ CommunitySettings = new SimpleSchema({
     colorScheme: {
         type: String,
         optional: true,
-        allowedValues: ['default', 'greyscale'],
+        allowedValues: ['default', 'greyscale','syntropi'],
         defaultValue: 'default'
     },
     logoUrl: {
+        type: String,
+        optional: true,
+    },
+    faviconUrl: {
         type: String,
         optional: true,
     },
@@ -66,6 +95,28 @@ CommunitySettings = new SimpleSchema({
       optional: false,
       defaultValue: false
     },
+    showDates: {
+      type: Boolean,
+      optional: false,
+      defaultValue: true
+    },
+    defaultStartDate: {
+      type: Date,
+      optional: true
+    },
+    defaultEndDate: {
+      type: Date,
+      optional: true
+    },
+    delegateLimit: {
+      type: Number,
+      optional: true
+    },
+    collaboratorLimit: {
+      type: Number,
+      optional: true
+    }
+
 });
 
 Community = new SimpleSchema({
@@ -89,6 +140,14 @@ Community = new SimpleSchema({
     settings: {
         type: CommunitySettings,
         optional: true
+    },
+    faqs: {
+        type: Array,
+        optional: true,
+    },
+    'faqs.$': {
+        type: FAQs,
+        optional: true,
     }
 });
 Communities.attachSchema(Community);
@@ -116,5 +175,3 @@ Communities.deny({
     return true;
   },
 });
-
-

@@ -1,0 +1,44 @@
+<template name="ProfileSettings">
+  <div class="settings-wrapper">
+    <header class="header">
+      {{> ProfileHeader editable=true userId=thisUser}}
+    </header>
+    <div class="column-container app-container">
+      <!-- Profile Card -->
+      <aside class="aside aside-1">
+        <nav class="">
+      		<ul class="settings-menu">
+      			<li class="settings-menu__item">
+      				<a class="settings-menu__link side-menu" href="#profile" data-template="" id="showProfile">{{_ "pages.settings.profile.nav.profile"}}</a>
+      			</li>
+            <li class="settings-menu__item">
+      				<a class="settings-menu__link side-menu" href="#profile-settings" data-template="" id="showProfileSettings">{{_ "pages.settings.profile.nav.settings"}}</a>
+      			</li>
+            <li class="settings-menu__item">
+      				<a class="settings-menu__link" href="#interests" data-template="" id="showInterests">{{_ "pages.settings.profile.nav.interests"}}</a>
+      			</li>
+            {{#if delegatesEnabled}}
+              <li class="settings-menu__item">
+        				<a class="settings-menu__link" href="#delegates" data-template="" id="showDelegates">{{_ "pages.settings.profile.nav.delegates"}}</a>
+        			</li>
+            {{/if}}
+      		</ul>
+      	</nav>
+      </aside>
+      <article class="main" id="profile-main">
+        {{#if showProfile}}
+          {{>ProfileForm}}
+        {{/if}}
+        {{#if showProfileSettings}}
+          {{> ProfileSettingsForm}}
+        {{/if}}
+        {{#if showInterests}}
+          {{> Interests}}
+        {{/if}}
+        {{#if showDelegates}}
+          {{> Delegate}}
+        {{/if}}
+      </article>
+    </div>
+  </div>
+</template>

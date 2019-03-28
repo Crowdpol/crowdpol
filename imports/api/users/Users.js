@@ -124,18 +124,6 @@ Schema.UserProfile = new SimpleSchema({
         optional: true,
     },
     "tags.$": {
-        type: Object,
-        optional: true
-    },
-    "tags.$.keyword": {
-        type: String,
-        optional: true
-    },
-    "tags.$._id": {
-        type: String,
-        optional: true
-    },
-    "tags.$.url": {
         type: String,
         optional: true
     },
@@ -158,7 +146,28 @@ Schema.UserProfile = new SimpleSchema({
     termsAccepted: {
         type: Boolean,
         optional: false
-    }
+    },
+    hasCover: {
+      type: Boolean,
+      optional: false,
+      autoValue() {
+        if (this.isInsert) {
+          return false;
+        }
+      },
+    },
+    coverURL: {
+      type: String,
+      optional: true
+    },
+    following: {
+        type: Array,
+        optional: true,
+    },
+    "following.$": {
+        type: String,
+        optional: true
+    },
     /*
     birthday: {
         type: Date,
@@ -224,6 +233,15 @@ Schema.User = new SimpleSchema({
         autoValue() {
           if (this.isInsert) {
             return new Date();
+          }
+        },
+    },
+    isDisabled: {
+        type: Boolean,
+        optional: true,
+        autoValue() {
+          if (this.isInsert) {
+            return false;
           }
         },
     },
@@ -315,6 +333,3 @@ Meteor.users.deny({
     return true;
   },
 });
-
-
-

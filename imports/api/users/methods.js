@@ -4,34 +4,42 @@ import { Ranks } from '../ranking/Ranks.js'
 import { Notifications } from '../notifications/Notifications.js'
 
 Meteor.methods({
-
+    checkIfUserExists: function (email,communityId) {
+      let user = Accounts.findUserByEmail(email);
+      if (typeof user === 'undefined' || user === null) {
+          return false;// variable is undefined or null
+      }else{
+        Meteor.users.update({_id: user._id}, {$push: {'profile.communityIds': communityId} });
+        return true;
+      }
+    },
     addUser: function (newUser) {
-      //console.log("method addUser called");
       userId = Accounts.createUser(newUser);
       return userId;
     },
     isPublic: function (userId) {
       check(userID, String);
       user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1}});;
-      //console.log("isPublic: " + user.isPublic);
       return user.isPublic;
     },
     getUser: function (userID) {
-      //console.log("method getUser called");
       check(userID, String);
       const users = Meteor.users.find({_id: userID}).fetch();
         return users[0];
     },
     deleteUser: function (userID) {
-      //console.log("method deleteUser called");
       check(userID, String);
+      //TODO: Delete all user's content
       Meteor.users.remove({_id:userID});
     },
+    toggleAccount: function (userID,isDisabled) {
+      check(userID, String);
+      check(isDisabled, Boolean);
+      Meteor.users.update({_id: userID}, {$set: {"isDisabled": isDisabled}});
+    },
     getProfile: function (userID) {
-      //console.log("method getUserProfile called: " + userID);
       check(userID, String);
       const users = Meteor.users.find({_id: userID},{fields: {profile: 1, isPublic:1}}).fetch();
-      //console.log(users);
       return users[0];
     },
     getUserTags: function(userID) {
@@ -82,6 +90,22 @@ Meteor.methods({
       check(userID, String);
       Meteor.users.update({_id: userID}, {$set: {"approvals": []}});
     },
+    toggleAdmin: function(userId,state){
+      check(userId, String);
+      if(state){
+        Roles.addUsersToRoles(userId, 'admin');
+      }else{
+        Roles.removeUsersFromRoles(userId, 'admin');
+      }
+    },
+    toggleDelegate: function(userId,state){
+      check(userId, String);
+      if(state){
+        Roles.addUsersToRoles(userId, 'delegate');
+      }else{
+        Roles.removeUsersFromRoles(userId, 'delegate');
+      }
+    },
     approveUser: function(userID, requestId, status){
       check(userID, String);
       check(requestId, String);
@@ -122,12 +146,12 @@ Meteor.methods({
       //don't create request unless profile is complete
       if (profileIsComplete(Meteor.user())) {
         //check if this user already has an approval of this type
-        //users should only ever have one approval per 
+        //users should only ever have one approval per
         var existingApprovalCount = Meteor.users.find({$and:[{_id: userId},{'approvals.type': type}]}).count();
-        if (existingApprovalCount > 0){ 
+        if (existingApprovalCount > 0){
           //an approval request of this type already exists - remove it.
           Meteor.users.update({_id: userId}, {$pull: {approvals: {type: type}} });
-        } 
+        }
         //get current user approvalRequests
         var currentApprovals = Meteor.user().approvals;
         //add to existing array before update, or else it just replaces what is already there
@@ -140,10 +164,14 @@ Meteor.methods({
         });
         Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
       } else {
-        console.log("profileIsComplete() has failed");
         throw new Meteor.Error(422, TAPi18n.__('pages.profile.alerts.profile-incomplete'));
       }
-      
+
+    },
+    removeRequest: function (userId, type) {
+      check(userId, String);
+      check(type, String);
+      Meteor.users.update({_id: Meteor.userId()},{$pull: {approvals: {status: 'Requested',type: type}}});
     },
     toggleRole: function (role,state) {
       check(role, String);
@@ -169,11 +197,11 @@ Meteor.methods({
           var notifications = []
           if (supporterIds){
             _.each(supporterIds, function(id){
-              var notification = 
+              var notification =
               notifications.push({
-                message: TAPi18n.__('notifications.users.delegate-deselect', delegateName), 
-                userId: id, 
-                url: '/delegate', 
+                message: TAPi18n.__('notifications.users.delegate-deselect', delegateName),
+                userId: id,
+                url: '/delegate',
                 icon: 'warning',
                 read: false,
                 createdAt: new Date()
@@ -182,7 +210,7 @@ Meteor.methods({
             // Batch insert notifications
             Notifications.batchInsert(notifications);
           }
-          
+
           // Remove delegate from user rankings
           Ranks.remove({entityId: delegateId});
         }
@@ -218,11 +246,11 @@ Meteor.methods({
         { $sort : { "approvals.createdAt": -1} },
         {
           $project: {
-            "_id": 0, 
+            "_id": 0,
             "status": "$approvals.status",
           }
         },
-        
+
         { $limit : 1 }
       ]);
       if(result.length>0){
@@ -272,19 +300,29 @@ Meteor.methods({
 
       return false;
     },
+    addFollower: function(userId,followId) {
+      check(userId, String);
+      check(followId, String);
+      Meteor.users.update({_id: userId}, {$push: {'profile.following': followId} });
+    },
+    removeFollower: function(userId,followId) {
+      check(userId, String);
+      check(followId, String);
+      Meteor.users.update({_id: userId}, {$pull: {'profile.following': followId} });
+    },
     addTagToProfile: function(userId, tag) {
       check(userId, String);
       check(tag, {
-        keyword: String, 
-        url: String, 
+        keyword: String,
+        url: String,
         _id: String });
       Meteor.users.update({_id: userId}, {$push: {'profile.tags': tag} });
     },
     removeTagFromProfile: function(userId, tag) {
       check(userId, String);
       check(tag, {
-        keyword: String, 
-        url: String, 
+        keyword: String,
+        url: String,
         _id: String });
       Meteor.users.update({_id: userId}, {$pull: {'profile.tags': tag} });
     },
@@ -314,7 +352,7 @@ Meteor.methods({
             if (error) {
               RavenClient.captureException(error);
               Bert.alert(error.reason, 'danger')
-            } else { 
+            } else {
                 Bert.alert(TAPi18n.__('pages.authenticate.recover-password.alerts.reset-password-sent-message'), 'success')
             }
         });
@@ -323,32 +361,62 @@ Meteor.methods({
 });
 
 function profileIsComplete(user){
-  var profile = {
-    username: user.profile.username,
-    firstName: user.profile.firstName,
-    lastName: user.profile.lastName,
-    photo: user.profile.photo,
-    bio: user.profile.bio,
-    website: user.profile.website,
-    tags: user.profile.tags
-  };
+  //console.log("user.profile.type: " + user.profile.type);
+  if(typeof user.profile.type == 'undefined'){
+    var profile = {
+      username: user.profile.username,
+      firstName: user.profile.firstName,
+      lastName: user.profile.lastName,
+      photo: user.profile.photo,
+      bio: user.profile.bio,
+      website: user.profile.website,
+      //tags: user.profile.tags
+    };
+  }else{
+    if(user.profile.type == 'Individual'){
+      var profile = {
+        username: user.profile.username,
+        firstName: user.profile.firstName,
+        lastName: user.profile.lastName,
+        photo: user.profile.photo,
+        bio: user.profile.bio,
+        website: user.profile.website,
+        //tags: user.profile.tags
+      };
+    }else{
+      var profile = {
+        username: user.profile.username,
+        firstName: user.profile.firstName,
+        photo: user.profile.photo,
+        bio: user.profile.bio,
+        website: user.profile.website,
+        phoneNumber: user.profile.phoneNumber,
+        contactPerson: user.profile.contactPerson
+        //credentials: template.templateDictionary.get('credentials'),
+        //type: template.type.get(),
+      }
+    }
+  }
+
   var isComplete = true;
   var profileFields = _.keys(profile);
   public = profile;
-  if (!profile.tags || profile.tags.length < 5){
-    isComplete = false;
-  } else {
+  //if (!profile.tags || profile.tags.length < 5){
+  //  isComplete = false;
+  //} else {
     _.map(profileFields, function(field){
       if (profile[field]){
+        //console.log("profile[field]: " + profile[field]);
         if (profile[field].length == 0) {
+          //console.log("profile[field]: " + profile[field] + " is breaking this.");
           isComplete = false;
         }
       } else {
+        //console.log("!profile[field]: " + profile[field]);
         isComplete = false;
       }
     });
-  }
+  //}
+  //console.log("isComplete: " + isComplete)
   return isComplete;
 }
-
-

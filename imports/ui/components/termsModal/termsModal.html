@@ -1,23 +1,24 @@
 <template name="TermsModal">
   <div id="overlay"></div>
 
-  
+
 <div class="terms-modal">
 
   <form class='content-wrapper'>
-    <div id="modal-header">
+    <div class='modal-header' id="modal-header">
       <h3>{{_ "components.termsModal.heading"}}</h3>
     </div>
 
     <div class="content">
-
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lobortis vel elit semper lobortis. Phasellus in laoreet dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit enim non urna iaculis faucibus sed ac leo. Sed vitae vestibulum lacus, quis laoreet est. Morbi rutrum venenatis sodales. Donec sit amet aliquet metus. Sed molestie eros tincidunt convallis aliquet. Proin viverra, lectus sed pharetra imperdiet, erat est cursus mi, ac maximus velit turpis sed ex. Ut orci ante, maximus a mauris a, mollis consectetur purus. Sed nec justo tellus. Nulla facilisi. Praesent lectus leo, ornare sit amet semper vitae, consectetur accumsan turpis. Integer luctus molestie ipsum et imperdiet.
+      <p class="paragraph">
+        {{{_ "components.termsModal.body"}}}
       </p>
-      
     </div>
 
     <div class="btn-wrapper">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="decline-button">
+        {{_ "components.termsModal.decline"}}
+      </button>
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="accept-button">
         {{_ "components.termsModal.accept"}}
       </button>

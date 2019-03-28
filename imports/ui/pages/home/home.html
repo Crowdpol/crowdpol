@@ -1,5 +1,6 @@
 <template name="Home">
 	{{#if Template.subscriptionsReady}}
+	<div class="gradient-wrap">
 		<div class="banner-wrap" style="background-image: {{ backgroundImage }}">
 			<h1 id="homepage-heading">{{ heading }}</h1>
 			<p id="homepage-intro">{{ introText }}</p>
@@ -45,6 +46,7 @@
 		<div class="bottom-banner">
 			<h2 id="homepage-banner-text">{{ bannerText }}</h2>
 		</div>
+	</div>
 	{{else}}
 		{{> loader}}
 	{{/if}}

@@ -9,6 +9,10 @@ import '../../api/users/server/publications.js';
 import '../../api/tags/methods.js';
 import '../../api/tags/server/publications.js';
 
+import '../../api/labels/methods.js';
+import '../../api/labels/server/publications.js';
+
+
 import '../../api/proposals/methods.js';
 import '../../api/proposals/server/publications.js';
 
@@ -36,5 +40,8 @@ import '../../api/communities/server/publications.js';
 import '../../api/flags/methods.js';
 import '../../api/flags/server/publications.js';
 
+import '../../api/posts/methods.js';
+import '../../api/posts/server/publications.js';
 
-
+import '../../api/likes/methods.js';
+import '../../api/likes/server/publications.js';

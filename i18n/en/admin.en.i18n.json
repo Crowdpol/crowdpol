@@ -2,6 +2,7 @@
 	"admin":{
 		"dash":{
 			"heading" : "Admin Dashboard",
+			"sub-heading" : "SuperAdmin Dash",
 			"card": {
 				"users": {
 					"heading": "Users",
@@ -14,7 +15,7 @@
 					"link": "Manage Tags"
 				},
 				"approvals": {
-					"heading": "Approvals",
+					"heading": "Requests",
 					"text": "Approve or reject user requests to be delegates, organisations or political parties.",
 					"link": "Manage Approvals"
 				},
@@ -72,7 +73,8 @@
 			"title": "Title",
 			"none-waiting": "There are no new proposals awaiting approval.",
 			"approve-button": "Approve",
-			"reject-button": "Reject"
+			"reject-button": "Reject",
+			"preview": "Preview"
 		},
 		"voting":{
 			"heading": "Voting",
@@ -96,6 +98,25 @@
 			"add-button": "Add",
 			"delete-button": "Delete",
 			"none-waiting": "There are currently no pending proposals."
+		},
+		"labels":{
+			"heading": "Label Details",
+			"parents-instructions": "Select the parent labels from the tree structure on the left",
+			"parents": "Parents",
+			"edit-button": "Edit",
+			"add-button": "Add",
+			"cancel-button": "Cancel",
+			"save-button": "Save",
+			"delete-button": "Delete",
+			"keyword": "Keyword",
+			"desc": "Description",
+			"created": "Date created",
+			"delete": "Delete",
+			"alerts": {
+				"label-updated": "Label Updated",
+				"label-added": "Label Added",
+				"label-deleted": "Label Deleted"
+			}
 		},
 		"approvals": {
 			"heading": "Approvals",

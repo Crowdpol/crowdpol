@@ -20,3 +20,42 @@ export const convertToSlug = (text) => {
   }
   return undefined;
 };
+
+//first Letter Caps aka Title Case
+export const titleCase = (string) => {
+  var splitStr = string.toLowerCase().split(' ');
+   for (var i = 0; i < splitStr.length; i++) {
+       // You do not need to check if i is larger than splitStr length, as your for does that for you
+       // Assign it back to the array
+       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+   }
+   // Directly return the joined string
+   return splitStr.join(' ');
+}
+
+//IntroJs tutorial guide
+export const walkThrough = (steps) => {
+  var intro = introJs();
+  intro.setOptions({
+    steps: steps
+  });
+  intro.start();
+}
+
+export const timeRemaining = (finalDate) => {
+    var eventdate = moment(finalDate);
+    var todaysdate = moment();
+    return eventdate.diff(todaysdate, 'days');
+}
+
+export const daysRemaining = (finalDate) => {
+    var eventdate = moment(finalDate);
+    var todaysdate = moment();
+    return eventdate.diff(todaysdate, 'days');
+}
+
+//function to check if object has key
+export const hasOwnProperty = (obj,prop) => {
+  var proto = obj.__proto__ || obj.constructor.prototype;
+  return (prop in obj) && (!(prop in proto) || proto[prop] !== obj[prop]);
+};

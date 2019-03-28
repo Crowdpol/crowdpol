@@ -11,6 +11,7 @@ Meteor.publish('proposals.one', function(id) {
 
 //Proposals that are live and open to the public
 Meteor.publish('proposals.public', function(search, communityId) {
+	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
 	query.stage = 'live';
 	return Proposals.find(query);
@@ -18,6 +19,7 @@ Meteor.publish('proposals.public', function(search, communityId) {
 
 //Proposals that are live and open to the public
 Meteor.publish('proposals.public.stats', function(search, communityId) {
+	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
 	query.stage = 'live';
 	//return Proposals.find(query);
@@ -28,10 +30,7 @@ Meteor.publish('proposals.public.stats', function(search, communityId) {
 	        .forEach(function(proposal) {
 	            individualVotes = Meteor.call('getProposalIndividualVotes', proposal._id);
 	            delegateVotes = Meteor.call('getProposalDelegateVotes', proposal._id);
-	           	//console.log(proposal._id);
-	            //console.log(individualVotes);
-	            //console.log(delegateVotes);
-	            
+
 	            proposal["individualVotes"] = yesNoResults(individualVotes[0]);
 	            proposal["delegateVotes"] = yesNoResults(delegateVotes[0]);
 	            self.added("proposals", proposal._id, proposal);
@@ -41,6 +40,8 @@ Meteor.publish('proposals.public.stats', function(search, communityId) {
 
 //Proposals that the user authored
 Meteor.publish('proposals.author', function(search, communityId) {
+	check(search, Match.OneOf(String, null, undefined));
+	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
 	query.authorId = this.userId;
 	return Proposals.find(query);
@@ -48,6 +49,7 @@ Meteor.publish('proposals.author', function(search, communityId) {
 
 //Proposals that the user is invited to collaborate on
 Meteor.publish('proposals.invited', function(search, communityId) {
+	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
 	query.invited = this.userId;
 	return Proposals.find(query);
@@ -61,33 +63,39 @@ Meteor.publish('proposals.withTag', function (keyword, communityId) {
 });
 
 function generateSearchQuery(searchTerm, communityId){
-	check(searchTerm, Match.OneOf(String, null, undefined));
-	check(communityId, String);
-	let query = {}
-	query.communityId = communityId;
+	if(typeof communityId != 'undefined'){
+		check(searchTerm, Match.OneOf(String, null, undefined));
+		check(communityId, String);
+		let query = {}
+		query.communityId = communityId;
 
-	if (searchTerm) {
-		let regex = new RegExp(searchTerm, 'i');
+		if (searchTerm) {
+			let regex = new RegExp(searchTerm, 'i');
 
-		query = {
-			$and: [
-			{
-				communityId: communityId
-			},
-			{$or: [
-				{ 'content.title': regex },
-				{ 'content.abstract': regex },
-				{ 'content.body': regex }
-				]}
-			]
-			
-			};
+			query = {
+				$and: [
+				{
+					communityId: communityId
+				},
+				{$or: [
+					{ 'content.title': regex },
+					{ 'content.abstract': regex },
+					{ 'content.body': regex }
+					]}
+				]
+
+				};
+		}
+		return query;
+	}else{
+		throw new Meteor.Error(422, 'Could not find community ID');
 	}
-	return query;
+	return;
+
 }
 function yesNoResults(theseVotes){
 	var total = theseVotes.yesCount + theseVotes.noCount;
-	result = { 
+	result = {
 		"totalVotes":total,
 		"yesCount":theseVotes.yesCount,
 		"noCount":theseVotes.noCount,

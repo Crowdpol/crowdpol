@@ -33,26 +33,23 @@ if (Meteor.isServer) {
     afterEach(()=>{
       sinon.restore(Meteor, 'user');
     });
-    
+
     it("Lets user comment", (done) => {
       try {
         expect(testCommentId).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
 
     it("Get comment", (done) => {
       try {
-        console.log(testCommentId)
         var testComment = Meteor.call('getComment', testCommentId);
         expect(testComment).to.exist;
         expect(testComment.message).to.equal('test comment');
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -64,7 +61,6 @@ if (Meteor.isServer) {
         expect(testComment).to.not.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });

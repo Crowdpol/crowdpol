@@ -13,10 +13,10 @@ Meteor.methods({
     if (!user)
       throw new Meteor.Error(401, "You need to login to vote");
     if (!voteData.vote)
-      throw new Meteor.Error(422, 'Please vote yes or no');
+      throw new Meteor.Error(422, 'Please vote yes, no or abstain');
     if (!proposal)
       throw new Meteor.Error(422, 'You must vote on a proposal');
-   
+
     var salt = user.username;
     var voterHash = CryptoJS.SHA256(user._id + salt).toString(CryptoJS.enc.SHA256);
 
@@ -26,7 +26,8 @@ Meteor.methods({
         delegateId: voteData.delegateId,
         voterHash: voterHash
       }
-  
+    console.log(Meteor.userId());
+    console.log(vote);
     //if the user has already voted for that proposal, update their vote
     var existingVote = Votes.findOne({proposalId: vote.proposalId, voterHash: voterHash});
     if (existingVote){
@@ -36,9 +37,16 @@ Meteor.methods({
       return Votes.insert(vote);
     }
   },
-  deleteVote: function(voteId) {
-    check(voteId, String);
-    Votes.remove(voteId);
+  deleteVote: function(voteData) {
+    //console.log(voteData);
+
+    check(voteData, { vote: String, proposalId: String});
+    let userId = Meteor.userId();
+    var salt = Meteor.users.findOne({_id: userId}).username;
+    var voterHash = CryptoJS.SHA256(userId + salt).toString(CryptoJS.enc.SHA256);
+    if(userId){
+      Votes.remove({"proposalId" :voteData.proposalId,"voterHash":voterHash,"vote":voteData.vote});
+    }
   },
   getVote: function(voteId){
     check(voteId, String);
@@ -66,10 +74,14 @@ Meteor.methods({
                 "$sum": {
                     $cond: [ { $eq: [ "$vote", "no" ] }, 1, 0 ]
                 }
+            },
+            "abstainCount": {
+                "$sum": {
+                    $cond: [ { $eq: [ "$vote", "abstain" ] }, 1, 0 ]
+                }
             }
         }},
     ]);
-    //console.log(results);
     return results;
   },
 });

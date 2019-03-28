@@ -10,7 +10,6 @@ Template.Authenticate.events({
 		Meteor.logout();
 	},
 	'click #login-facebook'(event) {
-		console.log("fb click");
 		event.preventDefault();
 		Meteor.loginWithFacebook({requestPermissions: ['public_profile', 'email']}, function(err){
 			if (err) {
@@ -43,6 +42,7 @@ Template.Authenticate.events({
 	      }
 	    });
 	},
+	/*,
 	'click #individual-login-link'(event) {
 		$("#indivdual-signup").hide();
 		$("#individual-login").show();
@@ -58,13 +58,44 @@ Template.Authenticate.events({
 	'click #entity-signup-link'(event) {
 		$("#entity-login").hide();
 		$("#entity-signup").show();
+	},
+	*/
+	'click .dropdown-item': function(event, template){
+		Session.set("termsAccepted",true);
+	  $('.terms-checkbox').prop('checked', true);
+		$('#entity-terms').prop('checked', true);
+		$('#individual-terms').prop('checked', true);
+		entity = event.target.dataset.val
+		template.find('#entity-type').dataset.val = entity;
+		template.find('#entity-type').value = TAPi18n.__('components.role-selector.' + entity);
+		switch (entity) {
+		    case 'party':
+		        $("#individual-signup-form").hide();
+		        $("#entity-signup-form").show();
+		        break;
+		    case 'organisation':
+		        $("#individual-signup-form").hide();
+		        $("#entity-signup-form").show();
+		        break;
+		    case 'individual':
+		    	$("#individual-signup-form").show();
+		        $("#entity-signup-form").hide();
+		        break;
+		    default:
+		        $("#individual-signup-form").show();
+		        $("#entity-signup-form").hide();
+		}
+	},
+	'click .terms-checkbox-label' (event, template) {
+		openTermsModal();
+	},
+	'click .terms-checkbox' (event, template) {
+		Session.set('termsAccepted',!Session.get('termsAccepted'));
+		console.log(document.querySelector('.terms-checkbox'));
+		document.querySelector('.terms-checkbox').checked = Session.get('termsAccepted');
 	}
 });
 
 Template.Authenticate.onRendered( function() {
-	if (Meteor.user()){
-		console.log("user signed in... redirect");
-	}else{
-		console.log("login page rendered");
-	}
+	Session.set('termsAccepted', true);
 });

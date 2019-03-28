@@ -14,7 +14,7 @@ Factory.define('user', Users)
 
 if (Meteor.isServer) {
   let testVote;
-  
+
   describe('Vote methods', () => {
     beforeEach(function () {
         // create a fake proposal
@@ -41,7 +41,6 @@ if (Meteor.isServer) {
         expect(voteId).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -52,7 +51,6 @@ if (Meteor.isServer) {
         expect(vote).to.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -65,7 +63,6 @@ if (Meteor.isServer) {
         expect(voteFor.vote).to.equal('yes');
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });
@@ -77,7 +74,6 @@ if (Meteor.isServer) {
         expect(vote).to.not.exist;
         done();
       } catch (err) {
-        console.log(err);
         assert.fail();
       }
     });

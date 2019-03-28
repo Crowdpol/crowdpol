@@ -38,9 +38,12 @@ Meteor.methods({
       return DelegateVotes.insert(vote);
     }
   },
-  deleteDelegateVote: function(voteId) {
-    check(voteId, String);
-    DelegateVotes.remove(voteId);
+  deleteVoteAsDelegate: function(voteData) {
+    check(voteData, { vote: String, proposalId: String});
+    let userId = Meteor.userId();
+    if(userId){
+      DelegateVotes.remove({"proposalId" :voteData.proposalId,"delegateId":userId,"vote":voteData.vote});
+    }
   },
   getProposalDelegateVotes: function(proposalId){
     check(proposalId, String);
@@ -60,7 +63,6 @@ Meteor.methods({
             }
         }},
     ]);
-    //console.log(results);
     return results;
   },
   getDelegateVote: function(voteId){
@@ -70,11 +72,12 @@ Meteor.methods({
   getDelegateVoteFor: function(proposalId, delegateId){
     check(proposalId, String);
     check(delegateId, String);
-    return DelegateVotes.findOne({proposalId: proposalId, delegateId: delegateId});
+    let delegateVotes = DelegateVotes.findOne({proposalId: proposalId, delegateId: delegateId});
+    return delegateVotes;
   },
   getDelegateVotes: function(proposalId, userId){
 
-    /* Returns the delegate votes for the current user's ranked delegates 
+    /* Returns the delegate votes for the current user's ranked delegates
     that voted for/against, sorted */
 
     if (!userId) {
@@ -101,28 +104,27 @@ Meteor.methods({
         $lookup:{
           from: "users",localField: "entityId",foreignField: "_id",as: "user_info"
         }
-      }, 
+      },
       {
-        $project: {ranking: 1, 
-          vote_info: 
+        $project: {ranking: 1,
+          vote_info:
           {
-            $filter: 
-            { 
-              input: "$vote_info", 
-              as: "single_vote", 
-              cond: { $eq: [ "$$single_vote.proposalId", proposalId ] } 
-            } 
+            $filter:
+            {
+              input: "$vote_info",
+              as: "single_vote",
+              cond: { $eq: [ "$$single_vote.proposalId", proposalId ] }
+            }
           },
           'user_info.profile.firstName':1, 'user_info.profile.lastName':1, 'user_info.profile.username':1, 'user_info.profile.photo':1, 'user_info._id':1}
       },
       {$sort: {ranking: 1}}
     ])
 
-    console.log('running')
     return thing
   },
   getUserDelegateVote: function(proposalId){
-    /* Returns null if the user has already voted, else returns the vote of the 
+    /* Returns null if the user has already voted, else returns the vote of the
     current user's first-ranked delegate for a given proposal */
 
     var userVote = Meteor.call('getUserVoteFor', proposalId, Meteor.userId());
@@ -147,6 +149,8 @@ Meteor.methods({
 
       if (rankedDelegates){
         for (i=0; i<rankedDelegates.length; i++){
+          //console.log("getUserDelegateInfoForProposal called");
+          //console.log(rankedDelegates[i])
           if (rankedDelegates[i]){
             voteInfo = rankedDelegates[i].vote_info[0]
           }
@@ -161,4 +165,3 @@ Meteor.methods({
   }
 
 });
-

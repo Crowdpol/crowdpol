@@ -1,14 +1,15 @@
 import "./tags.html";
 import { Proposals } from '../../../api/proposals/Proposals.js'
 
-Template.TagSearch.onCreated(function(){	   
+Template.TagSearch.onCreated(function(){
 	var self = this;
 	var keyword = FlowRouter.getParam('keyword');
 	var communityId = LocalStore.get('communityId');
+	Session.set('back',window.location.pathname);
 	self.autorun(function() {
 		Meteor.subscribe('proposals.public', '', communityId);
 		Meteor.subscribe('proposals.author', '', communityId);
-		Meteor.subscribe('proposals.invited', Meteor.userId(), '', communityId);
+		Meteor.subscribe('proposals.invited', '', communityId);
 		Meteor.subscribe('users.delegatesWithTag', keyword, communityId);
 		//Meteor.subscribe('users.candidatesWithTag', keyword, communityId);
 	});
@@ -24,15 +25,23 @@ Template.TagSearch.helpers({
 	},
 	delegates(){
 		var keyword = FlowRouter.getParam('keyword');
-		return Meteor.users.find({roles: 'delegate', 'profile.tags': { $elemMatch: {keyword: keyword}}});
+		delegates = Meteor.users.find({roles: 'delegate', 'profile.tags': { $elemMatch: {keyword: keyword}}});
+		if(delegates.count()){
+			return delegates;
+		}
+		return null;
 	},
 	proposals(){
 		var keyword = FlowRouter.getParam('keyword');
-		return Proposals.find({tags: { $elemMatch: {keyword: keyword}}}, {transform: transformProposal});
+		proposals = Proposals.find({tags: { $elemMatch: {keyword: keyword}}}, {transform: transformProposal});
+		if(proposals.count()){
+			return proposals;
+		}
+		return null;
 	}
 });
 
-function transformProposal(proposal) { 
+function transformProposal(proposal) {
   proposal.endDate = moment(proposal.endDate).format('YYYY-MM-DD');
   proposal.startDate = moment(proposal.startDate).format('YYYY-MM-DD');
   return proposal;

@@ -1,15 +1,37 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
 
+.mdl-layout__header .mdl-layout__drawer-button{
+  background-color: transparent;
+}
+.mdl-layout__header-delegate {
+  background-color: #ccc;
+}
 /* Make header sticky on desktop, but not on mobile */
 .mdl-layout__container .mdl-layout--fixed-header .mdl-layout__content {
-    overflow-y: visible;
-    overflow-x: visible;
-    overflow: visible;
+  overflow-y: visible;
+  overflow-x: visible;
+  overflow: visible;
+
   @include breakpoint($tablet) {
     overflow-y: inherit;
     overflow-x: inherit;
     overflow: inherit;
+  }
+}
+
+#header_nav-profile-image-header{
+  padding-right: 0px;
+  img{
+    height: 30px;
+    width: 30px;
+  }
+}
+#profile-dropdown{
+  padding: 0 0;
+
+  i{
+    padding: 0px;
   }
 }
 
@@ -22,6 +44,7 @@
     small {
       color: $blue;
       text-decoration: none;
+      padding: 0 10px;
     }
   }
 
@@ -57,6 +80,7 @@
     .autocomplete-item{
       padding: 0px;
       padding-left: 5px;
+
       &:hover {
         background: $light-blue-dark;
         cursor: pointer;
@@ -86,88 +110,67 @@
     visibility: hidden;
   }
 
-  #notifications-title{
-      background-color: $blue;
-      small {
-        color: white;
-      }
-
-      #mark-as-read {
-        color: white;
-        cursor: pointer;
-        font-size: $xsmall-font-size;
-      }
-    }
-
-  .notifications-list{
-    margin-top: 0px;
-    padding-top: 0px;
-  
-    .notification-time{
-      font-size: $xsmall-font-size;
-    }
-    .mdl-list__item-secondary-content {
-      margin-left: 0px;
-    }
-    
-    .notification-item{
-      border-bottom: 1px solid $light-grey-dark;
-      padding-top: 0 !important;
-      padding-bottom: 1.4rem !important;
-      cursor: pointer;
-      padding-top: $space/4;
-      padding-bottom: $space/4;
-
-      &.unread {
-        background: $light-grey-light;
-      }
-
-      &:hover {
-        background: $light-grey-mid;
-      }
-    }
-  }
-
 }
 
+.logged-in-header.delegate_header{
+  background-color: $delegate-color;
+}
 .mdl-layout__drawer-button i {
   color: $blue;
+}
+
+#language-menu{
+  padding: 0px;
+  min-width: 0px;
+  i{
+    padding: 0px;
+  }
+}
+
+#help-menu{
+  padding: 0px;
 }
 
 .logged-out-header {
   display: block;
   background-color: $white;
-  @media only screen and (max-width: 600px) {
-    
-    .header-inner {
-      nav {
-        display: none;
-      }
-    }
-    .mdl-layout-title{
-      text-indent: 50px;
-    }
-    
-  }
-  @media only screen and (min-width: 601px) {
-    .mdl-layout__drawer-button {
+
+  .header-inner {
+    nav {
       display: none;
     }
   }
+
+  .mdl-layout-title {
+    text-indent: 50px;
+  }
+
+  @include breakpoint($tablet) {
+    .mdl-layout__drawer-button {
+      display: none;
+    }
+
+    .header-inner nav {
+      display: flex;
+    }
+  }
+
   .header-inner {
     padding: 0 $space / 2;
-    font-color: $blue;
+    color: $blue;
+
     a {
       vertical-align: middle;
       font-family: $home-title-font;
       text-transform: uppercase;
       text-decoration: none;
-      font-color: $blue;
+      color: $blue;
     }
+
     .mdl-layout-title{
       font-size: $base-font-size * 1.35;
       line-height: $base-line-height;
-      font-color: $blue;
+      color: $blue;
     }
 
     i {
@@ -186,5 +189,3 @@
 
   }
 }
-
-

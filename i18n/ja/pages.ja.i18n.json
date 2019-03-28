@@ -1,0 +1,461 @@
+{
+	"pages": {
+		"roles":{
+			"voter": "JA: Voter",
+			"individual-delegate": "JA: Individual Delegate",
+			"organisation-delegate": "JA: Organisation Delegate",
+			"party-delegate": "JA: Party Delegate",
+			"candidate": "JA: Candidate"
+		},
+		"home": {
+			"heading": "JA: Common Democracy",
+			"intro-text": "JA: A liquid democracy platform for the Swedish Political system.",
+			"hero": {
+				"delegate": "JA: Delegate",
+				"propose": "JA: Propose",
+				"vote": "JA: Vote"
+			},
+			"newsletter-text": "JA: Get notified when the app is live.",
+			"banner-text": "JA: A new wave of democracy is coming to Sweden.",
+			"alerts": {
+				"mailing-list-signup-success": "JA: Thank you. You have been added to the mailing list.",
+				"no-image": "JA: The image for your community could not be loaded."
+			},
+			"get-started": "JA: Let's get started"
+		},
+		"about": {
+			"heading": "JA: What’s all this about then?",
+			"subtitle": "JA: The (r)evolution explained",
+			"section": {
+				"project": {
+					"heading": "JA: The project",
+					"paragraph-1": "JA: Democracy 2018 is an open project that invites all Swedish citizens to explore the potential of so called liquid democracy and use this platform to select the issues and proposals most important to them. The ten most popular proposals will be presented to the new parliament after the election in September 2018. The purpose is in part to test a modernized version of our democratic system, but also to encourage the population to learn more about the issues this election year as well as find out where the various political parties stand on them. Finally the goal is to inform the members of parliaments and other political elites of how a hopefully representative cross-section of the population feel about various topics, in an effort to create dialogue and trust.",
+    				"paragraph-2": "JA: The project opens on January first and concludes on September 15, Global Democracy Day, after which the results will be tallied and presented to the Minister of Democracy."
+				},
+				"liquid-democracy": {
+					"heading": "JA: Liquid Democracy",
+					"paragraph-1": "JA: Liquid democracy is a voting system that incorporates the benefit of representative democracy with the benefits of direct democracy, yet avoids the pitfalls of both. The system uses delegation, much like traditional delegation of the individual vote through electing a political party or representative, but with a few modernizing tweaks. Through liquid democracy it is possible not only to delegate to a political party but to any organisation or individual that signs up to the system as a delegate. This means that a party, organisation or individual can have political clout without actually holding political office. It is also quite possible for the voter to select several delegates, not merely a single party, and to unselect or change a delegate at any time. Thus the liquid like feature of the democratic system.",
+    				"paragraph-2": "JA: The role of the delegate is to vote on issues on the individuals behalf that he or she does not have time or inclination to delve deeper into, much like the role of the traditional political representative. Unlike the latter the delegate is in effect only an advisor to the individual voter, who must ultimately sign off on each issue. Herein lies the connection to direct democracy. The voter can at any time actively vote on any issue, which will automatically override any vote by a preselected delegate",
+    				"paragraph-3": "JA: The benefits are numerous. The system allows for a customized political platform with almost infinite possibilities as voters can potentially write and submit their own proposals to the scrutiny and potential support of their peers. Voters can also change their minds at any point in time if their selected delegates fall short of expectations, adding fluidity to the system. Delegates who do not live up to their promises will soon find they have lost much of their support, a powerful incentive against corruption. The immediacy of direct voting is tempered by the option of using delegation for more complex issues, avoiding the pitfall of uniformed decision making to a far greater degree than pure direct democracy can provide. The system of delegates allows for a far greater range of organisations and individuals to have direct influence over the political scene without having to hold office. Opening up completely new alleys of influence, provided they have sufficient support of the voting public. To name a few."
+				},
+				"how-it-works": {
+					"heading": "JA: How it works",
+					"paragraph-1": "JA: In our particular project the voter is first invited to join through a social media account or an email. Once the account is confirmed, the voter is presented with a number of political parties, organisations and individuals that act as delegates. The voter selects the delegates of her or his choice, and is then invited to rank them. A more highly ranked delegate will count before a less high one when the delegates voting preferences are calculated. The voter can however easily see which delegate voted in which way on each issue as all delegated votes are completely open.",
+    				"paragraph-2": "JA: Then the voter will be directed to the second step, which is to vote on the issues. The project will start with ten proposals, but will add on average two new proposals per week for the duration of the project. For practical purposes these proposals will be selected by an editorial board. Each proposal will be indicated with a supporting or a rejecting indication, depending on the choices of the selected delegates. The voter will then be invited to confirm the preselected vote, or to vote differently. The voter can change his or her vote, as well as delegates, as any time until the deadline at midnight of 15 September 2018, or the conclusion of this particular project.",
+    				"paragraph-3": "JA: Voters who wish to engage more can become members. Members will be able to write their own proposals, comment on each other’s proposals and vote for which proposals the editorial board should submit to the general public next.",
+    				"paragraph-4":"JA: Individuals and organisations can also register as delegates. This is free of charge but will require proof of identity, in the form of a national ID for individuals or an email address linked to the organisations official webpage."
+				},
+				"about-us": {
+					"heading": "JA: About Us",
+					"paragraph-1": "JA: Democracy 2018 is a project run in cooperation with Common Democracy Sweden and a number of local individuals, companies and organisations."
+				}
+			}
+		},
+		"terms": {
+			"heading": "JA: Terms & Conditions",
+			"subtitle": "JA: Coming soon..."
+		},
+		"privacy": {
+			"heading": "JA: Privacy Policy",
+			"subtitle": "JA: Coming soon..."
+		},
+		"authenticate":{
+			"login" : "JA: Login",
+			"signup": "JA: Sign up",
+			"logged-in-title": "JA: You are already logged in",
+			"logout": "JA: Log out",
+			"tab": {
+				"individual": "JA: Individuals",
+				"entities": "JA: Organisations/Political Parties",
+				"login":"JA: Login",
+				"signup":"JA: Sign Up"
+			},
+			"links": {
+				"login": "JA: Already have an account? Log in",
+				"register": "JA: Don't have an account? Sign up",
+				"forgot": "JA: Forgot your password?"
+			},
+			"individual": {
+				"register": {
+					"title": "JA: Signup"
+				},
+				"login": {
+					"title": "JA: Login",
+					"wrong-community": "JA: You can not log into this community."
+				}
+			},
+			"entity": {
+				"register": {
+					"title": "JA: Register as Organisation/Party"
+				},
+				"login": {
+					"title": "JA: Login as Organisation/Party"
+				}
+			},
+			"new-password":{
+				"heading": "JA: Enter new password",
+				"new-password": "JA: New password",
+				"alerts": {
+					"password-changed": "JA: Your password has been changed successfully."
+				}
+			},
+			"recover-password":{
+				"heading": "JA: Enter your email to receive instructions for resetting your password.",
+				"recovery-email": "JA: Recovery email",
+				"alerts": {
+					"reset-password-sent-message": "JA: An email with password recovery instructions has been sent."
+				}
+			}
+		},
+		"signup":{
+			"accept-terms": "JA: You must accept the terms of use.",
+			"not-in-whitelist" : "JA: Only whitelisted users can sign up for this community.",
+			"tab": {
+				"individual": "JA: Individuals",
+				"entities": "JA: Organisations/Political Parties"
+			},
+			"links": {
+				"login": "JA: Already have an account? Log in",
+				"register": "JA: Don't have an account? Register",
+				"forgot": "JA: Forgot your password?"
+			},
+			"individual": {
+				"register": {
+					"title": "JA: Signup"
+				},
+				"login": {
+					"title": "JA: Login"
+				}
+			},
+			"entity": {
+				"name": "JA: Name of Entity",
+				"website": "JA: Website",
+				"phone-number": "JA: Phone number",
+				"contact-person": "JA: Contact Person",
+				"type": "JA: Entity Type",
+				"register": {
+					"title": "JA: Signup",
+					"loginlink": "JA: Already have an account? Log in"
+				},
+				"login": {
+					"title": "JA: Login",
+					"signuplink": "JA: Don't have an account? Register"
+				}
+			}
+		},
+		"entitySignup":{
+			"type": "JA: Entity Type"
+		},
+		"contact":{
+			"heading": "JA: Contact Us",
+			"alerts": {
+				"contact-message-sent": "JA: Your contact message has been sent."
+			}
+		},
+		"dashboard": {
+			"heading" : "JA: Dashboard",
+			"card": {
+				"proposals": {
+					"heading": "JA: My Proposals",
+					"text": "JA: Your proposals",
+					"no-proposals": "JA: You haven't written any proposals yet.",
+					"draft-proposals": "JA: Draft proposals",
+					"closed-proposals": "JA: Closed proposals",
+					"open-proposals": "JA: Open proposals",
+					"new-proposal": "JA: Draft a new proposal",
+					"link": "JA: View"
+				},
+				"delegates": {
+					"heading": "JA: My Delegate",
+					"text": "JA: Select your delegates.",
+					"no-delegates": "JA: You have not selected any delegates",
+					"link": "JA: Delegate"
+				},
+				"candidates": {
+					"heading": "JA: Candidates",
+					"text": "JA: Select your candidates",
+					"link": "JA: Nominate"
+				},
+				"profile": {
+					"heading": "JA: My Profile",
+					"text": "JA: Profile status",
+					"link": "JA: Edit"
+				},
+				"interests": {
+					"heading": "JA: My Interests",
+					"text": "JA: Current interests",
+					"no-interests": "JA: You have not selected any interests yet",
+					"link": "JA: Select"
+				},
+				"vote": {
+					"heading": "JA: Vote on Proposals",
+					"text": "JA: Vote on Proposals and view results",
+					"open-proposals": "JA: Open proposals",
+					"closed-proposals": "JA: Closed proposals",
+					"vote-link": "JA: Vote now",
+					"view-link": "JA: View outcome"
+				}
+			},
+			"verify-account-message": "JA: Please verify your email address before continuing.",
+			"unapproved-entity-message": "JA: Your account has not yet been approved by an admin.",
+			"verify-resend-link": "JA: Resend Verification Link",
+			"verify-success-message": "JA: Verified! You can do things!",
+			"verify-success-alert": "JA: Verification successful.",
+			"authentication-required-message": "JA: You do not have access to this page. Please login or signup for an account.",
+			"alerts": {
+				"verification-email-sent": "JA: Verification sent to __email__"
+			}
+		},
+		"delegates": {
+			"heading": "JA: Delegates",
+			"search": "JA: Search for Delegates",
+			"instructions-1": "JA: Below is a list of users to whom you may delegate your vote.",
+			"instructions-2": "JA: If you do not vote on a proposal, your vote will automatically go to your highest-ranking delegate who voted. However, you can override your delegate's vote at any time.",
+			"instructions-3": "JA: You can select up to five delegates. You can reorder your list of chosen delegates by dragging and dropping them into place once you have selected them.",
+			"no-delegates": "JA: You have not selected any delegates",
+			"alerts": {
+				"delegate-limit": "JA: You have reached your delegate limit",
+				"ranking-updated": "JA: Delegate ranking updated"
+			},
+			"delegation-disabled":"JA: Delegation has been disabled by the administrator."
+		},
+		"candidates": {
+			"heading": "JA: Candidates",
+			"alerts": {
+				"candidate-limit": "JA: You can only have 5 candidates",
+				"ranking-updated": "JA: Candidate ranking updated"
+			}
+		},
+		"proposals": {
+			"list": {
+				"search": "JA: Search for keywords in proposals",
+				"deletedMessage": "JA: Your proposal has been deleted.",
+				"confirmDelete": "JA: Are you sure you want to permanently delete this proposal?",
+				"tabs":{
+					"allProposals": "JA: All Proposals",
+					"myProposals": "JA: My Proposals",
+					"writeProposals": "JA: Write Proposal",
+					"draftProposals": "JA: Draft Proposals",
+					"submittedProposals": "JA: Submitted Proposals"
+				},
+				"headings":{
+					"openProposals": "JA: Open Proposals",
+					"closedProposals": "JA: Closed Proposals",
+					"myProposals": "JA: My proposals",
+					"notMyProposals": "JA: Collaborative Proposals"
+				},
+				"cards":{
+					"expires": "JA: Expires",
+					"read": "JA: Read More",
+					"vote": "JA: and vote"
+				},
+				"openClosedSwitch": "JA: Open/Closed",
+				"approvedRejectedSwitch": "JA: Rejected/Approved",
+				"createdInvitedSwitch": "JA: Created/Invited",
+				"untitled": "JA: Untitled",
+				"untranslated": "JA: This proposal has not yet been translated.",
+				"no-proposals": "JA: No __status__ proposals are currently available.",
+				"your-proposals": "JA: You have no __status__ proposals.",
+				"create-link": "JA: Create one?"
+			},
+			"edit": {
+				"heading": "JA: Write your proposal",
+				"title": "JA: Give your proposal a descriptive title.",
+				"abstract": "JA: Summarise your proposal",
+				"body": "JA: Expand on your proposal. Provide as much detail as possible, and include links or references where appropriate.",
+				"forAndAgainst": "JA: Every proposal has its pros and cons. Add some brief arguments for and against your proposal by entering them into the fields below and clicking the button.",
+				"startDate": "JA: Start date for voting",
+				"endDate": "JA: Closing date for voting",
+				"confirm-back": "JA: Are you sure you want to go back? Any unsaved changes will be lost.",
+				"invited": "JA: Invite others to collaborate by entering their usernames. If not found, enter an email address.",
+				"tags": "JA: Add some tags your proposal:",
+				"pointFor": "JA: Points For:",
+				"pointAgainst": "JA: Points Against:",
+				"argument": "JA: Add an argument",
+				"alerts": {
+					"saving": "JA: Saving...",
+					"changes-saved": "JA: Changes Saved",
+					"proposal-created": "JA: Proposal Created",
+					"bad-email": "JA: Not a valid email format.",
+					"not-saved": "JA: Proposal not saved as there was no content",
+					"collaborator-limit-exceeded": "JA: Collaborator limit exceeded. (__limit__)"
+				}
+			},
+			"view":{
+				"signInModal": {
+					"header": "JA: Join the discussion",
+					"paragraph-1":"Want to vote on this proposal?",
+					"paragraph-2": "JA: Creating an account is simple, and will allow you to join others in writing proposals, voting and choosing delegates.",
+					"button": "JA: Sign Up"
+				},
+				"removeInviteModal": {
+					"header": "JA: Reject Invitation to Collaborate",
+					"paragraph-1": "JA: Are you sure you want to reject the invitation to colloborate on this proposal:",
+					"reason-input-label": "JA: Give a reason:",
+					"decline-button": "JA: Decline Invitation"
+				},
+				"inviteModal":{
+					"header":"JA: Selected Invites",
+					"paragraph-1":"JA: Are you sure you want to invite the following people to be co-authors on this proposal:",
+					"existing-table-heading":"JA: Existing users invited to collaborate:",
+					"email-table-heading":"JA: Existing users invited to collaborate:"
+				},
+				"signature-tooltip": "JA: Show support for this proposal by signing it.",
+				"confirmSubmit": "JA: Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
+				"voteCast": "JA: Your vote has been cast",
+				"editProposal": "JA: Edit Proposal",
+				"submitProposal": "JA: Submit Proposal",
+				"pointsFor": "JA: Points For:",
+				"pointsAgainst": "JA: Points Against:",
+				"noDelegatesFor": "JA: None of your delegates voted for this issue",
+				"noDelegatesAgainst": "JA: None of your delegates voted against this issue",
+				"proposalUnvailable": "JA: Sorry, this proposal is not yet visible to the public.",
+				"noDelegateReason": "JA: This delegate did not provide a reason for their voting choice.",
+				"addComment": "JA: Add a comment",
+				"updateComment": "JA: Update comment",
+				"voteHeading": "JA: Vote on this proposal",
+				"voteStarts": "JA: Starts:",
+				"voteEnds": "JA: Ends: ",
+				"inactive-vote-message": "JA: Voting on this proposal runs from __startDate__ to __endDate__",
+				"abstract": "JA: Summary",
+				"proposal": "JA: Proposal",
+				"yes": "JA: For",
+				"no": "JA: Against",
+				"abstain": "JA: Abstain",
+				"voteInstructions": "JA: Click the buttons below to cast your vote. If you do not vote, your vote will go to your highest-ranking delegate who has voted. However, you may override your delegate's vote at any point.",
+				"alerts": {
+					"linkToClipboardSuccess": "JA: Link copied to clipboard",
+					"linkToClipboardFailed": "JA: Link copied to clipboard",
+					"proposalSubmitted":"Proposal submitted for admin approval",
+					"proposalIncomplete": "JA: You must complete your proposal before submitting it.",
+					"commentPosted":"JA: Comment posted",
+					"commentUpdated": "JA: Comment Updated",
+					"commentDeleted": "JA: Comment Deleted",
+					"invitationRemoved": "JA: Invitation successfully declined"
+				},
+				"userNotFound":"User could not be found",
+				"anonymous": "JA: Anonymous",
+				"collaborators": "JA: Collaborators",
+				"author": "JA: Author",
+				"delegatesVoteHeading": "JA: How your delegates voted",
+				"delegatesFor": "JA: Delegates For:",
+				"delegatesAgainst": "JA: Delegates Against:",
+				"tooltips": {
+					"share": "JA: Copy a link to this proposal to your clipboard.",
+					"sign": "JA: Show your support by signing this proposal. Note that this does not constitute a vote."
+				},
+				"submit-comment": "JA: Submit comment",
+				"title-empty": "JA: Untitled Proposal",
+				"abstract-empty":"Abstract is empty",
+				"body-empty": "JA: Body is empty"
+			}
+		},
+		"tag-search":{
+			"heading": "JA: Tagged",
+			"no-delegates": "JA: There are no delegates with this tags.",
+			"no-proposals": "JA: There are no proposals with this tags.",
+			"tabs": {
+				"proposals": "JA: Proposals",
+				"delegates": "JA: Delegates",
+				"candidates": "JA: Candidates",
+				"proposals-heading": "JA: Proposals",
+				"delegates-heading": "JA: Delegates",
+				"candidates-heading": "JA: Candidates"
+			}
+		},
+		"voting": {
+			"heading": {
+				"delegate": "JA: Voting as Delegate",
+				"individual": "JA: Voting as an Individual",
+				"completed": "JA: Completed Voting"
+			},
+			"tabs":{
+				"voteProposals": "JA: Open for voting",
+				"completedProposals": "JA: Completed"
+			},
+			"description": "JA: The following proposals are all available to vote on. Click on a proposal to read more, or expand the proposal to see how your delegates voted, or to cast your own vote.",
+			"not-ready": "JA: The votes for this proposal have not yet been tallied. Results are updated every 24 hours.",
+			"no-open-proposals": "JA: There are currently no open proposals to vote on.",
+			"show-more": "JA: Show More",
+			"show-less": "JA: Show Less",
+			"delegate-description": "JA: Please note: You are now voting on behalf of users who have delegated their vote to you. Delegate votes are public.",
+			"individual-description": "JA: You are now voting on issues as you see fit. Should you not wish to vote on a particular issue, your highest ranking delegates vote will be counted in your favour. Individual votes are private.",
+			"completed-description": "JA: Review the results of the completed votes. Coming soon...",
+			"voting-card-heading": {
+				"delegate": "JA: Vote as a Delegate",
+				"individual": "JA: Cast your Individual vote"
+			},
+			"no-votes-used": "JA: No users voted on this proposal.",
+			"for": "JA: For:",
+			"against": "JA: Against:",
+			"expires": "JA: Voting closes",
+			"invited": "JA: Invited"
+		},
+		"profile": {
+			"profile-tags" : "Fill in at least five of your interests",
+			"heading": "JA: Profile",
+			"photo" : "Profile photo path",
+			"public" : "Public",
+			"private" : "Private Profile",
+			"delegate" : "Delegate",
+			"candidate" : "Candidate",
+			"terms-accepted": "JA: I accept the Terms of Use",
+			"alerts": {
+				"invalid-url": "JA: Please enter a valid url, starting with 'http' or 'https'.",
+				"username": "JA: Username required.",
+				"username-min": "JA: Minimum of 3 characters",
+				"username-max": "JA: Maximum of 64 characters",
+				"username-unique": "JA: Username already exists.",
+				"profile-updated": "JA: Profile updated.",
+				"profile-private": "JA: Profile is now private.",
+				"profile-public": "JA: Profile is now public.",
+				"profile-delegate-removed" : "Delegate Role removed.",
+				"profile-stop-delegate": "JA: Are you sure you want to stop being a delegate? Users will no longer be able to delegate their votes to you.",
+				"profile-delegate-requested" : "Delegate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-candidate-removed" : "Candidate Role removed.",
+				"profile-candidate-requested" : "Candidate Role requested. You will be notified by email once your profile has been reviewed.",
+				"profile-incomplete" : "You can not apply to be a candidate or delegate if your profile is incomplete.",
+				"password-incorrect": "JA: Your existing password was incorrect, please try again",
+				"password-reset": "JA: Your password was successfully reset",
+				"profile-delegate-request-removed": "JA: Delegate request removed"
+			},
+			"tooltips": {
+				"delegateSwitch": "JA: Apply to be a delegate. This will allow other users to let you vote on their behalf.",
+				"publicSwitch": "JA: Make your profile visible to the public, or hide it. Your profile must be complete to be public."
+			},
+			"characters": "JA: characters",
+			"min": "JA: min",
+			"max": "JA: max",
+			"settings": "JA: Profile Settings",
+			"status": "JA: Profile status: __completedScore__/__totalScore__ completed.",
+			"completed": "JA: completed",
+			"interests": "JA: interests",
+			"public-switch-description": "JA: Make your profile visible to others. Requires completed profile form. Required become a delegate.",
+			"delegate-switch-description": "JA: By being a delegate you allow other users who trust you to ask you to vote on their behalf.",
+			"bio-count": "JA: __bioCount__ characters (min 50, max 520)",
+			"photo-url": "JA: Enter an image url",
+			"change-photo": "JA: Change profile photo URL",
+			"password-reset": "JA: Password reset",
+			"old-password" : "Old password",
+			"new-password": "JA: New password",
+			"confirm-password": "JA: Confirm password",
+			"reset": "JA: Reset",
+			"password-mismatch": "JA: Passwords do not match",
+			"profile-delegate-removed": "JA: Delegate request removed"
+		},
+		"routes": {
+			"alerts": {
+				"verify-success-alert-entity": "JA: Verification successful. Your account is pending approval by our admins.",
+				"login-to-view": "JA: You must log in to access that page.",
+				"no-subdomain": "JA: Please ensure that you've entered a valid URL."
+			}
+		},
+		"interests": {
+			"heading": "JA: My Interests",
+			"intro-text": "JA: Select some of your personal interests you would like to follow.",
+			"popular": "JA: Popular Tags"
+		}
+
+
+	}
+}

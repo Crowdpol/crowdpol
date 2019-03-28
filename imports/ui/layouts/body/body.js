@@ -3,6 +3,7 @@ import '../header/header.js'
 import '../drawer/drawer.js'
 import '../footer/footer.js'
 import './styles.css'
+import '../../../utils/intro.min.js'
 
 import { Communities } from '../../../api/communities/Communities.js'
 
@@ -25,13 +26,17 @@ Template.App_body.onCreated(function() {
       // Load Styles based on community settings
       var community = Communities.findOne({subdomain: subdomain});
       try {
-        if (community.settings.colorScheme == 'greyscale') {
-          import '../../stylesheets/color-schemes/greyscale.scss';
-        } else {
-          import '../../stylesheets/color-schemes/default.scss';
+        switch (community.settings.colorScheme) {
+          case 'greyscale':
+              import '../../stylesheets/color-schemes/greyscale.scss';
+              break;
+          case 'syntropi':
+              import '../../stylesheets/color-schemes/syntropi.scss';
+              break;
+          default:
+              import '../../stylesheets/color-schemes/default.scss';
         }
       } catch(err) {
-        console.log(err)
         import '../../stylesheets/color-schemes/default.scss';
         Bert.alert(TAPi18n.__('layout.body.no-styles'), 'danger');
       }
@@ -47,13 +52,19 @@ Template.App_body.helpers({
 
 Template.App_body.onRendered(function () {
   $('.mdl-layout__obfuscator-right').click(function(){
-    console.log("obfuscator");
-   if($('.mdl-layout__drawer-right').hasClass('active')){    
-      $('.mdl-layout__drawer-right').removeClass('active'); 
+   if($('.mdl-layout__drawer-right').hasClass('active')){
+      $('.mdl-layout__drawer-right').removeClass('active');
       Session.set('drawerId','');
    }
    else{
-      $('.mdl-layout__drawer-right').addClass('active'); 
+      $('.mdl-layout__drawer-right').addClass('active');
    }
   });
-})
+});
+
+Template.App_body.events({
+  'click #status-ribbon' (event, template){
+		event.preventDefault();
+    console.log("show alpha message");
+  }
+});

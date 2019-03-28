@@ -1,5 +1,11 @@
 {
 	"notifications": {
+		"heading": "Aviseringar",
+		"recent": "Senaste",
+		"new": "Nya",
+		"read": "Läst",
+		"mark-as-read": "Markera som läst",
+		"view-all": "Se alla",
 		"approvals": {
 			"candidate": {
 				"rejected": "Din begäran att bli en kandidat har avvisats.",
@@ -11,13 +17,13 @@
 			}
 		},
 		"proposals": {
-			"approved": "Motionen du lämnade har godkänts.",
-			"rejected": "Motionen du lämnade har avvisats.",
-			"comments": "Det finns en ny kommentar på din motion.",
-			"invite": "Du har blivit inbjuden till att samarbeta på en motion."
+			"approved": "Förslaget du lämnade in har godkänts.",
+			"rejected": "Förslaget du lämnade in har avvisats.",
+			"comments": "Det finns en ny kommentar på ditt förslag.",
+			"invite": "Du har blivit inbjuden till att samarbeta på ett förslag."
 		},
 		"users": {
-			"delegate-deselect": "TODO %s has stopped being a delegate."
+			"delegate-deselect": "%s har upphört att vara delegat."
 		}
 	}
 }

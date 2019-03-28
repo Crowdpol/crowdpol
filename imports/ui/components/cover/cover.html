@@ -1,0 +1,100 @@
+<template name="Cover">
+  <div id="cover-container">
+    <div class="cover-image-container" id="cover-image">
+      <!--<h5 id="header-title">Unsplash</h5>-->
+
+    </div>
+    <div id="cover-image-overlay"  style="display:none;">
+      <div id="button-wrap">
+        <button id="cover-edit-button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+          <i class="material-icons">insert_photo</i>
+        </button>
+        <div class="mdl-tooltip" for="cover-edit-button">
+          {{_ "generic.change-cover"}}
+        </div>
+        <button id="cover-close" class="mdl-button mdl-js-button mdl-button--icon"  style="display:none;">
+          <i class="material-icons">cancel</i>
+        </button>
+        <div class="mdl-tooltip mdl-tooltip--top" for="cover-close">
+          {{_ "generic.remove-cover"}}
+        </div>
+      </div>
+    </div>
+    <div class="cover-search-box" style="display:none;">
+      <center>
+        <button id="cover-search-close" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" >
+          <i class="material-icons">keyboard_arrow_up</i>
+        </button><br>
+        <!-- PLEASE LEAVE THE DIV BELOW INTACT, IMPORTANT FOR DEBUGGING
+        <div id="cover-stats-dont-delete" class="hidden">
+          MouseX:<span id="mouseX"></span><br>
+          MouseY:<span id="mouseY"></span><br>
+          coverY:<span id="coverY">{{coverY}}</span><br>
+          mouseStart:<span id="mouseStart">{{mouseStart}}</span><br>
+          mouseEnd:<span id="mouseEnd">{{mouseEnd}}</span><br>
+          amountToMove:<span id="amountToMove">{{amountToMove}}</span><br>
+          mouseMove:<span id="mouseMove">{{mouseMove}}</span><br>
+          coverPosition:<span id="coverPosition">{{coverPosition}}</span><br>
+          coverTop:<span id="coverTop">{{coverTop}}</span><br>
+          coverBottom:<span id="coverBottom">{{coverBottom}}</span><br>
+        </div>
+        -->
+        <div class="mdl-textfield mdl-js-textfield" id="search-cover-wrapper">
+          <input class="mdl-textfield__input" type="text" id="search-cover" name="search-cover" placeholder="Search for images based on keywords...">
+          <label class="mdl-textfield__label" for="search-cover">Search</label>
+        </div>
+        <button class="mdl-button mdl-js-button mdl-button--icon" name="search-images-button" id="search-images-button">
+          <i class="material-icons">search</i>
+        </button>
+        <br>
+        <span class="search-images-count">{{totalImages}} matches</span><br>
+        <div class="search-images-pagination">
+          <button class="mdl-button mdl-js-button mdl-button--icon" id="prev-images-page">
+            <i class="material-icons">keyboard_arrow_left</i>
+          </button>
+          <span class="pagination-count">Page {{currentPage}} of {{totalPages}}</span>
+          <button class="mdl-button mdl-js-button mdl-button--icon" id="next-images-page">
+            <i class="material-icons">keyboard_arrow_right</i>
+          </button>
+        </div>
+      </center>
+      <div class="cover-gallery">
+        {{#each images}}
+          <div class="cover-gallery-thumb">
+            <img class="cover-thumb-image" src="{{this.urls.thumb}}" data-id="{{this.id}}">
+            <!--<br>
+            <span class="cover-thumb-desc">
+              {{this.description}}
+            </span>
+
+              {{this.urls.creditLink}}<br>
+              {{this.urls.full}}
+              {{this.urls.raw}}
+              {{this.urls.thumb}}
+              <br>
+              {{this.id}}<br>
+              {{this.author.name}}<br>
+              {{this.author.profile}}<br>
+              -->
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  <div id="cover-controls" style="display:none;">
+    <center>
+      <button id="cover-open" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" alt="Add Proposal Cover" style="display:none;">
+        <i class="material-icons">add_photo_alternate</i>
+      </button>
+      <div class="mdl-tooltip" for="cover-open">
+        {{_ "generic.add-cover"}}
+      </div>
+    </center>
+  </div>
+  <!--
+  <div class="dev-display">
+    coverState:{{getCoverState}}<br/>
+    hasCover:{{hasCover}}
+  </div>-->
+  {{setUnsplashState}}
+</template>

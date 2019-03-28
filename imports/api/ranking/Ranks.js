@@ -40,7 +40,11 @@ const RankSchema = new SimpleSchema({
     autoValue: function () {
       return new Date();
     }
-  }
+  },
+  communityId: {
+    type: String,
+    optional: true
+  },
 });
 
 Ranks.attachSchema(RankSchema);

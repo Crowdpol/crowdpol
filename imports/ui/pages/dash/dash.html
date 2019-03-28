@@ -1,12 +1,18 @@
 <template name="Dash">
-	<div class="container">
-		<h1>{{_ "pages.dashboard.heading"}}</h1>
+	<div class="container app-container">
+		<h1>{{_ "pages.dashboard.heading"}}<small><i class="material-icons" id="dash-help">help_outline</i></small></h1>
 		<!-- NOTE: This will have to be updated later on the permissions tickets. FlowRouter groups can manage this -->
-		<div class="dashboard-wrap">
+		<div class="dashboard-wrap mdl-grid" id="instrument-panel">
+		{{#if Template.subscriptionsReady}}
 			{{#if currentUser}}
-				{{> DashDelegates}}
+				{{> DashVote}}
 				{{> DashProposals}}
-				<!--{{> DashCandidates}}-->
+				{{> DashDelegates}}
+				{{> DashProfile}}
+				<!--{{> DashInterests}}
+						{{> DashCandidates}}
+						{{> DashFeed}}
+				-->
 
 				<!--<div class="dash-card mdl-card mdl-shadow- -2dp">
 				 {{#unless currentUser.emails.[0].verified}}
@@ -25,7 +31,7 @@
 							<h2 class="mdl-card__title-text">{{_ "pages.dashboard.unapproved-entity-message"}}</h2>
 						</div>
 					{{/if}}
-				{{/unless}} 
+				{{/unless}}
 				</div>-->
 			{{else}}
 				<div class="dash-card mdl-card mdl-shadow--2dp">
@@ -39,22 +45,112 @@
 					</div>
 				</div>
 			{{/if}}
+		{{/if}}
+		</div>
+	</div>
+</template>
+
+<template name="DashProfile">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashProfile">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.profile.heading"}}</h2>
+		</div>
+		<div class="dash-card-text mdl-card__supporting-text">
+			<p>{{_ "pages.dashboard.card.profile.text"}}: {{profileStatus}}</p>
+			<a href="/profile">
+				{{_ "pages.dashboard.card.profile.link"}}
+			</a>
+		</div>
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.interests.heading"}}</h2>
+		</div>
+		<div class="dash-card-text mdl-card__supporting-text">
+			{{#each tags}}
+				<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
+			{{else}}
+				<p>{{_"pages.dashboard.card.interests.no-interests"}}</p>
+			{{/each}}
+			<a href="/interests">
+				{{_ "pages.dashboard.card.interests.link"}}
+			</a>
+		</div>
+		<div class="mdl-card__menu">
+			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+				<i class="material-icons">person</i>
+			</button>
+		</div>
+	</div>
+</template>
+
+<template name="DashInterests">
+	<div class="mdl-cell mdl-cell--12-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashInterests">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.interests.heading"}}</h2>
+		</div>
+		<div class="dash-card-text mdl-card__supporting-text">
+
+			<div class="mdl-grid">
+				<div class="mdl-cell--6-col">
+					{{#each tags}}
+						<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
+					{{else}}
+						<p>{{_"pages.dashboard.card.interests.no-interests"}}</p>
+					{{/each}}
+					<a class="" href="/interests">
+						{{_ "pages.dashboard.card.interests.link"}}
+					</a>
+				</div>
+				<div class="mdl-cell--6-col">
+					<p>Recent activity matching your interests</p>
+				</div>
+			</div>
+		</div>
+		<div class="mdl-card__menu">
+			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+				<i class="material-icons">loyalty</i>
+			</button>
 		</div>
 	</div>
 </template>
 
 <template name="DashProposals">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashProposals">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.proposals.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_ "pages.dashboard.card.proposals.text"}}
-		</div>
-		<div class="mdl-card__actions">
-			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/proposals">
-				{{_ "pages.dashboard.card.proposals.link"}}
-			</a>
+			{{#if Template.subscriptionsReady}}
+				<p>{{_ "pages.dashboard.card.proposals.text"}}</p>
+				{{#if anyProposals}}
+				{{else}}
+					<p>{{_"pages.dashboard.card.proposals.no-proposals"}}</p>
+				{{/if}}
+					{{#if myDraftProposalCount}}
+						<p>
+							<span class="mdl-badge" data-badge='{{myDraftProposalCount}}'>
+								<a href="/proposals">{{_ "pages.dashboard.card.proposals.draft-proposals"}}</a>
+							</span>
+						</p>
+					{{/if}}
+					{{#if myOpenProposalCount}}
+						<p>
+							<span class="mdl-badge" data-badge='{{myOpenProposalCount}}'>
+								<a href="/proposals">{{_ "pages.dashboard.card.proposals.open-proposals"}}</a>
+							</span>
+						</p>
+					{{/if}}
+					{{#if myClosedProposalCount}}
+						<p>
+							<span class="mdl-badge" data-badge='{{myClosedProposalCount}}'>
+								<a href="/proposals">{{_ "pages.dashboard.card.proposals.closed-proposals"}}</a>
+							</span>
+						</p>
+					{{/if}}
+				<a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
+			{{else}}
+					loading
+			{{/if}}
+
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -65,17 +161,25 @@
 </template>
 
 <template name="DashDelegates">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashDelegates">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.delegates.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_"pages.dashboard.card.delegates.text"}}
-		</div>
-		<div class="mdl-card__actions">
-			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/delegate">
-				{{_"pages.dashboard.card.delegates.link"}}
-			</a>
+			<p>{{_"pages.dashboard.card.delegates.text"}} <a href="/delegate">{{_"pages.dashboard.card.delegates.link"}}</a></p>
+			<ul class="demo-list-icon mdl-list">
+				{{#each ranks}}
+					<li class="mdl-list__item delegate-dash-item">
+				    <span class="mdl-list__item-primary-content">
+				    	<img class="mdl-chip__contact" src="{{profile.photo}}">
+				    	<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+				  	</span>
+				  </li>
+				{{else}}
+					<p>{{_"pages.dashboard.card.delegates.no-delegates"}}</p>
+				{{/each}}
+			</ul>
+
 		</div>
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -86,14 +190,12 @@
 </template>
 
 <template name="DashCandidates">
-	<div class="dash-card mdl-card mdl-shadow--2dp">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashCandidates">
 		<div class="mdl-card__title">
 			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.candidates.heading"}}</h2>
 		</div>
 		<div class="dash-card-text mdl-card__supporting-text">
-			{{_"pages.dashboard.card.candidates.text"}}
-		</div>
-		<div class="mdl-card__actions">
+			<p>{{_"pages.dashboard.card.candidates.text"}}</p>
 			<a class="primary-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="/candidate">
 				{{_"pages.dashboard.card.candidates.link"}}
 			</a>
@@ -101,6 +203,48 @@
 		<div class="mdl-card__menu">
 			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
 				<i class="material-icons">record_voice_over</i>
+			</button>
+		</div>
+	</div>
+</template>
+
+<template name="DashVote">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashVote">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.vote.heading"}}</h2>
+		</div>
+		<div class="dash-card-text mdl-card__supporting-text">
+			<p>{{_"pages.dashboard.card.vote.text"}}</p>
+			<p>
+				<span class="mdl-badge" data-badge='{{openProposalCount}}'>
+					<a href="/voting">{{_ "pages.dashboard.card.vote.open-proposals"}}</a>
+				</span>
+			</p>
+			<p>
+				<span class="mdl-badge" data-badge='{{closedProposalCount}}'>
+					<a href="/voting">{{_ "pages.dashboard.card.vote.closed-proposals"}}</a>
+				</span>
+			</p>
+		</div>
+		<div class="mdl-card__menu">
+			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+				<i class="material-icons">thumbs_up_down</i>
+			</button>
+		</div>
+	</div>
+</template>
+
+<template name="DashFeed">
+	<div class="mdl-cell mdl-cell--6-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp" id="DashFeed">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">{{_"pages.dashboard.card.feed.heading"}}</h2>
+		</div>
+		<div class="dash-card-text mdl-card__supporting-text">
+			<p>{{_"pages.dashboard.card.feed.text"}}</p>
+		</div>
+		<div class="mdl-card__menu">
+			<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+				<i class="material-icons">thumbs_up_down</i>
 			</button>
 		</div>
 	</div>

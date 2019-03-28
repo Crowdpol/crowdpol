@@ -25,7 +25,6 @@ Template.Login.onRendered( function() {
 Template.Login.events({
 	'submit #login-form' (event, template){
 		event.preventDefault();
-		console.log('running')
 
 		let email = template.find('[name="login-email"]').value;
 			password = template.find('[name="login-password"]').value;
@@ -45,18 +44,47 @@ Template.Login.events({
             Meteor.logout();
             FlowRouter.go('/login');
           } else {
+            var redirect = LocalStore.get('signUpRedirectURL');
+            LocalStore.set('signUpRedirectURL', '');
+            var user = Meteor.user();
+            var userRoles = user.roles;
+            console.log(userRoles);
+            if (user && userRoles) {
+              if(userRoles.indexOf("delegate") > -1){
+                LocalStore.set('isDelegate',true);
+              }else{
+                LocalStore.set('isDelegate',false);
+              }
+              if(userRoles.indexOf("individual") > -1){
+                console.log("i am an individual");
+                LocalStore.set('currentUserRole','individual');
+              }
+              if(userRoles.indexOf("organisation") > -1){
+                LocalStore.set('currentUserRole','organisation');
+              }
+              if(userRoles.indexOf("party") > -1){
+                LocalStore.set('currentUserRole','party');
+              }
+              if(userRoles.indexOf("delegate") > -1){
+                LocalStore.set('isDelegate',true);
+                LocalStore.set('otherRole','delegate');
+              }else{
+                LocalStore.set('isDelegate',false);
+                LocalStore.set('otherRole','');
+              }
+            }
+            console.log(LocalStore.get('currentUserRole'));
+            console.log(LocalStore.get('isDelegate'));
             if (Roles.userIsInRole(Meteor.userId(), ['admin'])){
               FlowRouter.go('/admin/dash');
             } else {
               /* Check if redirect route saved */
-              var redirect = LocalStore.get('signUpRedirectURL');
-              LocalStore.set('signUpRedirectURL', '');
               if (redirect) {
                 window.location.href = redirect;
               } else {
                 FlowRouter.go('/proposals');
               }
-            } 
+            }
           }
 			}
 		});

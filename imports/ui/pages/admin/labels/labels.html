@@ -1,0 +1,169 @@
+<template name="AdminLabels">
+	{{#if currentUserIsAdmin}}
+		<div class="mdl-grid">
+			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" id="label-tree-container">
+				<ul id="myUL">
+					{{#each label in rootLabels}}
+					  <li class="label-tree-item">
+							{{#if hasChildren label._id}}
+								<span class="caret"><span class="item-text" data-id="{{label._id}}" data-label-level="{{label.level}}">{{label.keyword}}</span></span>
+								{{>LabelChildren label=label}}
+							{{else}}
+								<span class="item-text">{{label.keyword}}</span>
+							{{/if}}
+					  </li>
+					{{/each}}
+				</ul>
+			</div>
+			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" id="label-form-container">
+				<div class="dashboard__item dashboard__item--full">
+					<div class="card">
+							<h5>{{_ "admin.labels.heading"}}</h5>
+							<form id="add-label">
+								{{#unless editState}}
+									{{#if currentLabel}}
+									<div class="label-details">
+										<span><strong>{{_ "admin.labels.keyword"}}:</strong></span>
+										<span>{{currentLabel.keyword}}</span><br>
+										<span><strong>{{_ "admin.labels.desc"}}:</strong></span><br>
+										<p>{{currentLabel.description}}</p>
+										<div class="parent-tags">
+											<p> {{_ "admin.labels.parents-instructions"}}</p>
+											{{#each label in parentLabels}}
+												<span class="mdl-chip {{chipDeletable}}" data-id="{{label._id}}" >
+												    <span class="mdl-chip__text">{{label.keyword}}</span>
+												    <button type="button" class="mdl-chip__action delete-parent"><i class="material-icons delete-parent">cancel</i></button>
+												</span>
+											{{/each}}
+										</div>
+									</div>
+									{{/if}}
+										<div class="form-group" style="margin-top: 1rem">
+											{{#if currentLabel._id}}
+												<button class="mdl-button mdl-js-button mdl-button--raised" id="edit-label-button">{{_ "admin.labels.edit-button"}}</button>
+												<button class="mdl-button mdl-js-button mdl-button--raised" id="delete-label-button">{{_ "admin.labels.delete-button"}}</button>
+											{{/if}}
+											<button type="submit" class="mdl-button mdl-js-button mdl-button--raised" id="add-label-button">{{_ "admin.labels.add-button"}}</button>
+										</div>
+								{{else}}
+									<input type="hidden" id="label-id" value="{{currentLabelId}}" >
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<label class="mdl-textfield__label" for="label-text"> {{_ "admin.labels.keyword"}}</label>
+										<input type="text" id="label-text" class="mdl-textfield__input" value="{{currentLabelKeyword}}" >
+									</div><br>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<label class="mdl-textfield__label" for="label-desc">{{_ "admin.labels.desc"}}</label>
+										<textarea class="mdl-textfield__input" type="text" rows="5" name="label-desc" id="label-desc">{{currentLabelDesc}}</textarea>
+									</div>
+									<div class="parent-tags">
+										<p> {{_ "admin.labels.parents"}}</p>
+										{{#each label in parentLabels}}
+											<span class="mdl-chip {{chipDeletable}}" data-id="{{label._id}}" >
+												<span class="mdl-chip__text">{{label.keyword}}</span>
+												<button type="button" class="mdl-chip__action delete-parent"><i class="material-icons delete-parent">cancel</i></button>
+											</span>
+										{{/each}}
+									</div>
+									<div class="form-group" style="margin-top: 1rem">
+										<button type="submit" class="mdl-button mdl-js-button mdl-button--raised" id="cancel-edit-button">{{_ "admin.labels.cancel-button"}}</button>
+										<button type="submit" class="mdl-button mdl-js-button mdl-button--raised" id="save-button">{{_ "admin.labels.save-button"}}</button>
+									</div>
+								{{/unless}}
+							</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{{> AdminLabelsTable}}
+
+	{{/if}}
+</template>
+
+<template name="LabelChildren">
+	<ul class="nested">
+		{{#each childLabel in childLabels label._id}}
+			<li class="label-tree-item">
+				{{#unless hasChildren childLabel._id}}
+					<span class="item-text" data-id="{{childLabel._id}}" data-label-level="{{childLabel.level}}">{{childLabel.keyword}}</span>
+				{{else}}
+					<span class="caret"><span class="item-text" data-id="{{childLabel._id}}" data-label-level="{{childLabel.level}}">{{childLabel.keyword}}</span></span>
+					{{>LabelChildren label=childLabel}}
+				{{/unless}}
+			</li>
+		{{/each}}
+	</ul>
+</template>
+
+<template name="AdminLabelsTable">
+		<div class="dashboard__item dashboard__item--full">
+			<div class="card" id="tree-card">
+				<h5> {{_"admin.labels.heading"}} </h5>
+
+
+				{{#if Template.subscriptionsReady}}
+				<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+					<thead>
+						<tr>
+							<th>{{_"admin.labels.keyword"}}</th>
+							<th>{{_"admin.labels.desc"}}</th>
+							<th>{{_"admin.labels.parents"}}</th>
+							<th>{{_"admin.labels.created"}}</th>
+							<th>{{_"admin.labels.delete"}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each label in labels}}
+							<tr>
+								<td data-label='{{_"admin.labels.keyword"}}' class="mdl-data-table__cell--non-numeric"><a href="{{url}}" target="_blank">{{label.keyword}}</a></td>
+								<td data-label='{{_"admin.labels.desc"}}' class="mdl-data-table__cell--non-numeric">{{label.description}}</td>
+								<td data-label='{{_"admin.labels.parents"}}' class="mdl-data-table__cell--non-numeric">
+									{{#each parent in label.parentLabels}}
+										<span class="mdl-chip" data-id="{{parent}}" >
+												<span class="mdl-chip__text">{{parentKeyword parent}}</span>
+										</span>
+									{{/each}}
+								</td>
+								<td data-label='{{_"admin.labels.created"}}' class="mdl-data-table__cell--non-numeric">{{labelDate}}</td>
+								<td data-label='{{_"admin.labels.delete"}}' >
+									<button id="delete-button" class="mdl-button mdl-js-button mdl-button--icon delete-button-class" data-label-id="{{label._id}}">
+									  <i class="material-icons delete-button-class" data-label-id="{{label._id}}">delete</i>
+									</button>
+								</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			{{else}}
+				<p> Loading... </p>
+			{{/if}}
+		</div>
+	</div>
+</template>
+
+<template name="AdminLabelsForm">
+
+	<ul id="myUL">
+		<li class="label-tree-item" data-id=""><span class="caret">Beverages</span>
+			<ul class="nested">
+				<li>Water</li>
+				<li>Coffee</li>
+				<li><span class="caret">Tea</span>
+					<ul class="nested">
+						<li>Black Tea</li>
+
+						<li><span class="caret">Green Tea</span>
+							<ul class="nested">
+								<li>Sencha</li>
+								<li>Gyokuro</li>
+								<li>Matcha</li>
+								<li>Pi Lo Chun</li>
+							</ul>
+						</li>
+						<li>White Tea</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</template>

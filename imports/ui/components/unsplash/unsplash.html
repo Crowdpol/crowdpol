@@ -1,0 +1,44 @@
+<template name="Unsplash">
+  {{setSearchType}}
+  <center>
+        <div class="mdl-textfield mdl-js-textfield" id="search-unsplash-wrapper">
+          <input class="mdl-textfield__input search-unsplash" type="text" id="search-unsplash" name="search-unsplash" placeholder="Search for images based on keywords..." data-source="{{source}}">
+          <label class="mdl-textfield__label" for="search-unsplash">Search</label>
+        </div>
+        <button class="mdl-button mdl-js-button mdl-button--icon search-images-button" name="search-images-button" id="search-images-button"  data-source="{{source}}">
+          <i class="material-icons">search</i>
+        </button>
+        <br>
+        <span class="search-images-count">{{totalImages}} matches</span><br>
+        <div class="search-images-pagination">
+          <button class="mdl-button mdl-js-button mdl-button--icon prev-images-page" id="prev-images-page">
+            <i class="material-icons">keyboard_arrow_left</i>
+          </button>
+          <span class="pagination-count">Page {{currentPage}} of {{totalPages}}</span>
+          <button class="mdl-button mdl-js-button mdl-button--icon next-images-page" id="next-images-page">
+            <i class="material-icons">keyboard_arrow_right</i>
+          </button>
+        </div>
+  </center>
+  <div class="unsplash-gallery {{searchTypeClass}}">
+        {{#each images}}
+          <div class="unsplash-gallery-thumb">
+            <img class="unsplash-thumb-image" src="{{this.urls.thumb}}" data-id="{{this.id}}">
+            <!--<br>
+            <span class="unsplash-thumb-desc">
+              {{this.description}}
+            </span>
+
+              {{this.urls.creditLink}}<br>
+              {{this.urls.full}}
+              {{this.urls.raw}}
+              {{this.urls.thumb}}
+              <br>
+              {{this.id}}<br>
+              {{this.author.name}}<br>
+              {{this.author.profile}}<br>
+              -->
+          </div>
+        {{/each}}
+  </div>
+</template>

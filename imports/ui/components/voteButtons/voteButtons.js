@@ -1,70 +1,84 @@
 import './voteButtons.html'
-
+import { DelegateVotes } from '../../../api/delegateVotes/DelegateVotes.js';
+import { Votes } from '../../../api/votes/Votes.js';
 Template.voteButtons.onCreated(function(){
 	self = this;
 	var dict = new ReactiveDict();
-	self.templateDictionary = dict;
+	self.dict = dict;
 	self.proposalId = Template.currentData().proposalId;
 
-	if (Meteor.user()) {
-		Meteor.call('getUserDelegateVote', self.proposalId, function(error, result){
-			if (error){
-				Bert.alert(error.reason, 'danger');
-			} else {
-				dict.set( 'delegateVote', result );
-			}
-		})
+	self.autorun(function(){
+		self.subscribe('delegateVotes.forUserProposal',self.proposalId);
+		self.subscribe('votes.forProposalCurrentUser',self.proposalId);
+	});
 
-		Meteor.call('getUserVoteFor', self.proposalId, Meteor.userId(), function(error, result){
-			if (result){
-				dict.set( 'userVote', result.vote );
-			} else {
-				dict.set( 'userVote', '' );
-			}
-		});
-	}
 });
 
 Template.voteButtons.helpers({
-	userYesClass: function(){
-		if(Template.instance().templateDictionary.get('userVote') == 'yes'){
-			return "mdl-button--colored-yes";
+	getVote: function(proposalId){
+		let result = DelegateVotes.findOne({"proposalId" : proposalId});
+		let delegateVote = false;
+		if(result){
+			if(typeof result.vote !== undefined){
+				delegateVote = result.vote;
+			}
+		}
+		Template.instance().dict.set('delegateVote',delegateVote);
+		//User Vote
+		let query = Votes.findOne({"proposalId" : proposalId});
+
+		let vote = false;
+		if(query){
+			if(typeof query.vote !== undefined){
+				vote = query.vote;
+			}
+		}
+		Template.instance().dict.set('userVote',vote);
+		if(vote){
+			return "user-voted";
 		}
 	},
-	userNoClass: function(){
-		if(Template.instance().templateDictionary.get('userVote') == 'no'){
-			return "mdl-button--colored-no";
+	userButtonClass: function(voteValue){
+		let selectedVote = Template.instance().dict.get('userVote');
+		//2. check if current selection matches existing vote
+		if(selectedVote==voteValue){
+			return "mdl-button--colored";
 		}
 	},
-	delegateYesClass: function(){
-		if (Template.instance().templateDictionary.get('delegateVote') == 'yes'){
-			return 'delegate-color'
-		}
-	},
-	delegateNoClass: function(){
-		if (Template.instance().templateDictionary.get('delegateVote') == 'no'){
-			return 'delegate-color'
+	delegateButtonClass: function(voteValue){
+		let selectedVote = Template.instance().dict.get('delegateVote');
+		//2. check if current selection matches existing vote
+		if(selectedVote==voteValue){
+			return "mdl-button--colored-delegate";
 		}
 	},
 });
 
 Template.voteButtons.events({
-	'click #vote-yes' (event, template){
-		if (Meteor.user()){
-			vote('yes', template.proposalId);
-			template.templateDictionary.set('userVote', 'yes');
-		} else {
-			openSignInModal();
-		}
-	},
 
-	'click #vote-no' (event, template){
-		if (Meteor.user()){
-			vote('no', template.proposalId);
-			template.templateDictionary.set('userVote', 'no');
-		} else {
-			openSignInModal();
+	'click .vote-button' (event, template){
+		//1. check existing user vote
+		let proposalId = event.currentTarget.dataset.proposalId;
+		let voteValue = event.currentTarget.dataset.voteValue;
+		let selectedVote = Template.instance().dict.get('userVote');
+		//2. check if current selection matches existing vote
+		if(selectedVote==voteValue){
+			//2.1 deselect vote
+			removeVote(selectedVote,proposalId);
+			let parentDiv = $(event.target).closest( "div" );
+			parentDiv.removeClass("user-voted");
+			parentDiv.children('button').each(function () {
+			  $(this).removeClass("mdl-button--colored");
+			});
+
+		}else{
+			//2.2 else set vote to selection
+			vote(voteValue,proposalId);
+			event.stopPropagation();
+			$(event.target).closest( "div" ).addClass("user-voted");
+			//$(event.target).addClass("mdl-button--colored");
 		}
+
 	},
 });
 
@@ -81,15 +95,50 @@ function vote(voteString, proposalId){
     		Bert.alert(TAPi18n.__('pages.proposals.view.voteCast'), 'success');
     	}
     });
-} else {
-    // Vote as an individual voter
-    var vote = {vote: voteString, proposalId: proposalId, delegateId: ''};
-    Meteor.call('vote', vote, function(error){
-    	if (error){
-    		Bert.alert(error.reason, 'danger');
-    	} else {
-    		Bert.alert(TAPi18n.__('pages.proposals.view.voteCast'), 'success');
-    	}
-    });
-}
+	} else {
+	    // Vote as an individual voter
+	    var vote = {vote: voteString, proposalId: proposalId, delegateId: ''};
+	    Meteor.call('vote', vote, function(error){
+	    	if (error){
+	    		Bert.alert(error.reason, 'danger');
+	    	} else {
+	    		Bert.alert(TAPi18n.__('pages.proposals.view.voteCast'), 'success');
+	    	}
+	    });
+	}
 };
+
+function removeVote(voteString, proposalId){
+	var currentRole = LocalStore.get('currentUserRole');
+	if (currentRole == 'Delegate'){
+		// Vote as a delegate
+		var delegateVote = {vote: voteString, proposalId: proposalId};
+		Meteor.call('deleteVoteAsDelegate', delegateVote, function(error){
+			if (error){
+				Bert.alert(error.reason, 'danger');
+			} else {
+				Bert.alert(TAPi18n.__('pages.proposals.view.voteRemoved'), 'success');
+			}
+		});
+	} else {
+			// Vote as an individual voter
+			var vote = {vote: voteString, proposalId: proposalId};
+			Meteor.call('deleteVote', vote, function(error){
+				if (error){
+					Bert.alert(error.reason, 'danger');
+				} else {
+					Bert.alert(TAPi18n.__('pages.proposals.view.voteRemoved'), 'success');
+				}
+			});
+	}
+};
+
+function removeDelegateVoteClass(proposalId){
+	let identifier = "button[data-proposal-id="+proposalId+"]";
+	$(identifier).each(function (index, value) {
+		 if($(this).hasClass('mdl-button--colored-delegate')){
+
+			 $(this).removeClass('mdl-button--colored-delegate');
+		 }
+	});
+}

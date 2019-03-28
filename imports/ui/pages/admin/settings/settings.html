@@ -1,0 +1,236 @@
+<template name="AdminSettings">
+  <div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			<h3>Settings</h3>
+      <form id="edit-community-settings">
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+          <div class="mdl-tabs__tab-bar">
+              <a href="#settings-panel" class="mdl-tabs__tab is-active">Settings</a>
+              <a href="#display-panel" class="mdl-tabs__tab">Display</a>
+              <a href="#home-panel" class="mdl-tabs__tab">Home Page</a>
+              <a href="#about-panel" class="mdl-tabs__tab">About Page</a>
+              <a href="#faq-panel" class="mdl-tabs__tab">FAQ</a>
+              <!--<a href="#whitelist-panel" class="mdl-tabs__tab">Whitelist</a>-->
+          </div>
+          <div class="mdl-tabs__panel is-active" id="settings-panel">
+            <!-- Start and end dates -->
+            <section class="settings-section">
+              <span class="section-heading">Proposal start and end dates</span>
+              <div class="settings-subsection">
+                <div class="settings-checkbox">
+                  <input type="radio" id="user-dates" name="proposal-dates" value="true">
+                  <span >User defined</span>
+                </div>
+                <div class="settings-checkbox">
+                  <input type="radio" id="static-dates" name="proposal-dates" value="false">
+                  <span >Static</span>
+                </div>
+                <div id="setDates" class="settings-subsection">
+                  <div class="small-inputs-wrap">
+                    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="startDate">
+                      <label class="mdl-textfield__label">{{_ "pages.proposals.edit.startDate"}}</label>
+                      <input type="text" id="start-datepicker" class="mdl-textfield__input">
+                    </div>
+                    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="endDate">
+                      <label class="mdl-textfield__label">{{_ "pages.proposals.edit.endDate"}}</label>
+                      <input type="text" id="end-datepicker" class="mdl-textfield__input">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- language selection -->
+            <section class="settings-section">
+              <span class="section-heading">Languages</span>
+              <div class="settings-subsection">
+                <div class="row">
+                  <div class="column">
+                    <div class="settings-checkbox">
+                        <input type="checkbox" id="languageSelector" >
+                        <label>Show Language Selector</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="column">
+                    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="startDate">
+                      <label class="mdl-textfield__label">Default languages</label>
+                      <select class="mdl-textfield__input" id="defaultLanguage">
+                        {{#each language in languages}}
+                          {{#if isSelected language}}
+                            <option value="{{language}}" selected="selected">{{language}}</option>
+                          {{else}}
+                            <option value="{{language}}">{{language}}</option>
+                          {{/if}}
+                        {{/each}}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" id="languageOptions">
+                  <div class="column">
+                    <div class="row">
+                      <div class="column">
+                        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="startDate">
+                          <label class="mdl-textfield__label">Availabe languages</label>
+                          <select class="mdl-textfield__input" id="available-languages">
+                            <option value="en">English</option>
+                            <option value="sv">Swedish</option>
+                            <option value="ja">Japan</option>
+                            <option value="cy">Welsh</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="column">
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored add-language">
+                          <i class="material-icons add-language">add</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <span>Selected Languages</span>
+                    <ul>
+                      {{#each language in languages}}
+                        <li>{{language}}</li>
+                      {{/each}}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="settings-section">
+              <span class="section-heading">User Delegate Limit <small>(set to '-1' for unlimited.)</small></span>
+              <div class="settings-subsection">
+                <div class="settings-subsection">
+                  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="endDate">
+                    <input type="text" id="delegate-limit" class="mdl-textfield__input" value={{delegateLimit}}>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="settings-section">
+              <span class="section-heading">Proposal Collaborator Limit <small>(set to '-1' for unlimited.)</small></span>
+              <div class="settings-subsection">
+                <div class="settings-subsection">
+                  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="endDate">
+                    <input type="text" id="collaborator-limit" class="mdl-textfield__input" value={{collaboratorLimit}}>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="mdl-tabs__panel" id="display-panel">
+            <!-- display section -->
+            <section class="settings-section">
+              <span class="section-heading">Logos & Icons</span>
+              <div class="settings-subsection">
+                <!-- logoImageUrl -->
+            		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="logoUrl" name="logoUrl" value="{{logoUrl}}">
+            			<label class="mdl-textfield__label" for="logoUrl">Logo URL</label>
+            		</div>
+                <!-- faviconImageUrl -->
+            		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="faviconUrl" name="faviconUrl" value="{{faviconUrl}}">
+            			<label class="mdl-textfield__label" for="faviconUrl">Favicon</label>
+            		</div>
+              </div>
+            </section>
+            <!-- colorScheme -->
+            <section class="settings-section">
+              <span class="section-heading">Colour Scheme</span>
+              <div class="settings-subsection">
+                <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="startDate">
+                  <label class="mdl-textfield__label">Select colour scheme</label>
+                  <select class="mdl-textfield__input" id="colorScheme">
+                    <!--<option value="syntropi">Syntropi</option>-->
+                    <option value="default">Default</option>
+                    <option value="greyscale" selected="selected">Greyscale</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="mdl-tabs__panel" id="home-panel">
+            <!-- homepage -->
+            <section class="settings-section">
+              <span class="section-heading">Homepage</span>
+              <div class="settings-subsection">
+                <!-- homepageImageUrl -->
+                  <input type="hidden" id="homepageImageUrl" name="homepageImageUrl" value="{{homepageImageUrl}}">
+                <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="startDate">
+                  <label class="mdl-textfield__label">{{_"admin.communities.homepageImageUrl"}}</label>
+                  <select class="mdl-textfield__input" id="bgSelect">
+                    <option value="syntropi_grey.jpg">syntropi_grey.jpg</option>
+                    <option value="syntropi_hands.jpg">syntropi_hands.jpg</option>
+                    <option value="wave-bg.jpg">wave-bg.jpg</option>
+                    <option value="deep_blue_hands.jpg">deep_blue_hands.jpg</option>
+                    <option value="bangor.jpg">bangor.jpg</option>
+                  </select>
+                </div>
+                <img src="{{homepageImageUrl}}" alt="Homepage Image" class="image-preview" id="background-image-preview">
+                <br>
+            		<!-- homepageBannerText -->
+            		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <textarea class="mdl-textfield__input" type="text" rows= "4"  id="homepageBannerText" name="homepageBannerText">{{homepageBannerText}}</textarea>
+            			<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.homepageBannerText"}}</label>
+            		</div>
+                <br>
+            		<!-- homepageIntroText -->
+            		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <textarea class="mdl-textfield__input" type="text" rows= "4"  id="homepageIntroText" name="homepageIntroText">{{homepageIntroText}}</textarea>
+            			<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.homepageIntroText"}}</label>
+            		</div>
+              </div>
+            </section>
+          </div>
+          <div class="mdl-tabs__panel" id="about-panel">
+            <!-- aboutText -->
+            <section class="settings-section">
+              <span class="section-heading">About Page</span>
+              <div class="settings-subsection">
+                {{>AdminSettingsAbout aboutText=aboutText}}
+              </div>
+            </section>
+          </div>
+          <!--
+          <div class="mdl-tabs__panel" id="faq-panel">
+            <section class="settings-section">
+              <span class="section-heading">FAQ Page</span>
+              <div class="settings-subsection">
+                {{>AdminSettingsFAQ}}
+              </div>
+            </section>
+          </div>
+          -->
+          <div class="mdl-tabs__panel" id="whitelist-panel">
+            <!-- limit users to whitelist -->
+            <section class="settings-section">
+              <span class="section-heading">Whitelist</span>
+              <div class="settings-subsection">
+                <!-- enforce whitelist -->
+                <div class="settings-checkbox">
+                    <input type="checkbox" id="enforceWhitelist" >
+                    <label>{{_"admin.communities.enforceWhitelist"}}</label>
+                </div>
+
+                <!-- email whitelist -->
+            		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="emailWhitelistContainer">
+            			<input class="mdl-textfield__input" type="text" id="emailWhitelist">
+            			<label class="mdl-textfield__label" for="emailWhitelist">{{_"admin.communities.emailWhitelist"}}</label>
+            		</div>
+
+
+              </div>
+            </section>
+          </div>
+        </div>
+    		<div class="form-group" style="margin-bottom: 2rem;">
+    			<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='Submit'>
+    		</div>
+
+  	  </form>
+		</div>
+	</div>
+</template>

@@ -1,7 +1,5 @@
 <template name="backButton">
-
-	<a class="mdl-button mdl-js-button" id="back-button" href={{url}}>
-		<span class="back-button-text"><i class="material-icons">arrow_back</i>{{_ text}}</span>
+	<a class="back-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored {{#if hasHeader}}has-header{{/if}}" id="back-button" href={{url}}>
+		<span class="back-button-text"><i class="material-icons">arrow_back</i><!--{{_ text}}--></span>
 	</a>
-	
 </template>

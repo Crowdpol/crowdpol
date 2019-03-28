@@ -1,0 +1,77 @@
+<template name="NotificationsDrawer">
+		<!--<div class="mdl-layout__drawer-right" id="notifications-menu">-->
+			<span class="mdl-layout-title" id="notifications-title">
+				<small> {{_ "notifications.heading"}} ({{ notificationCount }})</small> <br/>
+				<span id="mark-as-read">{{_ "notifications.mark-as-read"}}</span>
+			</span>
+			{{#if notificationCount}}
+				{{#if unreadNotificationCount}}
+				<li class="mdl-list__item">
+					<span class="mdl-list__item-primary-content">
+						<span class="mdl-list__item-text-body notification-item-text">
+							<small>{{_ "notifications.new"}}</small>
+						</span>
+					</span>
+				</li>
+					<ul class="demo-list-three mdl-list notifications-list">
+						{{#each unreadNotifications}}
+							<li class="mdl-list__item mdl-list__item--three-line notification-item {{ notificationItemClass read}}" data-url="{{ url }}" data-id="{{_id}}">
+								<span class="mdl-list__item-primary-content" data-url="{{ url }}" data-id="{{_id}}">
+									<span class="notification-time">{{ notificationDate createdAt }}</span>
+									<span class="mdl-list__item-text-body notification-item-text" id="wrap-span" data-url="{{ url }}" data-id="{{_id}}">
+										{{ message }}
+									</span>
+								</span>
+								<span class="mdl-list__item-secondary-content">
+									<a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">{{ icon }}</i></a>
+								</span>
+							</li>
+						{{/each}}
+					</ul>
+				{{/if}}
+				{{#if readNotificationCount}}
+				<!--
+					<li class="mdl-list__item">
+						<span class="mdl-list__item-primary-content">
+							<span class="mdl-list__item-text-body notification-item-text">
+								<small>{{_ "notifications.recent"}}</small>
+							</span>
+						</span>
+					</li>
+				-->
+					<ul class="demo-list-three mdl-list notifications-list">
+						{{#each readNotifications}}
+							<li class="mdl-list__item mdl-list__item--three-line notification-item {{ notificationItemClass read}}" data-url="{{ url }}" data-id="{{_id}}">
+								<span class="mdl-list__item-primary-content" data-url="{{ url }}" data-id="{{_id}}">
+									<span class="notification-time">{{ notificationDate createdAt }}</span>
+									<span class="mdl-list__item-text-body notification-item-text" id="wrap-span" data-url="{{ url }}" data-id="{{_id}}">
+										{{ message }}
+									</span>
+								</span>
+								<span class="mdl-list__item-secondary-content">
+									<a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">{{ icon }}</i></a>
+								</span>
+							</li>
+						{{/each}}
+						<li class="mdl-list__item view-all-menu view-all-link">
+							<span class="mdl-list__item-primary-content view-all-link">
+								<span class="mdl-list__item-text-body notification-item-text view-all-link">
+									<a href='/notifications' class="view-all-link"><span id="view-all" class="view-all-link">{{_ "notifications.view-all"}}</span></a>
+								</span>
+							</span>
+						</li>
+					</ul>
+				{{/if}}
+
+
+			{{else}}
+				<li class="mdl-list__item mdl-list__item--three-line">
+					<span class="mdl-list__item-primary-content">
+						<span class="mdl-list__item-text-body notification-item-text">
+							{{_ "layout.header.no_notifications"}}
+						</span>
+					</span>
+				</li>
+			{{/if}}
+		<!--</div>-->
+</template>

@@ -1,0 +1,48 @@
+<template name='ProposalForm'>
+
+		<!-- Title -->
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.title"}}</label>
+			<input type="text" name="title" id="title-{{language}}" class="mdl-textfield__input">
+		</div>
+
+		<!-- Abstract -->
+		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<textarea class="mdl-textfield__input" type="text" rows= "5" name="abstract" id="abstract-{{language}}"></textarea>
+			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.abstract"}}</label>
+		</div>
+
+		<!-- Body -->
+		<small>{{_ "pages.proposals.edit.body"}}</small>
+
+		<!-- Quill editor container -->
+		<div id="body-editor-{{language}}"></div>
+		<input type="hidden" name="body" id="body-{{language}}" class="mdl-textfield__input">
+		<br/>
+
+		<!-- Arguments
+		{{>Arguments forArguments=forArguments againstArguments=againstArguments lang=language}}
+		-->
+	{{#if Template.subscriptionsReady}}
+		<div class="argument-container">
+	    <div class="for-container arguments-column">
+	      <p>{{_ "pages.proposals.edit.pointFor"}}</p>
+	      <ul class="arguments-list">
+	        {{#each argument in forArguments}}
+	          {{>ArgumentsListItem argument=argument lang=language type="for" state=getState}}
+	        {{/each}}
+	      </ul>
+	      {{>ArgumentsBox type="for" lang=language args=argumentsFor state=getState}}
+	    </div>
+	    <div class="against-container arguments-column">
+	      <p>{{_ "pages.proposals.edit.pointAgainst"}}</p>
+	      <ul class="arguments-list">
+	        {{#each argument in againstArguments}}
+	          {{>ArgumentsListItem  argument=argument lang=language type="against" state=getState}}
+	        {{/each}}
+	      </ul>
+	      {{>ArgumentsBox type="against" lang=language args=argumentsAgainst state=getState}}
+	    </div>
+	  </div>
+	{{/if}}
+</template>

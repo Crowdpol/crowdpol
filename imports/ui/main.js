@@ -1,18 +1,9 @@
 /*
 		    welcome to
-	      ___    ___     ___ ___     ___ ___     ___     ___
-		 /'___\ / __`\ /' __` __`\ /' __` __`\  / __`\ /' _ `\
-		/\ \__//\ \L\ \/\ \/\ \/\ \/\ \/\ \/\ \/\ \L\ \/\ \/\ \
-  __	\ \____\ \____/\ \_\ \_\ \_\ \_\ \_\ \_\ \____/\ \_\ \_\
- /\ \	 \/____/\/___/  \/_/\/_/\/_/\/_/\/_/\/_/\/___/  \/_/\/_/
- \_\ \     __    ___ ___     ___     ___   _ __    __      ___   __  __
- /'_` \  /'__`\/' __` __`\  / __`\  /'___\/\`'__\/'__`\   /'___\/\ \/\ \
-/\ \L\ \/\  __//\ \/\ \/\ \/\ \L\ \/\ \__/\ \ \//\ \L\.\_/\ \__/\ \ \_\ \
-\ \___,_\ \____\ \_\ \_\ \_\ \____/\ \____\\ \_\\ \__/.\_\ \____\\/`____ \
- \/__,_ /\/____/\/_/\/_/\/_/\/___/  \/____/ \/_/ \/__/\/_/\/____/ `/___/> \
-																	 /\___/
-																	\/__/
-		this only looks pretty at tab size: 2)
+ __   __   __        __   __   __
+/  ` |__) /  \ |  | |  \ |__) /  \ |
+\__, |  \ \__/ |/\| |__/ |    \__/ |___
+
 */
 
 import { Meteor } from 'meteor/meteor';
@@ -21,13 +12,13 @@ import { Session } from 'meteor/session';
 
 // Import needed templates
 import './layouts/body/body.js';
-import './components/loader/loader.js';
-import './components/taggle/taggle.js';
-import './components/back-button/back-button.html';
-import './components/delegateVoteButtons/delegateVoteButtons.js';
-import './components/voteButtons/voteButtons.js';
-import './components/delegateVoteList/delegateVoteList.js';
+import './components/main.js';
 import './pages/home/home.js';
+import './pages/ideas/ideas.js';
+import './pages/faq/faq.js';
+import './pages/userHome/userHome.js';
+import './pages/settings/profileSettings.js';
+import './pages/settings/accountSettings.js';
 import './pages/not-found/not-found.js';
 import './pages/authenticate/authenticate.js';
 import './pages/dash/dash.js';
@@ -46,9 +37,13 @@ import './pages/proposals/signInModal/signInModal.js';
 import './pages/proposals/proposalsList.js';
 import './pages/voting/voting.js';
 import './pages/delegates/delegate.js';
-import './pages/candidates/candidates.js';
+//import './pages/candidates/candidates.js';
+import './pages/notifications/notifications.js';
+import './pages/tags/interests.js';
+import './pages/test/test.js';
+import './pages/not-found/not-found.js';
 import './stylesheets/stylesheets.js';
-
+import './v2/main.js';
 
 Meteor.startup(function () {
 	// setup language

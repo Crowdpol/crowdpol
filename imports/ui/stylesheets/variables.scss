@@ -15,33 +15,39 @@ $light-grey-light: #f4f4f4;
 $light-grey-mid: #e0e0de;
 $light-grey-dark: #c1c0bd;
 $light-grey-xdark: #b2b1b1;
+$delegate-color: #ccc;
 
 // Colours: Default Branding
 
 $blue-xdark: #0b2830;
 $blue: #143c56;
-$light-blue: #449be5;
+$light-blue: #589DD8;
 $light-blue-dark: #337ab7;
 $bright-blue: #337ab7;
 $taggle-blue: #003399;
+$notification-blue: #edf6ff;
 
 $yellow: #eebd45;
 $yellow-light: #faedc1;
+$green: #29A584;
+$light-red: #f2806a;
+$red: #D86852;
+$red-dark: #bb422a;
 
 // Colours: Greyscale
 
 $grey-xdark: #282828;
 $grey: #3d3d3d;
 $light-grey: #757575;
-$light-grey-dark: #6d6d6d;
 $bright-grey: #5b5b5b;
 $taggle-grey: #5e5e5e;
 
 $greyscale: #cecece;
 $greyscale-light: #ffffff;
 
-$yes-button: green;
-$no-button: red;
+$yes-button: $green;
+$no-button: $red;
+$abstain-button: $yellow;
 
 // Fonts
 $default-font: 'Roboto', sans-serif;
@@ -55,8 +61,22 @@ $xsmall-font-size: 0.6rem;
 $space: $base-line-height;
 
 // Media Queries
+$tiny: 100px !default;
 $mobile: 480px !default;
 $tablet: 768px !default;
 $laptop: 1024px !default;
 $desktop: 1200px !default;
 $big: 1440px !default;
+
+//unsplash header settings
+$header-height-xl: 500px;
+$header-height-lg: 400px;
+$header-height-md: 350px;
+$header-height-sm: 300px;
+$header-height-xs: 200px;
+
+//column sizes
+$aside-width: 200px;
+
+//test border max-width
+$test-border-width: 0px;
