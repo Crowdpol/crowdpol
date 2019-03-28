@@ -125,120 +125,29 @@
 	</tr>
 </template>
 
-
 <template name="ProposalModal">
   <div id="overlay"></div>
 	<div class="proposal-modal">
-	  <form class='content-wrapper'>
-	    {{#if proposal}}
-	
-	    <div class="content">
-	      <div class="app-container proposal-container">
-					<!-- Author Information -->
-					<div class="mdl-card mdl-cell mdl-cell--12-col proposal-details">
-						<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-							<div class="minilogo">
-								<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
-							</div>
-							<div class="proposal-author">
-								{{#if author.profile.firstName}}
-									<strong>{{author.profile.firstName}}&nbsp;{{author.profile.lastName}}</strong>
-								{{else}}
-									<strong>{{author.profile.username}}</strong>
-								{{/if}}
-								<span>{{propDate proposal.lastModified}}</span>
-							</div>
-						</div>
-						{{#if selectedInvites.count}}
-							<div>
-								<span id="collab-text">
-									{{_ "pages.proposals.view.collaborators"}}
-								</span>
-							</div>
-							<div class="mdl-color-text--grey-700 mdl-card__supporting-text" id="collab-chips">
-								{{#each selectedInvites}}
-								<div class="collab-author">
-									<img class="mdl-chip__contact" src="{{profile.photo}}">
-									{{#if profile.firstName}}
-										<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
-									{{else}}
-										<span class="mdl-chip__text">{{profile.username}}</span>
-									{{/if}}
-								</div>
-								{{/each}}
-							</div>
-						{{/if}}
-					</div>
-					<!-- Tabs for translations -->
-					<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-						<div class="mdl-tabs__tab-bar">
-							{{#each content}}
-								<a href="#{{language}}-panel" class="mdl-tabs__tab {{activeClass @index}}">{{language}}</a>
-							{{/each}}
-						</div>
-						{{#each content}}
-							<div class="mdl-tabs__panel {{activeClass @index}}" id="{{language}}-panel">
-								<!-- Main Content -->
-								<div class="proposal-wrap">
-									<h1 class="proposal-title">{{{ title }}}</h1>
-									<span class="tag status-chip {{proposal.status}}">{{proposal.status}}</span>
-									<p class="proposal-info">{{{ abstract }}}</p>
-								</div>
-								<div id="proposal-body-wrap">
-									{{{ body }}}
-								</div>
-
-								<!-- Points for and against -->
-								<div class="proposal-wrap mdl-grid" id="proposal-points">
-									<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-										<p>{{_ "pages.proposals.edit.pointFor"}}</p>
-										<ul id="points-for-list" class="points-list">
-											{{#each argumentsFor language}}
-											<li>{{this.message}}</li>
-											{{/each}}
-										</ul>
-									</div>
-									<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
-										<p>{{_ "pages.proposals.view.pointsAgainst"}}</p>
-										<ul id="points-against-list" class="points-list">
-											{{#each argumentsAgainst language}}
-											<li>{{this.message}}</li>
-											{{/each}}
-										</ul>
-									</div>
-								</div>
-							</div>
-						{{/each}}
-					</div>
-					<!-- Tags -->
-					<div class="proposal-wrap">
-						{{#each tags}}
-						<span class="mdl-chip mdl-chip-hoverable  {{isAuthorised this}}">
-							<a href="{{this.url}}" class="mdl-chip__text">{{this.keyword}}</a>
-						</span>
-						{{/each}}
-					</div>
-	      </div>
-	    </div>
-	    {{/if}}
+		{{#if proposalId}}
+			{{> ViewProposal proposalId=proposalId}}
 			{{#if showApproval}}
-			<div class="proposal-wrap admin-comment-textarea">
-				<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<textarea class="argument-input mdl-textfield__input" type="text" rows= "3" id="admin-comment"></textarea>
-					<label class="mdl-textfield__label">Comment on decision</label>
+				<div class="proposal-wrap admin-comment-textarea">
+					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<textarea class="argument-input mdl-textfield__input" type="text" rows= "3" id="admin-comment"></textarea>
+						<label class="mdl-textfield__label">Comment on decision</label>
+					</div>
 				</div>
-			</div>
-		    <div class="btn-wrapper">
-		      <button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
-						<i class="material-icons" data-proposal-id="{{_id}}">check</i>
-						{{_'admin.proposals.approve-button'}}
-					</button>
-					<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
-						<i class="material-icons" data-proposal-id="{{_id}}">close</i>
-						{{_'admin.proposals.reject-button'}}
-					</button>
-		    </div>
+					<div class="btn-wrapper">
+						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
+							<i class="material-icons" data-proposal-id="{{_id}}">check</i>
+							{{_'admin.proposals.approve-button'}}
+						</button>
+						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
+							<i class="material-icons" data-proposal-id="{{_id}}">close</i>
+							{{_'admin.proposals.reject-button'}}
+						</button>
+					</div>
 			{{/if}}
-	  </form>
+		{{/if}}
 	</div>
 </template>
