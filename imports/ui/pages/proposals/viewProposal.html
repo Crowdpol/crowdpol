@@ -4,8 +4,10 @@
 	{{#if hasHeader}}
 		{{>Cover}}
 	{{/if}}
-	{{#if currentUser }}
-		{{> backButton text="generic.back-to-proposals" url=backUrl hasHeader=hasHeader}}
+	{{#if showEditable}}
+		{{#if currentUser }}
+			{{> backButton text="generic.back-to-proposals" url=backUrl hasHeader=hasHeader}}
+		{{/if}}
 	{{/if}}
 	{{#if Template.subscriptionsReady}}
 
@@ -34,24 +36,26 @@
 				</div>
 
 				<div class="section-spacer"></div>
-				{{#if isEditable }}
-					<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
-						{{_ "pages.proposals.view.editProposal"}}<i class="material-icons">create</i>
-					</button>
-				{{else}}
-					<div>
-						<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
-							<i class="material-icons">share</i>
+				{{#if showEditable}}
+					{{#if isEditable }}
+						<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
+							{{_ "pages.proposals.view.editProposal"}}<i class="material-icons">create</i>
 						</button>
-					</div>
-					<div class="signature-button">
-						<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
-							<i class="material-icons">{{#if isSigned}}favorite{{else}}favorite_border{{/if}}</i>
-						</button>
-					</div>
-					<div class="signature-count">
-						{{ signatureCount }}
-					</div>
+					{{else}}
+						<div>
+							<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+								<i class="material-icons">share</i>
+							</button>
+						</div>
+						<div class="signature-button">
+							<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
+								<i class="material-icons">{{#if isSigned}}favorite{{else}}favorite_border{{/if}}</i>
+							</button>
+						</div>
+						<div class="signature-count">
+							{{ signatureCount }}
+						</div>
+					{{/if}}
 				{{/if}}
 			</div>
 
@@ -91,9 +95,9 @@
 			</div>
 
 			{{#each languages}}
-			<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
-				{{> ProposalContent this}}
-			</div>
+				<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
+					{{> ProposalContent language=this proposalId=_id}}
+				</div>
 			{{/each}}
 		</div>
 
@@ -105,15 +109,16 @@
 			</span>
 			{{/each}}
 		</div>
-
-		<!-- Edit and Submit Buttons -->
-		<div class="proposal-wrap proposal-actions">
-			{{#if isSubmittable }}
-			<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
-				{{_ "pages.proposals.view.submitProposal"}}
-			</button>
-			{{/if}}
-		</div>
+		{{#if showEditable}}
+			<!-- Edit and Submit Buttons -->
+			<div class="proposal-wrap proposal-actions">
+				{{#if isSubmittable }}
+				<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
+					{{_ "pages.proposals.view.submitProposal"}}
+				</button>
+				{{/if}}
+			</div>
+		{{/if}}
 
 		<!-- Voting Buttons -->
 		<div class="proposal-wrap proposal-vote">
@@ -142,11 +147,11 @@
 					{{/if}}
 				</div>
 			{{else}}
-				<!-- <center> -->
+				<center>
 					<h5>
 						<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
 					</h5>
-				<!-- </center> -->
+				</center>
 			{{/if}}
 			<hr>
 		</div>
@@ -194,7 +199,7 @@
 <!--=========== Proposal Content =========-->
 
 <template name="ProposalContent">
-
+	{{checkThis}}
 	<!-- Main Content -->
 	<div class="proposal-wrap">
 		<h1 class="proposal-title">{{{ title }}}</h1>
@@ -247,22 +252,30 @@
 	<!-- Arguments for and against -->
 	<div class="argument-container">
 		<div class="for-container arguments-column">
-			<p>{{_ "pages.proposals.edit.pointFor"}}</p>
-			<ul class="arguments-list">
-				{{#each argument in argumentsFor}}
-					{{>ArgumentsListItem argument=argument lang=language type="for" state="view"}}
-				{{/each}}
-			</ul>
-			{{>ArgumentsBox type="for" lang=language args=argumentsFor state="view"}}
+			{{#if argumentsForCount}}
+				<p>{{_ "pages.proposals.edit.pointFor"}}</p>
+				<ul class="arguments-list">
+					{{#each argument in argumentsFor language}}
+						{{>ArgumentsListItem argument=argument lang=language type="for" state="view"}}
+					{{/each}}
+				</ul>
+				{{#if showEditable}}
+					{{>ArgumentsBox type="for" lang=language args=argumentsFor state="view"}}
+				{{/if}}
+			{{/if}}
 		</div>
 		<div class="against-container arguments-column">
-			<p>{{_ "pages.proposals.edit.pointAgainst"}}</p>
-			<ul class="arguments-list">
-				{{#each argument in argumentsAgainst}}
-					{{>ArgumentsListItem  argument=argument lang=language type="against" state="view"}}
-				{{/each}}
-			</ul>
-			{{>ArgumentsBox type="against" lang=language args=argumentsAgainst state="view"}}
+			{{#if argumentsAgainstCount}}
+				<p>{{_ "pages.proposals.edit.pointAgainst"}}</p>
+				<ul class="arguments-list">
+					{{#each argument in argumentsAgainst language}}
+						{{>ArgumentsListItem  argument=argument lang=language type="against" state="view"}}
+					{{/each}}
+				</ul>
+				{{#if showEditable}}
+					{{>ArgumentsBox type="against" lang=language args=argumentsAgainst state="view"}}
+				{{/if}}
+			{{/if}}
 		</div>
 	</div>
 

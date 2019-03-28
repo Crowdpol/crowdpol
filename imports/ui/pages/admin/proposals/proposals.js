@@ -121,7 +121,15 @@ Template.AdminProposal.events({
 	},
 });
 
+/* ----------------------------------- PROPOSAL MODAL ------------------------------------ */
 
+Template.ProposalModal.onCreated(function(language){
+  //this.autorun(function() {
+    //this.subscribe('comments.all');
+    //this.subscribe('users.admin');
+  //});
+
+});
 
 Template.ProposalModal.events({
   'click #overlay' (event, template){
@@ -181,89 +189,17 @@ Template.ProposalModal.events({
     });
   },
 });
-Template.ProposalModal.onCreated(function(language){
-  //this.autorun(function() {
-    this.subscribe('comments.all');
-    this.subscribe('users.admin');
-  //});
 
-});
 Template.ProposalModal.helpers({
-	proposal: function(){
-		return Session.get("proposal");
+	proposalId: function(){
+		let proposal = Session.get("proposal");
+    if(proposal){
+      return proposal._id;
+    }
+    return false;
 	},
-	content: function(){
-		proposal = Session.get("proposal");
-		content = proposal.content;
-		return content;
-	},
-  author: function(){
-    proposal = Session.get("proposal");
-    return Meteor.users.findOne({ _id : proposal.authorId});
-  },
-  selectedInvites: function() {
-    proposal = Session.get("proposal");
-    var invited = proposal.invited;
-    if (invited) {
-      collaborators = Meteor.users.find({ _id : { $in : invited } });
-      return collaborators;
-    }
-  },
-  languages: function() {
-    proposal = Session.get("proposal");
-    content = proposal.content;
-    var languages = _.pluck(content, 'language');
-    return languages;
-  },
-  activeClass: function(index){
-    if(index==0){
-      return 'is-active';
-    }
-  },
-  tags: function() {
-    proposal = Session.get("proposal");
-    return Tags.find({_id: {$in: proposal.tags}});
-  },
-  isAuthorised: function(tag){
-    if(tag.authorized){
-      return 'tag-authorised';
-    }else{
-      return 'tag-not-authorised';
-    }
-  },
-  comments: function() {
-    return Comments.find({proposalId: proposalId},{transform: transformComment, sort: {createdAt: -1}});
-  },
-  commentUsername: function(userId){
-    Meteor.call('getProfile', userId, function(error, result){
-      if (error){
-        return TAPi18n.__('pages.proposals.view.userNotFound');
-      } else {
-        profile = result.profile;
-        if (profile){
-          return profile.username;
-        } else {
-          return TAPi18n.__('pages.proposals.view.anonymous');
-        }
-      }
-    });
-  },
-  _id: function() {
-    return Session.get("proposalId");
-  },
-  propDate:function(lastModified){
-    return moment(lastModified).format('MMMM Do YYYY');
-  },
   showApproval: function(){
     return Session.get("showApproval");
-  },
-  argumentsFor: function(language){
-    proposal = Session.get("proposal");
-    return Comments.find({proposalId: proposal._id,type:"for",language:language});
-  },
-  argumentsAgainst: function(language){
-    proposal = Session.get("proposal");
-    return Comments.find({proposalId: proposal._id,type:"against",language:language});
   }
 });
 
@@ -281,4 +217,5 @@ closeProposalModal = function(event) {
   Session.set("showApproval",false);
   $(".proposal-modal").removeClass('active');
   $("#overlay").removeClass('dark-overlay');
+  Session.set("proposal",false);
 }

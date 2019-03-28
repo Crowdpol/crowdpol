@@ -384,7 +384,7 @@ function saveChanges(event, template, returnTo){
 			stage: "draft",
 			hasCover: Session.get("hasCover"),
 			coverURL: Session.get("coverURL"),
-			coverPosition: Session.get("coverPosition")
+			coverPosition: "0px"//Session.get("coverPosition")
 		};
 				//console.log(newProposal);
 		var proposalId = FlowRouter.getParam("id");
