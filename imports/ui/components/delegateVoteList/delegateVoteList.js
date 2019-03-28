@@ -7,15 +7,6 @@ Template.delegateVoteList.onCreated(function(){
 	self = this;
 	self.delegates = new ReactiveVar([]);
 	self.proposalId = Template.currentData().proposalId;
-	if (Meteor.user()) {
-	    Meteor.call("getDelegateVotes", self.proposalId, Meteor.userId(), function(error, result){
-	      if (error){
-	        Bert.alert(error.reason, 'danger');
-	      } else {
-	        self.delegates.set(result);
-	      }
-	    });
-  	}
 		self.autorun(function(){
 			self.subscribe('delegateVotes.forUserProposal',self.proposalId);
 			self.subscribe('ranks.currentUser',LocalStore.get('communityId'));

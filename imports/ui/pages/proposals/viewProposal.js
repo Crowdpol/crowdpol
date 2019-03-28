@@ -518,14 +518,20 @@ Template.Comment.events({
   'mouseenter .comment': function(e) {
     let commentId = e.currentTarget.getAttribute("data-comment-id");
     if(checkIfOwner(commentId)){
-      let identifier = "[data-buttons-id='" + commentId + "']";
+      let identifier = "[data-buttons-id='" + commentId + "'].owner-buttons";
+      $(identifier).show();
+    }else{
+      let identifier = "[data-buttons-id='" + commentId  + "'].viewer-buttons";
       $(identifier).show();
     }
   },
   'mouseleave .comment': function(e) {
     let commentId = e.currentTarget.getAttribute("data-comment-id");
     if(checkIfOwner(commentId)){
-      let identifier = "[data-buttons-id='" + commentId  + "']";
+      let identifier = "[data-buttons-id='" + commentId  + "'].owner-buttons";
+      $(identifier).hide();
+    }else{
+      let identifier = "[data-buttons-id='" + commentId  + "'].viewer-buttons";
       $(identifier).hide();
     }
   },
