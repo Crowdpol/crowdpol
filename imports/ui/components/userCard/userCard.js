@@ -35,6 +35,18 @@ Template.UserCard.helpers({
     }
     return false;
   },
+  isCard: function(style){
+    if(style=='card'){
+      return true;
+    }
+    return false;
+  },
+  isText: function(style){
+    if(style=='text'){
+      return true;
+    }
+    return false;
+  },
   userPhoto: function(userId){
     //console.log("userPhoto userid: " + userId);
     return userProfilePhoto(userId);

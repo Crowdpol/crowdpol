@@ -1,5 +1,8 @@
 <template name="UserCard">
   {{#if userId}}
+    {{#if isText style}}
+      {{userFullname userId}}&nbsp;({{username userId}})
+    {{/if}}
     {{#if isFlat style}}
       <div class="profile-card-flat">
         <a href="#" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
@@ -8,7 +11,8 @@
           <span class="username">{{username userId}}</span>
         </div>
       </div>
-    {{else}}
+    {{/if}}
+    {{#if isCard style}}
       <div class="profile-card mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp {{hasCover userId}}" >
         <div class="mdl-card__title profile-card-header" data-id="{{userId}}"
           style="background-image:{{coverURL userId}};">

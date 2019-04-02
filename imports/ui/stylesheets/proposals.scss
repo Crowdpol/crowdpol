@@ -141,6 +141,9 @@
   p {
     font-family: $body-font;
   }
+  p:hover{
+    background-color: $light-grey-light;
+  }
 
   img {
     width: 100%;
