@@ -1,6 +1,7 @@
 import './flags.html'
 import { Flags } from '../../../../api/flags/Flags.js'
 import { Proposals } from '../../../../api/proposals/Proposals.js'
+import { Comments } from '../../../../api/comments/Comments.js'
 
 Template.AdminFlags.onCreated(function(){
   self = this;
@@ -15,6 +16,7 @@ Template.AdminFlags.onCreated(function(){
   self.autorun(function() {
     self.subscribe('users.community', communityId);
     self.subscribe("flags.community",communityId);
+    self.subscribe("comments.all");
   });
 });
 /*
@@ -79,18 +81,22 @@ Template.AdminFlagModal.helpers({
     return false;
   },
   isComment: function(type){
-    if(type=='comment'){
+    if((type=='comment')||(type=='for')||(type=='against')){
       return true;
     }
     return false;
   },
-  isArgument: function(type){
-    if((type=='for')||(type=='against')){
-      return true;
+  comment: function(){
+    let flag = Session.get("flagContent");
+    let id = false;
+    if(flag){
+      id = flag.contentId;
     }
-    return false;
+    console.log("id: " + id);
+    let comment = Comments.findOne({"_id":id});
+    console.log(comment);
+    return comment;
   }
-
 });
 
 Template.AdminFlagModal.events({

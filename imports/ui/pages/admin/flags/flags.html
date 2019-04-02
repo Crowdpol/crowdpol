@@ -127,6 +127,7 @@
 <template name="AdminFlagModal">
   <div id="overlay"></div>
 	<div class="proposal-modal">
+  Add: close button to top right
     Reported By:
       {{>UserCard userId=flag.flaggerId style="flat"}}
     <br>
@@ -137,18 +138,20 @@
     Explanation: {{flag.other}}
 
     <hr>
-    {{#if isProposal flag.contentType}}
-      {{> ViewProposal proposalId=flag.contentId}}
-    {{/if}}
-    {{#if isComment flag.contentType}}
-      this is comment
-    {{/if}}
-    {{#if isArgument flag.contentType}}
-      this is argument
-    {{/if}}
-		{{#if proposalId}}
-			{{> ViewProposal proposalId=proposalId}}
-    {{/if}}
+    <div class="admin-flag-modal-content">
+      {{#if isProposal flag.contentType}}
+        {{> ViewProposal proposalId=flag.contentId}}
+      {{/if}}
+      {{#if isComment flag.contentType}}
+       Owner:
+       {{>UserCard userId=comment.authorId style="flat"}}
+       Comment:
+       {{comment.message }}
+      {{/if}}
+  		{{#if proposalId}}
+  			{{> ViewProposal proposalId=proposalId}}
+      {{/if}}
+    </div>
     <hr>
     1. Block content
     2. Flag content
