@@ -29,6 +29,12 @@ Template.UserCard.onRendered(function(){
 
 
 Template.UserCard.helpers({
+  isFlat: function(style){
+    if(style=='flat'){
+      return true;
+    }
+    return false;
+  },
   userPhoto: function(userId){
     //console.log("userPhoto userid: " + userId);
     return userProfilePhoto(userId);

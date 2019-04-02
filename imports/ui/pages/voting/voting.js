@@ -138,8 +138,13 @@ Template.Voting.helpers({
     return (role == LocalStore.get('currentUserRole'));
   },
   voteDropdownText(){
-    var str = "layout.header.vote_as_" + LocalStore.get('currentUserRole').toLowerCase();
-    return TAPi18n.__(str);
+    var role = LocalStore.get('currentUserRole');
+    if(role){
+      var str = "layout.header.vote_as_" + role.toLowerCase();
+      return TAPi18n.__(str);
+    }else{
+      console.log("could not determine user role");
+    }
   }
 });
 

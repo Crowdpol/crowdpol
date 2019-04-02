@@ -1,6 +1,27 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
 
+.profile-card-flat{
+  display: flex;
+  .profile-card-flat-details{
+    display: flex;
+    flex-direction: column;
+    height: 40px;
+    span{
+      line-height: 1rem;
+    }
+    span.fullname{
+      font-size: $small-font-size;
+      font-weight: 500;
+    },
+    span.username{
+      font-size: $small-font-size;
+      font-weight: 300;
+      color: $light-grey;
+    }
+  }
+}
+
 .profile-card{
   min-height: 0;
   .profile-card-header{

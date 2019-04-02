@@ -1,25 +1,34 @@
 <template name="UserCard">
   {{#if userId}}
-    <div class="profile-card mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp {{hasCover userId}}" >
-      <div class="mdl-card__title profile-card-header" data-id="{{userId}}"
-        style="background-image:{{coverURL userId}};">
-
-      </div>
-      <div class="mdl-card__supporting-text">
+    {{#if isFlat style}}
+      <div class="profile-card-flat">
         <a href="#" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
-        <h6 class="mdl-card__title-text">{{userFullname userId}}</h6>
-        <span class="username">{{username userId}}</span>
+        <div class="profile-card-flat-details">
+          <span class="fullname">{{userFullname userId}}</span>
+          <span class="username">{{username userId}}</span>
+        </div>
       </div>
-      <div class="mdl-card__actions mdl-card--border">
-        {{#if notMe userId}}
-          {{#if alreadyFollowing userId}}
-            <button class="mdl-button mdl-js-button" id="unfollow-user" data-id="{{userId}}">Unfollow<i class="material-icons">minus</i></button>
-          {{else}}
-            <button class="mdl-button mdl-js-button" id="follow-user" data-id="{{userId}}">Follow<i class="material-icons">add</i></button>
-          {{/if}}
-        {{/if}}
-      </div>
-    </div>
+    {{else}}
+      <div class="profile-card mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp {{hasCover userId}}" >
+        <div class="mdl-card__title profile-card-header" data-id="{{userId}}"
+          style="background-image:{{coverURL userId}};">
 
+        </div>
+        <div class="mdl-card__supporting-text">
+          <a href="#" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
+          <h6 class="mdl-card__title-text">{{userFullname userId}}</h6>
+          <span class="username">{{username userId}}</span>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          {{#if notMe userId}}
+            {{#if alreadyFollowing userId}}
+              <button class="mdl-button mdl-js-button" id="unfollow-user" data-id="{{userId}}">Unfollow<i class="material-icons">minus</i></button>
+            {{else}}
+              <button class="mdl-button mdl-js-button" id="follow-user" data-id="{{userId}}">Follow<i class="material-icons">add</i></button>
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    {{/if}}
   {{/if}}
 </template>

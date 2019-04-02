@@ -1,5 +1,70 @@
 <template name="FlagModal">
-  <div id="draggable-flag-modal">
-    <h5>Flag an issue</h5>
+  <div id="draggable-flag-modal" >
+    <button class="mdl-button mdl-js-button mdl-button--icon" id="flag-cancel-button">
+      <i class="material-icons">close</i>
+    </button>
+    <form >
+      <h5>{{_ "components.flag-modal.flag-header"}}</h5>
+      <div class="flag-content">
+        <div class="flag-author-details">
+          <small>{{_ "components.flag-modal.flag-content-creator"}}</small>
+          {{>UserCard userId=authorId style="flat"}}
+        </div>
+        <div class="flag-content-details">
+          <small>{{flagHeader contentType}}</small>
+          {{#if isProposal contentType}}
+            <!-- Tabs for translations -->
+        		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        			<div class="button-tabs mdl-tabs__tab-bar">
+        				{{#each content in proposal contentId}}
+        				  <a href="#{{content.language}}-panel" class="mdl-tabs__tab {{activeClass content.language}}">{{content.language}}</a>
+        				{{/each}}
+        			</div>
+
+        			{{#each content in proposal contentId}}
+        				<div class="mdl-tabs__panel {{activeClass content.language}}" id="{{content.language}}-panel">
+                  <strong>{{content.title}}</strong><br>
+                  <small>{{content.abstract}}</small>
+        				</div>
+        			{{/each}}
+        		</div>
+          {{/if}}
+          {{#if isComment contentType}}
+            {{commentMessage contentId}}
+          {{/if}}
+        </div>
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+          <input class="mdl-textfield__input" type="text" name="flag-type" id="flag-type" data-val="racism" value="racist" readonly  tabIndex="-1">
+          <label for="flag-type" class="dropdown-icon">
+              <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+          </label>
+          <label for="flag-type" class="mdl-textfield__label">{{_ "components.flag-modal.flag-reason-type"}}</label>
+          <ul for="flag-type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+            <li class="mdl-menu__item dropdown-item" data-val="racist">racist</li>
+            <li class="mdl-menu__item dropdown-item" data-val="sexist">sexist</li>
+            <li class="mdl-menu__item dropdown-item" data-val="language">language</li>
+            <li class="mdl-menu__item dropdown-item" data-val="other">other</li>
+          </ul>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <textarea class="mdl-textfield__input" type="text" rows= "3" id="flag-reason" ></textarea>
+          <label class="mdl-textfield__label" for="flag-reason">{{_ "components.flag-modal.flag-reason"}}</label>
+        </div>
+        <!--
+        TO DO:
+        1. Return the content (i.e. comment, argument or proposal heading)
+        2. Show the content author details - DONE
+        3. Select the appropriate offence
+        4. Provide text feedback
+        5. cancel and submit button
+        -->
+      </div>
+      <div class="btn-wrapper">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="flag-report-button">
+          {{_ "components.flag-modal.report-button"}}
+        </button>
+      </div>
+
+    </form>
   </div>
 </template>

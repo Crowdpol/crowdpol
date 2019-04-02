@@ -8,7 +8,7 @@ const FlagSchema = new SimpleSchema({
   contentType: {
     // current stage of proposal
     type: String,
-    allowedValues: ["proposal", "comment", "profile"]
+    allowedValues: ["proposal", "comment", "profile","for","against"]
   },
   contentId: {
     type: String,
@@ -35,7 +35,7 @@ const FlagSchema = new SimpleSchema({
   },
   justification: {
     type: String,
-    optional: false
+    optional: true
   },
   createdAt: {
     //Creation Date
@@ -57,11 +57,13 @@ const FlagSchema = new SimpleSchema({
   },
   status: {
     type: String,
-    allowedValues: ["pending", "reviewed"]
+    allowedValues: ["pending", "reviewed"],
+    optional: true
   },
   outcome: {
     type: String,
-    allowedValues: ["rejected", "blocked"]
+    allowedValues: ["rejected", "blocked"],
+    optional: true
   },
   communityId: {
     type: String,

@@ -118,7 +118,7 @@ Template.Cover.events({
   },
   'mouseenter #cover-image': function(event, template){
     let state = Session.get('coverState');
-    console.log("state: " + state);
+    //console.log("state: " + state);
     if(typeof state!='undefined'){
       if((state=='view-edit')||(state=='edit-show')){
         coverEdit = Template.instance().dict.get("coverEdit");

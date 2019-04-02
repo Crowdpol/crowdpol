@@ -30,7 +30,7 @@ Template.FlagButton.events({
     let contentType = event.currentTarget.getAttribute("data-content-type");
     let contentId = event.currentTarget.getAttribute("data-content-id");
     let authorId = event.currentTarget.getAttribute("data-content-author-id");
-    if(contentId && contentType){
+    if(contentId && contentType && authorId){
       let flagContent = {
         contentId: contentId,
         contentType: contentType,
@@ -39,6 +39,8 @@ Template.FlagButton.events({
       Session.set("flagContent",flagContent);
       $('#draggable-flag-modal').show();
       $('#draggable-flag-modal').draggable();
+      //$(".flag-modal").addClass('active');
+      //$("#overlay").addClass('dark-overlay');
     }
 
   },
