@@ -29,6 +29,18 @@ Template.UserCard.onRendered(function(){
 
 
 Template.UserCard.helpers({
+  isDate: function(style){
+    if(style=='date'){
+      return true;
+    }
+    return false;
+  },
+  formatDate: function(date){
+    if(date){
+      return moment(date).format('MMMM Do YYYY');
+    }
+    return moment().format('MMMM Do YYYY');
+  },
   isFlat: function(style){
     if(style=='flat'){
       return true;

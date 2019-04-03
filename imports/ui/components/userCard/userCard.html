@@ -3,6 +3,15 @@
     {{#if isText style}}
       {{userFullname userId}}&nbsp;({{username userId}})
     {{/if}}
+    {{#if isDate style}}
+      <div class="profile-card-flat">
+        <a href="#" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
+        <div class="profile-card-flat-details">
+          <span class="fullname">{{userFullname userId}}&nbsp;({{username userId}})</span>
+          <span class="username">{{formatDate date}}</span>
+        </div>
+      </div>
+    {{/if}}
     {{#if isFlat style}}
       <div class="profile-card-flat">
         <a href="#" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>

@@ -72,7 +72,6 @@ Template.FlagModal.helpers({
   },
   proposal: function(id){
     //TAPi18n.getLanguage()
-    console.log("proposal id: "+id);
     let content = false;
     let proposal = Proposals.findOne({"_id":id});
     if(proposal){
@@ -80,12 +79,9 @@ Template.FlagModal.helpers({
         content = proposal.content;
       }
     }
-
-    console.log(content);
     return content;
   },
   commentMessage: function(id){
-    console.log("proposal id: "+id);
     let message = false;
     let comment = Comments.findOne({"_id":id});
     if(comment){

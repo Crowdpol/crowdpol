@@ -39,28 +39,26 @@ Template.AdminFlags.events({
 
 Template.AdminFlags.helpers({
 	allFlags: function(){
-    return Flags.find();
+    return distinctFlags({});
   },
   pendingFlags: function(){
-    return Flags.find({"status" : "pending"});
+    return distinctFlags({"status" : "pending"});
   },
   resolvedFlags: function(){
-    return Flags.find({"status" : "resolved"});
+    return distinctFlags({"status" : "resolved"});
   },
   proposalContent: function(id){
-    console.log("proposal id: "+id);
     let content = false;
-    let proposal = Proposals.findOne({"_id":id});
+    let proposal = Proposals.findOne({"_id":id},{sort:{"createdAt":1}});
     if(proposal){
       if(typeof proposal.content !== undefined){
         content = proposal.content;
       }
     }
-
-    console.log(content);
     return content;
   },
   flagDate: function(){
+    console.log(this);
     return moment(this.createdAt).format('MMMM Do YYYY');
   },
 });
@@ -92,23 +90,29 @@ Template.AdminFlagModal.helpers({
     if(flag){
       id = flag.contentId;
     }
-    console.log("id: " + id);
     let comment = Comments.findOne({"_id":id});
-    console.log(comment);
     return comment;
+  },
+  oldFlagsContent: function(id){
+    console.log("id: " + id);
+    let flags = Flags.find({"contentId":id,"status" :"resolved"});
+    console.log(flags.count());
+    return flags;
   }
 });
 
 Template.AdminFlagModal.events({
   'click #overlay' (event, template){
-    console.log("overlay clicked");
+    closeAdminFlagModal();
+  },
+  'click #admin-flag-cancel-button' (event, template){
     closeAdminFlagModal();
   }
 })
 
 openAdminFlagModal = function(event) {
   if (event) event.preventDefault();
-  $(".proposal-modal").addClass('active');
+  $(".flag-modal").addClass('active');
   $("#overlay").addClass('dark-overlay');
 }
 
@@ -118,6 +122,27 @@ closeAdminFlagModal = function(event) {
     event.stopImmediatePropagation();
   }
   Session.set("flagContent",false);
-  $(".proposal-modal").removeClass('active');
+  $(".flag-modal").removeClass('active');
   $("#overlay").removeClass('dark-overlay');
+}
+
+distinctFlags = function(query){
+  //get all falgs that match the query
+  let flagsArray = Flags.find(query).fetch();
+  //get just the content ids
+  let distinctContentIds = _.uniq(flagsArray, false, function(d) {
+    return {"_id": d.contentId, "type": d.contentType, "ownerId": d.creatorId};
+  });
+  let idArray = _.pluck(distinctContentIds, 'contentId');
+  //get the distinct contentIds
+  let distinctArray = _.uniq(idArray);
+  //create an array of flags based on contentIds
+  let flagArray = [];
+  distinctArray.forEach(function(item, index) {
+    let flag = Flags.findOne({"contentId":item});
+    if(flag){
+      flagArray.push(flag);
+    }
+  });
+  return flagArray;
 }

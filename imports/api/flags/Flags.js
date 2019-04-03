@@ -57,7 +57,7 @@ const FlagSchema = new SimpleSchema({
   },
   status: {
     type: String,
-    allowedValues: ["pending", "reviewed"],
+    allowedValues: ["pending", "reviewed","resolved"],
     optional: true
   },
   outcome: {

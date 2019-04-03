@@ -16,7 +16,6 @@
     					<thead>
     						<tr>
                   <th>{{_"admin.flags.created"}}</th>
-    							<th>{{_"admin.flags.reporter"}}</th>
     							<th>{{_"admin.flags.owner"}}</th>
     							<th>{{_"admin.flags.type"}}</th>
     							<th>{{_"admin.flags.view"}}</th>
@@ -27,7 +26,6 @@
                   <tr>
                     <th>{{flagDate}}</th>
                     <th>{{>UserCard userId=flag.creatorId style="text"}}</th>
-                    <th>{{>UserCard userId=flag.flaggerId style="text"}}</th>
                     <th>
                       {{flag.contentType}}
                     </th>
@@ -126,37 +124,133 @@
 
 <template name="AdminFlagModal">
   <div id="overlay"></div>
-	<div class="proposal-modal">
-  Add: close button to top right
-    Reported By:
-      {{>UserCard userId=flag.flaggerId style="flat"}}
-    <br>
-    Date flagged: {{flag.createdAt}}
-    <br>
-    Reason: {{flag.category}}
-    <br>
-    Explanation: {{flag.other}}
-
-    <hr>
+	<div class="flag-modal">
+    <button class="mdl-button mdl-js-button mdl-button--icon" id="admin-flag-cancel-button">
+      <i class="material-icons">close</i>
+    </button>
+    <div class="admin-flag-users">
+      <div class="flag-content-user reporter">
+        <div class="flag-content-owner-header"><small>Reported By:</small></div>
+        <div class="flag-content-owner-details">
+          {{>UserCard userId=flag.flaggerId style="flat"}}
+        </div>
+      </div>
+      <div class="flag-content-type">
+        <h3>Flagged {{flag.contentType}}</h3>
+      </div>
+      <div class="flag-content-user owner">
+        <div class="flag-content-owner-header"><small>Created By:</small></div>
+        <div class="flag-content-owner-details">
+          {{>UserCard userId=flag.creatorId style="flat"}}
+        </div>
+      </div>
+    </div>
     <div class="admin-flag-modal-content">
       {{#if isProposal flag.contentType}}
         {{> ViewProposal proposalId=flag.contentId}}
       {{/if}}
       {{#if isComment flag.contentType}}
-       Owner:
        {{>UserCard userId=comment.authorId style="flat"}}
-       Comment:
        {{comment.message }}
       {{/if}}
   		{{#if proposalId}}
   			{{> ViewProposal proposalId=proposalId}}
       {{/if}}
     </div>
-    <hr>
-    1. Block content
-    2. Flag content
-    3. Warn owner
-    4. Respond to flagger
-    5. Take no action
+    <div class="admin-flag-response">
+      <div class="admin-flag-response-content flag">
+        <h6>Content Action</h6>
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+          <div class="mdl-tabs__tab-bar">
+              <a href="#current-content-panel" class="mdl-tabs__tab is-active">Current</a>
+              <a href="#previous-content-panel" class="mdl-tabs__tab">Previous</a>
+          </div>
+          <div class="mdl-tabs__panel is-active" id="current-content-panel">
+            <div class="admin-flag-content-details">
+              <div class="admin-flag-details">
+                <!--<div class="flag-type">{{flag.contentType}}</div>-->
+                <div class="flag-reason">Reason: <strong>{{flag.category}}</strong></div>
+                <div class="flag-explanation">
+                  Reporter Description:<br/>
+                  <small>{{flag.other}}</small>
+                </div>
+              </div>
+              <div class="admin-flag-response-content-actions">
+                <label class="mdl-radio mdl-radio-flag mdl-js-radio mdl-js-ripple-effect" for="no-action-1">
+                  <input type="radio" id="no-action-1" class="mdl-radio__button" name="content-action" value="none" checked>
+                  <span class="mdl-radio__label">Take No Action</span>
+                </label>
+                <br>
+                <label class="mdl-radio mdl-radio-flag mdl-js-radio mdl-js-ripple-effect" for="disable">
+                  <input type="radio" id="disable" class="mdl-radio__button" name="content-action" value="disable">
+                  <span class="mdl-radio__label">Disable Content</span>
+                </label>
+                <br>
+                <label class="mdl-radio mdl-radio-flag mdl-js-radio mdl-js-ripple-effect" for="remove">
+                  <input type="radio" id="remove" class="mdl-radio__button" name="content-action" value="remove">
+                  <span class="mdl-radio__label">Remove Content</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mdl-tabs__panel" id="previous-content-panel">
+            {{#each flag in oldFlagsContent flag.contentId}}
+              {{flag._id}}
+            {{/each}}
+          </div>
+        </div>
+
+      </div>
+      <div class="admin-flag-response-content user">
+        <h6>User Action</h6>
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+          <div class="mdl-tabs__tab-bar">
+              <a href="#current-user-panel" class="mdl-tabs__tab is-active">Current</a>
+              <a href="#previous-user-panel" class="mdl-tabs__tab">Previous</a>
+          </div>
+          <div class="mdl-tabs__panel is-active" id="current-user-panel">
+            <div class="admin-flag-user-details">
+              <div class="admin-flag-user-history">
+                Previous Offenses:<br>
+                Yellow Cards: 1<br>
+                Red Cards: 2
+              </div>
+              <div class="admin-flag-response-content-actions">
+                <label class="mdl-radio mdl-radio-flag mdl-js-radio mdl-js-ripple-effect" for="no-action-2">
+                  <input type="radio" id="no-action-2" class="mdl-radio__button" name="user-action" value="none" checked>
+                  <span class="mdl-radio__label">Take No Action</span>
+                </label>
+                <br>
+                <label class="mdl-radio mdl-radio-flag mdl-js-radio mdl-js-ripple-effect" for="yellow-flag">
+                  <input type="radio" id="yellow-flag" class="mdl-radio__button" name="user-action" value="yellow">
+                  <span class="mdl-radio__label">Yellow Flag</span>
+                </label>
+                <br>
+                <label class="mdl-radio mdl-radio-flag mdl-js-radio mdl-js-ripple-effect" for="red-flag">
+                  <input type="radio" id="red-flag" class="mdl-radio__button" name="user-action" value="2">
+                  <span class="mdl-radio__label">Red Flag</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mdl-tabs__panel" id="previous-user-panel">
+            put prevous actions here
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="admin-flag-response-box">
+      <center>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <textarea class="mdl-textfield__input" type="text" rows= "3" id="flag-reason" ></textarea>
+          <label class="mdl-textfield__label" for="flag-reason">{{_ "components.flag-modal.flag-justification"}}</label>
+        </div>
+        <br>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="flag-report-button">
+          {{_ "components.flag-modal.resolve-button"}}
+        </button>
+      </center>
+    </div>
 	</div>
 </template>
