@@ -1,0 +1,12 @@
+<template name="FlagButton">
+  <button class="mdl-button mdl-js-button mdl-button--icon flag-button" data-content-id="{{contentId}}" data-content-type="{{contentType}}" data-content-author-id="{{authorId}}">
+    <i class="material-icons">{{isFlagged contentId}}</i>
+  </button>
+  <!--
+  TO DO:
+  1. Check if content id had already been flagged
+  2. Change colour of flag to red if content isFlagged
+  3. Create tool tip listing the reported offence and date, with pending outcome
+  4. Open the modal at the location of the conent being reported.
+  -->
+</template>

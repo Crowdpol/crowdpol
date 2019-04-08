@@ -38,6 +38,43 @@ Schema.Approval = new SimpleSchema({
     },
 });
 
+Schema.Card = new SimpleSchema({
+    flagId: {
+        type: String,
+        optional: true,
+    },
+    type: {
+        type: String,
+        allowedValues: ['yellow', 'red'],
+        optional: true,
+    },
+    status: {
+        type: String,
+        allowedValues: ['active','expired'],
+        optional: true,
+    },
+    reviewedBy: {
+        type: String,
+        optional: true,
+    },
+    reviewedOn: {
+        type: Date,
+        optional: true,
+    },
+    reviewedReply: {
+        type: String,
+        optional: true,
+    },
+    createdAt: {
+        type: Date,
+        optional: true,
+    },
+    expireDate: {
+        type: Date,
+        optional: true,
+    },
+});
+
 Schema.Credential = new SimpleSchema({
   source: {
     type: String,
@@ -235,6 +272,14 @@ Schema.User = new SimpleSchema({
             return new Date();
           }
         },
+    },
+    cards: {
+        type: Array,
+        optional: true,
+    },
+    'cards.$': {
+        type: Schema.Card,
+        optional: true,
     },
     isDisabled: {
         type: Boolean,

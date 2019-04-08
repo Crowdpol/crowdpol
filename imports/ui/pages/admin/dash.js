@@ -5,6 +5,7 @@ import './approvals/approvals.js';
 import './proposals/proposals.js';
 import './voting/voting.js';
 import './stats/stats.js';
+import './flags/flags.js';
 import './dash.html';
 import './communities/communities.js'
 import './settings/settings.js'
@@ -49,5 +50,6 @@ Template.AdminDash.helpers({
 Template.AdminDashHeader.events({
 	'click .menu__link': function(event, template){
 		Session.set("adminTemplate",event.target.dataset.template);
+		console.log(event.target.dataset.template);
 	},
 });

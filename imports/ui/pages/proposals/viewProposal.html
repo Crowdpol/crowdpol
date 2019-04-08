@@ -1,5 +1,6 @@
 <template name="ViewProposal">
 	{{> SignInModal}}
+	{{>FlagModal}}
 	{{> RemoveInviteModal proposalId=_id}}
 	{{#if hasHeader}}
 		{{>Cover}}
@@ -42,6 +43,9 @@
 							{{_ "pages.proposals.view.editProposal"}}<i class="material-icons">create</i>
 						</button>
 					{{else}}
+						<div>
+							{{>FlagButton contentId=_id contentType="proposal" authorId=author._id}}
+						</div>
 						<div>
 							<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
 								<i class="material-icons">share</i>
@@ -307,13 +311,16 @@
 				<strong>{{ username }}</strong>
 				<span>{{ date }}</span>
 			</div>
-			<div class="comment__functions" style="display:none;" data-buttons-id="{{_id}}">
+			<div class="comment__functions owner-buttons" style="display:none;" data-buttons-id="{{_id}}">
 				<button class="mdl-button mdl-js-button mdl-button--icon delete-comment-button" data-id="{{_id}}">
 					<i class="material-icons delete-comment-icon" data-id="{{_id}}">delete</i>
 				</button>
 				<button class="mdl-button mdl-js-button mdl-button--icon edit-comment-button" data-id="{{_id}}">
 					<i class="material-icons edit-comment-icon" data-id="{{_id}}">edit</i>
 				</button>
+			</div>
+			<div class="comment__functions viewer-buttons" style="display:none;" data-buttons-id="{{_id}}">
+				{{>FlagButton contentId=_id contentType="comment" authorId=authorId}}
 			</div>
 		</header>
 		<div class="comment__text">
