@@ -314,6 +314,7 @@
 				"pointsAgainst": "Argument Emot:",
 				"noDelegatesFor": "Ingen av dina delegater röstade för detta förslag",
 				"noDelegatesAgainst": "Ingen av dina delegater röstade emot detta förslag",
+				"noDelegatesAbstain": "TODO: None of your delegates abstained to vote on this issue",
 				"proposalUnvailable": "Detta förslag är inte offentlig ännu.",
 				"noDelegateReason": "Den här delegaten lämade ingen kommentar till sitt val.",
 				"addComment": "Lägg till en kommentar",

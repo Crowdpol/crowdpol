@@ -73,7 +73,7 @@
             <center>No followers</center>
           {{else}}
             {{#each follower in followers}}
-              {{>UserCard userId=follower._id}}
+              {{>UserCard userId=follower._id style="card"}}
             {{/each}}
           {{/unless}}
         </div>
@@ -84,7 +84,7 @@
           {{else}}
             <div class="mdl-grid">
             {{#each follow in following}}
-              {{>UserCard userId=follow._id}}
+              {{>UserCard userId=follow._id style="card"}}
             {{/each}}
             </div>
           {{/unless}}

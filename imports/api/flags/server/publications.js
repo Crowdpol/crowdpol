@@ -8,5 +8,3 @@ Meteor.publish('flags.community', function(communityId) {
 Meteor.publish('flags.all', function() {
   return Flags.find({});
 });
-
-

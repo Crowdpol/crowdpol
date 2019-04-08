@@ -6,5 +6,7 @@ Meteor.publish('ranks.all', function() {
   return result;
 });
 
-
-
+Meteor.publish('ranks.currentUser', function(communityId) {
+  result =  Ranks.find({"supporterId":Meteor.userId(),"communityId":communityId});
+  return result;
+});

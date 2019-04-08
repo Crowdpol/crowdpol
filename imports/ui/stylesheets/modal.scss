@@ -19,3 +19,233 @@
 }
 
 .mdl-card__actions { background-color: rgba(222, 222, 222, 0.25); }
+
+#draggable-flag-modal{
+  padding: $space / 2;
+  background-color: $white;
+  box-shadow: 0 10px 10px rgba($black, 0.4);
+  //border:4px solid #CCC;
+  width:300px;
+  height:auto;
+  display:none;
+  position:absolute;
+  left:50%;
+  top:50%;
+  margin:-25px 0 0 -50px;
+  //border-radius:5px;
+  z-index: 505;
+  .flag-content{
+    border: solid 1px red;
+    .flag-author-details{
+      margin-bottom: $space;
+    }
+    .flag-content-details{
+      margin-bottom: $space;
+    }
+  }
+
+  #flag-cancel-button{
+    position: relative;
+    float: right;
+  }
+}
+//===============================
+.flag-content-modal{
+  display: none;
+  z-index: 5;
+  cursor: pointer;
+  position: fixed;
+  right: 5%;
+  top: 10%;
+  background: $white;
+  //color: #fff;
+  height: 85%;
+  width: 90%;
+  box-shadow: 0 5px 5px rgba(126, 111, 111, 0.39);
+  -webkit-transition: all 600ms cubic-bezier(0.200, 0.965, 0.000, 1.005);
+  transition: all 600ms cubic-bezier(0.200, 0.965, 0.000, 1.005);
+  padding: $space / 2;
+  overflow: hidden;
+  .flag-content-modal-containter{
+    display: flex;
+    justify-content: space-between;
+    .flag-content-modal-column{
+      width: 50%;
+    }
+    .content-column{
+      //border: solid 1px red;
+      max-height: 700px;
+      overflow-y: scroll;
+      padding-right: $space / 4;
+    }
+    .flag-details{
+      //border: solid 1px green;
+      margin-top: $space / 4;
+      font-size: 0.8rem;
+      line-height: 1rem;
+      height: 200px;
+      width: 100%;
+      overflow-y: scroll;
+    }
+    .flag-list{
+      //border: solid 1px orange;
+      table ,tr td{
+          //border:1px solid red
+      }
+      tbody {
+          display:block;
+          max-height:200px;
+          overflow-y:scroll;
+      }
+      thead, tbody tr {
+          display:table;
+          width:100%;
+          table-layout:fixed;
+      }
+      thead{
+        box-shadow: 0 2px 2px rgba(126, 111, 111, 0.2);
+      }
+    }
+    .admin-flag-response{
+      margin-top: $space / 4;
+
+      //max-height:200px;
+      font-size: 0.8rem;
+      line-height: 1rem;
+      .admin-flag-response-column{
+        border: solid 1px green;
+        display: flex;
+        justify-content: space-between;
+        .flag-actions{
+          border: solid 1px purple;
+          width: 40%;
+          font-size: 0.8rem;
+          line-height: 1rem;
+          .mdl-radio-flag {
+
+            .mdl-radio__label{
+              font-size: 0.8rem;
+              line-height: 1rem;
+            }
+          }
+        }
+        .admin-flag-response-box{
+          border: solid 1px grey;
+          width: 60%;
+        }
+      }
+
+      .flag-switch,.flag-submit-box{
+        width: 100%;
+      }
+    }
+  }
+
+}
+.flag-modal {
+  display: none;
+  z-index: 5;
+  cursor: pointer;
+  border-radius: 50%;
+  position: fixed;
+  right: 5%;
+  top: 5%;
+  //color: #fff;
+  background: #d35400;
+  height: 90%;
+  width: 90%;
+  box-shadow: 0 5px 5px rgba(126, 111, 111, 0.39);
+  -webkit-transition: all 600ms cubic-bezier(0.200, 0.965, 0.000, 1.005);
+  transition: all 600ms cubic-bezier(0.200, 0.965, 0.000, 1.005);
+  padding: $space / 2;
+  #admin-flag-cancel-button{
+    position: relative;
+    float: right;
+  }
+  .admin-flag-users{
+    display: flex;
+    justify-content: space-between;
+
+    .flag-content-user{
+      //padding: $space;
+    }
+    .flag-content-user.reporter{
+      //border: solid 1px red;
+    }
+    .flag-content-user.owner{
+      //border: solid 1px blue;
+    }
+  }
+  .admin-flag-modal-content{
+    //border: solid 5px pink;
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+  .admin-flag-response{
+
+    #content-panel{
+      .content-panel-flags{
+        display: flex;
+        justify-content: space-between;
+        .content-panel-list{
+          padding-top: $space / 2;
+          padding-bottom: $space / 2;
+          padding-left: 0;
+          padding-right: $space / 4;
+          width: 70%;
+        }
+        .content-panel-details{
+          width: 30%;
+          padding-top: $space / 2;
+          padding-bottom: $space / 2;
+          padding-left: $space / 4;
+          padding-right: 0;
+        }
+      }
+    }
+    .admin-flag-response-content{
+      width: 50%;
+      font-size: 0.8rem;
+      line-height: 1rem;
+      .mdl-radio-flag {
+
+        .mdl-radio__label{
+          font-size: 0.8rem;
+          line-height: 1rem;
+        }
+      }
+    }
+    .admin-flag-response-content.flag{
+      border: solid 1px red;
+      .admin-flag-content-details{
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .admin-flag-response-content.user{
+      border: solid 1px blue;
+      .admin-flag-user-details{
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .admin-flag-response-box{
+      border: solid 1px green;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.flag-modal.active {
+  display: block;
+  cursor: default;
+  background: #FFF;
+  border-radius: .125em;
+  height: 80%;
+  width: 80%;
+  box-shadow: 0 25px 35px 0 rgba(0, 0, 0, 0.35);
+  top: 10%;
+  right: 10%;
+  overflow: scroll
+}

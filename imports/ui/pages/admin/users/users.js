@@ -16,6 +16,12 @@ Template.AdminUsers.helpers({
   users: ()=> {
     return Meteor.users.find({});
   },
+  delegates: ()=> {
+    return Meteor.users.find({"roles":"delegate"});
+  },
+  admins: ()=> {
+    return Meteor.users.find({"roles":"admin"});
+  },
   whitelist: ()=> {
 	  var community = Communities.findOne({_id: LocalStore.get('communityId')});
 	  var settings = community.settings;
@@ -51,6 +57,32 @@ Template.AdminUsers.events({
     				Bert.alert(error.reason, 'danger');
     			} else {
     				Bert.alert('User account disabled', 'success');
+    			}
+        });
+    }
+  },
+  'click .remove-delegate-role'(event,template){
+    var userId = event.target.dataset.id;
+    if(typeof userId!=='undefined'){
+        Meteor.call('toggleDelegate',userId,false,function(error,result){
+          if (error){
+    				RavenClient.captureException(error);
+    				Bert.alert(error.reason, 'danger');
+    			} else {
+    				Bert.alert('User no longer delegate', 'success');
+    			}
+        });
+    }
+  },
+  'click .remove-admin-role'(event,template){
+    var userId = event.target.dataset.id;
+    if(typeof userId!=='undefined'){
+        Meteor.call('toggleAdmin',userId,false,function(error,result){
+          if (error){
+    				RavenClient.captureException(error);
+    				Bert.alert(error.reason, 'danger');
+    			} else {
+    				Bert.alert('User no longer admin', 'success');
     			}
         });
     }

@@ -76,9 +76,26 @@
     }
   }
 }
+.mdl-list.delegate-vote-list-for{
+  .delegate-vote-list-item.selected {
+    background: lighten($yes-button, 10%);
+  }
+}
+.mdl-list.delegate-vote-list-abstain{
+  .delegate-vote-list-item.selected {
+    background: lighten($abstain-button, 10%);
+  }
+}
+.mdl-list.delegate-vote-list-against{
+  .delegate-vote-list-item.selected {
+    background: lighten($no-button, 10%);
+  }
+}
 
 .delegate-vote-list-item {
   padding: 0px;
+  padding-left: 5px;
+  padding-right: 5px;
   .card-delegate-list{
     padding: 0px;
     i.material-icons{

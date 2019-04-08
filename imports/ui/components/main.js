@@ -9,3 +9,5 @@ import './unsplash/unsplash.js';
 import './userCard/userCard.js';
 import './cover/cover.js';
 import './labelSelector/labelSelector.js';
+import './flag/flagButton.js';
+import './flag/flagModal.js';

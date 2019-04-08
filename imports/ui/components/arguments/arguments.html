@@ -18,6 +18,7 @@
           {{else}}
           <div class="like-menu">
             <!--{{argument.upVoteCount}}-->
+            {{>FlagButton contentId=argument._id contentType=type authorId=argument.authorId}}
             <button class="mdl-button mdl-js-button mdl-button--icon like-argument-button {{isLiked argument}}" data-id="{{argument._id}}">
               <i class="material-icons like-argument-icon" data-id="{{argument._id}}">thumb_up</i>
             </button>
@@ -28,7 +29,7 @@
           </div>
           {{/if}}
           <div class="save-menu" style="display:none;"  data-id='{{argument._id}}'>
-
+            {{>FlagButton}}
             <button class="mdl-button mdl-js-button mdl-button--icon close-argument-button" data-id="{{argument._id}}">
               <i class="material-icons close-argument-icon" data-id="{{argument._id}}">close</i>
             </button>

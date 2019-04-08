@@ -2,10 +2,10 @@
 	<center><p class="proposal-info">{{_ "pages.proposals.view.delegatesVoteHeading"}}</p></center>
 	<div class="mdl-grid delegate-vote-grid">
 		<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
-			{{#if delegatesFor}}
-				<ul class="mdl-list" >
-					{{#each delegatesFor}}
-					{{> delegateVoteListItem}}
+			{{#if delegateVote "yes"}}
+				<ul class="mdl-list delegate-vote-list delegate-vote-list-for" >
+					{{#each delegateVote "yes"}}
+						{{> delegateVoteListItem}}
 					{{/each}}
 				</ul>
 			{{else}}
@@ -13,9 +13,9 @@
 			{{/if}}
 		</div>
 		<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
-			{{#if delegatesAbstain}}
-				<ul class="mdl-list" >
-					{{#each delegatesAbstain}}
+			{{#if delegateVote "abstain"}}
+				<ul class="mdl-list delegate-vote-list delegate-vote-list-abstain" >
+					{{#each delegateVote "abstain"}}
 					{{> delegateVoteListItem}}
 					{{/each}}
 				</ul>
@@ -24,9 +24,9 @@
 			{{/if}}
 		</div>
 		<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
-			{{#if delegatesAgainst}}
-				<ul class="mdl-list" >
-					{{#each delegatesAgainst}}
+			{{#if delegateVote "no"}}
+				<ul class="mdl-list delegate-vote-list delegate-vote-list-against" >
+					{{#each delegateVote "no"}}
 					{{> delegateVoteListItem}}
 					{{/each}}
 				</ul>
@@ -40,20 +40,18 @@
 </template>
 
 <!--============ Single delegate item ============-->
-
 <template name="delegateVoteListItem">
-	<li class="selected mdl-list__item delegate-vote-list-item" id="{{_id}}">
+	<li class="{{highestRank delegateId}} mdl-list__item delegate-vote-list-item" id="{{_id}}">
 		<div class="card-delegate-list-wrap">
 			<span class="card-delegate-list mdl-list__item-primary-content">
-				<i class="material-icons">{{voteIcon vote_info.[0].vote}}</i> &nbsp;
-				<img src={{user_info.[0].profile.photo}} class="mdl-list__item-avatar">
-				<span class="delegate-name">#{{ranking}}&nbsp;<strong>{{user_info.[0].profile.firstName}}&nbsp;{{user_info.[0].profile.lastName}}</strong><br>({{user_info.[0].profile.username}})</span>
+				<img src={{userPhoto delegateId}} class="mdl-list__item-avatar">
+				<span class="delegate-name">{{getRanking delegateId}}&nbsp;<strong>{{userFullname delegateId}}</strong><br>({{userProfilename delegateId}})</span>
 			</span>
 		</div>
 	</li>
 	<div class="mdl-tooltip" for="{{_id}}">
-		{{#if vote_info.[0].reason}}
-			{{vote_info.[0].reason}}
+		{{#if reason}}
+			{{reason}}
 		{{else}}
 			{{_ "pages.proposals.view.noDelegateReason"}}
 		{{/if}}

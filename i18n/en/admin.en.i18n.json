@@ -165,6 +165,14 @@
 			"defaultLanguage": "Default language",
 			"emailWhitelist": "Emails of allowed users, separated by commas.",
 			"enforceWhitelist": "Enforce the current email whitelist."
+		},
+		"flags":{
+			"heading": "Flags",
+			"created": "Date",
+			"reporter": "Reported by",
+			"owner": "Content creator",
+			"type": "Type",
+			"view": "View"
 		}
 	}
 }

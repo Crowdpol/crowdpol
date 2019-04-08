@@ -12,8 +12,12 @@ Template.ViewProposal.onCreated(function(language){
   var dict = new ReactiveDict();
   this.templateDictionary = dict;
   var communityId = LocalStore.get('communityId');
-
-  proposalId = FlowRouter.getParam("id");
+  let proposalId = null;;
+  if(self.data.proposalId){
+    proposalId = Template.currentData().proposalId;
+  }else{
+    proposalId = FlowRouter.getParam("id");
+  }
   self.autorun(function() {
     self.subscribe('comments', proposalId, function(error){
       dict.set('commentCount',Comments.find({proposalId: proposalId}).count());
@@ -120,9 +124,11 @@ Template.ViewProposal.events({
     }
   },
   'click #edit-proposal' (event, template){
+    let proposalId = Template.instance().templateDictionary.get('_id');
     FlowRouter.go('App.proposal.edit', {id: proposalId});
   },
   'click #submit-proposal' (event, template){
+    let proposalId = Template.instance().templateDictionary.get('_id');
     if (proposalIsComplete(proposalId)){
       if (window.confirm(TAPi18n.__('pages.proposals.view.confirmSubmit'))){
         Meteor.call('updateProposalStage', proposalId, 'submitted','unreviewed', function(error){
@@ -142,7 +148,7 @@ Template.ViewProposal.events({
 
   'submit #comment-form' (event, template){
     event.preventDefault();
-
+    let proposalId = Template.instance().templateDictionary.get('_id');
     if (Meteor.user()){
       var comment = {
         message: template.find('#comment-message').value,
@@ -165,6 +171,7 @@ Template.ViewProposal.events({
   },
 
   'click #sign-proposal' (event, template){
+    let proposalId = Template.instance().templateDictionary.get('_id');
     if (Meteor.user()) {
       Meteor.call('toggleSignProposal', proposalId, function(error){
         if (error){
@@ -178,7 +185,11 @@ Template.ViewProposal.events({
       openSignInModal();
     }
 
-  }
+  },
+  'click #back-button' (event, template) {
+		event.preventDefault();
+    window.history.back();
+	},
 });
 
 Template.ViewProposal.helpers({
@@ -189,6 +200,7 @@ Template.ViewProposal.helpers({
     return Session.get('back');
   },
   languages: function() {
+    let proposalId = Template.instance().templateDictionary.get('_id');
     var content = Proposals.findOne(proposalId).content;
     var languages = _.pluck(content, 'language');
     return languages;
@@ -218,6 +230,7 @@ Template.ViewProposal.helpers({
     return false;
   },
   comments: function() {
+    let proposalId = Template.instance().templateDictionary.get('_id');
     return Comments.find({proposalId: proposalId,type:'comment'},{transform: transformComment, sort: {createdAt: -1}});
   },
   commentUsername: function(userId){
@@ -263,13 +276,18 @@ Template.ViewProposal.helpers({
     }
   },
   showComments(){
-    var commentCount = Template.instance().templateDictionary.get( 'commentCount' );
-    if(commentCount>0 || userIsInvited()){
-      return true;
-    }
-    return false;
+    //if(showControls()){
+      var commentCount = Template.instance().templateDictionary.get( 'commentCount' );
+      if(commentCount>0 || userIsInvited()){
+        return true;
+      }
+    //}
+    //return false;
   },
   isInvited: function() {
+    if(!showControls()){
+      return true;
+    }
     return userIsInvited();
   },
   isVotingAsDelegate: function(){
@@ -295,17 +313,20 @@ Template.ViewProposal.helpers({
     }
   },
   isVotable: function(){
-    var stage = Template.instance().templateDictionary.get('stage');
-    var status = Template.instance().templateDictionary.get('status');
-    var startDate = Template.instance().templateDictionary.get('startDate');
-    var endDate = Template.instance().templateDictionary.get('endDate');
-    var isOpen = ((moment().isAfter(startDate, 'minute')) && (moment().isBefore(endDate, 'minute')))
-    //Should be live, approved and between the start and end dates
-    if ((stage == 'live') && (status == 'approved') && (isOpen)) {
-      return true;
-    } else {
-      return false;
+    if(showControls()){
+      var stage = Template.instance().templateDictionary.get('stage');
+      var status = Template.instance().templateDictionary.get('status');
+      var startDate = Template.instance().templateDictionary.get('startDate');
+      var endDate = Template.instance().templateDictionary.get('endDate');
+      var isOpen = ((moment().isAfter(startDate, 'minute')) && (moment().isBefore(endDate, 'minute')))
+      //Should be live, approved and between the start and end dates
+      if ((stage == 'live') && (status == 'approved') && (isOpen)) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    return false;
   },
   isVisible: function() {
     /*
@@ -333,16 +354,26 @@ Template.ViewProposal.helpers({
   },
   signatureCount: function(){
     return Template.instance().templateDictionary.get('signatures').length
+  },
+  showEditable: function(){
+    return showControls();
   }
 });
 
 Template.ProposalContent.onCreated(function(language){
+
   var self = this;
 
   var dict = new ReactiveDict();
   this.templateDictionary = dict;
 
-  proposalId = FlowRouter.getParam("id");
+  let proposalId = null;
+  if(typeof Template.currentData().proposalId!==undefined){
+    proposalId = Template.currentData().proposalId;
+  }else{
+    proposalId = FlowRouter.getParam("id");
+  }
+  dict.set('proposalId',proposalId);
   self.autorun(function() {
     self.subscribe('proposals.one', proposalId, function(error){
       if (error){
@@ -350,9 +381,10 @@ Template.ProposalContent.onCreated(function(language){
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
-        var languageCode = self.data;
+        var languageCode = self.data.language;
         var allContent = proposal.content;
         var translation = _.find(allContent, function(item){ return item.language == languageCode})
+        dict.set( 'language', languageCode || '');
         dict.set( 'title', translation.title || '');
         dict.set( 'abstract', translation.abstract || '' );
         dict.set( 'body', translation.body || '' );
@@ -432,13 +464,27 @@ Template.ProposalContent.helpers({
     return body;
   },
   argumentsFor: function() {
-    let language = this.toString();
-    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'for',language: language});
+    let language = Template.instance().templateDictionary.get('language');
+    let proposalId = Template.instance().templateDictionary.get('proposalId');
+    return Comments.find({proposalId:proposalId,type:'for',language: language});
     //return Template.instance().templateDictionary.get( 'argumentsFor' );
   },
-  argumentsAgainst: function() {
-    let language = this.toString();
-    return Comments.find({proposalId:FlowRouter.getParam("id"),type:'against',language: language});
+  argumentsForCount: function() {
+    let language = Template.instance().templateDictionary.get('language');
+    let proposalId = Template.instance().templateDictionary.get('proposalId');
+    return Comments.find({proposalId:proposalId,type:'for',language: language}).count();
+    //return Template.instance().templateDictionary.get( 'argumentsFor' );
+  },
+  argumentsAgainst: function(l) {
+    let language = Template.instance().templateDictionary.get('language');
+    let proposalId = Template.instance().templateDictionary.get('proposalId');
+    return Comments.find({proposalId:proposalId,type:'against',language: language});
+    //return Template.instance().templateDictionary.get( 'argumentsAgainst' );
+  },
+  argumentsAgainstCount: function(l) {
+    let language = Template.instance().templateDictionary.get('language');
+    let proposalId = Template.instance().templateDictionary.get('proposalId');
+    return Comments.find({proposalId:proposalId,type:'against',language: language}).count();
     //return Template.instance().templateDictionary.get( 'argumentsAgainst' );
   },
   status: function() {
@@ -446,12 +492,14 @@ Template.ProposalContent.helpers({
   },
   language: function(){
     return this;
+  },
+  showEditable: function(){
+    return showControls();
   }
 });
 
 Template.ProposalContent.events({
   'click .close-comment' (event, template){
-    //console.log(this._id);
     let commentId = event.currentTarget.getAttribute("data-id");
     //if(checkIfOwner(commentId)){
       Meteor.call('closeComment', commentId, function(error){
@@ -470,14 +518,20 @@ Template.Comment.events({
   'mouseenter .comment': function(e) {
     let commentId = e.currentTarget.getAttribute("data-comment-id");
     if(checkIfOwner(commentId)){
-      let identifier = "[data-buttons-id='" + commentId + "']";
+      let identifier = "[data-buttons-id='" + commentId + "'].owner-buttons";
+      $(identifier).show();
+    }else{
+      let identifier = "[data-buttons-id='" + commentId  + "'].viewer-buttons";
       $(identifier).show();
     }
   },
   'mouseleave .comment': function(e) {
     let commentId = e.currentTarget.getAttribute("data-comment-id");
     if(checkIfOwner(commentId)){
-      let identifier = "[data-buttons-id='" + commentId  + "']";
+      let identifier = "[data-buttons-id='" + commentId  + "'].owner-buttons";
+      $(identifier).hide();
+    }else{
+      let identifier = "[data-buttons-id='" + commentId  + "'].viewer-buttons";
       $(identifier).hide();
     }
   },
@@ -495,7 +549,6 @@ Template.Comment.events({
     }
   },
   'click .close-comment' (event, template){
-    //console.log(this._id);
     let commentId = event.currentTarget.getAttribute("data-id");
     //if(checkIfOwner(commentId)){
       Meteor.call('closeComment', commentId, function(error){
@@ -627,4 +680,13 @@ function checkIfOwner(commentId){
     }
   }
   return false;
+}
+
+function showControls(){
+  var hostname = window.location.pathname;
+  var res = hostname.substr(1, 5);
+  if(res=='admin'){
+    return false;
+  }
+  return true;
 }

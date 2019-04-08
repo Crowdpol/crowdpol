@@ -13,6 +13,8 @@ Template.RemoveInviteModal.events({
     if(reason.length){
       reason = reason + " Reason given: " + reasonInput;
     }
+    let proposalId = event.currentTarget.getAttribute("data-proposal-id");
+    console.log("proposalId: " + proposalId);
     //log comment
     var comment = {
       message: reason,

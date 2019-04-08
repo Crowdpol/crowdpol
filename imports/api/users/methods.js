@@ -98,6 +98,14 @@ Meteor.methods({
         Roles.removeUsersFromRoles(userId, 'admin');
       }
     },
+    toggleDelegate: function(userId,state){
+      check(userId, String);
+      if(state){
+        Roles.addUsersToRoles(userId, 'delegate');
+      }else{
+        Roles.removeUsersFromRoles(userId, 'delegate');
+      }
+    },
     approveUser: function(userID, requestId, status){
       check(userID, String);
       check(requestId, String);

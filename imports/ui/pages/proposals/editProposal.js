@@ -35,7 +35,6 @@ Template.EditProposal.onCreated(function(){
 	proposalId = FlowRouter.getParam("id");
 	self.subscribe('proposals.one', proposalId, function(){});
 	self.autorun(function(){
-		//console.log("proposalId: " + proposalId);
 		if (proposalId){
 			// Edit an existing proposal
 				proposal = Proposals.findOne({_id: proposalId})
@@ -61,7 +60,6 @@ Template.EditProposal.onCreated(function(){
 						Session.set('coverState','edit-hide');
 					}
 					Session.set('invited',proposal.invited);
-					//console.log(proposal.invited);
 					self.subscribe('InvitedUsers',proposal.invited);
 				//proposal does not exist, create a new one
 				}else{
@@ -69,7 +67,6 @@ Template.EditProposal.onCreated(function(){
 				  Session.set( 'hasCover',false);
 					setCoverState('edit-hide');
 					Session.set('coverState','edit-hide');
-					//console.log("coverState set to edit-show");
 					dict.set( 'startDate', defaultStartDate );
 					dict.set( 'endDate', defaultEndDate);
 					dict.set( 'tags',[]);
@@ -174,8 +171,6 @@ Template.EditProposal.helpers({
 			var userLength = Meteor.users.find({ _id : { $in :  invited} }).count();
 			//return Meteor.users.find({ _id : { $in :  invited} });
 			return getInvitedUsers(invited);
-		}else{
-			console.log("not invited");
 		}
 
 	},
@@ -224,10 +219,8 @@ Template.EditProposal.events({
 	'click #preview-proposal': function(event, template){
 		event.preventDefault();
 		if(getTotalInvites()>0){
-			console.log("we have invites");
 			openInviteModal();
 		}else{
-			console.log("save and redirect");
 			saveChanges(event, template, 'App.proposal.view');
 		}
 	},
@@ -247,7 +240,6 @@ Template.InviteModal.events({
     closeInviteModal();
   },
 	'click #approve-button' (event, template){
-		//console.log(findParentTemplate('EditProposal'));
 		let parentTemplate = template.view.parentView.parentView.parentView._templateInstance;
 		//getParentTemplateInstanceData();
 		saveChanges(event, parentTemplate, 'App.proposal.view');
@@ -314,7 +306,7 @@ function saveChanges(event, template, returnTo){
 	var languages = LocalStore.get('languages');
 	var content = [];
 	var contentCount = 0;
-	// Get Translatable field for each language
+	// Get Translatable field for each language and loop through them
 	_.each(languages, function(language) {
 		// Arguments For and Against
 		argumentsArray = Session.get("arguments");
@@ -372,37 +364,31 @@ function saveChanges(event, template, returnTo){
 			startDate = new Date(template.find('#startDate').value);
 			endDate = new Date(template.find('#endDate').value);
 		}
-				let newProposal = {
-					content: content,
-					// Non-translatable fields
-					startDate: startDate,//new Date(2018, 8, 1),
-					endDate: endDate,//new Date(2018, 8, 1),
-					authorId: Meteor.userId(),
-					invited: Session.get('invited'),
-					tags: getTags(),//proposalTags,
-					communityId: LocalStore.get('communityId'),
-					stage: "draft",
-					hasCover: Session.get("hasCover"),
-			    coverURL: Session.get("coverURL"),
-			    coverPosition: Session.get("coverPosition")
-				};
-				//console.log(newProposal);
-				var proposalId = FlowRouter.getParam("id");
+		let newProposal = {
+			content: content,
+			// Non-translatable fields
+			startDate: startDate,//new Date(2018, 8, 1),
+			endDate: endDate,//new Date(2018, 8, 1),
+			authorId: Meteor.userId(),
+			invited: Session.get('invited'),
+			tags: getTags(),//proposalTags,
+			communityId: LocalStore.get('communityId'),
+			stage: "draft",
+			hasCover: Session.get("hasCover"),
+			coverURL: Session.get("coverURL"),
+			coverPosition: "0px"//Session.get("coverPosition")
+		};
+		var proposalId = FlowRouter.getParam("id");
 
+		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
 
-
-				template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
-
-				// If working on an existing proposal, save it, else create a new one
-				if (proposalId){
-					saveProposal(proposalId,newProposal,returnTo,template);
-
-				} else {
-					//create new proposal
-					createProposal(proposalId,newProposal,returnTo,template);
-				}
-			//}
-		//});
+		// If working on an existing proposal, save it, else create a new one
+		if (proposalId){
+			saveProposal(proposalId,newProposal,returnTo,template);
+		} else {
+			//create new proposal
+			createProposal(proposalId,newProposal,returnTo,template);
+		}
 	}else{
 		Bert.alert(TAPi18n.__('pages.proposals.edit.alerts.not-saved'), 'danger');
 		return false;
@@ -447,7 +433,10 @@ function saveProposal(proposalId,newProposal,returnTo,template){
 			if (newProposal.invited) {
 				sendNotifications(newProposal.invited,proposalId,newProposal.authorId);
 			}
-			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
+			let toast = template.find('#autosave-toast-container');
+			if(toast){
+				template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
+			}
 			FlowRouter.go(returnTo, {id: proposalId});
 		}
 	});
@@ -516,7 +505,6 @@ function sendNotifications(invited,proposalId,authorId){
 
 	for (i=0; i < emailInvites.length; i++) {
 		url = window.location.origin + '/proposals/view/' + proposalId;
-		console.log("sending email");
 		Meteor.call('sendProposalInvite', emailInvites[i], authorName, url, fromEmail);
 	}
 	/*

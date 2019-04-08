@@ -34,7 +34,7 @@ Template.FAQ.onRendered(function(){
       */
       toolbar: [
        ['bold', 'italic', 'underline'],        // toggled buttons
-       ['blockquote', 'code-block'],
+       ['blockquote', 'code-block','link'],
        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
