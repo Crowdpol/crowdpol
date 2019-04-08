@@ -58,13 +58,17 @@ Template.AdminFlags.helpers({
     return content;
   },
   flagDate: function(){
-    console.log(this);
+    //console.log(this);
     return moment(this.createdAt).format('MMMM Do YYYY');
   },
 });
 
 //===================MODAL=====================
-Template.AdminFlagModal.helpers({
+Template.AdminFlagContentModal.onCreated(function(){
+  self = this;
+  self.selectedFlag = new ReactiveVar(false);
+});
+Template.AdminFlagContentModal.helpers({
   flag: function(){
     let flag = Session.get("flagContent");
     if(flag){
@@ -93,26 +97,82 @@ Template.AdminFlagModal.helpers({
     let comment = Comments.findOne({"_id":id});
     return comment;
   },
+  isFirst: function(index,flagId){
+    console.log("index: " + index + " flagId: " + flagId);
+    if(index==0){
+      Template.instance().selectedFlag.set(flagId);
+      return 'selected';
+    }
+  },
   oldFlagsContent: function(id){
-    console.log("id: " + id);
-    let flags = Flags.find({"contentId":id,"status" :"resolved"});
-    console.log(flags.count());
+    let flags = Flags.find({"contentId":id}).fetch();
     return flags;
+  },
+  oldFlagsUser: function(id){
+    let flags = Flags.find({"creatorId":id});
+    return flags;
+  },
+  flagDate: function(date){
+    return moment(date).format('MMMM Do YYYY');
+  },
+  flagDetails: function(){
+    let flagId = Template.instance().selectedFlag.get();
+    return Flags.findOne({"_id":flagId});
   }
 });
 
-Template.AdminFlagModal.events({
+Template.AdminFlagContentModal.events({
   'click #overlay' (event, template){
     closeAdminFlagModal();
   },
   'click #admin-flag-cancel-button' (event, template){
     closeAdminFlagModal();
+  },
+  'click .flag-row' (event, template){
+    let id = event.currentTarget.getAttribute("data-row-flag-id");
+    if(id){
+      $(".flag-row").each(function(){
+        $(this).removeClass("selected");
+      });
+      let selector = "[data-row-flag-id='"+id+"']";
+      $(selector).addClass("selected");
+      let flag = Flags.findOne({"_id":id});
+      $("#flag-reported-reason").html(flag.category);
+      $("#flag-reported-other").html(flag.other);
+      Template.instance().selectedFlag.set(id);
+    }
+  },
+  'click #select-all' (event, template){
+    if(!$(event.currentTarget).hasClass("checked")){
+      $(".flag-row").each(function(){
+        $(this).addClass("selected");
+      });
+      $("#flag-reported-reason").html("all selected");
+      $("#flag-reported-other").html("all selected");
+    }else{
+      $(".flag-row").each(function(){
+        $(this).removeClass("selected");
+      });
+      let flagId = Template.instance().selectedFlag.get();
+      let selector = "[data-row-flag-id='"+flagId+"']";
+      $(selector).addClass("selected");
+      let flag = Flags.findOne({"_id":flagId});
+      $("#flag-reported-reason").html(flag.category);
+      $("#flag-reported-other").html(flag.other);
+    }
+    $(event.currentTarget).toggleClass("checked");
+  },
+  'click #flag-report-button' (event, template){
+    let outcome = $('input[name="content-action"]:checked').val()
+
+    console.log();
+    console.log($('#flag-response-justification').val());
   }
 })
 
 openAdminFlagModal = function(event) {
   if (event) event.preventDefault();
-  $(".flag-modal").addClass('active');
+  $(".flag-content-modal").addClass('active');
   $("#overlay").addClass('dark-overlay');
 }
 
@@ -122,7 +182,7 @@ closeAdminFlagModal = function(event) {
     event.stopImmediatePropagation();
   }
   Session.set("flagContent",false);
-  $(".flag-modal").removeClass('active');
+  $(".flag-content-modal").removeClass('active');
   $("#overlay").removeClass('dark-overlay');
 }
 

@@ -24,16 +24,14 @@ const FlagSchema = new SimpleSchema({
     type: String,
     optional: false
   },
+  //what is the nature of the offense (should be violations of the AUP)
   category: {
     type: String,
-    allowedValues: ["sexist", "racist", "langauge","other"],
+    //allowedValues: ["sexist", "racist", "langauge","other"],
     optional: false
   },
+  //description of the offensive content
   other: {
-    type: String,
-    optional: true
-  },
-  justification: {
     type: String,
     optional: true
   },
@@ -52,7 +50,9 @@ const FlagSchema = new SimpleSchema({
     type: Date,
     optional: true,
     autoValue: function () {
-      return new Date();
+      if (this.isUpdate) {
+        return new Date();
+      }
     }
   },
   status: {
@@ -60,9 +60,20 @@ const FlagSchema = new SimpleSchema({
     allowedValues: ["pending", "reviewed","resolved"],
     optional: true
   },
+  //what action was taken by the reviewer
   outcome: {
     type: String,
-    allowedValues: ["rejected", "blocked"],
+    allowedValues: ["rejected", "blocked","ignored"],
+    optional: true
+  },
+  //text based justification of editorial review
+  justification: {
+    type: String,
+    optional: true
+  },
+  //who reviewed the content
+  reviewerId: {
+    type: String,
     optional: true
   },
   communityId: {
