@@ -21,6 +21,7 @@ Meteor.methods({
     },
 
     getCommunityBySubdomain: function(subdomain) {
+      check(subdomain, String);
     	return Communities.findOne({subdomain: subdomain});
     },
 
