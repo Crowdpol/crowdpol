@@ -9,6 +9,7 @@
               <a href="#display-panel" class="mdl-tabs__tab">Display</a>
               <a href="#home-panel" class="mdl-tabs__tab">Home Page</a>
               <a href="#about-panel" class="mdl-tabs__tab">About Page</a>
+              <a href="#contact-panel" class="mdl-tabs__tab">Contact Page</a>
               <a href="#faq-panel" class="mdl-tabs__tab">FAQ</a>
               <!--<a href="#whitelist-panel" class="mdl-tabs__tab">Whitelist</a>-->
           </div>
@@ -191,6 +192,18 @@
               <span class="section-heading">About Page</span>
               <div class="settings-subsection">
                 {{>AdminSettingsAbout aboutText=aboutText}}
+              </div>
+            </section>
+          </div>
+          <div class="mdl-tabs__panel" id="contact-panel">
+            <!-- aboutText -->
+            <section class="settings-section">
+              <span class="section-heading">Contact Page</span>
+              <div class="settings-subsection">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="contactEmail" name="contactEmail" value="{{contactEmail}}">
+            			<label class="mdl-textfield__label" for="contactEmail">Contact Email</label>
+            		</div>
               </div>
             </section>
           </div>

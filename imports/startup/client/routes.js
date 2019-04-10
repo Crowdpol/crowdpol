@@ -402,7 +402,6 @@ function loadCommunityInfo() {
     default:
         subdomain = window.location.host.split('.')[0];
   }
-  console.log("subdomain: " + subdomain);
 	//set title to commuinty name
 	document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
 
@@ -413,8 +412,6 @@ function loadCommunityInfo() {
         if (err) {
           Bert.alert(err.reason, 'danger');
         } else {
-          console.log("result:");
-          console.log(result);
           if(typeof result._id !== 'undefined'){
             LocalStore.set('communityId', result._id);
   					LocalStore.set('settings',result.settings);

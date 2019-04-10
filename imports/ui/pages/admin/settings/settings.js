@@ -20,6 +20,7 @@ Template.AdminSettings.onCreated(function(){
       // Edit an existing proposal
       self.subscribe('community', communityId, function(){
         settings = Communities.findOne({_id: communityId}).settings;
+        dict.set( 'contactEmail', settings.contactEmail);
         dict.set( 'showDates', settings.showDates);
         dict.set( 'startDate', moment(settings.defaultStartDate).format('YYYY-MM-DD') || defaultStartDate );
         dict.set( 'endDate', moment(settings.defaultEndDate).format('YYYY-MM-DD') || defaultEndDate);
@@ -181,6 +182,7 @@ Template.AdminSettings.events({
   'submit form': function(event, template){
 		event.preventDefault();
 		var settings = {
+        contactEmail: template.find("#contactEmail").value,
 				colorScheme: template.find("#colorScheme").value,
         logoUrl: template.find("#logoUrl").value,
         faviconUrl: template.find("#faviconUrl").value,
