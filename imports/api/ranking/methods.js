@@ -16,6 +16,8 @@ Meteor.methods({
       check(entityId, String);
       check(communityId, String);
       Ranks.remove({ entityType: entityType, entityId: entityId, supporterId: Meteor.userId()});
+      console.log("rank removed");
+      reorderRanks(Meteor.userId());
       return Meteor.call('getRanks',Meteor.userId(),entityType,communityId);
     },
     getRank: function (rankID) {
@@ -32,6 +34,7 @@ Meteor.methods({
       check(communityId, String);
       results = Ranks.aggregate([
         { $match: {"supporterId" : userId,"entityType" : type,"communityId":communityId}},
+        {$sort: {"ranking": 1}},
         {$project:{"_id": 0,"entityId" :1}}
       ]).map(function(el) { return el.entityId });
       return results;
@@ -53,3 +56,16 @@ Meteor.methods({
       Ranks.remove({ entityType: entityType, entityId: entityId, communityId: communityId});
     }
 });
+
+function reorderRanks(supporterId){
+  let userRanks = Ranks.find({"supporterId":supporterId},{sort:{"ranking":1,"lastUpdate":1}});
+  var rank = 1;
+  userRanks.forEach(function(ranking) {
+    if(ranking){
+      if(typeof ranking._id != 'undefined'){
+        Ranks.update({_id: ranking._id},{$set: {"ranking": rank}});
+        rank+=1;
+      }
+    }
+  });
+}
