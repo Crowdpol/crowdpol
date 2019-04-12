@@ -55,7 +55,7 @@ Template.Delegate.helpers({
         return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} ).count();
       }
     }
-    return;
+    return 0;
   },
   notDelegate: function() {
     if(Roles.userIsInRole(Meteor.user(), ['delegate'])){
@@ -69,17 +69,31 @@ Template.Delegate.helpers({
     if(result){
       return result.ranking;
     }
+    return null;
   },
   getRank: function(userId) {
-    console.log(userId);
+    let rank = -1;
+    let rankMatch = Ranks.findOne({"entityType":"delegate","entityId" : userId,"supporterId" : Meteor.userId()});
+    if(rankMatch){
+      if(typeof rankMatch.ranking != 'undefined'){
+        rank = rankMatch.ranking;
+      }
+    }
+    return rank;
   },
   ranks: function() {
     ranked = Session.get('ranked');
     if(Array.isArray(ranked)){
       if(ranked.length){
-        return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} );
+        let rankArray = [];
+        ranked.forEach(function(rankId) {
+          let user = Meteor.users.findOne({"_id":rankId});
+          rankArray.push(user);
+        });
+        return rankArray;//Meteor.users.find( { _id : { $in :  ranked} },{sort: {"ranking":1}});
       }
     }
+    return [];
   },
   delegates: function() {
     /* DO NOT SHOW CURRENT USER IN DELEGATE SEARCH
@@ -88,9 +102,21 @@ Template.Delegate.helpers({
       { _id : { $ne: Meteor.userId()} }
     ]});
     */
+    let delegates = [];
+    let ranked = Session.get('ranked');
+    if(Array.isArray(ranked)){
+      delegates = Meteor.users.find( { $and: [
+        { _id : { $nin : ranked}},
+        {"roles":"delegate"}
+      ]})
+    }else{
+      delegates = Meteor.users.find({"roles":"delegate"});
+    }
+    /*
     delegates = Meteor.users.find( { $and: [
       { _id : { $nin : Session.get('ranked')}}
     ]});
+    */
     return delegates;
   },
   delegatesCount: function() {
@@ -100,9 +126,16 @@ Template.Delegate.helpers({
       { _id : { $ne: Meteor.userId()} }
     ]});
     */
-    delegatesCount = Meteor.users.find( { $and: [
-      { _id : { $nin : Session.get('ranked')}}
-    ]}).count();
+    let ranked = Session.get('ranked');
+    let delegatesCount = 0;
+    if(Array.isArray(ranked)){
+      delegatesCount = Meteor.users.find( { $and: [
+        { _id : { $nin : ranked}},
+        {"roles":"delegate"}
+      ]}).count()
+    }else{
+      delegatesCount = Meteor.users.find({"roles":"delegate"}).count();
+    }
     return delegatesCount;
   },
   searchPhrase: function() {
@@ -143,7 +176,12 @@ Template.Delegate.helpers({
     if (index !== -1) {
       roles.splice(index, 1);
     }
-    return roles;
+    if(Array.isArray(roles)){
+      return roles;
+    }else{
+      return [];
+    }
+
   },
   showTags: function(tags){
     if(typeof tags != 'undefined'){
@@ -153,6 +191,7 @@ Template.Delegate.helpers({
         }
       }
     }
+    return [];
   }
 });
 
