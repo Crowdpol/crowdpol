@@ -43,8 +43,12 @@ Template.contact.events({
 			subject: template.find('[name="contact-subject"]').value,
 			message: template.find('[name="contact-message"]').value
 		};
-
-		Meteor.call('sendContactMessage', message, function(error){
+    let contactEmail = false;
+    let communitySettings = LocalStore.get('settings');
+    if(typeof communitySettings.contactEmail !== 'undefined'){
+      contactEmail = communitySettings.contactEmail;
+    }
+		Meteor.call('sendContactMessage', message, contactEmail, function(error){
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {

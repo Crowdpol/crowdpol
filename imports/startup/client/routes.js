@@ -402,7 +402,6 @@ function loadCommunityInfo() {
     default:
         subdomain = window.location.host.split('.')[0];
   }
-
 	//set title to commuinty name
 	document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
 
@@ -413,22 +412,24 @@ function loadCommunityInfo() {
         if (err) {
           Bert.alert(err.reason, 'danger');
         } else {
-          LocalStore.set('communityId', result._id);
-					LocalStore.set('settings',result.settings);
-					let settings = result.settings;
+          if(typeof result._id !== 'undefined'){
+            LocalStore.set('communityId', result._id);
+  					LocalStore.set('settings',result.settings);
+  					let settings = result.settings;
 
-					//set favicon if community icon is set
-					if(typeof settings.faviconUrl != 'undefined'){
-						var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-						//link.type = 'image/x-icon';
-						link.rel = 'shortcut icon';
-						link.href = settings.faviconUrl;
-						document.getElementsByTagName('head')[0].appendChild(link);
-					}
-					if(typeof settings.defaultLanguage != 'undefined'){
-						//console.log(settings.defaultLanguage);
-						moment.locale(settings.defaultLanguage);
-					}
+  					//set favicon if community icon is set
+  					if(typeof settings.faviconUrl != 'undefined'){
+  						var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+  						//link.type = 'image/x-icon';
+  						link.rel = 'shortcut icon';
+  						link.href = settings.faviconUrl;
+  						document.getElementsByTagName('head')[0].appendChild(link);
+  					}
+  					if(typeof settings.defaultLanguage != 'undefined'){
+  						//console.log(settings.defaultLanguage);
+  						moment.locale(settings.defaultLanguage);
+  					}
+          }
         }
       });
   } else {
