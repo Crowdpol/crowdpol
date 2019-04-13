@@ -232,7 +232,11 @@ Template.EditProposal.events({
 	},
 	'click .c-datepicker-input': function(e,t){
 		picker.open();
-	}
+	},
+	'input textarea, input input' : function( event , template){
+		//console.log("autosave event called")
+		autosave(event, template);
+  }
 });
 
 Template.InviteModal.events({
@@ -275,7 +279,8 @@ Template.InviteModal.helpers({
 	}
 });
 // Autosave function
-function autosave(event, template) {
+export function autosave(event, template) {
+	//console.log("autosave called");
 	// Save user input after 3 seconds of not typing
 	timer.clear();
 
@@ -379,8 +384,8 @@ function saveChanges(event, template, returnTo){
 			coverPosition: "0px"//Session.get("coverPosition")
 		};
 		var proposalId = FlowRouter.getParam("id");
-
-		template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
+		showToast({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
+		//template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
 
 		// If working on an existing proposal, save it, else create a new one
 		if (proposalId){
@@ -416,7 +421,8 @@ function createProposal(proposalId,newProposal,returnTo,template){
 			 if (newProposal.invited) {
 				 sendNotifications(newProposal.invited,proposalId,newProposal.authorId);
 				}
-			template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
+			showToast({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
+			//template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.proposal-created')});
 			FlowRouter.go(returnTo, {id: proposalId});
 		}
 	});
@@ -435,7 +441,8 @@ function saveProposal(proposalId,newProposal,returnTo,template){
 			}
 			let toast = template.find('#autosave-toast-container');
 			if(toast){
-				template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
+				showToast({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
+				//template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.changes-saved')});
 			}
 			FlowRouter.go(returnTo, {id: proposalId});
 		}
@@ -454,6 +461,13 @@ function removeUserEmail(index){
 	Session.set('emailInvites',emails);
 }
 
+function showToast(content){
+	//console.log("showToast called");
+		let selector = document.querySelector('#autosave-toast-container');
+	if(selector){
+		selector.MaterialSnackbar.showSnackbar(content);
+	}
+}
 
 export function getTotalInvites(){
 	let invitedUsers = Session.get("invited");
