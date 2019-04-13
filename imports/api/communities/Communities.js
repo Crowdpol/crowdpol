@@ -33,6 +33,10 @@ CommunitySettings = new SimpleSchema({
     /*
         These settings include all customisable options
     */
+    contactEmail: {
+        type: String,
+        optional: true,
+    },
     colorScheme: {
         type: String,
         optional: true,
