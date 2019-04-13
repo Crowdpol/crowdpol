@@ -7,6 +7,7 @@ import { Communities } from '../../../api/communities/Communities.js'
 import { getTags } from '../../components/taggle/taggle.js'
 import "../../components/userSearch/userSearch.js"
 import "../../components/arguments/arguments.js"
+import {autosave} from './editProposal.js'
 import RavenClient from 'raven-js';
 import { Random } from 'meteor/random';
 
@@ -48,8 +49,10 @@ Template.ProposalForm.onRendered(function(){
 	// Copy quill editor's contents to hidden input for validation
 
 	editor.on('text-change', function (delta, source) {
+			//console.log("quill text change");
   		var bodyText = self.find('.ql-editor').innerHTML;
   		self.find(`#body-${language}`).value = bodyText;
+			autosave(this,self);
   	});
 
 	// Working on an existing proposal

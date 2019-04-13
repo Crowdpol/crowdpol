@@ -79,7 +79,7 @@ Template.Delegate.helpers({
         rank = rankMatch.ranking;
       }
     }
-    return rank;
+    return rank + ". ";
   },
   ranks: function() {
     ranked = Session.get('ranked');
