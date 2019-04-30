@@ -122,13 +122,13 @@ Template.Cover.events({
     if(typeof state!='undefined'){
       if((state=='view-edit')||(state=='edit-show')){
         coverEdit = Template.instance().dict.get("coverEdit");
-        console.log("coverEdit: " + coverEdit);
+        //console.log("coverEdit: " + coverEdit);
         if(coverEdit==false){
           $("#cover-image-overlay").show();
         }
       }
     }else{
-      console.log("state undefined");
+      //console.log("state undefined");
     }
   },
   'mouseleave #cover-image-overlay': function(event, template){
@@ -336,7 +336,7 @@ export function setCoverState(state){
 
     //cover should be editable, with search bar expanded
     case 'edit-search':
-      console.log("edit-search");
+      //console.log("edit-search");
       $(".cover-search-box").show();
       $("#cover-edit-button").hide();
       $("#cover-close").hide();

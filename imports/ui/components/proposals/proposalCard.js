@@ -61,13 +61,24 @@ Template.ProposalCard.helpers({
     return Session.get("canVote");
   },
   proposalStage: function(proposal) {
-    var stage = proposal.stage;
-    return stage.charAt(0).toUpperCase() + stage.slice(1);
+    var stage = ''
+    if(typeof proposal.stage != 'undefined'){
+      stage = proposal.stage;
+    }
+    if(stage.length > 0){
+      return stage.charAt(0).toUpperCase() + stage.slice(1);
+    }
+    return 'stage unknown';
   },
   proposalStatus: function(proposal) {
-    var status = proposal.status;
-    return status.charAt(0).toUpperCase() + status.slice(1);
-
+    var status = ''
+    if(typeof proposal.status != 'undefined'){
+      stage = proposal.status;
+    }
+    if(status.length > 0){
+      return status.charAt(0).toUpperCase() + status.slice(1);
+    }
+    return 'stage unknown';
   },
   tags: function(proposal){
     return Tags.find({_id: {$in: proposal.tags},"authorized" : true});
