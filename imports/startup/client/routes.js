@@ -383,8 +383,8 @@ function loadCommunityInfo() {
   //check for crowdpol:
   var hostname = window.location.host;
   var subdomain = window.location.host.split('.')[0];
-  console.log("hostname: " + hostname);
-  console.log("subdomain: "  + subdomain);
+  //console.log("hostname: " + hostname);
+  //console.log("subdomain: "  + subdomain);
   switch (hostname) {
     case "crowdpol.com":
         subdomain = "landing";
@@ -417,7 +417,7 @@ function loadCommunityInfo() {
   }
 	//set title to commuinty name
 	document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
-  console.log("subomdain after case: " + subdomain);
+  //console.log("subomdain after case: " + subdomain);
   LocalStore.set('subdomain', subdomain);
   // set LocalStorage info
   if (subdomain!=='landing'){

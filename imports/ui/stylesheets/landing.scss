@@ -1,0 +1,42 @@
+@import 'variables.scss';
+
+#landing-page-background{
+  background-image: url('img/landing/worldmap.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: right top; 
+}
+#landing-page-container{
+  h1{
+    text-transform: uppercase;
+    color: #f64900;
+    font-size: $base-font-size;
+    font-weight: 600;
+    line-height: $base-font-size;
+    margin-top: $base-font-size;
+    margin-bottom: $base-font-size;
+    span{
+      font-size: $base-font-size;
+      line-height: $base-font-size;
+      font-weight: 600;
+      color: #f64900;
+    }
+  }
+  .landing-form{
+    input[type=text], select {
+      padding: 8px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 8px;
+      background-color: #f64900;
+      border-radius: 4px;
+      border: 1px solid #f64900;
+      color: #fff;
+    }
+  }
+}
