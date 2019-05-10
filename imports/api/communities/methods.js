@@ -11,6 +11,24 @@ Meteor.methods({
       	}
 	    return Communities.insert(community);
     },
+    editCommunity: function (community) {
+      console.log(community);
+      var existing = Communities.findOne({_id: community._id});
+      if (existing) {
+        return Communities.update({_id: community._id}, {$set:
+          {
+            '_id': community._id,
+      			'name': community.name,
+      			'subdomain': community.subdomain,
+            'isRoot': community.isRoot,
+            'parentCommunity': community.parentCommunity,
+            'settings':community.settings
+          }
+        });
+      }else{
+        throw new Meteor.Error(422, 'Could not find community');
+      }
+    },
     updateCommunity: function(communityId,settings) {
       var existing = Communities.findOne({_id: communityId});
       if (existing) {

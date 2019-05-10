@@ -46,7 +46,7 @@ Template.Voting.helpers({
     return null;
   },
   closedProposals: function() {
-    return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: 1}});
+    return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}, {sort: {endDate: 1,createdAt:-1}},{transform: transformProposal});
   },
   openProposals: function(isVotingAsDelegate) {
     let now = moment().toDate();//new Date();
@@ -56,7 +56,7 @@ Template.Voting.helpers({
       end =  moment(now).subtract(2, 'weeks').toDate();//now.setDate(now.getDate()-14).toString();
     }
 
-    return Proposals.find({startDate:{"$lte": now}, endDate:{"$gte": end}, stage: "live"}, {transform: transformProposal, sort: {endDate: 1}});
+    return Proposals.find({startDate:{"$lte": now}, endDate:{"$gte": end}, stage: "live"}, {sort: {endDate: 1,createdAt:-1}},{transform: transformProposal});
   },
   openSelected: function(){
     return Template.instance().openProposals.get();
