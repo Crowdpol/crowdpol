@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "prod": "meteor --settings=settings.json",
-    "start": "ROOT_URL=http://bangor.localhost:3000 meteor --settings=development.settings.json",
+    "start": "ROOT_URL=http://global.localhost:3000 meteor --settings=development.settings.json",
     "test": "meteor test --driver-package practicalmeteor:mocha --port 8000"
   },
   "dependencies": {
