@@ -105,7 +105,6 @@ Template.AdminCommunities.events({
     }
   },
   'click .dropdown-item-parent-community': function(event, template){
-    console.log(event.target.dataset);
 		template.find('#parentCommunityId').value = event.target.dataset.val;
 		template.find('#parentCommunity').value = event.target.dataset.name;
     $("#parent-wrapper > div.mdl-menu__container").removeClass("is-visible");
@@ -120,19 +119,16 @@ Template.AdminCommunities.events({
   },
   'click #cancel-update': function(event,template){
     event.preventDefault();
-    console.log("clicked cancel");
     resetForm();
     $("#add-button-group").show();
     $("#save-button-group").hide();
   },
   'click #add-community': function(event,template){
     event.preventDefault();
-    console.log("adding community");
     let isRoot = false;
     let showLanguageSelector = false;
     let parentCommunity = template.find("#parentCommunityId").value;
     let val = $('#enforceWhitelist').is(":checked");
-    console.log("val: " + val);
     if(val){
       isRoot = true;
     }
@@ -165,7 +161,6 @@ Template.AdminCommunities.events({
     $("#save-button-group").show();
     let id = event.currentTarget.dataset.id;
     let community = Communities.findOne({"_id":id});
-    console.log(community);
     Template.instance().community.set(community);
     event.stopImmediatePropagation();
   },
@@ -187,12 +182,10 @@ Template.AdminCommunities.events({
     let subdomain = template.find("#subdomain").value;
     let val = $('#root-checkbox').is(":checked");
     if(val){
-      console.log("is val, should be saved as root: " + subdomain);
       isRoot = true;
     }else{
       isRoot = false;
       subdomain = '';
-      console.log("not val, root false");
     }
 
       let community = Template.instance().community.get();
@@ -235,5 +228,4 @@ function resetForm(){
   document.getElementById("community-form").reset();
   $("#parentCommunityId").val('');
   $("#parentCommunity").val('');
-  console.log("form reset");
 }
