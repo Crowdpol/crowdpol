@@ -90,7 +90,21 @@ Template.Landing.helpers({
 Template.Landing.events({
 	'submit #newletterSignupForm' (event, template){
 		event.preventDefault();
+    let email = template.find('[name="signupEmail"]').value;
+    if(validateEmail(email)){
+      Meteor.call("signupNewsletter",email,function(error,result){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.message, 'danger');
+        } else {
+          Bert.alert(TAPi18n.__('pages.home.alerts.mailing-list-signup-success'), 'success');
+        }
+      });
+    }else{
+      Bert.alert(TAPi18n.__('pages.proposals.edit.alerts.bad-email'), 'success');
+    }
 	},
+  /*
 	'keyup #signupEmail' (event, template){
 	  $("#newletterSignupForm").validate({
 	    rules: {
@@ -116,4 +130,10 @@ Template.Landing.events({
 		}
 	  });
 	}
+  */
 });
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}

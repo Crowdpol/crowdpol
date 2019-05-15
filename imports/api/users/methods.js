@@ -2,6 +2,7 @@ import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { Ranks } from '../ranking/Ranks.js'
 import { Notifications } from '../notifications/Notifications.js'
+import { Communities } from '../communities/Communities.js'
 
 Meteor.methods({
     checkIfUserExists: function (email,communityId) {
@@ -284,20 +285,60 @@ Meteor.methods({
     },
     signupNewsletter(email){
         check(email,String);
-        testUser = {
-          email:  email,
-          password: Random.id()
-        };
-        testUser._id = Meteor.call('addUser', testUser);
-        Roles.addUsersToRoles(testUser._id, "newsletter");
-        Meteor.call('sendNewsletterConfirmation',email, (error, response) => {
+        //get global community
+        let community = Communities.findOne({subdomain: 'global'});
+        //check if community found has id
+        if(community){
+          if(typeof community._id !=='undefined'){
+            if(checkIfUserExists(email,community._id)){
+              console.log("user found");
+            }else{
+              console.log("could not find email in community");
+              testUser = {
+                email:  email,
+                password: Random.id(),
+                profile: {
+                  type: 'Individual',
+                  communityIds: [community._id],
+                  termsAccepted: false
+                }
+                //roles: ['test','mailing-list']
+              };
+              testUser._id = Meteor.call('addUser', testUser);
+              Roles.addUsersToRoles(testUser._id, "newsletter");
+              Meteor.call('sendNewsletterConfirmation',email,(error, response) => {
+                if (error){
+                  return false;
+                } else {
+                  return true
+                }
+              });
+            }
+          }else{
+            console.log("community id not determined");
+          }
+        }else{
+          console.log("global community not found");
+        }
+        return null;
+        /*
+        Meteor.call('getCommunityBySubdomain','global', (error, response) => {
           if (error){
             return false;
           } else {
-            return true
+            //check if email exists in community
+            if(response){
+              if(typeof response._id !=='undefined'){
+
+
+              }
+            }else{
+              console.log("could not find global community");
+            }
+
           }
         });
-
+        */
       return false;
     },
     addFollower: function(userId,followId) {
@@ -419,4 +460,18 @@ function profileIsComplete(user){
   //}
   //console.log("isComplete: " + isComplete)
   return isComplete;
+}
+
+function checkIfUserExists(email,communityId) {
+  let user = Accounts.findUserByEmail(email);
+  if (typeof user === 'undefined' || user === null) {
+      return false;// variable is undefined or null
+  }else{
+    let userMatch = Meteor.users.findOne({_id: user._id}, {$push: {'profile.communityIds': communityId} });
+    if(userMatch){
+      console.log(userMatch);
+      return true;
+    }
+    return false;
+  }
 }

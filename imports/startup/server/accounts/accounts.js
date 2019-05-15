@@ -226,8 +226,8 @@ function slugName(firstName,lastName) {
 Accounts.onCreateUser((options, user) => {
   const profile = options.profile;
   console.log("---------------")
-  console.log("options.profile:")
-  console.log(options.profile);
+  console.log("options:")
+  console.log(options);
   console.log("---------------")
   if (profile) {
     if (user.services.facebook) {
