@@ -1,4 +1,5 @@
 import './landing.html'
+import RavenClient from 'raven-js';
 
 Template.Landing.onCreated(function(){
   // Set the date we're counting down to
@@ -84,4 +85,35 @@ Template.Landing.helpers({
     */
     return '00';
   },
+});
+
+Template.Landing.events({
+	'submit #newletterSignupForm' (event, template){
+		event.preventDefault();
+	},
+	'keyup #signupEmail' (event, template){
+	  $("#newletterSignupForm").validate({
+	    rules: {
+	      signupEmail: {
+	        required: true
+	      },
+	    },
+	    messages: {
+	      signupEmail: {
+	        required: "Email required."
+	      }
+	    },
+	    submitHandler() {
+			let email = template.find('[name="signupEmail"]').value;
+			Meteor.call("signupNewsletter",email,function(error,result){
+				if (error){
+					RavenClient.captureException(error);
+					Bert.alert(error.message, 'danger');
+				} else {
+					Bert.alert(TAPi18n.__('pages.home.alerts.mailing-list-signup-success'), 'success');
+				}
+			});
+		}
+	  });
+	}
 });

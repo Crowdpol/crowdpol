@@ -115,6 +115,9 @@ function normalizeSignupUser(profile, user) {
     URL: 'http://www.crowdpol.com/',
     validated: false,
   });
+  console.log("------------------------------------");
+  console.log("profile: ");
+  console.log(profile);
   const userProfile = _.extend(profile, {
     photo: "/img/default-user-image.png",
     username: generateUsername("anonymous"),
@@ -222,6 +225,10 @@ function slugName(firstName,lastName) {
 
 Accounts.onCreateUser((options, user) => {
   const profile = options.profile;
+  console.log("---------------")
+  console.log("options.profile:")
+  console.log(options.profile);
+  console.log("---------------")
   if (profile) {
     if (user.services.facebook) {
       return normalizeFacebookUser(profile, user);
@@ -254,9 +261,15 @@ Accounts.onCreateUser((options, user) => {
         return normalizeScriptUser(profile, user);
       }
     }
+    normalizeSignupUser(profile, user);
+    generateSearchString(user);
+  }else{
+    console.log("profile undefined");
+    console.log("user:");
+    console.log(user);
   }
-  normalizeSignupUser(profile, user);
-  generateSearchString(user);
+
+
   return user;
 });
 

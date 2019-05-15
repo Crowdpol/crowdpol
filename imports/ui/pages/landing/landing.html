@@ -1,34 +1,111 @@
 <template name="Landing">
+  <script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    //ctx.strokeStyle("#FCFCFC");
+    ctx.font = "10px Arial";
+    ctx.fillText("700 BCE", 10, 70);
+    ctx.fillText("930", 80, 350);
+    ctx.fillText("1215", 40, 450);
+    ctx.fillText("1893", 0, 600);
+    ctx.fillText("1967", 10, 680);
+    ctx.fillText("2019", 35, 750);
+    ctx.fillText("Early examples of democratic",90, 70);
+    ctx.fillText("governance in Athens and Sparta",90, 80);
+    ctx.fillText("First Parliament",120, 350);
+    ctx.fillText("organized on Island",120, 360);
+    ctx.fillText("Magna Carta introduces",85,450);
+    ctx.fillText("individual rights in Britain",85,460);
+    ctx.fillText("Women given the same right",50, 600);
+    ctx.fillText("as men to vote in Australia",50, 610);
+    ctx.fillText("Interactive democracy",60, 680);
+    ctx.fillText("proposed for the first time",60, 690);
+    ctx.fillText("The first global pro-social",80, 750);
+    ctx.fillText("platform for changemakers",80, 760);
+    ctx.setLineDash([1, 5]);
+    ctx.beginPath();
+    ctx.moveTo(65, 70);
+    ctx.quadraticCurveTo(180, 200, 70, 450);//ctx.quadraticCurveTo(250, 150, 150, 350);
+    ctx.quadraticCurveTo(00, 590, 70, 750);//ctx.quadraticCurveTo(05, 550, 150, 700);
+    ctx.stroke();
+    ctx.closePath();
+    //ctx.restore();
+    ctx.moveTo(65, 70);
+    ctx.beginPath();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "#d3d3d3";
+    ctx.strokeStyle = "#d3d3d3";
+    //700 BCE
+    ctx.arc(65, 70, 5, 0, 2 * Math.PI);
+    //second dot
+    ctx.moveTo(122, 195);
+    ctx.arc(122, 195, 5, 0, 2 * Math.PI);
+    //third dot
+    ctx.moveTo(122, 270);
+    ctx.arc(122, 270, 5, 0, 2 * Math.PI);
+    //930
+    ctx.moveTo(107, 347);
+    ctx.arc(107, 347, 5, 0, 2 * Math.PI);
+    //1215
+    ctx.moveTo(72, 448);
+    ctx.arc(72, 448, 5, 0, 2 * Math.PI);
+    //sisth dot
+    ctx.moveTo(43, 525);
+    ctx.arc(43, 525, 5, 0, 2 * Math.PI);
+    //1893
+    ctx.moveTo(35, 597);
+    ctx.arc(35, 597, 5, 0, 2 * Math.PI);
+    //1967
+    ctx.moveTo(45, 677);
+    ctx.arc(45, 677, 5, 0, 2 * Math.PI);
+    //2019
+    ctx.moveTo(68, 747);
+    ctx.arc(68, 747, 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+  </script>
   <div id="landing-page-background">
-    <div class="container narrow-container" id="landing-page-container">
-      <h1>What is Democracy</h1>
-      <p>
-        Democracy (Greek: δημοκρατία dēmokratía, literally "rule by people") is a<br>
-        system of government where the citizens exercise power by voting. In a direct<br>
-        democracy, the citisens as a whole form a governing body and vote directly on<br>
-        each issue. In a representative democracy the citizens elect representatives<br>
-        from among themselves.
-      </p>
-      <p>
-        Right now, we are building an elegant online platform for Global Liquid<br>
-        Democracy, a system that combines the virtues of both it's predeccessors but<br>
-        none of the drawbacks. Our goal is to give every citizen in every country<br>
-        access to a set of digital tools for creating local, national and even global<br>
-        democratics development.
-      </p>
-      <h1>In <span id="days">00</span> days, <span id="hours">00</span> hours, <span id="minutes">00</span> minutes, and <span id="seconds">00</span> seconds [UTC+2]</h1>
-      <p>
-        ...we are going to launch Crowdpol, the world's first global, pro-social<br>
-        platform for changemakers. Enter your email-address below and click the "sign up"<br>
-        to receive news regarding the unfolding of next level global democracy.
-      </p>
-      <form class="landing-form">
-        <input type="text" placeholder="Your e-mail address"><button>Sign Up></button>
-      </form>
-      <div id="signature-box">
-        <img src="img/landing/crowdpol_signature.png">
+    <div class="mdl-grid" id="landing-page-grid">
+			<div class="mdl-cell mdl-cell--8-col mdl-cell--12-col-tablet mdl-cell--12-col-phone container narrow-container" id="landing-page-container">
+        <h1>What is Democracy<img src="img/landing/compass.png" id="compass-image"></h1>
+        <p>
+          Democracy (Greek: δημοκρατία /dēmokratía/, literally "rule by people") is a
+          system of government where the citizens exercise power by voting. In a direct
+          democracy, the citisens as a whole form a governing body and vote directly on
+          each issue. In a representative democracy the citizens elect representatives
+          from among themselves.
+        </p>
+        <p>
+          Right now, we are building an elegant online platform for Global Liquid
+          Democracy, a system that combines the virtues of both it's predeccessors but
+          none of the drawbacks. Our goal is to give every citizen in every country
+          access to a set of digital tools for creating local, national and even global
+          democratics development.
+        </p>
+        <h1>In <span id="days">00</span> days, <span id="hours">00</span> hours, <span id="minutes">00</span> minutes, and <span id="seconds">00</span> seconds [UTC+2]</h1>
+        <p>
+          ...we are going to launch Crowdpol, the world's first global, pro-social<br>
+          platform for changemakers. Enter your email-address below and click the "sign up"<br>
+          to receive news regarding the unfolding of next level global democracy.
+        </p>
+        <form class="landing-form" id="newletterSignupForm">
+          <input type="text" placeholder="Your e-mail address" id="signupEmail" name="signupEmail">
+          <button id="submit-newsletter" type="submit">
+            Sign Up <i class="material-icons">arrow_right</i>
+          </button>
+        </form>
+
+        <div id="signature-box">
+          <img src="img/landing/crowdpol_signature.png">
+          <span id="crowdpol-team">The Crowdpol Team</span>
+        </div>
+
       </div>
-      <span>The Crowdpol Team</span>
+      <div class="mdl-cell mdl-cell--4-col mdl-cell--hide-tablet mdl-cell--hide-phone">
+        <canvas id="myCanvas" width="300" height="850">
+          Your browser does not support the HTML5 canvas tag.
+        </canvas>
+      </div>
     </div>
   </div>
 </template>
