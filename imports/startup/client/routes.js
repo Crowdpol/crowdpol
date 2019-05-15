@@ -25,7 +25,13 @@ Accounts.onLogout(function() {
 publicRoutes.route('/', {
   name: 'App.home',
   action() {
-    BlazeLayout.render('App_body', { main: 'Home' });
+    let subdomain = LocalStore.get('subdomain');
+    if(subdomain=='landing'){
+      BlazeLayout.render('App_body', { main: 'Landing' });
+    }else{
+      BlazeLayout.render('App_body', { main: 'Home' });
+    }
+
   },
 });
 
@@ -377,37 +383,45 @@ function loadCommunityInfo() {
   //check for crowdpol:
   var hostname = window.location.host;
   var subdomain = window.location.host.split('.')[0];
+  //console.log("hostname: " + hostname);
+  //console.log("subdomain: "  + subdomain);
   switch (hostname) {
     case "crowdpol.com":
-        subdomain = "global";
+        subdomain = "landing";
         break;
     case "www.crowdpol.com":
-        subdomain = "global";
+        subdomain = "landing";
         break;
     case "crowdpol.org":
-        subdomain = "global";
+        subdomain = "landing";
         break;
     case "www.crowdpol.org":
-        subdomain = "global";
+        subdomain = "landing";
         break;
     case "commondemocracy.org":
-        subdomain = "global";
+        subdomain = "landing";
         break;
     case "www.commondemocracy.org":
-        subdomain = "global";
+        subdomain = "landing";
         break;
     case "www.syntropi.se":
-        subdomain = "syntropi";
+        subdomain = "landing";
         break;
+    case "localhost:3000":
+        subdomain = "landing";
+        break;
+    /*
     default:
-        subdomain = window.location.host.split('.')[0];
+        subdomain = "landing";//window.location.host.split('.')[0];
+    */
   }
 	//set title to commuinty name
 	document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
-
+  //console.log("subomdain after case: " + subdomain);
+  LocalStore.set('subdomain', subdomain);
   // set LocalStorage info
-  if (subdomain){
-      LocalStore.set('subdomain', subdomain);
+  if (subdomain!=='landing'){
+
       Meteor.call('getCommunityBySubdomain', subdomain, function(err, result) {
         if (err) {
           Bert.alert(err.reason, 'danger');
@@ -433,7 +447,8 @@ function loadCommunityInfo() {
         }
       });
   } else {
-    Bert.alert(TAPi18n.__('pages.routes.alerts.no-subdomain'), 'danger');
+    //Bert.alert(TAPi18n.__('pages.routes.alerts.no-subdomain'), 'danger');
+    //console.log(TAPi18n.__('pages.routes.alerts.no-subdomain'));
   }
 }
 /*

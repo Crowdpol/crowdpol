@@ -13,6 +13,9 @@
 	-->
 	<div id="site-wrapper-div">
 	<div class="site mdl-layout mdl-js-layout mdl-layout--fixed-header" >
+		{{#if isLanding}}
+
+		{{else}}
 		<!--{{#if showDrawer}}-->
 			<!-- imports/ui/components/layout/header/header.html -->
 			{{> Header}}
@@ -25,6 +28,7 @@
     {{else}}
     	{{> HomeHeader}}
     {{/if}}-->
+		{{/if}}
     <main class="mdl-layout__content">
 			<div class="page-content">
 			   <div class="ribbon" id="status-ribbon"><span>ALPHA</span></div>

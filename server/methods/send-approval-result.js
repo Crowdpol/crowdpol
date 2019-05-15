@@ -25,7 +25,7 @@ Meteor.methods({
         to: `${email}`,
         from: TAPi18n.__('emails.newsletter-confirmation.from', {name: Meteor.settings.private.deploymentName, email: Meteor.settings.private.fromEmail}),
         subject: TAPi18n.__('emails.newsletter-confirmation.subject'),
-        text: TAPi18n.__('emails.newsletter-confirmation.body', {type: type}),
+        text: TAPi18n.__('emails.newsletter-confirmation.body'),
       });
       console.log("sendNewsletterConfirmation sent");
     });

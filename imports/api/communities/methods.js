@@ -40,7 +40,11 @@ Meteor.methods({
 
     getCommunityBySubdomain: function(subdomain) {
       check(subdomain, String);
-    	return Communities.findOne({subdomain: subdomain});
+    	let community = Communities.findOne({subdomain: subdomain});
+      if(community){
+        return community;
+      }
+      return null;
     },
 
     updateEmailWhitelist: function(emails, communityId) {
