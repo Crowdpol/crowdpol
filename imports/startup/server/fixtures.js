@@ -134,7 +134,7 @@ Meteor.startup(() => {
 });
 
 function createCommunity(community){
-	var existing = Communities.findOne({subdomain: community.name});
+	var existing = Communities.findOne({name: community.name, subdomain: community.subdomain});
 	if (!existing){
 		console.log('Creating community ' + community.name);
 		return Communities.insert(community);

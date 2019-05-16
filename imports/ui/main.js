@@ -14,6 +14,7 @@ import { Session } from 'meteor/session';
 import './layouts/body/body.js';
 import './components/main.js';
 import './pages/home/home.js';
+import './pages/landing/landing.js';
 import './pages/ideas/ideas.js';
 import './pages/faq/faq.js';
 import './pages/userHome/userHome.js';
