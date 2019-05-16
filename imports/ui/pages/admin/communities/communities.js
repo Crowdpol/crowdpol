@@ -84,7 +84,7 @@ Template.AdminCommunities.helpers({
     return Communities.find({});
   },
   rootCommunities: function() {
-    return Communities.find({"isRoot":true});
+    return Communities.find({});
   },
   userCount: function(communityId) {
   	return Meteor.users.find({'profile.communityIds': communityId}).count();
