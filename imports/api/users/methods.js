@@ -23,6 +23,39 @@ Meteor.methods({
       user = Meteor.users.findOne({_id: Meteor.userId()},{fields: {profile: 1,roles: 1,isPublic: 1}});;
       return user.isPublic;
     },
+    addAdminToCommunity: function(userId,communityId,isAdmin) {
+      check(userId, String);
+      check(communityId, String);
+      check(isAdmin, String);
+      //check if user exists
+      let user = Meteor.users.findOne({_id: userId});
+      if(user){
+        //check if user is already a member of the community.
+        let communityExists = Meteor.users.findOne({_id: userId,'profile.communityIds': communityId});
+        if(!communityExists){
+          Meteor.users.update({_id: userId}, {$push: {'profile.communityIds': communityId }});
+        }
+        let adminCommunityExists = Meteor.users.findOne({_id: userId,'profile.adminCommunities': communityId});
+        if(adminCommunityExists){
+          throw new Meteor.Error(422, 'User already an admin of this community');
+        }else{
+          Roles.addUsersToRoles(userId, 'community-admin');
+          return Meteor.users.update({_id: userId}, {$push: {'profile.adminCommunities': communityId}});
+        }
+      }else{
+        throw new Meteor.Error(422, 'Could not find user');
+      }
+    },
+    removeAdminFromCommunity: function(userId,communityId) {
+      check(userId, String);
+      check(communityId, String);
+
+      let user = Meteor.users.findOne({_id: userId});
+      if(user){
+        return Meteor.users.update({_id: user._id}, {$pull: {'profile.adminCommunities': communityId} });
+      }
+      return false;
+    },
     getUser: function (userID) {
       check(userID, String);
       const users = Meteor.users.find({_id: userID}).fetch();

@@ -317,7 +317,7 @@ var adminRoutes = FlowRouter.group({
   prefix: '/admin',
   name: 'admin',
   triggersEnter: [function(context, redirect) {
-    if (!Roles.userIsInRole(Meteor.user(), ['admin','superadmin'])){
+    if (!Roles.userIsInRole(Meteor.user(), ['admin','superadmin','community-admin'])){
       FlowRouter.go('App.home');
     }
   }]
