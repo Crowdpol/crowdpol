@@ -1,0 +1,13 @@
+<template name="CommunityDash">
+  <div class="container app-container" id="community-dash-container" style="border: solid 1px red;">
+    {{currentCommunityName}}
+    {{#each childCommunities}}
+      <div class="community-card-image mdl-card mdl-shadow--2dp" data-id="{{_id}}">
+        <div class="mdl-card__title mdl-card--expand"></div>
+        <div class="mdl-card__actions">
+          <span class="community-card-image__filename">{{name}}</span>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</template>

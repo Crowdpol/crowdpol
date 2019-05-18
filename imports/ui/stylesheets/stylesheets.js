@@ -44,3 +44,4 @@ import './delegate-list.scss';
 import './user-home.scss';
 import './labels.scss';
 import './not-found.scss';
+import './communities.scss';

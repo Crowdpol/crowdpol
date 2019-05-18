@@ -1,0 +1,7 @@
+<template name="CommunityHeader">
+  <div class="community-header" style="border:solid 1px red;">
+    {{#each parent in parentCommunities}}
+      {{parent}}/
+    {{/each}} {{currentCommunityName}}
+  </div>
+</template>

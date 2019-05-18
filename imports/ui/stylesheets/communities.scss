@@ -1,0 +1,24 @@
+@import 'variables.scss';
+
+#community-dash-container{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  .community-card-image.mdl-card {
+    margin: 10px;
+    width: 256px;
+    height: 256px;
+    background: url('/img/syntropi_grey.jpg') center / cover;
+  }
+  .community-card-image > .mdl-card__actions {
+    height: 52px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .community-card-image__filename {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}

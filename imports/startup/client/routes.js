@@ -241,7 +241,7 @@ loggedInRoutes.route('/feed/:id', {
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
-    BlazeLayout.render('App_body', { main: 'Dash' });
+    BlazeLayout.render('App_body', { main: 'CommunityDash' });
   },
 });
 
