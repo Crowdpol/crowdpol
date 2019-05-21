@@ -82,7 +82,7 @@ Template.Header.helpers({
     }
   },
   title: function() {
-    return Template.instance().community.get().name;
+    return "Crowdpol";//Template.instance().community.get().name;
   },
   logoUrlSet: function(){
     let community = Template.instance().community.get();

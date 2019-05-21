@@ -2,6 +2,7 @@ import './settings.html';
 import './about.js';
 import { Communities } from '../../../../api/communities/Communities.js'
 import { getAboutText } from './about.js'
+import { setCoverState } from '../../../components/cover/cover.js'
 import RavenClient from 'raven-js';
 
 
@@ -11,48 +12,42 @@ Template.AdminSettings.onCreated(function(){
 
   var dict = new ReactiveDict();
 	self.dict = dict;
-
+  dict.set('communityId',communityId);
 	var defaultStartDate = moment().format('YYYY-MM-DD');
 	var defaultEndDate = moment().add(1, 'year').format('YYYY-MM-DD');
   self.autorun(function(){
-    self.subscribe('communities.all')
-    if (communityId){
-      // Edit an existing proposal
-      self.subscribe('community', communityId, function(){
-        settings = Communities.findOne({_id: communityId}).settings;
-        dict.set( 'contactEmail', settings.contactEmail);
-        dict.set( 'showDates', settings.showDates);
-        dict.set( 'startDate', moment(settings.defaultStartDate).format('YYYY-MM-DD') || defaultStartDate );
-        dict.set( 'endDate', moment(settings.defaultEndDate).format('YYYY-MM-DD') || defaultEndDate);
-        dict.set( 'colorScheme', settings.colorScheme || 'default');
-        dict.set( 'logoUrl', settings.logoUrl || null);
-        dict.set( 'faviconUrl', settings.faviconUrl || null);
-        dict.set( 'homepageImageUrl', settings.homepageImageUrl || "img/wave-bg.jpg");
-        dict.set( 'homepageBannerText', settings.homepageBannerText || null);
-        dict.set( 'homepageIntroText', settings.homepageIntroText  || null);
-        dict.set( 'aboutText', settings.aboutText || null);
-        dict.set( 'languageSelector', settings.languageSelector);
-        dict.set( 'defaultLanguage', settings.defaultLanguage || null);
-        dict.set( 'languages', settings.languages || []);
-        dict.set( 'emailWhitelist', settings.emailWhitelist || []);
-        dict.set( 'enforceWhitelist', settings.enforceWhitelist);
-        dict.set( 'delegateLimit', settings.delegateLimit || 0);
-        dict.set( 'collaboratorLimit', settings.collaboratorLimit || 0);
-        setupParameters(self);
-        Session.set( 'aboutText', settings.aboutText || null);
-      });
-    }
-
+    self.subscribe('community',communityId);
   });
 });
 
 Template.AdminSettings.onRendered(function(){
 
+  Session.set("coverUrl",'url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2")');
+  Session.set( 'hasCover',false);
+  setCoverState('edit-hide');
+  Session.set('coverState','edit-hide');
+  //setCoverState('edit-show');
 
 });
 
 Template.AdminSettings.helpers({
-
+  isSelectedCommunity: function(id){
+    let communityId = Template.instance().dict.get('communityId');
+    if(communityId==id){
+      return true;
+    }
+    return false;
+  },
+  community: function(){
+    let communityId = Template.instance().dict.get('communityId');
+    if(communityId){
+      return Communities.findOne({_id: communityId});
+    }
+    return null;
+  },
+  communities: function(){
+    return Communities.find();
+  },
 	languages: function(){
     return Template.instance().dict.get('languages');
   },
@@ -104,6 +99,41 @@ Template.AdminSettings.helpers({
 });
 
 Template.AdminSettings.events({
+  'change #selectedCommunity' (event, template){
+    let dict = Template.instance().dict;
+    let communityId = $("#selectedCommunity").val();
+    if(communityId){
+      Template.instance().dict.set('communityId',communityId);
+      let community = Communities.findOne({_id: communityId});
+      console.log("communityId: " + communityId);
+      console.log(community);
+      if(community){
+        if(typeof community.settings){
+          settings = Communities.findOne({_id: communityId}).settings;
+          dict.set( 'contactEmail', settings.contactEmail);
+          dict.set( 'showDates', settings.showDates);
+          dict.set( 'startDate', moment(settings.defaultStartDate).format('YYYY-MM-DD') || defaultStartDate );
+          dict.set( 'endDate', moment(settings.defaultEndDate).format('YYYY-MM-DD') || defaultEndDate);
+          dict.set( 'colorScheme', settings.colorScheme || 'default');
+          dict.set( 'logoUrl', settings.logoUrl || null);
+          dict.set( 'faviconUrl', settings.faviconUrl || null);
+          dict.set( 'homepageImageUrl', settings.homepageImageUrl || "img/wave-bg.jpg");
+          dict.set( 'homepageBannerText', settings.homepageBannerText || null);
+          dict.set( 'homepageIntroText', settings.homepageIntroText  || null);
+          dict.set( 'aboutText', settings.aboutText || null);
+          dict.set( 'languageSelector', settings.languageSelector);
+          dict.set( 'defaultLanguage', settings.defaultLanguage || null);
+          dict.set( 'languages', settings.languages || []);
+          dict.set( 'emailWhitelist', settings.emailWhitelist || []);
+          dict.set( 'enforceWhitelist', settings.enforceWhitelist);
+          dict.set( 'delegateLimit', settings.delegateLimit || 0);
+          dict.set( 'collaboratorLimit', settings.collaboratorLimit || 0);
+          setupParameters(self);
+          Session.set( 'aboutText', settings.aboutText || null);
+        }
+      }
+    }
+	},
   'change #languageSelector' (event, template){
     let languageSelector = Template.instance().dict.get('languageSelector');
     if(languageSelector){
@@ -187,7 +217,7 @@ Template.AdminSettings.events({
         logoUrl: template.find("#logoUrl").value,
         faviconUrl: template.find("#faviconUrl").value,
         //faviconType: template.find("#faviconType").value,
-				homepageImageUrl: template.find("#homepageImageUrl").value,
+				homepageImageUrl: Session.get("coverURL"),//template.find("#homepageImageUrl").value,
 				homepageBannerText: template.find("#homepageBannerText").value,
 				homepageIntroText: template.find("#homepageIntroText").value,
 				//aboutText: template.find("#aboutText").value,
@@ -203,7 +233,7 @@ Template.AdminSettings.events({
         delegateLimit: template.find("#delegate-limit").value,
         collaboratorLimit: template.find("#collaborator-limit").value,
 		}
-    let communityId = LocalStore.get('communityId');
+    let communityId = Template.instance().dict.get('communityId');
 
 		Meteor.call('updateCommunity', communityId,settings, function(error){
 			if (error){

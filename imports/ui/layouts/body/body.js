@@ -8,6 +8,11 @@ import '../../../utils/intro.min.js'
 import { Communities } from '../../../api/communities/Communities.js'
 
 Template.App_body.onCreated(function() {
+  var wrap = $(".page-content");
+
+  wrap.on("scroll", function(e) {
+    console.log("top:" + this.scrollTop)
+  });
   var self = this;
   //$('.mdl-layout').MaterialLayout.toggleDrawer();
   //showDrawer = Meteor.user()

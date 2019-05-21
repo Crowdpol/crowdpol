@@ -6,7 +6,8 @@ import { Tags } from '../../../../api/tags/Tags.js'
 
 Template.AdminProposals.onCreated(function() {
   var self = this;
-  var communityId = LocalStore.get('communityId')
+  var communityId = LocalStore.get('communityId');
+
   self.autorun(function() {
     self.subscribe('proposals.community', communityId);
     self.subscribe('users.admin');
@@ -15,6 +16,7 @@ Template.AdminProposals.onCreated(function() {
 });
 
 Template.AdminProposals.helpers({
+
   submittedProposals: function() {
     let submittedProposals = Proposals.find({stage: "submitted", status: "unreviewed"});
     return submittedProposals;

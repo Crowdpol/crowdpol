@@ -12,37 +12,38 @@
 	</script>
 	-->
 	<div id="site-wrapper-div">
-	<div class="site mdl-layout mdl-js-layout mdl-layout--fixed-header" >
-		{{#if isLanding}}
+		<div class="site mdl-layout mdl-js-layout mdl-layout--fixed-header" >
+			{{#if isLanding}}
 
-		{{else}}
-		<!--{{#if showDrawer}}-->
-			<!-- imports/ui/components/layout/header/header.html -->
-			{{> Header}}
-			<!-- imports/ui/components/layout/drawer/drawer.html -->
+			{{else}}
+			<!--{{#if showDrawer}}-->
+				<!-- imports/ui/components/layout/header/header.html -->
+				{{> Header}}
+				<!-- imports/ui/components/layout/drawer/drawer.html -->
 
-			{{> Drawer}}
+				{{> Drawer}}
 
-			{{> RightDrawer}}
-       <!--
-    {{else}}
-    	{{> HomeHeader}}
-    {{/if}}-->
-		{{/if}}
-    <main class="mdl-layout__content">
-			<div class="page-content">
-			   <div class="ribbon" id="status-ribbon"><span>ALPHA</span></div>
-				 {{> CommunityHeader}}
-				<!-- Your content goes here -->
-				{{> Template.dynamic template=main}}
-			</div>
-		</main>
-		<div class="mdl-layout__obfuscator-right"></div>
-		<!-- imports/ui/components/layout/footer/footer.html -->
-		{{#if currentUser}}
-			{{> Footer}}
-		{{/if}}
+				{{> RightDrawer}}
+	       <!--
+	    {{else}}
+	    	{{> HomeHeader}}
+	    {{/if}}-->
+			{{/if}}
+	    <main class="mdl-layout__content">
+				<div class="page-content">
+				   <div class="ribbon" id="status-ribbon"><span>ALPHA</span></div>
+					 {{#if currentUser}}
+					 	{{> CommunityHeader}}
+					 {{/if}}
+					<!-- Your content goes here -->
+					{{> Template.dynamic template=main}}
+				</div>
+			</main>
+			<div class="mdl-layout__obfuscator-right"></div>
+			<!-- imports/ui/components/layout/footer/footer.html -->
+			{{#if currentUser}}
+				{{> Footer}}
+			{{/if}}
+		</div>
 	</div>
-	</div>
-
 </template>

@@ -273,10 +273,9 @@ Accounts.onCreateUser((options, user) => {
   return user;
 });
 
-Accounts.onLogin(function(user){
-
+Accounts.onLogin(() => {
+  console.log("onLogin called: user logged in");
 });
-
 Accounts.validateNewUser((user) => {
 
   //assign random username
