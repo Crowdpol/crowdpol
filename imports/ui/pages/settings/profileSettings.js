@@ -111,10 +111,11 @@ Template.ProfileSettings.events({
     event.preventDefault();
     template.currentView.set('interests')
   },
+  /*
   'click #showDelegates' (event, template) {
     event.preventDefault();
     template.currentView.set('delegates')
-  },
+  },*/
   'click #showProfileSettings' (event, template) {
     event.preventDefault();
     template.currentView.set('profile-settings')

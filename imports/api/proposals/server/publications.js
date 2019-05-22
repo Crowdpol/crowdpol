@@ -14,6 +14,7 @@ Meteor.publish('proposals.public', function(search, communityId) {
 	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
 	query.stage = 'live';
+	console.log(query);
 	return Proposals.find(query);
 });
 

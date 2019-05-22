@@ -1,144 +1,302 @@
 <template name="AdminCommunities">
 	{{#if currentUserIsSuperAdmin}}
-	<div class="dashboard__item dashboard__item--full">
-		<div class="card">
-			<a href="#" id="new-community-link">Add a new community<i class="material-icons">{{expandIcon}}</i></a>
-			{{#if showForm}}
-				<div id="new-community-div">
-					{{>AddNewCommunity}}
+		<div class="mdl-grid">
+			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+				<div class="card">
+					<h3>{{_"admin.communities.heading"}}</h3>
+					{{#if Template.subscriptionsReady}}
+						{{#if communities}}
+							<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+									<thead>
+											<tr>
+													<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.name"}}</th>
+													<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.subdomain"}}</th>
+													<th class="mdl-data-table__cell--non-numeric">Parent</th>
+													<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.user-count"}}</th>
+													<th class="mdl-data-table__cell--non-numeric"></th>
+											</tr>
+									</thead>
+									<tbody>
+											{{#each communities}}
+												<tr data-id="{{_id}}" class="community-row">
+													<td data-label='{{_"admin.communities.name"}}' class="mdl-data-table__cell--non-numeric">{{name}}{{#if isRoot}}(root){{/if}}</td>
+													<td data-label='{{_"admin.communities.subdomain"}}' class="mdl-data-table__cell--non-numeric">{{subdomain}}</td>
+													<td data-label='Parent' class="mdl-data-table__cell--non-numeric">{{getParent parentCommunity}}</td>
+													<td data-label='{{_"admin.communities.user-count"}}' class="mdl-data-table__cell--non-numeric">{{userCount _id}}</td>
+													<td class="mdl-data-table__cell--non-numeric">
+														<button class="mdl-button mdl-js-button mdl-button--icon delete-community" data-id="{{_id}}">
+															<i class="material-icons delete-community" data-id="{{_id}}">delete</i>
+														</button>
+													</td>
+												</tr>
+											{{/each}}
+									</tbody>
+							</table>
+						{{else}}
+							<p>
+								{{_"admin.communities.none"}}
+							</p>
+						{{/if}}
+					{{else}}
+						<p>
+							{{_ "generic.loading"}}
+						</p>
+					{{/if}}
 				</div>
-			{{/if}}
+			</div>
+			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+				<div class="card">
 
-			<h3>{{_"admin.communities.heading"}}</h3>
-			{{#if Template.subscriptionsReady}}
-				{{#if communities.count}}
-					<table class="mdl-data-table mdl-js-data-table mdl-data-table">
-							<thead>
-									<tr>
-											<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.name"}}</th>
-											<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.subdomain"}}</th>
-											<th class="mdl-data-table__cell--non-numeric">{{_"admin.communities.user-count"}}</th>
-									</tr>
-							</thead>
-							<tbody>
-									{{#each communities}}
-									<tr>
-											<td data-label='{{_"admin.communities.name"}}' class="mdl-data-table__cell--non-numeric">{{name}}</td>
-											<td data-label='{{_"admin.communities.subdomain"}}' class="mdl-data-table__cell--non-numeric">{{subdomain}}</td>
-											<td data-label='{{_"admin.communities.user-count"}}' class="mdl-data-table__cell--non-numeric">{{userCount _id}}</td>
-									</tr>
+						<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+							<div class="mdl-tabs__tab-bar">
+									<a href="#details-panel" class="mdl-tabs__tab is-active">Details</a>
+									<a href="#admins-panel" class="mdl-tabs__tab">Admins</a>
+							</div>
+
+							<div class="mdl-tabs__panel is-active" id="details-panel">
+								<form id="community-form">
+									<!-- name -->
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="text" id="name" value="{{communityName}}">
+										<label class="mdl-textfield__label" for="name">{{_"admin.communities.name"}}</label>
+									</div>
+
+									<!-- isRoot -->
+									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="root-checkbox" id="root-check-label">
+										<input type="checkbox" id="root-checkbox" class="mdl-checkbox__input" {{isRootCommunity}}>
+										<span class="mdl-checkbox__label">Is Root community</span>
+									</label>
+
+									<!-- parent community -->
+									<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="parent-wrapper">
+										<input type="hidden" id="parentCommunityId" readonly value="{{rootCommunityId}}">
+										<input class="mdl-textfield__input" type="text" id="parentCommunity" data-val="default" value="{{rootCommunityName}}" readonly tabIndex="-1">
+										<label for="parentCommunity" class="dropdown-icon">
+											<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+										</label>
+										<label for="parentCommunity" class="mdl-textfield__label">Parent Community</label>
+										<ul for="parentCommunity" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+											{{#each rootCommunities}}
+												<li class="mdl-menu__item dropdown-item-parent-community" data-val="{{_id}}" data-name="{{name}}">{{name}}</li>
+											{{/each}}
+										</ul>
+									</div>
+
+									<!-- subdomain -->
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="subdomain-wrapper" style="display: none;">
+										<input class="mdl-textfield__input" type="text" id="subdomain" value="{{communitySubdomain}}">
+										<label class="mdl-textfield__label" for="subdomain">{{_"admin.communities.subdomain"}}</label>
+									</div>
+
+									<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+										<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+											<input class="mdl-textfield__input" type="text" id="defaultLanguage" data-val="en" value="en" readonly tabIndex="-1">
+											<label for="defaultLanguage" class="dropdown-icon">
+												<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+											</label>
+											<label for="defaultLanguage" class="mdl-textfield__label">{{_'admin.communities.defaultLanguage'}}</label>
+											<ul for="defaultLanguage" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+												<li class="mdl-menu__item dropdown-item-defaultLanguage" data-val="en">en</li>
+												<li class="mdl-menu__item dropdown-item-defaultLanguage" data-val="sv">sv</li>
+											</ul>
+										</div>
+									</div>
+
+									<!-- languageSelector -->
+									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="languageSelector">
+										<input type="checkbox" id="languageSelector" class="mdl-checkbox__input" checked>
+										<span class="mdl-checkbox__label">{{_"admin.communities.languageSelector"}}</span>
+									</label>
+									<div class="form-group" style="margin-bottom: 2rem;" id="add-button-group">
+										<input type="button" class="mdl-button mdl-js-button mdl-button--raised" value='Add' id="add-community">
+									</div>
+									<div class="form-group" style="margin-bottom: 2rem; display: none;" id="save-button-group">
+										<input type="button" class="mdl-button mdl-js-button mdl-button--raised" value='Cancel' id="cancel-update">
+										<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='Submit' id="save-community">
+									</div>
+								</form>
+							</div>
+							<div class="mdl-tabs__panel" id="admins-panel">
+								{{#if communitySelected}}
+									<p><span>{{communityName}}</span></p>
+									<!-- email whitelist -->
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="text" id="searchString">
+										<label class="mdl-textfield__label" for="searchString">Search Users</label>
+									</div>
+									{{#if showSearchResults}}
+										<h5>Search Results</h5>
+										<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+												<tbody>
+													{{#each userSearch}}
+														<tr >
+																<td><img src="{{profile.photo}}" class="mdl-list__item-avatar"></td>
+																<td data-label='{{_"admin.communities.name"}}' class="mdl-data-table__cell--non-numeric">{{profile.firstName}} {{profile.lastName}}</td>
+																<td data-label='{{_"admin.communities.subdomain"}}' class="mdl-data-table__cell--non-numeric">
+																	{{#each emails}}
+																		{{address}}
+																	{{/each}}
+																</td>
+																<td class="mdl-data-table__cell--non-numeric">
+																	<button class="mdl-button mdl-js-button mdl-button--icon add-admin" data-id="{{_id}}">
+																		<i class="material-icons add-admin" data-id="{{_id}}">add</i>
+																	</button>
+																</td>
+														</tr>
+													{{/each}}
+												</tbody>
+											</table>
+										{{else}}
+											<h5>Selected Admins</h5>
+											{{#if communityAdmins}}
+												<table class="mdl-data-table mdl-js-data-table mdl-data-table">
+													<tbody>
+														{{#each communityAdmins}}
+														<tr>
+																<td><img src="{{profile.photo}}" class="mdl-list__item-avatar"></td>
+																<td data-label='{{_"admin.communities.name"}}' class="mdl-data-table__cell--non-numeric">{{profile.firstName}} {{profile.lastName}}</td>
+																<td data-label='{{_"admin.communities.subdomain"}}' class="mdl-data-table__cell--non-numeric">
+																	{{#each emails}}
+																		{{address}}
+																	{{/each}}
+																</td>
+																<td class="mdl-data-table__cell--non-numeric">
+																	<button class="mdl-button mdl-js-button mdl-button--icon remove-admin" data-id="{{_id}}">
+																		<i class="material-icons remove-admin" data-id="{{_id}}">delete</i>
+																	</button>
+																</td>
+														</tr>
+														{{/each}}
+													</tbody>
+												</table>
+											{{else}}
+												<p>No admins</p>
+											{{/if}}
+										{{/if}}
+									<!--
+									{{#each email in whitelist}}
+										{{email}}
 									{{/each}}
-							</tbody>
-					</table>
-				{{else}}
-					<p>
-						{{_"admin.communities.none"}}
-					</p>
-				{{/if}}
-			{{else}}
-				<p>
-					{{_ "generic.loading"}}
-				</p>
-			{{/if}}
+									-->
+								{{else}}
+									<p><span>Select a community</span></p>
+								{{/if}}
+							</div>
+						</div>
+
+				</div>
+			</div>
 		</div>
-	</div>
 	{{else}}
 		You do not have access to this page.
 	{{/if}}
-</template>
-
-<template name="AddNewCommunity">
-
-	<form id="new-community-form">
-
-		<!-- name -->
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<input class="mdl-textfield__input" type="text" id="name">
-			<label class="mdl-textfield__label" for="name">{{_"admin.communities.name"}}</label>
-		</div>
-
-		<!-- subdomain -->
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<input class="mdl-textfield__input" type="text" id="subdomain">
-			<label class="mdl-textfield__label" for="subdomain">{{_"admin.communities.subdomain"}}</label>
-		</div>
-
-		<!-- SETTINGS -->
-
-		<!-- colorScheme -->
-		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-			<input class="mdl-textfield__input" type="text" id="colorScheme" data-val="default" value="{{_'admin.communities.colorScheme.default'}}" readonly tabIndex="-1">
-			<label for="colorScheme" class="dropdown-icon">
-				<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-			</label>
-			<label for="colorScheme" class="mdl-textfield__label">{{_'admin.communities.colorScheme.label'}}</label>
-			<ul for="colorScheme" class="mdl-menu mdl-menu--bottom-lef
-			t mdl-js-menu">
-				<li class="mdl-menu__item dropdown-item-colorScheme" data-val="default">{{_'admin.communities.colorScheme.default'}}</li>
-				<li class="mdl-menu__item dropdown-item-colorScheme" data-val="greyscale">{{_'admin.communities.colorScheme.greyscale'}}</li>
-			</ul>
-		</div>
-
-		<!-- homepageImageUrl -->
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<input class="mdl-textfield__input" type="text" id="homepageImageUrl">
-			<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.homepageImageUrl"}}</label>
-		</div>
-
-		<!-- homepageBannerText -->
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<input class="mdl-textfield__input" type="text" id="homepageBannerText">
-			<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.homepageBannerText"}}</label>
-		</div>
-
-		<!-- homepageIntroText -->
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<input class="mdl-textfield__input" type="text" id="homepageIntroText">
-			<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.homepageIntroText"}}</label>
-		</div>
-
-		<!-- aboutText -->
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<input class="mdl-textfield__input" type="text" id="aboutText">
-			<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.aboutText"}}</label>
-		</div>
-
-		<!-- defaultLanguage -->
-		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-			<input class="mdl-textfield__input" type="text" id="defaultLanguage" data-val="en" value="en" readonly tabIndex="-1">
-			<label for="defaultLanguage" class="dropdown-icon">
-				<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-			</label>
-			<label for="defaultLanguage" class="mdl-textfield__label">{{_'admin.communities.defaultLanguage'}}</label>
-			<ul for="defaultLanguage" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-				<li class="mdl-menu__item dropdown-item-defaultLanguage" data-val="en">en</li>
-				<li class="mdl-menu__item dropdown-item-defaultLanguage" data-val="sv">sv</li>
-			</ul>
-		</div>
-
-		<!-- languageSelector -->
-		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="languageSelector">
-			<input type="checkbox" id="languageSelector" class="mdl-checkbox__input" checked>
-			<span class="mdl-checkbox__label">{{_"admin.communities.languageSelector"}}</span>
-		</label>
-
-		<!-- email whitelist -->
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<input class="mdl-textfield__input" type="text" id="emailWhitelist">
-			<label class="mdl-textfield__label" for="emailWhitelist">{{_"admin.communities.emailWhitelist"}}</label>
-		</div>
-
-		<!-- enforce whitelist -->
-		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="enforceWhitelist">
-			<input type="checkbox" id="enforceWhitelist" class="mdl-checkbox__input" checked>
-			<span class="mdl-checkbox__label">{{_"admin.communities.enforceWhitelist"}}</span>
-		</label>
-
-		<div class="form-group" style="margin-bottom: 2rem;">
-			<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='Submit'>
-		</div>
-	</form>
-
-	<hr>
 
 </template>
+
+<!--
+<form id="new-community-form">
+	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+		<div class="mdl-tabs__tab-bar">
+				<a href="#details-panel" class="mdl-tabs__tab is-active">Details</a>
+				<a href="#admins-panel" class="mdl-tabs__tab">Admins</a>
+		</div>
+
+		<div class="mdl-tabs__panel is-active" id="details-panel">
+			|{{community}}|
+
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="name" value="{{community.name}}">
+				<label class="mdl-textfield__label" for="name">{{_"admin.communities.name"}}</label>
+			</div>
+
+			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="root-checkbox">
+				<input type="checkbox" id="root-checkbox" class="mdl-checkbox__input">
+				<span class="mdl-checkbox__label">Is Root community</span>
+			</label>
+
+			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="parent-wrapper">
+				<input class="mdl-textfield__input" type="text" id="parentCommunity" data-val="default" value="" readonly tabIndex="-1">
+				<label for="parentCommunity" class="dropdown-icon">
+					<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+				</label>
+				<label for="parentCommunity" class="mdl-textfield__label">Parent Community</label>
+				<ul for="parentCommunity" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+					{{#each rootCommunities}}
+						<li class="mdl-menu__item dropdown-item-parent-community" data-val="{{_id}}">{{name}}</li>
+					{{/each}}
+				</ul>
+			</div>
+
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="subdomain-wrapper" style="display: none;">
+				<input class="mdl-textfield__input" type="text" id="subdomain">
+				<label class="mdl-textfield__label" for="subdomain">{{_"admin.communities.subdomain"}}</label>
+			</div>
+
+			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+				<input class="mdl-textfield__input" type="text" id="defaultLanguage" data-val="en" value="en" readonly tabIndex="-1">
+				<label for="defaultLanguage" class="dropdown-icon">
+					<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+				</label>
+				<label for="defaultLanguage" class="mdl-textfield__label">{{_'admin.communities.defaultLanguage'}}</label>
+				<ul for="defaultLanguage" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+					<li class="mdl-menu__item dropdown-item-defaultLanguage" data-val="en">en</li>
+					<li class="mdl-menu__item dropdown-item-defaultLanguage" data-val="sv">sv</li>
+				</ul>
+			</div>
+
+			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="languageSelector">
+				<input type="checkbox" id="languageSelector" class="mdl-checkbox__input" checked>
+				<span class="mdl-checkbox__label">{{_"admin.communities.languageSelector"}}</span>
+			</label>
+
+		</div>
+		<div class="mdl-tabs__panel" id="admins-panel">
+			<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="colorScheme-wrapper" style="display: none;">
+				<input class="mdl-textfield__input" type="text" id="colorScheme" data-val="default" value="{{_'admin.communities.colorScheme.default'}}" readonly tabIndex="-1">
+				<label for="colorScheme" class="dropdown-icon">
+					<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+				</label>
+				<label for="colorScheme" class="mdl-textfield__label">{{_'admin.communities.colorScheme.label'}}</label>
+				<ul for="colorScheme" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+					<li class="mdl-menu__item dropdown-item-colorScheme" data-val="default">{{_'admin.communities.colorScheme.default'}}</li>
+					<li class="mdl-menu__item dropdown-item-colorScheme" data-val="greyscale">{{_'admin.communities.colorScheme.greyscale'}}</li>
+				</ul>
+			</div>
+
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="homepageImageUrl">
+				<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.homepageImageUrl"}}</label>
+			</div>
+
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="homepageBannerText">
+				<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.homepageBannerText"}}</label>
+			</div>
+
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="homepageIntroText">
+				<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.homepageIntroText"}}</label>
+			</div>
+
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="aboutText">
+				<label class="mdl-textfield__label" for="sample3">{{_"admin.communities.aboutText"}}</label>
+			</div>
+		</div>
+		<div class="mdl-tabs__panel" id="whitelist-panel">
+			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="enforceWhitelist">
+				<input type="checkbox" id="enforceWhitelist" class="mdl-checkbox__input" checked>
+				<span class="mdl-checkbox__label">{{_"admin.communities.enforceWhitelist"}}</span>
+			</label>
+
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="emailWhitelist">
+				<label class="mdl-textfield__label" for="emailWhitelist">{{_"admin.communities.emailWhitelist"}}</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" style="margin-bottom: 2rem;">
+		<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='Submit'>
+	</div>
+</form>
+-->

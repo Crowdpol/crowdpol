@@ -1,19 +1,21 @@
 <template name="AdminDash">
 	<div class="admin">
-		{{#if currentUserIsAdmin}}
-		{{>AdminDashHeader}}
-	  <main class="admin__main">
-	    <div class="dashboard">
-				{{>Template.dynamic template=currentTemplate}}
-			</div>
-	  </main>
+		{{#if currentUserHasAdmin}}
+			{{>AdminDashHeader}}
+		  <main class="admin__main">
+		    <div class="dashboard">
+					{{currentTemplate}}
+					{{>Template.dynamic template=currentTemplate}}
+				</div>
+		  </main>
 		{{else}}
-			<h1>You do not have access to this page</h1>
+			{{>App_notFound}}
 		{{/if}}
+
 	</div>
 </template>
 <template name="Overview">
-	{{#if currentUserIsAdmin}}
+	{{#if currentUserHasAdmin}}
 	<div class="dashboard__item dashboard__item--full">
 		<div class="card">
 			<img src="https://imgs.xkcd.com/comics/voting_software.png" alt="" />
@@ -40,40 +42,6 @@
 		-->
 	{{/if}}
 </template>
-<template name="AdminDashFooter">
-	<footer class="admin__footer">
-	</footer>
-</template>
-<template name="DashBasic">
-	<div class="dashboard__item">
-		<div class="card">
-			<strong>41</strong> Foobars
-		</div>
-	</div>
-	<div class="dashboard__item">
-		<div class="card">
-			<strong>81.712</strong> Doohickeys
-		</div>
-	</div>
-	<div class="dashboard__item dashboard__item--full">
-		<div class="card">
-			<img src="https://imgs.xkcd.com/comics/voting_software.png" alt="" />
-		</div>
-	</div>
-	<div class="dashboard__item dashboard__item--col">
-		<div class="card">A</div>
-	</div>
-	<div class="dashboard__item dashboard__item--col">
-		<div class="card">B</div>
-	</div>
-	<div class="dashboard__item dashboard__item--col">
-		<div class="card">C</div>
-	</div>
-	<div class="dashboard__item dashboard__item--col">
-		<div class="card">D</div>
-	</div>
-	<p>read more about this in <a href="https://mxb.at/blog/css-grid-admin-dashboard/">this blogpost</a>.</p>
-</template>
 
 <template name="AdminDashHeader">
 	<header class="admin__header">
@@ -89,9 +57,11 @@
 			<li class="menu__item">
 				<a class="menu__link" href="#AdminFlags" data-template="AdminFlags">Flags</a>
 			</li>
-			<li class="menu__item">
-				<a class="menu__link" href="#AdminUsers" data-template="AdminUsers">Users</a>
-			</li>
+			{{#if currentUserIsSuperOrAdmin}}
+				<li class="menu__item">
+					<a class="menu__link" href="#AdminUsers" data-template="AdminUsers">Users</a>
+				</li>
+			{{/if}}
 			<li class="menu__item">
 				<a class="menu__link" href="#AdminApprovals" data-template="AdminApprovals">Requests</a>
 			</li>
@@ -104,9 +74,11 @@
 			<li class="menu__item">
 				<a class="menu__link" href="#AdminTags" data-template="AdminTags">Tags</a>
 			</li>
+			{{#if currentUserIsSuperOrAdmin}}
 			<li class="menu__item">
 				<a class="menu__link" href="#AdminVoting" data-template="AdminVoting">Votes</a>
 			</li>
+			{{/if}}
 			<!--
 			<li class="menu__item">
 				<a class="menu__link" href="#ProposalStats" data-template="ProposalStats">Stats</a>

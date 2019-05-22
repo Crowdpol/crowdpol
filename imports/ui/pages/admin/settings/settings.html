@@ -1,7 +1,19 @@
 <template name="AdminSettings">
   <div class="dashboard__item dashboard__item--full">
+    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="selectCommunity">
+      <label class="mdl-textfield__label">Select Community</label>
+      <select class="mdl-textfield__input" id="selectedCommunity">
+        {{#each communities}}
+          {{#if isSelectedCommunity _id}}
+            <option value="{{_id}}" selected="selected">{{name}}</option>
+          {{else}}
+            <option value="{{_id}}">{{name}}</option>
+          {{/if}}
+        {{/each}}
+        {{community.name}}
+      </select>
+    </div>
 		<div class="card">
-			<h3>Settings</h3>
       <form id="edit-community-settings">
         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
           <div class="mdl-tabs__tab-bar">
@@ -11,7 +23,7 @@
               <a href="#about-panel" class="mdl-tabs__tab">About Page</a>
               <a href="#contact-panel" class="mdl-tabs__tab">Contact Page</a>
               <a href="#faq-panel" class="mdl-tabs__tab">FAQ</a>
-              <!--<a href="#whitelist-panel" class="mdl-tabs__tab">Whitelist</a>-->
+              <a href="#whitelist-panel" class="mdl-tabs__tab">Whitelist</a>
           </div>
           <div class="mdl-tabs__panel is-active" id="settings-panel">
             <!-- Start and end dates -->
@@ -20,11 +32,11 @@
               <div class="settings-subsection">
                 <div class="settings-checkbox">
                   <input type="radio" id="user-dates" name="proposal-dates" value="true">
-                  <span >User defined</span>
+                  <span>User defined</span>
                 </div>
                 <div class="settings-checkbox">
                   <input type="radio" id="static-dates" name="proposal-dates" value="false">
-                  <span >Static</span>
+                  <span>Static</span>
                 </div>
                 <div id="setDates" class="settings-subsection">
                   <div class="small-inputs-wrap">
@@ -172,6 +184,9 @@
                 </div>
                 <img src="{{homepageImageUrl}}" alt="Homepage Image" class="image-preview" id="background-image-preview">
                 <br>
+                <hr>
+                  {{> Cover}}
+                <hr>
             		<!-- homepageBannerText -->
             		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <textarea class="mdl-textfield__input" type="text" rows= "4"  id="homepageBannerText" name="homepageBannerText">{{homepageBannerText}}</textarea>

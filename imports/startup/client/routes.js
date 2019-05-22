@@ -5,7 +5,7 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import '../../ui/main.js';
 
 // Global onEnter trigger to save communityInfo in LocalStore
-FlowRouter.triggers.enter([loadCommunityInfo]);
+//FlowRouter.triggers.enter([loadCommunityInfo]);
 
 // the App_notFound template is used for unknown routes and missing lists
 FlowRouter.notFound = {
@@ -25,7 +25,13 @@ Accounts.onLogout(function() {
 publicRoutes.route('/', {
   name: 'App.home',
   action() {
-    BlazeLayout.render('App_body', { main: 'Home' });
+    let subdomain = LocalStore.get('subdomain');
+    if(subdomain=='landing'){
+      BlazeLayout.render('App_body', { main: 'Landing' });
+    }else{
+      BlazeLayout.render('App_body', { main: 'Home' });
+    }
+
   },
 });
 
@@ -194,9 +200,11 @@ statsRoutes.route('/proposals/:id', {
 var loggedInRoutes = FlowRouter.group({
   name: 'loggedIn',
   triggersEnter: [function(context, redirect) {
-    if ((!Meteor.user()) || (!_.contains(Meteor.user().profile.communityIds, LocalStore.get('communityId')))){
-	    FlowRouter.go('App.home');
-	    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
+    if ((!Meteor.user()) ){
+      if(!_.contains(Meteor.user().profile.communityIds, LocalStore.get('communityId'))){
+        FlowRouter.go('App.home');
+  	    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
+      }
   	}
   }]
 });
@@ -235,7 +243,7 @@ loggedInRoutes.route('/feed/:id', {
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
-    BlazeLayout.render('App_body', { main: 'Dash' });
+    BlazeLayout.render('App_body', { main: 'CommunityDash' });
   },
 });
 
@@ -311,7 +319,7 @@ var adminRoutes = FlowRouter.group({
   prefix: '/admin',
   name: 'admin',
   triggersEnter: [function(context, redirect) {
-    if (!Roles.userIsInRole(Meteor.user(), ['admin','superadmin'])){
+    if (!Roles.userIsInRole(Meteor.user(), ['admin','superadmin','community-admin'])){
       FlowRouter.go('App.home');
     }
   }]
@@ -373,69 +381,7 @@ adminRoutes.route('/communities', {
   }
 });
 
-function loadCommunityInfo() {
-  //check for crowdpol:
-  var hostname = window.location.host;
-  var subdomain = window.location.host.split('.')[0];
-  switch (hostname) {
-    case "crowdpol.com":
-        subdomain = "global";
-        break;
-    case "www.crowdpol.com":
-        subdomain = "global";
-        break;
-    case "crowdpol.org":
-        subdomain = "global";
-        break;
-    case "www.crowdpol.org":
-        subdomain = "global";
-        break;
-    case "commondemocracy.org":
-        subdomain = "global";
-        break;
-    case "www.commondemocracy.org":
-        subdomain = "global";
-        break;
-    case "www.syntropi.se":
-        subdomain = "syntropi";
-        break;
-    default:
-        subdomain = window.location.host.split('.')[0];
-  }
-	//set title to commuinty name
-	document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
 
-  // set LocalStorage info
-  if (subdomain){
-      LocalStore.set('subdomain', subdomain);
-      Meteor.call('getCommunityBySubdomain', subdomain, function(err, result) {
-        if (err) {
-          Bert.alert(err.reason, 'danger');
-        } else {
-          if(typeof result._id !== 'undefined'){
-            LocalStore.set('communityId', result._id);
-  					LocalStore.set('settings',result.settings);
-  					let settings = result.settings;
-
-  					//set favicon if community icon is set
-  					if(typeof settings.faviconUrl != 'undefined'){
-  						var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-  						//link.type = 'image/x-icon';
-  						link.rel = 'shortcut icon';
-  						link.href = settings.faviconUrl;
-  						document.getElementsByTagName('head')[0].appendChild(link);
-  					}
-  					if(typeof settings.defaultLanguage != 'undefined'){
-  						//console.log(settings.defaultLanguage);
-  						moment.locale(settings.defaultLanguage);
-  					}
-          }
-        }
-      });
-  } else {
-    Bert.alert(TAPi18n.__('pages.routes.alerts.no-subdomain'), 'danger');
-  }
-}
 /*
 (function() {
     var link = document.querySelector("link[rel*='icon']") || document.createElement('link');

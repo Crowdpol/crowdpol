@@ -8,6 +8,11 @@ import '../../../utils/intro.min.js'
 import { Communities } from '../../../api/communities/Communities.js'
 
 Template.App_body.onCreated(function() {
+  var wrap = $(".page-content");
+
+  wrap.on("scroll", function(e) {
+    console.log("top:" + this.scrollTop)
+  });
   var self = this;
   //$('.mdl-layout').MaterialLayout.toggleDrawer();
   //showDrawer = Meteor.user()
@@ -22,32 +27,42 @@ Template.App_body.onCreated(function() {
   var subdomain = LocalStore.get('subdomain');
 
   self.autorun(function(){
-    self.subscribe('communities.subdomain', subdomain, function() {
-      // Load Styles based on community settings
-      var community = Communities.findOne({subdomain: subdomain});
-      try {
-        switch (community.settings.colorScheme) {
-          case 'greyscale':
-              import '../../stylesheets/color-schemes/greyscale.scss';
-              break;
-          case 'syntropi':
-              import '../../stylesheets/color-schemes/syntropi.scss';
-              break;
-          default:
-              import '../../stylesheets/color-schemes/default.scss';
+    if(subdomain!=='landing'){
+      self.subscribe('communities.subdomain', subdomain, function() {
+        // Load Styles based on community settings
+        var community = Communities.findOne({subdomain: subdomain});
+        try {
+          switch (community.settings.colorScheme) {
+            case 'greyscale':
+                import '../../stylesheets/color-schemes/greyscale.scss';
+                break;
+            case 'syntropi':
+                import '../../stylesheets/color-schemes/syntropi.scss';
+                break;
+            default:
+                import '../../stylesheets/color-schemes/default.scss';
+          }
+        } catch(err) {
+          import '../../stylesheets/color-schemes/default.scss';
+          Bert.alert(TAPi18n.__('layout.body.no-styles'), 'danger');
         }
-      } catch(err) {
-        import '../../stylesheets/color-schemes/default.scss';
-        Bert.alert(TAPi18n.__('layout.body.no-styles'), 'danger');
-      }
-    });
+      });
+    }
   });
 });
 
 Template.App_body.helpers({
 	showDrawer: function(){
 		return showDrawer;
-	}
+	},
+  isLanding: function(){
+    let subdomain = LocalStore.get('subdomain');
+    if(subdomain=='landing'){
+      return true;
+    }else{
+      return false;
+    }
+  }
 });
 
 Template.App_body.onRendered(function () {
