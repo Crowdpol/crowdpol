@@ -403,7 +403,7 @@ function saveChanges(event, template, returnTo){
 			createProposal(proposalId,newProposal,returnTo,template);
 		}
 	}else{
-		Bert.alert(TAPi18n.__('pages.proposals.edit.alerts.not-saved'), 'danger');
+		Bert.alert(TAPi18n.__('pages.proposals.edit.alerts.not-saved'), 'warning');
 		return false;
 	}
 	return true;

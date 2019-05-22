@@ -57,6 +57,20 @@ Template.CommunityDash.events({
     });
     */
   },
+  'click .tablinks': function(event, template){
+    let tab = event.currentTarget.dataset.tab;
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("community-tab");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tab).style.display = "flex";
+    event.currentTarget.className += " active";
+    }
 });
 
 Template.CommunityDash.helpers({
@@ -70,6 +84,16 @@ Template.CommunityDash.helpers({
 	childCommunities: function(){
     var communityId = LocalStore.get('communityId');
     return Communities.find({"parentCommunity":communityId});
+  },
+  childCommunitiesCount: function(){
+    var communityId = LocalStore.get('communityId');
+    return Communities.find({"parentCommunity":communityId}).count();
+  },
+  groupCount: function(){
+    return 1;
+  },
+  delegatesCount: function(){
+    return 1;
   },
   backgroundImage: function(community){
     if(community){

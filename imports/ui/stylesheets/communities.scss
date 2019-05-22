@@ -1,20 +1,25 @@
 @import 'variables.scss';
 .community-header{
-  background-color: transparent; /* For browsers that do not support gradients */
+  background: rgba(0, 0, 0, 0.2);
+  /*
+  background-color: transparent; // For browsers that do not support gradients
   background-image: -webkit-linear-gradient(black,transparent);
   background-image: -o-linear-gradient(black,transparent);
-  background-image: linear-gradient(black,transparent); /* Standard syntax (must be last) */
+  background-image: linear-gradient(black,transparent); // Standard syntax (must be last)
+  */
   position: fixed;
   top: 65px;
-  height: 100px;
+  height: 40px;
   width: 100%;
   color: #fff;
+  padding: 5px 10px;
   .community-breadcrumb{
     color: #fff;
   }
   .community-breadcrumb:hover{
     color:blue;
   }
+
 }
 .parallax {
   /* The image used */
@@ -52,13 +57,60 @@
       font-style: italic;
       color: #fff;
     }
+    /* Style the tab */
+  .tab {
+    overflow: hidden;
+    //border: 1px solid #ccc;
+    background-color: transparent;
+    display: flex;
+    flex-wrap:wrap;
+    align-content: flex-end;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: transparent;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #fff;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: rgba(204,204,204, 0.5);
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: rgba(204,204,204, 0.3);
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
   }
 }
 #community-dash-container{
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
+  height:1000px;
+  padding: 0px;
+  padding-top: 20px;
 
+  .communitiy-content{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+  }
   .community-card-image.mdl-card {
     margin: 10px;
     width: 256px;
@@ -87,6 +139,10 @@
 
 .sticky + .content {
   padding-top: 102px;
+}
+
+.community-header-displacer{
+  margin-top: 40px;
 }
 
 @media only screen and (max-device-width: 1366px) {

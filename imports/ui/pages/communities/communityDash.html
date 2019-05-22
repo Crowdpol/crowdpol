@@ -3,21 +3,34 @@
     <div class="parallax-community-header">
       <h5>{{currentCommunity.name}}</h5>
       <p>{{currentCommunity.settings.homepageBannerText}}</p>
+      <div class="tab">
+        {{#if childCommunitiesCount}}
+          <button class="tablinks" data-tab="communities-tab">Communities ({{childCommunitiesCount}})</button>
+        {{/if}}
+        <button class="tablinks" data-tab="groups-tab">Groups ({{groupCount}})</button>
+        <button class="tablinks" data-tab="delegates-tab">Delegates ({{delegatesCount}})</button>
+      </div>
     </div>
   </div>
 
-  <div class="container app-container" id="community-dash-container" style="height:1000px;">
-
-    {{#each childCommunities}}
-      <div class="community-card-image mdl-card mdl-shadow--2dp" data-id="{{_id}}" style="background-image: {{settings.homepageImageUrl}};">
-        <div class="mdl-card__title mdl-card--expand"></div>
-        <div class="mdl-card__actions">
-          <span class="community-card-image__filename">{{name}}</span>
-        </div>
+  <div class="container app-container" id="community-dash-container">
+    {{#if childCommunitiesCount}}
+      <div class="communitiy-content community-tab" id="communities-tab">
+        {{#each childCommunities}}
+          <div class="community-card-image mdl-card mdl-shadow--2dp" data-id="{{_id}}" style="background-image: {{settings.homepageImageUrl}};">
+            <div class="mdl-card__title mdl-card--expand"></div>
+            <div class="mdl-card__actions">
+              <span class="community-card-image__filename">{{name}}</span>
+            </div>
+          </div>
+        {{/each}}
       </div>
-    {{/each}}
-    <div class="communitiy-content">
-      {{> Delegate}}
+    {{/if}}
+    <div class="community-tab" id="groups-tab" style="display: none;">
+      <p>Groups comming soon</p>
+    </div>
+    <div class="community-tab" id="delegates-tab" style="display: none;">
+      {{>Delegate}}
     </div>
   </div>
 
