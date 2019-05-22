@@ -16,7 +16,7 @@
 		<nav class="side-nav-link-wrap mdl-navigation">
 
 			{{#if currentUser}}
-				{{#if isInRole 'admin, superadmin'}}
+				{{#if isInRole 'admin, superadmin, community-admin'}}
 					<a class="side-nav-link mdl-navigation__link" href="/admin/dash">{{_ "layout.drawer.nav_admin_dash"}}</a>
 				{{/if}}
 				<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/home">{{_ "layout.drawer.nav_feed"}}</a>

@@ -16,11 +16,12 @@ Template.Voting.onCreated(function () {
   Session.set("votesTab",true);
   Session.set("completedTab",false);
   var communityId = LocalStore.get('communityId');
+  console.log("community id: " + LocalStore.get('communityId'));
   self.autorun(function(){
     self.subscribe('proposals.public', self.searchQuery.get(), communityId);
-    self.subscribe('proposals.author', self.searchQuery.get(), communityId);
+    //self.subscribe('proposals.author', self.searchQuery.get(), communityId);
     //self.subscribe('proposals.invited', Meteor.user().username, self.searchQuery.get(), communityId);
-    self.subscribe('proposals.invited', self.searchQuery.get(), communityId);
+    //self.subscribe('proposals.invited', self.searchQuery.get(), communityId);
     //self.subscribe('delegateVotes.forUser');
 
   })
@@ -49,6 +50,7 @@ Template.Voting.helpers({
     return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}, {sort: {endDate: 1,createdAt:-1}},{transform: transformProposal});
   },
   openProposals: function(isVotingAsDelegate) {
+    var communityId = LocalStore.get('communityId');
     let now = moment().toDate();//new Date();
     let end = now;
     //TO DO: add option for admin to select delgate expiry date (currently 14 days before end date)
@@ -56,7 +58,7 @@ Template.Voting.helpers({
       end =  moment(now).subtract(2, 'weeks').toDate();//now.setDate(now.getDate()-14).toString();
     }
 
-    return Proposals.find({startDate:{"$lte": now}, endDate:{"$gte": end}, stage: "live"}, {sort: {endDate: 1,createdAt:-1}},{transform: transformProposal});
+    return Proposals.find({communityId: communityId,startDate:{"$lte": now}, endDate:{"$gte": end}, stage: "live"}, {sort: {endDate: 1,createdAt:-1}},{transform: transformProposal});
   },
   openSelected: function(){
     return Template.instance().openProposals.get();

@@ -10,9 +10,33 @@ import './dash.html';
 import './communities/communities.js'
 import './settings/settings.js'
 
-Template.registerHelper('currentUserIsAdmin', function(){
+Template.registerHelper('currentUserHasAdmin', function(){
 	var user = Meteor.user();
+	//give super admin and admin full rights
 	if (user && Roles.userIsInRole(user, ['admin', 'superadmin'])){
+		return true;
+	}
+	//give community admin rights to the community only
+	if (user && Roles.userIsInRole(user, ['community-admin'])){
+		var communityId = LocalStore.get('communityId');
+		let profile = Meteor.user().profile;
+		if(typeof profile.adminCommunities !== 'undefined'){
+			let adminCommunities = profile.adminCommunities;
+			if(Array.isArray(adminCommunities)){
+				if(adminCommunities.includes(communityId)){
+					return true;
+				}
+			}
+		}
+		console.log("current community: " + communityId);
+		return true;
+	}
+	return false;
+});
+
+Template.registerHelper('currentUserIsSuperOrAdmin', function(){
+	var user = Meteor.user();
+	if (user && Roles.userIsInRole(user, ['superadmin'])){
 		return true;
 	} else {
 		return false;
@@ -23,6 +47,33 @@ Template.registerHelper('currentUserIsSuperAdmin', function(){
 	var user = Meteor.user();
 	if (user && Roles.userIsInRole(user, ['superadmin'])){
 		return true;
+	} else {
+		return false;
+	}
+});
+
+Template.registerHelper('currentUserIsAdmin', function(){
+	var user = Meteor.user();
+	if (user && Roles.userIsInRole(user, ['admin'])){
+		return true;
+	} else {
+		return false;
+	}
+});
+
+Template.registerHelper('currentUserIsCommunityAdmin', function(){
+	var user = Meteor.user();
+	if (user && Roles.userIsInRole(user, ['community-admin'])){
+		var communityId = LocalStore.get('communityId');
+		let profile = Meteor.user().profile;
+		if(typeof profile.adminCommunities !== 'undefined'){
+			let adminCommunities = profile.adminCommunities;
+			if(Array.isArray(adminCommunities)){
+				if(adminCommunities.includes(communityId)){
+					return true;
+				}
+			}
+		}
 	} else {
 		return false;
 	}
@@ -42,9 +93,37 @@ Template.AdminDash.onRendered(function() {
 
 Template.AdminDash.helpers({
   currentTemplate: function() {
-  	// only display expired proposals that are public
+		console.log(Session.get("adminTemplate"));
   	return Session.get("adminTemplate");
-  }
+  },
+	//check if current user has admin rights
+	/*
+	currentUserHasAdmin: function(){
+		console.log("currentUserHasAdmin called");
+		var user = Meteor.user();
+		//give super admin and admin full rights
+		if (user && Roles.userIsInRole(user, ['admin', 'superadmin'])){
+			console.log("admin/superadmin");
+			return true;
+		}
+		//give community admin rights to the community only
+		if (user && Roles.userIsInRole(user, ['community-admin'])){
+			var communityId = LocalStore.get('communityId');
+			let profile = Meteor.user().profile;
+			if(typeof profile.adminCommunities !== 'undefined'){
+				let adminCommunities = profile.adminCommunities;
+				if(Array.isArray(adminCommunities)){
+					if(adminCommunities.includes(communityId)){
+						console.log("community-admin");
+						return true;
+					}
+				}
+			}
+			console.log("current community: " + communityId);
+			return true;
+		}
+		return false;
+	}*/
 });
 
 Template.AdminDashHeader.events({

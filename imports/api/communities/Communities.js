@@ -128,6 +128,15 @@ Community = new SimpleSchema({
     settings: {
         type: CommunitySettings,
         optional: true
+    },
+    isArchived: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false
+    },
+    archiveDate: {
+      type: Date,
+      optional: true
     }
 });
 
