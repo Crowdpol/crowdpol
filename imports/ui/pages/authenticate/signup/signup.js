@@ -71,7 +71,8 @@ Template.Signup.events({
 				};
 				//check if the user email already has an account
 				if(checkUserExists(email,communityId)){
-					FlowRouter.go('/dash');
+					//console.log("checked user exists, redirecting to /dash");
+					//FlowRouter.go('/dash');
 				}else{
 					Accounts.createUser(user, (error) => {
 						if (error) {
@@ -81,12 +82,12 @@ Template.Signup.events({
 							/* Check if redirect route saved */
 							var redirect = LocalStore.get('signUpRedirectURL');
 							LocalStore.set('signUpRedirectURL', '');
-							if (redirect) {
+							if (redirect){
 								window.location.href = redirect;
 							} else {
 								var user = Meteor.user();
 	              var userRoles = user.roles;
-	              console.log(userRoles);
+	              //console.log(userRoles);
 	              if (user && userRoles) {
 	                if(userRoles.indexOf("delegate") > -1){
 	                  LocalStore.set('isDelegate',true);
@@ -110,8 +111,9 @@ Template.Signup.events({
 	                  LocalStore.set('otherRole','');
 	                }
 	              }
-	              console.log(LocalStore.get('currentUserRole'));
-	              console.log(LocalStore.get('isDelegate'));
+	              //console.log(LocalStore.get('currentUserRole'));
+	              //console.log(LocalStore.get('isDelegate'));
+								//console.log("user created, redirecting to /dash");
 								FlowRouter.go('/dash');
 							}
 

@@ -13,10 +13,7 @@ Template.Header.onCreated(function(){
   var subdomain = LocalStore.get('subdomain');
   var communityId = LocalStore.get('communityId');
   /* TODO: change date languages dynamically */
-  moment.locale('en');
-  //console.log("checking user roles");
-  //console.log("localstore currentUserRole: " + LocalStore.get('currentUserRole'));
-  //console.log("localstore isDelegate: " + LocalStore.get('isDelegate'));
+  //moment.locale('en');
   if (user && user.roles){
     var currentRole = LocalStore.get('currentUserRole');
     var userRoles = user.roles;
@@ -66,9 +63,9 @@ Template.Header.onCreated(function(){
       var community = Communities.findOne({subdomain: subdomain});
       var lang = community.settings.defaultLanguage;
       var languages = community.settings.languages;
-      LocalStore.set('languages', languages);
-      Session.set("i18n_lang",lang)
-      TAPi18n.setLanguage(lang);
+      //LocalStore.set('languages', languages);
+      //Session.set("i18n_lang",lang)
+      //TAPi18n.setLanguage(lang);
     });
   });
 
@@ -109,7 +106,11 @@ Template.Header.helpers({
   },
   lang() {
     var str = Session.get("i18n_lang")
-    return str.toUpperCase();
+    //console.log("Session.get('i18n_lang'): " + Session.get("i18n_lang"));
+    if(str){
+      return str.toUpperCase();
+    }
+
   },
   currentUserRole() {
     return LocalStore.get('currentUserRole');
@@ -204,9 +205,10 @@ Template.Header.helpers({
     var langs = LocalStore.get('languages');
     if (typeof langs !== 'undefined' && langs.length > 0) {
     // the array is defined and has at least one element
-
+      //console.log("languages: " + langs);
       return langs;
     }
+    //console.log("no langs");
     return 0;
   },
   getLang(lang){
@@ -235,7 +237,6 @@ Template.Header.events({
     var lang = $(e.currentTarget).attr("id");
     Session.set("i18n_lang",lang)
     TAPi18n.setLanguage(lang);
-    /* TODO: change locale dynamically*/
     moment.locale(lang);
   },
   'click #nav-logout' : function(e){
@@ -243,6 +244,8 @@ Template.Header.events({
     LocalStore.set('currentUserRole','');
     LocalStore.set('isDelegate','');
     $('.logged-in-header').removeClass('delegate_header');
+    console.log("header: set community to route");
+    //setCommunityToRoot();
     Meteor.logout();
   },
   'keyup input' (event, template) {

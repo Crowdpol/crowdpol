@@ -49,7 +49,7 @@ Meteor.methods({
         }
       });
 
-      console.log(community);
+      //console.log(community);
 
       let notCommunityNameFound = Communities.find({_id:{$ne:community._id},name: community.name,"isArchived":{$ne:true}}).count();
       if(notCommunityNameFound > 0){
@@ -142,7 +142,7 @@ Meteor.methods({
       return Communities.update({_id: communityId}, {$set: {'settings.aboutText': aboutText}});
     },
     addFAQ: function(communityId,faqContent){
-      console.log(communityId);
+      //console.log(communityId);
       check(communityId, String);
       check(faqContent, {
         lang: String,
@@ -154,7 +154,7 @@ Meteor.methods({
       console.log(result);
     },
     removeFAQ: function(communityId,faqId){
-      console.log(communityId);
-      console.log(faqId);
+      //console.log(communityId);
+      //console.log(faqId);
     },
 });

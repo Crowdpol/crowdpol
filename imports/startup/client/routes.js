@@ -1,5 +1,6 @@
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
+import { setCommunityToRoot } from '../../utils/community.js';
 
 // Import needed templates
 import '../../ui/main.js';
@@ -19,7 +20,9 @@ FlowRouter.notFound = {
 var publicRoutes = FlowRouter.group({name: 'public'});
 
 Accounts.onLogout(function() {
-	FlowRouter.go('App.home');
+  console.log("routes: set community to root");
+  setCommunityToRoot();
+	BlazeLayout.render('App_body', { main: 'Home' });
 });
 
 publicRoutes.route('/', {
@@ -29,7 +32,11 @@ publicRoutes.route('/', {
     if(subdomain=='landing'){
       BlazeLayout.render('App_body', { main: 'Landing' });
     }else{
-      BlazeLayout.render('App_body', { main: 'Home' });
+      if (!Meteor.user()){
+        BlazeLayout.render('App_body', { main: 'Home' });
+      }else{
+        BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      }
     }
 
   },
@@ -81,7 +88,7 @@ publicRoutes.route('/login', {
     if (!Meteor.user()){
       BlazeLayout.render('App_body', { main: 'Authenticate' });
     }else{
-      BlazeLayout.render('App_body', { main: 'ProposalsList' });
+      BlazeLayout.render('App_body', { main: 'Dash' });
     }
   },
 });
@@ -91,7 +98,7 @@ publicRoutes.route('/signup', {
     if (!Meteor.user()){
       BlazeLayout.render('App_body', { main: 'Authenticate' });
     }else{
-      BlazeLayout.render('App_body', { main: 'ProposalsList' });
+      BlazeLayout.render('App_body', { main: 'Dash' });
     }
   },
 });
@@ -200,12 +207,27 @@ statsRoutes.route('/proposals/:id', {
 var loggedInRoutes = FlowRouter.group({
   name: 'loggedIn',
   triggersEnter: [function(context, redirect) {
-    if ((!Meteor.user()) ){
-      if(!_.contains(Meteor.user().profile.communityIds, LocalStore.get('communityId'))){
-        FlowRouter.go('App.home');
-  	    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
+    let user = Meteor.user();
+    if (user){
+      //console.log("have found signed in user");
+      if(typeof user.profile !== 'undefined'){
+        let profile = user.profile;
+        if(typeof profile.settings !== 'undefined'){
+          if(!_.contains(Meteor.user().profile.communityIds, LocalStore.get('communityId'))){
+            FlowRouter.go('App.home');
+      	    Bert.alert(TAPi18n.__('pages.routes.alerts.login-to-view'), 'danger');
+          }else{
+            //console.log("user community does not match current community");
+          }
+        }else{
+          //console.log("user profile has no settings");
+        }
+      }else{
+        //console.log("user has no profile");
       }
-  	}
+  	}else{
+      BlazeLayout.render('App_body', { main: 'Home' });
+    }
   }]
 });
 
@@ -243,7 +265,14 @@ loggedInRoutes.route('/feed/:id', {
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
-    BlazeLayout.render('App_body', { main: 'CommunityDash' });
+    //console.log("/dash route called");
+    if (Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      //console.log("/dash points to community dash");
+    }else{
+      BlazeLayout.render('App_body', { main: 'App_notFound' });
+      //console.log("/dash points to app not found");
+    }
   },
 });
 

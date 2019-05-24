@@ -48,6 +48,7 @@ import './stylesheets/stylesheets.js';
 import './v2/main.js';
 
 Meteor.startup(function () {
+	/*
 	// setup language
 	Session.set('showLoadingIndicator', true);
 
@@ -63,5 +64,5 @@ Meteor.startup(function () {
 			// Handle the situation
 			console.log(error_message);
 		});
-
+	*/
 });

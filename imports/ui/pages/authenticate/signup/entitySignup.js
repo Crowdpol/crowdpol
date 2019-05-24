@@ -105,7 +105,7 @@ Template.entitySignup.events({
            } else {
              var user = Meteor.user();
              var userRoles = user.roles;
-             console.log(userRoles);
+             //console.log(userRoles);
              if (user && userRoles) {
                if(userRoles.indexOf("delegate") > -1){
                  LocalStore.set('isDelegate',true);
@@ -129,9 +129,10 @@ Template.entitySignup.events({
                  LocalStore.set('otherRole','');
                }
              }
-             console.log(LocalStore.get('currentUserRole'));
-             console.log(LocalStore.get('isDelegate'));
-             FlowRouter.go('/proposals');
+             //console.log(LocalStore.get('currentUserRole'));
+             //console.log(LocalStore.get('isDelegate'));
+             //console.log("entity user created, now redirect given, redirecting to /dash");
+             FlowRouter.go('/dash');
            }
          }
        });

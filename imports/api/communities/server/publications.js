@@ -16,7 +16,7 @@ Meteor.publish('communities.subdomain', function(subdomain) {
 });
 
 Meteor.publish('communities.children', function(rootCommunity) {
-  console.log("root community: " + rootCommunity);
-  console.log(Communities.find({"parentCommunity":rootCommunity,"isArchived":{$ne:true},"isRoot":false}).count());
+  //console.log("root community: " + rootCommunity);
+  //console.log(Communities.find({"parentCommunity":rootCommunity,"isArchived":{$ne:true},"isRoot":false}).count());
   return Communities.find({"parentCommunity":rootCommunity,"isArchived":{$ne:true},"isRoot":false});
 });

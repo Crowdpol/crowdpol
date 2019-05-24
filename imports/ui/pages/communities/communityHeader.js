@@ -1,5 +1,5 @@
 import './communityHeader.html';
-
+import { setCommunity } from '../../../utils/community';
 import { Communities } from '../../../api/communities/Communities.js'
 
 Template.CommunityHeader.onCreated(function(){
@@ -30,8 +30,8 @@ Template.CommunityHeader.events({
   'click .community-breadcrumb': function(event, template){
     let id = event.currentTarget.dataset.id;
     if(id){
-      console.log("setting community to: " + id);
-      LocalStore.set('communityId', id);
+      //console.log("setting community to: " + id);
+      setCommunity(id);
       FlowRouter.go('App.dash');
     }
   }

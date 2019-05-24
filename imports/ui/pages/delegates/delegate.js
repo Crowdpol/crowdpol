@@ -20,15 +20,18 @@ Template.Delegate.onCreated(function () {
     self.subscribe('ranks.all');
     self.subscribe('tags.community', LocalStore.get('communityId'));
     // Set user's ranked delegates
-    Meteor.call('getRanks', Meteor.userId(), "delegate", communityId, function(error, result){
-      if(error) {
-        RavenClient.captureException(error);
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Session.set('ranked', result);
-        dict.set('ranked',result);
-      }
-    });
+    if(Meteor.userId()){
+      Meteor.call('getRanks', Meteor.userId(), "delegate", communityId, function(error, result){
+        if(error) {
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Session.set('ranked', result);
+          dict.set('ranked',result);
+        }
+      });
+    }
+
   });
 
 });

@@ -37,18 +37,20 @@ Template.Login.events({
         /* Check if subdomain matches user's community */
           var communityId = LocalStore.get('communityId');
           var userCommunities = Meteor.user().profile.communityIds;
+          console.log("communityId:"+communityId);
+          console.log("userCommunities:"+userCommunities);
           if (!_.contains(userCommunities, communityId)) {
             // log them out and redirect to their community
             Bert.alert(TAPi18n.__('pages.authenticate.individual.login.wrong-community'), 'danger');
             RavenClient.captureException(error);
             Meteor.logout();
-            FlowRouter.go('/login');
+            //FlowRouter.go('/login');
           } else {
             var redirect = LocalStore.get('signUpRedirectURL');
             LocalStore.set('signUpRedirectURL', '');
             var user = Meteor.user();
             var userRoles = user.roles;
-            console.log(userRoles);
+            //console.log(userRoles);
             if (user && userRoles) {
               if(userRoles.indexOf("delegate") > -1){
                 LocalStore.set('isDelegate',true);
@@ -56,7 +58,7 @@ Template.Login.events({
                 LocalStore.set('isDelegate',false);
               }
               if(userRoles.indexOf("individual") > -1){
-                console.log("i am an individual");
+                //console.log("i am an individual");
                 LocalStore.set('currentUserRole','individual');
               }
               if(userRoles.indexOf("organisation") > -1){
@@ -73,8 +75,8 @@ Template.Login.events({
                 LocalStore.set('otherRole','');
               }
             }
-            console.log(LocalStore.get('currentUserRole'));
-            console.log(LocalStore.get('isDelegate'));
+            //console.log(LocalStore.get('currentUserRole'));
+            //console.log(LocalStore.get('isDelegate'));
             if (Roles.userIsInRole(Meteor.userId(), ['admin'])){
               FlowRouter.go('/admin/dash');
             } else {
@@ -82,7 +84,8 @@ Template.Login.events({
               if (redirect) {
                 window.location.href = redirect;
               } else {
-                FlowRouter.go('/proposals');
+                //console.log("no redirect sent with signup, redirecting to /dash");
+                FlowRouter.go('/dash');
               }
             }
           }

@@ -1,5 +1,6 @@
-import { Communities } from '../../../api/communities/Communities.js'
-import './communityDash.html'
+import { Communities } from '../../../api/communities/Communities.js';
+import { setCommunity } from '../../../utils/community';
+import './communityDash.html';
 
 Template.CommunityDash.onCreated(function(){
   self = this;
@@ -35,7 +36,20 @@ Template.CommunityDash.events({
   'click .community-card-image': function(event, template){
     let id = event.currentTarget.dataset.id;
     if(id){
+      setCommunity(id);
+      /*
       LocalStore.set('communityId', id);
+      let settings = LocalStore.get('settings');
+      let defaultLang = "en";
+      if(typeof settings.defaultLanguage){
+        console.log(settings);
+        defaultLang = settings.defaultLanguage;
+      }
+      console.log("defaultLang: " + defaultLang);
+      Session.set("i18n_lang",defaultLang)
+      //TAPi18n.setLanguage(defaultLang);
+      /* TODO: change locale dynamically*/
+      //moment.locale(defaultLang);
     }
     /*
     var communityId = Template.instance().templateDictionary.get( 'communityId' );
@@ -99,9 +113,9 @@ Template.CommunityDash.helpers({
     if(community){
       if(typeof community.settings !== 'undefined'){
         let settings = community.settings;
-        console.log(settings);
+        //console.log(settings);
         if(typeof settings.homepageImageUrl !== 'undefined');{
-          console.log(settings.homepageImageUrl);
+          //console.log(settings.homepageImageUrl);
           return settings.homepageImageUrl;
         }
       }
