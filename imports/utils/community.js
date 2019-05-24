@@ -116,3 +116,11 @@ export const setCommunityToRoot = () => {
   }
 
 }
+
+export const getCommunity = () => {
+  let id = LocalStore.get('communityId');
+  if(id){
+    return id;
+  }
+  return false;
+}

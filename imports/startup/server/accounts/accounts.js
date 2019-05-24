@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor'
 import { Roles } from 'meteor/alanning:roles';
 import { convertToSlug } from '/lib/utils';
 import { Random } from 'meteor/random';
+import { getCommunity } from '../../utils/community';
 
 function generateSearchString(user){
   const profile = user.profile;
@@ -29,7 +30,7 @@ function normalizeFacebookUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
-    communityIds: [LocalStore.get('communityId')],
+    communityIds: [getCommunity],
     //searchString: searchString
   });
 
@@ -61,7 +62,7 @@ function normalizeGoogleUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
-    communityIds: [LocalStore.get('communityId')],
+    communityIds: [getCommunity],
     //searchString: user.services.google.given_name + ' ' + user.services.google.family_name + ' ' + generateUsername(user.services.google.given_name + " " + user.services.google.family_name);
   });
   const userEmail = {
@@ -94,7 +95,7 @@ function normalizeTwitterUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
-    communityIds: [LocalStore.get('communityId')],
+    communityIds: [getCommunity],
     //searchString: profile.name + " "  + generateUsername(user.services.twitter.screenName);
   });
 
@@ -128,7 +129,7 @@ function normalizeSignupUser(profile, user) {
     lastName: "User",
     isPublic: false,
     type: 'Individual',
-    communityIds: [LocalStore.get('communityId')],
+    communityIds: [getCommunity],
   });
   return _.extend(user, {
     //username,
