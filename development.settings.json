@@ -16,8 +16,8 @@
   "private": {
     "oAuth": {
       "facebook": {
-        "appId": "106534056676989",
-        "secret": "0109f679d648b0943bac351963030e04"
+        "appId": "882920215388865",
+        "secret": "d25b01ed1029785365d228e2b5bf3ed1"
       },
       "github": {
         "clientId": "",

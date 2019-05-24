@@ -29,6 +29,7 @@ function normalizeFacebookUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
+    communityIds: [LocalStore.get('communityId')],
     //searchString: searchString
   });
 
@@ -60,6 +61,7 @@ function normalizeGoogleUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
+    communityIds: [LocalStore.get('communityId')],
     //searchString: user.services.google.given_name + ' ' + user.services.google.family_name + ' ' + generateUsername(user.services.google.given_name + " " + user.services.google.family_name);
   });
   const userEmail = {
@@ -92,6 +94,7 @@ function normalizeTwitterUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
+    communityIds: [LocalStore.get('communityId')],
     //searchString: profile.name + " "  + generateUsername(user.services.twitter.screenName);
   });
 
@@ -124,7 +127,8 @@ function normalizeSignupUser(profile, user) {
     firstName: "Anonymous",
     lastName: "User",
     isPublic: false,
-    type: 'Individual'
+    type: 'Individual',
+    communityIds: [LocalStore.get('communityId')],
   });
   return _.extend(user, {
     //username,
@@ -147,7 +151,6 @@ function normalizeEntity(profile, user) {
     phoneNumber: profile.phoneNumber,
     contactPerson: profile.contactPerson,
     type: 'Entity',
-    communityIds: profile.communityIds,
     photo: Meteor.settings.private.defaultPhotoUrl,
     username: generateUsername("anonymous_entity"),
     isPublic: false,
