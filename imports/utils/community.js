@@ -8,7 +8,7 @@ export const communitySettings = (id) => {
   let community = Communities.findOne({"_id":id});
   if(community){
     if(typeof community.settings!=='undefined'){
-      console.log(community.settings);
+      //console.log(community.settings);
       return community.settings;
     }
   }
@@ -18,8 +18,8 @@ export const communitySettings = (id) => {
 export const getCommunityBySubomdain = (subdomain) => {
   let community = Communities.findOne({"subdomain":subdomain});
   if(community){
-    console.log("community");
-    console.log(community);
+    //console.log("community");
+    //console.log(community);
     return community;
   }
   return false;
@@ -31,7 +31,7 @@ export const setDefaultLanguage = (lang) => {
     TAPi18n.setLanguage(lang);
     /* TODO: change locale dynamically*/
     moment.locale(lang);
-    console.log("lang is now: " + lang);
+    //console.log("lang is now: " + lang);
   }
   return false;
 };

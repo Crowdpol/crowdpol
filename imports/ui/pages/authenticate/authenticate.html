@@ -20,9 +20,10 @@
 			</div>
 			<!-- MDL tab panels, is-active to denote currently active -->
 			<div class="mdl-tabs__panel is-active" id="login-panel">
-				<!--{{>SocialLogin}}-->
+
 				<div id="individual-login" class="container narrow-container auth-wrap">
 					<h3>{{_ "pages.authenticate.login"}}</h3>
+					{{>SocialLogin}}
 					{{> Login}}
 					<a href="#signup-panel" class="center light" id="individual-signup-link">{{_ "pages.authenticate.links.register"}}</a>
 				</div>
