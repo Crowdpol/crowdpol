@@ -30,7 +30,7 @@ function normalizeFacebookUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
-    communityIds: [getCommunity],
+    communityIds: [getCommunity()],
     //searchString: searchString
   });
 
@@ -62,7 +62,7 @@ function normalizeGoogleUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
-    communityIds: [getCommunity],
+    communityIds: [getCommunity()],
     //searchString: user.services.google.given_name + ' ' + user.services.google.family_name + ' ' + generateUsername(user.services.google.given_name + " " + user.services.google.family_name);
   });
   const userEmail = {
@@ -95,7 +95,7 @@ function normalizeTwitterUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
-    communityIds: [getCommunity],
+    communityIds: [getCommunity()],
     //searchString: profile.name + " "  + generateUsername(user.services.twitter.screenName);
   });
 
@@ -129,7 +129,7 @@ function normalizeSignupUser(profile, user) {
     lastName: "User",
     isPublic: false,
     type: 'Individual',
-    communityIds: [getCommunity],
+    communityIds: [getCommunity()],
   });
   return _.extend(user, {
     //username,
