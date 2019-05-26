@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor'
 import { Roles } from 'meteor/alanning:roles';
 import { convertToSlug } from '/lib/utils';
 import { Random } from 'meteor/random';
-import { getCommunity } from '../../utils/community';
+import { getCommunity } from '../../../utils/community.js';
 
 function generateSearchString(user){
   const profile = user.profile;
