@@ -36,11 +36,12 @@ Meteor.startup(function () {
 
 
 function loadCommunityInfo() {
+  LocalStore.set('rootCommunities',[]);
   //check for crowdpol:
   var hostname = window.location.host;
   var subdomain = window.location.host.split('.')[0];
-  //console.log("hostname: " + hostname);
-  //console.log("subdomain: "  + subdomain);
+  console.log("hostname: " + hostname);
+  console.log("subdomain: "  + subdomain);
   switch (hostname) {
     case "crowdpol.com":
         subdomain = "landing";
@@ -71,6 +72,7 @@ function loadCommunityInfo() {
         subdomain = "landing";//window.location.host.split('.')[0];
     */
   }
+  console.log(subdomain);
   if(subdomain){
     //set title to commuinty name
     document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
@@ -83,6 +85,7 @@ function loadCommunityInfo() {
           if (err) {
             Bert.alert(err.reason, 'danger');
           } else {
+            console.log(result);
             if(typeof result._id !== 'undefined'){
               LocalStore.set('communityId', result._id);
               //console.log('setting community to : ' + result.name);
@@ -108,4 +111,13 @@ function loadCommunityInfo() {
       console.log(TAPi18n.__('pages.routes.alerts.no-subdomain'));
     }
   }
+
+  Meteor.call('getRootCommunities', function(err, result) {
+    if (err) {
+      Bert.alert(err.reason, 'danger');
+    } else {
+      console.log(result);
+      LocalStore.set('rootCommunities', result);
+    }
+  });
 }

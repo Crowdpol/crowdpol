@@ -88,8 +88,8 @@ function checkParents(label){
   let parents = label.parentLabels;
   if(Array.isArray(parents)){
     for (var i in parents) {
-      console.log(parents);
-      console.log("parents[i]:" + parents[i] + ",label.id: " + label.id);
+      //console.log(parents);
+      //console.log("parents[i]:" + parents[i] + ",label.id: " + label.id);
       if(parents[i]===label.id){
         parents.splice(i,1);
       }

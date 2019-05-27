@@ -33,8 +33,10 @@ Template.RightDrawer.onCreated(function() {
   var communityId = LocalStore.get('communityId');
   self.autorun(function() {
     self.subscribe('user.profile',Session.get('drawerId'));
-    self.subscribe('proposals.public', '', communityId);
     self.subscribe('delegateVotes.forDelegate', Session.get('drawerId'));
+		if(communityId){
+			self.subscribe('proposals.public', '', communityId);
+		}
   });
 });
 

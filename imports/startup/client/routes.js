@@ -21,7 +21,7 @@ var publicRoutes = FlowRouter.group({name: 'public'});
 
 Accounts.onLogout(function() {
   console.log("routes: set community to root");
-  setCommunityToRoot();
+  //setCommunityToRoot();
 	BlazeLayout.render('App_body', { main: 'Home' });
 });
 

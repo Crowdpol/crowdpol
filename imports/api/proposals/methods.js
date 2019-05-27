@@ -217,7 +217,7 @@ Meteor.methods({
 
   },
   prepareVotesForTally: function(proposalIds) {
-    console.log('Preparing votes for tally')
+    //console.log('Preparing votes for tally')
     /*
       This method is called within a cron job that runs every 24 hours, at midnight
       It takes an array of proposal ids and creates votes for all users who delegated their votes

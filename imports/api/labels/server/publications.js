@@ -10,7 +10,7 @@ Meteor.publish('labelSearch', function(search, communityId) {
   /*if (!search) {
     return Meteor.users.find({roles: type});
   }*/
-	console.log(search);
+	//console.log(search);
   let query      = {'communityIds': communityId};
 
   if ( search ) {

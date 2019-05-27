@@ -10,7 +10,7 @@ Meteor.methods({
       objectId: String,
     });
     let checkExisting = Likes.findOne({objectId: like.objectId,userId:like.userId});
-    console.log(checkExisting);
+    //console.log(checkExisting);
     if(checkExisting){
       return Likes.remove(like);
     }

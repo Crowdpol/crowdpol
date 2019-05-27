@@ -8,6 +8,7 @@ import { Communities } from '../../../api/communities/Communities.js'
 import { walkThrough } from '../../../utils/functions';
 
 Template.Header.onCreated(function(){
+  console.log("all communities count: " + Communities.find().count());
   var self = this;
   var user = Meteor.user();
   var subdomain = LocalStore.get('subdomain');
@@ -51,7 +52,6 @@ Template.Header.onCreated(function(){
   self.availableTags = new ReactiveVar([]);
   self.matchedTags = new ReactiveVar([]);
   self.community = new ReactiveVar();
-
   self.autorun(function(){
     //subscribe to list of existing tags
     self.subscribe('tags.community', communityId);

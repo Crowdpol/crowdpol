@@ -30,7 +30,7 @@ function normalizeFacebookUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
-    communityIds: [getCommunity()],
+    communityIds: LocalStore.get('rootCommunities')
     //searchString: searchString
   });
 
@@ -62,7 +62,7 @@ function normalizeGoogleUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
-    communityIds: [getCommunity()],
+    communityIds: LocalStore.get('rootCommunities')
     //searchString: user.services.google.given_name + ' ' + user.services.google.family_name + ' ' + generateUsername(user.services.google.given_name + " " + user.services.google.family_name);
   });
   const userEmail = {
@@ -95,7 +95,7 @@ function normalizeTwitterUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
-    communityIds: [getCommunity()],
+    communityIds: LocalStore.get('rootCommunities')
     //searchString: profile.name + " "  + generateUsername(user.services.twitter.screenName);
   });
 
@@ -129,7 +129,7 @@ function normalizeSignupUser(profile, user) {
     lastName: "User",
     isPublic: false,
     type: 'Individual',
-    communityIds: [getCommunity()],
+    communityIds: LocalStore.get('rootCommunities')
   });
   return _.extend(user, {
     //username,
@@ -278,7 +278,7 @@ Accounts.onCreateUser((options, user) => {
 });
 
 Accounts.onLogin(() => {
-  console.log("onLogin called: user logged in");
+  //console.log("onLogin called: user logged in");
 });
 Accounts.validateNewUser((user) => {
 

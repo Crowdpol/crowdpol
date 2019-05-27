@@ -4,6 +4,7 @@ import '../drawer/drawer.js'
 import '../footer/footer.js'
 import './styles.css'
 import '../../../utils/intro.min.js'
+import { communitySettings } from '../../../utils/community.js';
 
 import { Communities } from '../../../api/communities/Communities.js'
 
@@ -28,9 +29,26 @@ Template.App_body.onCreated(function() {
 
   self.autorun(function(){
     if(subdomain!=='landing'){
+      let settings = communitySettings();
+      try {
+        switch (settings.colorScheme) {
+          case 'greyscale':
+              import '../../stylesheets/color-schemes/greyscale.scss';
+              break;
+          case 'syntropi':
+              import '../../stylesheets/color-schemes/syntropi.scss';
+              break;
+          default:
+              import '../../stylesheets/color-schemes/default.scss';
+        }
+      } catch(err) {
+        import '../../stylesheets/color-schemes/default.scss';
+        Bert.alert(TAPi18n.__('layout.body.no-styles'), 'danger');
+      }
+      /*
       self.subscribe('communities.subdomain', subdomain, function() {
         // Load Styles based on community settings
-        var community = Communities.findOne({subdomain: subdomain});
+      var community = Communities.findOne({subdomain: subdomain});
         try {
           switch (community.settings.colorScheme) {
             case 'greyscale':
@@ -47,6 +65,7 @@ Template.App_body.onCreated(function() {
           Bert.alert(TAPi18n.__('layout.body.no-styles'), 'danger');
         }
       });
+      */
     }
   });
 });
