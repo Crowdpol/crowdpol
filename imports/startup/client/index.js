@@ -111,13 +111,4 @@ function loadCommunityInfo() {
       console.log(TAPi18n.__('pages.routes.alerts.no-subdomain'));
     }
   }
-
-  Meteor.call('getRootCommunities', function(err, result) {
-    if (err) {
-      Bert.alert(err.reason, 'danger');
-    } else {
-      console.log(result);
-      LocalStore.set('rootCommunities', result);
-    }
-  });
 }

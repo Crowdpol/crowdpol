@@ -128,8 +128,7 @@ function normalizeSignupUser(profile, user) {
     firstName: "Anonymous",
     lastName: "User",
     isPublic: false,
-    type: 'Individual',
-    communityIds: LocalStore.get('rootCommunities')
+    type: 'Individual'
   });
   return _.extend(user, {
     //username,
@@ -228,11 +227,79 @@ function slugName(firstName,lastName) {
 }
 
 Accounts.onCreateUser((options, user) => {
-  const profile = options.profile;
-  console.log("---------------")
-  console.log("options:")
+  console.log("--options:---");
   console.log(options);
-  console.log("---------------")
+  console.log("-----");
+  let profile = options.profile;
+  /*
+  if(options){
+    if(typeof options.profile !== 'undefined'){
+
+      Meteor.call('getRootCommunities',function(err, result){
+        if (err) {
+          Bert.alert(err.reason, 'danger');
+        } else {
+          console.log(result);
+          if(result){
+            const userProfile = _.extend(profile, {
+              profile.communityIds: result,
+            });
+            console.log("_3.1.userprofile set____");
+            console.log("userProfile: ")
+            console.log(userProfile);
+            console.log("_3.2.profileset____");
+            console.log("profile: ")
+            console.log(profile);
+            console.log("__reutrning profile___");
+          }
+        }
+      });
+    }else{
+      console.log(options);
+      let profile = {
+        credential: {},
+        firstName: "Anonymous",
+        lastName: "User",
+        isPublic: false,
+        type: 'Individual',
+      };
+      console.log("_2.basics set____");
+      console.log("profile: ")
+      console.log(profile);
+      console.log("_____");
+    }
+  }else{
+    console.log("no options in setRootCommunities");
+  }
+  */
+  console.log("---calling getRootCommunities()---");
+  profile.communityIds = Meteor.call('getRootCommunities');
+  /*
+  Meteor.call('getRootCommunities',function(err, result){
+    if (err) {
+      console.log(err);
+      Bert.alert(err.reason, 'danger');
+    } else {
+      //console.log(result);
+      if(result){
+        console.log("--profile before chainging community ids:---");
+        console.log(profile);
+        console.log("-----");
+        profile.communityIds = result;
+        console.log("--profile.communityIds after being set:---");
+        console.log(profile.communityIds);
+        console.log("-----");
+      }else{
+        console.log("no result from getRootCommunities");
+      }
+    }
+  });
+  */
+  console.log("---getRootCommunities() finished---");
+  console.log("--profile:---");
+  console.log(profile);
+  console.log("-----");
+  console.log("starting to normalise");
   if (profile) {
     if (user.services.facebook) {
       return normalizeFacebookUser(profile, user);
@@ -305,4 +372,8 @@ generateUsername = function(firstName,lastName) {
     username += "-" + (count+1);
   }
   return username;
+}
+
+function setRootCommunities(options){
+
 }
