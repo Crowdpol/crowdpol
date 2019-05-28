@@ -159,32 +159,33 @@ Template.Delegate.helpers({
     return true;
   },
   filteredRoles: function(roles){
-    let index = roles.indexOf('delegate')
-    if (index !== -1) {
-      roles.splice(index, 1);
+    if(roles){
+      let index = roles.indexOf('delegate')
+      if (index !== -1) {
+        roles.splice(index, 1);
+      }
+      index = roles.indexOf('admin')
+      if (index !== -1) {
+        roles.splice(index, 1);
+      }
+      index = roles.indexOf('superadmin')
+      if (index !== -1) {
+        roles.splice(index, 1);
+      }
+      index = roles.indexOf('demo')
+      if (index !== -1) {
+        roles.splice(index, 1);
+      }
+      index = roles.indexOf('candidate')
+      if (index !== -1) {
+        roles.splice(index, 1);
+      }
+      if(Array.isArray(roles)){
+        return roles;
+      }else{
+        return [];
+      }
     }
-    index = roles.indexOf('admin')
-    if (index !== -1) {
-      roles.splice(index, 1);
-    }
-    index = roles.indexOf('superadmin')
-    if (index !== -1) {
-      roles.splice(index, 1);
-    }
-    index = roles.indexOf('demo')
-    if (index !== -1) {
-      roles.splice(index, 1);
-    }
-    index = roles.indexOf('candidate')
-    if (index !== -1) {
-      roles.splice(index, 1);
-    }
-    if(Array.isArray(roles)){
-      return roles;
-    }else{
-      return [];
-    }
-
   },
   showTags: function(tags){
     if(typeof tags != 'undefined'){
