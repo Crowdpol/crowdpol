@@ -1,5 +1,6 @@
 import './voting.html'
-import { Proposals } from '../../../api/proposals/Proposals.js'
+import { Proposals } from '../../../api/proposals/Proposals.js';
+import { Votes } from '../../../api/votes/Votes.js'
 import { timeRemaining } from '../../../utils/functions';
 
 Template.Voting.onCreated(function () {

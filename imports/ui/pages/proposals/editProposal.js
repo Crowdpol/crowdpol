@@ -125,6 +125,9 @@ Template.EditProposal.helpers({
 	hasHeader: function(){
 		return Session.get('hasCover');
 	},
+	bioCount: function(){
+    return Template.instance().dict.get('bioCount');
+  },
 	proposalContent: function(){
 		proposalId = FlowRouter.getParam("id");
 		if (proposalId){

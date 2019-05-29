@@ -3,6 +3,7 @@ import "../../components/proposals/proposalCard.js"
 import RavenClient from 'raven-js';
 import { Tags } from '../../../api/tags/Tags.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import { Votes } from '../../../api/votes/Votes.js'
 
 Template.ProposalCard.onCreated(function () {
   var self = this;

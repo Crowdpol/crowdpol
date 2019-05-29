@@ -32,6 +32,12 @@ Template.CommunityHeader.events({
     if(id){
       //console.log("setting community to: " + id);
       setCommunity(id);
+      tabcontent = document.getElementsByClassName("community-tab");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      $("#communities-tab").show();
+      $('*[data-tab="communities-tab"]').addClass("active");
       FlowRouter.go('App.dash');
     }
   }

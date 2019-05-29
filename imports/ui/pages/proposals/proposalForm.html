@@ -8,10 +8,17 @@
 
 		<!-- Abstract -->
 		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<textarea class="mdl-textfield__input" type="text" rows= "5" name="abstract" id="abstract-{{language}}"></textarea>
+			<textarea class="mdl-textfield__input abstract-textarea" type="text" rows= "5" name="abstract" id="abstract-{{language}}"></textarea>
 			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.abstract"}}</label>
 		</div>
-
+		<div style="float: right;">
+		{{#if abstractCompleted}}
+			<span style="color: grey; font-size: 10px">{{abstractCount}} {{_ "pages.profile.characters"}} ({{_ "pages.profile.min"}} 50, {{_ "pages.profile.max"}} 280)</span>
+		{{else}}
+			<span style="color: red; font-size: 10px">{{abstractCount}} {{_ "pages.profile.characters"}} ({{_ "pages.profile.min"}} 50, {{_ "pages.profile.max"}} 280)</span>
+		{{/if}}
+		</div>
+		<br>
 		<!-- Body -->
 		<small>{{_ "pages.proposals.edit.body"}}</small>
 

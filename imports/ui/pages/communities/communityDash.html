@@ -9,6 +9,7 @@
         {{/if}}
         <button class="tablinks" data-tab="groups-tab">Groups ({{groupCount}})</button>
         <button class="tablinks" data-tab="delegates-tab">Delegates ({{delegatesCount}})</button>
+        <button class="tablinks" data-tab="settings-tab"><i class="material-icons">settings</i></button>
       </div>
     </div>
   </div>
@@ -26,11 +27,22 @@
         {{/each}}
       </div>
     {{/if}}
-    <div class="community-tab" id="groups-tab" style="display: none;">
-      <p>Groups comming soon</p>
-    </div>
+    {{#if childCommunitiesCount}}
+      <div class="community-tab" id="groups-tab" style="display: none;">
+        <p>Groups comming soon</p>
+      </div>
+    {{else}}
+      <div class="community-tab" id="groups-tab">
+        <p>Groups comming soon</p>
+      </div>
+    {{/if}}
     <div class="community-tab" id="delegates-tab" style="display: none;">
       {{>Delegate}}
+    </div>
+    <div class="community-tab" id="settings-tab" style="display: none;">
+      Settings:
+      - put public/hidden here
+      - put delegate button here.
     </div>
   </div>
 

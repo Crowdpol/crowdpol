@@ -37,6 +37,13 @@ Template.CommunityDash.events({
     let id = event.currentTarget.dataset.id;
     if(id){
       setCommunity(id);
+      tabcontent = document.getElementsByClassName("community-tab");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      $("#communities-tab").show();
+      $('*[data-tab="communities-tab"]').addClass("active");
+
       /*
       LocalStore.set('communityId', id);
       let settings = LocalStore.get('settings');
