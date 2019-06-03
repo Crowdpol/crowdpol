@@ -167,7 +167,8 @@ export function validateForm(){
 			},
 			abstract: {
 				required: false,
-				minlength: 5
+				minlength: 50,
+				maxlength: 280
 			},
 			body: {
 				required: false,
@@ -187,7 +188,7 @@ export function validateForm(){
 			},
 			abstract: {
 				required: 'Please provide a short abstract for your proposal.',
-				minlength: "Use at least 5 characters."
+				minlength: "Use at least 50 characters."
 			},
 			body: {
 				body: 'Please provide a body for your proposal.',

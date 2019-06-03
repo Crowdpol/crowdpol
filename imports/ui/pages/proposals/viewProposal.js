@@ -616,6 +616,14 @@ function proposalIsComplete(proposalId) {
   if (!content.abstract){
     return false;
   }
+  if (content.abstract){
+    let abstract = content.abstract;
+    console.log("abstract" + abstract);
+    if((abstract.length<50)||(abstract.length>280)){
+      console.log("abstract.length: " + abstract.length);
+      return false;
+    }
+  }
   if (!content.body){
     return false;
   }
