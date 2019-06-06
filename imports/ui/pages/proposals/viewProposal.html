@@ -14,7 +14,6 @@
 
 	<div class="app-container proposal-container">
 		{{#if isVisible }}
-
 		<!-- Author Information -->
 		<div class="mdl-tooltip" data-mdl-for="sign-proposal">
 			{{_ "pages.proposals.view.tooltips.sign"}}
@@ -24,6 +23,12 @@
 		</div>
 		<div class="proposal-details">
 			<div class="meta">
+				{{#if anonymous}}
+					{{>UserCard userId="" style="flat"}}
+				{{else}}
+					{{>UserCard userId=authorId style="flat"}}
+				{{/if}}
+				<!--
 				<div class="minilogo">
 					<img src="{{author.profile.photo}}" class="mdl-list__item-avatar">
 				</div>
@@ -35,7 +40,7 @@
 					{{/if}}
 					<span>{{createdAt}}</span>
 				</div>
-
+				-->
 				<div class="section-spacer"></div>
 				{{#if showEditable}}
 					{{#if isEditable }}
@@ -256,29 +261,30 @@
 	<!-- Arguments for and against -->
 	<div class="argument-container">
 		<div class="for-container arguments-column">
+			<p>{{_ "pages.proposals.edit.pointFor"}}</p>
 			{{#if argumentsForCount}}
-				<p>{{_ "pages.proposals.edit.pointFor"}}</p>
 				<ul class="arguments-list">
 					{{#each argument in argumentsFor language}}
 						{{>ArgumentsListItem argument=argument lang=language type="for" state="view"}}
 					{{/each}}
 				</ul>
-				{{#if showEditable}}
-					{{>ArgumentsBox type="for" lang=language args=argumentsFor state="view"}}
-				{{/if}}
+
+			{{/if}}
+			{{#if showEditable}}
+				{{>ArgumentsBox type="for" lang=language args=argumentsFor state="view"}}
 			{{/if}}
 		</div>
 		<div class="against-container arguments-column">
+			<p>{{_ "pages.proposals.edit.pointAgainst"}}</p>
 			{{#if argumentsAgainstCount}}
-				<p>{{_ "pages.proposals.edit.pointAgainst"}}</p>
 				<ul class="arguments-list">
 					{{#each argument in argumentsAgainst language}}
 						{{>ArgumentsListItem  argument=argument lang=language type="against" state="view"}}
 					{{/each}}
 				</ul>
-				{{#if showEditable}}
-					{{>ArgumentsBox type="against" lang=language args=argumentsAgainst state="view"}}
-				{{/if}}
+			{{/if}}
+			{{#if showEditable}}
+				{{>ArgumentsBox type="against" lang=language args=argumentsAgainst state="view"}}
 			{{/if}}
 		</div>
 	</div>

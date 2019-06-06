@@ -1,14 +1,16 @@
 <template name='ProposalForm'>
-
-		<!-- Title -->
-		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.title"}}</label>
-			<input type="text" name="title" id="title-{{language}}" class="mdl-textfield__input">
+	<div class="proposal-form">
+		<div class="input-wrap mdl-textfield mdl-js-textfield">
+			<textarea class="proposal-form-textarea mdl-textfield__input abstract-textarea" type="text" rows= "1" name="title" id="title-{{language}}" placeholder='{{_ "pages.proposals.edit.title"}}'></textarea>
+			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.abstract"}}</label>
 		</div>
-
+		<!--
+			<input type="text" name="title" id="title-{{language}}" class="proposal-form-title" placeholder="Enter Title Here...">
+			<textarea class="proposal-form-textarea mdl-textfield__input abstract-textarea" type="text" rows= "1" name="title" id="title-{{language}}" placeholder='{{_ "pages.proposals.edit.title"}}'></textarea>
+		-->
 		<!-- Abstract -->
-		<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<textarea class="mdl-textfield__input abstract-textarea" type="text" rows= "5" name="abstract" id="abstract-{{language}}"></textarea>
+		<div class="input-wrap mdl-textfield mdl-js-textfield">
+			<textarea class="mdl-textfield__input abstract-textarea proposal-info" type="text" rows= "3" name="abstract" id="abstract-{{language}}" placeholder='{{_ "pages.proposals.edit.abstract"}}'></textarea>
 			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.abstract"}}</label>
 		</div>
 		<div style="float: right;">
@@ -21,7 +23,7 @@
 		<br>
 		<!-- Body -->
 		<small>{{_ "pages.proposals.edit.body"}}</small>
-
+		<br>
 		<!-- Quill editor container -->
 		<div id="body-editor-{{language}}"></div>
 		<input type="hidden" name="body" id="body-{{language}}" class="mdl-textfield__input">
@@ -52,4 +54,5 @@
 	    </div>
 	  </div>
 	{{/if}}
+	</div>
 </template>

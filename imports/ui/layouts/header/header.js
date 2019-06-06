@@ -8,7 +8,7 @@ import { Communities } from '../../../api/communities/Communities.js'
 import { walkThrough } from '../../../utils/functions';
 
 Template.Header.onCreated(function(){
-  console.log("all communities count: " + Communities.find().count());
+  //console.log("all communities count: " + Communities.find().count());
   var self = this;
   var user = Meteor.user();
   var subdomain = LocalStore.get('subdomain');

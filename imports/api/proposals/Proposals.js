@@ -111,6 +111,16 @@ TranslationSchema = new SimpleSchema({
 });
 
 ProposalSchema = new SimpleSchema({
+    anonymous: {
+      //This tag has been authorized
+      type: Boolean,
+      optional: false,
+      autoValue: function () {
+        if (this.isInsert) {
+          return false;
+        }
+      }
+    },
     content: {
         type: Array,
         optional: true,

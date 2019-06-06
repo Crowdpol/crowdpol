@@ -8,6 +8,7 @@ Meteor.methods({
   createProposal: function (proposal) {
       //try{
         check(proposal, {
+          anonymous: Match.Maybe(Boolean),
           title: Match.Maybe(String),
           abstract: Match.Maybe(String),
           body: Match.Maybe(String),
@@ -160,7 +161,9 @@ Meteor.methods({
         oldInvites.push(newInvites);
         proposal.invites = oldInvites;
       }
+
       proposal.lastModified = new Date();
+      console.log(proposal);
       Proposals.update({_id: proposalId}, {$set: proposal });
     },
     addTagToProposal: function(proposalId, tag) {

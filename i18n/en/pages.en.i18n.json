@@ -304,7 +304,7 @@
 					"email-table-heading":"Existing users invited to collaborate:"
 				},
 				"signature-tooltip": "Show support for this proposal by signing it.",
-				"confirmSubmit": "Are you sure you want to submit for approval? Once a proposal has been submitted, it cannot be edited, only deleted.",
+				"confirmSubmit": "Before submitting this proposal we encourage you to do a final spellcheck and make sure that the selected image is aligned properly, as this cannot be changed once the proposal is published",
 				"voteCast": "Your vote has been cast",
 				"editProposal": "Edit Proposal",
 				"submitProposal": "Submit Proposal",

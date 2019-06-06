@@ -74,10 +74,10 @@ Template.ProposalForm.onRendered(function(){
 		var langs = LocalStore.get('languages');
 		let abstract = content.abstract || '';
 		let dictId = "abstract-" + language + "-Count";
-		console.log("abstract.length: "+ abstract.length);
-		console.log("dictId: " + dictId);
+		//console.log("abstract.length: "+ abstract.length);
+		//console.log("dictId: " + dictId);
 		Template.instance().dict.set( dictId, abstract.length);
-		console.log(Template.instance().dict.get(dictId));
+		//console.log(Template.instance().dict.get(dictId));
 	}
 
 	// Set session so parent template can initialise form validation

@@ -43,5 +43,13 @@
         </div>
       </div>
     {{/if}}
+  {{else}}
+  <div class="profile-card-flat">
+    <a href="#" class="profile-image-link"><img src="/img/default-user-image.png" class="profile-image mdl-list__item-avatar"/></a>
+    <div class="profile-card-flat-details">
+      <span class="fullname">Published Anonymously</span>
+      <span class="username">{{formatDate date}}</span>
+    </div>
+  </div>
   {{/if}}
 </template>

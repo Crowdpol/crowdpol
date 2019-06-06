@@ -1,5 +1,29 @@
 @import 'variables.scss';
 
+.proposal-form{
+  //proposalForm.html
+  textarea:focus{
+      outline: none;
+      resize: none;
+  }
+  
+}
+
+
+
+.proposal-form-textarea{
+  font-size: 1.75rem;
+  line-height: 2.4rem;
+  //border: none;
+  //border-bottom: solid 1px #ccc;
+  width: 100%;
+  resize: none;
+}
+
+.proposal-form-title:focus {
+
+}
+
 .proposal-admin-comment{
   border: solid 1px $red;
   padding: 10px;

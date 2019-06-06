@@ -18,6 +18,7 @@ Template.ViewProposal.onCreated(function(language){
   }else{
     proposalId = FlowRouter.getParam("id");
   }
+  dict.set( 'anonymous', false );
   self.autorun(function() {
     self.subscribe('comments', proposalId, function(error){
       dict.set('commentCount',Comments.find({proposalId: proposalId}).count());
@@ -29,8 +30,11 @@ Template.ViewProposal.onCreated(function(language){
         Bert.alert(error.reason, 'danger');
       } else {
         proposal = Proposals.findOne({_id: proposalId})
+        console.log(proposal);
         dict.set( 'createdAt', proposal.createdAt );
         dict.set( '_id', proposal._id);
+        console.log("anonymous: " + proposal.anonymous);
+        dict.set( 'anonymous', proposal.anonymous || false );
         dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') );
         dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') );
         dict.set( 'invited', proposal.invited );
@@ -156,6 +160,7 @@ Template.ViewProposal.events({
         authorId: Meteor.user()._id,
         type: 'comment'
       }
+      console.log(comment);
       Meteor.call('comment', comment, function(error){
         if(error){
           RavenClient.captureException(error);
@@ -193,6 +198,12 @@ Template.ViewProposal.events({
 });
 
 Template.ViewProposal.helpers({
+  anonymous: function(){
+    return Template.instance().templateDictionary.get('anonymous');
+  },
+  authorId: function(){
+    return Template.instance().templateDictionary.get('authorId');
+  },
   hasHeader: function(){
     return Template.instance().templateDictionary.get('hasCover');
   },
@@ -491,7 +502,11 @@ Template.ProposalContent.helpers({
     return Template.instance().templateDictionary.get( 'status' );
   },
   language: function(){
-    return this;
+    if(this){
+      if(typeof this.language !== 'undefined'){
+        return this.language;
+      }
+    }
   },
   showEditable: function(){
     return showControls();
