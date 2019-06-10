@@ -104,6 +104,19 @@ div.argument-container{
         width: 80%;
         padding-top: 0px;
         padding-bottom: 0px;
+
+        .mdl-js-textfield{
+          //padding-bottom: 0px;
+          //padding-top: 5px;
+          textarea.argument-input{
+            font-family: "Lora", serif;
+            color: $dark-grey-xdark;
+            font-size: $base-font-size;
+            font-weight: 300;
+            line-height: $base-line-height;
+            //margin-top: 0px;
+          }
+        }
       }
       div.argument-box-menu{
         width: 20%;

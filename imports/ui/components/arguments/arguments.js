@@ -334,5 +334,15 @@ Template.ArgumentsBox.events({
       console.log("not signed in");
       openSignInModal();
     }
+  },
+  'focus .argument-input' (event, template){
+    let argumentType = event.target.dataset.type;
+    let  argumentButtonIdentifier = "#" + argumentType + "-button";
+    $(argumentButtonIdentifier).show();
+  },
+  'blur .argument-input' (event, template){
+    let argumentType = event.target.dataset.type;
+    let  argumentButtonIdentifier = "#" + argumentType + "-button";
+    $(argumentButtonIdentifier).hide();
   }
 });
