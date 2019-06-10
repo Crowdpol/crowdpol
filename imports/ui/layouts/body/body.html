@@ -51,9 +51,13 @@
 	    <main class="mdl-layout__content">
 				<div class="page-content">
 				   <div class="ribbon" id="status-ribbon"><span>ALPHA</span></div>
-					 {{#if currentUser}}
-					 	{{> CommunityHeader}}
-					 {{/if}}
+					 	{{#if isLanding}}
+		 				{{else}}
+							{{#if currentUser}}
+								{{> CommunityHeader}}
+						 	{{/if}}
+						{{/if}}
+
 					<!-- Your content goes here -->
 					{{> Template.dynamic template=main}}
 				</div>

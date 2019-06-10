@@ -36,7 +36,15 @@ Meteor.methods({
       upVote: commentAttributes.upVote
     }
 
-    return Comments.insert(comment);
+    let commentId = Comments.insert(comment);
+    let eventLog = {
+      commentId: commentId,
+      type: commentAttributes.type,
+      triggerUserId: Meteor.userId()
+    }
+    //console.log("commentId: " + commentId);
+    Meteor.call('createProposalLog', comment.proposalId, eventLog);
+    return commentId;
   },
   addArguments: function(argumentsArray,proposalId) {
     check(proposalId, String);

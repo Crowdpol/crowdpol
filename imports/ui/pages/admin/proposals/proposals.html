@@ -138,13 +138,17 @@
 					</div>
 				</div>
 					<div class="btn-wrapper">
-						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
-							<i class="material-icons" data-proposal-id="{{_id}}">check</i>
-							{{_'admin.proposals.approve-button'}}
-						</button>
 						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
 							<i class="material-icons" data-proposal-id="{{_id}}">close</i>
 							{{_'admin.proposals.reject-button'}}
+						</button>
+						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="return-button">
+							<i class="material-icons" data-proposal-id="{{_id}}">settings_backup_restore</i>
+							{{_'admin.proposals.return-button'}}
+						</button>
+						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
+							<i class="material-icons" data-proposal-id="{{_id}}">check</i>
+							{{_'admin.proposals.approve-button'}}
 						</button>
 					</div>
 			{{/if}}

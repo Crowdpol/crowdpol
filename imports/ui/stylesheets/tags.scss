@@ -70,6 +70,14 @@
     background-color: $red;
   }
 
+  &.submitted {
+    background-color: $bright-blue;
+  }
+
+  &.returned {
+    background-color: $yellow;
+  }
+
   &.approved {
     background-color: $green;
   }

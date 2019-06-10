@@ -18,6 +18,7 @@ Template.ViewProposal.onCreated(function(language){
   }else{
     proposalId = FlowRouter.getParam("id");
   }
+  dict.set( 'anonymous', false );
   self.autorun(function() {
     self.subscribe('comments', proposalId, function(error){
       dict.set('commentCount',Comments.find({proposalId: proposalId}).count());
@@ -31,6 +32,7 @@ Template.ViewProposal.onCreated(function(language){
         proposal = Proposals.findOne({_id: proposalId})
         dict.set( 'createdAt', proposal.createdAt );
         dict.set( '_id', proposal._id);
+        dict.set( 'anonymous', proposal.anonymous || false );
         dict.set( 'startDate', moment(proposal.startDate).format('YYYY-MM-DD') );
         dict.set( 'endDate', moment(proposal.endDate).format('YYYY-MM-DD') );
         dict.set( 'invited', proposal.invited );
@@ -40,15 +42,14 @@ Template.ViewProposal.onCreated(function(language){
         dict.set( 'signatures', proposal.signatures || []);
         dict.set( 'tags', proposal.tags || [] );
         dict.set('hasCover',proposal.hasCover);
+        dict.set('eventLogs',proposal.eventLog || []);
         Session.set('hasCover',proposal.hasCover);
         if(proposal.hasCover){
           Session.set('coverPosition',proposal.coverPosition);
-          //console.log("viewProposal: " + proposal.coverPosition);
           Session.set('coverURL',proposal.coverURL);
           setCoverState('view');
           Session.set('coverState','view');
         }else{
-          //console.log("proposal has no cover");
           setCoverState('hidden');
           Session.set('coverState','hidden');
         }
@@ -112,7 +113,6 @@ Template.ViewProposal.events({
   },
   'click .collab-author' (event,template){
     if(this._id==Meteor.userId()){
-      //console.log("deleting this person");
       openRemoveInviteModal();
     }else{
       Session.set('drawerId',this._id);
@@ -124,8 +124,29 @@ Template.ViewProposal.events({
     }
   },
   'click #edit-proposal' (event, template){
-    let proposalId = Template.instance().templateDictionary.get('_id');
-    FlowRouter.go('App.proposal.edit', {id: proposalId});
+    let status = Template.instance().templateDictionary.get('status');
+    if(status=='approved'){
+      if (window.confirm(TAPi18n.__('pages.proposals.view.confirmEditAfterApproval'))){
+        let proposalId = Template.instance().templateDictionary.get('_id');
+        FlowRouter.go('App.proposal.edit', {id: proposalId});
+      }
+    }else{
+      let proposalId = Template.instance().templateDictionary.get('_id');
+      FlowRouter.go('App.proposal.edit', {id: proposalId});
+    }
+
+  },
+  'click #publish-proposal' (event, template){
+      Meteor.call('updateProposalStage', proposalId, 'live','approved', function(error){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalPublished'), 'success');
+          FlowRouter.go('App.proposals');
+
+        }
+      });
   },
   'click #submit-proposal' (event, template){
     let proposalId = Template.instance().templateDictionary.get('_id');
@@ -138,6 +159,7 @@ Template.ViewProposal.events({
           } else {
             Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalSubmitted'), 'success');
             FlowRouter.go('App.proposals');
+
           }
         });
       }
@@ -145,7 +167,6 @@ Template.ViewProposal.events({
       Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalIncomplete'), 'danger');
     }
   },
-
   'submit #comment-form' (event, template){
     event.preventDefault();
     let proposalId = Template.instance().templateDictionary.get('_id');
@@ -193,6 +214,12 @@ Template.ViewProposal.events({
 });
 
 Template.ViewProposal.helpers({
+  anonymous: function(){
+    return Template.instance().templateDictionary.get('anonymous');
+  },
+  authorId: function(){
+    return Template.instance().templateDictionary.get('authorId');
+  },
   hasHeader: function(){
     return Template.instance().templateDictionary.get('hasCover');
   },
@@ -284,6 +311,7 @@ Template.ViewProposal.helpers({
     //}
     //return false;
   },
+
   isInvited: function() {
     if(!showControls()){
       return true;
@@ -357,6 +385,91 @@ Template.ViewProposal.helpers({
   },
   showEditable: function(){
     return showControls();
+  },
+  eventLogs: function(){
+    let proposalId = null;
+    if(self.data.proposalId){
+      proposalId = Template.currentData().proposalId;
+    }else{
+      proposalId = FlowRouter.getParam("id");
+    }
+    if(proposalId){
+      let proposal = Proposals.findOne({"_id":proposalId});
+      let eventLogs = proposal.eventLog;
+      return eventLogs.reverse();
+    }else{
+      let eventLogs = Template.instance().templateDictionary.get( 'eventLogs' );
+      return eventLogs;
+    }
+  },
+  eventLogCommment: function(){
+    return Comments.findOne({"_id":this.commentId});
+  },
+  eventLogStatus: function(status){
+    //allowed status: ['created','updated','comment', 'submitted','returned','rejected','approved','live','invited','signature','against','for','admin'],
+    switch(status) {
+      case 'created':
+        return "Proposal created."
+        break;
+      case 'updated':
+        return "Proposal updated."
+        break;
+      case 'submitted':
+        return "Proposal has been submitted for review."
+        break;
+      case 'live':
+        return "Proposal has been published and is now live.";
+        break;
+      case 'invited':
+        return "New co-author invited.";
+        break;
+      case 'signature':
+        return "Proposal has been signed.";
+        break;
+      case 'draft':
+        return "Proposal has been set to draft.";
+        break;
+      default:
+        return "eventLogStatus - fix this (status=" + status + "): "
+    }
+  },
+  eventLogType: function(status){
+    //allowed status: ['created','updated','comment', 'submitted','returned','rejected','approved','live','invited','signature','against','for','admin'],
+    switch(status) {
+      case 'comment':
+        return "Comment: "
+        break;
+      case 'against':
+        return "Arugment against added: "
+        break;
+      case 'for':
+        return "Argument for added: "
+        break;
+      case 'returned':
+        return "Returned by Admin: ";
+        break;
+      case 'rejected':
+        return "Rejected by Admin: ";
+        break;
+      case 'approved':
+        return "Approved by Admin: ";
+        break;
+      case 'admin':
+        return "Comment from Admin: ";
+        break;
+      default:
+        return "eventLogType - fix this (status=" + status + "): "
+    }
+  },
+  isAdminProposalView: function(){
+    return isAdmin();
+  },
+  statusApproved: function(){
+    let status = Template.instance().templateDictionary.get('status');
+    if(status=='approved'){
+      return true;
+    }
+    return false;
   }
 });
 
@@ -490,8 +603,15 @@ Template.ProposalContent.helpers({
   status: function() {
     return Template.instance().templateDictionary.get( 'status' );
   },
+  stage: function() {
+    return Template.instance().templateDictionary.get( 'stage' );
+  },
   language: function(){
-    return this;
+    if(this){
+      if(typeof this.language !== 'undefined'){
+        return this.language;
+      }
+    }
   },
   showEditable: function(){
     return showControls();
@@ -616,6 +736,12 @@ function proposalIsComplete(proposalId) {
   if (!content.abstract){
     return false;
   }
+  if (content.abstract){
+    let abstract = content.abstract;
+    if((abstract.length<50)||(abstract.length>280)){
+      return false;
+    }
+  }
   if (!content.body){
     return false;
   }
@@ -689,4 +815,12 @@ function showControls(){
     return false;
   }
   return true;
+}
+
+function isAdmin(){
+  let adminProposalView = Session.get('adminProposalView');
+  if(adminProposalView){
+    return true;
+  }
+  return false;
 }
