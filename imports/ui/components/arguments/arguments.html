@@ -18,7 +18,6 @@
           {{else}}
           <div class="like-menu">
             <!--{{argument.upVoteCount}}-->
-            {{>FlagButton contentId=argument._id contentType=type authorId=argument.authorId}}
             <button class="mdl-button mdl-js-button mdl-button--icon like-argument-button {{isLiked argument}}" data-id="{{argument._id}}">
               <i class="material-icons like-argument-icon" data-id="{{argument._id}}">thumb_up</i>
             </button>
@@ -26,10 +25,10 @@
             <button class="mdl-button mdl-js-button mdl-button--icon dislike-argument-button {{isDisliked argument}}" data-id="{{argument._id}}">
               <i class="material-icons dislike-argument-icon" data-id="{{argument._id}}">thumb_down</i>
             </button>
+            {{>FlagButton contentId=argument._id contentType=type authorId=argument.authorId}}
           </div>
           {{/if}}
           <div class="save-menu" style="display:none;"  data-id='{{argument._id}}'>
-            {{>FlagButton}}
             <button class="mdl-button mdl-js-button mdl-button--icon close-argument-button" data-id="{{argument._id}}">
               <i class="material-icons close-argument-icon" data-id="{{argument._id}}">close</i>
             </button>
@@ -56,14 +55,18 @@
   <div class="argument-box">
     <div class="argument-box-textarea">
       <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <textarea class="argument-input mdl-textfield__input" type="text" rows= "1" data-type="{{type}}" data-lang="{{lang}}"></textarea>
+        <textarea class="argument-input mdl-textfield__input" type="text" rows= "2" data-type="{{type}}" data-lang="{{lang}}"></textarea>
         <label class="mdl-textfield__label">{{_ "pages.proposals.edit.argument"}}</label>
       </div>
     </div>
     <div class="argument-box-menu">
-      <button class="mdl-button mdl-js-button mdl-button--icon add-argument-button" data-type="{{type}}" data-lang="{{lang}}">
+      <button class="mdl-button mdl-js-button mdl-button--icon add-argument-button" data-type="{{type}}" data-lang="{{lang}}" id="{{type}}-button">
         <i class="material-icons add-argument-icon" data-id="{{argument._id}}" data-type="{{type}}" data-lang="{{lang}}">add</i>
       </button>
+      <!-- Rich Tooltip -->
+      <div class="mdl-tooltip" data-mdl-for="{{type}}-button">
+        {{_ "pages.proposals.edit.argument"}}
+      </div>
     </div>
   </div>
 </template>

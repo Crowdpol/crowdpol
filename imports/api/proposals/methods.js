@@ -23,6 +23,7 @@ Meteor.methods({
           references: Match.Maybe([String]),
           communityId: String,
           stage: String,
+          status: String,
           hasCover: Boolean,
 			    coverURL: Match.Maybe(String),
 			    coverPosition: Match.Maybe(String)
@@ -152,7 +153,7 @@ Meteor.methods({
       check(proposalId, String);
       check(commentId, String);
       var userId = Proposals.findOne(proposalId).authorId;
-      Proposals.update({_id: proposalId}, {$set: {"stage": "live","status": "approved"}});
+      Proposals.update({_id: proposalId}, {$set: {"status": "approved"}});
       /* This should be removed after September 2018:
       Voting opens from the day the proposal is approved.
       Eventually custom dates should be set by the author.

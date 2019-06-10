@@ -402,6 +402,7 @@ function saveChanges(event, template, returnTo){
 			tags: getTags(),//proposalTags,
 			communityId: LocalStore.get('communityId'),
 			stage: "draft",
+			status: "unreviewed",
 			hasCover: Session.get("hasCover"),
 			coverURL: Session.get("coverURL"),
 			coverPosition: "0px"//Session.get("coverPosition")

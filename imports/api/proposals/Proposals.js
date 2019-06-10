@@ -66,7 +66,7 @@ ArgumentsSchema = new SimpleSchema({
 EventLog = new SimpleSchema({
 	type: {
 		type: String,
-		allowedValues: ['created','updated','comment', 'submitted','returned','rejected','approved','live','invited','signature','against','for','admin'],
+		allowedValues: ['created','updated','comment', 'submitted','returned','rejected','approved','live','invited','signature','against','for','admin','draft'],
 		optional: false,
 	},
   commentId: {

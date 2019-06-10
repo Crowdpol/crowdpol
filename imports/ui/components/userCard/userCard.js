@@ -35,11 +35,23 @@ Template.UserCard.helpers({
     }
     return false;
   },
+  isDateTime: function(style){
+    if(style=='date-time'){
+      return true;
+    }
+    return false;
+  },
   formatDate: function(date){
     if(date){
       return moment(date).format('MMMM Do YYYY');
     }
     return moment().format('MMMM Do YYYY');
+  },
+  formatDateTime: function(date){
+    if(date){
+      return moment(date).format('MMMM Do YYYY, h:mm:ss a');
+    }
+    return moment().format('MMMM Do YYYY, h:mm:ss a');
   },
   isFlat: function(style){
     if(style=='flat'){

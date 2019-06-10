@@ -259,7 +259,9 @@
 				"untranslated": "This proposal has not yet been translated.",
 				"no-proposals": "No __status__ proposals are currently available.",
 				"your-proposals": "You have no __status__ proposals.",
-				"create-link": "Create one?"
+				"create-link": "Create one?",
+				"confirmRetract":"Are you sure you want to retract your submission?",
+				"retractMessage":"Your proposal submission has been retracted and moved back to drafts."
 			},
 			"edit": {
 				"heading": "Write your proposal",
@@ -305,8 +307,10 @@
 				},
 				"signature-tooltip": "Show support for this proposal by signing it.",
 				"confirmSubmit": "Before submitting this proposal we encourage you to do a final spellcheck and make sure that the selected image is aligned properly, as this cannot be changed once the proposal is published",
+				"confirmEditAfterApproval": "If you edit this proposal, it will go back to draft status and have to be resubmitted for approval.",
 				"voteCast": "Your vote has been cast",
 				"editProposal": "Edit Proposal",
+				"publishProposal": "Publish Proposal",
 				"submitProposal": "Submit Proposal",
 				"pointsFor": "Points For:",
 				"pointsAgainst": "Points Against:",
@@ -331,6 +335,7 @@
 					"linkToClipboardSuccess": "Link copied to clipboard",
 					"linkToClipboardFailed": "Link copied to clipboard",
 					"proposalSubmitted":"Proposal submitted for admin approval",
+					"proposalPublished":"Proposal published.",
 					"proposalIncomplete": "You must complete your proposal before submitting it.",
 					"commentPosted":"Comment posted",
 					"commentUpdated": "Comment Updated",

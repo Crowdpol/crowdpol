@@ -58,6 +58,11 @@
 								<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
 									{{_ "pages.proposals.view.editProposal"}}
 								</button>
+								{{#if statusApproved}}
+									<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="publish-proposal">
+										{{_ "pages.proposals.view.publishProposal"}}
+									</button>
+								{{/if}}
 							{{else}}
 								<div>
 									{{>FlagButton contentId=_id contentType="proposal" authorId=author._id}}
@@ -266,7 +271,7 @@
 					{{/if}}
 					{{#each eventLogs}}
 						<div class="proposal-event-log event-log-{{this.type}}">
-							{{>UserCard style="date" userId=this.triggerUserId date=this.createdAt}}
+							{{>UserCard style="date-time" userId=this.triggerUserId date=this.createdAt}}
 							<div class="event-log-message">
 								{{#if this.commentId}}
 									{{eventLogType this.type}} "{{eventLogCommment.message}}"
@@ -303,7 +308,12 @@
 	<!-- Main Content -->
 	<div class="proposal-wrap">
 		<h1 class="proposal-title">{{{ title }}}</h1>
-		<span class="tag status-chip {{status}}">{{status}}</span>
+		{{#if stage}}
+			<span class="tag status-chip {{stage}}">{{stage}}</span>
+		{{/if}}
+		{{#if status}}
+			<span class="tag status-chip {{status}}">{{status}}</span>
+		{{/if}}
 		<p class="proposal-info">{{{ abstract }}}</p>
 	</div>
 	<br>
