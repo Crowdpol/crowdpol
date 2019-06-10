@@ -22,21 +22,67 @@
 				</div>
 				<!-- Tabs for translations -->
 				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+
+					<div class="author-selector">
+						<!-- Show document creator name and avatar unless published anonymously -->
+						<div class="main-author">
+							{{#if anonymous}}
+								{{>UserCard userId="" style="flat"}}
+							{{else}}
+								{{>UserCard userId=authorId style="flat"}}
+							{{/if}}
+						</div>
+						<div class="anonymous-selector">
+							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="anonymous-checkbox">
+								<span class="mdl-checkbox__label">Publish Anonymously</span>
+								{{#if anonymous}}
+									<input type="checkbox" id="anonymous-checkbox" class="mdl-checkbox__input" checked>
+								{{else}}
+									<input type="checkbox" id="anonymous-checkbox" class="mdl-checkbox__input">
+								{{/if}}
+							</label>
+						</div>
+					</div>
+					<!-- User invitation field -->
+					{{#unless anonymous}}
+						{{#if invitationEnabled}}
+							<div class="form-group">
+								{{> UserSearch}}
+							</div>
+
+							<div class="form-group">
+								<div id="invited-users">
+									{{#each selectedInvites}}
+									<span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
+										<img class="mdl-chip__contact" src="{{profile.photo}}">
+										<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
+										<a href="#" class="mdl-chip__action remove-invite" data-user-id="{{_id}}"><i class="material-icons">cancel</i></a>
+									</span>
+									{{/each}}
+								</div>
+								<div id="invited-users-email">
+									{{#each value in emailedInvites}}
+									<span class="mdl-chip mdl-chip--contact">
+										<span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons email-invites">mail</i></span>
+										<span class="mdl-chip__text">{{value}}</span>
+										<a href="#" class="mdl-chip__action remove-invite-email" data-array-index="{{@index}}"><i class="material-icons">cancel</i></a>
+									</span>
+									{{/each}}
+								</div>
+							</div>
+							<br>
+						{{else}}
+							<hr>
+							<h5>
+								<small>Collaboration has been disabled by the system administrator</small>
+							</h5>
+							<hr>
+						{{/if}}
+					{{/unless}}
 					<div class="button-tabs mdl-tabs__tab-bar">
 						{{#each languages}}
 							<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
 						{{/each}}
-					</div>
-					<div class="author-selector">
-						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="anonymous-checkbox">
-								<input type="checkbox" id="anonymous-checkbox" class="mdl-checkbox__input">
-						  <span class="mdl-checkbox__label">Publish Anonymously</span>
-						</label>
-						{{#if anonymous}}
-							{{>UserCard userId="" style="flat"}}
-						{{else}}
-							{{>UserCard userId=authorId style="flat"}}
-						{{/if}}
 					</div>
 					<!--<h3 class="proposal-heading">{{_ "pages.proposals.edit.heading"}}</h3>-->
 					{{#each languages}}
@@ -69,40 +115,7 @@
 				{{/if}}
 
 
-				<!-- User invitation field -->
-				{{#if invitationEnabled}}
-					<div class="form-group">
-						{{> UserSearch}}
-					</div>
 
-					<div class="form-group">
-						<div id="invited-users">
-							{{#each selectedInvites}}
-							<span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
-								<img class="mdl-chip__contact" src="{{profile.photo}}">
-								<span class="mdl-chip__text">{{profile.firstName}}&nbsp;{{profile.lastName}}</span>
-								<a href="#" class="mdl-chip__action remove-invite" data-user-id="{{_id}}"><i class="material-icons">cancel</i></a>
-							</span>
-							{{/each}}
-						</div>
-						<div id="invited-users-email">
-							{{#each value in emailedInvites}}
-							<span class="mdl-chip mdl-chip--contact">
-								<span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons email-invites">mail</i></span>
-								<span class="mdl-chip__text">{{value}}</span>
-								<a href="#" class="mdl-chip__action remove-invite-email" data-array-index="{{@index}}"><i class="material-icons">cancel</i></a>
-							</span>
-							{{/each}}
-						</div>
-					</div>
-					<br>
-				{{else}}
-					<hr>
-					<h5>
-						<small>Collaboration has been disabled by the system administrator</small>
-					</h5>
-					<hr>
-				{{/if}}
 				<!-- Save and Preview buttons -->
 				<div class="form-group">
 					<input type="submit" id="save-proposal" class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" value='{{_ "form.save-draft"}}'>

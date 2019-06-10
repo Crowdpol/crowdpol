@@ -7,6 +7,7 @@ export const Proposals = new Mongo.Collection('proposals');
 if ( Meteor.isServer ) {
   //Proposals._ensureIndex( { title: 1, abstract: 1, body: 1 } );
 }
+/*
 ArgumentsSchema = new SimpleSchema({
   argumentId: {
 		type: String,
@@ -60,6 +61,31 @@ ArgumentsSchema = new SimpleSchema({
 			type: String
 	},
 });
+*/
+
+EventLog = new SimpleSchema({
+	type: {
+		type: String,
+		allowedValues: ['created','updated','comment', 'submitted','returned','rejected','approved','live','invited','signature','against','for','admin'],
+		optional: false,
+	},
+  commentId: {
+    type: String,
+		optional: true,
+  },
+	triggerUserId: {
+		type: String,
+		optional: false,
+	},
+	createdAt: {
+			type: Date,
+      optional: true,
+			autoValue: function() {
+				return new Date();
+			}
+	}
+});
+
 
 TranslationSchema = new SimpleSchema({
     language: {
@@ -159,6 +185,11 @@ ProposalSchema = new SimpleSchema({
     endDate: {
         type: Date,
     },
+    type: {
+      type: String,
+      allowedValues: ['vote', 'poll', 'petition','budget'],
+      defaultValue: 'vote',
+    },
     stage: {
         // current stage of proposal
         type: String,
@@ -168,7 +199,7 @@ ProposalSchema = new SimpleSchema({
     status: {
         // status of proposal regarding admin approval
         type: String,
-        allowedValues: ['unreviewed', 'approved', 'rejected'],
+        allowedValues: ['unreviewed', 'approved', 'returned', 'rejected'],
         defaultValue: 'unreviewed'
     },
     authorId: {
@@ -222,6 +253,14 @@ ProposalSchema = new SimpleSchema({
     communityId: {
         type: String,
         optional: false
+    },
+    eventLog: {
+        type: Array,
+        optional: true,
+    },
+    'eventLog.$': {
+        type: EventLog,
+        optional: true,
     },
 });
 

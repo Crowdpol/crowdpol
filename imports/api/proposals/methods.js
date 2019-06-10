@@ -29,7 +29,11 @@ Meteor.methods({
         });
 
         proposalId = Proposals.insert(proposal);
-
+        eventLog = {
+          type: 'created',
+          triggerUserId: Meteor.userId(),
+        }
+        logEvent(proposalId,eventLog);
         return proposalId;
       //} catch (err) {
         //return err;
@@ -67,6 +71,20 @@ Meteor.methods({
         throw new Meteor.Error(422, "Proposal does not exist.");
       }
     },*/
+    createProposalLog: function (proposalId,eventLog) {
+      check(proposalId, String);
+      check(eventLog, {
+        type: String,
+        triggerUserId: String,
+        commentId: Match.Maybe(String)
+      });
+      //type: 'comment', 'submit','return','live','signature'
+      //commentId: comment id
+    	//triggerUserId: user id
+      //Proposals.update({_id: proposalId}, {$push: {eventLog: eventLog} });
+      logEvent(proposalId,eventLog)
+    },
+
     getProposal: function (proposalId) {
       check(proposalId, String);
       return Proposals.findOne({_id: proposalId});
@@ -106,23 +124,46 @@ Meteor.methods({
       check(proposalId, String);
       return Proposals.update({_id: proposalId}, {$pull: {invited: Meteor.userId()}});
     },
-    rejectProposal: function (proposalId) {
+    rejectProposal: function (proposalId,commentId) {
       check(proposalId, String);
+      check(commentId, String);
       var userId = Proposals.findOne(proposalId).authorId;
       Proposals.update({_id: proposalId}, {$set: {"status": "rejected"}});
-
+      eventLog = {
+        commentId: commentId,
+        type: 'rejected',
+        triggerUserId: Meteor.userId(),
+      }
+      logEvent(proposalId,eventLog);
     },
-    approveProposal: function(proposalId){
+    returnProposal: function (proposalId,commentId) {
       check(proposalId, String);
+      check(commentId, String);
       var userId = Proposals.findOne(proposalId).authorId;
-      Proposals.update({_id: proposalId}, {$set: {"stage": "live"}});
-      Proposals.update({_id: proposalId}, {$set: {"status": "approved"}});
+      Proposals.update({_id: proposalId}, {$set: {"status": "returned"}});
+      eventLog = {
+        commentId: commentId,
+        type: 'returned',
+        triggerUserId: Meteor.userId(),
+      }
+      logEvent(proposalId,eventLog);
+    },
+    approveProposal: function(proposalId,commentId){
+      check(proposalId, String);
+      check(commentId, String);
+      var userId = Proposals.findOne(proposalId).authorId;
+      Proposals.update({_id: proposalId}, {$set: {"stage": "live","status": "approved"}});
       /* This should be removed after September 2018:
       Voting opens from the day the proposal is approved.
       Eventually custom dates should be set by the author.
       */
       //Proposals.update({_id: proposalId}, {$set: {"startDate": new Date()}});
-
+      eventLog = {
+        commentId: commentId,
+        type: 'approved',
+        triggerUserId: Meteor.userId(),
+      }
+      logEvent(proposalId,eventLog);
 
     },
     updateProposalStage: function(proposalId, stage,status){
@@ -130,6 +171,11 @@ Meteor.methods({
       check(stage, String);
       check(status, String);
       Proposals.update({_id: proposalId}, {$set: {"stage": stage,"status":status}});
+      eventLog = {
+        type: stage,
+        triggerUserId: Meteor.userId(),
+      }
+      logEvent(proposalId,eventLog);
     },
     saveProposalChanges: function (proposalId, proposal) {
       check(proposalId, String);
@@ -155,6 +201,11 @@ Meteor.methods({
               url: '/proposals/view/' + proposalId,
               icon: 'people'
             }
+            eventLog = {
+              type: 'invited',
+              triggerUserId: newCollaborators[i],
+            }
+            logEvent(proposalId,eventLog);
             Meteor.call('createNotification', notification);
           }
         }
@@ -163,8 +214,12 @@ Meteor.methods({
       }
 
       proposal.lastModified = new Date();
-      console.log(proposal);
       Proposals.update({_id: proposalId}, {$set: proposal });
+      eventLog = {
+        type: 'updated',
+        triggerUserId: Meteor.userId(),
+      }
+      logEvent(proposalId,eventLog);
     },
     addTagToProposal: function(proposalId, tag) {
       check(proposalId, String);
@@ -328,3 +383,16 @@ Meteor.methods({
       return result;
     }
 });
+
+function logEvent(proposalId,eventLog){
+  check(proposalId, String);
+  check(eventLog, {
+    type: String,
+    triggerUserId: String,
+    commentId: Match.Maybe(String)
+  });
+  //type: 'comment', 'submit','return','live','signature'
+  //commentId: comment id
+  //triggerUserId: user id
+  Proposals.update({_id: proposalId}, {$push: {eventLog: eventLog} });
+}

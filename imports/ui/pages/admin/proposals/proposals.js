@@ -140,53 +140,112 @@ Template.ProposalModal.events({
   'click #approve-button': function(event, template){
     event.preventDefault();
     proposalId = Session.get("proposal")._id;
-    Meteor.call('approveProposal', proposalId, function(error){
+    var comment = {
+      message: "No reason given",
+      proposalId: proposalId,
+      authorId: Meteor.user()._id,
+      type: 'admin'
+    }
+    var reason = $('#admin-comment').val();
+    if(reason.length){
+      comment.message = reason;
+    }
+    let commentId = null;
+    Meteor.call('comment',comment,function(error,result){
       if (error){
         RavenClient.captureException(error);
         Bert.alert(error.reason, 'danger');
       } else {
-        // Create notification
-        var message = TAPi18n.__('notifications.proposals.approved');
-        var reason = $('#admin-comment').val();
-        if(reason.length){
-          var comment = {
-            message: reason,
-            proposalId: proposalId,
-            authorId: Meteor.user()._id,
-            type: 'admin'
-          }
-          Meteor.call('comment', comment);
+        commentId = result;
+        if(commentId){
+          Meteor.call('approveProposal', proposalId,commentId, function(error){
+            if (error){
+              RavenClient.captureException(error);
+              Bert.alert(error.reason, 'danger');
+            } else {
+              // Create notification
+              var message = TAPi18n.__('notifications.proposals.approved');
+              var url = '/proposals/view/' + proposalId;
+              Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'check'});
+              Bert.alert(TAPi18n.__('admin.alerts.proposal-approved'), 'success');
+              closeProposalModal();
+            }
+          });
         }
-        var url = '/proposals/view/' + proposalId;
-        Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'check'});
-        Bert.alert(TAPi18n.__('admin.alerts.proposal-approved'), 'success');
-        closeProposalModal();
       }
     });
   },
   'click #reject-button': function(event, template){
     event.preventDefault();
     proposalId = Session.get("proposal")._id;
-    Meteor.call('rejectProposal', proposalId,function(error){
+    var comment = {
+      message: "No reason given",
+      proposalId: proposalId,
+      authorId: Meteor.user()._id,
+      type: 'admin'
+    }
+    var reason = $('#admin-comment').val();
+    if(reason.length){
+      comment.message = reason;
+    }
+    let commentId = null;
+    Meteor.call('comment',comment,function(error,result){
       if (error){
         RavenClient.captureException(error);
         Bert.alert(error.reason, 'danger');
       } else {
-        var reason = $('#admin-comment').val();
-        if(reason.length){
-          var comment = {
-            message: reason,
-            proposalId: proposalId,
-            authorId: Meteor.user()._id,
-            type: 'admin'
-          }
-          Meteor.call('comment', comment);
+        commentId = result;
+        if(commentId){
+          Meteor.call('rejectProposal', proposalId,commentId,function(error){
+            if (error){
+              RavenClient.captureException(error);
+              Bert.alert(error.reason, 'danger');
+            } else {
+              var message = TAPi18n.__('notifications.proposals.rejected');
+              var url = '/proposals/view/' + proposalId;
+              Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'do_not_disturb'})
+              Bert.alert(TAPi18n.__('admin.alerts.proposal-rejected'), 'success');
+              closeProposalModal();
+            }
+          });
         }
-        var message = TAPi18n.__('notifications.proposals.rejected');
-        var url = '/proposals/view/' + proposalId;
-        Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'do_not_disturb'})
-        Bert.alert(TAPi18n.__('admin.alerts.proposal-rejected'), 'success');
-        closeProposalModal();
+      }
+    });
+  },
+  'click #return-button': function(event, template){
+    event.preventDefault();
+    proposalId = Session.get("proposal")._id;
+    var comment = {
+      message: "No reason given",
+      proposalId: proposalId,
+      authorId: Meteor.user()._id,
+      type: 'admin'
+    }
+    var reason = $('#admin-comment').val();
+    if(reason.length){
+      comment.message = reason;
+    }
+    let commentId = null;
+    Meteor.call('comment',comment,function(error,result){
+      if (error){
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        commentId = result;
+        if(commentId){
+          Meteor.call('returnProposal', proposalId,commentId,function(error){
+            if (error){
+              RavenClient.captureException(error);
+              Bert.alert(error.reason, 'danger');
+            } else {
+              var message = TAPi18n.__('notifications.proposals.returned');
+              var url = '/proposals/view/' + proposalId;
+              Meteor.call('createNotification', {message: message, userId: Meteor.userId(), url: url, icon: 'do_not_disturb'})
+              Bert.alert(TAPi18n.__('admin.alerts.proposal-returned'), 'success');
+              closeProposalModal();
+            }
+          });
+        }
       }
     });
   },

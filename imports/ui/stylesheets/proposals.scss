@@ -6,10 +6,28 @@
       outline: none;
       resize: none;
   }
-  
+
 }
 
+.author-selector{
+  margin-top: $space;
+  display: flex;
+  justify-content: space-between;
+  label.mdl-checkbox span.mdl-checkbox__label{
+    top: -5px;
+  }
+}
 
+.proposal-event-log{
+  padding: 15px 0px;
+  border-bottom: solid 1px rgba(0,0,0,.12);;
+  .event-log-message{
+    padding: 10px 0px;
+    line-height: 1.5em;
+    font-size: 0.8rem;
+    color: #616161
+  }
+}
 
 .proposal-form-textarea{
   font-size: 1.75rem;

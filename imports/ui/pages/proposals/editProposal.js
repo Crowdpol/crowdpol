@@ -210,8 +210,6 @@ Template.EditProposal.events({
 	'click #anonymous-checkbox' (event, template){
 		let anonymous = event.currentTarget.checked;
 		Template.instance().templateDictionary.set('anonymous',anonymous);
-		console.log("anonymous: " + anonymous);
-		console.log("anonymous: " + Template.instance().templateDictionary.get('anonymous'));
 	},
 	'click #save-proposal' (event, template){
 		event.preventDefault();
@@ -394,7 +392,7 @@ function saveChanges(event, template, returnTo){
 			}
 		}
 		let newProposal = {
-			anonymous: template.templateDictionary.get('anonymous'),
+			anonymous: $('#anonymous-checkbox').is(':checked'),//template.templateDictionary.get('anonymous'),
 			content: content,
 			// Non-translatable fields
 			startDate: startDate,//new Date(2018, 8, 1),
@@ -408,7 +406,6 @@ function saveChanges(event, template, returnTo){
 			coverURL: Session.get("coverURL"),
 			coverPosition: "0px"//Session.get("coverPosition")
 		};
-		console.log(newProposal);
 		var proposalId = FlowRouter.getParam("id");
 		showToast({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
 		//template.find('#autosave-toast-container').MaterialSnackbar.showSnackbar({message: TAPi18n.__('pages.proposals.edit.alerts.saving')});
@@ -428,8 +425,6 @@ function saveChanges(event, template, returnTo){
 };
 
 function createProposal(proposalId,newProposal,returnTo,template){
-	console.log("creating proposal");
-	console.log(newProposal);
 	Meteor.call('createProposal', newProposal, function(error, proposalId){
 		if (error){
 			RavenClient.captureException(error);
@@ -460,8 +455,6 @@ function createProposal(proposalId,newProposal,returnTo,template){
 }
 
 function saveProposal(proposalId,newProposal,returnTo,template){
-	console.log("saving proposal");
-	console.log(newProposal);
 	Meteor.call('saveProposalChanges', proposalId, newProposal, function(error){
 	if (error){
 			RavenClient.captureException(error);

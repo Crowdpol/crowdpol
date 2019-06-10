@@ -44,6 +44,7 @@ Template.ViewProposal.onCreated(function(language){
         dict.set( 'signatures', proposal.signatures || []);
         dict.set( 'tags', proposal.tags || [] );
         dict.set('hasCover',proposal.hasCover);
+        dict.set('eventLogs',proposal.eventLog || []);
         Session.set('hasCover',proposal.hasCover);
         if(proposal.hasCover){
           Session.set('coverPosition',proposal.coverPosition);
@@ -142,6 +143,7 @@ Template.ViewProposal.events({
           } else {
             Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalSubmitted'), 'success');
             FlowRouter.go('App.proposals');
+
           }
         });
       }
@@ -295,6 +297,7 @@ Template.ViewProposal.helpers({
     //}
     //return false;
   },
+
   isInvited: function() {
     if(!showControls()){
       return true;
@@ -368,6 +371,81 @@ Template.ViewProposal.helpers({
   },
   showEditable: function(){
     return showControls();
+  },
+  eventLogs: function(){
+    let proposalId = null;
+    if(self.data.proposalId){
+      proposalId = Template.currentData().proposalId;
+    }else{
+      proposalId = FlowRouter.getParam("id");
+    }
+    if(proposalId){
+      console.log('proposalid: ' + proposalId);
+      let proposal = Proposals.findOne({"_id":proposalId});
+      let eventLogs = proposal.eventLog;
+      return eventLogs.reverse();
+    }else{
+      let eventLogs = Template.instance().templateDictionary.get( 'eventLogs' );
+      console.log(eventLogs);
+      return eventLogs;
+    }
+  },
+  eventLogCommment: function(){
+    console.log(this.commentId);
+    return Comments.findOne({"_id":this.commentId});
+  },
+  eventLogStatus: function(status){
+    //allowed status: ['created','updated','comment', 'submitted','returned','rejected','approved','live','invited','signature','against','for','admin'],
+    switch(status) {
+      case 'created':
+        return "Proposal created."
+        break;
+      case 'updated':
+        return "Proposal updated."
+        break;
+      case 'submitted':
+        return "Proposal has been submitted for review."
+        break;
+      case 'live':
+        return "Proposal has been published and is now live.";
+        break;
+      case 'invited':
+        return "New co-author invited.";
+        break;
+      case 'signature':
+        return "Proposal has been signed.";
+        break;
+      default:
+        return "eventLogStatus - fix this (status=" + status + "): "
+    }
+  },
+  eventLogType: function(status){
+    //allowed status: ['created','updated','comment', 'submitted','returned','rejected','approved','live','invited','signature','against','for','admin'],
+    switch(status) {
+      case 'comment':
+        return "Comment: "
+        break;
+      case 'against':
+        return "Arugment against added: "
+        break;
+      case 'for':
+        return "Argument for added: "
+        break;
+      case 'returned':
+        return "Returned by Admin: ";
+        break;
+      case 'rejected':
+        return "Rejected by Admin: ";
+        break;
+      case 'approved':
+        return "Approved by Admin: ";
+        break;
+      case 'admin':
+        return "Comment from Admin: ";
+        break;
+      default:
+        return "eventLogType - fix this (status=" + status + "): "
+    }
   }
 });
 
@@ -674,6 +752,7 @@ function userIsInvited(){
 };
 
 function proposalIsLive(){
+  console.log("proposalIsLive: " +  Template.instance().templateDictionary.get( 'stage' ));
   if (Template.instance().templateDictionary.get( 'stage' ) == 'live'){
     return true;
   } else {
