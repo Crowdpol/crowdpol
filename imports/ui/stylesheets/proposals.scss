@@ -28,6 +28,18 @@
     color: #616161
   }
 }
+.event-log-submitted,.event-log-created{
+  border-color: $bright-blue;
+}
+.event-log-rejected{
+  border-color: $red;
+}
+.event-log-returned{
+  border-color: $yellow;
+}
+.event-log-approved{
+  border-color: $green;
+}
 
 .proposal-form-textarea{
   font-size: 1.75rem;
@@ -261,11 +273,7 @@
     height: auto;
   }
 
-  .meta > * {
-    display: flex;
-    flex-direction: column;
-    margin-left: 16px;
-  }
+
 
   .section-spacer {
     flex-grow: 1;

@@ -446,6 +446,9 @@ Template.ViewProposal.helpers({
       default:
         return "eventLogType - fix this (status=" + status + "): "
     }
+  },
+  isAdminProposalView: function(){
+    return isAdmin();
   }
 });
 
@@ -791,4 +794,12 @@ function showControls(){
     return false;
   }
   return true;
+}
+
+function isAdmin(){
+  let adminProposalView = Session.get('adminProposalView');
+  if(adminProposalView){
+    return true;
+  }
+  return false;
 }

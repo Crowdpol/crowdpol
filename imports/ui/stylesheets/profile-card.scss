@@ -3,19 +3,26 @@
 
 .profile-card-flat{
   display: flex;
+  .profile-image-link{
+    .profile-image.mdl-list__item-avatar{
+      height: 30px;
+      width: 30px;
+      margin-right: 5px;
+    }
+  }
   .profile-card-flat-details{
     display: flex;
     flex-direction: column;
     height: 40px;
     span{
-      line-height: 1rem;
+      line-height: $small-font-size;
     }
     span.fullname{
-      font-size: $small-font-size;
+      font-size: $xsmall-font-size;
       font-weight: 500;
     },
     span.username{
-      font-size: $small-font-size;
+      font-size: $xsmall-font-size;
       font-weight: 300;
       color: $light-grey;
     }

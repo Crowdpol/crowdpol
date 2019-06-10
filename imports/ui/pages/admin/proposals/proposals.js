@@ -268,6 +268,7 @@ openProposalModal = function(event) {
   if (event) event.preventDefault();
   $(".proposal-modal").addClass('active');
   $("#overlay").addClass('dark-overlay');
+  Session.set("adminProposalView",true);
 }
 
 closeProposalModal = function(event) {
@@ -279,4 +280,5 @@ closeProposalModal = function(event) {
   $(".proposal-modal").removeClass('active');
   $("#overlay").removeClass('dark-overlay');
   Session.set("proposal",false);
+  Session.set("adminProposalView",false);
 }
