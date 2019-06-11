@@ -1,6 +1,7 @@
 import './arguments.html'
 import { Random } from 'meteor/random';
 import RavenClient from 'raven-js';
+import { userProfilePhoto, userfullname, username } from '../../../utils/users';
 
 Template.ArgumentsListItem.onCreated(function(){
   proposalId = FlowRouter.getParam("id");
@@ -198,6 +199,9 @@ Template.ArgumentsListItem.helpers({
 			}
 		}
     return "anonymous";
+	},
+  authorImage(authorId){
+    return userProfilePhoto(authorId);
 	},
   isLiked(){
     upVotes = this.argument.upVote;

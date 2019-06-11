@@ -3,7 +3,7 @@
     <div class="argument-content">
       <div class="argument-header">
         <div class="argument-author">
-          {{authorName argument.authorId}} - {{argumentDate argument.lastModified}}
+          <img src="{{authorImage argument.authorId}}" class="profile-image mdl-list__item-avatar"> {{authorName argument.authorId}} - {{argumentDate argument.lastModified}}
         </div>
         <div class="argument-menu" data-id='{{argument._id}}' style="display:none;">
           {{#if isOwnArgument argument.authorId}}
