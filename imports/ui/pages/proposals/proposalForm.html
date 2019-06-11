@@ -2,7 +2,7 @@
 	<div class="proposal-form">
 		<div class="input-wrap mdl-textfield mdl-js-textfield">
 			<textarea class="proposal-form-textarea mdl-textfield__input abstract-textarea" type="text" rows= "1" name="title" id="title-{{language}}" placeholder='{{_ "pages.proposals.edit.title"}}'></textarea>
-			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.abstract"}}</label>
+			<label class="mdl-textfield__label">{{_ "pages.proposals.edit.title"}}</label>
 		</div>
 		<!--
 			<input type="text" name="title" id="title-{{language}}" class="proposal-form-title" placeholder="Enter Title Here...">
@@ -22,7 +22,7 @@
 		</div>
 		<br>
 		<!-- Body -->
-		<small>{{_ "pages.proposals.edit.body"}}</small>
+		<small style="color:rgba(0, 0, 0, 0.54);">{{_ "pages.proposals.edit.body"}}</small>
 		<br>
 		<!-- Quill editor container -->
 		<div id="body-editor-{{language}}" class="proposal-quill-editor"></div>

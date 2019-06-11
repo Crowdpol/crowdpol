@@ -98,6 +98,11 @@ div.argument-container{
             font-weight: 300;
             line-height: 1.6rem;
             font-family: $body-font;
+            span.argument-text{
+              a{
+                color: $light-blue-dark;
+              }
+            }
           }
 
         }
@@ -111,7 +116,7 @@ div.argument-container{
         width: 80%;
         padding-top: 0px;
         padding-bottom: 0px;
-        margin-top: -25px;
+        //margin-top: -25px;
         .mdl-js-textfield{
           //padding-bottom: 0px;
           //padding-top: 5px;
@@ -127,7 +132,7 @@ div.argument-container{
       }
       div.argument-box-menu{
         width: 20%;
-        padding-top: 40px;
+        padding-top: 25px;
       }
     }
   }

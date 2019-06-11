@@ -61,4 +61,12 @@ export const daysRemaining = (finalDate) => {
 export const hasOwnProperty = (obj,prop) => {
   var proto = obj.__proto__ || obj.constructor.prototype;
   return (prop in obj) && (!(prop in proto) || proto[prop] !== obj[prop]);
-};
+}
+
+export const urlify = (text) => {
+  console.log("urlify called: " + text);
+  var urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, function(url) {
+    return '<a href="' + url + '" target="_blank">link</a>';
+  });
+}
