@@ -23,11 +23,11 @@ Meteor.publish('user', function (userId) {
 Meteor.publish('users.community', function(communityId) {
   return Meteor.users.find({"profile.communityIds" : communityId}, {fields: {profile: 1,roles: 1,isPublic: 1, emails: 1}});
 });
-
+/*
 Meteor.publish("UserSearch", function(search,communityId) {
    return getUserSearch(search,communityId);
 });
-
+*/
 Meteor.publish("UserSearchAll", function(search) {
    return getUserSearch(search);
 });
@@ -126,6 +126,7 @@ Meteor.publish('simpleSearch', function(search, type, communityId) {
     return Meteor.users.find({roles: type});
   }*/
   let query = {};
+
   if(communityId){
     let query = {'profile.communityIds': communityId, roles: type};
   }else{
@@ -172,7 +173,7 @@ Meteor.publish('userSearch', function(search, communityId) {
     return Meteor.users.find({roles: type});
   }*/
   let query      = {'profile.communityIds': communityId},
-      projection = {fields: {profile: 1,roles: 1,isPublic: 1}};
+      projection = {fields: {}};//profile: 1,roles: 1,isPublic: 1}};
 
   if ( search ) {
     let regex = new RegExp( search, 'i' );
@@ -180,15 +181,18 @@ Meteor.publish('userSearch', function(search, communityId) {
       {$or: [
         { "profile.firstName": regex },
         { "profile.lastName": regex },
-        { "profile.userName": regex },
+        { "profile.username": regex },
         { "emails.address": regex}
       ]},
       {'profile.communityIds': communityId},
       {"isPublic" : true}
     ]};
-    projection.limit = 100;
-  }
 
+    console.log(regex);
+  }
+  projection.limit = 5;
+  console.log(search);
+  console.log(query);
   return Meteor.users.find( query, projection );
 });
 
@@ -206,7 +210,7 @@ Meteor.publish('adminSearch', function(search) {
       {$or: [
         { "profile.firstName": regex },
         { "profile.lastName": regex },
-        { "profile.userName": regex },
+        { "profile.username": regex },
         { "emails.address": regex}
       ]}
     ]};

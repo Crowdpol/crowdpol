@@ -46,7 +46,7 @@
 }
 
 .comment-form {
-  margin: ($space * 1.5) 0;
+  margin-bottom: $space;
 }
 
 .custom-label{
@@ -95,4 +95,3 @@ input::-webkit-datetime-edit {
 input:focus::-webkit-datetime-edit {
   color: $dark-grey-mid;
 }
-

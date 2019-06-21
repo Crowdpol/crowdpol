@@ -1,6 +1,8 @@
 import './arguments.html'
 import { Random } from 'meteor/random';
 import RavenClient from 'raven-js';
+import { userProfilePhoto, userfullname, username } from '../../../utils/users';
+import { urlify } from '../../../utils/functions';
 
 Template.ArgumentsListItem.onCreated(function(){
   proposalId = FlowRouter.getParam("id");
@@ -199,6 +201,9 @@ Template.ArgumentsListItem.helpers({
 		}
     return "anonymous";
 	},
+  authorImage(authorId){
+    return userProfilePhoto(authorId);
+	},
   isLiked(){
     upVotes = this.argument.upVote;
     if(typeof upVotes != 'undefined'){
@@ -220,6 +225,9 @@ Template.ArgumentsListItem.helpers({
       return true;
     }
     return false;
+  },
+  urlifyMessage(message){
+    return urlify(message);
   }
 });
 

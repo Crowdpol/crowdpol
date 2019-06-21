@@ -263,7 +263,7 @@
 					{{/if}}
 				{{else}} <!-- not live -->
 					<!-- Proposal Timeline -->
-					<h3>Proposal Timeline</h3>
+					<h6>Proposal Timeline</h6>
 					{{#if isInvited }}
 						{{#unless isAdminProposalView}}
 							{{> CommentForm}}
@@ -274,7 +274,7 @@
 							{{>UserCard style="date-time" userId=this.triggerUserId date=this.createdAt}}
 							<div class="event-log-message">
 								{{#if this.commentId}}
-									{{eventLogType this.type}} "{{eventLogCommment.message}}"
+									{{eventLogType this.type}} "{{{urlifyMessage eventLogCommment.message}}}"
 								{{else}}
 									{{eventLogStatus this.type}}
 								{{/if}}

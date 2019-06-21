@@ -14,7 +14,9 @@ div.argument-container{
   div.arguments-column{
     width: auto;
     flex: 50%;
-
+    p{
+      margin-bottom: 5px;
+    }
     ul.arguments-list {
       padding-inline-start: 0px;
       margin: 0;
@@ -29,12 +31,17 @@ div.argument-container{
           font-size: 12pt;
           padding-bottom: 2px;
           div.argument-header{
-            border-top: solid 1px grey;
+            border-top: 1px solid rgba(0,0,0,.12);
             display: flex;
             height: 30px;
             font-size: 10pt;
             div.argument-author{
               width: 80%;
+              color: $light-grey;
+              img.profile-image.mdl-list__item-avatar{
+                height: 20px;
+                width: 20px;
+              }
             }
             div.argument-menu{
               //border:solid 1px blue;
@@ -91,6 +98,11 @@ div.argument-container{
             font-weight: 300;
             line-height: 1.6rem;
             font-family: $body-font;
+            span.argument-text{
+              a{
+                color: $light-blue-dark;
+              }
+            }
           }
 
         }
@@ -104,7 +116,7 @@ div.argument-container{
         width: 80%;
         padding-top: 0px;
         padding-bottom: 0px;
-
+        //margin-top: -25px;
         .mdl-js-textfield{
           //padding-bottom: 0px;
           //padding-top: 5px;
@@ -120,7 +132,7 @@ div.argument-container{
       }
       div.argument-box-menu{
         width: 20%;
-        padding-top: 40px;
+        padding-top: 25px;
       }
     }
   }

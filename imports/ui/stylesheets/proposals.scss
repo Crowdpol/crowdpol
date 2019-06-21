@@ -26,6 +26,11 @@
     line-height: $small-font-size;
     font-size: $xsmall-font-size;
     color: $dark-grey-xdark;
+    a{
+      line-height: $small-font-size;
+      font-size: $xsmall-font-size;
+      color: $light-blue-dark;
+    }
   }
 }
 .event-log-submitted,.event-log-created{

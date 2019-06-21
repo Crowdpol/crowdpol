@@ -23,16 +23,20 @@ Template.UserSearch.events({
       addUser($(e.currentTarget).attr("data-user-id"));
     }
     $("#autosuggest-results").hide();
-
   },
   'blur #invited': function(e,t) {
     $("#autosuggest-results").hide();
   },
   'focus #invited': function(e,t) {
+    //$("#autosuggest-results").show();
     ($('#invited').val().length) ? $("#autosuggest-results").show() : $("#autosuggest-results").hide();
   },
   'keyup #invited': function(event, template) {
-    ($('#invited').val().length) ? $("#autosuggest-results").show() : $("#autosuggest-results").hide();
+    if($('#invited').val().length){
+      $("#autosuggest-results").show();
+    }else{
+      $("#autosuggest-results").hide();
+    }
 
     var key = event.keyCode;
     var list = document.querySelector("#autosuggest-results");
@@ -59,7 +63,7 @@ Template.UserSearch.events({
       }
     }
     if(key == 27){
-      $("#autosuggest-results").hide();
+      //$("#autosuggest-results").hide();
     }
     if(key == 13 || key == 9){
       var selectedIndex = $('#autosuggest-results li.selected').index();
@@ -77,6 +81,7 @@ Template.UserSearch.events({
           addEmail($('#invited').val());
         }
       }
+      $("#autosuggest-results").hide();
     }
     Session.set('searchPhrase', event.currentTarget.value);
   }
@@ -132,6 +137,7 @@ function canAdd(){
   Bert.alert(TAPi18n.__("pages.proposals.edit.alerts.collaborator-limit-exceeded",{limit:maxCount}),'danger');
   return false;
 }
+
 function validateEmail(mail){
  if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(mail))
   {

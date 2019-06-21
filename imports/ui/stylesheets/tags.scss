@@ -25,16 +25,20 @@
 
 .tag {
   display: inline-block;
-  padding: 0 0.5rem;
-  margin-right: 0.2rem;
+  padding: 0 0 0 0.5rem;
+  //margin-right: 0.2rem;
   border-radius: 1rem;
   font-size: $xsmall-font-size;
   color: $white;
-  line-height: 0.9rem;
+  line-height: 0.6rem;
   text-decoration: none;
   font-weight: 300;
   letter-spacing: 0.5px;
   text-transform: capitalize;
+
+  .mdl-chip__action{
+    margin: 0px;
+  }
 }
 
 .tag-chip {
@@ -58,6 +62,10 @@
 .tag-chip.mdl-badge[data-badge]:after {
     top: -6px;
     right: -8px;
+}
+.tag.status-chip{
+  padding: 3px 8px 3px 8px;
+  margin-right: 2px;
 }
 .status-chip {
   background-color: $light-grey-xdark;
@@ -87,5 +95,5 @@
 }
 
 .add-tags-wrap {
-  margin-bottom: $space;
+  margin: ($space/2.5) 0;
 }

@@ -5,6 +5,7 @@ import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Tags } from '../../../api/tags/Tags.js'
 import { setCoverState } from '../../components/cover/cover.js'
+import { urlify } from '../../../utils/functions';
 import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(language){
@@ -470,6 +471,9 @@ Template.ViewProposal.helpers({
       return true;
     }
     return false;
+  },
+  urlifyMessage: function(message){
+    return urlify(message);
   }
 });
 

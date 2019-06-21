@@ -276,7 +276,7 @@ Template.InviteModal.helpers({
 		var invited = Session.get('invited');
 		if (invited) {
 			//Make the query non-reactive so that the selected invites don't get updated with a new search
-			var users = Meteor.users.find({ _id : { $in :  invited} },{reactive: false});
+			var users = Meteor.users.find({ _id : { $in :  invited} });//,{reactive: false});
 			return users;
 		}
 	},
@@ -494,6 +494,13 @@ function showToast(content){
 }
 
 export function getTotalInvites(){
+	proposalId = FlowRouter.getParam("id");
+	if (proposalId){
+		let proposal = Proposals.findOne({_id: proposalId});
+	}
+	if(proposal){
+		console.log(proposal.invited);
+	}
 	let invitedUsers = Session.get("invited");
 	let invitedEmails = Session.get('emailInvites');;
 	let totalCount = 0;
