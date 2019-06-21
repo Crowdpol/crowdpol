@@ -1,0 +1,12 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+ul#autosuggest-results{
+  display:none;
+  position: absolute;
+  top: 85px;
+  min-width: 300px;
+  li.mdl-list__item.autosuggest-suggestion{
+    padding: 5px 5px 0px 5px;
+  }
+}
