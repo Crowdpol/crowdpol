@@ -190,7 +190,9 @@
 						</div>
 						<div class="voting-content">
 							{{#if isVotingAsDelegate}}
-								{{> delegateVoteButtons proposalId=_id endDate=endDate}}
+								<div class="delegate-vote-buttons">
+									{{> delegateVoteButtons proposalId=_id endDate=endDate}}
+								</div>
 							{{else}}
 								<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
 								{{> voteButtons proposalId=_id}}
