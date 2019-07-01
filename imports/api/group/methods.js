@@ -5,22 +5,23 @@ import { convertToSlug } from '../../utils/functions';
 
 Meteor.methods({
     addGroup: function (group) {
-      /*
-      check(flag.contentType, String);
-      return Group.insert({
-        contentType: flag.contentType,
-        contentId: flag.contentId,
-        creatorId: flag.creatorId,
-        flaggerId: Meteor.userId(),
-        category: flag.category,
-        //justification: '',
-        status: 'pending',
-        //outcome: flag.outcome,
-        communityId: flag.communityId,
-        other: flag.other
+      check(group, {
+        name: String,
+        handle: String,
+        isOpen: Boolean,
+        communityId: String,
+        isArchived: Match.Maybe(Boolean),
       });
-      */
       console.log(group);
+      return Group.insert({
+        name: flag.contentType,
+        handle: flag.contentId,
+        isOpen: flag.creatorId,
+        communityId: Meteor.userId(),
+        admins: [Meteor.userId()],
+        members:[Meteor.userId()]
+      });
+
     },
     deleteGroup: function (id) {
       /*
