@@ -4,6 +4,7 @@ import { DelegateVotes } from '../../../api/delegateVotes/DelegateVotes.js'
 Template.delegateVoteButtons.onCreated(function(){
 	self = this;
 	self.vote = new ReactiveVar();
+	self.setVote = new ReactiveVar();
 	self.voteReason = new ReactiveVar();
 	self.charCount = new ReactiveVar(0);
 	self.proposalId = Template.currentData().proposalId;
@@ -28,6 +29,9 @@ Template.delegateVoteButtons.helpers({
 	},
 	'voteReason': function(){
 		return Template.instance().voteReason.get();
+	},
+	'vote': function(){
+		return Template.instance().setVote.get();
 	},
 	'voteSet': function(){
 		let vote = Template.instance().vote.get();
@@ -59,7 +63,6 @@ Template.delegateVoteButtons.helpers({
 				Template.instance().voteReason.set(delegateVotes.reason);
 			}
 		}
-
 		// Delegate voting closes two weeks before a proposal expires
 		var endDate = moment(Template.currentData().endDate);
     	var now = new Date();
@@ -77,12 +80,12 @@ Template.delegateVoteButtons.events({
 	'click .delegate-vote-button' (event, template){
 		'use strict';
 		template.find('#mdl-custom-modal').style.display = "block";
-		template.vote.set(event.currentTarget.dataset.voteValue);
+		template.setVote.set(event.currentTarget.dataset.voteValue);
 	},
 	'click #final-vote': function(event, template){
 		if (template.charCount.get() <= 420){
 			var reason = template.find('#delegate-reason').value;
-			var vote = template.vote.get()
+			var vote = template.setVote.get()
 			Meteor.call('voteAsDelegate', {vote: vote, reason: reason, proposalId: template.proposalId}, function(error){
 				if (error){
 					console.log("error: "+error.reason);

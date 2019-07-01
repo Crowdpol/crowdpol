@@ -320,7 +320,8 @@ Template.ViewProposal.helpers({
     return userIsInvited();
   },
   isVotingAsDelegate: function(){
-    return (LocalStore.get('currentUserRole') == 'Delegate');
+    console.log("isVotingAsDelegate: " + LocalStore.get('currentUserRole'));
+    return (LocalStore.get('currentUserRole') == 'delegate');
   },
   isAuthor: function() {
     return userIsAuthor();
