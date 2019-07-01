@@ -1,4 +1,5 @@
 <template name="CommunityDash">
+  {{> CreateGroupModal}}
   <div class="parallax" style="background-image: {{backgroundImage currentCommunity}}">
     <div class="parallax-community-header">
       <h5>{{currentCommunity.name}}</h5>
@@ -30,6 +31,12 @@
     {{#if childCommunitiesCount}}
       <div class="community-tab" id="groups-tab" style="display: none;">
         <p>Groups comming soon</p>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored create-group">
+          <i class="material-icons">add</i>
+        </button>
+        {{#each groups}}
+          {{_id}}
+        {{/each}}
       </div>
     {{else}}
       <div class="community-tab" id="groups-tab">
@@ -46,4 +53,111 @@
     </div>
   </div>
 
+</template>
+<template name="CreateGroupModal">
+  <div id="overlay"></div>
+	<div class="create-group-modal">
+		{{#if Template.subscriptionsReady}}
+	  <div class='content-wrapper invite-wrapper'>
+	    <div class="content">
+				<h4>Create Group</h4>
+        <form id="create-group-form">
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="group-type-selector">
+            <label class="mdl-textfield__label">Select Community</label>
+            <select class="mdl-textfield__input" id="group-type">
+              <option value="organisation" selected="selected">Organisation</option>
+              <option value="party">Political Party</option>
+              <option value="network">Network</option>
+              <option value="social">Social Interest Group</option>
+            </select>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="group-name" name="group-name">
+            <label class="mdl-textfield__label" for="group-name">{{_ "form.name"}}</label>
+          </div>
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for="group-username">{{_ "form.username"}}</label>
+            <input type="text" id="group-username" class="mdl-textfield__input" name="group-username">
+            <span id="valid-username" class="valid-username"></span>
+          </div>
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="group-open">
+            <input type="checkbox" id="group-open" class="mdl-switch__input" checked>
+            <span class="mdl-switch__label">
+              Open/Closed
+            </span>
+          </label>
+          <button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create-group">
+            Create Group
+          </button>
+        </form>
+        <!--
+        <div class="form-group">
+          {{> UserSearch}}
+        </div>
+        -->
+	    </div>
+		</div>
+		{{/if}}
+	</div>
+</template>
+
+<template name="GroupForm">
+  <div class="profile-cover">
+    <div class="profile-header">
+      <!--<img src="https://images.pexels.com/photos/259915/pexels-photo-259915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Header Pic" >-->
+      {{>Cover editable=editable}}
+    </div>
+
+    <div id="profile-details-header" class="profile-details app-container {{hasCover}}">
+      {{>ProfileImage editable=editable userId=userId}}
+    </div>
+
+  </div>
+  <hr>
+  <form action="#">
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="name">
+    <label class="mdl-textfield__label" for="name">{{_ "form.name"}}</label>
+  </div>
+  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
+    <input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{username}}">
+    <span id="valid-username" class="valid-username"></span>
+  </div>
+  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <label class="mdl-textfield__label" for="profile-website">{{_ "form.website"}}</label>
+    <input type="text" id="profile-website" name="profileWebsite" class="mdl-textfield__input" value="{{website}}">
+    <span id="valid-url" class="valid-username"></span>
+  </div>
+  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <label class="mdl-textfield__label" for="profile-phone-number">{{_ "form.phone"}}</label>
+    <input type="text" id="profile-phone-number" name="profilePhoneNumber" class="mdl-textfield__input" value="{{phoneNumber}}">
+  </div>
+  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <label class="mdl-textfield__label" for="profile-contact-person">{{_ "form.contact"}}</label>
+    <input type="text" id="profile-contact-person" name="profileContactPerson" class="mdl-textfield__input" value="{{contactPerson}}">
+  </div>
+  <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <textarea class="mdl-textfield__input" type="text" rows="5" name="profileBio" id="profile-bio">{{bio}}</textarea>
+    <label class="mdl-textfield__label" for="profile-bio">{{_ "form.bio"}}</label>
+  </div>
+  <div style="float: right;">
+  {{#if bioCompleted}}
+    <span style="color: grey; font-size: 10px">{{bioCount}} {{_ "pages.profile.characters"}} ({{_ "pages.profile.min"}} 50, {{_ "pages.profile.max"}} 520)</span>
+  {{else}}
+    <span style="color: red; font-size: 10px">{{_ "pages.profile.bio-count" bioCount=bioCount}}</span>
+  {{/if}}
+  </div>
+  <div class="form-group">
+    {{> UserSearch}}
+  </div>
+
+  type: ['organisation', 'party', 'social'],
+  admins
+  invited
+  open
+  verified
+  tags
+
+</form>
 </template>

@@ -31,7 +31,7 @@ GroupSchema = new SimpleSchema({
   },
   type: {
     type: String,
-    allowedValues: ['organisation', 'party', 'social'],
+    allowedValues: ['organisation', 'party', 'social','network'],
     optional: true
   },
   invited: {
@@ -50,6 +50,14 @@ GroupSchema = new SimpleSchema({
       type: String,
       optional: true,
   },
+  members: {
+      type: Array,
+      optional: true,
+  },
+  'members.$': {
+      type: String,
+      optional: true,
+  },
   invited: {
       type: Array,
       optional: true,
@@ -58,7 +66,7 @@ GroupSchema = new SimpleSchema({
       type: String,
       optional: true,
   },
-  open: {
+  isOpen: {
       /* If a proposal is expired and the votes have been prepared for tallying */
       type: Boolean,
       autoValue() {
