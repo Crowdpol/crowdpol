@@ -247,6 +247,13 @@ loggedInRoutes.route('/profile/:id', {
   },
 });
 */
+loggedInRoutes.route('/group', {
+  name: 'App.group',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Group' });
+  },
+});
+
 loggedInRoutes.route('/feed', {
   name: 'App.feed',
   action() {

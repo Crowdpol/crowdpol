@@ -1,0 +1,100 @@
+<template name="Group">
+  <div class="column-container app-container">
+    <aside class="aside aside-1">
+      <div class="profile-card">
+        <h5>{{profileName}}</h5>
+        <small>{{profileUsername}}</small><br/>
+        {{#unless currentUser}}
+          {{#if alreadyFollowing}}
+            <button class="mdl-button mdl-js-button" id="unfollow-me">Unfollow<i class="material-icons">minus</i></button>
+          {{else}}
+            <button class="mdl-button mdl-js-button" id="follow-me">Follow<i class="material-icons">add</i></button>
+          {{/if}}
+        {{/unless}}
+        <br>
+        {{#if interestsCount}}
+          <strong>Interests</strong>
+          <div class="tags-wrap" >
+        		<!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
+        		{{#each interests}}
+        			<a class="tag taggle-tag tag-chip {{isAuthorised this}}" id="{{this._id}}" data-id="{{this._id}}">{{this.keyword}}</a>
+        		{{/each}}
+        	</div>
+        {{/if}}
+      </div>
+    </aside>
+    <article class="main">
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+          <a href="#user-home-panel" class="mdl-tabs__tab is-active">Feed</a>
+          <a href="#activity-panel" class="mdl-tabs__tab">Activity</a>
+          <a href="#followers-panel" class="mdl-tabs__tab">Followers {{#if followersCount}}({{followersCount}}){{/if}}</a>
+          <a href="#following-panel" class="mdl-tabs__tab">Following {{#if followingCount}}({{followingCount}}){{/if}}</a>
+        </div>
+
+        <div class="mdl-tabs__panel" id="activity-panel">
+
+          <ul class="user-home-list">
+
+            <li class="user-home-post">
+              {{>ActivityFeed}}
+            </li>
+          </ul>
+        </div>
+        <div class="mdl-tabs__panel is-active" id="user-home-panel">
+
+          <ul class="user-home-list">
+            <li class="user-home-post user-home-form">
+              <div class="post-header">
+                <div class="author-pic">
+                  <img src="{{profilePic currentUserId}}" class="">
+                </div>
+                <div class="post-content">
+                  <div class="post-area">
+                    <textarea class="post-textarea-small" type="text" rows= "1" id="post-message" placeholder="Say something..."></textarea>
+                    <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
+                  </div>
+                </div>
+              </div>
+            </li>
+            {{#each post in userFeed}}
+            <li class="user-home-post">
+              {{>ActivityFeed post=post}}
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+        <div class="mdl-tabs__panel" id="followers-panel">
+          {{#unless followersCount}}
+            <br>
+            <center>No followers</center>
+          {{else}}
+            {{#each follower in followers}}
+              {{>UserCard userId=follower._id style="card"}}
+            {{/each}}
+          {{/unless}}
+        </div>
+        <div class="mdl-tabs__panel" id="following-panel">
+          {{#unless followingCount}}
+            <br>
+            <center>Not following anyone</center>
+          {{else}}
+            <div class="mdl-grid">
+            {{#each follow in following}}
+              {{>UserCard userId=follow._id style="card"}}
+            {{/each}}
+            </div>
+          {{/unless}}
+        </div>
+      </div>
+    </article>
+    <!--
+    <aside class="aside aside-2">
+      This is a side column.
+    </aside>
+    -->
+    <!--
+    <footer class="footer">Footer</footer>
+    -->
+  </div>
+</template>
