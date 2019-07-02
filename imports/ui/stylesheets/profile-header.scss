@@ -52,7 +52,7 @@
       }
     }
     .main{
-      min-height: 100px;
+      min-height: 60px;
       max-height: 200px;
       #change-photo{
         border: solid $test-border-width black;
@@ -180,6 +180,60 @@
 
 
 @media only screen and (min-width: $tiny){
+  #profile-details-header{
+    border: solid 3px green;
+    .aside-1{
+      padding: 5px;
+      width: 110px;
+      .profile-pic-wrapper .profile-image-div  {
+          margin: -60px 0 0 0px;
+          vertical-align: top;
+          width: 100px;
+          height: 100px;
+
+      }
+    }
+  }
+  .profile-details.collapsed{
+    border: solid $test-border-width red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    .aside-1{
+      padding-top: 10px;
+      border: solid $test-border-width green;
+      width: $aside-width;
+      .profile-pic-wrapper{
+        border: solid $test-border-width blue;
+
+        .profile-image-div{
+          border: 0;
+          margin-top: 0;
+        }
+        .profile-image-overlay {
+        //  width: 80px;
+        //  height: 80px;
+        }
+      }
+    }
+    .main{
+      padding-bottom: 10px;
+      width: 60%;
+
+      //display: flex;
+      align-items: center;
+      justify-content: center;
+      .profile-name{
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction:column;
+      }
+    }
+  }
+
   .profile-card{
     .profile-header{
 
@@ -200,6 +254,20 @@
 @media only screen and (min-width: $mobile){
 }
 @media only screen and (min-width: $tablet){
+  #profile-details-header{
+
+    .aside-1{
+      padding: 5px;
+      width: 110px;
+      .profile-pic-wrapper .profile-image-div  {
+          margin: -110px 0 0 0px;
+          vertical-align: top;
+          width: 200px;
+          height: 200px;
+
+      }
+    }
+  }
 }
 @media only screen and (min-width: $laptop){
 }

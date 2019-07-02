@@ -76,6 +76,13 @@
 				<div class="profile-names">{{profileName userId}}</div>
 				<div class="profile-username">@{{profileUsername userId}}</div>
 			</div>
+			{{#unless currentUser}}
+				{{#if alreadyFollowing}}
+					<button class="mdl-button mdl-js-button" id="unfollow-me">Unfollow<i class="material-icons">minus</i></button>
+				{{else}}
+					<button class="mdl-button mdl-js-button" id="follow-me">Follow<i class="material-icons">add</i></button>
+				{{/if}}
+			{{/unless}}
 		{{/if}}
 	</article>
 	<!--<aside class="aside aside-2"></aside>-->
