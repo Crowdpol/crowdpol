@@ -112,3 +112,19 @@ $breakpoint: () !default;
     @content;
   }
 }
+
+/*
+@media only screen and (min-width: $tiny){
+
+}
+@media only screen and (min-width: $mobile){
+}
+@media only screen and (min-width: $tablet){
+}
+@media only screen and (min-width: $laptop){
+}
+@media only screen and (min-width: $desktop){
+}
+@media only screen and (min-width: $big){
+}
+*/

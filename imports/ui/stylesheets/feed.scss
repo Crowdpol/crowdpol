@@ -229,3 +229,63 @@ ul.feed-list{
   }
 }
 */
+@media only screen and (min-width: $tiny){
+  #feed-body{
+    border: solid $test-border-width red;
+    .aside-1{
+      display:none;
+    }
+    .main{
+      width: 100%;
+      .mdl-tabs__tab{
+        padding: 0px 5px;
+      }
+    }
+  }
+  /*
+  .column-container.app-container{
+    //display: block;
+    #feed-side-column{
+      border: solid 5px orange;
+      display:none;
+    }
+    .aside-1 {
+
+      padding: 25px;
+      position: relative;
+      text-align: left;
+      .profile-image-link {
+          display: block;
+          border-radius: 100px;
+          border: solid 5px #fff;
+          overflow: hidden;
+          float:left;
+          position: absolute;
+          left: 30px;
+          top: -150px;
+      }
+
+
+      .profile-card{
+        padding-top: 50px;
+        padding-left: 10px;
+        overflow: hidden;
+      }
+
+    }
+    .main{
+      width: 100%;
+    }
+  }
+  */
+}
+@media only screen and (min-width: $mobile){
+}
+@media only screen and (min-width: $tablet){
+}
+@media only screen and (min-width: $laptop){
+}
+@media only screen and (min-width: $desktop){
+}
+@media only screen and (min-width: $big){
+}
