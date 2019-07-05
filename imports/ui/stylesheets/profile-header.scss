@@ -181,7 +181,7 @@
 
 @media only screen and (min-width: $tiny){
   #profile-details-header{
-    border: solid 3px green;
+    border: solid $test-border-width green;
     .aside-1{
       padding: 5px;
       width: 110px;
@@ -194,7 +194,7 @@
       }
     }
   }
-  .profile-details.collapsed{
+  #profile-details-header.collapsed{
     border: solid $test-border-width red;
     display: flex;
     align-items: center;

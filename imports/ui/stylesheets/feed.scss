@@ -231,7 +231,7 @@ ul.feed-list{
 */
 @media only screen and (min-width: $tiny){
   #feed-body{
-    border: solid 3px red;
+    border: solid $test-border-width red;
     .aside-1{
       display:none;
     }
