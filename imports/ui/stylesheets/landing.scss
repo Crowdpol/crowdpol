@@ -54,7 +54,9 @@
       color: #fff;
       font-family: $landing-heading-font;
       i.material-icons{
-        font-size: 10px
+        font-size: 12px;
+        position: relative;
+        top:2px;
       }
     }
   }
