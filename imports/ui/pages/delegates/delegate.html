@@ -12,6 +12,7 @@
 			<small>{{_ "pages.delegates.instructions-3"}}</small>
 			<br>
 			<br>
+
 			<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 			  <div class="mdl-tabs__tab-bar">
 			      <a href="#available-panel" class="mdl-tabs__tab is-active">Available {{#if delegatesCount}}({{delegatesCount}}){{/if}}</a>
@@ -61,45 +62,44 @@
 			  	{{/if}}
 			  </div>
 			  <div class="mdl-tabs__panel" id="selected-panel">
-					{{#if rankCount}}
-						<div id="sortable" class="delegate-list" >
-							{{#if Template.subscriptionsReady}}
-								{{#each ranks}}
-									<div class="delegate-item selected" id="{{_id}}" data-ex="{{getRanking}}">
-										<div class="card-main-wrap delegate-card-main-wrap">
-											<div class="card-main delegate-view">
-												<img src={{profile.photo}} class="card-avatar">
-												<div class="delegate-name">
-													<h6>{{getRank _id}}{{profile.firstName}} {{profile.lastName}}</h6>
-													<p>
-														({{profile.username}})
-														<br>
-														{{#each filteredRoles roles}}
-															<a class="tag tag-chip role-chip">{{this}}</a>
-														{{/each}}
-													</p>
-												</div>
+					<div id="sortable" class="delegate-list" >
+						{{#if Template.subscriptionsReady}}
+							{{#each ranks}}
+								<div class="delegate-item selected" id="{{_id}}" data-ex="{{getRanking}}">
+									<div class="card-main-wrap delegate-card-main-wrap">
+										<div class="card-main delegate-view">
+											<img src={{profile.photo}} class="card-avatar">
+											<div class="delegate-name">
+												<h6>{{getRank _id}}{{profile.firstName}} {{profile.lastName}}</h6>
+												<p>
+													({{profile.username}})
+													<br>
+													{{#each filteredRoles roles}}
+														<a class="tag tag-chip role-chip">{{this}}</a>
+													{{/each}}
+												</p>
 											</div>
-											<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
-												<input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
-											</label>
 										</div>
-
-										<div class="card-secondary-wrap">
-											{{#each showTags profile.tags}}
-												<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
-											{{/each}}
-										</div>
+										<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
+											<input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
+										</label>
 									</div>
-								{{/each}}
-							{{else}}
-								{{> loader}}
-							{{/if}}
-						</div>
-					{{else}}
-						<br>
-						<center><p>{{_ "pages.delegates.no-delegates"}}</p></center>
-					{{/if}}
+
+									<div class="card-secondary-wrap">
+										{{#each showTags profile.tags}}
+											<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
+										{{/each}}
+									</div>
+								</div>
+							{{/each}}
+						{{else}}
+							{{> loader}}
+						{{/if}}
+					</div>
+					{{#unless rankCount}}
+					  <br>
+					  <center><p>{{_ "pages.delegates.no-delegates"}}</p></center>
+					{{/unless}}
 			  </div>
 			</div>
 		{{else}}

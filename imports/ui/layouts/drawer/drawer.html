@@ -19,6 +19,13 @@
 				{{#if isInRole 'admin, superadmin, community-admin'}}
 					<a class="side-nav-link mdl-navigation__link" href="/admin/dash">{{_ "layout.drawer.nav_admin_dash"}}</a>
 				{{/if}}
+				{{#if isDelegate}}
+					{{#if usingAsDelegate}}
+						<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only change-role" href="javascript:void(0" data-role="{{otherRole}}">{{otherRoleText}}</a>
+					{{else}}
+						<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only change-role" href="javascript:void(0" data-role="delegate">{{_ "layout.header.nav_use_delegate"}}</a>
+					{{/if}}
+				{{/if}}
 				<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/feed">{{_ "layout.drawer.nav_feed"}}</a>
 				<a class="side-nav-link mdl-navigation__link" href="/profile">{{_ "layout.drawer.nav_profile"}}
 					{{#if currentUser.isPublic}}
