@@ -1,5 +1,64 @@
 @import 'variables.scss';
 
+.proposal-form{
+  //proposalForm.html
+  textarea:focus{
+      outline: none;
+      resize: none;
+  }
+
+}
+
+.author-selector{
+  margin-top: $space;
+  display: flex;
+  justify-content: space-between;
+  label.mdl-checkbox span.mdl-checkbox__label{
+    top: -5px;
+  }
+}
+
+.proposal-event-log{
+  padding: 5px 0px;
+  border-bottom: solid 1px rgba(0,0,0,.12);;
+  .event-log-message{
+    padding: 5px 0px;
+    line-height: $small-font-size;
+    font-size: $xsmall-font-size;
+    color: $dark-grey-xdark;
+    a{
+      line-height: $small-font-size;
+      font-size: $xsmall-font-size;
+      color: $light-blue-dark;
+    }
+  }
+}
+.event-log-submitted,.event-log-created{
+  border-color: $bright-blue;
+}
+.event-log-rejected{
+  border-color: $red;
+}
+.event-log-returned{
+  border-color: $yellow;
+}
+.event-log-approved{
+  border-color: $green;
+}
+
+.proposal-form-textarea{
+  font-size: 1.75rem;
+  line-height: 2.4rem;
+  //border: none;
+  //border-bottom: solid 1px #ccc;
+  width: 100%;
+  resize: none;
+}
+
+.proposal-form-title:focus {
+
+}
+
 .proposal-admin-comment{
   border: solid 1px $red;
   padding: 10px;
@@ -219,11 +278,7 @@
     height: auto;
   }
 
-  .meta > * {
-    display: flex;
-    flex-direction: column;
-    margin-left: 16px;
-  }
+
 
   .section-spacer {
     flex-grow: 1;
@@ -236,6 +291,7 @@
     .status-chip{
       margin-left: 18px;
     }
+
     #collab-chips{
       padding: 0px;
     }

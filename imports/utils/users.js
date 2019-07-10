@@ -143,3 +143,8 @@ function returnProfileKey(profile,key){
   }
   return false;
 }
+
+function profileComplete(){
+  let user = Meteor.user();
+  let complete = false;
+}

@@ -21,7 +21,7 @@ var publicRoutes = FlowRouter.group({name: 'public'});
 
 Accounts.onLogout(function() {
   console.log("routes: set community to root");
-  setCommunityToRoot();
+  //setCommunityToRoot();
 	BlazeLayout.render('App_body', { main: 'Home' });
 });
 
@@ -247,6 +247,13 @@ loggedInRoutes.route('/profile/:id', {
   },
 });
 */
+loggedInRoutes.route('/group', {
+  name: 'App.group',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Group' });
+  },
+});
+
 loggedInRoutes.route('/feed', {
   name: 'App.feed',
   action() {

@@ -13,6 +13,7 @@
   width: 100%;
   color: #fff;
   padding: 5px 10px;
+  z-index: 900;
   .community-breadcrumb{
     color: #fff;
   }
@@ -76,7 +77,7 @@
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    //padding: 14px 16px;
     transition: 0.3s;
     font-size: 17px;
     color: #fff;
@@ -145,7 +146,66 @@
   margin-top: 40px;
 }
 
-@media only screen and (max-device-width: 1366px) {
+@media only screen and (min-width: $tiny){
+  .community-header{
+    top: 55px;
+    height: 30px;
+    padding: 2px 5px;
+  }
+  .parallax {
+    //border: solid 5px orange;
+    min-height: 250px;
+    .parallax-community-header{
+      h5{
+        font-size: 20pt;
+      }
+    }
+  }
+  #community-dash-container{
+    padding-top: 10px;
+    //border: solid 5px red;
+    .community-card-image.mdl-card {
+      margin: 10px;
+      width: 150px;
+      min-height: 150px;
+      height: 150px;
+    }
+    .community-card-image > .mdl-card__actions {
+      height: 52px;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+@media only screen and (min-width: $mobile){
+
+  .parallax {
+
+  }
+
+
+}
+@media only screen and (min-width: $tablet){
+  .parallax {
+
+  }
+}
+@media only screen and (min-width: $laptop){
+  .parallax {
+
+  }
+  .community-header{
+    top: 65px;
+    height: 40px;
+    padding: 5px 10px;
+  }
+}
+@media only screen and (min-width: $desktop){
+  .parallax {
+
+  }
+}
+@media only screen and (min-width: $big){
   .parallax {
     background-attachment: scroll;
   }

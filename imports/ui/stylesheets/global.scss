@@ -169,15 +169,33 @@
 }
 
 @media only screen and (min-width: $tiny){
+  .page-content{
+    border: solid $test-border-width yellow;
+  }
 
 }
 @media only screen and (min-width: $mobile){
+  .page-content{
+    border: solid $test-border-width orange;
+  }
 }
 @media only screen and (min-width: $tablet){
+  .page-content{
+    border: solid $test-border-width green;
+  }
 }
 @media only screen and (min-width: $laptop){
+  .page-content{
+    border: solid $test-border-width red;
+  }
 }
 @media only screen and (min-width: $desktop){
+  .page-content{
+    border: solid $test-border-width blue;
+  }
 }
 @media only screen and (min-width: $big){
+  .page-content{
+    border: solid $test-border-width pink;
+  }
 }

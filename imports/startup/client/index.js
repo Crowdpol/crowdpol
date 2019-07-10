@@ -36,6 +36,7 @@ Meteor.startup(function () {
 
 
 function loadCommunityInfo() {
+  LocalStore.set('rootCommunities',[]);
   //check for crowdpol:
   var hostname = window.location.host;
   var subdomain = window.location.host.split('.')[0];
@@ -71,6 +72,7 @@ function loadCommunityInfo() {
         subdomain = "landing";//window.location.host.split('.')[0];
     */
   }
+  //console.log(subdomain);
   if(subdomain){
     //set title to commuinty name
     document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
@@ -83,6 +85,7 @@ function loadCommunityInfo() {
           if (err) {
             Bert.alert(err.reason, 'danger');
           } else {
+            //console.log(result);
             if(typeof result._id !== 'undefined'){
               LocalStore.set('communityId', result._id);
               //console.log('setting community to : ' + result.name);
@@ -97,7 +100,7 @@ function loadCommunityInfo() {
                 document.getElementsByTagName('head')[0].appendChild(link);
               }
               if(typeof settings.defaultLanguage != 'undefined'){
-                console.log(settings.defaultLanguage);
+                //console.log(settings.defaultLanguage);
                 moment.locale(settings.defaultLanguage);
               }
             }

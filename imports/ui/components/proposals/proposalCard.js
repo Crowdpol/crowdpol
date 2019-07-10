@@ -3,6 +3,7 @@ import "../../components/proposals/proposalCard.js"
 import RavenClient from 'raven-js';
 import { Tags } from '../../../api/tags/Tags.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
+import { Votes } from '../../../api/votes/Votes.js'
 
 Template.ProposalCard.onCreated(function () {
   var self = this;
@@ -60,25 +61,17 @@ Template.ProposalCard.helpers({
   canVote: function() {
     return Session.get("canVote");
   },
-  proposalStage: function(proposal) {
-    var stage = ''
-    if(typeof proposal.stage != 'undefined'){
-      stage = proposal.stage;
-    }
+  proposalStage: function(stage) {
     if(stage.length > 0){
       return stage.charAt(0).toUpperCase() + stage.slice(1);
     }
     return 'stage unknown';
   },
-  proposalStatus: function(proposal) {
-    var status = ''
-    if(typeof proposal.status != 'undefined'){
-      stage = proposal.status;
-    }
+  proposalStatus: function(status) {
     if(status.length > 0){
       return status.charAt(0).toUpperCase() + status.slice(1);
     }
-    return 'stage unknown';
+    return 'status unknown';
   },
   tags: function(proposal){
     return Tags.find({_id: {$in: proposal.tags},"authorized" : true});
@@ -99,7 +92,6 @@ Template.ProposalCard.helpers({
     return false;
   },
   userId: function(){
-    console.log(Meteor.userId());
     return Meteor.userId();
   },
   yesPercentage: function(proposalId) {
@@ -130,6 +122,12 @@ Template.ProposalCard.helpers({
       return false;
     }
     return true;
+  },
+  showRetract: function(stage,status){
+    if((stage=='submitted')&&(status=='unreviewed')){
+      return true;
+    }
+    return false;
   }
 });
 
@@ -155,4 +153,19 @@ Template.ProposalCard.events({
       FlowRouter.go('App.proposal.edit', {id: proposalId});
     }
   },
+  'click .retract-proposal-button': function(event, template){
+    event.preventDefault();
+    var proposalId = event.target.dataset.proposalId;
+    if (window.confirm(TAPi18n.__('pages.proposals.list.confirmRetract'))){
+      Meteor.call('updateProposalStage', proposalId,'draft','unreviewed', function(error){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert(TAPi18n.__('pages.proposals.list.retractMessage'), 'success');
+        }
+      });
+    }
+  },
+
 });

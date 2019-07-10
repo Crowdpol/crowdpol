@@ -1,9 +1,6 @@
-<template name="UserHome">
-  <header class="header">
-    {{> ProfileHeader editable=false userId=thisUser}}
-  </header>
-  <div class="column-container app-container" id="feed-body">
-    <aside class="aside aside-1" id="feed-side-column">
+<template name="Group">
+  <div class="column-container app-container">
+    <aside class="aside aside-1">
       <div class="profile-card">
         <h5>{{profileName}}</h5>
         <small>{{profileUsername}}</small><br/>
@@ -99,32 +96,5 @@
     <!--
     <footer class="footer">Footer</footer>
     -->
-  </div>
-</template>
-
-<template name="ActivityFeed">
-  <div class="post-header">
-    <div class="author-pic">
-      <img src="{{profilePic post.userId}}" class="">
-    </div>
-    <div class="post-content">
-      <div class="author-name">
-        <strong>{{profileName post.userId}}</strong>&nbsp;<small>@{{profileName post.userId}} - {{profileDate post.createdAt}}</small>
-        <i class="material-icons">keyboard_arrow_down</i>
-      </div>
-      <div class="post-message">
-        <p>
-            {{{formatMessage post.message}}}
-        </p>
-      </div>
-      <div class="post-footer">
-        <i class="material-icons comment-post">chat_bubble_outline</i>
-        <span class="like-counter"><i class="material-icons like-post" data-id="{{post._id}}">{{likeIcon post._id}}</i>{{likeCount post._id}}</span>
-        <div class="comment-box hidden" data-id="{{post._id}}">
-          <textarea class="post-textarea-large" type="text" rows= "3" placeholder="Make comment..."></textarea>
-          <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>

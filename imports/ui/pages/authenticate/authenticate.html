@@ -20,9 +20,10 @@
 			</div>
 			<!-- MDL tab panels, is-active to denote currently active -->
 			<div class="mdl-tabs__panel is-active" id="login-panel">
-				<!--{{>SocialLogin}}-->
+
 				<div id="individual-login" class="container narrow-container auth-wrap">
 					<h3>{{_ "pages.authenticate.login"}}</h3>
+					{{>SocialLogin}}
 					{{> Login}}
 					<a href="#signup-panel" class="center light" id="individual-signup-link">{{_ "pages.authenticate.links.register"}}</a>
 				</div>
@@ -57,10 +58,11 @@
 <!-- Login buttons for Social Media OAuth -->
 <template name="SocialLogin">
 	<div class="social-auth">
-		<!-- Twitter - Hex: #00acee-->
-		<button id="login-twitter" class="mdl-button mdl-js-button mdl-button--raised">
+		<!-- Twitter - Hex: #00acee -->
+		<button id="login-twitter" class="mdl-button mdl-js-button mdl--button-raised">
 			<i class="fa fa-twitter fa-fw"></i> Twitter
 		</button>
+
 		<!-- Facebook - Hex: #3b5998 -->
 		<button id="login-facebook" class="mdl-button mdl-js-button mdl-button--raised">
 			<i class="fa fa-facebook fa-fw"></i> Facebook

@@ -28,6 +28,15 @@ Template.ProfileImage.helpers({
   profileUsername: function(userId) {
   	return username(userId);
   },
+	currentUser: function(){
+    if(getOwnerId()==Meteor.userId()){
+      return true;
+    }
+    return false;
+  },
+	alreadyFollowing: function(){
+    return Meteor.users.find({_id: Meteor.userId(), "profile.following":getOwnerId()}).count()
+  },
 });
 Template.ProfileImage.events({
 	//show image change form
@@ -132,4 +141,13 @@ Template.ProfileImage.events({
 function setProfilePic(photoURL){
 	let imageURLText = "url(" + photoURL + ")";
 	$('.profile-image-div').css("background-image",imageURLText);
+}
+
+function getOwnerId(){
+  let userId = FlowRouter.getParam("id");
+  if(typeof userId =='undefined'){
+    userId = Meteor.userId();
+  }
+  console.log("ownerId: " + userId);
+  return userId;
 }

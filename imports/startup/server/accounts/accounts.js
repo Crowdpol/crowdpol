@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor'
 import { Roles } from 'meteor/alanning:roles';
 import { convertToSlug } from '/lib/utils';
 import { Random } from 'meteor/random';
+import { getCommunity } from '../../../utils/community.js';
 
 function generateSearchString(user){
   const profile = user.profile;
@@ -29,6 +30,7 @@ function normalizeFacebookUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
+    termsAccepted : true
     //searchString: searchString
   });
 
@@ -60,6 +62,7 @@ function normalizeGoogleUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
+    termsAccepted : true,
     //searchString: user.services.google.given_name + ' ' + user.services.google.family_name + ' ' + generateUsername(user.services.google.given_name + " " + user.services.google.family_name);
   });
   const userEmail = {
@@ -92,6 +95,7 @@ function normalizeTwitterUser(profile, user) {
     credentials: credential,
     isPublic: false,
     type: 'Individual',
+    termsAccepted : true
     //searchString: profile.name + " "  + generateUsername(user.services.twitter.screenName);
   });
 
@@ -147,7 +151,6 @@ function normalizeEntity(profile, user) {
     phoneNumber: profile.phoneNumber,
     contactPerson: profile.contactPerson,
     type: 'Entity',
-    communityIds: profile.communityIds,
     photo: Meteor.settings.private.defaultPhotoUrl,
     username: generateUsername("anonymous_entity"),
     isPublic: false,
@@ -224,11 +227,79 @@ function slugName(firstName,lastName) {
 }
 
 Accounts.onCreateUser((options, user) => {
-  const profile = options.profile;
-  console.log("---------------")
-  console.log("options:")
+  console.log("--options:---");
   console.log(options);
-  console.log("---------------")
+  console.log("-----");
+  let profile = options.profile;
+  /*
+  if(options){
+    if(typeof options.profile !== 'undefined'){
+
+      Meteor.call('getRootCommunities',function(err, result){
+        if (err) {
+          Bert.alert(err.reason, 'danger');
+        } else {
+          console.log(result);
+          if(result){
+            const userProfile = _.extend(profile, {
+              profile.communityIds: result,
+            });
+            console.log("_3.1.userprofile set____");
+            console.log("userProfile: ")
+            console.log(userProfile);
+            console.log("_3.2.profileset____");
+            console.log("profile: ")
+            console.log(profile);
+            console.log("__reutrning profile___");
+          }
+        }
+      });
+    }else{
+      console.log(options);
+      let profile = {
+        credential: {},
+        firstName: "Anonymous",
+        lastName: "User",
+        isPublic: false,
+        type: 'Individual',
+      };
+      console.log("_2.basics set____");
+      console.log("profile: ")
+      console.log(profile);
+      console.log("_____");
+    }
+  }else{
+    console.log("no options in setRootCommunities");
+  }
+  */
+  console.log("---calling getRootCommunities()---");
+  profile.communityIds = Meteor.call('getRootCommunities');
+  /*
+  Meteor.call('getRootCommunities',function(err, result){
+    if (err) {
+      console.log(err);
+      Bert.alert(err.reason, 'danger');
+    } else {
+      //console.log(result);
+      if(result){
+        console.log("--profile before chainging community ids:---");
+        console.log(profile);
+        console.log("-----");
+        profile.communityIds = result;
+        console.log("--profile.communityIds after being set:---");
+        console.log(profile.communityIds);
+        console.log("-----");
+      }else{
+        console.log("no result from getRootCommunities");
+      }
+    }
+  });
+  */
+  console.log("---getRootCommunities() finished---");
+  console.log("--profile:---");
+  console.log(profile);
+  console.log("-----");
+  console.log("starting to normalise");
   if (profile) {
     if (user.services.facebook) {
       return normalizeFacebookUser(profile, user);
@@ -274,7 +345,7 @@ Accounts.onCreateUser((options, user) => {
 });
 
 Accounts.onLogin(() => {
-  console.log("onLogin called: user logged in");
+  //console.log("onLogin called: user logged in");
 });
 Accounts.validateNewUser((user) => {
 
@@ -301,4 +372,8 @@ generateUsername = function(firstName,lastName) {
     username += "-" + (count+1);
   }
   return username;
+}
+
+function setRootCommunities(options){
+
 }

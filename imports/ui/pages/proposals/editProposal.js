@@ -31,7 +31,7 @@ Template.EditProposal.onCreated(function(){
 
 	var defaultStartDate = moment().format('YYYY-MM-DD');
 	var defaultEndDate = moment().add(1, 'week').format('YYYY-MM-DD');
-
+	dict.set( 'anonymous',false);
 	proposalId = FlowRouter.getParam("id");
 	self.subscribe('proposals.one', proposalId, function(){});
 	self.autorun(function(){
@@ -40,6 +40,7 @@ Template.EditProposal.onCreated(function(){
 				proposal = Proposals.findOne({_id: proposalId})
 				//check if proposal exists
 				if(typeof proposal != 'undefined'){
+					dict.set( 'anonymous',proposal.anonymous || false);
 					dict.set( 'showDates',false);
 					dict.set( 'createdAt', proposal.createdAt );
 					dict.set( '_id', proposal._id);
@@ -122,9 +123,18 @@ Template.EditProposal.onRendered(function(){
 });
 
 Template.EditProposal.helpers({
+	authorId: function(){
+		return Meteor.userId();
+	},
+	anonymous: function(){
+		return Template.instance().templateDictionary.get('anonymous');
+	},
 	hasHeader: function(){
 		return Session.get('hasCover');
 	},
+	bioCount: function(){
+    return Template.instance().dict.get('bioCount');
+  },
 	proposalContent: function(){
 		proposalId = FlowRouter.getParam("id");
 		if (proposalId){
@@ -197,6 +207,10 @@ Template.EditProposal.helpers({
 });
 
 Template.EditProposal.events({
+	'click #anonymous-checkbox' (event, template){
+		let anonymous = event.currentTarget.checked;
+		Template.instance().templateDictionary.set('anonymous',anonymous);
+	},
 	'click #save-proposal' (event, template){
 		event.preventDefault();
 		if(getTotalInvites()>0){
@@ -262,7 +276,7 @@ Template.InviteModal.helpers({
 		var invited = Session.get('invited');
 		if (invited) {
 			//Make the query non-reactive so that the selected invites don't get updated with a new search
-			var users = Meteor.users.find({ _id : { $in :  invited} },{reactive: false});
+			var users = Meteor.users.find({ _id : { $in :  invited} });//,{reactive: false});
 			return users;
 		}
 	},
@@ -378,6 +392,7 @@ function saveChanges(event, template, returnTo){
 			}
 		}
 		let newProposal = {
+			anonymous: $('#anonymous-checkbox').is(':checked'),//template.templateDictionary.get('anonymous'),
 			content: content,
 			// Non-translatable fields
 			startDate: startDate,//new Date(2018, 8, 1),
@@ -387,6 +402,7 @@ function saveChanges(event, template, returnTo){
 			tags: getTags(),//proposalTags,
 			communityId: LocalStore.get('communityId'),
 			stage: "draft",
+			status: "unreviewed",
 			hasCover: Session.get("hasCover"),
 			coverURL: Session.get("coverURL"),
 			coverPosition: "0px"//Session.get("coverPosition")
@@ -478,6 +494,13 @@ function showToast(content){
 }
 
 export function getTotalInvites(){
+	proposalId = FlowRouter.getParam("id");
+	if (proposalId){
+		let proposal = Proposals.findOne({_id: proposalId});
+	}
+	if(proposal){
+		console.log(proposal.invited);
+	}
 	let invitedUsers = Session.get("invited");
 	let invitedEmails = Session.get('emailInvites');;
 	let totalCount = 0;

@@ -19,7 +19,14 @@
 				{{#if isInRole 'admin, superadmin, community-admin'}}
 					<a class="side-nav-link mdl-navigation__link" href="/admin/dash">{{_ "layout.drawer.nav_admin_dash"}}</a>
 				{{/if}}
-				<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/home">{{_ "layout.drawer.nav_feed"}}</a>
+				{{#if isDelegate}}
+					{{#if usingAsDelegate}}
+						<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only change-role" href="javascript:void(0" data-role="{{otherRole}}">{{otherRoleText}}</a>
+					{{else}}
+						<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only change-role" href="javascript:void(0" data-role="delegate">{{_ "layout.header.nav_use_delegate"}}</a>
+					{{/if}}
+				{{/if}}
+				<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/feed">{{_ "layout.drawer.nav_feed"}}</a>
 				<a class="side-nav-link mdl-navigation__link" href="/profile">{{_ "layout.drawer.nav_profile"}}
 					{{#if currentUser.isPublic}}
 						<span class="mdl-chip" id="public-profile-chip">
@@ -51,7 +58,7 @@
 <template name="RightDrawer">
 	<div class="right-drawer mdl-layout__drawer-right">
 		<div class="right-drawer-header mdl-shadow--2dp">
-			<a href="/home/{{user._id}}" id="right-drawer-profile-link"><img src="{{user.profile.photo}}" class="profile-picture"></a>
+			<a href="/feed/{{user._id}}" id="right-drawer-profile-link"><img src="{{user.profile.photo}}" class="profile-picture mdl-list__item-avatar"></a>
 			<h4>{{user.profile.firstName}} {{user.profile.lastName}}</h4>
 			<h6>{{user.profile.type}}</h6>
 		</div>

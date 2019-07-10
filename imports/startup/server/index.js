@@ -65,7 +65,6 @@ Meteor.startup(() => {
   console.log("║  ╠╦╝║ ║║║║ ║║╠═╝║ ║║  ");
   console.log("╚═╝╩╚═╚═╝╚╩╝═╩╝╩  ╚═╝╩═╝");
   wrapMethods();
-
 });
 
 //http://blog.mailgun.com/25-465-587-what-port-should-i-use/

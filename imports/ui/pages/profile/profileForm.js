@@ -374,11 +374,13 @@ Template.ProfileForm.helpers({
   },
 
   saveDisabled: function(){
-    if (Meteor.user().isPublic && !Session.get('profileIsComplete')){
-      return 'disabled';
-    } else {
-      return '';
+    let user = Meteor.user();
+    if(typeof user.isPublic !== 'undefined'){
+      if (Meteor.user().isPublic && !Session.get('profileIsComplete')){
+        return 'disabled';
+      }
     }
+    return '';
   },
   isPublic: function() {
     return Meteor.user().isPublic;

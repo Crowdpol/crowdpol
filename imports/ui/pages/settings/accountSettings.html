@@ -4,49 +4,42 @@
       {{> ProfileHeader editable=false userId=thisUser}}
     </header>
     <div class="column-container app-container">
-      <!-- Profile Card -->
-      <aside class="aside aside-1">
-        <nav class="">
-      		<ul class="settings-menu">
-      			<li class="settings-menu__item">
-      				<a class="settings-menu__link" href="#" id="showNotificationSettings" data-template="AdminApprovals">{{_ "pages.settings.account.nav.notifications"}}</a>
-      			</li>
-            <li class="settings-menu__item">
-      				<a class="settings-menu__link" href="#" id="showPrivacySettings" data-template="AdminProposals">{{_ "pages.settings.account.nav.privacy"}}</a>
-      			</li>
-            <li class="settings-menu__item">
-      				<a class="settings-menu__link" href="#" id="showAccountSettings" data-template="AdminProposals">{{_ "pages.settings.account.nav.account"}}</a>
-      			</li>
-            <li class="settings-menu__item">
-      				<a class="settings-menu__link" href="#" id="showPassword">{{_ "pages.settings.account.nav.password"}}</a>
-      			</li>
-      		</ul>
-      	</nav>
-      </aside>
-      <article class="main">
-        {{#if showNotificationSettings}}
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#notfications-panel" class="mdl-tabs__tab is-active">{{_ "pages.settings.account.nav.notifications"}}</a>
+            <a href="#privacy-panel" class="mdl-tabs__tab">{{_ "pages.settings.account.nav.privacy"}}</a>
+            <a href="#accounts-panel" class="mdl-tabs__tab">{{_ "pages.settings.account.nav.account"}}</a>
+            <a href="#password-panel" class="mdl-tabs__tab">{{_ "pages.settings.account.nav.password"}}</a>
+        </div>
+        <div class="mdl-tabs__panel is-active" id="notfications-panel">
           {{> NotificationSettings}}
-        {{/if}}
-        {{#if showPrivacySettings}}
+        </div>
+        <div class="mdl-tabs__panel" id="privacy-panel">
           {{> PrivacySettings}}
-        {{/if}}
-        {{#if showAccountSettings}}
+        </div>
+        <div class="mdl-tabs__panel" id="accounts-panel">
           {{> AccountSettingsTab}}
-        {{/if}}
-        {{#if showPassword}}
+        </div>
+        <div class="mdl-tabs__panel" id="password-panel">
           {{> ResetPassword}}
-        {{/if}}
-      </article>
+        </div>
+      </div>
+      <br/>
+			<br/>
+      <br/>
     </div>
   </div>
 </template>
 
 <template name="NotificationSettings">
-  <h5>{{_ "pages.settings.account.nav.notifications"}}<small> {{_ "generic.under-construction"}}</small></h5>
+  <br>
+  <p>{{_ "generic.under-construction"}}</p>
 </template>
 <template name="PrivacySettings">
-  <h5>{{_ "pages.settings.account.nav.privacy"}}<small> {{_ "generic.under-construction"}}</small></h5>
+  <br>
+  <p>{{_ "generic.under-construction"}}</p>
 </template>
 <template name="AccountSettingsTab">
-  <h5>{{_ "pages.settings.account.nav.account"}}<small> {{_ "generic.under-construction"}}</small></h5>
+  <br>
+  <p>{{_ "generic.under-construction"}}</p>
 </template>

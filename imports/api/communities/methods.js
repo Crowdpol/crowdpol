@@ -1,6 +1,7 @@
 import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { Communities } from './Communities.js'
+import { getSubdomain } from '../../utils/community.js';
 
 Meteor.methods({
     createCommunity: function (community) {
@@ -114,10 +115,49 @@ Meteor.methods({
     	let community = Communities.findOne({subdomain: subdomain});
       if(community){
         return community;
+      }else{
+        return getRootCommunity();
       }
       return null;
     },
-
+    getRootCommunity: function() {
+      let subdomain = getSubdomain();
+      //console.log(subdomain);
+      let rootCount = Communities.find("isRoot":true).count();
+      if(rootCount > 1){
+        let subdomainCount = Communities.find("isRoot":true,"subdomain":subdomain).count();
+        if(subdomainCount == 0){
+          return Communities.find("isRoot":true,"subdomain":"global");
+        }
+      }else{
+        return Communities.findOne("isRoot":true);
+      }
+      /*
+    	let community = Communities.findOne({subdomain: subdomain});
+      if(community){
+        return community;
+      }
+      return null;
+      */
+    },
+    getRootCommunities() {
+      let result =Communities.aggregate([
+        {
+          $match: {"isRoot" : true}
+        },
+        {
+          $project: {
+            "_id": 1,
+          }
+        }
+      ]);
+      let communityIds = [];
+      result.forEach(function (item, index) {
+          communityIds.push(item._id);
+      });
+      console.log(communityIds);
+      return communityIds;
+    },
     updateEmailWhitelist: function(emails, communityId) {
       var community = Communities.findOne({_id: communityId});
       return Communities.update({_id: communityId}, {$set: {'settings.emailWhitelist': emails}});
@@ -151,7 +191,7 @@ Meteor.methods({
         answer: String,
         _id: String });
       var result = Communities.update({_id: communityId}, {$push: {faqs: faqContent}});
-      console.log(result);
+      //console.log(result);
     },
     removeFAQ: function(communityId,faqId){
       //console.log(communityId);

@@ -14,12 +14,12 @@
 					{{/if}}
 					{{#if showStatus}}
 						<span class="tag status-chip {{proposal.status}}">
-							{{proposalStatus proposal}}
+							{{proposalStatus proposal.status}}
 						</span>
 					{{/if}}
 					{{#if showStage}}
 						<span class="tag status-chip {{proposal.stage}}">
-							{{proposalStage proposal}}
+							{{proposalStage proposal.stage}}
 						</span>
 					{{/if}}
 				</div>
@@ -33,6 +33,11 @@
 				</div>
 				<div class="card-title">
 					<h6>{{ title proposal}}</h6>
+					{{#if showRetract proposal.stage proposal.status}}
+						<button class="mdl-button mdl-js-button mdl-button--icon retract-proposal-button" data-proposal-id="{{proposal._id}}">
+							<i class="material-icons retract-proposal-button"  data-proposal-id="{{proposal._id}}">undo</i>
+						</button>
+					{{/if}}
 					{{#if showDelete}}
 						<button class="mdl-button mdl-js-button mdl-button--icon delete-proposal-button" data-proposal-id="{{proposal._id}}">
 							<i class="material-icons delete-proposal-icon" data-proposal-id="{{proposal._id}}">delete</i>

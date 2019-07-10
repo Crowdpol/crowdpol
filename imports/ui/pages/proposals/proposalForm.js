@@ -16,10 +16,17 @@ Template.ProposalForm.onCreated(function(){
 	self.argumentsFor = new ReactiveVar([]);
 	self.argumentsAgainst = new ReactiveVar([]);
 	self.autorun(function() {
-	let proposalId = FlowRouter.getParam("id");
-	self.subscribe('comments', proposalId);
+		let proposalId = FlowRouter.getParam("id");
+		self.subscribe('comments', proposalId);
 	});
+	var dict = new ReactiveDict();
 
+	var langs = LocalStore.get('languages');
+	langs.forEach(function(language) {
+		let dictId = "abstract-" + language + "-Count";
+		dict.set( dictId, 0);
+	});
+	self.dict = dict;
 });
 
 Template.ProposalForm.onRendered(function(){
@@ -64,6 +71,13 @@ Template.ProposalForm.onRendered(function(){
 		self.find(`#abstract-${language}`).value = content.abstract || '';
 		self.find(`#body-${language}`).value = content.body || '';
 		self.find('.ql-editor').innerHTML = content.body || '';
+		var langs = LocalStore.get('languages');
+		let abstract = content.abstract || '';
+		let dictId = "abstract-" + language + "-Count";
+		//console.log("abstract.length: "+ abstract.length);
+		//console.log("dictId: " + dictId);
+		Template.instance().dict.set( dictId, abstract.length);
+		//console.log(Template.instance().dict.get(dictId));
 	}
 
 	// Set session so parent template can initialise form validation
@@ -72,10 +86,35 @@ Template.ProposalForm.onRendered(function(){
 });
 
 Template.ProposalForm.events({
-
+	'keyup .abstract-textarea' (event, template){
+		let textareaId = "#" + event.currentTarget.id;
+		let dictId = "abstract-" + Template.instance().data.language + "-Count";
+		let text = $(textareaId).val();
+		Template.instance().dict.set(dictId,text.length);
+		/*
+		let lang = Template.instance().data.language;
+		let textareaId = "#abstract-" + lang;
+		console.log(textareaId);
+		console.log($(textareaId).val());
+		*/
+  },
 });
 
 Template.ProposalForm.helpers({
+	abstractCompleted(){
+		let dictId = "abstract-" + Template.instance().data.language + "-Count";
+		let length = Template.instance().dict.get(dictId)
+		if((length <= 280)&&(length >= 50)){
+				return true;
+		}
+		return false;
+  },
+  abstractCount(){
+		let textareaId = "#abstract-" + Template.instance().data.language;
+		//console.log($(textareaId));
+		let dictId = "abstract-" + Template.instance().data.language + "-Count";
+		return Template.instance().dict.get(dictId);
+  },
 	getState(){
 		let proposalId = FlowRouter.getParam("id");
 		if(typeof proposalId != 'undefined'){
@@ -128,7 +167,8 @@ export function validateForm(){
 			},
 			abstract: {
 				required: false,
-				minlength: 5
+				minlength: 50,
+				maxlength: 280
 			},
 			body: {
 				required: false,
@@ -148,7 +188,7 @@ export function validateForm(){
 			},
 			abstract: {
 				required: 'Please provide a short abstract for your proposal.',
-				minlength: "Use at least 5 characters."
+				minlength: "Use at least 50 characters."
 			},
 			body: {
 				body: 'Please provide a body for your proposal.',

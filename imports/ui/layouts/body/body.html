@@ -10,7 +10,26 @@
 	        a.appendChild(r);
 	    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 	</script>
-	-->
+
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '882920215388865',
+	      xfbml      : true,
+	      version    : 'v3.3'
+	    });
+	    FB.AppEvents.logPageView();
+	  };
+
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "https://connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	</script>
+		-->
 	<div id="site-wrapper-div">
 		<div class="site mdl-layout mdl-js-layout mdl-layout--fixed-header" >
 			{{#if isLanding}}
@@ -32,9 +51,13 @@
 	    <main class="mdl-layout__content">
 				<div class="page-content">
 				   <div class="ribbon" id="status-ribbon"><span>ALPHA</span></div>
-					 {{#if currentUser}}
-					 	{{> CommunityHeader}}
-					 {{/if}}
+					 	{{#if isLanding}}
+		 				{{else}}
+							{{#if currentUser}}
+								{{> CommunityHeader}}
+						 	{{/if}}
+						{{/if}}
+
 					<!-- Your content goes here -->
 					{{> Template.dynamic template=main}}
 				</div>

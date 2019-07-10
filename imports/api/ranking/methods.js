@@ -16,7 +16,7 @@ Meteor.methods({
       check(entityId, String);
       check(communityId, String);
       Ranks.remove({ entityType: entityType, entityId: entityId, supporterId: Meteor.userId()});
-      console.log("rank removed");
+      //console.log("rank removed");
       reorderRanks(Meteor.userId());
       return Meteor.call('getRanks',Meteor.userId(),entityType,communityId);
     },

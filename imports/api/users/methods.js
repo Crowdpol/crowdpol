@@ -324,9 +324,9 @@ Meteor.methods({
         if(community){
           if(typeof community._id !=='undefined'){
             if(checkIfUserExists(email,community._id)){
-              console.log("user found");
+              //console.log("user found");
             }else{
-              console.log("could not find email in community");
+              //console.log("could not find email in community");
               testUser = {
                 email:  email,
                 password: Random.id(),
@@ -348,10 +348,10 @@ Meteor.methods({
               });
             }
           }else{
-            console.log("community id not determined");
+            //console.log("community id not determined");
           }
         }else{
-          console.log("global community not found");
+          //console.log("global community not found");
         }
         return null;
         /*

@@ -39,10 +39,7 @@ Template.Delegate.onCreated(function () {
 Template.Delegate.onRendered(function () {
   $( "svg" ).delay( 750 ).fadeIn();
   Meteor.defer(function(){
-    $( "#sortable" ).sortable({
-      create: function( event, ui ) {
-      }
-    });
+    $( "#sortable" ).sortable();
     $( "#sortable" ).disableSelection();
 
     $( "#sortable" ).on("sortchange", sortEventHandler);
@@ -53,11 +50,18 @@ Template.Delegate.onRendered(function () {
 Template.Delegate.helpers({
   rankCount: function(){
     ranked = Session.get('ranked');
+    rankedCount = ranked.length;
+    console.log(ranked.length);
+    if(rankedCount >= 0){
+      return rankedCount;
+    }
+    /*
     if(Array.isArray(ranked)){
       if(ranked.length){
         return Meteor.users.find( { _id : { $in :  ranked} },{sort: ["ranking"]} ).count();
       }
     }
+    */
     return 0;
   },
   notDelegate: function() {
@@ -159,32 +163,33 @@ Template.Delegate.helpers({
     return true;
   },
   filteredRoles: function(roles){
-    let index = roles.indexOf('delegate')
-    if (index !== -1) {
-      roles.splice(index, 1);
+    if(roles){
+      let index = roles.indexOf('delegate')
+      if (index !== -1) {
+        roles.splice(index, 1);
+      }
+      index = roles.indexOf('admin')
+      if (index !== -1) {
+        roles.splice(index, 1);
+      }
+      index = roles.indexOf('superadmin')
+      if (index !== -1) {
+        roles.splice(index, 1);
+      }
+      index = roles.indexOf('demo')
+      if (index !== -1) {
+        roles.splice(index, 1);
+      }
+      index = roles.indexOf('candidate')
+      if (index !== -1) {
+        roles.splice(index, 1);
+      }
+      if(Array.isArray(roles)){
+        return roles;
+      }else{
+        return [];
+      }
     }
-    index = roles.indexOf('admin')
-    if (index !== -1) {
-      roles.splice(index, 1);
-    }
-    index = roles.indexOf('superadmin')
-    if (index !== -1) {
-      roles.splice(index, 1);
-    }
-    index = roles.indexOf('demo')
-    if (index !== -1) {
-      roles.splice(index, 1);
-    }
-    index = roles.indexOf('candidate')
-    if (index !== -1) {
-      roles.splice(index, 1);
-    }
-    if(Array.isArray(roles)){
-      return roles;
-    }else{
-      return [];
-    }
-
   },
   showTags: function(tags){
     if(typeof tags != 'undefined'){
