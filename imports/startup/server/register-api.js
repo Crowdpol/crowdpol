@@ -45,3 +45,6 @@ import '../../api/posts/server/publications.js';
 
 import '../../api/likes/methods.js';
 import '../../api/likes/server/publications.js';
+
+import '../../api/group/methods.js';
+import '../../api/group/server/publications.js';

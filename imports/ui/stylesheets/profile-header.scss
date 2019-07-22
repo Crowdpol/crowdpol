@@ -192,6 +192,11 @@
           height: 100px;
 
       }
+      .profile-image-overlay {
+        margin: -100px 0 0 0px;
+        width: 100px;
+        height: 100px;
+      }
     }
   }
   #profile-details-header.collapsed{
@@ -265,6 +270,11 @@
           width: 200px;
           height: 200px;
 
+      }
+      .profile-image-overlay {
+        margin: -200px 0 0 0px;
+        width: 200px;
+        height: 200px;
       }
     }
   }

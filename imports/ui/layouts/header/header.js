@@ -196,18 +196,23 @@ Template.Header.helpers({
   */
   showLanguages(){
     var langs = Template.instance().community.get().settings.languageSelector;
-    if(langs.length > 1){
-      return true;
+
+    if(langs){
+      return langs;
     }
-    return true;//false;
+
+    return false;
   },
   langs(){
     var langs = LocalStore.get('languages');
-    if (typeof langs !== 'undefined' && langs.length > 0) {
-    // the array is defined and has at least one element
-      //console.log("languages: " + langs);
-      return langs;
+    if(langs){
+      if (typeof langs !== 'undefined' && langs.length > 0) {
+      // the array is defined and has at least one element
+        //console.log("languages: " + langs);
+        return langs;
+      }
     }
+
     //console.log("no langs");
     return 0;
   },

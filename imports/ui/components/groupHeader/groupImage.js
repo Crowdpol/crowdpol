@@ -1,8 +1,6 @@
 import "./profileImage.html"
 import { userfullname } from '../../../utils/users';
 import { username } from '../../../utils/users';
-import { getGroup } from '../../pages/group/group.js';
-import { _ } from 'meteor/underscore';
 
 Template.ProfileImage.onCreated(function() {
 	var dict = new ReactiveDict();
@@ -24,31 +22,11 @@ Template.ProfileImage.helpers({
 	editing: function(){
 		return Template.instance().templateDictionary.get('change-photo');
 	},
-	profileName: function(userId,groupHandle) {
-		if(userId){
-			return userfullname(userId);
-		}
-		if(groupHandle){
-			let group = getGroup();
-			if(group){
-				if(typeof(group.name) !== 'undefined'){
-					return group.name;
-				}
-			}
-
-			/*if(typeof group.name !=== 'undefined'){
-				return group.name;
-			}*/
-		}
+	profileName: function(userId) {
+  	return userfullname(userId);
   },
-  profileUsername: function(userId,groupHandle) {
-		if(userId){
-			return username(userId);
-		}
-		if(groupHandle){
-
-			return groupHandle;
-		}
+  profileUsername: function(userId) {
+  	return username(userId);
   },
 	currentUser: function(){
     if(getOwnerId()==Meteor.userId()){
