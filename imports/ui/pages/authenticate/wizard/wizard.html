@@ -1,0 +1,235 @@
+<template name="Wizard">
+  <div class="container narrow-container auth-wrap">
+    <section id="step1" data-section="1" class="wizard-section">
+      <h1>Step 1</h1>
+      <p>Provide us with your basic information</p>
+      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
+        <input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{profile.username}}">
+        <span id="valid-username" class="valid-username"></span>
+      </div>
+      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
+        <label class="mdl-textfield__label" for="profile-firstname">{{_ "form.firstname"}}</label>
+        <input type="text" name="profileFirstName" id="profileFirstName" class="mdl-textfield__input"  value="{{profile.firstName}}">
+      </div>
+      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label class="mdl-textfield__label" for="profile-lastname">{{_ "form.lastname"}}</label>
+        <input type="text" id="profile-lastname" name="profileLastName" class="mdl-textfield__input" value="{{profile.lastName}}">
+      </div>
+      <div class="input-wrap mdl-textfield mdl-js-textfield">
+        <label class="mdl-textfield__label">{{_ "form.dob"}}</label>
+        <input type="date" name="startDate" id="startDate" class="mdl-textfield__input" value="{{profile.dob}}">
+      </div>
+      <br>
+      <center>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="1">
+          Next
+        </button>
+      </center>
+    </section>
+    <section id="step2" data-section="2" class="wizard-section" style="display:none;">
+      <h1>Step 2</h1>
+      <p>Upload a profile picture</p>
+      <div class="profile-cover">
+        <div id="profile-details-header" class="profile-details app-container collapsed">
+          {{>ProfileImage editable=true userId=userId groupHandle=false}}
+        </div>
+      </div>
+      <!--
+      <button class="mdl-button mdl-js-button mdl-button-raised mdl-button-colored">
+        Upload
+      </button>
+      -->
+      <br>
+      <center>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
+        Back
+      </button>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
+        Skip
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="2">
+        Next
+      </button>
+      </center>
+    </section>
+    <section id="step1" data-section="3" class="wizard-section" style="display:none;">
+      <h1>Step 3</h1>
+      <p>My motto</p>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="sample1">
+        <label class="mdl-textfield__label" for="sample1">If you had a tagline, what would it be?</label>
+      </div>
+      <p>Me at a glance</p>
+      <div class="mdl-textfield mdl-js-textfield">
+        <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
+        <label class="mdl-textfield__label" for="sample5">Write a short presentation about yourself</label>
+      </div>
+      <p>My Proposals</p>
+      {{> NewTaggle showTags=true}}
+      <br>
+      <center>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
+        Back
+      </button>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
+        Skip
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="4">
+        Next
+      </button>
+      </center>
+    </section>
+    <section id="step4" data-section="4" class="wizard-section" style="display:none;">
+      <h1>Step 4</h1>
+      <p>What skills can you contribute</p>
+      <h5>Background and skills</h5>
+      <p>Select labels below that best describe what you would like to contribute with on Crowdpol. The system will use this data to match you with other users for collaborative efforts on proposals and projects.</p>
+      <h5>Select skills</h5>
+      <p>You can add or remove skills at any time.</p>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--6-col">
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Legal</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Business</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Finance</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Marketing</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Environment</span>
+          </label>
+        </div>
+        <div class="mdl-cell mdl-cell--6-col">
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Political</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Management</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Administration</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Design</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Programming</span>
+          </label>
+        </div>
+      </div>
+
+
+      {{>SkillDescription}}
+      <br>
+      <center>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
+        Back
+      </button>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
+        Skip
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="4">
+        Next
+      </button>
+      </center>
+    </section>
+    <section id="step5" data-section="5" class="wizard-section" style="display:none;">
+      <h1>Step 5</h1>
+      <p>External Links</p>
+      <!-- Twitter -->
+      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <i class="fa fa-twitter fa-fw  mdl-textfield__label__icon"></i>
+        <label class="mdl-textfield__label" for="profile-username">Twitter</label>
+        <input type="text" name="twitter" id="twitter" class="mdl-textfield__input" value="{{username}}">
+        <span id="valid-username" class="valid-username"></span>
+      </div>
+      <!-- Google Plus -->
+      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
+        <i class="fa fa-google-plus  mdl-textfield__label__icon" aria-hidden="true"></i>
+        <label class="mdl-textfield__label" for="profile-firstname">Google+</label>
+        <input type="text" name="google" id="google" class="mdl-textfield__input"  value="{{firstName}}">
+      </div>
+      <!-- Linked In -->
+      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <i class="fa fa-linkedin mdl-textfield__label__icon" aria-hidden="true"></i>
+        <label class="mdl-textfield__label" for="profile-lastname">Linked In</label>
+        <input type="text" id="linkedin" name="linkedin" class="mdl-textfield__input" value="{{lastName}}">
+      </div>
+      <!-- Facebook-->
+      <div class="input-wrap mdl-textfield mdl-js-textfield">
+        <i class="fa fa-facebook mdl-textfield__label__icon" aria-hidden="true"></i>
+        <label class="mdl-textfield__label">Facebook</label>
+        <input type="text" id="facebook" name="facebook" class="mdl-textfield__input" value="{{lastName}}">
+      </div>
+      <!-- Instagram -->
+      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <i class="fa fa-instagram mdl-textfield__label__icon" aria-hidden="true"></i>
+        <label class="mdl-textfield__label" for="profile-lastname">Instagram</label>
+        <input type="text" id="instagram" name="instagram" class="mdl-textfield__input" value="{{lastName}}">
+      </div>
+      <p>Website or blog</p>
+      <!-- Website -->
+      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <i class="fa fa-home mdl-textfield__label__icon" aria-hidden="true"></i>
+        <label class="mdl-textfield__label" for="profile-lastname">Website</label>
+        <input type="text" id="website" name="website" class="mdl-textfield__input" value="{{lastName}}">
+      </div>
+      <br>
+      <center>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
+          Back
+        </button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
+          Skip
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="5">
+          Next
+        </button>
+      </center>
+    </section>
+    <section id="step6" data-section="6" class="wizard-section" style="display:none;">
+      <h1>Step 6</h1>
+      <p>Select your location</p>
+      <!-- Location -->
+      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label class="mdl-textfield__label" for="profile-username">Enter your location</label>
+        <input type="text" name="twitter" id="twitter" class="mdl-textfield__input" value="{{username}}">
+        <span id="valid-username" class="valid-username"></span>
+      </div>
+      <p>Map goes here</p>
+      <br>
+      <center>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
+          Back
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-complete" data-step="6">
+          Complete
+        </button>
+      </center>
+    </section>
+  </div>
+
+</template>
+
+<template name="SkillDescription">
+  <div class="mdl-textfield mdl-js-textfield">
+    <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
+    <label class="mdl-textfield__label" for="sample5">Write a few words about your experience in this area (max 520 letters)</label>
+  </div>
+</template>

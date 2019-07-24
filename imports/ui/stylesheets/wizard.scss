@@ -1,0 +1,11 @@
+.mdl-textfield__label__icon {
+ position: absolute;
+ right: 0;
+ top: 30px;
+}
+.mdl-textfield.is-focused .mdl-textfield__label__icon, .mdl-textfield.is-invalid.is-focused .mdl-textfield__label__icon  {
+    color: rgb(63,81,181);
+ }
+.wizard-section#step2{
+  border: solid 1px black;
+}

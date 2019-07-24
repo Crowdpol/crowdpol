@@ -231,6 +231,12 @@ var loggedInRoutes = FlowRouter.group({
   }]
 });
 
+publicRoutes.route('/wizard', {
+  name: 'App.wizard',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Wizard' });
+  },
+});
 
 loggedInRoutes.route('/profile', {
   name: 'App.profile',
