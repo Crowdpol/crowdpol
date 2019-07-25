@@ -431,7 +431,30 @@ Meteor.methods({
             }
         });
 
+    },
+    updateUser(user) {
+    // If the user being edited is also signed in
+    if (user._id && (Meteor.userId() == user._id)) {
+      var id = user._id
+      delete user._id
+      // Check that all the keys are allowed to be updated
+      // The user._id key is first deleted so that this check can pass.
+      var keysAreValid = Object.keys(user).every((field) => {
+        // Only allow latitude and longitude to be updated
+        return ["latitude", "longitude"].indexOf(field) != -1
+      })
+      if (keysAreValid) {
+        // Send an update to the server if the keys are acceptable
+        Meteor.users.update(id, { $set: user, });
+      }  else {
+        // Throw an error if the keys are invalid
+        throw new Error("invalid update fields to user")
+      }
+    } else {
+      // Throw an error if the user being updated isn't signed in
+      throw new Error("invalid userId to update user")
     }
+  }
 });
 
 function profileIsComplete(user){

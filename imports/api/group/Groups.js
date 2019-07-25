@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import SimpleSchema from 'simpl-schema';
 
-export const Group = new Meteor.Collection('Group');
+export const Groups = new Meteor.Collection('groups');
 
 GroupSchema = new SimpleSchema({
   name: {
@@ -127,9 +127,9 @@ GroupSchema = new SimpleSchema({
   }
 });
 
-Group.attachSchema(GroupSchema);
+Groups.attachSchema(GroupSchema);
 
-Group.allow({
+Groups.allow({
   insert() {
     return false;
   },
@@ -141,7 +141,7 @@ Group.allow({
   },
 });
 
-Group.deny({
+Groups.deny({
   insert() {
     return true;
   },

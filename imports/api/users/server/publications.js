@@ -219,3 +219,20 @@ Meteor.publish('adminSearch', function(search) {
 
   return Meteor.users.find( query, projection );
 });
+
+// Publish a list of all signed in users.
+// Only publish this to authenticated users
+Meteor.publish("userStatus", function() {
+  // If there is a current user signed in
+  if (this.userId) {
+    // Publish all online users to the client.
+    return Meteor.users.find(
+      // Use a lookup attribute is provided by the mizzao:meteor-user-status package
+      // to find which users are online
+      { "status.online": true },
+      // Specify custom fields to include while publishing
+      { fields: { latitude: 1, longitude: 1, emails: 1 } }
+    );
+    // If no user is signed in, return an empty array
+  } else { return [] }
+});

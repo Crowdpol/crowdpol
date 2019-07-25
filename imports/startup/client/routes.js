@@ -231,6 +231,12 @@ var loggedInRoutes = FlowRouter.group({
   }]
 });
 
+publicRoutes.route('/wizard', {
+  name: 'App.wizard',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Wizard' });
+  },
+});
 
 loggedInRoutes.route('/profile', {
   name: 'App.profile',
@@ -247,7 +253,7 @@ loggedInRoutes.route('/profile/:id', {
   },
 });
 */
-loggedInRoutes.route('/group', {
+loggedInRoutes.route('/group/:handle?', {
   name: 'App.group',
   action() {
     BlazeLayout.render('App_body', { main: 'Group' });
@@ -326,14 +332,15 @@ loggedInRoutes.route('/proposals/edit/:id?', {
   }
 });
 
-/* Users without an account can see individual proposals */
-
-FlowRouter.route('/proposals/view/:id', {
-  name: 'App.proposal.view',
+loggedInRoutes.route('/proposals/edit/:id?', {
+  name: 'App.proposal.edit',
   action() {
-    BlazeLayout.render('App_body', {main: 'ViewProposal'});
+    BlazeLayout.render('App_body', {main: 'EditProposal'});
   }
 });
+
+/* Users without an account can see individual proposals */
+
 
 loggedInRoutes.route('/delegate', {
   name: 'App.delegate',
@@ -349,6 +356,8 @@ loggedInRoutes.route('/candidate', {
   },
 });
 */
+
+
 // Admin Routes:
 
 var adminRoutes = FlowRouter.group({

@@ -146,6 +146,14 @@
   margin-top: 40px;
 }
 
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+}
+
 @media only screen and (min-width: $tiny){
   .community-header{
     top: 55px;

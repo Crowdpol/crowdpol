@@ -114,7 +114,7 @@ Template.Signup.events({
 	              //console.log(LocalStore.get('currentUserRole'));
 	              //console.log(LocalStore.get('isDelegate'));
 								//console.log("user created, redirecting to /dash");
-								FlowRouter.go('/dash');
+								FlowRouter.go('/wizard');
 							}
 
 								/*Meteor.call('sendVerificationLink', (error, response) => {
