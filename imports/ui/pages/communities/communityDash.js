@@ -1,6 +1,7 @@
 import { Communities } from '../../../api/communities/Communities.js';
-import { Group } from '../../../api/group/Group.js';
+import { Groups } from '../../../api/group/Groups.js';
 import { setCommunity } from '../../../utils/community';
+import RavenClient from 'raven-js';
 import './communityDash.html';
 
 Template.CommunityDash.onCreated(function(){
@@ -22,6 +23,7 @@ Template.CommunityDash.onCreated(function(){
   //subscriptions
   self.autorun(function() {
     self.subscribe("communities.children",LocalStore.get('communityId'));
+    self.subscribe("groups.community",LocalStore.get('communityId'));
   });
   /*
   $('.page-content').scroll(function(){
@@ -127,7 +129,9 @@ Template.CommunityDash.events({
     let group = {
       name: $("#group-name").val(),
       handle: $("#group-username").val(),
-      open: template.openGroup.get()
+      isOpen: template.openGroup.get(),
+      communityId: LocalStore.get('communityId'),
+      isArchived: false
     }
     console.log(group);
     if(group.name == ''){
@@ -148,6 +152,9 @@ Template.CommunityDash.events({
         //Bert.alert(TAPi18n.__('pages.delegates.alerts.ranking-updated'), 'success');
       }
     });
+  },
+  'click .group-card': function(event, template){
+    event.preventDefault();
   }
 });
 
@@ -167,7 +174,7 @@ Template.CommunityDash.helpers({
     var communityId = LocalStore.get('communityId');
     return Communities.find({"parentCommunity":communityId}).count();
   },
-  groupCount: function(){
+  communityGroupCount: function(){
     return 1;
   },
   delegatesCount: function(){
@@ -187,7 +194,8 @@ Template.CommunityDash.helpers({
     return 'url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2';
   },
   groups: function(){
-    return Group.find();
+    //console.log("Groups count: " + Groups.find().count());
+    return Groups.find();
   }
 });
 
@@ -200,3 +208,11 @@ closeCreateGroupModal = function(event) {
   $(".create-group-modal").removeClass('active');
   $("#overlay").removeClass('dark-overlay');
 }
+/*
+Template.CreateGroupModal.events({
+  'click #create-group': function(event, template){
+    event.preventDefault();
+    console.log("creating group");
+  }
+})
+*/

@@ -21,9 +21,9 @@
 				{{/if}}
 				{{#if isDelegate}}
 					{{#if usingAsDelegate}}
-						<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only change-role" href="javascript:void(0" data-role="{{otherRole}}">{{otherRoleText}}</a>
+						<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only change-role" data-role="{{otherRole}}">{{otherRoleText}}</a>
 					{{else}}
-						<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only change-role" href="javascript:void(0" data-role="delegate">{{_ "layout.header.nav_use_delegate"}}</a>
+						<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only change-role" data-role="delegate">{{_ "layout.header.nav_use_delegate"}}</a>
 					{{/if}}
 				{{/if}}
 				<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/feed">{{_ "layout.drawer.nav_feed"}}</a>

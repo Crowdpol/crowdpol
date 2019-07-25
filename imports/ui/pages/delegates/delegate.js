@@ -50,11 +50,13 @@ Template.Delegate.onRendered(function () {
 Template.Delegate.helpers({
   rankCount: function(){
     ranked = Session.get('ranked');
-    rankedCount = ranked.length;
-    console.log(ranked.length);
-    if(rankedCount >= 0){
-      return rankedCount;
+    if(ranked){
+      rankedCount = ranked.length;
+      if(rankedCount >= 0){
+        return rankedCount;
+      }
     }
+
     /*
     if(Array.isArray(ranked)){
       if(ranked.length){

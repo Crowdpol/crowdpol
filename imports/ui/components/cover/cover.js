@@ -46,7 +46,7 @@ Template.Cover.onRendered(function() {
     //console.log("cover.js self autorun");
     //check if coverURL has been set, else switch to default
     let coverURL = Session.get('coverURL');
-    if(typeof coverURL=='undefined'){
+    if(coverURL==='undefined'){
       Session.set("coverURL",defaultURL);
     }
     //check if hasCover has been set
@@ -67,10 +67,11 @@ Template.Cover.onRendered(function() {
     */
 
     let editState = Template.instance().dict.get("coverEdit");
-    if(editState==false){
-      $('#cover-image').css("background-image",Session.get('coverURL'));
+    $('#cover-image').css("background-image",Session.get('coverURL'));
+    /*if(editState==false){
+
       $('#cover-image').css("background-position",defaultPosition);//Session.get('coverPosition'));
-    }
+    }*/
     //console.log("cover.js self autorun finished,coverState: "+Session.get("coverState"));
     setCoverState(Session.get("coverState"));
 

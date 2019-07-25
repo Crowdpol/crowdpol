@@ -1,6 +1,7 @@
 import './authenticate.html';
 import './signup/signup.js';
 import './login/login.js';
+import './wizard/wizard.js';
 import "../../components/termsModal/termsModal.js"
 import RavenClient from 'raven-js';
 
@@ -27,7 +28,7 @@ Template.Authenticate.events({
       	RavenClient.captureException(err);
         Bert.alert(err.reason, 'danger');
       }else{
-				FlowRouter.go('/dash');
+				FlowRouter.go('/wizard');
       }
     });
 	},
@@ -38,7 +39,7 @@ Template.Authenticate.events({
 	      	RavenClient.captureException(err);
 	        Bert.alert(err.reason, 'danger');
 	      }else{
-					FlowRouter.go('/dash');
+					FlowRouter.go('/wizard');
 	      }
 	    });
 	},

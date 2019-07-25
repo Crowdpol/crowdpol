@@ -20,7 +20,8 @@ Template.Home.onCreated(function() {
 Template.Home.helpers({
 	backgroundImage: function() {
 		var imagePath = Template.instance().community.get().settings.homepageImageUrl;
-		return "url('" + imagePath + "')"
+		//return "url('" + imagePath + "')";
+    return imagePath;
 	},
 	heading: function() {
 		return Template.instance().community.get().name;

@@ -46,4 +46,5 @@ import './labels.scss';
 import './not-found.scss';
 import './communities.scss';
 import './usersearch.scss';
+import './wizard.scss';
 import './modals/createGroupModal.scss';
