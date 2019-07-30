@@ -1,8 +1,9 @@
-import am4core from "@amcharts/amcharts4/core";
-import am4charts from "@amcharts/amcharts4/charts";
+//import am4core from "@amcharts/amcharts4/core";
+//import am4charts from "@amcharts/amcharts4/charts";
 import './amchart.html'
 
 Template.AmChart.onCreated(function(){
+  console.log("yes, you can see the amchart");
   self = this;
   //Local Storage
   var communityId = LocalStore.get('communityId');
@@ -32,7 +33,7 @@ Template.AmChart.onRendered(function(){
    * Documentation is available at:
    * https://www.amcharts.com/docs/v4/
    * ---------------------------------------
-   */
+
 
   // Themes begin
   am4core.useTheme(am4themes_animated);
@@ -189,9 +190,11 @@ Template.AmChart.onRendered(function(){
   label.dy = -5;
   label.text = "Back to continents map";
   label.states.create("hover").properties.fill = hoverColor;
+  */
 });
 
 Template.AmChart.events({
+  /*
 	'keyup #some-id': function(event, template){
 		Session.set('searchPhrase',event.target.value);
 	},
@@ -213,11 +216,12 @@ Template.AmChart.events({
         Bert.alert(TAPi18n.__('pages.delegates.alerts.ranking-updated'), 'success');
       }
     });
-  },
+  }
+  */
 });
 
 Template.AmChart.helpers({
-	example: function(){
+	communityId: function(){
     communityId = Template.instance().templateDictionary.get( 'communityId' );
     return communityId;
   },
