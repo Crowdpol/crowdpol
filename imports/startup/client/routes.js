@@ -131,6 +131,13 @@ publicRoutes.route('/terms', {
   },
 });
 
+publicRoutes.route('/amchart', {
+  name: 'App.amchart',
+  action() {
+    BlazeLayout.render('App_body', { main: 'AmChart' });
+  },
+});
+
 publicRoutes.route('/about', {
   name: 'App.about',
   action() {

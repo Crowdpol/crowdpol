@@ -1,3 +1,4 @@
+import './amchart.js';
 import './test.html';
 import './test.scss';
 
