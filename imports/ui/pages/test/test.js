@@ -1,4 +1,5 @@
 import './amchart.js';
+import './leaflet.js';
 import './test.html';
 import './test.scss';
 

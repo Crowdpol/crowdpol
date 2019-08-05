@@ -1,0 +1,37 @@
+<template name="CommunityNav">
+  <style>
+    .leaflet-control-attribution{
+      display:none;
+    }
+  </style>
+  <div id="community-map" style="min-height: 350px; min-width: 100%;">
+
+  </div>
+  <div class="container app-container">
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+      <div class="mdl-tabs__tab-bar">
+          <a href="#proposals-panel" class="mdl-tabs__tab is-active">Proposals</a>
+          <a href="#groups-panel" class="mdl-tabs__tab">Groups</a>
+          <a href="#delegates-panel" class="mdl-tabs__tab">Delegates</a>
+      </div>
+
+      <div class="mdl-tabs__panel is-active" id="proposals-panel">
+        <ul class="demo-list-control mdl-list">
+          {{#each openProposals false}}
+            {{> VotingCard}}
+          {{else}}
+            {{_ "pages.voting.no-open-proposals"}}
+            <a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="mdl-tabs__panel" id="groups-panel">
+        Community Groups Go here
+      </div>
+      <div class="mdl-tabs__panel" id="delegates-panel">
+        Community Delegates go here
+      </div>
+    </div>
+
+  </div>
+</template>
