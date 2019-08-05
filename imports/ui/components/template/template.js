@@ -1,5 +1,5 @@
 import './template.html'
-/*
+
 Template.InsertName.onCreated(function(){
   self = this;
   //Local Storage
@@ -17,6 +17,7 @@ Template.InsertName.onCreated(function(){
   self.autorun(function() {
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
   });
+});
 
 Template.InsertName.onRendered(function(){
 
@@ -45,6 +46,7 @@ Template.InsertName.events({
       }
     });
   },
+});
 
 Template.InsertName.helpers({
 	example: function(){
@@ -52,4 +54,3 @@ Template.InsertName.helpers({
     return communityId;
   },
 });
-*/
