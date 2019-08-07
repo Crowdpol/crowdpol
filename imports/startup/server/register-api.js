@@ -48,3 +48,6 @@ import '../../api/likes/server/publications.js';
 
 import '../../api/group/methods.js';
 import '../../api/group/server/publications.js';
+
+import '../../api/maps/methods.js';
+import '../../api/maps/server/publications.js';
