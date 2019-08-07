@@ -4,6 +4,54 @@ import { Tracker } from 'meteor/tracker';
 
 export const Communities = new Meteor.Collection('communities');
 
+CommunityMap = new SimpleSchema({
+  type: {
+      type: String,
+      optional: true,
+      allowedValues: ['map','url'],
+      defaultValue: 'map'
+  },
+  geosjon: {
+     //URL that identifies this map
+    type: String,
+    optional: true,
+  }
+});
+
+CommunityMembers = new SimpleSchema({
+    /*
+        These settings include all customisable options
+    */
+    ambassador: {
+        type: String,
+        optional: true,
+    },
+    admins: {
+      type: Array,
+      optional: true,
+    },
+    "admins.$": {
+      type: String,
+      optional: true
+    },
+    members: {
+      type: Array,
+      optional: true,
+    },
+    "members.$": {
+      type: String,
+      optional: true
+    },
+    members: {
+      type: Array,
+      optional: true,
+    },
+    "members.$": {
+      type: String,
+      optional: true
+    }
+});
+
 CommunitySettings = new SimpleSchema({
     /*
         These settings include all customisable options
@@ -128,6 +176,14 @@ Community = new SimpleSchema({
     settings: {
         type: CommunitySettings,
         optional: true
+    },
+    members: {
+        type: CommunityMembers,
+        optional: true
+    },
+    map: {
+      type: CommunityMap,
+      optional: true
     },
     isArchived: {
       type: Boolean,

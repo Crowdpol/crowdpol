@@ -50,6 +50,7 @@
 						<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 							<div class="mdl-tabs__tab-bar">
 									<a href="#details-panel" class="mdl-tabs__tab is-active">Details</a>
+									<a href="#maps-panel" class="mdl-tabs__tab">Map</a>
 									<a href="#admins-panel" class="mdl-tabs__tab">Admins</a>
 							</div>
 
@@ -115,6 +116,24 @@
 										<input type="submit" class="mdl-button mdl-js-button mdl-button--raised" value='Submit' id="save-community">
 									</div>
 								</form>
+							</div>
+							<div class="mdl-tabs__panel" id="maps-panel">
+									<div>
+										<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect map-type" for="map-radio">
+											<input type="radio" id="map-radio" class="mdl-radio__button" name="map-type" value="map" checked>
+											<span class="mdl-radio__label">Map</span>
+										</label>
+										<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect map-type" for="geojson-radio">
+											<input type="radio" id="geojson-radio" class="mdl-radio__button" name="map-type" value="geojson">
+											<span class="mdl-radio__label">geoJSON</span>
+										</label>
+									</div>
+									<br>
+									<div class="mdl-textfield mdl-js-textfield">
+										<textarea class="mdl-textfield__input" type="text" rows= "3" id="map-content" ></textarea>
+										<label class="mdl-textfield__label" for="map-content">Map</label>
+									</div>
+
 							</div>
 							<div class="mdl-tabs__panel" id="admins-panel">
 								{{#if communitySelected}}

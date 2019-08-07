@@ -158,6 +158,12 @@ Template.AdminCommunities.events({
       $('#colorScheme-wrapper').hide();
     }
   },
+  'click #map-radio': function(event, template){
+    console.log("map");
+  },
+  'click #geojson-radio': function(event, template){
+    console.log("geojson");
+  },
   'click .dropdown-item-parent-community': function(event, template){
 		template.find('#parentCommunityId').value = event.target.dataset.val;
 		template.find('#parentCommunity').value = event.target.dataset.name;
@@ -190,6 +196,14 @@ Template.AdminCommunities.events({
       console.log("isRootCheckbox is not set");
       isRoot = false;
     }
+    var map = {};
+    let mapContent = $('#map-content').val();
+    if(mapContent){
+      map = {
+        type: 'map',
+        geosjon: mapContent,
+      }
+    }
     var community = {
       name: template.find("#name").value,
       subdomain: template.find("#subdomain").value,
@@ -202,6 +216,7 @@ Template.AdminCommunities.events({
         enforceWhitelist: false,
         showDates: true,
       },
+      map: map,
       isArchived: false,
     }
     Meteor.call('createCommunity', community, function(error){
