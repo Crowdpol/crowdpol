@@ -18,6 +18,16 @@ Meteor.methods({
           throw new Meteor.Error(422, 'A community with that subdomain already exists!');
         }
       }
+      existing = Communities.find({iso3166key: community.iso3166key}).count();
+      console.log("existing community count from community add method: " + existing);
+      if (existing > 0) {
+        console.log("exisiting community count caught, should fail")
+        if(typeof existing.iso3166key !=='undefined'){
+          throw new Meteor.Error(422, 'A community with that iso3166key already exists!');
+        }
+      }else{
+        console.log("exisiting community count in method check: " + existing);
+      }
 	    return Communities.insert(community);
     },
     editCommunity: function (community) {
@@ -25,6 +35,7 @@ Meteor.methods({
         _id: String,
         name: String,
         subdomain: Match.Maybe(String),
+        iso3166key: Match.Maybe(String),
         isRoot: Boolean,
         parentCommunity: Match.Maybe(String),
         isArchived: Match.Maybe(Boolean),

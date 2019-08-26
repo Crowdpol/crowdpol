@@ -1,0 +1,110 @@
+<template name="AdminMaps">
+
+  <div id="community-map" style="min-height: 350px; min-width: 100%;">
+
+  </div>
+  <div id="summaryLabel">
+      <p>Click a garden or food pantry on the map to get more information.</p>
+      {{#each value in breadcrumbs}}
+         <p>{{value}}</p>
+      {{/each}}
+  </div>
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+      <div class="card">
+        <h5>Parent Map</h5>
+        <table class="mdl-data-table mdl-js-data-table">
+          <tr>
+            <th>Root Community</th>
+            <td>{{selectedMap.geometry.rootCommunityId}}</td>
+          </tr>
+          <tr>
+            <th>Root Map</th>
+            <td>{{selectedMap.geometry.rootMap}}</td>
+          </tr>
+          <tr>
+            <th>ISO Key</th>
+            <td>{{selectedMap.properties.iso3166key}}</td>
+          </tr>
+          <tr>
+            <th>Community</th>
+            <td>{{selectedMap.properties.communityId}}</td>
+          </tr>
+          <tr>
+            <th>Type</th>
+            <td>{{selectedMap.geometry.type}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+      <div class="card">
+        <h5>Child Map</h5>
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+          <div class="mdl-tabs__tab-bar">
+              <a href="#form-panel" class="mdl-tabs__tab is-active">Form</a>
+              <a href="#geojson-panel" class="mdl-tabs__tab">geoJSON</a>
+          </div>
+
+          <div class="mdl-tabs__panel is-active" id="form-panel">
+            <form action="#" id="map-form">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="mapCommunityId" value="{{selectedMap.properties.communityId}}">
+                <label class="mdl-textfield__label" for="mapCommunityId">Root Community</label>
+              </div>
+              <!--
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="mapId" value="{{selectedMap._id}}">
+                <label class="mdl-textfield__label" for="mapId">ID</label>
+              </div>
+              -->
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="mapType" value="Feature" disabled="disabled">
+                <label class="mdl-textfield__label" for="mapType">Type</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="mapCommunityId">
+                <label class="mdl-textfield__label" for="mapCommunityId">Community</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="mapIsoKey">
+                <label class="mdl-textfield__label" for="mapIsoKey">Iso Key</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="mapRootMap" value="{{selectedMap.properties.key}}">
+                <label class="mdl-textfield__label" for="mapRootMap">Root Map</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield">
+                <textarea class="mdl-textfield__input" type="text" rows= "5" id="mapCoordinates" ></textarea>
+                <label class="mdl-textfield__label" for="mapCoordinates">Coordinates</label>
+              </div>
+              <br>
+              <button class="mdl-button mdl-js-button" id="save-form">
+                Save
+              </button>
+              <button class="mdl-button mdl-js-button clear-form">
+                Clear Form
+              </button>
+            </form>
+          </div>
+          <div class="mdl-tabs__panel" id="geojson-panel">
+            <form action="#" id="geojson-form">
+              <div class="mdl-textfield mdl-js-textfield">
+                <textarea class="mdl-textfield__input" type="text" rows= "25" id="mapJSON" ></textarea>
+                <label class="mdl-textfield__label" for="mapJSON">JSON</label>
+              </div>
+              <br>
+              <button class="mdl-button mdl-js-button" id="save-geojson">
+                Save
+              </button>
+              <button class="mdl-button mdl-js-button clear-form">
+                Clear Form
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

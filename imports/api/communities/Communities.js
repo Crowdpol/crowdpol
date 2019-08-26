@@ -156,6 +156,10 @@ Community = new SimpleSchema({
         type: String,
         optional: true
     },
+    iso3166key:{
+        type: String,
+        optional: true
+    },
     isRoot: {
       type: Boolean,
       optional: false,

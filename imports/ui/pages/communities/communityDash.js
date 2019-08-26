@@ -22,6 +22,8 @@ Template.CommunityDash.onCreated(function(){
   dict.set("communityId",communityId);
   //subscriptions
   self.autorun(function() {
+    //self.subscribe("maps.children",LocalStore.get('communityId'));
+    self.subscribe("maps.all");
     self.subscribe("communities.children",LocalStore.get('communityId'));
     self.subscribe("groups.community",LocalStore.get('communityId'));
   });
@@ -53,6 +55,7 @@ Template.CommunityDash.onRendered(function(){
     }
   });
   */
+  
 });
 
 Template.CommunityDash.events({

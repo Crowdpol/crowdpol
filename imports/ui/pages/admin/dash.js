@@ -9,6 +9,7 @@ import './flags/flags.js';
 import './dash.html';
 import './communities/communities.js'
 import './settings/settings.js'
+import './maps/maps.js'
 
 Template.registerHelper('currentUserHasAdmin', function(){
 	var user = Meteor.user();
@@ -93,7 +94,7 @@ Template.AdminDash.onRendered(function() {
 
 Template.AdminDash.helpers({
   currentTemplate: function() {
-		console.log(Session.get("adminTemplate"));
+		//console.log(Session.get("adminTemplate"));
   	return Session.get("adminTemplate");
   },
 	//check if current user has admin rights
@@ -129,6 +130,6 @@ Template.AdminDash.helpers({
 Template.AdminDashHeader.events({
 	'click .menu__link': function(event, template){
 		Session.set("adminTemplate",event.target.dataset.template);
-		console.log(event.target.dataset.template);
+		//console.log(event.target.dataset.template);
 	},
 });

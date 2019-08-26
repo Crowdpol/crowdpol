@@ -4,22 +4,10 @@ import SimpleSchema from 'simpl-schema';
 
 export const Maps = new Mongo.Collection('maps');
 
-const MapSchema = new SimpleSchema({
-  type: {
+MapProperties = new SimpleSchema({
+  key: {
       type: String,
       optional: true,
-      allowedValues: ['map','url'],
-      defaultValue: 'map'
-  },
-  geosjon: {
-     //URL that identifies this map
-    type: String,
-    optional: true,
-  },
-  url: {
-     //URL that identifies this map
-    type: String,
-    optional: true,
   },
   createdAt: {
     //Creation Date
@@ -31,6 +19,116 @@ const MapSchema = new SimpleSchema({
       }
     }
   },
+  rootMap: {
+    type: String,
+    optional: true
+  },
+  communityId: {
+    type: String,
+    optional: true
+  },
+  rootCommunityId: {
+    type: String,
+    optional: true
+  },
+  name: {
+    type: String,
+    optional: true
+  }
+});
+
+GeocoordsSchema = new SimpleSchema({
+  lng: {
+    type : Number,
+    //decimal: true,
+    min: -180,
+    max: 180
+  },
+  lat: {
+    type : Number,
+    //decimal: true,
+    min: -90,
+    max: 90
+  }
+});
+
+MapGeometry = new SimpleSchema({
+  type: {
+      type: String,
+      optional: true,
+      allowedValues: ["Point","LineString","Polygon","MultiPoint","MultiLineString","MultiPolygon"],
+      defaultValue: "Polygon"
+  },
+  coordinates: {
+    type: Array,
+    optional: true,
+  },
+  "coordinates.$": {
+    type: Array
+  },
+  "coordinates.$.$": {
+    type: Array
+  }
+  ,
+  "coordinates.$.$.$": {
+    type: Number
+  },
+  multiCoordinates: {
+    type: Array,
+    optional: true,
+  },
+  "multiCoordinates.$": {
+    type: Array
+  },
+  "multiCoordinates.$.$": {
+    type: Array
+  },
+  "multiCoordinates.$.$.$": {
+    type: Array
+  },
+  "multiCoordinates.$.$.$.$": {
+    type: Number
+  }
+  /*
+  coordinates:{
+    type: Object,
+    blackbox: true
+  },*/
+
+  /*
+  "coordinates.$": {
+    type: GeocoordsSchema,
+    optional: true
+  },
+  coordinates: {
+    type: Array,
+    optional: true,
+  },
+  */
+});
+
+const MapSchema = new SimpleSchema({
+  type: {
+      type: String,
+      optional: true,
+      allowedValues: ["Feature"],
+      defaultValue: "Feature"
+  },
+  properties: {
+      type: MapProperties,
+      optional: true,
+  },
+  /*
+  geometry: {
+      type: MapGeometry,
+      optional: true
+  },
+  */
+  geometry: { 
+    type: Object,
+    optional: true,
+    blackbox: true
+  },
   lastUpdate: {
     //Last update
     type: Date,
@@ -38,15 +136,7 @@ const MapSchema = new SimpleSchema({
     autoValue: function () {
       return new Date();
     }
-  },
-  communityId: {
-    type: String,
-    optional: false
-  },
-  rootCommunityId: {
-    type: String,
-    optional: false
-  },
+  }
 });
 
 Maps.attachSchema(MapSchema);
