@@ -47,4 +47,5 @@ import './not-found.scss';
 import './communities.scss';
 import './usersearch.scss';
 import './wizard.scss';
+import './maps.scss';
 import './modals/createGroupModal.scss';

@@ -118,17 +118,18 @@ const MapSchema = new SimpleSchema({
       type: MapProperties,
       optional: true,
   },
-  /*
+
   geometry: {
       type: MapGeometry,
       optional: true
   },
-  */
-  geometry: { 
+  /*
+  geometry: {
     type: Object,
     optional: true,
     blackbox: true
   },
+  */
   lastUpdate: {
     //Last update
     type: Date,

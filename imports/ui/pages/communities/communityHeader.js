@@ -38,7 +38,7 @@ Template.CommunityHeader.events({
       }
       $("#communities-tab").show();
       $('*[data-tab="communities-tab"]').addClass("active");
-      FlowRouter.go('App.dash');
+      //FlowRouter.go('App.dash');
     }
   }
 });

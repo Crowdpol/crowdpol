@@ -15,11 +15,15 @@ Template.AdminMaps.onCreated(function(){
   self = this;
   //Local Storage
   var communityId = LocalStore.get('communityId');
+  var dict = new ReactiveDict();
+	self.dict = dict;
+  dict.set('communityId',communityId);
   Session.set('selectedCommunity','Global');
   Session.set('selectedMap','GLOBAL');
   Session.set('breadcrumbs',['GLOBAL']);
   self.autorun(function() {
     //self.subscribe("maps.all");
+    self.subscribe("communities.all");
     dataSet1.sub = self.subscribe("maps.all");
     dataSet1.ready = new ReactiveVar(false);
     // autorun for getting the data and handling it
@@ -28,22 +32,24 @@ Template.AdminMaps.onCreated(function(){
         // process dataset1
         // after processing set ready variable
         dataSet1.ready.set(true);
-        console.log("data is ready");
+        //console.log("data is ready");
       }
     });
-    console.log(dataSet1.ready);
+    //console.log(dataSet1.ready);
     if(dataSet1.sub.ready()) {
-      console.log("calling load map");
-      console.log("mapCount: " + Maps.find().count());
+      //console.log("calling load map");
+      //console.log("mapCount: " + Maps.find().count());
       mapsData = buildGeoJSON("GLOBAL");
-      loadMap(LocalStore.get('communityId'));
+
+      //load geoJSON from DB
+      loadGeoJSON();
     }
   });
 
 });
 
 Template.AdminMaps.onRendered(function(){
-
+  loadMap(LocalStore.get('communityId'));
 });
 
 Template.AdminMaps.events({
@@ -59,25 +65,20 @@ Template.AdminMaps.events({
   },
   'click #save-form': function(event,template){
     event.preventDefault();
-    let geojson = {
-	    "type": "Feature",
-	    "properties": {
-	      "iso3166key":$("#mapIsoKey").val(),
-	      "rootMap":$("#mapRootMap").val(),
-	      "communityId":$("#mapCommunityId").val(),
-	      "rootCommunityId":$("#mapCommunityId").val(),
-	    },
-	    "geometry": {
-	      "type": "Polygon",
-	      "coordinates":$("#mapCoordinates").val()
-	    }
+    let mapId = $("#mapId").val()
+    let properties = {
+	     "key": $("#mapKey").val(),
+	     "rootMap": $("#mapRootMap").val(),
+	     "communityId": $("#community").val(),
+	     "rootCommunityId": $("#rootCommunity").val(),
+       "name": $("#mapName").val(),
 	  }
-    //console.log(geojson.geometry.coordinates);
-    Meteor.call('addMap', geojson, function(error){
+    console.log(properties);
+    Meteor.call('updateMapProperties', mapId,properties, function(error){
 			if (error){
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert("Map added",'success');
+				Bert.alert("Map updated",'success');
 			}
 		});
   },
@@ -86,7 +87,7 @@ Template.AdminMaps.events({
     let geoJSON = JSON.parse($("#mapJSON").val());
     let maps = geoJSON.maps;
     _.each(maps, function(map,index){
-        console.log(index + " " + map);
+        //console.log(index + " " + map);
 
         Meteor.call('addMap', map, function(error){
     			if (error){
@@ -111,7 +112,24 @@ Template.AdminMaps.helpers({
     let breadcrumbs = Session.get('breadcrumbs');
     //console.log(breadcrumbs);
     return breadcrumbs;
-  }
+  },
+  communities: function(){
+    return Communities.find();
+  },
+  isSelectedCommunity: function(id){
+    let communityId = Template.instance().dict.get('communityId');
+    if(communityId==id){
+      return true;
+    }
+    return false;
+  },
+  childCommunities: function(){
+    let selectedCommunity = Template.instance().dict.get('communityId');
+    return Communities.find({'parentCommunity':selectedCommunity});
+  },
+  isSelectedChildCommunity: function(id){
+    return false;
+  },
 });
 
 function loadMap(communityId){
@@ -122,7 +140,14 @@ function loadMap(communityId){
   map = L.map('community-map', {
     doubleClickZoom: false,
     zoomControl: false,
-    //minZoom: 3
+    zoom: 3,
+    minZoom: 2,
+    center: [49.009952, 2.548635],
+    //        maxBounds: [[-90.0,-180.0],[90.0,180.0]]
+    maxBounds: [
+        [-85.0, -180.0],
+        [85.0, 180.0]
+    ]
   });
   //set starting view
   map.setView([62.54114431714147, 16.192131042480472], 3);
@@ -134,25 +159,54 @@ function loadMap(communityId){
 
   //load base tiles map, to see more: https://leaflet-extras.github.io/leaflet-providers/preview/
   var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
-  //tiles.addTo(map);
+  tiles.addTo(map);
 
-  //load geoJSON from DB
-  loadGeoJSON();
+  L.Map.include({
+  	panInsideBounds: function(bounds) {
+  		bounds = L.latLngBounds(bounds);
+
+  		var viewBounds = this.getBounds(),
+  		    viewSw = this.project(viewBounds.getSouthWest()),
+  		    viewNe = this.project(viewBounds.getNorthEast()),
+  		    sw = this.project(bounds.getSouthWest()),
+  		    ne = this.project(bounds.getNorthEast()),
+  		    dx = 0,
+  		    dy = 0,
+  		    cp;	// compensate for projection (only works for map mercator)
+
+  	 	if (viewNe.y < ne.y) { // north
+  			cp = this.latLngToContainerPoint([85.05112878, 0]).y;
+  			dy = ne.y - viewNe.y + (cp > 0 ? cp : 0);
+  		}
+  		if (viewNe.x > ne.x) { // east
+  			dx = ne.x - viewNe.x;
+  		}
+  		if (viewSw.y > sw.y) { // south
+  			cp = this.latLngToContainerPoint([-85.05112878, 0]).y - this.getSize().y;
+  			dy = sw.y - viewSw.y + (cp < 0 ? cp : 0);
+  		}
+  		if (viewSw.x < sw.x) { // west
+  			dx = sw.x - viewSw.x;
+  		}
+    }
+  });
+
+
 
 }
 
 function loadGeoJSON(){
   //start with the global map (i.e. load countries)
   //var mapsData = buildGeoJSON("GLOBAL");
-  console.log('starting to load geojson, map should have built by now');
-  console.log(mapsData);
+  //console.log('starting to load geojson, map should have built by now');
+  //console.log(mapsData);
   mapLayer = new L.geoJSON(mapsData,{
     style: mapStyle,
     onEachFeature: mapOnEachFeature
   });
 
   mapLayer.addTo(map);
-  console.log(mapLayer.getBounds());
+  //console.log(mapLayer.getBounds());
   map.fitBounds(mapLayer.getBounds());
   /*
   // handle clicks on the map that didn't hit a feature
@@ -169,11 +223,11 @@ function loadGeoJSON(){
 
 //accepts root map iso code and returns geoJSON object of child maps
 function buildGeoJSON(rootMap){
-  console.log("buildGeoJSON started");
+  //console.log("buildGeoJSON started");
   let maps = Maps.find({"properties.rootMap":rootMap}).fetch();
   let geoJSON = null;
   let mapCollection = [];
-  console.log("maps.length: " + maps.length);
+  //console.log("maps.length: " + maps.length);
   if(maps.length){
     _.each(maps, function(map,index){
       let thisMap = map;
@@ -204,7 +258,7 @@ function buildGeoJSON(rootMap){
   }else{
     console.log("maps query is of 0 length");
   }
-  console.log("finished building geojson");
+  //console.log("finished building geojson");
   return geoJSON;
 }
 
@@ -213,18 +267,18 @@ function mapStyle(feature) {
   return {
     fillColor: "#616161",
     fillOpacity: 0.2,
-    //color: '#8c8c8c',
+    color: '#8c8c8c',
     stroke: false,
-    //weight: 1
+    weight: 1
   };
 }
 function mapSelectedStyle(feature) {
   return {
     fillColor: "#ff8f8f",
-    //color: '#ff6363',
+    color: '#ff6363',
     fillOpacity: 0.2,
     stroke: false,
-    //weight: 1
+    weight: 1
   };
 }
 
@@ -258,10 +312,12 @@ function mapOnEachFeature(feature, layer){
       selectedLayer = mapLayer;
       Session.set('selectedMap',selection.feature);
       //console.log(selection.feature);
+      /* THIS LOADS CHILD MAPS
       let rootMap = selection.feature.properties.iso3166key;
       if(Maps.find({"properties.rootMap":rootMap}).count()){
         loadNewLayer(rootMap);
       }
+      */
       // Insert some HTML with the feature name
       buildSummaryLabel(feature);
 
@@ -295,11 +351,12 @@ function resetStyles(){
   }
 }
 
+
 function loadNewLayer(rootMap){
-  console.log(Maps.find({"properties.rootMap":rootMap}).count());
+  //console.log(Maps.find({"properties.rootMap":rootMap}).count());
   let maps = Maps.find({"properties.rootMap":rootMap});
   let geoJSON = buildGeoJSON(rootMap);
-  console.log(geoJSON);
+  //console.log(geoJSON);
   var newLayer = new L.geoJSON(geoJSON,{
     style: mapStyle,
     onEachFeature: mapOnEachFeature

@@ -71,5 +71,16 @@ Meteor.methods({
         console.log("maps query is of 0 length");
       }
       return geoJSON;
+    },
+    updateMapProperties: function(mapId,properties){
+      check(mapId, String);
+      check(properties, {
+          name: Match.Maybe(String),
+          key: Match.Maybe(String),
+          rootMap: Match.Maybe(String),
+          communityId: Match.Maybe(String),
+          rootCommunityId: Match.Maybe(String)
+      });
+      return Maps.update({_id: mapId}, {$set:{'properties':properties}});
     }
 });
