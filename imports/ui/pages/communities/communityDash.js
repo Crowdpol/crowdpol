@@ -384,7 +384,7 @@ function mapStyle(feature) {
     fillColor: "#616161",
     fillOpacity: 0.2,
     color: '#8c8c8c',
-    stroke: false,
+    stroke: true,
     weight: 1
   };
 }
@@ -393,7 +393,7 @@ function mapSelectedStyle(feature) {
     fillColor: "#ff8f8f",
     color: '#ff6363',
     fillOpacity: 0.2,
-    stroke: false,
+    stroke: true,
     weight: 1
   };
 }
@@ -428,12 +428,12 @@ function mapOnEachFeature(feature, layer){
       selectedLayer = mapLayer;
       Session.set('selectedMap',selection.feature.properties.key);
       //console.log(selection.feature);
-      /* THIS LOADS CHILD MAPS
-      let rootMap = selection.feature.properties.iso3166key;
+      /* THIS LOADS CHILD MAPS*/
+      let rootMap = selection.feature.properties.key;
       if(Maps.find({"properties.rootMap":rootMap}).count()){
         loadNewLayer(rootMap);
       }
-      */
+
       // Insert some HTML with the feature name
       //buildSummaryLabel(feature);
 
@@ -444,11 +444,37 @@ function mapOnEachFeature(feature, layer){
       highlightFeature(e);
     },
     mouseout: function(e) {
-      //console.log(e);
-      resetHighlight(e);
+      layer.setStyle(mapStyle());
+      info.update();
+
     }
   });
 }
+
+function loadNewLayer(rootMap){
+  //console.log("rootMap: " + rootMap);
+  //console.log(Maps.find({"properties.rootMap":rootMap}).count());
+  let maps = Maps.find({"properties.rootMap":rootMap});
+  let geoJSON = buildGeoJSON(rootMap);
+  //console.log(geoJSON);
+
+  var newLayer = new L.geoJSON(geoJSON,{
+    style: mapStyle,
+    onEachFeature: mapOnEachFeature
+  });
+
+  newLayer.addTo(map);
+  /*
+  map.eachLayer(function(layer){
+    if(layer.feature){
+      //console.log
+      //console.log(layer.feature.properties.iso3166key);
+    }
+
+  });
+  */
+}
+
 function buildSummaryLabel(currentFeature){
   var featureName = currentFeature.properties.name || "Unnamed feature";
   document.getElementById('summaryLabel').innerHTML = '<p style="font-size:18px"><b>' + featureName + '</b></p>';
@@ -469,10 +495,18 @@ function resetStyles(){
 function highlightFeature(e) {
   //console.log(e.target.feature.properties)
 	info.update(e.target.feature.properties);
-}
+  var layer = e.target;
 
-function resetHighlight(e) {
-	info.update();
+  layer.setStyle({
+      weight: 1,
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.7
+  });
+
+  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+  }
 }
 
 function addCommunityControl(){
@@ -488,14 +522,24 @@ function addCommunityControl(){
   // method that we will use to update the control based on feature properties passed
   communityInfo.update = function (props) {
     if(props){
+      let proposalCount = 0;
+      let delegateCount = 0;
+      let groupCount = 0;
+      let memberCount = 0;
       let community = Communities.findOne({"_id":props.communityId});
       if(community){
         LocalStore.set('communityId',community._id);
       }
-      console.log(community);
+      //console.log(community);
     	this._div.innerHTML = (community ?
-        '<div style="background-image:'+community.settings.homepageImageUrl+'" class="map-community-info-header"></div><br><b>' + community.name + '</b>'
-    		: props.name + ' has no community yet');
+        '<div style="background-image:'+community.settings.homepageImageUrl+'" class="map-community-info-header"></div>'+
+        '<table>'+
+          '<tr><td>Community</td><th>'+community.name+'</th></tr>'+
+          '<tr><td>Members</td><th>'+memberCount+'</th></tr>'+
+          '<tr><td>Proposals</td><th>'+proposalCount+'</th></tr>'+
+          '<tr><td>Groups</td><th>'+groupCount+'</th></tr>'+
+          '<tr><td>Delegates</td><th>'+delegateCount+'</th></tr></table>'
+    		: '<b>' + props.name + '</b> has no community yet.<br><a href="#">Request One</a>');
     }
   };
 

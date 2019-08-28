@@ -59,6 +59,12 @@ MapGeometry = new SimpleSchema({
       allowedValues: ["Point","LineString","Polygon","MultiPoint","MultiLineString","MultiPolygon"],
       defaultValue: "Polygon"
   },
+  /*
+  //"geoframes.$": {type: String, blackbox:true}
+  coordinates: {
+    type: SimpleSchema.oneOf(String, { type: Array, blackbox: true })
+  }
+  */
   coordinates: {
     type: Array,
     optional: true,

@@ -12,7 +12,8 @@ Meteor.methods({
           key: Match.Maybe(String),
           rootMap: Match.Maybe(String),
           communityId: Match.Maybe(String),
-          rootCommunityId: Match.Maybe(String)
+          rootCommunityId: Match.Maybe(String),
+          type: Match.Maybe(String)
         },
         //geometry: Object
         geometry :{
