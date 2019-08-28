@@ -1,4 +1,5 @@
 import { Proposals } from '../../../api/proposals/Proposals.js';
+import { Communities } from '../../../api/communities/Communities.js'
 import { Maps } from '../../../api/maps/Maps.js';
 import './communityNav.html'
 

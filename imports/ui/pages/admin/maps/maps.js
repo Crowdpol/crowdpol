@@ -88,6 +88,8 @@ Template.AdminMaps.events({
     let maps = geoJSON.maps;
     _.each(maps, function(map,index){
         //console.log(index + " " + map);
+        //console.log(map.geometry.coordinates)
+        console.log(map.properties.key + ' ' + getdim(map.geometry.coordinates));
 
         Meteor.call('addMap', map, function(error){
     			if (error){
@@ -96,7 +98,6 @@ Template.AdminMaps.events({
     				Bert.alert("Map added",'success');
     			}
     		});
-
     });
 
   }
@@ -265,10 +266,10 @@ function buildGeoJSON(rootMap){
 
 function mapStyle(feature) {
   return {
-    fillColor: "#616161",
-    fillOpacity: 0.2,
+    //fillColor: "#616161",
+    //fillOpacity: 0.2,
     color: '#8c8c8c',
-    stroke: false,
+    stroke: true,
     weight: 1
   };
 }
@@ -277,7 +278,7 @@ function mapSelectedStyle(feature) {
     fillColor: "#ff8f8f",
     color: '#ff6363',
     fillOpacity: 0.2,
-    stroke: false,
+    stroke: true,
     weight: 1
   };
 }
@@ -312,23 +313,23 @@ function mapOnEachFeature(feature, layer){
       selectedLayer = mapLayer;
       Session.set('selectedMap',selection.feature);
       //console.log(selection.feature);
-      /* THIS LOADS CHILD MAPS
-      let rootMap = selection.feature.properties.iso3166key;
+      /* THIS LOADS CHILD MAPS*/
+      let rootMap = selection.feature.properties.key;
+
       if(Maps.find({"properties.rootMap":rootMap}).count()){
         loadNewLayer(rootMap);
       }
-      */
+
       // Insert some HTML with the feature name
       buildSummaryLabel(feature);
 
       L.DomEvent.stopPropagation(e); // stop click event from being propagated further
     },
-    mouseover: function(e) {
-      //console.log(e.target.feature.properties.iso3166key);
-    },
+    mouseover: highlightFeature,
     mouseout: function(e) {
-      //console.log(e);
+      layer.setStyle(mapStyle());
     }
+
   });
 }
 
@@ -353,10 +354,12 @@ function resetStyles(){
 
 
 function loadNewLayer(rootMap){
+  //console.log("rootMap: " + rootMap);
   //console.log(Maps.find({"properties.rootMap":rootMap}).count());
   let maps = Maps.find({"properties.rootMap":rootMap});
   let geoJSON = buildGeoJSON(rootMap);
   //console.log(geoJSON);
+
   var newLayer = new L.geoJSON(geoJSON,{
     style: mapStyle,
     onEachFeature: mapOnEachFeature
@@ -377,12 +380,12 @@ function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
 }
 
-/* THIS IS USED TO SHOW MOUSEOVER EFFECTS
+/* THIS IS USED TO SHOW MOUSEOVER EFFECTS*/
 function highlightFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
-        weight: 5,
+        weight: 1,
         color: '#666',
         dashArray: '',
         fillOpacity: 0.7
@@ -392,7 +395,29 @@ function highlightFeature(e) {
         layer.bringToFront();
     }
 }
-function resetHighlight(e,layer) {
+function resetHighlight(e) {
+    var layer = e.target;
     layer.resetStyle(e.target);
 }
-*/
+
+//check dimensions of Array
+function getdim(arr)
+{
+  if (/*!(arr instanceof Array) || */!arr.length) {
+    return []; // current array has no dimension
+  }
+  var dim = arr.reduce(function(result, current) {
+    // check each element of arr against the first element
+    // to make sure it has the same dimensions
+    return array_equals(result, getdim(current)) ? result : false;
+  }, getdim(arr[0]));
+
+  // dim is either false or an array
+  return dim && [arr.length].concat(dim);
+}
+function array_equals(a, b)
+{
+  return a.length === b.length && a.every(function(value, index) {
+    return value === b[index];
+  });
+};
