@@ -1,4 +1,5 @@
-import { Maps } from '../../../api/maps/Maps.js'
+import { Maps } from '../../../api/maps/Maps.js';
+import { Proposals } from '../../../api/proposals/Proposals.js';
 import { Communities } from '../../../api/communities/Communities.js';
 import { Groups } from '../../../api/group/Groups.js';
 import { setCommunity } from '../../../utils/community';
@@ -30,8 +31,10 @@ Template.CommunityDash.onCreated(function(){
   self.autorun(function() {
     //self.subscribe("maps.all");
     //self.subscribe("communities.all");
-    self.subscribe("communities.children",LocalStore.get('communityId'));
+    self.subscribe("communities.all");//communityId);
     self.subscribe("groups.community",LocalStore.get('communityId'));
+    self.subscribe("proposals.community",LocalStore.get('communityId'));
+    //self.subcribe("users.community",LocalStore.get('communityId'));
     mapDataSet.sub = self.subscribe("maps.all");
     mapDataSet.ready = new ReactiveVar(false);
     // autorun for getting the data and handling it
@@ -58,6 +61,14 @@ Template.CommunityDash.onCreated(function(){
 
 Template.CommunityDash.onRendered(function(){
   loadMap(LocalStore.get('communityId'));
+  $('.mdl-layout__tab').on('click', function() {
+	$this = $(this);
+  if($this.hasClass('is-active')) return;
+
+  $parent = $this.closest('.mdl-layout__tab-bar');
+  $('.mdl-layout__tab', $parent).removeClass('is-active');
+  $this.addClass('is-active');
+})
   /* TODO: Standardise form validation
   $( "#create-group-form" ).validate({
     rules: {
@@ -82,6 +93,19 @@ Template.CommunityDash.onRendered(function(){
 });
 
 Template.CommunityDash.events({
+  'click .sidebar-nav': function(event,template){
+    event.preventDefault();
+    $('.sidebar-nav').each(function(i, obj) {
+      $(this).removeClass('active');
+    });
+    $(event.target).addClass('active');
+    let id = "#" + event.target.dataset.id;
+    console.log("id: " + id);
+    $('.tabcontent').each(function(i, obj) {
+      $(this).removeClass('active');
+    });
+    $(id).addClass('active');
+  },
   'click .community-card-image': function(event, template){
     let id = event.currentTarget.dataset.id;
     if(id){
@@ -185,6 +209,10 @@ Template.CommunityDash.events({
 });
 
 Template.CommunityDash.helpers({
+  communityMembers: function(){
+    var communityId = LocalStore.get('communityId');
+    return Meteor.users.find({"profile.communityIds" : communityId})
+  },
   currentCommunity: function(){
     var communityId = LocalStore.get('communityId');
     let community = Communities.findOne({"_id":communityId});
@@ -221,7 +249,25 @@ Template.CommunityDash.helpers({
   },
   groups: function(){
     //console.log("Groups count: " + Groups.find().count());
-    return Groups.find();
+    return Groups.find({communityId:LocalStore.get('communityId')});
+  },
+  currentCommunityProposalCount: function(){
+    var communityId = LocalStore.get('communityId');
+    return Proposals.find({stage: "live",communityId:LocalStore.get('communityId')}).count();
+  },
+  openProposals: function(isVotingAsDelegate) {
+    var communityId = LocalStore.get('communityId');
+    let now = moment().toDate();//new Date();
+    let end = now;
+    //TO DO: add option for admin to select delgate expiry date (currently 14 days before end date)
+    if(isVotingAsDelegate){
+      end =  moment(now).subtract(2, 'weeks').toDate();//now.setDate(now.getDate()-14).toString();
+    }
+
+    return Proposals.find({stage: "live",communityId:LocalStore.get('communityId')}, {sort: {endDate: 1,createdAt:-1}},{transform: transformProposal});
+  },
+  currentCommunity: function(){
+    return Communities.findOne({"_id":LocalStore.get('communityId')});
   }
 });
 
@@ -274,7 +320,7 @@ function loadMap(communityId){
 
   //load base tiles map, to see more: https://leaflet-extras.github.io/leaflet-providers/preview/
   var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
-  tiles.addTo(map);
+  //tiles.addTo(map);
 
   L.Map.include({
   	panInsideBounds: function(bounds) {
@@ -566,3 +612,42 @@ function addInfoControl(){
   info.addTo(map);
 }
 //--------------------------------------------------------------------------------------------------------------//
+function transformProposal(proposal) {
+  var currentLang = TAPi18n.getLanguage();
+  var endDate = proposal.endDate;
+  var startDate = proposal.startDate;
+  //Put dates in ISO format so they are compatible with moment
+  endDate = endDate.toISOString();
+  startDate = startDate.toISOString();
+  proposal.endDate = endDate;
+  proposal.startDate = startDate;
+  var content = proposal.content;
+  content.forEach(function (lang, index) {
+    if(lang.language==currentLang){
+
+      //var langContent = {
+        proposal.title = lang.title
+        proposal.abstract =lang.abstract;
+        proposal.body = lang.body;
+        proposal.pointsAgainst = lang.pointsAgainst;
+        proposal.pointsFor = lang.pointsFor;
+      //}
+      //proposal.langContent = langContent;
+    }
+  });
+  return proposal;
+};
+
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}

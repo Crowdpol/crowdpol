@@ -1,6 +1,7 @@
 import './userCard.html'
 import {titleCase} from '../../../utils/functions';
 import { userHasCover,userfullname,username,userProfilePhoto } from '../../../utils/users';
+import RavenClient from 'raven-js';
 
 Template.UserCard.onCreated(function(){
   /*

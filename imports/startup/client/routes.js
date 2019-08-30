@@ -346,10 +346,10 @@ loggedInRoutes.route('/proposals/edit/:id?', {
   }
 });
 
-loggedInRoutes.route('/proposals/edit/:id?', {
-  name: 'App.proposal.edit',
+loggedInRoutes.route('/proposals/view/:id?', {
+  name: 'App.proposal.view',
   action() {
-    BlazeLayout.render('App_body', {main: 'EditProposal'});
+    BlazeLayout.render('App_body', {main: 'ViewProposal'});
   }
 });
 
