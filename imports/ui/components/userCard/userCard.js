@@ -109,6 +109,7 @@ Template.UserCard.helpers({
 Template.UserCard.events({
   'click #follow-user': function(event,template){
     followId = event.target.dataset.id;
+    console.log("followId: " + followId);
     if(followId!=Meteor.userId()){
       Meteor.call('addFollower', Meteor.userId(),followId, function(error, postId){
     		if (error){
