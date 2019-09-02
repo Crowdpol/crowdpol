@@ -13,3 +13,8 @@ Meteor.publish('maps.children', function(communityId) {
 	console.log("rootCommunityId: " + communityId);
 	return Maps.find({"properties.rootCommunityId": communityId});
 });
+
+Meteor.publish('maps.key.children', function(key) {
+	console.log("maps.key.children: " + key);
+	return Maps.find({"properties.rootMap": key});
+});

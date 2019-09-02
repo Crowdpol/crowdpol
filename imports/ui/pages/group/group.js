@@ -75,7 +75,7 @@ Template.Group.events({
       let message = template.find('#post-message').value
       let post = {
         userId: Meteor.userId(),
-        userFeedId: group._id,
+        feedId: group._id,
         message: message,
       };
       Meteor.call('createPost', post, function(error, postId){
@@ -128,7 +128,7 @@ Template.Group.helpers({
     if(group){
       if(typeof(group._id) !== 'undefined'){
         console.log(group._id);
-        let posts = Posts.find({"userFeedId":group._id}, {sort: {createdAt: -1}});
+        let posts = Posts.find({"feedId":group._id}, {sort: {createdAt: -1}});
         console.log(posts.count())
       	return posts;
       }

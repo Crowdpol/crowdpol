@@ -10,6 +10,10 @@ Schema.Approval = new SimpleSchema({
         type: String,
         optional: true,
     },
+    communityId: {
+        type: String,
+        optional: true,
+    },
     type: {
         type: String,
         allowedValues: ['delegate', 'candidate'],
@@ -177,6 +181,14 @@ Schema.UserProfile = new SimpleSchema({
         optional: true,
     },
     'adminCommunities.$': {
+        type: String,
+        optional: true,
+    },
+    delegateCommunities: {
+        type: Array,
+        optional: true,
+    },
+    'delegateCommunities.$': {
         type: String,
         optional: true,
     },

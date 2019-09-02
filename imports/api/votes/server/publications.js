@@ -18,7 +18,7 @@ Meteor.publish('votes.forUser', function(userId) {
 });
 
 Meteor.publish('votes.forProposalCurrentUser', function(proposalId) {
-	console.log("publish votes.forCurrentUser");
+	//console.log("publish votes.forCurrentUser");
 	let user = Meteor.users.findOne({_id: Meteor.userId()});
 	if(user){
 		if(typeof user.username){
