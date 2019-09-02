@@ -1,8 +1,6 @@
 <template name="CommunityDash">
   {{> CreateGroupModal}}
-  <div id="community-map" style="min-height: 350px; min-width: 100%;">
-
-  </div>
+  {{> CommunityMap}}
   <div class="container app-container" id="community-dash-container">
     <div class="sidebar">
       <div class="community-cover current-community mdl--card mdl-shadow--2dp">
@@ -12,21 +10,64 @@
           {{currentCommunity.name}}
         </div>
       </div>
-      <a class="sidebar-nav" data-id="community-feed">Community</a>
       <a class="sidebar-nav" data-id="community-proposals">Proposals <small>{{currentCommunityProposalCount}}</small></a>
+      <a class="sidebar-nav" data-id="community-feed">Feed</a>
       <a class="sidebar-nav" data-id="community-delegates">Delegates <small>{{currentCommunityGroupCount}}</small></a>
       <a class="sidebar-nav" data-id="community-members">Members <small>{{currentCommunityMemberCount}}</small></a>
     </div>
 
     <div class="community-content">
 
-      <div id="community-feed" class="tabcontent active">
-        <h3>Community Feed</h3>
-        <p>List of recent community activity goes here....</p>
+      <div id="community-feed" class="tabcontent">
+        <h5>Community Feed</h5>
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+          <div class="mdl-tabs__tab-bar">
+            <a href="#community-feed" class="mdl-tabs__tab is-active">Feed</a>
+            <a href="#activity-feed" class="mdl-tabs__tab">Activity</a>
+          </div>
+
+          <div class="mdl-tabs__panel" id="activity-feed">
+            <p>Under construction</p>
+            <p>
+              This will list all recent activities within the community, including:
+              <ul>
+                <li>New proposals added</li>
+                <li>New members joining</li>
+                <li>Proposals expiring soon</li>
+                <li>New delegates added</li>
+                <li>New delegate votes</li>
+              </ul>
+            </p>
+          </div>
+          <div class="mdl-tabs__panel is-active" id="community-feed">
+            <ul class="user-home-list">
+              <li class="user-home-post user-home-form">
+                <div class="post-header">
+                  <div class="author-pic">
+                    <img src="{{profilePic currentUserId}}" class="">
+                  </div>
+                  <div class="post-content">
+                    <div class="post-area">
+                      <textarea class="post-textarea-small" type="text" rows= "1" id="post-message" placeholder="Say something..."></textarea>
+                      <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              {{#each post in communityFeed}}
+              <li class="user-home-post">
+                {{>ActivityFeed post=post}}
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <div id="community-proposals" class="tabcontent">
+      <div id="community-proposals" class="tabcontent active">
+        <h5>Community Proposals</h5>
         <div class="mdl-tabs__panel is-active" id="proposals-panel">
+
           <ul class="demo-list-control mdl-list">
             {{#each openProposals false}}
               {{> VotingCard}}
@@ -35,11 +76,15 @@
               <a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
             {{/each}}
           </ul>
+
+          <!--
+          {{>Voting}}
+          -->
         </div>
       </div>
 
       <div id="community-members" class="tabcontent">
-        <h3>Community Members</h3>
+        <h5>Community Members</h5>
         <div class="community-member-box">
           {{#each member in communityMembers}}
             {{>UserCard userId=member._id style="card"}}

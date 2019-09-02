@@ -11,17 +11,32 @@ Template.Delegate.onCreated(function () {
   var dict = new ReactiveDict();
   this.templateDictionary = dict;
   dict.set("communityId",LocalStore.get('communityId'));
-
+  dict.set('approvalStatus', 'Off');
+  userData = Meteor.user();
+  //check if user object has approvals property
+  for ( var prop in userData ) {
+      if(hasOwnProperty(userData,"approvals")){
+        ////console.log("userData has approvals");
+        approvals = userData.approvals;
+        //loop through approvals and check for delegate requests
+        approvals.forEach(function (approval, index) {
+          if((approval.type=="delegate")&&(approval.communityId==communityId)){
+            dict.set('approvalStatus', approval.status);
+          }
+        });
+      }
+  }
   var self = this;
   self.ranks = new ReactiveVar([]);
 
   self.autorun(function() {
     self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
-    self.subscribe('ranks.all');
+    self.subscribe('ranks.currentUser', communityId);
     self.subscribe('tags.community', LocalStore.get('communityId'));
     // Set user's ranked delegates
     if(Meteor.userId()){
-      Meteor.call('getRanks', Meteor.userId(), "delegate", communityId, function(error, result){
+      console.log("calling getRanks, should happen every time a community is updated");
+      Meteor.call('getRanks', Meteor.userId(), "delegate", LocalStore.get('communityId'), function(error, result){
         if(error) {
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');
@@ -113,13 +128,15 @@ Template.Delegate.helpers({
     */
     let delegates = [];
     let ranked = Session.get('ranked');
+    var communityId = LocalStore.get('communityId');
     if(Array.isArray(ranked)){
       delegates = Meteor.users.find( { $and: [
         { _id : { $nin : ranked}},
-        {"roles":"delegate"}
+        {"roles":"delegate","profile.delegateCommunities":communityId}
       ]})
     }else{
-      delegates = Meteor.users.find({"roles":"delegate"});
+
+      delegates = Meteor.users.find({"roles":"delegate","profile.delegateCommunities":communityId});
     }
     /*
     delegates = Meteor.users.find( { $and: [
@@ -137,13 +154,14 @@ Template.Delegate.helpers({
     */
     let ranked = Session.get('ranked');
     let delegatesCount = 0;
+    var communityId = LocalStore.get('communityId');
     if(Array.isArray(ranked)){
       delegatesCount = Meteor.users.find( { $and: [
         { _id : { $nin : ranked}},
-        {"roles":"delegate"}
+        {"roles":"delegate","profile.delegateCommunities":communityId}
       ]}).count()
     }else{
-      delegatesCount = Meteor.users.find({"roles":"delegate"}).count();
+      delegatesCount = Meteor.users.find({"roles":"delegate","profile.delegateCommunities":communityId}).count();
     }
     return delegatesCount;
   },
@@ -202,13 +220,133 @@ Template.Delegate.helpers({
       }
     }
     return [];
-  }
+  },
+  delegateChecked: function() {
+    var user = Meteor.user();
+    var communityId = LocalStore.get('communityId');
+    if (user && user.roles){
+      var currentRole = LocalStore.get('currentUserRole');
+      var userRoles = user.roles;
+      var userDelegateCommunities = user.profile.delegateCommunities;
+      //console.log("userDelegateCommunities.includes(communityId): " + userDelegateCommunities.includes(communityId));
+      if((userRoles.indexOf("delegate") > -1)&&(userDelegateCommunities.includes(communityId))){
+        console.log("user has delegate role in community: " + communityId);
+        return true;
+      }else{
+        approvalStatus = Template.instance().templateDictionary.get('approvalStatus');
+        if(approvalStatus=='Requested'){
+          return true;
+        }
+      }
+    }
+    return false;
+    /*
+    if(isInRole('delegate')){
+      return true;
+    }else{
+      approvalStatus = Template.instance().templateDictionary.get('approvalStatus');
+      if(approvalStatus=='Requested'){
+        return true;
+      }
+      //if approval status set return it, or return "off"
+      ////console.log(approvalStatus);
+    }
+    return false;
+    */
+  },
+  delegateSwitchClass: function(){
+    var user = Meteor.user();
+    var communityId = LocalStore.get('communityId');
+    //check if user object has approvals property
+    for ( var prop in user ) {
+        if(hasOwnProperty(userData,"approvals")){
+          ////console.log("userData has approvals");
+          approvals = userData.approvals;
+          //loop through approvals and check for delegate requests
+          approvals.forEach(function (approval, index) {
+            if((approval.type=="delegate")&&(approval.communityId==communityId)){
+              if(approval.status=='Requested'){
+                return "switch-disabled";
+              }
+            }
+          });
+        }
+    }
+  },
+  delegateStatus: function() {
+    var status='';
+    if(isInRole('delegate')){
+      status = TAPi18n.__('generic.approved');
+    } else {
+      approvalStatus = Template.instance().templateDictionary.get('approvalStatus');
+      if(approvalStatus=='Requested'){
+        status = TAPi18n.__('generic.requested');
+      } else if(approvalStatus=='Rejected'){
+        status = TAPi18n.__('generic.rejected');
+      }else{
+        status = TAPi18n.__('generic.off');
+      }
+    }
+    return status;
+  },
 });
 
 Template.Delegate.events({
 	'keyup #delegate-search': function(event, template){
 		Session.set('searchPhrase',event.target.value);
 	},
+  'click #profile-delegate-switch' (event, template) {
+    //event.preventDefault();
+    // Check if person already is a delegate, if so remove role
+    if (isInRole('delegate')) {
+      if (window.confirm(TAPi18n.__('pages.profile.alerts.profile-stop-delegate'))){
+        Meteor.call('toggleRole', 'delegate', false, function(error) {
+          if (error) {
+            RavenClient.captureException(error);
+            Bert.alert(error.reason, 'danger');
+          } else {
+            Meteor.call('removeRanks', 'delegate', Meteor.userId());
+            var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-removed');
+            Bert.alert(msg, 'success');
+          }
+        });
+      }
+    } else {
+      //check if request has already been submitted
+      approvalStatus = Template.instance().templateDictionary.get('approvalStatus');
+      if(approvalStatus=='Requested'){
+        Meteor.call('removeRequest', Meteor.userId(), 'delegate', function(error) {
+          if (error) {
+            RavenClient.captureException(error);
+            Bert.alert(error.reason, 'danger');
+            updateDisplayedStatus('delegate', template)
+          } else {
+            var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-request-removed');
+            //$("#profile-delegate-switch").addClass("switch-disabled");
+            template.templateDictionary.set('approvalStatus','');
+            Bert.alert(msg, 'success');
+
+          }
+        });
+        return;
+      }
+      var communityId = LocalStore.get('communityId');
+      // Profile is complete, submit approval request
+      Meteor.call('requestApproval', Meteor.userId(), 'delegate', communityId,function(error) {
+        if (error) {
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+          updateDisplayedStatus('delegate', template);
+          document.getElementById("profile-delegate-switch").checked = false;
+        } else {
+          var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
+          $("#profile-delegate-switch").addClass("switch-disabled");
+          template.templateDictionary.set('approvalStatus','Requested');
+          Bert.alert(msg, 'success');
+        }
+      });
+    }
+  },
   'click .delegate-select': function(event, template){
     var communityId = Template.instance().templateDictionary.get( 'communityId' );
     delegateId = this._id;
@@ -306,4 +444,25 @@ function addRank(delegateId, newRank, communityId){
       Session.set('ranked',result);
     }
   });
+}
+
+function isInRole(role){
+  var user = Meteor.user();
+  var communityId = LocalStore.get('communityId');
+  if (user && user.roles){
+    var currentRole = LocalStore.get('currentUserRole');
+    var userRoles = user.roles;
+    var userDelegateCommunities = user.profile.delegateCommunities;
+    //console.log("userDelegateCommunities.includes(communityId): " + userDelegateCommunities.includes(communityId));
+    if((userRoles.indexOf(role) > -1)&&(userDelegateCommunities.includes(communityId))){
+      return Roles.userIsInRole(Meteor.user(), role);
+    }
+  }
+  return false;
+}
+
+function hasOwnProperty(obj, prop) {
+  var proto = obj.__proto__ || obj.constructor.prototype;
+  return (prop in obj) &&
+    (!(prop in proto) || proto[prop] !== obj[prop]);
 }
