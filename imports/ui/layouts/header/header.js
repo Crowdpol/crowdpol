@@ -77,6 +77,8 @@ Template.Header.helpers({
     return "Crowdpol";//Template.instance().community.get().name;
   },
   logoUrlSet: function(){
+    return true;
+    /*
     let community = Template.instance().community.get();
     if(typeof community !='undefined'){
       let settings = community.settings;
@@ -86,12 +88,12 @@ Template.Header.helpers({
         }
       }
     }
-    return false;
+    return false;*/
   },
   logoUrl: function() {
     let community = Template.instance().community.get();
     let settings = community.settings;
-    return settings.logoUrl;
+    return '/img/crowdpol_logo_transparent.png';//settings.logoUrl;
   },
   hideHamburger() {
     //$(".mdl-layout__drawer-button").hide();

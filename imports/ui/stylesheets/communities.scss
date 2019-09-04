@@ -1,35 +1,14 @@
 @import 'variables.scss';
-.community-header{
-  background: rgba(0, 0, 0, 0.2);
-  /*
-  background-color: transparent; // For browsers that do not support gradients
-  background-image: -webkit-linear-gradient(black,transparent);
-  background-image: -o-linear-gradient(black,transparent);
-  background-image: linear-gradient(black,transparent); // Standard syntax (must be last)
-  */
-  position: fixed;
-  top: 65px;
-  height: 40px;
-  width: 100%;
-  color: #fff;
-  padding: 5px 10px;
-  z-index: 900;
-  .community-breadcrumb{
-    color: #fff;
-  }
-  .community-breadcrumb:hover{
-    color:blue;
-  }
 
-}
+
 .parallax {
-  /* The image used */
+  // The image used
   background-image: url("/img/syntropi_grey.jpg");
 
-  /* Set a specific height */
+  // Set a specific height
   min-height: 500px;
 
-  /* Create the parallax scrolling effect */
+  // Create the parallax scrolling effect
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -42,10 +21,10 @@
     height: 200px;
     width: 100%;
     text-align: center;
-    background-color: transparent; /* For browsers that do not support gradients */
+    background-color: transparent; // For browsers that do not support gradients
     background-image: -webkit-linear-gradient(transparent, black);
     background-image: -o-linear-gradient(transparent, black);
-    background-image: linear-gradient(transparent, black); /* Standard syntax (must be last) */
+    background-image: linear-gradient(transparent, black); // Standard syntax (must be last)
     h5{
       margin-top: 50px;
       color: #fff;
@@ -58,7 +37,7 @@
       font-style: italic;
       color: #fff;
     }
-    /* Style the tab */
+    // Style the tab
   .tab {
     overflow: hidden;
     //border: 1px solid #ccc;
@@ -70,7 +49,7 @@
     margin-top: 32px;
   }
 
-  /* Style the buttons inside the tab */
+  // Style the buttons inside the tab
   .tab button {
     background-color: transparent;
     float: left;
@@ -83,17 +62,17 @@
     color: #fff;
   }
 
-  /* Change background color of buttons on hover */
+  // Change background color of buttons on hover
   .tab button:hover {
     background-color: rgba(204,204,204, 0.5);
   }
 
-  /* Create an active/current tablink class */
+  // Create an active/current tablink class
   .tab button.active {
     background-color: rgba(204,204,204, 0.3);
   }
 
-  /* Style the tab content */
+  // Style the tab content
   .tabcontent {
     display: none;
     padding: 6px 12px;

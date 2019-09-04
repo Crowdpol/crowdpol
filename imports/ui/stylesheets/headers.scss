@@ -143,6 +143,8 @@
 
   .mdl-layout-title {
     text-indent: 50px;
+    font-size: 25px;
+    line-height: 2.5rem;
   }
 
   @include breakpoint($tablet) {

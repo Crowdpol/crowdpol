@@ -1,6 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Proposals } from '../Proposals.js';
 
+Meteor.publish('proposals.all', function() {
+	return Proposals.find();
+});
+
 Meteor.publish('proposals.community', function(communityId) {
 	return Proposals.find({communityId: communityId});
 });
@@ -13,6 +17,13 @@ Meteor.publish('proposals.one', function(id) {
 Meteor.publish('proposals.public', function(search, communityId) {
 	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
+	query.stage = 'live';
+	console.log(query);
+	return Proposals.find(query);
+});
+//Proposals that are live and open to the public
+Meteor.publish('proposals.all.public', function(search) {
+	let query = generateSearchQueryNoCommunity(search);
 	query.stage = 'live';
 	console.log(query);
 	return Proposals.find(query);
@@ -104,4 +115,28 @@ function yesNoResults(theseVotes){
 		"noPercent":Math.round(theseVotes.noCount * 100 / total)
 	};
 	return result;
+}
+
+function generateSearchQueryNoCommunity(searchTerm){
+	if(typeof communityId != 'undefined'){
+		check(searchTerm, Match.OneOf(String, null, undefined));
+		let query = {}
+		query.communityId = communityId;
+
+		if (searchTerm) {
+			let regex = new RegExp(searchTerm, 'i');
+
+			query = {$or: [
+					{ 'content.title': regex },
+					{ 'content.abstract': regex },
+					{ 'content.body': regex }
+			]};
+
+		}
+		return query;
+	}else{
+		throw new Meteor.Error(422, 'Could not find community ID');
+	}
+	return;
+
 }
