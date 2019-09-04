@@ -128,7 +128,7 @@ div.community-content-header{
       justify-content: center;
       flex-direction: column;
       padding: 5px;
-      background-color: #e8e8e8;
+      background-color: #fff;//#e8e8e8;
       a.map-toggle{
         height: 50px;
         width: 80%;
@@ -149,7 +149,7 @@ div.community-content-header{
       }
     }
     div.community-map-control:hover{
-      background-color: #757575;
+      background-color: #e8e8e8//#757575;
     }
   }
 

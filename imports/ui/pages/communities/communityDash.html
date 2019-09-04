@@ -116,6 +116,8 @@
           </p>
         </div>
         <div class="community-tabs-panel active" id="proposal-votes">
+          {{>CommunityProposalList communityId=communityId}}
+          <!--
           <ul class="demo-list-control mdl-list">
             {{#each openProposals false}}
               {{> VotingCard}}
@@ -124,6 +126,7 @@
               <a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
             {{/each}}
           </ul>
+          -->
         </div>
       </div>
 

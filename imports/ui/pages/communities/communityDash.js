@@ -249,6 +249,9 @@ Template.CommunityDash.events({
 });
 
 Template.CommunityDash.helpers({
+  communityId: function(){
+    return LocalStore.get('communityId');
+  },
   communityFeed: function(){
     var communityId = LocalStore.get('communityId');
     console.log("db.posts.find({'feedId':'"+communityId+"'});")
