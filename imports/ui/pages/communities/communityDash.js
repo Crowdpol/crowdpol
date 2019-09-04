@@ -28,14 +28,15 @@ Template.CommunityDash.onCreated(function(){
 	self.dict = dict;
   self.openGroup = new ReactiveVar(true);
   dict.set('communityId',communityId);
+  dict.set('currentHeader','community-proposals');
   Session.set('selectedCommunity','Global');
   Session.set('selectedMap','GLOBAL');
   Session.set('breadcrumbs',['GLOBAL']);
   this.autorun(() => {
-    self.subscribe('feed-posts', communityId);
+    self.subscribe('feed-posts', dict.get('communityId'));
     //self.subscribe("communities.all");//communityId);
-    self.subscribe("groups.community",communityId);
-    self.subscribe("proposals.community",communityId);
+    self.subscribe("groups.community",dict.get('communityId'));
+    self.subscribe("proposals.community",dict.get('communityId'));
     //self.subcribe("users.community",LocalStore.get('communityId'));
 
   });
@@ -50,6 +51,10 @@ Template.CommunityDash.onRendered(function(){
   $parent = $this.closest('.mdl-layout__tab-bar');
   $('.mdl-layout__tab', $parent).removeClass('is-active');
   $this.addClass('is-active');
+  $(window).scroll(function(){
+    //your code
+    console.log("scroll");
+  });
 })
   /* TODO: Standardise form validation
   $( "#create-group-form" ).validate({
@@ -77,16 +82,44 @@ Template.CommunityDash.onRendered(function(){
 Template.CommunityDash.events({
   'click .sidebar-nav': function(event,template){
     event.preventDefault();
+    //disable all sidebar navs
     $('.sidebar-nav').each(function(i, obj) {
       $(this).removeClass('active');
     });
+    //set current sidebar nav to active
     $(event.target).addClass('active');
+    //get and set community header title to active tab name
     let id = "#" + event.target.dataset.id;
-    console.log("id: " + id);
+    template.dict.set('currentHeader',event.target.dataset.id);
+    //disabke all current community content tabs
     $('.tabcontent').each(function(i, obj) {
       $(this).removeClass('active');
     });
+    //enable selected content tab
     $(id).addClass('active');
+    //disable all community tabs in header
+    $(".community-tabs").each(function(i, obj) {
+      $(this).removeClass('active');
+    });
+    //enable appropriate community tab according to siderbar selection
+    let selector = '*[data-sidebar-nav-id="'+event.target.dataset.id+'"]';
+    $(selector).addClass('active');
+  },
+  'click .community-tab': function(){
+    //remove active from all neighbouring tabs
+    $(event.target).parent().children().each(function(i,obj){
+      $(this).removeClass('active');
+    });
+    //add active class to event target tab
+    $(event.target).addClass('active');
+    //disable all tab content in matching community content
+    let parentContentId = "#" + event.target.parentElement.dataset.sidebarNavId;
+    $(parentContentId).children().each(function(i,obj){
+      $(this).removeClass('active');
+    });
+    let elementId = "#" + event.target.dataset.id;
+    //enable the corresponding community content tab panel
+    $(elementId).addClass("active");
   },
   'click .community-card-image': function(event, template){
     let id = event.currentTarget.dataset.id;
@@ -209,6 +242,9 @@ Template.CommunityDash.events({
          $("#post-message").removeClass('post-textarea-large');
   		}
   	});
+  },
+  'click .community-map-control':function(){
+    $(".map-header-container").slideToggle();
   }
 });
 
@@ -217,6 +253,7 @@ Template.CommunityDash.helpers({
     var communityId = LocalStore.get('communityId');
     console.log("db.posts.find({'feedId':'"+communityId+"'});")
     let posts = Posts.find({"feedId":communityId}, {sort: {createdAt: -1}});
+    console.log("post.count():" +posts.count());
   	return posts;
   },
   profilePic: function(userId) {
@@ -281,6 +318,34 @@ Template.CommunityDash.helpers({
   },
   currentCommunity: function(){
     return Communities.findOne({"_id":LocalStore.get('communityId')});
+  },
+  currentHeader: function(){
+    let currentHeader = Template.instance().dict.get('currentHeader');
+    switch(currentHeader){
+      case 'community-feed-wrapper':
+        //TAPi18n.__('pages.delegates.alerts.ranking-updated')
+        currentHeader = 'Feed';
+        break;
+      case 'community-proposals':
+        // code block
+        currentHeader = 'Proposals';
+        break;
+      case 'community-members':
+        currentHeader = 'Members';
+        break;
+      case 'community-delegates':
+        currentHeader = 'Delegates';
+        break;
+      case 'community-groups':
+        currentHeader = 'Groups';
+        break;
+      default:
+        currentHeader = 'Oops. Something went wrong. Sorry!';
+    }
+    return currentHeader;
+  },
+  proposalTabs: function(){
+    return true;
   }
 });
 
@@ -301,7 +366,6 @@ Template.CreateGroupModal.events({
   }
 })
 */
-
 
 
 //--------------------------------------------------------------------------------------------------------------//

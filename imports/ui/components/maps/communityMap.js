@@ -262,13 +262,13 @@ function addCommunityControl(){
       }
       //console.log(community);
     	this._div.innerHTML = (community ?
-        '<div style="background-image:'+community.settings.homepageImageUrl+'" class="map-community-info-header"></div>'+
+        //'<div style="background-image:'+community.settings.homepageImageUrl+'" class="map-community-info-header"></div>'+
         '<table>'+
           '<tr><td>Community</td><th>'+community.name+'</th></tr>'+
-          '<tr><td>Members</td><th>'+memberCount+'</th></tr>'+
-          '<tr><td>Proposals</td><th>'+proposalCount+'</th></tr>'+
-          '<tr><td>Groups</td><th>'+groupCount+'</th></tr>'+
-          '<tr><td>Delegates</td><th>'+delegateCount+'</th></tr></table>'
+          '<tr><td>Members</td><th>'+memberCount+'</th></tr>'
+          //'<tr><td>Proposals</td><th>'+proposalCount+'</th></tr>'+
+          //'<tr><td>Groups</td><th>'+groupCount+'</th></tr>'+
+          //'<tr><td>Delegates</td><th>'+delegateCount+'</th></tr></table>'
     		: '<b>' + props.name + '</b> has no community yet.<br><a href="#">Request One</a>');
     }
   };

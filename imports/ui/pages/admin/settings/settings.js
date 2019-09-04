@@ -16,7 +16,7 @@ Template.AdminSettings.onCreated(function(){
 	var defaultStartDate = moment().format('YYYY-MM-DD');
 	var defaultEndDate = moment().add(1, 'year').format('YYYY-MM-DD');
   self.autorun(function(){
-    self.subscribe('community',communityId);
+    self.subscribe('communities.all');
   });
 });
 

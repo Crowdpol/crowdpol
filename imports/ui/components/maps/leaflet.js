@@ -3,11 +3,11 @@ import './leaflet.html'
 export let map;
 
 Template.Leaflet.onCreated(function(){
-  console.log("Leaflet onCreated");
+  //console.log("Leaflet onCreated");
 });
 
 Template.Leaflet.onRendered(function(){
-  console.log("Leaflet rendered");
+  //console.log("Leaflet rendered");
 });
 
 Template.Leaflet.events({
@@ -82,16 +82,16 @@ function limitPanBounds(){
 
 //set starting view
 function setStartingPosition(){
-  console.log("Leaflet: setStartingPosition()");
+  //console.log("Leaflet: setStartingPosition()");
   map.setView([62.54114431714147, 16.192131042480472], 3);
 }
 //set base tile layer of the map
 function setTiles(){
-  console.log("Leaflet: setTiles()");
+  //console.log("Leaflet: setTiles()");
   //load base tiles map, to see more: https://leaflet-extras.github.io/leaflet-providers/preview/
   var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
   tiles.addTo(map);
 }
 export function addLayer(){
-  console.log("Leaflet: addLayer()");
+  //console.log("Leaflet: addLayer()");
 }
