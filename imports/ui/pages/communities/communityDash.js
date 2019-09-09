@@ -198,7 +198,7 @@ Template.CommunityDash.events({
       communityId: LocalStore.get('communityId'),
       isArchived: false
     }
-    console.log(group);
+    //console.log(group);
     if(group.name == ''){
       Bert.alert("Name required","danger");
       return false;
@@ -254,9 +254,9 @@ Template.CommunityDash.helpers({
   },
   communityFeed: function(){
     var communityId = LocalStore.get('communityId');
-    console.log("db.posts.find({'feedId':'"+communityId+"'});")
+    //console.log("db.posts.find({'feedId':'"+communityId+"'});")
     let posts = Posts.find({"feedId":communityId}, {sort: {createdAt: -1}});
-    console.log("post.count():" +posts.count());
+    //console.log("post.count():" +posts.count());
   	return posts;
   },
   profilePic: function(userId) {

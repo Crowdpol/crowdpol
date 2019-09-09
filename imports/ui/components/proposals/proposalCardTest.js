@@ -1,35 +1,42 @@
-import './proposalCardTest.js'
-import './proposalCard.html'
-import "../../components/proposals/proposalCard.js"
-import RavenClient from 'raven-js';
-import { Tags } from '../../../api/tags/Tags.js'
-import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Votes } from '../../../api/votes/Votes.js'
+import './proposalCardTest.html'
 
-Template.ProposalCard.onCreated(function () {
+Template.ProposalCardTest.onCreated(function(){
+  //console.log(this.data.style);
   var self = this;
   self.autorun(function(){
-    //self.subscribe('votes.all');
+    self.subscribe('votes.all');
   })
 });
-/*
-Template.ProposalCard.onRendered(function () {
-  let proposal = this.data.proposal;
-  let hasCover = proposal.hasCover;
-  if(typeof hasCover!='undefined'){
-    if(hasCover){
-      //console.log(proposal.coverURL);
-      let element = this.find("[data-id]");
-      //element.css("background-image",proposal.coverURL);
-      element.style.background-image=proposal.coverURL;
-      //return "style='background-image:"+this.proposal.coverURL+";'";
-    }
-  }else{
-    console.log("hasCover is undefined");
-  }
+
+Template.ProposalCardTest.onRendered(function(){
+
 });
-*/
-Template.ProposalCard.helpers({
+
+Template.ProposalCardTest.events({
+
+});
+
+Template.ProposalCardTest.helpers({
+	isVote: function(style){
+    if(style=='vote'){
+      return true;
+    }
+    return false;
+  },
+  isPoll: function(style){
+    if(style=='poll'){
+      return true;
+    }
+    return false;
+  },
+  isPetition: function(style){
+    if(style=='petition'){
+      return true;
+    }
+    return false;
+  },
+
   proposalHasImage: function(proposal) {
     if(typeof proposal.hasCover != 'undefined'){
       return proposal.hasCover;
@@ -55,7 +62,7 @@ Template.ProposalCard.helpers({
     var language = TAPi18n.getLanguage();
     var translation = _.find(proposal.content, function(item){ return item.language == language});
     if (translation){
-      return translation.abstract;
+      return truncate(translation.abstract,125);
     }
 
   },
@@ -86,7 +93,7 @@ Template.ProposalCard.helpers({
     if(typeof proposal.invited != 'undefined'){
       let invitedArray = proposal.invited;
       if(invitedArray.indexOf(Meteor.userId()) > -1){
-          console.log("user match");
+          //console.log("user match");
           return true;
       }
     }
@@ -95,20 +102,41 @@ Template.ProposalCard.helpers({
   userId: function(){
     return Meteor.userId();
   },
+  yesCount: function(proposalId) {
+    var yesCount = Votes.find({proposalId: proposalId, vote: 'yes'}).count();
+    return yesCount;
+  },
+  noCount: function(proposalId) {
+    var noCount = Votes.find({proposalId: proposalId, vote: 'no'}).count();
+    return noCount;
+  },
+  abstainCount: function(proposalId) {
+    var abstainCount = Votes.find({proposalId: proposalId, vote: 'abstain'}).count();
+    return abstainCount;
+  },
   yesPercentage: function(proposalId) {
     var yesCount = Votes.find({proposalId: proposalId, vote: 'yes'}).count();
     var totalCount = Votes.find({proposalId: proposalId}).count();
     if (totalCount > 0) {
-      return yesCount + " (" + Math.round(yesCount/totalCount * 100) + "%)";
+      return Math.round(yesCount/totalCount * 100);
     } else {
       return 0;
     }
   },
- noPercentage: function(proposalId) {
+  noPercentage: function(proposalId) {
     var noCount = Votes.find({proposalId: proposalId, vote: 'no'}).count();
     var totalCount = Votes.find({proposalId: proposalId}).count();
     if (totalCount > 0) {
-      return noCount + " (" + Math.round(noCount/totalCount * 100) + "%)";
+      return Math.round(noCount/totalCount * 100);
+    } else {
+      return 0;
+    }
+  },
+  abstainPercentage: function(proposalId) {
+    var abstainCount = Votes.find({proposalId: proposalId, vote: 'abstain'}).count();
+    var totalCount = Votes.find({proposalId: proposalId}).count();
+    if (totalCount > 0) {
+      return Math.round(abstainCount/totalCount * 100);
     } else {
       return 0;
     }
@@ -132,41 +160,21 @@ Template.ProposalCard.helpers({
   }
 });
 
-Template.ProposalCard.events({
-  'click .delete-proposal-button': function(event, template){
-    event.preventDefault();
-    var proposalId = event.target.dataset.proposalId;
-    if (window.confirm(TAPi18n.__('pages.proposals.list.confirmDelete'))){
-      Meteor.call('deleteProposal', proposalId, function(error){
-        if (error){
-          RavenClient.captureException(error);
-          Bert.alert(error.reason, 'danger');
-        } else {
-          Bert.alert(TAPi18n.__('pages.proposals.list.deletedMessage'), 'success');
-        }
-      });
-    }
-  },
-  'click .edit-proposal-button': function(event, template){
-    event.preventDefault();
-    var proposalId = event.target.dataset.proposalId;
-    if(typeof proposalId != 'undefined'){
-      FlowRouter.go('App.proposal.edit', {id: proposalId});
-    }
-  },
-  'click .retract-proposal-button': function(event, template){
-    event.preventDefault();
-    var proposalId = event.target.dataset.proposalId;
-    if (window.confirm(TAPi18n.__('pages.proposals.list.confirmRetract'))){
-      Meteor.call('updateProposalStage', proposalId,'draft','unreviewed', function(error){
-        if (error){
-          RavenClient.captureException(error);
-          Bert.alert(error.reason, 'danger');
-        } else {
-          Bert.alert(TAPi18n.__('pages.proposals.list.retractMessage'), 'success');
-        }
-      });
-    }
-  },
+function elipseMe(string){
+  let length = string.length
+  let words = string.split(' ');
+  //console.log(words.length);
+  //console.log(length);
+}
 
-});
+function truncate(input,length) {
+  //console.log("input.lenght: " + input.length + ", length: " + length);
+   if (input.length > length){
+     //console.log("length is greater");
+     return input.substring(0,length) + '...';
+   }else{
+     //console.log("length is not greater");
+     return input;
+   }
+
+};

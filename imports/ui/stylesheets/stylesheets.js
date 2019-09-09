@@ -48,4 +48,5 @@ import './not-found.scss';
 import './usersearch.scss';
 import './wizard.scss';
 import './maps.scss';
+import './proposal-card.scss';
 import './modals/createGroupModal.scss';

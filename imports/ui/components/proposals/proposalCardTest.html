@@ -1,0 +1,56 @@
+<template name="ProposalCardTest">
+  {{#if isVote style}}
+  <div class="proposal-card-wide mdl-card mdl-shadow--2dp">
+    {{#if proposalHasImage proposal}}
+      <div class="mdl-card__title" style="background: {{proposal.coverURL}} center / cover">
+        <div>
+        <h2 class="mdl-card__title-text">{{ title proposal}}</h2>
+        </div>
+      </div>
+    {{else}}
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">{{ title proposal}}</h2>
+      </div>
+    {{/if}}
+    <div class="mdl-card__supporting-text overflow">
+      {{abstract proposal}}
+    </div>
+    <div class="proposal-card-votes">
+      {{#if hasVotes proposal._id}}
+
+        <div class="proposal-vote-progress-bar">
+          <div class="proposal-percentage-text">
+            <div class="vote-percentage">{{_ "pages.voting.for"}} {{ yesCount proposal._id }} ({{ yesPercentage proposal._id }}%)</div>
+            <div class="vote-percentage">{{_ "pages.voting.abstain"}}{{ abstainCount proposal._id }} ({{ abstainPercentage proposal._id }}%)</div>
+            <div class="vote-percentage">{{_ "pages.voting.against"}}{{ noCount proposal._id }} ({{ noPercentage proposal._id }}%)</div>
+          </div>
+          <div class="proposal-vote-bar vote-bar-yes" style="width:{{ yesPercentage proposal._id }}%"></div>
+          <div class="proposal-vote-bar vote-bar-abstain" style="width:{{ abstainPercentage proposal._id }}%"></div>
+          <div class="proposal-vote-bar vote-bar-no" style="width:{{ noPercentage proposal._id }}%"></div>
+        </div>
+      {{else}}
+        <div class="proposal-vote-progress-bar">
+          <div class="proposal-percentage-text">
+            <div class="no-votes">{{_ "pages.voting.no-votes-used"}}</div>
+          </div>
+          <div class="proposal-vote-bar vote-bar-none" style="width:100%"></div>
+        </div>
+      {{/if}}
+    </div>
+    <div class="mdl-card__menu">
+      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">share</i>
+      </button>
+      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">edit</i>
+      </button>
+    </div>
+  </div>
+	{{/if}}
+	{{#if isPetition style}}
+		Show Petition Card
+	{{/if}}
+	{{#if isPoll style}}
+		Show Poll Card
+	{{/if}}
+</template>

@@ -64,6 +64,7 @@
         <div class="community-tabs-panel" id="community-activity">
           <br>
           <p><strong>Activity</strong> - Coming soon in version 2</p>
+          <div class="mdl-spinner mdl-js-spinner is-active"></div>
             <p>
               This will list all recent activities within the community, including:
               <ul>
@@ -77,26 +78,7 @@
         </div>
         <div class="community-tabs-panel active" id="community-feed">
           <br>
-            <ul class="user-home-list">
-              <li class="user-home-post user-home-form">
-                <div class="post-header">
-                  <div class="author-pic">
-                    <img src="{{profilePic currentUserId}}" class="">
-                  </div>
-                  <div class="post-content">
-                    <div class="post-area">
-                      <textarea class="post-textarea-small" type="text" rows= "1" id="post-message" placeholder="Say something..."></textarea>
-                      <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              {{#each post in communityFeed}}
-                <li class="user-home-post">
-                  {{>ActivityFeed post=post}}
-                </li>
-              {{/each}}
-            </ul>
+            {{>Feed feedId=communityId}}
         </div>
       </div>
 

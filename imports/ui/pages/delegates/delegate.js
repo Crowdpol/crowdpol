@@ -20,7 +20,7 @@ Template.CommunityDelegates.onCreated(function () {
     self.subscribe('tags.community', LocalStore.get('communityId'));
     // Set user's ranked delegates
     if(Meteor.userId()){
-      console.log("calling getRanks, should happen every time a community is updated");
+      //console.log("calling getRanks, should happen every time a community is updated");
       Meteor.call('getRanks', Meteor.userId(), "delegate", LocalStore.get('communityId'), function(error, result){
         if(error) {
           RavenClient.captureException(error);
@@ -103,7 +103,7 @@ Template.CommunityDelegates.events({
 		Session.set('searchPhrase',event.target.value);
 	},
   'click .delegate-select': function(event, template){
-    var communityId = Template.instance().templateDictionary.get( 'communityId' );
+    var communityId = LocalStore.get('communityId');
     delegateId = this._id;
     var ranks = Session.get('ranked');
     let settings = LocalStore.get('settings');
@@ -250,7 +250,7 @@ Template.CommunityDelegateStatus.helpers({
       var userDelegateCommunities = user.profile.delegateCommunities;
       //console.log("userDelegateCommunities.includes(communityId): " + userDelegateCommunities.includes(communityId));
       if((userRoles.indexOf("delegate") > -1)&&(userDelegateCommunities.includes(communityId))){
-        console.log("user has delegate role in community: " + communityId);
+        //console.log("user has delegate role in community: " + communityId);
         return true;
       }else{
         approvalStatus = Template.instance().templateDictionary.get('approvalStatus');
@@ -311,7 +311,58 @@ Template.CommunityDelegateStatus.helpers({
   },
 });
 Template.CommunityDelegateStatus.events({
+  'click #profile-delegate-switch' (event, template) {
+    //event.preventDefault();
+    // Check if person already is a delegate, if so remove role
+    if (isInRole('delegate')) {
+      if (window.confirm(TAPi18n.__('pages.profile.alerts.profile-stop-delegate'))){
+        Meteor.call('toggleRole', 'delegate', false, function(error) {
+          if (error) {
+            RavenClient.captureException(error);
+            Bert.alert(error.reason, 'danger');
+          } else {
+            Meteor.call('removeRanks', 'delegate', Meteor.userId());
+            var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-removed');
+            Bert.alert(msg, 'success');
+          }
+        });
+      }
+    } else {
+      //check if request has already been submitted
+      approvalStatus = Template.instance().templateDictionary.get('approvalStatus');
+      if(approvalStatus=='Requested'){
+        Meteor.call('removeRequest', Meteor.userId(), 'delegate', function(error) {
+          if (error) {
+            RavenClient.captureException(error);
+            Bert.alert(error.reason, 'danger');
+            updateDisplayedStatus('delegate', template)
+          } else {
+            var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-request-removed');
+            //$("#profile-delegate-switch").addClass("switch-disabled");
+            template.templateDictionary.set('approvalStatus','');
+            Bert.alert(msg, 'success');
 
+          }
+        });
+        return;
+      }
+      var communityId = LocalStore.get('communityId');
+      // Profile is complete, submit approval request
+      Meteor.call('requestApproval', Meteor.userId(), 'delegate', communityId,function(error) {
+        if (error) {
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+          updateDisplayedStatus('delegate', template);
+          document.getElementById("profile-delegate-switch").checked = false;
+        } else {
+          var msg = TAPi18n.__('pages.profile.alerts.profile-delegate-requested');
+          $("#profile-delegate-switch").addClass("switch-disabled");
+          template.templateDictionary.set('approvalStatus','Requested');
+          Bert.alert(msg, 'success');
+        }
+      });
+    }
+  },
 });
 //----------------------------------------------------------------------------------------------//
 function getFilteredRoles(roles){
@@ -375,7 +426,7 @@ Template.Delegate.onCreated(function () {
     self.subscribe('tags.community', LocalStore.get('communityId'));
     // Set user's ranked delegates
     if(Meteor.userId()){
-      console.log("calling getRanks, should happen every time a community is updated");
+      //console.log("calling getRanks, should happen every time a community is updated");
       Meteor.call('getRanks', Meteor.userId(), "delegate", LocalStore.get('communityId'), function(error, result){
         if(error) {
           RavenClient.captureException(error);

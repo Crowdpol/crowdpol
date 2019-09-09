@@ -13,7 +13,11 @@ div.dashboard-container{
 }
 div.community-content-header{
   height: 100px;
-
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  background-color: #fff;
   div.community-cover{
     float: left;
     box-sizing: border-box;
@@ -108,7 +112,7 @@ div.community-content-header{
             border-bottom: solid 2px $dark-grey-light;
           }
           a.community-tab.active{
-            border-bottom: solid 2px blue;
+            border-bottom: solid 2px $orange;
           }
         }
         div.community-tabs.active{
@@ -149,7 +153,8 @@ div.community-content-header{
       }
     }
     div.community-map-control:hover{
-      background-color: #e8e8e8//#757575;
+      background-color: lighten($orange,10%);;//#e8e8e8//#757575;
+      color: #fff;
     }
   }
 
@@ -180,6 +185,9 @@ div.community-tabs-panel.active{
   }
 }
 .sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100px;
   float: left;
   box-sizing: border-box;
   margin: 0;
@@ -188,6 +196,10 @@ div.community-tabs-panel.active{
   height: 100%;
   overflow: hidden;
   flex: 20%;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  //background-color: #ccc;
   //padding: 10px;
   //max-width: 200px;
   div.current-community{
@@ -222,10 +234,14 @@ div.community-tabs-panel.active{
   }
   a.active {
     font-weight: bold;
+    background-color: $orange;
+    color: #fff;
   }
 
   a:hover:not(.active) {
-    color: grey;
+    color: $orange;
+    font-weight: bold;
+    //background-color: ;
   }
 }
 
