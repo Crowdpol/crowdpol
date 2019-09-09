@@ -91,8 +91,8 @@ Template.Header.helpers({
     return false;*/
   },
   logoUrl: function() {
-    let community = Template.instance().community.get();
-    let settings = community.settings;
+    //let community = Template.instance().community.get();
+    //let settings = community.settings;
     return '/img/crowdpol_logo_transparent.png';//settings.logoUrl;
   },
   hideHamburger() {

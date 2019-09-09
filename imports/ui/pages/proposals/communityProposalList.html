@@ -1,10 +1,11 @@
 <template name="CommunityProposalList">
-  <ul class="demo-list-control mdl-list">
-    {{#each openProposals false}}
-      {{> VotingCard}}
+  <div class="community-proposal-card-list">
+    {{#each proposal in openProposals false}}
+      <!--{{> VotingCard}}-->
+      {{>ProposalCardTest style="vote" proposal=proposal}}
     {{else}}
       {{_ "pages.voting.no-open-proposals"}}
       <a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
     {{/each}}
-  </ul>
+  </div>
 </template>

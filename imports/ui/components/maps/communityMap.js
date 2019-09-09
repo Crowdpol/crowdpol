@@ -8,7 +8,7 @@ let selection;
 let selectedLayer;
 
 Template.CommunityMap.onCreated(function(){
-  console.log("CommunityMap: onCreated()");
+  //console.log("CommunityMap: onCreated()");
   let rootMap ='GLOBAL';
   const handles = [
     this.subscribe('maps.key.children',rootMap),
@@ -16,7 +16,7 @@ Template.CommunityMap.onCreated(function(){
   ];
   Tracker.autorun(() => {
     const areReady = handles.every(handle => handle.ready());
-    console.log(`Handles are ${areReady ? 'ready' : 'not ready'}`);
+    //console.log(`Handles are ${areReady ? 'ready' : 'not ready'}`);
     if(areReady){
       mapsData = buildGeoJSON("GLOBAL");
       loadGeoJSON(mapsData);
@@ -27,7 +27,7 @@ Template.CommunityMap.onCreated(function(){
 });
 
 Template.CommunityMap.onRendered(function(){
-  console.log("CommunityMap: onRendered()");
+  //console.log("CommunityMap: onRendered()");
   loadMap();
   addLayer();
 });
@@ -54,12 +54,14 @@ function loadGeoJSON(){
 
   // handle clicks on the map that didn't hit a feature
   map.addEventListener('click', function(e) {
+    /*
     Session.set('selectedMap','GLOBAL');
     if (selection) {
-      resetStyles();
+      resetStyle();
       selection = null;
       //document.getElementById('summaryLabel').innerHTML = '<p>Click a garden or food pantry on the map to get more information.</p>';
     }
+    */
     L.DomEvent.stopPropagation(e);
   });
 
@@ -108,33 +110,16 @@ function buildGeoJSON(rootMap){
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
 }
-//makes selections pretty
-function mapStyle(feature) {
-  return {
-    fillColor: "#616161",
-    fillOpacity: 0.2,
-    color: '#8c8c8c',
-    stroke: true,
-    weight: 1
-  };
-}
-function mapSelectedStyle(feature) {
-  return {
-    fillColor: "#ff8f8f",
-    color: '#ff6363',
-    fillOpacity: 0.2,
-    stroke: true,
-    weight: 1
-  };
-}
+
 
 // handle click events on map features
 function mapOnEachFeature(feature, layer){
   layer.on({
     click: function(e) {
       communityInfo.update(e.target.feature.properties);
+      console.log("clicked on community");
       if (selection) {
-        resetStyles();
+        selection.setStyle(mapStyle());
         //console.log(e.target.feature.properties.rootMap);
         map.eachLayer(function(layer){
           if(layer.feature){
@@ -151,7 +136,9 @@ function mapOnEachFeature(feature, layer){
       }
       zoomToFeature(e);
       e.target.setStyle(mapSelectedStyle());
+
       selection = e.target;
+      //console.log(selection);
       //let breadcrumbs = Session.get('breadcrumbs');
       //breadcrumbs.push(selection.feature.properties.iso3166key);
       //Session.set('breadcrumbs',breadcrumbs);
@@ -170,11 +157,12 @@ function mapOnEachFeature(feature, layer){
       L.DomEvent.stopPropagation(e); // stop click event from being propagated further
     },
     mouseover: function(e) {
-      //console.log(e.target.feature.properties.iso3166key);
-      highlightFeature(e);
+      if(layer!==selection){
+        hoverStyle(e);
+      }
     },
     mouseout: function(e) {
-      layer.setStyle(mapStyle());
+      resetStyle(layer);
       info.update();
 
     }
@@ -205,38 +193,12 @@ function loadNewLayer(rootMap){
   */
 }
 
+/*---------------------------------------------------------------*/
+/*                MAP CONTROLS                                   */
+/*---------------------------------------------------------------*/
 function buildSummaryLabel(currentFeature){
   var featureName = currentFeature.properties.name || "Unnamed feature";
   document.getElementById('summaryLabel').innerHTML = '<p style="font-size:18px"><b>' + featureName + '</b></p>';
-}
-// function to set the old selected feature back to its original symbol. Used when the map or a feature is clicked.
-function resetStyles(){
-  /*
-  console.log("check if selectedLayer === mapLayer");
-  console.log("selectedLayer:");
-  console.log(selectedLayer);
-  console.log("mapLayer:");
-  console.log(mapLayer);
-  */
-  if(selectedLayer === mapLayer){
-    selectedLayer.resetStyle(selection);
-  }
-}
-function highlightFeature(e) {
-  //console.log(e.target.feature.properties)
-	info.update(e.target.feature.properties);
-  var layer = e.target;
-
-  layer.setStyle({
-      weight: 1,
-      color: '#666',
-      dashArray: '',
-      fillOpacity: 0.7
-  });
-
-  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-      layer.bringToFront();
-  }
 }
 
 function addCommunityControl(){
@@ -295,4 +257,52 @@ function addInfoControl(){
   };
 
   info.addTo(map);
+}
+/*---------------------------------------------------------------*/
+/*                MAP STYLES                                     */
+/*---------------------------------------------------------------*/
+//this is the default color of all loaded communities
+function mapStyle(feature) {
+  return {
+    fillColor: "#c9c9c9",
+    fillOpacity: 1,
+    color: '#8c8c8c',
+    stroke: true,
+    weight: 1
+  };
+}
+//this is the style of the selected community on mouse click
+function mapSelectedStyle(feature) {
+  return {
+    fillColor: "#f76020",
+    color: '#852800',
+    //fillOpacity: 0.2,
+    stroke: true,
+    weight: 1
+  };
+}
+
+// function to set the old selected feature back to its original symbol. Used when the map or a feature is clicked.
+function resetStyle(layer){
+  if(layer!==selection){
+    layer.setStyle(mapStyle());
+  }
+}
+
+function hoverStyle(e) {
+  //console.log(e.target.feature.properties)
+	info.update(e.target.feature.properties);
+  var layer = e.target;
+
+  layer.setStyle({
+      color: '#8c8c8c',
+      fillColor: "#ff753b",
+      fillOpacity: 1,
+      stroke: true,
+      weight: 1
+  });
+
+  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+  }
 }

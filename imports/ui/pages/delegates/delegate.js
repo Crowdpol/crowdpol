@@ -20,7 +20,7 @@ Template.CommunityDelegates.onCreated(function () {
     self.subscribe('tags.community', LocalStore.get('communityId'));
     // Set user's ranked delegates
     if(Meteor.userId()){
-      console.log("calling getRanks, should happen every time a community is updated");
+      //console.log("calling getRanks, should happen every time a community is updated");
       Meteor.call('getRanks', Meteor.userId(), "delegate", LocalStore.get('communityId'), function(error, result){
         if(error) {
           RavenClient.captureException(error);
@@ -103,7 +103,7 @@ Template.CommunityDelegates.events({
 		Session.set('searchPhrase',event.target.value);
 	},
   'click .delegate-select': function(event, template){
-    var communityId = Template.instance().templateDictionary.get( 'communityId' );
+    var communityId = LocalStore.get('communityId');
     delegateId = this._id;
     var ranks = Session.get('ranked');
     let settings = LocalStore.get('settings');
@@ -250,7 +250,7 @@ Template.CommunityDelegateStatus.helpers({
       var userDelegateCommunities = user.profile.delegateCommunities;
       //console.log("userDelegateCommunities.includes(communityId): " + userDelegateCommunities.includes(communityId));
       if((userRoles.indexOf("delegate") > -1)&&(userDelegateCommunities.includes(communityId))){
-        console.log("user has delegate role in community: " + communityId);
+        //console.log("user has delegate role in community: " + communityId);
         return true;
       }else{
         approvalStatus = Template.instance().templateDictionary.get('approvalStatus');
@@ -375,7 +375,7 @@ Template.Delegate.onCreated(function () {
     self.subscribe('tags.community', LocalStore.get('communityId'));
     // Set user's ranked delegates
     if(Meteor.userId()){
-      console.log("calling getRanks, should happen every time a community is updated");
+      //console.log("calling getRanks, should happen every time a community is updated");
       Meteor.call('getRanks', Meteor.userId(), "delegate", LocalStore.get('communityId'), function(error, result){
         if(error) {
           RavenClient.captureException(error);

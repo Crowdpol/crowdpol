@@ -19,7 +19,7 @@ Template.Leaflet.helpers({
 });
 
 export function loadMap(){
-  console.log("Leaflet: loadMap()");
+  //console.log("Leaflet: loadMap()");
 
   L.Icon.Default.imagePath = '/packages/bevanhunt_leaflet/images/';
 
@@ -42,7 +42,7 @@ export function loadMap(){
      position:'bottomleft'
   }).addTo(map);
 
-  setTiles();
+  //setTiles();
 
 }
 
