@@ -12,17 +12,22 @@ Template.AdminApprovals.onCreated(function() {
 Template.AdminApprovals.helpers({
   pendingApprovals: ()=> {
     //var result = Meteor.users.find({"approvals" : {$exists: true}, $where : "this.approvals.length > 0"});
-    var result = Meteor.users.find({"approvals": {$elemMatch: {status:'Requested'}}});
+    var result = Meteor.users.find({"approvals.status":"Requested"});
     //var result = Meteor.call('getRequests');
+    console.log(result.count());
     return result;
   },
   checkStatus: (status)=> {
+    console.log(status);
   	if(status=='Requested'){
   		return true
   	}
   },
   showDate: function(createdAt){
   	return moment(createdAt).format('MMMM Do YYYY');
+  },
+  community: ()=>{
+    return '';
   },
   user: function(){
   	userId = Session.get('userId');

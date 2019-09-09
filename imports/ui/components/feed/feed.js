@@ -3,7 +3,6 @@ import { userProfilePhoto} from '../../../utils/users';
 import './feed.html'
 
 Template.Feed.onCreated(function(){
-  console.log(this);
   this.autorun(() => {
     this.subscribe('feed-posts', LocalStore.get('communityId'));
   });
