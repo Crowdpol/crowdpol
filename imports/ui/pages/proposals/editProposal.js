@@ -497,10 +497,11 @@ export function getTotalInvites(){
 	proposalId = FlowRouter.getParam("id");
 	if (proposalId){
 		let proposal = Proposals.findOne({_id: proposalId});
+		if(proposal){
+			//console.log(proposal.invited);
+		}
 	}
-	if(proposal){
-		console.log(proposal.invited);
-	}
+
 	let invitedUsers = Session.get("invited");
 	let invitedEmails = Session.get('emailInvites');;
 	let totalCount = 0;

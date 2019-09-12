@@ -54,7 +54,7 @@ Template.UserHome.helpers({
   },
   userFeed: function(){
     let ownerId = getOwnerId();
-    let posts = Posts.find({"userFeedId":ownerId}, {sort: {createdAt: -1}});
+    let posts = Posts.find({"feedId":ownerId}, {sort: {createdAt: -1}});
   	return posts;
   },
   currentUserId: function(){
@@ -156,7 +156,7 @@ Template.UserHome.events({
     let message = template.find('#post-message').value
     let post = {
       userId: Meteor.userId(),
-      userFeedId: getOwnerId(),
+      feedId: getOwnerId(),
       message: message,
     };
     Meteor.call('createPost', post, function(error, postId){

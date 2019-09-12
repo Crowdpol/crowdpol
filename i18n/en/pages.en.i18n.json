@@ -398,9 +398,10 @@
 				"delegate": "Vote as a Delegate",
 				"individual": "Cast your Individual vote"
 			},
-			"no-votes-used": "No users voted on this proposal.",
+			"no-votes-used": "No-one had voted on this proposal.",
 			"for": "For:",
 			"against": "Against:",
+			"abstain": "Abstain:",
 			"expires": "Voting closes",
 			"invited": "Invited"
 		},

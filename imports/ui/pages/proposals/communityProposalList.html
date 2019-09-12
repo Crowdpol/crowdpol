@@ -1,0 +1,11 @@
+<template name="CommunityProposalList">
+  <div class="community-proposal-card-list">
+    {{#each proposal in openProposals false}}
+      <!--{{> VotingCard}}-->
+      {{>ProposalCardTest style="vote" proposal=proposal}}
+    {{else}}
+      {{_ "pages.voting.no-open-proposals"}}
+      <a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
+    {{/each}}
+  </div>
+</template>

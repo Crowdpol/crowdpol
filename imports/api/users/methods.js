@@ -56,6 +56,38 @@ Meteor.methods({
       }
       return false;
     },
+    addDelegateToCommunity: function(userId,communityId) {
+      check(userId, String);
+      check(communityId, String);
+      //check if user exists
+      let user = Meteor.users.findOne({_id: userId});
+      if(user){
+        //check if user is already a member of the community.
+        let communityExists = Meteor.users.findOne({_id: userId,'profile.communityIds': communityId});
+        if(!communityExists){
+          throw new Meteor.Error(422, 'Could not find community');
+        }
+        let delegteCommunityExists = Meteor.users.findOne({_id: userId,'profile.delegateCommunities': communityId});
+        if(adminCommunityExists){
+          throw new Meteor.Error(422, 'User already a delegate of this community');
+        }else{
+          Roles.addUsersToRoles(userId, 'delegate');
+          return Meteor.users.update({_id: userId}, {$push: {'profile.delegateCommunities': communityId}});
+        }
+      }else{
+        throw new Meteor.Error(422, 'Could not find user');
+      }
+    },
+    removeDelegateFromCommunity: function(userId,communityId) {
+      check(userId, String);
+      check(communityId, String);
+
+      let user = Meteor.users.findOne({_id: userId});
+      if(user){
+        return Meteor.users.update({_id: user._id}, {$pull: {'profile.adminCommunities': communityId} });
+      }
+      return false;
+    },
     getUser: function (userID) {
       check(userID, String);
       const users = Meteor.users.find({_id: userID}).fetch();
@@ -148,17 +180,31 @@ Meteor.methods({
 
       approvals = user.approvals;
       var type = null;
+      let communityId = null;
       for (i=0; i<approvals.length; i++){
         if(approvals[i].id==requestId){
           approvals[i].status = status;
           approvals[i].reviewedBy = Meteor.userId();
           approvals[i].reviewedOn = new Date();
           type = approvals[i].type;
+          communityId = approvals[i].communityId;
         }
       }
       Meteor.users.update({_id: userID}, {$set: {'approvals': approvals}});
       if(type&&status=='Approved'){
-        Roles.addUsersToRoles(userID, type);
+        if(type=='delegate'){
+          let communityExists = Communities.find({"_id": communityId}).count();
+          if(!communityExists){
+            throw new Meteor.Error(422, 'Could not find community');
+          }
+          let delegteCommunityExists = Meteor.users.findOne({_id: userID,'profile.delegateCommunities': communityId});
+          if(delegteCommunityExists){
+            throw new Meteor.Error(422, 'User already a delegate of this community');
+          }else{
+            Roles.addUsersToRoles(userID, 'delegate');
+            return Meteor.users.update({_id: userID}, {$push: {'profile.delegateCommunities': communityId}});
+          }
+        }
       }
 
       // Create user notification
@@ -174,29 +220,25 @@ Meteor.methods({
 
       Meteor.call('createNotification', {message: message, userId: userID, url: '/profile', icon: icon})
     },
-    requestApproval: function (userId, type) {
+    requestApproval: function (userId, type, communityId) {
       check(userId, String);
       check(type, String);
+      check(communityId, String);
       //don't create request unless profile is complete
       if (profileIsComplete(Meteor.user())) {
         //check if this user already has an approval of this type
         //users should only ever have one approval per
-        var existingApprovalCount = Meteor.users.find({$and:[{_id: userId},{'approvals.type': type}]}).count();
-        if (existingApprovalCount > 0){
-          //an approval request of this type already exists - remove it.
-          Meteor.users.update({_id: userId}, {$pull: {approvals: {type: type}} });
+        var existingApprovalCount = Meteor.users.find({_id: userId,'approvals.type': type,"communityId":communityId}).count();
+        if (existingApprovalCount == 0){
+          let newApproval = {
+            "id": Random.id(),
+            "type" : type,
+            "status" : "Requested",
+            "createdAt" : new Date(),
+            "communityId": communityId
+          };
+          Meteor.users.update({_id: Meteor.userId()}, {$push: {"approvals": newApproval}});
         }
-        //get current user approvalRequests
-        var currentApprovals = Meteor.user().approvals;
-        //add to existing array before update, or else it just replaces what is already there
-        const existingRequests = currentApprovals || [];
-        existingRequests.push({
-          "id": Random.id(),
-          "type" : type,
-          "status" : "Requested",
-          "createdAt" : new Date(),
-        });
-        Meteor.users.update({_id: Meteor.userId()}, {$set: {"approvals": existingRequests}});
       } else {
         throw new Meteor.Error(422, TAPi18n.__('pages.profile.alerts.profile-incomplete'));
       }

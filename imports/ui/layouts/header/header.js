@@ -18,6 +18,7 @@ Template.Header.onCreated(function(){
   if (user && user.roles){
     var currentRole = LocalStore.get('currentUserRole');
     var userRoles = user.roles;
+    var userDelegateCommunities = user.profile.delegateCommunities;
     //if (!currentRole){
       //console.log(userRoles);
       if(userRoles.indexOf("individual") > -1){
@@ -35,13 +36,7 @@ Template.Header.onCreated(function(){
         LocalStore.set('currentUserRole', 'party');
         LocalStore.set('otherRole','party');
       }
-      if(userRoles.indexOf("delegate") > -1){
-        //console.log("user has delegate role");
-        LocalStore.set('isDelegate',true);
-      }else{
-        //console.log("user is not a delegate");
-        LocalStore.set('isDelegate',false);
-      }
+      LocalStore.set('isDelegate',false);
       LocalStore.set('usingAsDelegate',false);
       //console.log("localstore currentUserRole: " + LocalStore.get('currentUserRole'));
       //console.log("localstore isDelegate: " + LocalStore.get('isDelegate'));
@@ -82,6 +77,8 @@ Template.Header.helpers({
     return "Crowdpol";//Template.instance().community.get().name;
   },
   logoUrlSet: function(){
+    return true;
+    /*
     let community = Template.instance().community.get();
     if(typeof community !='undefined'){
       let settings = community.settings;
@@ -91,12 +88,12 @@ Template.Header.helpers({
         }
       }
     }
-    return false;
+    return false;*/
   },
   logoUrl: function() {
-    let community = Template.instance().community.get();
-    let settings = community.settings;
-    return settings.logoUrl;
+    //let community = Template.instance().community.get();
+    //let settings = community.settings;
+    return '/img/crowdpol_logo_transparent.png';//settings.logoUrl;
   },
   hideHamburger() {
     //$(".mdl-layout__drawer-button").hide();
@@ -163,6 +160,21 @@ Template.Header.helpers({
     return LocalStore.get('usingAsDelegate');
   },
   isDelegate() {
+    var user = Meteor.user();
+    var communityId = LocalStore.get('communityId');
+    if (user && user.roles){
+      var currentRole = LocalStore.get('currentUserRole');
+      var userRoles = user.roles;
+      var userDelegateCommunities = user.profile.delegateCommunities;
+      //console.log("userDelegateCommunities.includes(communityId): " + userDelegateCommunities.includes(communityId));
+      if((userRoles.indexOf("delegate") > -1)&&(userDelegateCommunities.includes(communityId))){
+        //console.log("user has delegate role in community: " + communityId);
+        LocalStore.set('isDelegate',true);
+      }else{
+        //console.log("user is not a delegate in community: " + communityId);
+        LocalStore.set('isDelegate',false);
+      }
+    }
     return LocalStore.get('isDelegate');
   },
   matchedTags(){

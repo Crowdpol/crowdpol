@@ -173,6 +173,13 @@ publicRoutes.route('/test', {
   },
 });
 
+publicRoutes.route('/leaflet', {
+  name: 'App.leaflet',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Leaflet' });
+  },
+});
+
 //USER SEARCH
 FlowRouter.route('/search/users', {
   name: 'App.search.users',
@@ -287,7 +294,7 @@ loggedInRoutes.route('/dash', {
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      BlazeLayout.render('App_body', { main: 'CommunityNav' });
       //console.log("/dash points to community dash");
     }else{
       BlazeLayout.render('App_body', { main: 'App_notFound' });
@@ -339,10 +346,10 @@ loggedInRoutes.route('/proposals/edit/:id?', {
   }
 });
 
-loggedInRoutes.route('/proposals/edit/:id?', {
-  name: 'App.proposal.edit',
+loggedInRoutes.route('/proposals/view/:id?', {
+  name: 'App.proposal.view',
   action() {
-    BlazeLayout.render('App_body', {main: 'EditProposal'});
+    BlazeLayout.render('App_body', {main: 'ViewProposal'});
   }
 });
 

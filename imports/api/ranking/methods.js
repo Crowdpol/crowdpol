@@ -37,6 +37,8 @@ Meteor.methods({
         {$sort: {"ranking": 1}},
         {$project:{"_id": 0,"entityId" :1}}
       ]).map(function(el) { return el.entityId });
+      console.log("dumping: getRanks " + communityId);
+      console.log(results)
       return results;
     },
     updateRanks: function(rankings,type){

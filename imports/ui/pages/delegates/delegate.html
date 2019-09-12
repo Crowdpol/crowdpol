@@ -2,7 +2,7 @@
 	{{#if currentUser}}
 		<!--{{> backButton text="generic.back-to-proposals" url="/dash"}}-->
 	<div class="search-container">
-		<h5>{{_ "pages.delegates.heading"}}{{#if notDelegate}}<small><i class="material-icons" id="delegate-help">help_outline</i></small>{{/if}}</h5>
+		<!--<h5>{{_ "pages.delegates.heading"}}{{#if notDelegate}}<small><i class="material-icons" id="delegate-help">help_outline</i></small>{{/if}}</h5>-->
 		<!-- If settings.delegateLimt is set to 0 then delegation is disabled -->
 		{{#if delegatesEnabled}}
 			<small>{{_ "pages.delegates.instructions-1"}}</small>
@@ -17,49 +17,71 @@
 			  <div class="mdl-tabs__tab-bar">
 			      <a href="#available-panel" class="mdl-tabs__tab is-active">Available {{#if delegatesCount}}({{delegatesCount}}){{/if}}</a>
 			      <a href="#selected-panel" class="mdl-tabs__tab">Selected {{#if rankCount}}({{rankCount}}){{/if}}</a>
+						<a href="#delegate-panel" class="mdl-tabs__tab">My Delegate Status</a>
 			  </div>
-
-			  <div class="mdl-tabs__panel is-active" id="available-panel">
-					<div class="search-wrapper">
-						<i class="material-icons search-icon">search</i>
-						<input type="text" name="focus" required class="search-box" placeholder='{{_ "pages.delegates.search"}}' id="delegate-search"/>
-						<button class="close-icon" type="reset">
-							<i class="material-icons">close</i>
-						</button>
-					</div>
-					{{#if Template.subscriptionsReady}}
-						<div class="delegate-list">
-							{{#each delegates}}
-								<div class="delegate-item">
-									<div class="card-main-wrap">
-										<div class="card-main delegate-view">
-											<img src={{profile.photo}} class="card-avatar">
-											<div class="delegate-name">
-												<h6>{{profile.firstName}} {{profile.lastName}}</h6>
-												<p>
-													({{profile.username}})
-													<br>
-													{{#each filteredRoles roles}}
-														<a class="tag tag-chip role-chip">{{this}}</a>
-													{{/each}}
-												</p>
-											</div>
-										</div>
-										<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delegate-checkbox-{{@index}}">
-											<input type="checkbox" id="delegate-checkbox-{{@index}}" class="mdl-checkbox__input delegate-select" />
-										</label>
-									</div>
-									<div class="card-secondary-wrap">
-										{{#each showTags profile.tags}}
-											<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
-										{{/each}}
-									</div>
-								</div>
-						  {{/each}}
+				<div class="mdl-tabs__panel" id="delegate-panel">
+					<br>
+					<small>{{_ "pages.profile.delegate-switch-description"}}</small>
+					<br>
+					<div id="delegate-switch-container">
+						{{#if delegateChecked}}
+							<input type="checkbox" id="profile-delegate-switch" name="profile-delegate-switch" class="switch-input switch-checked {{delegateSwitchClass}}" checked="checked">
+						{{else}}
+							<input type="checkbox" id="profile-delegate-switch" name="profile-delegate-switch" class="switch-input">
+						{{/if}}
+						<label for="profile-delegate-switch" class="switch-label">{{_ "pages.profile.delegate"}} <span class="toggle--on">{{delegateStatus}}</span><span class="toggle--off">{{delegateStatus}}</span></label>
+						<div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
+							{{_ "pages.profile.tooltips.delegateSwitch"}}
 						</div>
+
+
+					</div>
+				</div>
+			  <div class="mdl-tabs__panel is-active" id="available-panel">
+					{{#if delegatesCount}}
+						<div class="search-wrapper">
+							<i class="material-icons search-icon">search</i>
+							<input type="text" name="focus" required class="search-box" placeholder='{{_ "pages.delegates.search"}}' id="delegate-search"/>
+							<button class="close-icon" type="reset">
+								<i class="material-icons">close</i>
+							</button>
+						</div>
+						{{#if Template.subscriptionsReady}}
+							<div class="delegate-list">
+								{{#each delegates}}
+									<div class="delegate-item">
+										<div class="card-main-wrap">
+											<div class="card-main delegate-view">
+												<img src={{profile.photo}} class="card-avatar">
+												<div class="delegate-name">
+													<h6>{{profile.firstName}} {{profile.lastName}}</h6>
+													<p>
+														({{profile.username}})
+														<br>
+														{{#each filteredRoles roles}}
+															<a class="tag tag-chip role-chip">{{this}}</a>
+														{{/each}}
+													</p>
+												</div>
+											</div>
+											<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delegate-checkbox-{{@index}}">
+												<input type="checkbox" id="delegate-checkbox-{{@index}}" class="mdl-checkbox__input delegate-select" />
+											</label>
+										</div>
+										<div class="card-secondary-wrap">
+											{{#each showTags profile.tags}}
+												<a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
+											{{/each}}
+										</div>
+									</div>
+							  {{/each}}
+							</div>
+						{{else}}
+							{{> loader}}
+				  	{{/if}}
 					{{else}}
-						{{> loader}}
-			  	{{/if}}
+						Currently no active delegates in this community.
+					{{/if}}
 			  </div>
 			  <div class="mdl-tabs__panel" id="selected-panel">
 					<div id="sortable" class="delegate-list" >
@@ -102,6 +124,7 @@
 					{{/unless}}
 			  </div>
 			</div>
+
 		{{else}}
 			<p>{{_ "pages.delegates.delegation-disabled"}}</p>
 		{{/if}}

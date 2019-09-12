@@ -1,0 +1,43 @@
+.info {
+	padding: 6px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+}
+.info h4 {
+	margin: 0 0 5px;
+	color: #777;
+}
+.leaflet-control-attribution{
+  display:none;
+  a{
+
+  }
+}
+
+#leaflet-map{
+	background: lighten(#92e2e8,20%);
+}
+
+.map-community-info{
+  padding: 6px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+	//min-height: 200px;
+	a{
+		font: 14px/16px Arial, Helvetica, sans-serif;
+		text-decoration: none;
+	}
+  .map-community-info-header{
+    width: 200px;
+    height: 80px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}

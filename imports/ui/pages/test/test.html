@@ -1,15 +1,21 @@
 <template name="Test">
-  <div class="column-container app-container">
-    <div class="map-container">
-      <h2>Testing everything</h2>
-      {{#unless geolocationError}}
-        {{> googleMap name="map" options=exampleMapOptions}}
-      {{else}}
-        Geolocation failed: {{geolocationError}}
-      {{/unless}}
+  <!--{{>CommunityMap}}-->
+  <div class="container app-container">
+    <div class="test-container">
+      <div class="test-header">
+        This is header
+      </div>
+      <div class="test-sidebar test-sticky">
+        This is side bar
+      </div>
+      <div class="test-content">
+        This is main content
+      </div>
+      <div class="test-footer" id="test-footer-id">
+        <div class="test-sticky-stopper"></div>
+        This is my footer
+      </div>
     </div>
-    <br>
-    <hr>
-
   </div>
+  
 </template>

@@ -44,9 +44,9 @@
         <div class="mdl-card__actions mdl-card--border">
           {{#if notMe userId}}
             {{#if alreadyFollowing userId}}
-              <button class="mdl-button mdl-js-button" id="unfollow-user" data-id="{{userId}}">Unfollow<i class="material-icons">minus</i></button>
+              <button class="mdl-button mdl-js-button" id="unfollow-user" data-id="{{userId}}">Unfollow<i class="material-icons" data-id="{{userId}}">minus</i></button>
             {{else}}
-              <button class="mdl-button mdl-js-button" id="follow-user" data-id="{{userId}}">Follow<i class="material-icons">add</i></button>
+              <button class="mdl-button mdl-js-button" id="follow-user" data-id="{{userId}}">Follow<i class="material-icons" data-id="{{userId}}">add</i></button>
             {{/if}}
           {{/if}}
         </div>

@@ -1,38 +1,61 @@
+import { Maps } from '../../../api/maps/Maps.js';
+import { Posts } from '../../../api/posts/Posts.js'
+import { Proposals } from '../../../api/proposals/Proposals.js';
 import { Communities } from '../../../api/communities/Communities.js';
 import { Groups } from '../../../api/group/Groups.js';
 import { setCommunity } from '../../../utils/community';
+import { userProfilePhoto} from '../../../utils/users';
 import RavenClient from 'raven-js';
 import './communityDash.html';
 
+//declare global variables:
+/*
+let mapDataSet = {};
+let communitiesDataSet = {};
+let map = null;
+let selection;
+let selectedLayer;
+let mapLayer;
+var mapsData;
+let info;
+let communityInfo;
+*/
+
 Template.CommunityDash.onCreated(function(){
   self = this;
-  //Local Storage
   var communityId = LocalStore.get('communityId');
-  self.openGroup = new ReactiveVar(true);
-  /*
-  //Session variables
-  Session.set('variableName','variableValue');
-  //Reactive Variables
-  self.reactiveVariable = new ReactiveVar([]);
-  self.reactiveVariable.set("exampleData");
-  //Reactive Dictionary
-  */
   var dict = new ReactiveDict();
-  this.templateDictionary = dict;
-  dict.set("communityId",communityId);
-  //subscriptions
-  self.autorun(function() {
-    self.subscribe("communities.children",LocalStore.get('communityId'));
-    self.subscribe("groups.community",LocalStore.get('communityId'));
+	self.dict = dict;
+  self.openGroup = new ReactiveVar(true);
+  dict.set('communityId',communityId);
+  dict.set('currentHeader','community-proposals');
+  Session.set('selectedCommunity','Global');
+  Session.set('selectedMap','GLOBAL');
+  Session.set('breadcrumbs',['GLOBAL']);
+  this.autorun(() => {
+    self.subscribe('feed-posts', dict.get('communityId'));
+    //self.subscribe("communities.all");//communityId);
+    self.subscribe("groups.community",dict.get('communityId'));
+    self.subscribe("proposals.community",dict.get('communityId'));
+    //self.subcribe("users.community",LocalStore.get('communityId'));
+
   });
-  /*
-  $('.page-content').scroll(function(){
-    console.log("scrolling");
-  });
-  */
+
 });
 
 Template.CommunityDash.onRendered(function(){
+  $('.mdl-layout__tab').on('click', function() {
+	$this = $(this);
+  if($this.hasClass('is-active')) return;
+
+  $parent = $this.closest('.mdl-layout__tab-bar');
+  $('.mdl-layout__tab', $parent).removeClass('is-active');
+  $this.addClass('is-active');
+  $(window).scroll(function(){
+    //your code
+    console.log("scroll");
+  });
+})
   /* TODO: Standardise form validation
   $( "#create-group-form" ).validate({
     rules: {
@@ -53,9 +76,51 @@ Template.CommunityDash.onRendered(function(){
     }
   });
   */
+
 });
 
 Template.CommunityDash.events({
+  'click .sidebar-nav': function(event,template){
+    event.preventDefault();
+    //disable all sidebar navs
+    $('.sidebar-nav').each(function(i, obj) {
+      $(this).removeClass('active');
+    });
+    //set current sidebar nav to active
+    $(event.target).addClass('active');
+    //get and set community header title to active tab name
+    let id = "#" + event.target.dataset.id;
+    template.dict.set('currentHeader',event.target.dataset.id);
+    //disabke all current community content tabs
+    $('.tabcontent').each(function(i, obj) {
+      $(this).removeClass('active');
+    });
+    //enable selected content tab
+    $(id).addClass('active');
+    //disable all community tabs in header
+    $(".community-tabs").each(function(i, obj) {
+      $(this).removeClass('active');
+    });
+    //enable appropriate community tab according to siderbar selection
+    let selector = '*[data-sidebar-nav-id="'+event.target.dataset.id+'"]';
+    $(selector).addClass('active');
+  },
+  'click .community-tab': function(){
+    //remove active from all neighbouring tabs
+    $(event.target).parent().children().each(function(i,obj){
+      $(this).removeClass('active');
+    });
+    //add active class to event target tab
+    $(event.target).addClass('active');
+    //disable all tab content in matching community content
+    let parentContentId = "#" + event.target.parentElement.dataset.sidebarNavId;
+    $(parentContentId).children().each(function(i,obj){
+      $(this).removeClass('active');
+    });
+    let elementId = "#" + event.target.dataset.id;
+    //enable the corresponding community content tab panel
+    $(elementId).addClass("active");
+  },
   'click .community-card-image': function(event, template){
     let id = event.currentTarget.dataset.id;
     if(id){
@@ -133,7 +198,7 @@ Template.CommunityDash.events({
       communityId: LocalStore.get('communityId'),
       isArchived: false
     }
-    console.log(group);
+    //console.log(group);
     if(group.name == ''){
       Bert.alert("Name required","danger");
       return false;
@@ -155,10 +220,52 @@ Template.CommunityDash.events({
   },
   'click .group-card': function(event, template){
     event.preventDefault();
+  },
+  'click #create-post': function(event,template){
+    event.preventDefault();
+    var communityId = LocalStore.get('communityId');
+    let message = template.find('#post-message').value
+    let post = {
+      userId: Meteor.userId(),
+      feedId: communityId,
+      message: message,
+    };
+    Meteor.call('createPost', post, function(error, postId){
+  		if (error){
+  			RavenClient.captureException(error);
+  			Bert.alert(error.reason, 'danger');
+  			return false;
+  		} else {
+  			 Bert.alert(TAPi18n.__('pages.feed.post-created'), 'success');
+         template.find('#post-message').value = "";
+         $("#post-message").addClass('post-textarea-small');
+         $("#post-message").removeClass('post-textarea-large');
+  		}
+  	});
+  },
+  'click .community-map-control':function(){
+    $(".map-header-container").slideToggle();
   }
 });
 
 Template.CommunityDash.helpers({
+  communityId: function(){
+    return LocalStore.get('communityId');
+  },
+  communityFeed: function(){
+    var communityId = LocalStore.get('communityId');
+    //console.log("db.posts.find({'feedId':'"+communityId+"'});")
+    let posts = Posts.find({"feedId":communityId}, {sort: {createdAt: -1}});
+    //console.log("post.count():" +posts.count());
+  	return posts;
+  },
+  profilePic: function(userId) {
+    return userProfilePhoto(userId);
+  },
+  communityMembers: function(){
+    var communityId = LocalStore.get('communityId');
+    return Meteor.users.find({"profile.communityIds" : communityId})
+  },
   currentCommunity: function(){
     var communityId = LocalStore.get('communityId');
     let community = Communities.findOne({"_id":communityId});
@@ -195,7 +302,53 @@ Template.CommunityDash.helpers({
   },
   groups: function(){
     //console.log("Groups count: " + Groups.find().count());
-    return Groups.find();
+    return Groups.find({communityId:LocalStore.get('communityId')});
+  },
+  currentCommunityProposalCount: function(){
+    var communityId = LocalStore.get('communityId');
+    return Proposals.find({stage: "live",communityId:LocalStore.get('communityId')}).count();
+  },
+  openProposals: function(isVotingAsDelegate) {
+    var communityId = LocalStore.get('communityId');
+    let now = moment().toDate();//new Date();
+    let end = now;
+    //TO DO: add option for admin to select delgate expiry date (currently 14 days before end date)
+    if(isVotingAsDelegate){
+      end =  moment(now).subtract(2, 'weeks').toDate();//now.setDate(now.getDate()-14).toString();
+    }
+
+    return Proposals.find({stage: "live",communityId:LocalStore.get('communityId')}, {sort: {endDate: 1,createdAt:-1}},{transform: transformProposal});
+  },
+  currentCommunity: function(){
+    return Communities.findOne({"_id":LocalStore.get('communityId')});
+  },
+  currentHeader: function(){
+    let currentHeader = Template.instance().dict.get('currentHeader');
+    switch(currentHeader){
+      case 'community-feed-wrapper':
+        //TAPi18n.__('pages.delegates.alerts.ranking-updated')
+        currentHeader = 'Feed';
+        break;
+      case 'community-proposals':
+        // code block
+        currentHeader = 'Proposals';
+        break;
+      case 'community-members':
+        currentHeader = 'Members';
+        break;
+      case 'community-delegates':
+        currentHeader = 'Delegates';
+        break;
+      case 'community-groups':
+        currentHeader = 'Groups';
+        break;
+      default:
+        currentHeader = 'Oops. Something went wrong. Sorry!';
+    }
+    return currentHeader;
+  },
+  proposalTabs: function(){
+    return true;
   }
 });
 
@@ -216,3 +369,45 @@ Template.CreateGroupModal.events({
   }
 })
 */
+
+
+//--------------------------------------------------------------------------------------------------------------//
+function transformProposal(proposal) {
+  var currentLang = TAPi18n.getLanguage();
+  var endDate = proposal.endDate;
+  var startDate = proposal.startDate;
+  //Put dates in ISO format so they are compatible with moment
+  endDate = endDate.toISOString();
+  startDate = startDate.toISOString();
+  proposal.endDate = endDate;
+  proposal.startDate = startDate;
+  var content = proposal.content;
+  content.forEach(function (lang, index) {
+    if(lang.language==currentLang){
+
+      //var langContent = {
+        proposal.title = lang.title
+        proposal.abstract =lang.abstract;
+        proposal.body = lang.body;
+        proposal.pointsAgainst = lang.pointsAgainst;
+        proposal.pointsFor = lang.pointsFor;
+      //}
+      //proposal.langContent = langContent;
+    }
+  });
+  return proposal;
+};
+
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
