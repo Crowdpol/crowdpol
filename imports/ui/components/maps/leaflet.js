@@ -92,6 +92,8 @@ function setTiles(){
   var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
   tiles.addTo(map);
 }
-export function addLayer(){
+export function addLayer(layer){
   //console.log("Leaflet: addLayer()");
+  //console.log(layer);
+  layer.addTo(map);
 }
