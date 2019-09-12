@@ -1,14 +1,7 @@
 <template name="AdminMaps">
 
-  <div id="community-map" style="min-height: 350px; min-width: 100%;">
-
-  </div>
-  <div id="summaryLabel">
-      <p>Click a garden or food pantry on the map to get more information.</p>
-      {{#each value in breadcrumbs}}
-         <p>{{value}}</p>
-      {{/each}}
-  </div>
+  {{>CommunityMap}}
+  {{>CommunityHeader}}
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
       <div class="card">
@@ -80,9 +73,9 @@
                 <select class="mdl-textfield__input" id="rootCommunity">
                   {{#each communities}}
                     {{#if isSelectedCommunity _id}}
-                      <option value="{{_id}}" selected="selected">{{name}}</option>
+                      <option value="{{_id}}" selected="selected" class="rootCommunityOption">{{name}}</option>
                     {{else}}
-                      <option value="{{_id}}">{{name}}</option>
+                      <option value="{{_id}}" class="rootCommunityOption">{{name}}</option>
                     {{/if}}
                   {{/each}}
                   {{community.name}}

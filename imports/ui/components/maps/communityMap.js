@@ -3,23 +3,20 @@ import { Communities } from '../../../api/communities/Communities.js';
 import {map,loadMap,addLayer} from '../../components/maps/leaflet.js'
 import './communityMap.html'
 
-let mapsData = {};
 let selection;
-let selectedLayer;
+let currentRoot='GLOBAL';
 
 Template.CommunityMap.onCreated(function(){
   //console.log("CommunityMap: onCreated()");
-  let rootMap ='GLOBAL';
   const handles = [
-    this.subscribe('maps.key.children',rootMap),
+    this.subscribe('maps.all'),//,rootMap),
     this.subscribe("communities.all")
   ];
   Tracker.autorun(() => {
     const areReady = handles.every(handle => handle.ready());
     //console.log(`Handles are ${areReady ? 'ready' : 'not ready'}`);
     if(areReady){
-      mapsData = buildGeoJSON("GLOBAL");
-      loadGeoJSON(mapsData);
+      loadGeoJSON();
       addInfoControl();
       addCommunityControl();
     }
@@ -27,9 +24,7 @@ Template.CommunityMap.onCreated(function(){
 });
 
 Template.CommunityMap.onRendered(function(){
-  //console.log("CommunityMap: onRendered()");
   loadMap();
-  addLayer();
 });
 
 Template.CommunityMap.events({
@@ -43,33 +38,53 @@ Template.CommunityMap.helpers({
 //custom FUNCTIONS
 function loadGeoJSON(){
   //start with the global map (i.e. load countries)
-  //var mapsData = buildGeoJSON("GLOBAL");
+  var greyscaleMap = L.tileLayer.provider('Esri.WorldGrayCanvas');
+  var streetMap = L.tileLayer.provider('Esri.WorldStreetMap');
+  var mapsData = buildGeoJSON(currentRoot);
   mapLayer = new L.geoJSON(mapsData,{
     style: mapStyle,
     onEachFeature: mapOnEachFeature
   });
-  mapLayer.addTo(map);
-  //console.log(mapLayer.getBounds());
-  map.fitBounds(mapLayer.getBounds());
+  addLayer(greyscaleMap);
+  addLayer(streetMap);
+  addLayer(mapLayer);
+  //streetMap.addTo(map);
+  //mapLayer.addTo(map);
+  var baseMaps = {
+    "Streets": streetMap,
+  	"Greyscale": greyscaleMap
+  };
 
+  var overlayMaps = {
+      "Communities": mapLayer
+  };
+  //var group = new L.LayerGroup([streetMap, mapLayer]);
+  //group.addTo(map);
+  L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+  //console.log(mapLayer.getBounds());
+  //map.fitBounds(mapLayer.getBounds());
+
+  /*
   // handle clicks on the map that didn't hit a feature
+
   map.addEventListener('click', function(e) {
-    /*
+
     Session.set('selectedMap','GLOBAL');
     if (selection) {
       resetStyle();
       selection = null;
       //document.getElementById('summaryLabel').innerHTML = '<p>Click a garden or food pantry on the map to get more information.</p>';
     }
-    */
+
     L.DomEvent.stopPropagation(e);
   });
-
+  */
 }
 
-function buildGeoJSON(rootMap){
+function buildGeoJSON(){
   //console.log("buildGeoJSON started");
-  let maps = Maps.find({"properties.rootMap":rootMap}).fetch();
+  let maps = Maps.find({"properties.rootMap":currentRoot}).fetch();
   let geoJSON = null;
   let mapCollection = [];
   //console.log("maps.length: " + maps.length);
@@ -116,41 +131,26 @@ function zoomToFeature(e) {
 function mapOnEachFeature(feature, layer){
   layer.on({
     click: function(e) {
+      //load community info onto map
       communityInfo.update(e.target.feature.properties);
-      console.log("clicked on community");
+      //reset previous selected layer styles
       if (selection) {
         selection.setStyle(mapStyle());
-        //console.log(e.target.feature.properties.rootMap);
-        map.eachLayer(function(layer){
-          if(layer.feature){
-            /*
-            if(e.target.feature.properties.rootMap!==layer.feature.properties.rootMap){
-              map.removeLayer(layer);
-            }
-            */
-            //console.log
-            //console.log(layer.feature.properties.iso3166key);
-          }
-
-        });
       }
       zoomToFeature(e);
+      //style selected map
       e.target.setStyle(mapSelectedStyle());
-
       selection = e.target;
-      //console.log(selection);
-      //let breadcrumbs = Session.get('breadcrumbs');
-      //breadcrumbs.push(selection.feature.properties.iso3166key);
-      //Session.set('breadcrumbs',breadcrumbs);
-      selectedLayer = mapLayer;
-      Session.set('selectedMap',selection.feature.properties.key);
-      //console.log(selection.feature);
-      /* THIS LOADS CHILD MAPS
-      let rootMap = selection.feature.properties.key;
-      if(Maps.find({"properties.rootMap":rootMap}).count()){
-        loadNewLayer(rootMap);
+      Session.set('selectedMap',selection.feature);
+
+      /* THIS LOADS CHILD MAPS*/
+      currentRoot = selection.feature.properties.key;
+      let childMapCount = Maps.find({"properties.rootMap":currentRoot}).count();
+      if(childMapCount){
+        loadNewLayer();
+      }else{
+        console.log("no children, leave map layer as is");
       }
-      */
       // Insert some HTML with the feature name
       //buildSummaryLabel(feature);
 
@@ -169,28 +169,20 @@ function mapOnEachFeature(feature, layer){
   });
 }
 
-function loadNewLayer(rootMap){
-  //console.log("rootMap: " + rootMap);
-  //console.log(Maps.find({"properties.rootMap":rootMap}).count());
-  let maps = Maps.find({"properties.rootMap":rootMap});
-  let geoJSON = buildGeoJSON(rootMap);
-  //console.log(geoJSON);
+function loadNewLayer(){
+  if(map.hasLayer(mapLayer)) {
+    map.removeLayer(mapLayer);
+  }
 
-  var newLayer = new L.geoJSON(geoJSON,{
+  let geoJSON = buildGeoJSON();
+
+  mapLayer = new L.geoJSON(geoJSON,{
     style: mapStyle,
     onEachFeature: mapOnEachFeature
   });
 
-  newLayer.addTo(map);
-  /*
-  map.eachLayer(function(layer){
-    if(layer.feature){
-      //console.log
-      //console.log(layer.feature.properties.iso3166key);
-    }
+  mapLayer.addTo(map);
 
-  });
-  */
 }
 
 /*---------------------------------------------------------------*/
@@ -265,7 +257,7 @@ function addInfoControl(){
 function mapStyle(feature) {
   return {
     fillColor: "#c9c9c9",
-    fillOpacity: 1,
+    fillOpacity: 0.7,
     color: '#8c8c8c',
     stroke: true,
     weight: 1
@@ -276,7 +268,7 @@ function mapSelectedStyle(feature) {
   return {
     fillColor: "#f76020",
     color: '#852800',
-    //fillOpacity: 0.2,
+    fillOpacity: 0.7,
     stroke: true,
     weight: 1
   };
@@ -297,7 +289,7 @@ function hoverStyle(e) {
   layer.setStyle({
       color: '#8c8c8c',
       fillColor: "#ff753b",
-      fillOpacity: 1,
+      fillOpacity: 0.7,
       stroke: true,
       weight: 1
   });
@@ -305,4 +297,25 @@ function hoverStyle(e) {
   if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
       layer.bringToFront();
   }
+}
+
+/*---------------------------------------------------------------*/
+/*                EXPORT FUNCTION                                */
+/*---------------------------------------------------------------*/
+
+export function loadCommunityMap(id){
+  let map = Maps.findOne({"properties.communityId":id});
+  if(map){
+    currentRoot = map.properties.key;
+
+  }else{
+    currentRoot = 'GLOBAL';
+    console.log("no map");
+  }
+  loadNewLayer(currentRoot);
+  //map.fitBounds(mapLayer.getBounds());
+}
+
+export function currentMap(){
+  return Maps.findOne({"properties.key":currentRoot});
 }
