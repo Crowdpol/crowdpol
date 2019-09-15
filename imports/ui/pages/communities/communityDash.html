@@ -23,6 +23,11 @@
                 <a class="community-tab" data-id="proposal-polls">Polls</a>
                 <a class="community-tab" data-id="proposal-petitions">Petitions</a>
               </div>
+              <div class="community-tabs" data-sidebar-nav-id="my-community-proposals">
+                <a class="community-tab active" data-id="proposal-drafts">Drafts</a>
+                <a class="community-tab" data-id="proposal-submitted">Submitted</a>
+                <a class="community-tab" href="/proposals/edit" data-id="proposal-write">Write</a>
+              </div>
               <div class="community-tabs" data-sidebar-nav-id="community-feed-wrapper">
                 <a class="community-tab active" data-id="community-feed">Feed</a>
                 <a class="community-tab" data-id="community-activity">Activity</a>
@@ -53,7 +58,8 @@
   <div class="dashboard-container" id="community-dash-container">
 
     <div class="sidebar">
-      <a class="sidebar-nav active" data-id="community-proposals">Proposals <small>{{currentCommunityProposalCount}}</small></a>
+      <a class="sidebar-nav active" data-id="community-proposals">Vote <small>{{currentCommunityProposalCount}}</small></a>
+      <a class="sidebar-nav" data-id="my-community-proposals">My Proposals</a>
       <a class="sidebar-nav" data-id="community-feed-wrapper">Feed</a>
       <a class="sidebar-nav" data-id="community-delegates">Delegates <small>{{currentCommunityGroupCount}}</small></a>
       <a class="sidebar-nav" data-id="community-members">Members <small>{{currentCommunityMemberCount}}</small></a>
@@ -83,8 +89,25 @@
         </div>
       </div>
 
-      <div id="community-proposals" class="tabcontent active">
+      <div id="my-community-proposals" class="tabcontent active">
         <div class="community-tabs-panel" id="proposal-polls">
+          <br>
+          <p><strong>Polls</strong> - Coming soon in version 2</p>
+          <p>
+            This will be proposals that allow for user defined selection options rather than yes/no/abstain vote options
+          </p>
+        </div>
+        <div class="community-tabs-panel" id="proposal-submitted">
+          <br>
+          <p><strong>Petitions</strong> - Coming soon in version 2</p>
+          <p>
+            This will be proposals that allow users to digitally sign to gather support for an idea.
+          </p>
+        </div>
+      </div>
+
+      <div id="community-proposals" class="tabcontent">
+        <div class="community-tabs-panel" id="proposal-draft">
           <br>
           <p><strong>Polls</strong> - Coming soon in version 2</p>
           <p>

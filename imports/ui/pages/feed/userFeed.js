@@ -68,7 +68,7 @@ Template.UserFeed.helpers({
       followers = Meteor.user().profile.following;
     }
     if(Array.isArray(followers)){
-      console.log(Meteor.users.find( { _id : { $in :  followers} }).count());
+      //console.log(Meteor.users.find( { _id : { $in :  followers} }).count());
       return Meteor.users.find( { _id : { $in :  followers} });
     }
     return null;
@@ -97,8 +97,6 @@ Template.UserFeed.helpers({
     //console.log(tagIdArray);
     if(Array.isArray(tagIdArray)){
       return Tags.find({_id: {$in: tagIdArray}}).count();
-    }else{
-      console.log("interestsCount: here lies your problem");
     }
   },
   interests: function(userId){
@@ -107,8 +105,6 @@ Template.UserFeed.helpers({
     if(Array.isArray(tagIdArray)){
       let foundTags = Tags.find({_id: {$in: tagIdArray}});
       return foundTags;
-    }else{
-      console.log("interestes: here lies your problem");
     }
   },
   'isAuthorised'(tag){
@@ -205,7 +201,7 @@ Template.UserFeed.events({
     }
   },
   'click .comment-post': function(event,tempate){
-    console.log("make comment");
+    //console.log("make comment");
   }
 });
 

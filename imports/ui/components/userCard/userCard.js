@@ -136,4 +136,15 @@ Template.UserCard.events({
     	});
     }
   },
+  'click .view-user': function(event, template){
+    event.preventDefault();
+    Session.set('drawerId',this.userId);
+    if($('.mdl-layout__drawer-right').hasClass('active')){
+        $('.mdl-layout__drawer-right').removeClass('active');
+     }
+     else{
+        $('.mdl-layout__drawer-right').addClass('active');
+     }
+
+  },
 });

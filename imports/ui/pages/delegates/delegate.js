@@ -99,6 +99,17 @@ Template.CommunityDelegates.helpers({
   },
 });
 Template.CommunityDelegates.events({
+  'click .delegate-view': function(event, template){
+    console.log(".delegate-view selected");
+    Session.set('drawerId',this._id);
+    if($('.mdl-layout__drawer-right').hasClass('active')){
+        $('.mdl-layout__drawer-right').removeClass('active');
+     }
+     else{
+        $('.mdl-layout__drawer-right').addClass('active');
+     }
+
+  },
   'keyup #delegate-search': function(event, template){
 		Session.set('searchPhrase',event.target.value);
 	},
@@ -128,6 +139,7 @@ Template.CommunityDelegates.events({
       addRank(delegateId, (ranks.length +1), communityId);
     }
   },
+
 });
 //----------------------------------------------------------------------------------------------//
 Template.CommunitySelectedDelegates.onCreated(function () {
@@ -209,6 +221,17 @@ Template.CommunitySelectedDelegates.helpers({
   },
 });
 Template.CommunitySelectedDelegates.events({
+  'click .delegate-view': function(event, template){
+    console.log(".delegate-view selected");
+    Session.set('drawerId',this._id);
+    if($('.mdl-layout__drawer-right').hasClass('active')){
+        $('.mdl-layout__drawer-right').removeClass('active');
+     }
+     else{
+        $('.mdl-layout__drawer-right').addClass('active');
+     }
+
+  },
   'click .rank-select': function(event, template){
     delegateId = this._id;
     communityId = LocalStore.get('communityId');

@@ -316,6 +316,10 @@ Template.CommunityDash.helpers({
         // code block
         currentHeader = 'Proposals';
         break;
+      case 'my-community-proposals':
+        // code block
+        currentHeader = 'My Proposals';
+        break;
       case 'community-members':
         currentHeader = 'Members';
         break;
@@ -436,6 +440,10 @@ function setCurrentHeader(tabId){
     case 'community-proposals':
       // code block
       currentHeader = 'Proposals';
+      break;
+    case 'my-community-proposals':
+      // code block
+      currentHeader = 'My Proposals';
       break;
     case 'community-members':
       currentHeader = 'Members';

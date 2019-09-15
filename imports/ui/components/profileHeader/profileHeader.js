@@ -31,9 +31,9 @@ Template.ProfileHeader.onCreated(function(){
 Template.ProfileHeader.helpers({
   //START HERE: THIS HAS TO GO SOMEWHERE ELSE
   setHeader: function(userId,groupHandle,editable) {
-    console.log("userId: " + userId);
-    console.log("groupHandle: " + groupHandle);
-    console.log("editable: " + editable);
+    //console.log("userId: " + userId);
+    //console.log("groupHandle: " + groupHandle);
+    //console.log("editable: " + editable);
     //check if userId has been passed through
     if(userId){
       setUserHeader(userId,editable)
@@ -59,7 +59,7 @@ Template.ProfileHeader.helpers({
 });
 
 var detectScroll = function(e){
-  console.log("window.onscroll");
+  //console.log("window.onscroll");
     var aTop = $('#profile-header-image').height();
     console.log(aTop);
     if($(this).scrollTop()>=aTop){
@@ -68,7 +68,7 @@ var detectScroll = function(e){
 }
 
 function setUserHeader(userId,editable){
-  console.log("settings userHeader");
+  //console.log("settings userHeader");
   if(userId){
     //check if user has cover, if true: URL will be returned, else false returned
     let coverURL = userHasCover(userId);
@@ -104,19 +104,19 @@ function setUserHeader(userId,editable){
   }
 }
 function setGroupHeader(userId,editable){
-  console.log("settings groupHeader");
+  //console.log("settings groupHeader");
   if(groupHandle){
     let group = Groups.findOne("handle":groupHandle);
-    console.log(group);
+    //console.log(group);
     //check if user has cover, if true: URL will be returned, else false returned
     let coverURL = null;
     //if coverURL returned is not false
     if(coverURL){
-      console.log("coverUrl is being set to null")
+      //console.log("coverUrl is being set to null")
       //set appropriate sessions variables
       Session.set("coverURL",coverURL);
     }else{
-      console.log("coverURL is null, should be default");
+      //console.log("coverURL is null, should be default");
     }
     Session.set("hasCover",true);
     if(editable==true){

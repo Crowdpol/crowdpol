@@ -3,7 +3,7 @@
 		<!-- Drawer Content -->
 		{{#if currentUser}}
 			<div class="side-nav-header">
-				<a href="/settings/profile" class="profile-link">
+				<a href="/profile" class="profile-link">
 					<img src="{{currentUser.profile.photo}}">
 					{{#if currentUser.profile.firstname}}
 						<h6>{{currentUser.profile.firstname}} {{currentUser.profile.lastname}}</h6>
@@ -68,20 +68,25 @@
 					<span class="tag tag-chip">{{this.keyword}}</span>
 				{{/each}}
 			</div>
+			{{#if user.profile.bio}}
 			<br>
 			<h6>{{_ "layout.drawer.right_about"}}</h6>
 			<p>{{user.profile.bio}}</p>
+			{{/if}}
+			{{#if user.profile.website}}
 			<br>
 			<h6>{{_ "layout.drawer.website"}}</h6>
 			<a href="{{user.profile.website}}">{{user.profile.website}}</a>
+			{{/if}}
 			<br>
 			<!-- Recent Votes -->
+			{{#if delegateVotes}}
 			<br/>
 			<h6>{{_ "layout.drawer.recent-votes"}}</h6>
-			{{#if delegateVotes}}
+
 				<ul class=" mdl-list">
 				{{#each delegateVotes}}
-					<li class="delegate-item mdl-list__item">
+					<li class="mdl-list__item">
 				 		<div class="card-main-wrap">
 							<span class="card-main mdl-list__item-primary-content recent-vote">
 								<i class="material-icons">{{voteIcon vote}}</i>

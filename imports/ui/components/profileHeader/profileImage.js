@@ -170,6 +170,6 @@ function getOwnerId(){
   if(typeof userId =='undefined'){
     userId = Meteor.userId();
   }
-  console.log("ownerId: " + userId);
+  //console.log("ownerId: " + userId);
   return userId;
 }
