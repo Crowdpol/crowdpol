@@ -43,7 +43,7 @@ function loadCommunityInfo() {
   //console.log("subdomain: "  + subdomain);
   switch (hostname) {
     case "crowdpol.com":
-        subdomain = "landing";
+        subdomain = "global";
         break;
     case "www.crowdpol.com":
         subdomain = "landing";
@@ -64,7 +64,7 @@ function loadCommunityInfo() {
         subdomain = "landing";
         break;
     case "localhost:3000":
-        subdomain = "landing";
+        subdomain = "global";
         break;
     /*
     default:
@@ -89,7 +89,12 @@ function loadCommunityInfo() {
               LocalStore.set('communityId', result._id);
               //console.log('setting community to : ' + result.name);
               let settings = result.settings;
-
+              let defaultLanguage = settings.defaultLanguage;
+              if(!defaultLanguage){
+                defaultLanguage = 'en';
+              }
+              LocalStore.set('settings', settings);
+              Session.set('i18n_lang',defaultLanguage);
               //set favicon if community icon is set
               if(typeof settings.faviconUrl != 'undefined'){
                 var link = document.querySelector("link[rel*='icon']") || document.createElement('link');

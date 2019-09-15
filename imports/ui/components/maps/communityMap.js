@@ -1,5 +1,6 @@
 import { Maps } from '../../../api/maps/Maps.js';
 import { Communities } from '../../../api/communities/Communities.js';
+import { setCommunity } from '../../../utils/community';
 import {map,loadMap,addLayer} from '../../components/maps/leaflet.js'
 import './communityMap.html'
 
@@ -213,6 +214,7 @@ function addCommunityControl(){
       let community = Communities.findOne({"_id":props.communityId});
       if(community){
         LocalStore.set('communityId',community._id);
+        setCommunity(community._id);
       }
       //console.log(community);
     	this._div.innerHTML = (community ?
@@ -304,16 +306,22 @@ function hoverStyle(e) {
 /*---------------------------------------------------------------*/
 
 export function loadCommunityMap(id){
-  let map = Maps.findOne({"properties.communityId":id});
-  if(map){
-    currentRoot = map.properties.key;
+  let layerMap = Maps.findOne({"properties.communityId":id});
+  if(layerMap){
+    currentRoot = layerMap.properties.key;
 
   }else{
     currentRoot = 'GLOBAL';
     console.log("no map");
   }
   loadNewLayer(currentRoot);
-  map.fitBounds(mapLayer.getBounds());
+  let bounds = mapLayer.getBounds();
+  if(bounds){
+    map.fitBounds(mapLayer.getBounds());
+  }else{
+    console.log('could not find layer map bounds');
+  }
+
 }
 
 export function currentMap(){

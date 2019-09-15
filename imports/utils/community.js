@@ -30,14 +30,16 @@ export const getCommunityBySubomdain = (subdomain) => {
 }
 
 export const setDefaultLanguage = (lang) => {
-  if(lang){
-    Session.set("i18n_lang",lang)
-    TAPi18n.setLanguage(lang);
-    /* TODO: change locale dynamically*/
-    moment.locale(lang);
-    //console.log("lang is now: " + lang);
+  if(!lang){
+    lang = 'en';
   }
-  return false;
+  Session.set("i18n_lang",lang)
+  TAPi18n.setLanguage(lang);
+  /* TODO: change locale dynamically*/
+  moment.locale(lang);
+  //console.log("lang is now: " + lang);
+
+  //return false;
 };
 
 export const setCommunity = (id) => {
