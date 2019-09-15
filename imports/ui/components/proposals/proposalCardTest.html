@@ -1,6 +1,6 @@
 <template name="ProposalCardTest">
   {{#if isVote style}}
-  <div class="proposal-card-wide mdl-card mdl-shadow--2dp">
+  <div class="proposal-card-wide mdl-card mdl-shadow--2dp proposal-link">
     {{#if proposalHasImage proposal}}
       <div class="mdl-card__title" style="background: {{proposal.coverURL}} center / cover">
         <div>
@@ -9,7 +9,9 @@
       </div>
     {{else}}
       <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">{{ title proposal}}</h2>
+        <div>
+          <h2 class="mdl-card__title-text">{{ title proposal}}</h2>
+        </div>
       </div>
     {{/if}}
     <div class="mdl-card__supporting-text overflow">

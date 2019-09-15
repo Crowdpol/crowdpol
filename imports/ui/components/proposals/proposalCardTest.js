@@ -1,4 +1,5 @@
 import { Votes } from '../../../api/votes/Votes.js'
+import { Proposals } from '../../../api/proposals/Proposals.js'
 import './proposalCardTest.html'
 
 Template.ProposalCardTest.onCreated(function(){
@@ -14,7 +15,13 @@ Template.ProposalCardTest.onRendered(function(){
 });
 
 Template.ProposalCardTest.events({
+  'click .proposal-link': function(event,target){
+    proposalId = this.proposal._id;
+		proposal = Proposals.findOne({_id: proposalId});
+		Session.set("proposal",proposal);
 
+		openProposalModal();
+  }
 });
 
 Template.ProposalCardTest.helpers({
@@ -178,3 +185,22 @@ function truncate(input,length) {
    }
 
 };
+
+openProposalModal = function(event) {
+  if (event) event.preventDefault();
+  $(".proposal-modal").addClass('active');
+  $("#overlay").addClass('dark-overlay');
+  //Session.set("adminProposalView",true);
+}
+
+closeProposalModal = function(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
+  Session.set("showApproval",false);
+  $(".proposal-modal").removeClass('active');
+  $("#overlay").removeClass('dark-overlay');
+  Session.set("proposal",false);
+  //Session.set("adminProposalView",false);
+}

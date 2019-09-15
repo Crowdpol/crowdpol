@@ -29,7 +29,8 @@
   box-shadow: 0 25px 35px 0 rgba(0, 0, 0, 0.35);
   top: 10%;
   right: 10%;
-  overflow: scroll
+  overflow: scroll;
+  z-index: 999;
 }
 
 .admin-comment-textarea{

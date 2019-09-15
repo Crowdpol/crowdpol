@@ -294,7 +294,7 @@ loggedInRoutes.route('/dash', {
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'CommunityNav' });
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
       //console.log("/dash points to community dash");
     }else{
       BlazeLayout.render('App_body', { main: 'App_notFound' });
