@@ -5,9 +5,12 @@
 	{{#if hasHeader}}
 		{{>Cover}}
 	{{/if}}
-	{{#if showEditable}}
-		{{#if currentUser }}
-			{{> backButton text="generic.back-to-proposals" url=backUrl hasHeader=hasHeader}}
+	{{#if showControls}}
+		{{#if showEditable}}
+			{{#if currentUser }}
+
+				{{> backButton text="generic.back-to-proposals" url=backUrl hasHeader=hasHeader}}
+			{{/if}}
 		{{/if}}
 	{{/if}}
 	{{#if Template.subscriptionsReady}}

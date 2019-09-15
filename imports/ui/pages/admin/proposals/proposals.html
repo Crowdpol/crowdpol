@@ -124,34 +124,3 @@
 	  </td>
 	</tr>
 </template>
-
-<template name="ProposalModal">
-  <div id="overlay"></div>
-	<div class="proposal-modal">
-		{{#if proposalId}}
-			{{> ViewProposal proposalId=proposalId}}
-			{{#if showApproval}}
-				<div class="proposal-wrap admin-comment-textarea">
-					<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<textarea class="argument-input mdl-textfield__input" type="text" rows= "3" id="admin-comment"></textarea>
-						<label class="mdl-textfield__label">Comment on decision</label>
-					</div>
-				</div>
-					<div class="btn-wrapper">
-						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="reject-button">
-							<i class="material-icons" data-proposal-id="{{_id}}">close</i>
-							{{_'admin.proposals.reject-button'}}
-						</button>
-						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="return-button">
-							<i class="material-icons" data-proposal-id="{{_id}}">settings_backup_restore</i>
-							{{_'admin.proposals.return-button'}}
-						</button>
-						<button class="mdl-button mdl-js-button mdl-button--raised" data-proposal-id="{{_id}}" data-type="{{type}}" id="approve-button">
-							<i class="material-icons" data-proposal-id="{{_id}}">check</i>
-							{{_'admin.proposals.approve-button'}}
-						</button>
-					</div>
-			{{/if}}
-		{{/if}}
-	</div>
-</template>
