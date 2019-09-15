@@ -134,6 +134,13 @@ Template.CommunitySelectedDelegates.onCreated(function () {
 
 });
 Template.CommunitySelectedDelegates.onRendered(function () {
+    $( "svg" ).delay( 750 ).fadeIn();
+    Meteor.defer(function(){
+      $( "#sortable" ).sortable();
+      $( "#sortable" ).disableSelection();
+
+      $( "#sortable" ).on("sortchange", sortEventHandler);
+    });
 
 });
 Template.CommunitySelectedDelegates.helpers({

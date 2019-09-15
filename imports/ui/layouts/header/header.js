@@ -55,9 +55,9 @@ Template.Header.onCreated(function(){
     self.subscribe('communities.subdomain', subdomain, function(){
       self.community.set(Communities.findOne({subdomain: subdomain}));
       //set default language for community is none is selected
-      var community = Communities.findOne({subdomain: subdomain});
-      var lang = community.settings.defaultLanguage;
-      var languages = community.settings.languages;
+      //var community = Communities.findOne({subdomain: subdomain});
+      //var lang = community.settings.defaultLanguage;
+      //var languages = community.settings.languages;
       //LocalStore.set('languages', languages);
       //Session.set("i18n_lang",lang)
       //TAPi18n.setLanguage(lang);

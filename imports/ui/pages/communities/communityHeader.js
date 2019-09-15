@@ -34,6 +34,7 @@ Template.CommunityHeader.events({
       //console.log("setting community to: " + id);
       setCommunity(id);
       loadCommunityMap(id);
+      /*
       tabcontent = document.getElementsByClassName("community-tab");
       for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
@@ -41,6 +42,7 @@ Template.CommunityHeader.events({
       $("#communities-tab").show();
       $('*[data-tab="communities-tab"]').addClass("active");
       //FlowRouter.go('App.dash');
+      */
     }
   }
 });

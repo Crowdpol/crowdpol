@@ -117,7 +117,7 @@ function buildGeoJSON(){
       "features": mapCollection
     }
   }else{
-    console.log("maps query is of 0 length");
+    //console.log("maps query is of 0 length");
   }
   //console.log("finished building geojson");
   return geoJSON;
@@ -150,7 +150,7 @@ function mapOnEachFeature(feature, layer){
       if(childMapCount){
         loadNewLayer();
       }else{
-        console.log("no children, leave map layer as is");
+        //console.log("no children, leave map layer as is");
       }
       // Insert some HTML with the feature name
       //buildSummaryLabel(feature);
@@ -318,7 +318,7 @@ export function loadCommunityMap(id){
   if(bounds){
     map.fitBounds(mapLayer.getBounds());
   }else{
-    console.log('could not find layer map bounds');
+    //console.log('could not find layer map bounds');
   }
 
 }

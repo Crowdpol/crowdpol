@@ -43,7 +43,7 @@ function loadCommunityInfo() {
   //console.log("subdomain: "  + subdomain);
   switch (hostname) {
     case "crowdpol.com":
-        subdomain = "global";
+        subdomain = "landing";
         break;
     case "www.crowdpol.com":
         subdomain = "landing";
@@ -64,23 +64,22 @@ function loadCommunityInfo() {
         subdomain = "landing";
         break;
     case "localhost:3000":
-        subdomain = "global";
+        subdomain = "landing";
         break;
     /*
     default:
         subdomain = "landing";//window.location.host.split('.')[0];
     */
   }
-  //console.log(subdomain);
   if(subdomain){
     //set title to commuinty name
     document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
     //console.log("subomdain after case: " + subdomain);
     LocalStore.set('subdomain', subdomain);
     // set LocalStorage info
-    if (subdomain!=='landing'){
+    //if (subdomain!=='landing'){
 
-        Meteor.call('getCommunityBySubdomain', subdomain, function(err, result) {
+        Meteor.call('getCommunityBySubdomain', 'global', function(err, result) {
           if (err) {
             Bert.alert(err.reason, 'danger');
           } else {
@@ -110,9 +109,11 @@ function loadCommunityInfo() {
             }
           }
         });
+    /*
     } else {
       //Bert.alert(TAPi18n.__('pages.routes.alerts.no-subdomain'), 'danger');
       console.log(TAPi18n.__('pages.routes.alerts.no-subdomain'));
     }
+    */
   }
 }
