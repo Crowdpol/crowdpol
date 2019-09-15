@@ -17,7 +17,7 @@ import './pages/home/home.js';
 import './pages/landing/landing.js';
 import './pages/ideas/ideas.js';
 import './pages/faq/faq.js';
-import './pages/userHome/userHome.js';
+import './pages/feed/userFeed.js';
 import './pages/settings/profileSettings.js';
 import './pages/settings/accountSettings.js';
 import './pages/not-found/not-found.js';

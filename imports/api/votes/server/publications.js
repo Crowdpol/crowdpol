@@ -3,7 +3,6 @@ import { Votes } from '../Votes.js';
 import CryptoJS from 'crypto-js';
 
 Meteor.publish('votes.all', function() {
-	console.log("publish votes.all");
 	return Votes.find();
 });
 

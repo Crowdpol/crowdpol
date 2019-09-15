@@ -21,6 +21,7 @@ Template.ProfileHeader.onCreated(function(){
 
   });
   */
+  var self = this;
   var handle = FlowRouter.getParam("handle");
   self.autorun(function() {
     self.subscribe("groups.handle",handle);

@@ -277,14 +277,14 @@ loggedInRoutes.route('/group/:handle?', {
 loggedInRoutes.route('/feed', {
   name: 'App.feed',
   action() {
-    BlazeLayout.render('App_body', { main: 'UserHome' });
+    BlazeLayout.render('App_body', { main: 'UserFeed' });
   },
 });
 
 loggedInRoutes.route('/feed/:id', {
   name: 'App.feed',
   action() {
-    BlazeLayout.render('App_body', { main: 'UserHome' });
+    BlazeLayout.render('App_body', { main: 'UserFeed' });
   },
 });
 

@@ -48,9 +48,11 @@ Template.Feed.helpers({
     let posts = Posts.find({"feedId":communityId}, {sort: {createdAt: -1}});
   	return posts;
   },
+  /*
   profilePic: function(userId) {
     return userProfilePhoto(userId);
   },
+  */
   currentUserId: function(){
     return Meteor.userId();
   },

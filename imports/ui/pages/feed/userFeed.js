@@ -1,4 +1,5 @@
-import "./userHome.html"
+import "./userFeed.html"
+
 import '../../components/profileHeader/profileHeader.js';
 import { userProfilePhoto, userfullname, username, userTags } from '../../../utils/users';
 import { Tags } from '../../../api/tags/Tags.js'
@@ -7,7 +8,7 @@ import { Likes } from '../../../api/likes/Likes.js'
 import RavenClient from 'raven-js';
 import snarkdown from 'snarkdown';
 
-Template.UserHome.onCreated(function () {
+Template.UserFeed.onCreated(function () {
   var communityId = LocalStore.get('communityId');
   Session.set("coverURL","");
   Session.set("hasCover","");
@@ -22,28 +23,17 @@ Template.UserHome.onCreated(function () {
     $("#unsplash-close").hide();
   });
 });
-/*
-Template.UserHome.onRendered(function(){
-	self = this;
 
-	this.autorun(function() {
-
-
-  });
+Template.UserFeed.onRendered(function(){
 });
-*/
-Template.UserHome.helpers({
+
+Template.UserFeed.helpers({
   thisUser: function() {
     return getOwnerId();
   },
   profilePic: function(userId) {
     return userProfilePhoto(userId);
     //console.log(userProfilePhoto(userId));
-    /*let userId = Template.instance().userId.get();
-    user = Meteor.users.findOne({"_id":userId});
-    if(typeof user != 'undefined'){
-      return user.profile.photo;
-    }*/
   	//return Meteor.user().profile.photo;
   },
   profileName: function(userId) {
@@ -105,13 +95,21 @@ Template.UserHome.helpers({
   interestsCount: function(userId){
     let tagIdArray = userTags(getOwnerId());
     //console.log(tagIdArray);
-    return Tags.find({_id: {$in: tagIdArray}}).count();
+    if(Array.isArray(tagIdArray)){
+      return Tags.find({_id: {$in: tagIdArray}}).count();
+    }else{
+      console.log("interestsCount: here lies your problem");
+    }
   },
   interests: function(userId){
     let tagIdArray = userTags(getOwnerId());
     //console.log(tagIdArray);
-    let foundTags = Tags.find({_id: {$in: tagIdArray}});
-    return foundTags;
+    if(Array.isArray(tagIdArray)){
+      let foundTags = Tags.find({_id: {$in: tagIdArray}});
+      return foundTags;
+    }else{
+      console.log("interestes: here lies your problem");
+    }
   },
   'isAuthorised'(tag){
     if(tag.authorized){
@@ -122,7 +120,7 @@ Template.UserHome.helpers({
   }
 });
 
-Template.UserHome.events({
+Template.UserFeed.events({
   'click #follow-me': function(event,template){
     followId = getOwnerId();
     if(followId!=Meteor.userId()){
@@ -260,16 +258,7 @@ function getOwnerId(){
   let userId = FlowRouter.getParam("id");
   if(typeof userId =='undefined'){
     userId = Meteor.userId();
-    /* CONSIDER DELETING
-    user = Meteor.users.findOne({"_id":userId});
-    if(typeof user != 'undefined'){
-      let profile = user.profile;
-      if(typeof profile.coverURL == 'undefined'){
-        console.log("cover undefined, leave blank");
-      }else{
-        console.log("coverURL found");
-      }
-    }*/
+
   }
   //console.log("ownerId: " + userId);
   return userId;

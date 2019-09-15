@@ -240,9 +240,11 @@ Template.CommunityDash.helpers({
     //console.log("post.count():" +posts.count());
   	return posts;
   },
+  /*
   profilePic: function(userId) {
     return userProfilePhoto(userId);
   },
+  */
   communityMembers: function(){
     var communityId = LocalStore.get('communityId');
     return Meteor.users.find({"profile.communityIds" : communityId})

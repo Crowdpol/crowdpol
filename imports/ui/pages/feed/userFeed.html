@@ -1,4 +1,10 @@
-<template name="UserHome">
+<template name="UserFeed">
+  <!--
+  <div class="container narrow-container static-content-wrap">
+    <h1 class="title-underline center">User Feed</h1>
+    <p class="center p-subtitle">{{_ "pages.privacy.subtitle"}}</p>
+  </div>
+  -->
   <header class="header">
     {{> ProfileHeader editable=false userId=thisUser}}
   </header>
@@ -18,11 +24,11 @@
         {{#if interestsCount}}
           <strong>Interests</strong>
           <div class="tags-wrap" >
-        		<!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
-        		{{#each interests}}
-        			<a class="tag taggle-tag tag-chip {{isAuthorised this}}" id="{{this._id}}" data-id="{{this._id}}">{{this.keyword}}</a>
-        		{{/each}}
-        	</div>
+            <!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
+            {{#each interests}}
+              <a class="tag taggle-tag tag-chip {{isAuthorised this}}" id="{{this._id}}" data-id="{{this._id}}">{{this.keyword}}</a>
+            {{/each}}
+          </div>
         {{/if}}
       </div>
     </aside>
