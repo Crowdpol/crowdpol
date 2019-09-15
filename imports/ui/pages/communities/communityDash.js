@@ -20,7 +20,7 @@ var mapsData;
 let info;
 let communityInfo;
 */
-
+var currentHeader = 'community-proposals';
 Template.CommunityDash.onCreated(function(){
   self = this;
   var communityId = LocalStore.get('communityId');
@@ -28,7 +28,7 @@ Template.CommunityDash.onCreated(function(){
 	self.dict = dict;
   self.openGroup = new ReactiveVar(true);
   dict.set('communityId',communityId);
-  dict.set('currentHeader','community-proposals');
+  //dict.set('currentHeader','community-proposals');
   Session.set('selectedCommunity','Global');
   Session.set('selectedMap','GLOBAL');
   Session.set('breadcrumbs',['GLOBAL']);
@@ -81,29 +81,8 @@ Template.CommunityDash.onRendered(function(){
 
 Template.CommunityDash.events({
   'click .sidebar-nav': function(event,template){
-    event.preventDefault();
-    //disable all sidebar navs
-    $('.sidebar-nav').each(function(i, obj) {
-      $(this).removeClass('active');
-    });
-    //set current sidebar nav to active
+    updateHeaderMenu(event.target.dataset.id);
     $(event.target).addClass('active');
-    //get and set community header title to active tab name
-    let id = "#" + event.target.dataset.id;
-    template.dict.set('currentHeader',event.target.dataset.id);
-    //disabke all current community content tabs
-    $('.tabcontent').each(function(i, obj) {
-      $(this).removeClass('active');
-    });
-    //enable selected content tab
-    $(id).addClass('active');
-    //disable all community tabs in header
-    $(".community-tabs").each(function(i, obj) {
-      $(this).removeClass('active');
-    });
-    //enable appropriate community tab according to siderbar selection
-    let selector = '*[data-sidebar-nav-id="'+event.target.dataset.id+'"]';
-    $(selector).addClass('active');
   },
   'click .community-tab': function(){
     //remove active from all neighbouring tabs
@@ -325,7 +304,7 @@ Template.CommunityDash.helpers({
     return Communities.findOne({"_id":LocalStore.get('communityId')});
   },
   currentHeader: function(){
-    let currentHeader = Template.instance().dict.get('currentHeader');
+    //let currentHeader = Template.instance().dict.get('currentHeader');
     switch(currentHeader){
       case 'community-feed-wrapper':
         //TAPi18n.__('pages.delegates.alerts.ranking-updated')
@@ -413,3 +392,62 @@ function openPage(pageName,elmnt,color) {
   document.getElementById(pageName).style.display = "block";
   elmnt.style.backgroundColor = color;
 }
+
+//NAV FUNCTIONS
+export function updateHeaderMenu(tabId){
+  event.preventDefault();
+  setCurrentHeader(tabId);
+  //disable all sidebar navs
+  $('.sidebar-nav').each(function(i, obj) {
+    $(this).removeClass('active');
+  });
+  console.log(tabId);
+  //set current sidebar nav to active
+
+  //get and set community header title to active tab name
+  let id = "#" + tabId;
+  //template.dict.set('currentHeader',event.target.dataset.id);
+  currentHeader = tabId;
+  //Template.CommunityDash.instance().dict.set('currentHeader',event.target.dataset.id);
+  //disabke all current community content tabs
+  $('.tabcontent').each(function(i, obj) {
+    $(this).removeClass('active');
+  });
+  //enable selected content tab
+  $(id).addClass('active');
+  //disable all community tabs in header
+  $(".community-tabs").each(function(i, obj) {
+    $(this).removeClass('active');
+  });
+  //enable appropriate community tab according to siderbar selection
+  let selector = '*[data-sidebar-nav-id="'+tabId+'"]';
+  $(selector).addClass('active');
+}
+
+function setCurrentHeader(tabId){
+  let currentHeader = 'Current Header';
+  switch(tabId){
+    case 'community-feed-wrapper':
+      //TAPi18n.__('pages.delegates.alerts.ranking-updated')
+      currentHeader = 'Feed';
+      break;
+    case 'community-proposals':
+      // code block
+      currentHeader = 'Proposals';
+      break;
+    case 'community-members':
+      currentHeader = 'Members';
+      break;
+    case 'community-delegates':
+      currentHeader = 'Delegates';
+      break;
+    case 'community-groups':
+      currentHeader = 'Groups';
+      break;
+    default:
+      currentHeader = 'Oops. Something went wrong. Sorry!';
+  }
+  $("#community-current-header").html(currentHeader);
+}
+
+//function set

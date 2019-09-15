@@ -447,6 +447,18 @@ div#delegate-selected{
   div.community-cover, div.sidebar{
     flex: 10%
   }
+  div.community-content-header{
+    div.community-cover{
+      display: flex;
+      //flex: 15%;
+    }
+    div.community-menu-container.flex-wrap{
+      div.community-map-control{
+        flex: 10%;
+      }
+    }
+
+  }
   div#community-dash-container{
     div.community-content{
       div#community-proposals{
