@@ -103,10 +103,12 @@ Template.Header.helpers({
   },
   lang() {
     var str = Session.get("i18n_lang")
-    //console.log("Session.get('i18n_lang'): " + Session.get("i18n_lang"));
-    if(str){
-      return str.toUpperCase();
+    console.log("Session.get('i18n_lang'): " + Session.get("i18n_lang"));
+    if(!str){
+      let settings = LocalStore.get('settings');
+      str = settings.defaultLanguage;
     }
+    return str.toUpperCase();
 
   },
   currentUserRole() {
@@ -207,7 +209,8 @@ Template.Header.helpers({
   },
   */
   showLanguages(){
-    var langs = Template.instance().community.get().settings.languageSelector;
+    let settings = LocalStore.get('settings');
+    var langs = settings.languageSelector;
 
     if(langs){
       return langs;
@@ -226,7 +229,7 @@ Template.Header.helpers({
     }
 
     //console.log("no langs");
-    return 0;
+    return 'en';
   },
   getLang(lang){
     switch (lang) {
