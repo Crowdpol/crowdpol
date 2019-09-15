@@ -312,7 +312,6 @@ export function loadCommunityMap(id){
 
   }else{
     currentRoot = 'GLOBAL';
-    console.log("no map");
   }
   loadNewLayer(currentRoot);
   let bounds = mapLayer.getBounds();
