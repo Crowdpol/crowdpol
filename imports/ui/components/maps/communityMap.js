@@ -257,7 +257,7 @@ function addInfoControl(){
 function mapStyle(feature) {
   return {
     fillColor: "#c9c9c9",
-    fillOpacity: 0.7,
+    fillOpacity: 0.2,
     color: '#8c8c8c',
     stroke: true,
     weight: 1
@@ -268,7 +268,7 @@ function mapSelectedStyle(feature) {
   return {
     fillColor: "#f76020",
     color: '#852800',
-    fillOpacity: 0.7,
+    fillOpacity: 0.4,
     stroke: true,
     weight: 1
   };
@@ -313,7 +313,7 @@ export function loadCommunityMap(id){
     console.log("no map");
   }
   loadNewLayer(currentRoot);
-  //map.fitBounds(mapLayer.getBounds());
+  map.fitBounds(mapLayer.getBounds());
 }
 
 export function currentMap(){
