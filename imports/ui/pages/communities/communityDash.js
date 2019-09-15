@@ -168,6 +168,8 @@ Template.CommunityDash.events({
   },
   'click .tablinks': function(event, template){
     let tab = event.currentTarget.dataset.tab;
+    console.log("tab": tab);
+    console.log("currentTarget:" + currentTarget);
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("community-tab");
     for (i = 0; i < tabcontent.length; i++) {
