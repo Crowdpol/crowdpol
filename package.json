@@ -4,7 +4,8 @@
   "scripts": {
     "prod": "meteor --settings=settings.json",
     "start": "ROOT_URL=http://global.localhost:3000 meteor --settings=development.settings.json",
-    "test": "meteor test --driver-package practicalmeteor:mocha --port 8000"
+    "test": "meteor test --driver-package practicalmeteor:mocha --port 8000",
+    "meteor-bundle": "meteor run --production --settings=development.settings.json"
   },
   "dependencies": {
     "@amcharts/amcharts4": "^4.5.10",
