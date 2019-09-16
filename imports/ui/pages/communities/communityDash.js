@@ -404,15 +404,15 @@ function openPage(pageName,elmnt,color) {
 export function loadCommunitySection(selection){
   let tabId = '';
   if(!selection){
-    console.log("loadCommunitySection() is empty");
+    //console.log("loadCommunitySection() is empty");
     var pathnames = window.location.pathname.split('/');
     if(Array.isArray(pathnames)){
       selection = pathnames[2];
     }else{
-      console.log("pathnames is not array");
+      //console.log("pathnames is not array");
     }
   }else{
-    console.log("selection is set to " + selection);
+    //console.log("selection is set to " + selection);
   }
 
   switch(selection){
@@ -441,7 +441,7 @@ export function loadCommunitySection(selection){
       tabId = 'community-proposals'
       break;
   }
-  console.log("tab id is: " + tabId);
+  //console.log("tab id is: " + tabId);
   updateHeaderMenu(tabId)
 }
 
@@ -453,7 +453,7 @@ function updateHeaderMenu(tabId){
   $('.sidebar-nav').each(function(i, obj) {
     $(this).removeClass('active');
   });
-  console.log("updateHeaderMenu: " + tabId);
+  //console.log("updateHeaderMenu: " + tabId);
   //set current sidebar nav to active
 
   //get and set community header title to active tab name

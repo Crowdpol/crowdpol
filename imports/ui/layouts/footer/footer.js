@@ -3,7 +3,7 @@ import {loadCommunitySection} from '../../pages/communities/communityDash.js';
 
 Template.Footer.events({
 	'click .bottom-nav-link': function(event, template){
-    console.log(event.currentTarget.dataset);
+    //console.log(event.currentTarget.dataset);
 		event.currentTarget.className += " active";
 		var pathname = window.location.pathname;
 		//console.log(pathname);

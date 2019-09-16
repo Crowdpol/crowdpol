@@ -197,14 +197,16 @@ Template.CommunitySelectedDelegates.helpers({
     return null;
   },
   getRank: function(userId) {
-    let rank = -1;
+    //console.log("getRank userId: " + userId);
+    let rank = '';
     let rankMatch = Ranks.findOne({"entityType":"delegate","entityId" : userId,"supporterId" : Meteor.userId()});
+    //console.log(rankMatch);
     if(rankMatch){
       if(typeof rankMatch.ranking != 'undefined'){
-        rank = rankMatch.ranking;
+        rank = rankMatch.ranking + ". ";
       }
     }
-    return rank + ". ";
+    return rank;
   },
   filteredRoles: function(roles){
     return getFilteredRoles(roles);
