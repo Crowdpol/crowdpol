@@ -44,6 +44,7 @@ Template.CommunityDash.onCreated(function(){
 });
 
 Template.CommunityDash.onRendered(function(){
+  loadCommunitySection();
   $('.mdl-layout__tab').on('click', function() {
 	$this = $(this);
   if($this.hasClass('is-active')) return;
@@ -55,6 +56,7 @@ Template.CommunityDash.onRendered(function(){
     //your code
     console.log("scroll");
   });
+
 })
   /* TODO: Standardise form validation
   $( "#create-group-form" ).validate({
@@ -399,15 +401,59 @@ function openPage(pageName,elmnt,color) {
   elmnt.style.backgroundColor = color;
 }
 
+export function loadCommunitySection(selection){
+  let tabId = '';
+  if(!selection){
+    console.log("loadCommunitySection() is empty");
+    var pathnames = window.location.pathname.split('/');
+    if(Array.isArray(pathnames)){
+      selection = pathnames[2];
+    }else{
+      console.log("pathnames is not array");
+    }
+  }else{
+    console.log("selection is set to " + selection);
+  }
+
+  switch(selection){
+    case 'vote':
+      tabId = 'community-votes';
+      break;
+    case 'proposals':
+      tabId = 'community-proposals'
+      break;
+    case 'delegates':
+      tabId = 'community-delegates'
+      break;
+    case 'members':
+      tabId = 'community-members'
+      break;
+    case 'groups':
+      tabId = 'community-groups'
+      break;
+    case 'communities':
+      tabId = ''
+      break;
+    case 'feed':
+      tabId = 'community-feed-wrapper'
+      break;
+    default:
+      tabId = 'community-proposals'
+      break;
+  }
+  console.log("tab id is: " + tabId);
+  updateHeaderMenu(tabId)
+}
+
 //NAV FUNCTIONS
-export function updateHeaderMenu(tabId){
+function updateHeaderMenu(tabId){
   event.preventDefault();
   setCurrentHeader(tabId);
   //disable all sidebar navs
   $('.sidebar-nav').each(function(i, obj) {
     $(this).removeClass('active');
   });
-  console.log(tabId);
+  console.log("updateHeaderMenu: " + tabId);
   //set current sidebar nav to active
 
   //get and set community header title to active tab name
@@ -437,11 +483,11 @@ function setCurrentHeader(tabId){
       //TAPi18n.__('pages.delegates.alerts.ranking-updated')
       currentHeader = 'Feed';
       break;
-    case 'community-proposals':
+    case 'community-votes':
       // code block
-      currentHeader = 'Proposals';
+      currentHeader = 'Vote';
       break;
-    case 'my-community-proposals':
+    case 'community-proposals':
       // code block
       currentHeader = 'My Proposals';
       break;

@@ -32,6 +32,7 @@ import './pages/tags/tags.js';
 import './pages/about/about.js';
 import './pages/privacy.html';
 import './pages/terms.html';
+import './pages/proposals/userProposalList.js';
 import './pages/proposals/communityProposals.js';
 import './pages/proposals/editProposal.js';
 import './pages/proposals/viewProposal.js';

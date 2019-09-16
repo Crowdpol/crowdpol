@@ -59,6 +59,15 @@ Meteor.publish('proposals.author', function(search, communityId) {
 	return Proposals.find(query);
 });
 
+//Proposals that the user authored
+Meteor.publish('proposals.currentUser', function(search, communityId) {
+	check(search, Match.OneOf(String, null, undefined));
+	check(communityId, String);
+	let query = generateCurrentUserSearchQuery(search, communityId);
+	console.log(query);
+	return Proposals.find(query);
+});
+
 //Proposals that the user is invited to collaborate on
 Meteor.publish('proposals.invited', function(search, communityId) {
 	check(communityId, String);
@@ -87,7 +96,9 @@ function generateSearchQuery(searchTerm, communityId){
 			query = {
 				$and: [
 				{
-					communityId: communityId
+					communityId: communityId,
+					authorId: Meteor.userId(),
+
 				},
 				{$or: [
 					{ 'content.title': regex },
@@ -105,6 +116,43 @@ function generateSearchQuery(searchTerm, communityId){
 	return;
 
 }
+
+function generateCurrentUserSearchQuery(searchTerm, communityId){
+	if(typeof communityId != 'undefined'){
+		check(searchTerm, Match.OneOf(String, null, undefined));
+		check(communityId, String);
+		let query = {}
+		query.communityId = communityId;
+
+		if (searchTerm) {
+			let regex = new RegExp(searchTerm, 'i');
+
+			query = {
+				$and: [
+				{
+					communityId: communityId,
+
+
+				},
+				{$or: [
+					{ 'authorId': Meteor.userId() },
+					{ 'invited': Meteor.userId() },
+					{ 'content.title': regex },
+					{ 'content.abstract': regex },
+					{ 'content.body': regex }
+					]}
+				]
+
+				};
+		}
+		return query;
+	}else{
+		throw new Meteor.Error(422, 'Could not find community ID');
+	}
+	return;
+
+}
+
 function yesNoResults(theseVotes){
 	var total = theseVotes.yesCount + theseVotes.noCount;
 	result = {
