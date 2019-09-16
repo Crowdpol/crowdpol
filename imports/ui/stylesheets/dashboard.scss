@@ -176,12 +176,13 @@ div.community-tabs-panel.active{
   flex-direction: row;
   justify-content: flex-start;
   padding-top: 0px;
+  height: 100%;
 }
 
 .community-content{
+  border-left: solid 1px rgba(0,0,0,.14);
   padding-left: 5px;
   flex:$content-width;
-
   div#community-members{
     div.community-member-box{
       display: flex;
@@ -205,6 +206,7 @@ div.community-tabs-panel.active{
   display: flex;
   flex-flow: column;
   height: 100%;
+
   //background-color: #ccc;
   //padding: 10px;
   //max-width: 200px;
@@ -232,6 +234,7 @@ div.community-tabs-panel.active{
     padding: 10px;
     text-decoration: none;
     font-size: 16px;
+    padding-left: 20px;
     small{
       display:none;
       color: grey;
@@ -257,6 +260,7 @@ div.community-tabs-panel.active{
 .tabcontent {
   display: none;
   height: 100%;
+  padding-left: 10px;
 }
 
 div.content {
@@ -298,6 +302,7 @@ div#delegate-selected{
         div.community-tabs-container{
           div.community-tabs{
             a.community-tab{
+              padding: 0 10px;
             }
             a.community-tab:hover{
             }
@@ -361,6 +366,9 @@ div#delegate-selected{
   }
 }
 @media only screen and (min-width: $tablet){ //green
+  a.community-tab{
+    padding: 0 24px;
+  }
   div#community-dash-container{
     div.community-content{
       div#community-proposals{
