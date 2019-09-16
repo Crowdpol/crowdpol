@@ -225,7 +225,7 @@ Template.EditProposal.events({
 		//}
 		event.preventDefault();
 		if(!saveChanges(event, template, 'App.proposals')){
-			FlowRouter.go('/proposals');
+			FlowRouter.go('/dash/proposals');
 		};
 		//FlowRouter.go('/proposals');
 		//Session.set('proposalTab','my-proposals-tab');
