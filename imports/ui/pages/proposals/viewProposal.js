@@ -320,7 +320,7 @@ Template.ViewProposal.helpers({
     return userIsInvited();
   },
   isVotingAsDelegate: function(){
-    console.log("isVotingAsDelegate: " + LocalStore.get('currentUserRole'));
+    //console.log("isVotingAsDelegate: " + LocalStore.get('currentUserRole'));
     return (LocalStore.get('currentUserRole') == 'delegate');
   },
   isAuthor: function() {
@@ -466,8 +466,10 @@ Template.ViewProposal.helpers({
   isAdminProposalView: function(){
     return isAdmin();
   },
-  statusApproved: function(){
-    let status = Template.instance().templateDictionary.get('status');
+  statusApproved: function(status){
+    //console.log("status: " + status);
+    status = Template.instance().templateDictionary.get('status');
+    //console.log("status: " + status);
     if(status=='approved'){
       return true;
     }
@@ -817,8 +819,10 @@ function showControls(){
   var hostname = window.location.pathname;
   var res = hostname.substr(1, 5);
   if(res=='admin'){
+    //console.log("showControls is false");
     return false;
   }
+  //console.log("showControls is true");
   return true;
 }
 

@@ -149,8 +149,6 @@ Template.CommunityDash.events({
   },
   'click .tablinks': function(event, template){
     let tab = event.currentTarget.dataset.tab;
-    console.log("tab": tab);
-    console.log("currentTarget:" + currentTarget);
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("community-tab");
     for (i = 0; i < tabcontent.length; i++) {
@@ -438,7 +436,7 @@ export function loadCommunitySection(selection){
       tabId = 'community-feed-wrapper'
       break;
     default:
-      tabId = 'community-proposals'
+      tabId = 'community-votes'
       break;
   }
   //console.log("tab id is: " + tabId);
@@ -473,6 +471,8 @@ function updateHeaderMenu(tabId){
   });
   //enable appropriate community tab according to siderbar selection
   let selector = '*[data-sidebar-nav-id="'+tabId+'"]';
+  $(selector).addClass('active');
+  selector = '.sidebar-nav[data-id="'+tabId+'"]';
   $(selector).addClass('active');
 }
 

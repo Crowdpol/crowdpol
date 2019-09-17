@@ -63,11 +63,9 @@ Template.delegateVoteListItem.helpers({
 		let result = Ranks.findOne({entityType: 'delegate', 'entityId': userId, 'supporterId': Meteor.userId()});
 
 		let highestRank = highestRankedDelegate(Template.currentData().proposalId);
-		console.log(highestRank);
+
 		if(result && highestRank){
 			if((typeof result.ranking !== undefined)&&(typeof result.ranking !== undefined)){
-				console.log("current user: " + result.entityId + " - " + result.ranking);
-				console.log("highest ranked user: " + highestRank.entityId + " - " + highestRank.ranking);
 				if(highestRank.ranking==result.ranking){
 					return "selected";
 				}

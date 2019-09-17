@@ -62,7 +62,7 @@ function loadGeoJSON(){
   };
   //var group = new L.LayerGroup([streetMap, mapLayer]);
   //group.addTo(map);
-  console.log("adding control to map");
+
   L.control.layers(baseMaps, overlayMaps,{position: 'topleft'}).addTo(map);
 
   //console.log(mapLayer.getBounds());
@@ -72,7 +72,6 @@ function loadGeoJSON(){
   // handle clicks on the map that didn't hit a feature
 
   map.addEventListener('click', function(e) {
-    console.log("ocean clicked");
     currentRoot='GLOBAL';
     loadCommunityMap('GLOBAL');
     /*

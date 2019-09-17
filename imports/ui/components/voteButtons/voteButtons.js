@@ -26,7 +26,6 @@ Template.voteButtons.helpers({
 		Template.instance().dict.set('delegateVote',delegateVote);
 		//User Vote
 		let query = Votes.findOne({"proposalId" : proposalId});
-
 		let vote = false;
 		if(query){
 			if(typeof query.vote !== undefined){
@@ -39,9 +38,7 @@ Template.voteButtons.helpers({
 		}
 	},
 	userButtonClass: function(voteValue){
-
 		let selectedVote = Template.instance().dict.get('userVote');
-		console.log("userButtonClass: selectedVote: " + selectedVote + " voteValue: " + voteValue);
 		//2. check if current selection matches existing vote
 		if(selectedVote==voteValue){
 			return "mdl-button--colored";
@@ -64,10 +61,8 @@ Template.voteButtons.events({
 		let proposalId = event.currentTarget.dataset.proposalId;
 		let voteValue = event.currentTarget.dataset.voteValue;
 		let selectedVote = Template.instance().dict.get('userVote');
-		console.log("vote button clicked: " + selectedVote + ", " + voteValue);
 		//2. check if current selection matches existing vote
 		if(selectedVote==voteValue){
-			console.log("selected vote equals votevalue");
 			//2.1 deselect vote
 			removeVote(selectedVote,proposalId);
 			let parentDiv = $(event.target).closest( "div" );
@@ -77,12 +72,10 @@ Template.voteButtons.events({
 			});
 
 		}else{
-			console.log("not equal");
 			//2.2 else set vote to selection
 			vote(voteValue,proposalId);
 			event.stopPropagation();
 			$(event.target).closest( "div" ).addClass("user-voted");
-			console.log($(event.target).closest( "div" ))
 			//$(event.target).addClass("mdl-button--colored");
 		}
 
