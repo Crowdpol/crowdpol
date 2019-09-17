@@ -79,6 +79,11 @@ Template.delegateVoteButtons.helpers({
 Template.delegateVoteButtons.events({
 	'click .delegate-vote-button' (event, template){
 		'use strict';
+		let top = $(event.currentTarget).parent().position().top;
+		let topStr = top + 'px';
+		$("#mdl-custom-modal").css({ top: topStr});
+		//template.find('#mdl-custom-modal').style.top = $(event.currentTarget).parent().position().top;
+
 		template.find('#mdl-custom-modal').style.display = "block";
 		template.setVote.set(event.currentTarget.dataset.voteValue);
 	},

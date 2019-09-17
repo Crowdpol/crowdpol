@@ -232,7 +232,8 @@ Template.ArgumentsListItem.helpers({
 });
 
 Template.ArgumentsBox.events({
-  'click .add-argument-button .add-argument-icon' (event, template){
+  'click .add-argument' (event, template){
+    //console.log(template.data.proposalId);
     event.preventDefault();
     if (Meteor.user()){
       //get the correct input field by language and argument
@@ -242,7 +243,8 @@ Template.ArgumentsBox.events({
       if(typeof argumentType !='undefined'){
         //create arguments
         let message = $(argumentTextIdentifier).val();
-        let proposalId = FlowRouter.getParam("id");
+        let proposalId = template.data.proposalId;
+
         if(this.state=='view'){
           let argument = {
             type: argumentType,
@@ -251,7 +253,7 @@ Template.ArgumentsBox.events({
             upVote: [],
             language: argumentLang,
             downVote: [],
-            proposalId: FlowRouter.getParam("id")
+            proposalId: proposalId
           }
 
           Meteor.call('comment', argument, function(error){
@@ -274,7 +276,7 @@ Template.ArgumentsBox.events({
             upVote: [],
             language: argumentLang,
             downVote: [],
-            proposalId: FlowRouter.getParam("id")
+            proposalId: proposalId
           }
           argumentsArray = Session.get('arguments');
           argumentsArray.push(argument);
@@ -285,19 +287,21 @@ Template.ArgumentsBox.events({
 
         $(argumentTextIdentifier).val('');
       }  else {
-        console.log("not signed in");
+        //console.log("not signed in");
         openSignInModal();
       }
     }
   },
   'keyup .argument-input' (event, template){
     event.preventDefault();
+    let proposalId = template.data.proposalId;
     if (Meteor.user()){
       if (event.which === 13) {
         let message = event.target.value;
         let argumentType = event.target.dataset.type;
         let argumentLang = event.target.dataset.lang;
         let argumentTextIdentifier = "[data-type='" + argumentType + "'][data-lang='" + argumentLang + "'].argument-input";
+
         if(this.state=='view'){
           let argument = {
             type: argumentType,
@@ -306,7 +310,7 @@ Template.ArgumentsBox.events({
             upVote: [],
             language: argumentLang,
             downVote: [],
-            proposalId: FlowRouter.getParam("id")
+            proposalId: proposalId
           }
 
           Meteor.call('comment', argument, function(error){
@@ -329,7 +333,7 @@ Template.ArgumentsBox.events({
             upVote: [],
             language: argumentLang,
             downVote: [],
-            proposalId: FlowRouter.getParam("id")
+            proposalId: proposalId
           }
           argumentsArray = Session.get('arguments');
           argumentsArray.push(argument);
@@ -339,18 +343,18 @@ Template.ArgumentsBox.events({
         $(argumentTextIdentifier).val('');
       }
     }else{
-      console.log("not signed in");
+      //console.log("not signed in");
       openSignInModal();
     }
   },
   'focus .argument-input' (event, template){
     let argumentType = event.target.dataset.type;
     let  argumentButtonIdentifier = "#" + argumentType + "-button";
-    $(argumentButtonIdentifier).show();
+    //$(argumentButtonIdentifier).show();
   },
   'blur .argument-input' (event, template){
     let argumentType = event.target.dataset.type;
     let  argumentButtonIdentifier = "#" + argumentType + "-button";
-    $(argumentButtonIdentifier).hide();
+    //$(argumentButtonIdentifier).hide();
   }
 });

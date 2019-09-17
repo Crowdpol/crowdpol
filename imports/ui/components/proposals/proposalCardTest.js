@@ -16,7 +16,7 @@ Template.ProposalCardTest.onRendered(function(){
 
 Template.ProposalCardTest.events({
   'click .proposal-link': function(event,target){
-    console.log(event.currentTarget.dataset.stye);
+    //console.log(event.currentTarget.dataset.style);
     proposalId = this.proposal._id;
 		proposal = Proposals.findOne({_id: proposalId});
 		Session.set("proposal",proposal);
@@ -28,30 +28,30 @@ Template.ProposalCardTest.events({
 Template.ProposalCardTest.helpers({
 	isVote: function(style){
     if(style=='vote'){
-      console.log("isVote true " + style);
+      //console.log("isVote true " + style);
       return true;
     }
     return false;
   },
-  /*
+
   isDraft: function(style){
     if(style=='draft'){
-      console.log("isDraft true " + style);
+      //console.log("isDraft true " + style);
       return false;
     }
     return false;
   },
-  */
+
   isPoll: function(style){
     if(style=='poll'){
-      console.log("isPoll true " + style);
+      //console.log("isPoll true " + style);
       return true;
     }
     return false;
   },
   isPetition: function(style){
     if(style=='petition'){
-      console.log("isPetition true " + style);
+      //console.log("isPetition true " + style);
       return true;
     }
     return false;

@@ -1,6 +1,5 @@
 <template name="CommunityDelegates">
-  <br>
-  <p><strong>Community Delegates</strong> ({{delegatesCount}})</p>
+  <!--<p><strong>Community Delegates</strong> ({{delegatesCount}})</p>-->
   {{#if delegatesCount}}
     <div class="search-wrapper">
       <i class="material-icons search-icon">search</i>
@@ -48,9 +47,7 @@
 </template>
 
 <template name="CommunitySelectedDelegates">
-  <br>
-  <p><strong>Selected Delegates</strong></p>
-  <br>
+  <!--<p><strong>Community Delegates</strong> ({{rankCount}})</p>-->
   <div id="sortable" class="delegate-list" >
     {{#if Template.subscriptionsReady}}
       {{#each ranks}}

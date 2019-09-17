@@ -15,55 +15,55 @@
       <div class="community-menu">
         {{>CommunityHeader}}
         <div class="community-title">
-          <h5 id="community-current-header">{{currentHeader}}</h5>
+          <h5 id="community-current-header"></h5>
         </div>
         <div class="community-tabs-container">
               <div class="community-tabs active" data-sidebar-nav-id="community-votes">
-                <a class="community-tab active" data-id="proposal-votes">Voting</a>
-                <a class="community-tab" data-id="proposal-polls">Polls</a>
-                <a class="community-tab" data-id="proposal-petitions">Petitions</a>
+                <a class="community-tab active" data-id="proposal-votes">{{_ "menu-tab.votes.proposals"}}</a>
+                <a class="community-tab" data-id="proposal-polls">{{_ "menu-tab.votes.polls"}}</a>
+                <a class="community-tab" data-id="proposal-petitions">{{_ "menu-tab.votes.petitions"}}</a>
               </div>
               <div class="community-tabs" data-sidebar-nav-id="community-proposals">
-                <a class="community-tab active" data-id="proposal-drafts">Drafts</a>
-                <a class="community-tab" data-id="proposal-submitted">Submitted</a>
-                <a class="community-tab" href="/proposals/edit" data-id="proposal-write">Write</a>
+                <a class="community-tab active" data-id="proposal-drafts">{{_ "menu-tab.proposals.drafts"}}</a>
+                <a class="community-tab" data-id="proposal-submitted">{{_ "menu-tab.proposals.submitted"}}</a>
+                <a class="community-tab" href="/proposals/edit" data-id="proposal-write">{{_ "menu-tab.proposals.write"}}</a>
               </div>
               <div class="community-tabs" data-sidebar-nav-id="community-feed-wrapper">
-                <a class="community-tab active" data-id="community-feed">Feed</a>
-                <a class="community-tab" data-id="community-activity">Activity</a>
+                <a class="community-tab active" data-id="community-feed">{{_ "menu-tab.feed.feed"}}</a>
+                <a class="community-tab" data-id="community-activity">{{_ "menu-tab.feed.activity"}}</a>
               </div>
               <div class="community-tabs" data-sidebar-nav-id="community-delegates">
-                <a class="community-tab active" data-id="delegate-available">Available</a>
-                <a class="community-tab" data-id="delegate-selected">Selected</a>
-                <a class="community-tab" data-id="delegate-status">My Status</a>
-                <a class="community-tab" data-id="delegate-about">About</a>
+                <a class="community-tab active" data-id="delegate-available">{{_ "menu-tab.delegates.available"}}</a>
+                <a class="community-tab" data-id="delegate-selected">{{_ "menu-tab.delegates.selected"}}</a>
+                <a class="community-tab" data-id="delegate-status">{{_ "menu-tab.delegates.status"}}</a>
+                <a class="community-tab" data-id="delegate-about">{{_ "menu-tab.delegates.about"}}</a>
               </div>
               <div class="community-tabs" data-sidebar-nav-id="community-members">
-                <a class="community-tab active" data-id="members-all">Members</a>
-                <a class="community-tab" data-id="members-admin">Administrators</a>
-                <a class="community-tab" data-id="members-ambassador">Ambassador</a>
+                <a class="community-tab active" data-id="members-all">{{_ "menu-tab.members.members"}}</a>
+                <a class="community-tab" data-id="members-admin">{{_ "menu-tab.members.administrator"}}</a>
+                <a class="community-tab" data-id="members-ambassador">{{_ "menu-tab.members.ambassador"}}</a>
               </div>
               <div class="community-tabs" data-sidebar-nav-id="community-groups">
-                <a class="community-tab active" data-id="groups-all">Available</a>
-                <a class="community-tab" data-id="groups-create">Create</a>
+                <a class="community-tab active" data-id="groups-all">{{_ "menu-tab.groups.available"}}</a>
+                <a class="community-tab" data-id="groups-create">{{_ "menu-tab.groups.create"}}</a>
               </div>
         </div>
       </div>
       <div class="community-map-control">
         <a class="map-toggle"></a>
-        <span class="map-toggle-title">Show/Hide Map</span>
+        <span class="map-toggle-title">{{_ "map-toggle"}}</span>
       </div>
     </div>
   </div>
   <div class="dashboard-container" id="community-dash-container">
 
     <div class="sidebar">
-      <a class="sidebar-nav active" data-id="community-votes">Vote <small>{{currentCommunityProposalCount}}</small></a>
-      <a class="sidebar-nav" data-id="community-proposals">My Proposals</a>
-      <a class="sidebar-nav" data-id="community-feed-wrapper">Feed</a>
-      <a class="sidebar-nav" data-id="community-delegates">Delegates <small>{{currentCommunityGroupCount}}</small></a>
-      <a class="sidebar-nav" data-id="community-members">Members <small>{{currentCommunityMemberCount}}</small></a>
-      <a class="sidebar-nav" data-id="community-groups">Groups <small>{{currentCommunityGroupCount}}</small></a>
+      <a class="sidebar-nav active" data-id="community-votes">{{_ "sidebar-tab.vote"}}<small>{{currentCommunityProposalCount}}</small></a>
+      <a class="sidebar-nav" data-id="community-proposals">{{_ "sidebar-tab.proposals"}}</a>
+      <a class="sidebar-nav" data-id="community-feed-wrapper">{{_ "sidebar-tab.feed"}}</a>
+      <a class="sidebar-nav" data-id="community-delegates">{{_ "sidebar-tab.delegates"}} <small>{{currentCommunityGroupCount}}</small></a>
+      <a class="sidebar-nav" data-id="community-members">{{_ "sidebar-tab.members"}} <small>{{currentCommunityMemberCount}}</small></a>
+      <a class="sidebar-nav" data-id="community-groups">{{_ "sidebar-tab.groups"}} <small>{{currentCommunityGroupCount}}</small></a>
     </div>
 
     <div class="community-content">
@@ -84,7 +84,6 @@
             </p>
         </div>
         <div class="community-tabs-panel active" id="community-feed">
-          <br>
             {{>Feed feedId=communityId}}
         </div>
       </div>
@@ -314,13 +313,13 @@
   <div class="form-group">
     {{> UserSearch}}
   </div>
-
+  <!--
   type: ['organisation', 'party', 'social'],
   admins
   invited
   open
   verified
   tags
-
+  -->
 </form>
 </template>

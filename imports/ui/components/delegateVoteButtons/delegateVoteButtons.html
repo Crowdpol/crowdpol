@@ -4,7 +4,7 @@
       <small>{{_ "components.delegateVoteButtons.instructions-1"}}</small>
       <!--<small>{{_ "components.delegateVoteButtons.instructions-2"}}</small>-->
     </center>
-    <div class="vote-actions {{delegateVote}}" id="{{proposalId}}">
+    <div class="vote-actions {{delegateVote}}" data-id="{{proposalId}}">
       <button class="delegate-vote-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised vote-button {{delegateClass 'yes'}}" id="delegate-vote-yes" data-vote-value="yes">
         {{_"pages.proposals.view.yes"}}
       </button>

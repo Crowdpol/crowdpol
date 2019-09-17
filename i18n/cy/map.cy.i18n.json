@@ -1,0 +1,8 @@
+{
+  "maps":{
+    "community": "CY: Community",
+    "no-community": "CY:  has no community yet.",
+    "request-community": "CY: Request One",
+    "community-hover":"CY: Hover over a community"
+  }
+}

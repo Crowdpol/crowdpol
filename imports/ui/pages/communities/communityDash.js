@@ -149,8 +149,6 @@ Template.CommunityDash.events({
   },
   'click .tablinks': function(event, template){
     let tab = event.currentTarget.dataset.tab;
-    console.log("tab": tab);
-    console.log("currentTarget:" + currentTarget);
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("community-tab");
     for (i = 0; i < tabcontent.length; i++) {
@@ -312,27 +310,27 @@ Template.CommunityDash.helpers({
     switch(currentHeader){
       case 'community-feed-wrapper':
         //TAPi18n.__('pages.delegates.alerts.ranking-updated')
-        currentHeader = 'Feed';
+        currentHeader = TAPi18n.__('header-title.feed');
         break;
-      case 'community-proposals':
+      case 'community-votes':
         // code block
-        currentHeader = 'Proposals';
+        currentHeader = TAPi18n.__('header-title.votes');
         break;
-      case 'my-community-proposals':
+      case 'ommunity-proposals':
         // code block
-        currentHeader = 'My Proposals';
+        currentHeader = TAPi18n.__('header-title.proposals');
         break;
       case 'community-members':
-        currentHeader = 'Members';
+        currentHeader = TAPi18n.__('header-title.members');
         break;
       case 'community-delegates':
-        currentHeader = 'Delegates';
+        currentHeader = TAPi18n.__('header-title.delegates');
         break;
       case 'community-groups':
-        currentHeader = 'Groups';
+        currentHeader = TAPi18n.__('header-title.groups');
         break;
       default:
-        currentHeader = 'Oops. Something went wrong. Sorry!';
+        currentHeader = TAPi18n.__('header-title.not-found');
     }
     return currentHeader;
   },
@@ -404,15 +402,15 @@ function openPage(pageName,elmnt,color) {
 export function loadCommunitySection(selection){
   let tabId = '';
   if(!selection){
-    console.log("loadCommunitySection() is empty");
+    //console.log("loadCommunitySection() is empty");
     var pathnames = window.location.pathname.split('/');
     if(Array.isArray(pathnames)){
       selection = pathnames[2];
     }else{
-      console.log("pathnames is not array");
+      //console.log("pathnames is not array");
     }
   }else{
-    console.log("selection is set to " + selection);
+    //console.log("selection is set to " + selection);
   }
 
   switch(selection){
@@ -438,10 +436,10 @@ export function loadCommunitySection(selection){
       tabId = 'community-feed-wrapper'
       break;
     default:
-      tabId = 'community-proposals'
+      tabId = 'community-votes'
       break;
   }
-  console.log("tab id is: " + tabId);
+  //console.log("tab id is: " + tabId);
   updateHeaderMenu(tabId)
 }
 
@@ -453,7 +451,7 @@ function updateHeaderMenu(tabId){
   $('.sidebar-nav').each(function(i, obj) {
     $(this).removeClass('active');
   });
-  console.log("updateHeaderMenu: " + tabId);
+  //console.log("updateHeaderMenu: " + tabId);
   //set current sidebar nav to active
 
   //get and set community header title to active tab name
@@ -474,6 +472,8 @@ function updateHeaderMenu(tabId){
   //enable appropriate community tab according to siderbar selection
   let selector = '*[data-sidebar-nav-id="'+tabId+'"]';
   $(selector).addClass('active');
+  selector = '.sidebar-nav[data-id="'+tabId+'"]';
+  $(selector).addClass('active');
 }
 
 function setCurrentHeader(tabId){
@@ -481,27 +481,27 @@ function setCurrentHeader(tabId){
   switch(tabId){
     case 'community-feed-wrapper':
       //TAPi18n.__('pages.delegates.alerts.ranking-updated')
-      currentHeader = 'Feed';
+      currentHeader = TAPi18n.__('header-title.feed');
       break;
     case 'community-votes':
       // code block
-      currentHeader = 'Vote';
+      currentHeader = TAPi18n.__('header-title.vote');
       break;
     case 'community-proposals':
       // code block
-      currentHeader = 'My Proposals';
+      currentHeader = TAPi18n.__('header-title.proposals');
       break;
     case 'community-members':
-      currentHeader = 'Members';
+      currentHeader = TAPi18n.__('header-title.members');
       break;
     case 'community-delegates':
-      currentHeader = 'Delegates';
+      currentHeader = TAPi18n.__('header-title.delegates');
       break;
     case 'community-groups':
-      currentHeader = 'Groups';
+      currentHeader = TAPi18n.__('header-title.groups');
       break;
     default:
-      currentHeader = 'Oops. Something went wrong. Sorry!';
+      currentHeader = TAPi18n.__('header-title.not-found');;
   }
   $("#community-current-header").html(currentHeader);
 }
