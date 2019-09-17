@@ -1,0 +1,8 @@
+{
+  "maps":{
+    "community": "Gemenskap",
+    "no-community": " har ingen gemenskap än.",
+    "request-community": "Begäran",
+    "community-hover":"Håll muspekaren över ett samhälle"
+  }
+}

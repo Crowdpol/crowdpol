@@ -1,0 +1,11 @@
+{
+  "feed":{
+    "feed":"JA: Feed",
+    "activity":"JA: Activity",
+    "followers": "JA: Followers",
+    "following": "JA: Following",
+    "unfollow": "JA: Unfollow",
+    "follow": "JA: Follow",
+    "post-created": "JA: Post created"
+  }
+}

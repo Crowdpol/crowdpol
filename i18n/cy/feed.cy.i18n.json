@@ -1,0 +1,11 @@
+{
+  "feed":{
+    "feed":"CY: Feed",
+    "activity":"CY: Activity",
+    "followers": "CY: Followers",
+    "following": "CY: Following",
+    "unfollow": "CY: Unfollow",
+    "follow": "CY: Follow",
+    "post-created": "CY: Post created"
+  }
+}

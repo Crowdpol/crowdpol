@@ -8,7 +8,6 @@ let selection;
 let currentRoot='GLOBAL';
 
 Template.CommunityMap.onCreated(function(){
-  //console.log("CommunityMap: onCreated()");
   const handles = [
     this.subscribe('maps.all'),//,rootMap),
     this.subscribe("communities.all")
@@ -18,14 +17,16 @@ Template.CommunityMap.onCreated(function(){
     //console.log(`Handles are ${areReady ? 'ready' : 'not ready'}`);
     if(areReady){
       loadGeoJSON();
-      addInfoControl();
-      addCommunityControl();
+
     }
+
   });
 });
 
 Template.CommunityMap.onRendered(function(){
   loadMap();
+  addInfoControl();
+  addCommunityControl();
 });
 
 Template.CommunityMap.events({
@@ -61,26 +62,30 @@ function loadGeoJSON(){
   };
   //var group = new L.LayerGroup([streetMap, mapLayer]);
   //group.addTo(map);
-  L.control.layers(baseMaps, overlayMaps).addTo(map);
+  console.log("adding control to map");
+  L.control.layers(baseMaps, overlayMaps,{position: 'topleft'}).addTo(map);
 
   //console.log(mapLayer.getBounds());
   //map.fitBounds(mapLayer.getBounds());
 
-  /*
+
   // handle clicks on the map that didn't hit a feature
 
   map.addEventListener('click', function(e) {
-
+    console.log("ocean clicked");
+    currentRoot='GLOBAL';
+    loadCommunityMap('GLOBAL');
+    /*
     Session.set('selectedMap','GLOBAL');
     if (selection) {
       resetStyle();
       selection = null;
       //document.getElementById('summaryLabel').innerHTML = '<p>Click a garden or food pantry on the map to get more information.</p>';
     }
-
+    */
     L.DomEvent.stopPropagation(e);
   });
-  */
+
 }
 
 function buildGeoJSON(){
@@ -146,6 +151,12 @@ function mapOnEachFeature(feature, layer){
 
       /* THIS LOADS CHILD MAPS*/
       currentRoot = selection.feature.properties.key;
+      let community = Communities.findOne({"_id":selection.feature.properties.communityId});
+      if(community){
+        LocalStore.set('communityId',community._id);
+        setCommunity(community._id);
+      }
+      //setCurrentCommunity();
       let childMapCount = Maps.find({"properties.rootMap":currentRoot}).count();
       if(childMapCount){
         loadNewLayer();
@@ -211,22 +222,15 @@ function addCommunityControl(){
       let delegateCount = 0;
       let groupCount = 0;
       let memberCount = 0;
+      let str = '<div><b>' + props.name + '</b>' +TAPi18n.__('maps.no-community')+ '<br><a href="#">'+TAPi18n.__('maps.request-community')+'</a></div>';
       let community = Communities.findOne({"_id":props.communityId});
       if(community){
-        LocalStore.set('communityId',community._id);
-        setCommunity(community._id);
+        //LocalStore.set('communityId',community._id);
+        //setCommunity(community._id);
+        str = '<div>' + TAPi18n.__('maps.community') + ": <b>" + community.name + '</b></div>';
       }
-      //console.log(community);
-    	this._div.innerHTML = (community ?
-        //'<div style="background-image:'+community.settings.homepageImageUrl+'" class="map-community-info-header"></div>'+
-        '<table>'+
-          '<tr><td>Community</td><th>'+community.name+'</th></tr>'+
-          //'<tr><td>Members</td><th>'+memberCount+'</th></tr>'
-          //'<tr><td>Proposals</td><th>'+proposalCount+'</th></tr>'+
-          //'<tr><td>Groups</td><th>'+groupCount+'</th></tr>'+
-          //'<tr><td>Delegates</td><th>'+delegateCount+'</th></tr>'+
-        '</table>'
-    		: '<b>' + props.name + '</b> has no community yet.<br><a href="#">Request One</a>');
+      console.log(str);
+    	this._div.innerHTML = str;
     }
   };
 
@@ -247,7 +251,7 @@ function addInfoControl(){
   info.update = function (props) {
   	this._div.innerHTML = (props ?
   		'<b>' + props.name + '</b> (' + props.key + ')'
-  		: 'Hover over a community');
+  		: TAPi18n.__('maps.community-hover'));
   };
 
   info.addTo(map);
@@ -316,7 +320,7 @@ export function loadCommunityMap(id){
   loadNewLayer(currentRoot);
   let bounds = mapLayer.getBounds();
   if(bounds){
-    map.fitBounds(mapLayer.getBounds());
+    //map.fitBounds(mapLayer.getBounds());
   }else{
     //console.log('could not find layer map bounds');
   }

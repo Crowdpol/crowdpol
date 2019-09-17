@@ -1,0 +1,11 @@
+{
+  "feed":{
+    "feed":"Flöden",
+    "activity":"Aktivitet",
+    "followers": "Följare",
+    "following": "Följande",
+    "unfollow": "Sluta följa",
+    "follow": "Följ",
+    "post-created": "Inlägg skapat"
+  }
+}

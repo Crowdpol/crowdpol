@@ -1,0 +1,51 @@
+{
+  "map-toggle": "Show/Hide Map",
+  "menu-tab":{
+    "votes":{
+      "proposals": "Proposals",
+      "polls": "Polls",
+      "petitions": "Petitions"
+    },
+    "proposals":{
+      "drafts": "Drafts",
+      "submitted": "Submitted",
+      "write": "Write New"
+    },
+    "feed":{
+      "feed":"Feed",
+      "activity":"Activity"
+    },
+    "delegates":{
+      "available": "Available",
+      "selected": "Selected",
+      "status": "Status",
+      "about": "About"
+    },
+    "members":{
+      "members": "Members",
+      "administrator": "Administrator",
+      "ambassador": "Ambassador"
+    },
+    "groups":{
+      "available": "Available",
+      "create": "Create"
+    }
+  },
+  "sidebar-tab": {
+    "vote": "Vote",
+    "proposals": "My Proposals",
+    "feed": "Feed",
+    "delegates": "Delegates",
+    "members": "Members",
+    "groups": "Groups"
+  },
+  "header-title": {
+    "vote": "Vote",
+    "proposals": "My Proposals",
+    "feed": "Feed",
+    "delegates": "Delegates",
+    "members": "Members",
+    "groups": "Groups",
+    "not-found":"Oops. Something went wrong. Sorry!"
+  }
+}

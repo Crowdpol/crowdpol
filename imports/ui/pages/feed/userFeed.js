@@ -126,7 +126,7 @@ Template.UserFeed.events({
     			Bert.alert(error.reason, 'danger');
     			return false;
     		} else {
-    			 Bert.alert(TAPi18n.__('pages.feed.following'), 'success');
+    			 Bert.alert(TAPi18n.__('feed.following'), 'success');
     		}
     	});
     }
@@ -140,7 +140,7 @@ Template.UserFeed.events({
     			Bert.alert(error.reason, 'danger');
     			return false;
     		} else {
-    			 Bert.alert(TAPi18n.__('pages.feed.unfollow'), 'success');
+    			 Bert.alert(TAPi18n.__('feed.unfollow'), 'success');
     		}
     	});
     }
@@ -159,7 +159,7 @@ Template.UserFeed.events({
   			Bert.alert(error.reason, 'danger');
   			return false;
   		} else {
-  			 Bert.alert(TAPi18n.__('pages.feed.post-created'), 'success');
+  			 Bert.alert(TAPi18n.__('feed.post-created'), 'success');
          template.find('#post-message').value = "";
          $("#post-message").addClass('post-textarea-small');
          $("#post-message").removeClass('post-textarea-large');

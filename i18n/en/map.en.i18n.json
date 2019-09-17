@@ -1,0 +1,8 @@
+{
+  "maps":{
+    "community": "Community",
+    "no-community": " has no community yet.",
+    "request-community": "Request One",
+    "community-hover":"Hover over a community"
+  }
+}
