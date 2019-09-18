@@ -50,6 +50,9 @@ export const setCommunity = (id) => {
       if(typeof community.settings!=='undefined'){
         let settings = community.settings;
         LocalStore.set('settings',settings);
+        console.log("----------");
+        console.log(settings);
+        console.log("----------");
         if(typeof settings.defaultLanguage!=='undefined'){
           lang = settings.defaultLanguage;
           setDefaultLanguage(lang);

@@ -22,6 +22,9 @@ Template.ProposalForm.onCreated(function(){
 	var dict = new ReactiveDict();
 
 	var langs = LocalStore.get('languages');
+	if(!langs){
+		langs = ['en'];
+	}
 	langs.forEach(function(language) {
 		let dictId = "abstract-" + language + "-Count";
 		dict.set( dictId, 0);

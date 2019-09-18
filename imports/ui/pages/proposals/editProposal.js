@@ -150,7 +150,13 @@ Template.EditProposal.helpers({
 		}
 	},
 	languages: function(){
-		return LocalStore.get('languages');
+		let settings = LocalStore.get('settings');
+		//console.log(settings);
+		let langs = settings.languages;//LocalStore.get('languages');
+		if(langs){
+			return langs;
+		}
+		return ['en'];
 	},
 	activeClass: function(language){
 		var currentLang = TAPi18n.getLanguage();
