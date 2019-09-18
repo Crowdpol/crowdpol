@@ -1,5 +1,5 @@
 import { getTags } from '../../../components/taggle/taggle.js'
-import { getProfilePic } from '../../../components/profileHeader/profileImage.js'
+import { getProfilePic,showProfileUrl } from '../../../components/profileHeader/profileImage.js'
 import './wizard.html';
 
 Template.Wizard.onCreated(function(){
@@ -7,6 +7,10 @@ Template.Wizard.onCreated(function(){
   //Reactive Variables
   self.currentStep = new ReactiveVar([]);
   self.currentStep.set("1");
+});
+
+Template.Wizard.onRendered(function(){
+  showProfileUrl()
 });
 
 Template.Wizard.helpers({
@@ -20,9 +24,13 @@ Template.Wizard.helpers({
 });
 
 Template.Wizard.events({
+  'click .wizard-skip' (event, template){
+    event.preventDefault();
+    FlowRouter.go('/dash/vote');
+  },
 	'click .wizard-next' (event, template){
 		event.preventDefault();
-
+    $( "#change-photo" ).show();
 		template.currentStep.set(moveStep(template.currentStep.get(),1));
 	},
   'click .wizard-back' (event, template){

@@ -178,3 +178,7 @@ export function getProfilePic(){
 	let picURL = $('#profilePhoto').val();
 	return picURL;
 }
+export function showProfileUrl(){
+	console.log("showing profile url");
+	$( "#change-photo" ).show();
+}
