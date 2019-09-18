@@ -334,8 +334,8 @@ Accounts.onCreateUser((options, user) => {
 	}
   if(!social){
     console.log("user is signing in with email address")
-    firstName = EMPTY_VAL;
-    lastName = EMPTY_VAL;
+    firstName = '';
+    lastName = '';
     email = options.email;
     service = 'password';
     verified = false;
