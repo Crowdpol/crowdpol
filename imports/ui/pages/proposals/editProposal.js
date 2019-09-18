@@ -326,7 +326,12 @@ var timer = function(){
 
 function saveChanges(event, template, returnTo){
 	var communityId = LocalStore.get('communityId');
-	var languages = LocalStore.get('languages');
+	let settings = LocalStore.get('settings');
+	//console.log(settings);
+	let languages = settings.languages;//LocalStore.get('languages');
+	if(!languages){
+		languages =['en'];
+	}
 	var content = [];
 	var contentCount = 0;
 	// Get Translatable field for each language and loop through them
