@@ -173,3 +173,8 @@ function getOwnerId(){
   //console.log("ownerId: " + userId);
   return userId;
 }
+
+export function getProfilePic(){
+	let picURL = $('#profilePhoto').val();
+	return picURL;
+}

@@ -271,8 +271,9 @@ Accounts.onCreateUser((options, user) => {
   }else{
     console.log("no options in setRootCommunities");
   }
-  */
+
   console.log("---calling getRootCommunities()---");
+  */
   profile.communityIds = Meteor.call('getRootCommunities');
   /*
   Meteor.call('getRootCommunities',function(err, result){
@@ -294,11 +295,13 @@ Accounts.onCreateUser((options, user) => {
       }
     }
   });
-  */
+
   console.log("---getRootCommunities() finished---");
   console.log("--profile:---");
   console.log(profile);
   console.log("-----");
+  */
+  console.clear();
   console.log("starting to normalise");
   let existingUser = Meteor.user();
 	let email;
@@ -395,7 +398,7 @@ Accounts.onCreateUser((options, user) => {
 });
 
 Accounts.onLogin(() => {
-  //console.log("onLogin called: user logged in");
+  console.log("onLogin called: user logged in");
 });
 Accounts.validateNewUser((user) => {
 
