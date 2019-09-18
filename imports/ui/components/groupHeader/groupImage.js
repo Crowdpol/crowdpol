@@ -1,4 +1,4 @@
-import "./profileImage.html"
+import "./groupImage.html"
 import { userfullname } from '../../../utils/users';
 import { username } from '../../../utils/users';
 

@@ -3,7 +3,9 @@ node_modules/
 development.settings.json
 settings.json
 imports/startup/server/key.json
+imports/utils/geoJSON
 dead-files
+todo.txt
 
 # ------------- OSX gitignore
 

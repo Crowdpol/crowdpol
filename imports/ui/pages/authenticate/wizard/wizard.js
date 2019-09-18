@@ -1,3 +1,5 @@
+import { getTags } from '../../../components/taggle/taggle.js'
+import { getProfilePic,showProfileUrl } from '../../../components/profileHeader/profileImage.js'
 import './wizard.html';
 
 Template.Wizard.onCreated(function(){
@@ -5,6 +7,10 @@ Template.Wizard.onCreated(function(){
   //Reactive Variables
   self.currentStep = new ReactiveVar([]);
   self.currentStep.set("1");
+});
+
+Template.Wizard.onRendered(function(){
+  showProfileUrl()
 });
 
 Template.Wizard.helpers({
@@ -18,14 +24,41 @@ Template.Wizard.helpers({
 });
 
 Template.Wizard.events({
+  'click .wizard-skip' (event, template){
+    event.preventDefault();
+    FlowRouter.go('/dash/vote');
+  },
 	'click .wizard-next' (event, template){
 		event.preventDefault();
+    $( "#change-photo" ).show();
 		template.currentStep.set(moveStep(template.currentStep.get(),1));
 	},
   'click .wizard-back' (event, template){
 		event.preventDefault();
 		template.currentStep.set(moveStep(template.currentStep.get(),-1));
 	},
+  'click .wizard-complete' (event, template){
+    event.preventDefault();
+    var profile = {};
+    profile.username = $('#profile-username').val();
+    profile.firstname = $('#profile-firstname').val();
+    profile.lastname = $('#profile-lastname').val();
+    profile.dob = $('#profile-dob').val();
+    profile.image = getProfilePic();//'https://upload.wikimedia.org/wikipedia/commons/b/b4/Brett_king_futurist_speaker_author.jpg';//$('#profile-image').val();
+    profile.tagline = $('#profile-tagline').val();
+    profile.presentation = $('#profile-presentation').val();
+    profile.tags = getTags();//$('#profile-tags').val();
+    profile.skills = {};//$('#profile-skills').val();
+    profile.twitter = $('#profile-twitter').val();
+    profile.google  = $('#profile-google').val();
+    profile.facebook  = $('#profile-facebook').val();
+    profile.linkedin  = $('#profile-linkedin').val();
+    profile.youtube = $('#profile-youtube').val();
+    profile.website = $('#profile-website').val();
+    profile.location = $('#profile-location').val();
+    console.log(profile);
+    FlowRouter.go('/dash/vote');
+  }
 });
 
 /*
@@ -90,8 +123,7 @@ Template.Wizard.rendered = function() {
 };
 
 function showPosition(position) {
-  console.log("Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude);
+  console.log(position.coords.latitude + ", " + position.coords.longitude);
 }
 
 function showError(error) {
