@@ -300,6 +300,56 @@ Accounts.onCreateUser((options, user) => {
   console.log(profile);
   console.log("-----");
   console.log("starting to normalise");
+  let existingUser = Meteor.user();
+	let email;
+	let firstName;
+	let lastName;
+	let service;
+  let social = false;
+
+	if (user.services.facebook) {
+    social=true;
+    console.log("user signing in with facebook");
+			firstName = user.services.facebook.first_name;
+			lastName = user.services.facebook.last_name;
+			email = user.services.facebook.email;
+			service = 'facebook';
+	}
+  if (user.services.google) {
+    social=true;
+    console.log("user signing in with google");
+			firstName = user.services.google.given_name;
+			lastName = user.services.google.family_name;
+			email = user.services.google.email;
+			service = 'google';
+	}
+  if(user.services.twitter){
+    social=true;
+    console.log("user signing in with twitter");
+    console.log(user.services.twitter)
+
+	}
+  if(!social){
+    console.log("user is signing in with email address")
+    firstName = EMPTY_VAL;
+    lastName = EMPTY_VAL;
+    email = options.email;
+    service = 'password';
+    verified = false;
+  }
+
+	if (!existingUser){
+    console.log("could not find Meteor.user(), checking by Meteor.users.findOne({ email })");
+    existingUser = Meteor.users.findOne({ email });
+  }
+	if (existingUser) {
+    console.log("found existingUser");
+			existingUser.services = existingUser.services || {};
+			existingUser.services[service] = user.services[service];
+			//Meteor.users.remove({ _id: existingUser._id });
+			//user = existingUser;
+      console.log(existingUser);
+	}
   if (profile) {
     if (user.services.facebook) {
       return normalizeFacebookUser(profile, user);

@@ -4,6 +4,7 @@ development.settings.json
 settings.json
 imports/startup/server/key.json
 dead-files
+todo.txt
 
 # ------------- OSX gitignore
 
