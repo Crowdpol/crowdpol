@@ -339,8 +339,8 @@ Accounts.onCreateUser((options, user) => {
   }
 
 	if (!existingUser){
-    console.log("could not find Meteor.user(), checking by Meteor.users.findOne({ email })");
-    existingUser = Meteor.users.findOne({ email });
+    console.log("could not find Meteor.user(), checking by Meteor.users.findOne({'emails.address': email })");
+    existingUser = Meteor.users.findOne({"emails.address": email });
   }
 	if (existingUser) {
     console.log("found existingUser");
