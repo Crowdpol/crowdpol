@@ -2,21 +2,21 @@
 	"pages": {
 		"roles": {
 			"voter": "Väljare",
-			"individual-delegate": "Individdelegat",
+			"individual-delegate": "Individuell delegat",
 			"organisation-delegate": "Organisation",
 			"party-delegate": "Politiskt Parti",
 			"candidate": "Kandidat"
 		},
 		"home": {
 			"heading": "Crowdpol",
-			"intro-text": "Öppen tankesmedja.",
+			"intro-text": "Ett globalt socialt nätverk för Changemakers.",
 			"hero": {
 				"delegate": "Delegera",
 				"propose": "Föreslå",
 				"vote": "Rösta"
 			},
 			"newsletter-text": "Få Vårt Nyhetsbrev.",
-			"banner-text": "Öppen tankesmedja.",
+			"banner-text": "Globalt socialt nätverk för Changemakers.",
 			"alerts": {
 				"mailing-list-signup-success": "Tack. Du har lagts till vår mailinglista.",
 				"no-image": "Din bakgrundsbild kunde inte laddas upp."

@@ -4,15 +4,15 @@
     "votes":{
       "proposals": "Förslag",
       "polls": "Opinionsundersökning",
-      "petitions": "Framställningarna "
+      "petitions": "Upprop"
     },
     "proposals":{
       "drafts": "Utkast på förslag",
       "submitted": "Inlämnade förslag",
-      "write": "Skriv ett Nytt Förslag"
+      "write": "Skriv ett nytt förslag"
     },
     "feed":{
-      "feed":"Flöden",
+      "feed":"Nyheter",
       "activity":"Aktivitetsflöde"
     },
     "delegates":{
@@ -33,16 +33,16 @@
   },
   "sidebar-tab": {
     "vote": "Rösta",
-    "proposals": "My Förslag",
-    "feed": "Flöden",
+    "proposals": "Mina Förslag",
+    "feed": "Nyheter",
     "delegates": "Delegater",
     "members": "Medlemmar",
     "groups": "Grupp"
   },
   "header-title": {
     "vote": "Rösta",
-    "proposals": "My Förslag",
-    "feed": "Flöden",
+    "proposals": "Mina förslag",
+    "feed": "Nyheter",
     "delegates": "Delegater",
     "members": "Medlemmar",
     "groups": "Grupp",
