@@ -20,9 +20,9 @@
 		"requested": "Efterfrågad",
 		"under-construction": "Under uppbyggnad",
 		"characters":"tecken",
-		"change-cover": "TODO: Select the cover image",
-		"remove-cover": "TODO: Remove the cover",
-		"add-cover": "TODO: Add cover"
+		"change-cover": "Välj omslagsbild",
+		"remove-cover": "Ta bort omslagsbild",
+		"add-cover": "Lägg till en omslagsbild"
 	},
 	"form": {
 		"email": "E-postadress",
