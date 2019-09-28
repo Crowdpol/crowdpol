@@ -65,6 +65,9 @@ Template.ViewProposal.onRendered(function(language){
   var clipboard = new Clipboard('#copy-proposal-link');
 
   clipboard.on('success', function(e) {
+    console.info('Action:', e.action);
+    console.info('Text:', e.text);
+    console.info('Trigger:', e.trigger);
     Bert.alert({
       title: TAPi18n.__('pages.proposals.view.alerts.linkToClipboardSuccess'),
       type: 'success',
@@ -83,6 +86,7 @@ Template.ViewProposal.onRendered(function(language){
       icon: 'fa-link'
     });
   });
+
   this.autorun(function() {
     /*
     let hasCover = Template.instance().templateDictionary.get('hasCover');
@@ -380,7 +384,15 @@ Template.ViewProposal.helpers({
     return true;
   },
   getProposalLink: function() {
-    return window.location.href;
+    console.log(this.proposalId);
+    let proposalId = this.proposalId;
+    let origin = window.location.origin;
+
+    if(proposalId){
+      return origin + "/proposals/view/" + proposalId;
+    }
+    return window.location;
+
   },
   signatureCount: function(){
     return Template.instance().templateDictionary.get('signatures').length

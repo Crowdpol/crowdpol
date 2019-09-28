@@ -17,7 +17,7 @@ Meteor.methods({
     var user = Meteor.users.findOne({_id: commentAttributes.authorId});
     var proposal = Proposals.findOne(commentAttributes.proposalId);
     console.log(commentAttributes);
-    /*
+    
     // ensure the user is logged in
     if (!user)
       throw new Meteor.Error(401, "You need to login to make comments");
@@ -25,7 +25,7 @@ Meteor.methods({
       throw new Meteor.Error(422, 'Please write some content');
     if (!proposal)
       throw new Meteor.Error(422, 'You must comment on a proposal');
-    */
+
     let existingComment = Comments.find({"proposalId":commentAttributes.proposalId,"message":commentAttributes.message,"authorId":user._id}).count();
     if (existingComment)
       throw new Meteor.Error(422, 'Duplicate comment');
