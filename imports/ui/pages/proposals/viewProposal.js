@@ -5,7 +5,7 @@ import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Tags } from '../../../api/tags/Tags.js'
 import { setCoverState } from '../../components/cover/cover.js'
-import { urlify } from '../../../utils/functions';
+import { urlify,calcReadingTime } from '../../../utils/functions';
 import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(language){
@@ -65,9 +65,6 @@ Template.ViewProposal.onRendered(function(language){
   var clipboard = new Clipboard('#copy-proposal-link');
 
   clipboard.on('success', function(e) {
-    console.info('Action:', e.action);
-    console.info('Text:', e.text);
-    console.info('Trigger:', e.trigger);
     Bert.alert({
       title: TAPi18n.__('pages.proposals.view.alerts.linkToClipboardSuccess'),
       type: 'success',
@@ -384,7 +381,7 @@ Template.ViewProposal.helpers({
     return true;
   },
   getProposalLink: function() {
-    console.log(this.proposalId);
+    //console.log(this.proposalId);
     let proposalId = this.proposalId;
     let origin = window.location.origin;
 
@@ -587,6 +584,15 @@ Template.ProposalContent.helpers({
   getAvatar: function(authorId){
     var user = Meteor.users.findOne(authorId);
     return user.profile.photo;
+  },
+  readingTimeText: function(){
+    let body = Template.instance().templateDictionary.get( 'body' );
+    if(body==undefined||body.length==0){
+      //retrun// TAPi18n.__('pages.proposals.view.body-empty') + "</i>";
+    }else{
+      readTime = calcReadingTime(body);
+      return TAPi18n.__('pages.proposals.view.read-time',{readTime:readTime});
+    }
   },
   body: function() {
     var body = Template.instance().templateDictionary.get( 'body' );

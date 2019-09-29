@@ -1,5 +1,5 @@
 import { Posts } from '../../../api/posts/Posts.js';
-import { userProfilePhoto} from '../../../utils/users';
+import { getUserProfilePhoto} from '../../../utils/users';
 import './feed.html'
 
 Template.Feed.onCreated(function(){
@@ -50,7 +50,7 @@ Template.Feed.helpers({
   },
   /*
   profilePic: function(userId) {
-    return userProfilePhoto(userId);
+    return getUserProfilePhoto(userId);
   },
   */
   currentUserId: function(){

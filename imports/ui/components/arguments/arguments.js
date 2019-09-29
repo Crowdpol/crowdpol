@@ -1,7 +1,7 @@
 import './arguments.html'
 import { Random } from 'meteor/random';
 import RavenClient from 'raven-js';
-import { userProfilePhoto, userfullname, username } from '../../../utils/users';
+import { getUserProfilePhoto, getUserfullname, getUsername } from '../../../utils/users';
 import { urlify } from '../../../utils/functions';
 
 Template.ArgumentsListItem.onCreated(function(){
@@ -202,7 +202,7 @@ Template.ArgumentsListItem.helpers({
     return "anonymous";
 	},
   authorImage(authorId){
-    return userProfilePhoto(authorId);
+    return getUserProfilePhoto(authorId);
 	},
   isLiked(){
     upVotes = this.argument.upVote;
@@ -233,77 +233,27 @@ Template.ArgumentsListItem.helpers({
 
 Template.ArgumentsBox.events({
   'click .add-argument' (event, template){
-    //console.log(template.data.proposalId);
     event.preventDefault();
     if (Meteor.user()){
       let proposalId = template.data.proposalId;
       postArgument(event,this.state,proposalId);
     }else{
-      //console.log("not signed in");
       openSignInModal();
     }
+    event.stopImmediatePropagation();
   },
   'keyup .argument-input' (event, template){
     event.preventDefault();
     if (event.which === 13) {
       if (Meteor.user()){
         let proposalId = template.data.proposalId;
+        console.log("proposalId: " + proposalId);
         postArgument(event,this.state,proposalId);
       }else{
-        //console.log("not signed in");
         openSignInModal();
       }
     }
-    /*
-    let proposalId = template.data.proposalId;
-    if (Meteor.user()){
-      if (event.which === 13) {
-        let message = event.target.value;
-        let argumentType = event.target.dataset.type;
-        let argumentLang = event.target.dataset.lang;
-        let argumentTextIdentifier = "[data-type='" + argumentType + "'][data-lang='" + argumentLang + "'].argument-input";
-
-        if(this.state=='view'){
-          let argument = {
-            type: argumentType,
-            message: message,
-            authorId: Meteor.userId(),
-            upVote: [],
-            language: argumentLang,
-            downVote: [],
-            proposalId: proposalId
-          }
-
-          Meteor.call('comment', argument, function(error){
-            if(error){
-              RavenClient.captureException(error);
-              Bert.alert(error.reason, 'danger');
-            } else {
-              Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentPosted'), 'success');
-            }
-          });
-        }else{
-
-          let argument = {
-            _id: Random.id(),
-            type: argumentType,
-            message: message,
-            authorId: Meteor.user()._id,
-            createdAt: moment().format('YYYY-MM-DD'),
-            lastModified: moment().format('YYYY-MM-DD'),
-            upVote: [],
-            language: argumentLang,
-            downVote: [],
-            proposalId: proposalId
-          }
-          argumentsArray = Session.get('arguments');
-          argumentsArray.push(argument);
-          Session.set('arguments',argumentsArray);
-
-        }
-        $(argumentTextIdentifier).val('');
-
-      }*/
+    event.stopImmediatePropagation();
 
   },
   'focus .argument-input' (event, template){
@@ -319,11 +269,6 @@ Template.ArgumentsBox.events({
 });
 
 function postArgument(event,state,proposalId){
-  /*
-  if(!proposalId){
-    console.log("could not find proposalId");
-    return false;
-  }*/
   //get the correct input field by language and argument
   let argumentType = event.target.dataset.type;
   let argumentLang = event.target.dataset.lang;
@@ -331,17 +276,20 @@ function postArgument(event,state,proposalId){
   if(typeof argumentType !='undefined'){
     //create arguments
     let message = $(argumentTextIdentifier).val();
-    console.log("message: " + message);
+
     //let proposalId = template.data.proposalId;
     if(!message){
       Bert.alert("Please enter a valid argument");
       return false;
     }
+    message = message.replace(/\r?\n|\r/g, " ");
+
     if(state=='view'){
-      if(!proposalId){
+
+      if(proposalId){
         let argument = {
           type: argumentType,
-          message: message,
+          message: message.trim(),
           authorId: Meteor.user()._id,
           upVote: [],
           language: argumentLang,
@@ -355,6 +303,7 @@ function postArgument(event,state,proposalId){
             Bert.alert(error.reason, 'danger');
           } else {
             Bert.alert(TAPi18n.__('pages.proposals.view.alerts.commentPosted'), 'success');
+            $(argumentTextIdentifier).val('');
           }
         });
       }else{
@@ -362,11 +311,10 @@ function postArgument(event,state,proposalId){
       }
 
     }else{
-
       let argument = {
         _id: Random.id(),
         type: argumentType,
-        message: message,
+        message: message.trim(),
         authorId: Meteor.user()._id,
         createdAt: moment().format('YYYY-MM-DD'),
         lastModified: moment().format('YYYY-MM-DD'),
@@ -379,10 +327,10 @@ function postArgument(event,state,proposalId){
       argumentsArray.push(argument);
       Session.set('arguments',argumentsArray);
       console.log(argumentsArray);
+      $(argumentTextIdentifier).val('');
     }
   }else{
-    Bert.alert("argumentType could not be defined");
+    Bert.alert("argumentType could not be defined","danger");
   }
 
-  $(argumentTextIdentifier).val('');
 }

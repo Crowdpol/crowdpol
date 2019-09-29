@@ -327,6 +327,7 @@
 				"inactive-vote-message": "Voting on this proposal runs from __startDate__ to __endDate__",
 				"abstract": "Summary",
 				"proposal": "Proposal",
+				"read-time": "__readTime__ min read.",
 				"yes": "For",
 				"no": "Against",
 				"abstain": "Abstain",

@@ -1,5 +1,5 @@
 import './delegateVoteList.html'
-import { userProfilePhoto} from '../../../utils/users'
+import { getUserProfilePhoto} from '../../../utils/users'
 import { Ranks } from '../../../api/ranking/Ranks.js'
 import { DelegateVotes } from '../../../api/delegateVotes/DelegateVotes.js'
 
@@ -30,7 +30,7 @@ Template.delegateVoteListItem.helpers({
     }
   },
   userPhoto: function(userId){
-    let userPhoto = userProfilePhoto(userId);
+    let userPhoto = getUserProfilePhoto(userId);
 		return userPhoto;
   },
 	userFullname: function(userId){

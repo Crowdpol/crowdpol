@@ -4,7 +4,7 @@ import { Proposals } from '../../../api/proposals/Proposals.js';
 import { Communities } from '../../../api/communities/Communities.js';
 import { Groups } from '../../../api/group/Groups.js';
 import { setCommunity } from '../../../utils/community';
-import { userProfilePhoto} from '../../../utils/users';
+import { getUserProfilePhoto} from '../../../utils/users';
 import RavenClient from 'raven-js';
 import './communityDash.html';
 
@@ -242,7 +242,7 @@ Template.CommunityDash.helpers({
   },
   /*
   profilePic: function(userId) {
-    return userProfilePhoto(userId);
+    return getUserProfilePhoto(userId);
   },
   */
   communityMembers: function(){

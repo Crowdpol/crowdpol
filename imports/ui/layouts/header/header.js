@@ -1,5 +1,5 @@
 import { Session } from 'meteor/session';
-import { userProfilePhoto } from '../../../utils/users';
+import { getUserProfilePhoto } from '../../../utils/users';
 import './header.html';
 import './clamp.min.js'
 import { Tags } from '../../../api/tags/Tags.js'
@@ -68,7 +68,7 @@ Template.Header.onCreated(function(){
 
 Template.Header.helpers({
   userPhoto: function() {
-    let photoURL = userProfilePhoto(Meteor.userId());
+    let photoURL = getUserProfilePhoto(Meteor.userId());
     if(photoURL){
       return photoURL;
     }
