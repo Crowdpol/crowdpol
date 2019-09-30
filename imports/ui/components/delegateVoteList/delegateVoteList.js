@@ -74,7 +74,14 @@ Template.delegateVoteListItem.helpers({
 
 	}
 });
-
+Template.delegateVoteListItem.events({
+	'mouseenter .delegate-vote-list-item' (event, template){
+		let votePosition = $(event.currentTarget).position();
+		let voteId = event.currentTarget.id;
+		let identifier = "[data-id='"+voteId+"'].mdl-tooltip";
+		$(identifier).css({top: votePosition.top, left: votePosition.left});
+	}
+});
 function highestRankedDelegate(proposalId){
 	//get all delegates sorted by rank desc
 	let highestRank = Ranks.find({"supporterId":Meteor.userId()},{sort:{"ranking":-1}});
