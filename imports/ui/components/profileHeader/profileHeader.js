@@ -1,6 +1,5 @@
 import { Groups } from '../../../api/group/Groups.js';
-import { userHasCover } from '../../../utils/users';
-import { userProfilePhoto } from '../../../utils/users';
+import { getUserHasCover,getUserProfilePhoto } from '../../../utils/users';
 import { setCoverState } from '../cover/cover.js'
 import './profileHeader.html';
 import "./profileImage.js"
@@ -71,7 +70,7 @@ function setUserHeader(userId,editable){
   //console.log("settings userHeader");
   if(userId){
     //check if user has cover, if true: URL will be returned, else false returned
-    let coverURL = userHasCover(userId);
+    let coverURL = getUserHasCover(userId);
     //if coverURL returned is not false
     if(coverURL){
       //set appropriate sessions variables
@@ -96,7 +95,7 @@ function setUserHeader(userId,editable){
 
     }
     //get current user photo, if none set, default profilephoto image returned
-    let photoURL = userProfilePhoto(userId);
+    let photoURL = getUserProfilePhoto(userId);
     Session.set('photoURL',photoURL);
   }else{
     //no user id could be detected, do not display cover
@@ -126,7 +125,7 @@ function setGroupHeader(userId,editable){
       Session.set('coverState','view');
     }
     //get current user photo, if none set, default profilephoto image returned
-    //let photoURL = userProfilePhoto(userId);
+    //let photoURL = getUserProfilePhoto(userId);
     //Session.set('photoURL',photoURL);
   }else{
     //no user id could be detected, do not display cover

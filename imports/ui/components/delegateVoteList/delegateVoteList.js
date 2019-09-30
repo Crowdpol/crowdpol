@@ -1,5 +1,5 @@
 import './delegateVoteList.html'
-import { userProfilePhoto} from '../../../utils/users'
+import { getUserProfilePhoto} from '../../../utils/users'
 import { Ranks } from '../../../api/ranking/Ranks.js'
 import { DelegateVotes } from '../../../api/delegateVotes/DelegateVotes.js'
 
@@ -30,7 +30,7 @@ Template.delegateVoteListItem.helpers({
     }
   },
   userPhoto: function(userId){
-    let userPhoto = userProfilePhoto(userId);
+    let userPhoto = getUserProfilePhoto(userId);
 		return userPhoto;
   },
 	userFullname: function(userId){
@@ -74,7 +74,14 @@ Template.delegateVoteListItem.helpers({
 
 	}
 });
-
+Template.delegateVoteListItem.events({
+	'mouseenter .delegate-vote-list-item' (event, template){
+		let votePosition = $(event.currentTarget).position();
+		let voteId = event.currentTarget.id;
+		let identifier = "[data-id='"+voteId+"'].mdl-tooltip";
+		$(identifier).css({top: votePosition.top, left: votePosition.left});
+	}
+});
 function highestRankedDelegate(proposalId){
 	//get all delegates sorted by rank desc
 	let highestRank = Ranks.find({"supporterId":Meteor.userId()},{sort:{"ranking":-1}});

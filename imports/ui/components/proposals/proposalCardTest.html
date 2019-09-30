@@ -59,12 +59,16 @@
       </div>
   	{{/if}}
     <div class="mdl-card__menu">
-      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+      <!--
+      <button class="mdl-button mdl-button- -icon mdl-js-button mdl-js-ripple-effect">
         <i class="material-icons">share</i>
       </button>
+      -->
+      {{#if canEdit}}
       <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
         <i class="material-icons">edit</i>
       </button>
+      {{/if}}
     </div>
   </div>
 </template>

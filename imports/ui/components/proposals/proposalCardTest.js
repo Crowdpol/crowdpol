@@ -177,6 +177,12 @@ Template.ProposalCardTest.helpers({
       return true;
     }
     return false;
+  },
+  canEdit: function(){
+    if(this.style==='vote'){
+      return false;
+    }
+    return true;
   }
 });
 
@@ -188,15 +194,17 @@ function elipseMe(string){
 }
 
 function truncate(input,length) {
-  //console.log("input.lenght: " + input.length + ", length: " + length);
-   if (input.length > length){
-     //console.log("length is greater");
-     return input.substring(0,length) + '...';
-   }else{
-     //console.log("length is not greater");
-     return input;
-   }
-
+  if(input){
+    //console.log("input.lenght: " + input.length + ", length: " + length);
+     if (input.length > length){
+       //console.log("length is greater");
+       return input.substring(0,length) + '...';
+     }else{
+       //console.log("length is not greater");
+       return input;
+     }
+  }
+  return;
 };
 
 openProposalModal = function(event) {

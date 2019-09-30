@@ -1,7 +1,7 @@
 import "./userFeed.html"
 
 import '../../components/profileHeader/profileHeader.js';
-import { userProfilePhoto, userfullname, username, userTags } from '../../../utils/users';
+import { getUserProfilePhoto, getUserfullname, getUsername, getUserTags } from '../../../utils/users';
 import { Tags } from '../../../api/tags/Tags.js'
 import { Posts } from '../../../api/posts/Posts.js'
 import { Likes } from '../../../api/likes/Likes.js'
@@ -32,15 +32,15 @@ Template.UserFeed.helpers({
     return getOwnerId();
   },
   profilePic: function(userId) {
-    return userProfilePhoto(userId);
-    //console.log(userProfilePhoto(userId));
+    return getUserProfilePhoto(userId);
+    //console.log(getUserProfilePhoto(userId));
   	//return Meteor.user().profile.photo;
   },
   profileName: function(userId) {
-  	return userfullname(getOwnerId());
+  	return getUserfullname(getOwnerId());
   },
   profileUsername: function(userId) {
-  	return "@" + username(getOwnerId());
+  	return "@" + getUsername(getOwnerId());
   },
   userFeed: function(){
     let ownerId = getOwnerId();
@@ -93,14 +93,14 @@ Template.UserFeed.helpers({
     return Meteor.users.find( { "profile.following" : getOwnerId() }).count();
   },
   interestsCount: function(userId){
-    let tagIdArray = userTags(getOwnerId());
+    let tagIdArray = getUserTags(getOwnerId());
     //console.log(tagIdArray);
     if(Array.isArray(tagIdArray)){
       return Tags.find({_id: {$in: tagIdArray}}).count();
     }
   },
   interests: function(userId){
-    let tagIdArray = userTags(getOwnerId());
+    let tagIdArray = getUserTags(getOwnerId());
     //console.log(tagIdArray);
     if(Array.isArray(tagIdArray)){
       let foundTags = Tags.find({_id: {$in: tagIdArray}});
@@ -207,13 +207,13 @@ Template.UserFeed.events({
 
 Template.ActivityFeed.helpers({
   profilePic: function(userId) {
-  	return userProfilePhoto(userId);
+  	return getUserProfilePhoto(userId);
   },
   profileName: function(userId) {
-  	return userfullname(userId);
+  	return getUserfullname(userId);
   },
   profileUsername: function(userId) {
-  	return username(userId);
+  	return getUsername(userId);
   },
   profileDate: function(postDate) {
     return moment(postDate).fromNow();
