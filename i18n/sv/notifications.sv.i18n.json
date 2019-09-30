@@ -8,12 +8,12 @@
 		"view-all": "Se alla",
 		"approvals": {
 			"candidate": {
-				"rejected": "Din begäran att bli en kandidat har avvisats.",
-				"approved": "Din begäran att bli en kandidat har godkänts."
+				"rejected": "Din ansökan om att bli en kandidat har avvisats.",
+				"approved": "Din ansökan att bli en kandidat har godkänts."
 			},
 			"delegate": {
-				"rejected": "Din begäran att bli en delegat har avvisats.",
-				"approved": "Din begäran att bli en delegat har godkänts."
+				"rejected": "Din ansökan att bli en delegat har avvisats.",
+				"approved": "Din ansökan att bli en delegat har godkänts."
 			}
 		},
 		"proposals": {
