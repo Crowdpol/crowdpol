@@ -1,6 +1,6 @@
 import { _ } from 'meteor/underscore';
 
-export const username = (id) => {
+export const getUsername = (id) => {
   let user = returnUser(id);
   if(user){
     profile = returnProfile(user);
@@ -14,7 +14,7 @@ export const username = (id) => {
   return false;
 };
 
-export const userfullname = (id) => {
+export const getUserfullname = (id) => {
   let user = returnUser(id);
   let fullname;
   if(user){
@@ -36,7 +36,7 @@ export const userfullname = (id) => {
   return false;
 };
 
-export const userProfilePhoto = (id) => {
+export const getUserProfilePhoto = (id) => {
   let user = returnUser(id);
   if(user){
     profile = returnProfile(user);
@@ -49,7 +49,7 @@ export const userProfilePhoto = (id) => {
 };
 
 //check if user has cover, if true, return coverURL or return false
-export const userHasCover = (id) => {
+export const getUserHasCover = (id) => {
   let user = returnUser(id);
   if(user){
     profile = returnProfile(user);
@@ -62,7 +62,7 @@ export const userHasCover = (id) => {
   return false;
 };
 //returns user cover
-export const userCover = (id) => {
+export const getUserCover = (id) => {
   let user = returnUser(id);
   if(user){
     profile = returnProfile(user);
@@ -74,7 +74,7 @@ export const userCover = (id) => {
 };
 
 //returns user tags/interests
-export const userTags = (id) => {
+export const getUserTags = (id) => {
   let user = returnUser(id);
   if(user){
     profile = returnProfile(user);

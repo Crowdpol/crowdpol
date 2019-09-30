@@ -1,7 +1,7 @@
 import './flagModal.html'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Comments } from '../../../api/comments/Comments.js'
-import { userProfilePhoto, userfullname, username, userTags } from '../../../utils/users';
+import { getUserProfilePhoto, getUserfullname, getUsername, getUserTags } from '../../../utils/users';
 import RavenClient from 'raven-js';
 
 Template.FlagModal.helpers({

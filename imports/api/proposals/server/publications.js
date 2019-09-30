@@ -18,14 +18,14 @@ Meteor.publish('proposals.public', function(search, communityId) {
 	check(communityId, String);
 	let query = generateSearchQuery(search, communityId);
 	query.stage = 'live';
-	console.log(query);
+	//console.log(query);
 	return Proposals.find(query);
 });
 //Proposals that are live and open to the public
 Meteor.publish('proposals.all.public', function(search) {
 	let query = generateSearchQueryNoCommunity(search);
 	query.stage = 'live';
-	console.log(query);
+	//console.log(query);
 	return Proposals.find(query);
 });
 
@@ -64,7 +64,7 @@ Meteor.publish('proposals.currentUser', function(search, communityId) {
 	check(search, Match.OneOf(String, null, undefined));
 	check(communityId, String);
 	let query = generateCurrentUserSearchQuery(search, communityId);
-	console.log(query);
+	//console.log(query);
 	return Proposals.find(query);
 });
 

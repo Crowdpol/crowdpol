@@ -135,6 +135,13 @@ Template.EditProposal.helpers({
 	bioCount: function(){
     return Template.instance().dict.get('bioCount');
   },
+	proposalId: function(){
+		proposalId = FlowRouter.getParam("id");
+		if(proposalId){
+			return proposalId
+		}
+		return false;
+	},
 	proposalContent: function(){
 		proposalId = FlowRouter.getParam("id");
 		if (proposalId){

@@ -5,7 +5,7 @@ import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Tags } from '../../../api/tags/Tags.js'
 import { setCoverState } from '../../components/cover/cover.js'
-import { urlify } from '../../../utils/functions';
+import { urlify,calcReadingTime } from '../../../utils/functions';
 import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(language){
@@ -83,6 +83,7 @@ Template.ViewProposal.onRendered(function(language){
       icon: 'fa-link'
     });
   });
+
   this.autorun(function() {
     /*
     let hasCover = Template.instance().templateDictionary.get('hasCover');
@@ -380,7 +381,15 @@ Template.ViewProposal.helpers({
     return true;
   },
   getProposalLink: function() {
-    return window.location.href;
+    //console.log(this.proposalId);
+    let proposalId = this.proposalId;
+    let origin = window.location.origin;
+
+    if(proposalId){
+      return origin + "/proposals/view/" + proposalId;
+    }
+    return window.location;
+
   },
   signatureCount: function(){
     return Template.instance().templateDictionary.get('signatures').length
@@ -575,6 +584,15 @@ Template.ProposalContent.helpers({
   getAvatar: function(authorId){
     var user = Meteor.users.findOne(authorId);
     return user.profile.photo;
+  },
+  readingTimeText: function(){
+    let body = Template.instance().templateDictionary.get( 'body' );
+    if(body==undefined||body.length==0){
+      //retrun// TAPi18n.__('pages.proposals.view.body-empty') + "</i>";
+    }else{
+      readTime = calcReadingTime(body);
+      return TAPi18n.__('pages.proposals.view.read-time',{readTime:readTime});
+    }
   },
   body: function() {
     var body = Template.instance().templateDictionary.get( 'body' );
