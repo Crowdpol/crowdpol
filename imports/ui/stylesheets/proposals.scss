@@ -239,7 +239,9 @@ div.proposal-timeline-wrapper{
 .proposal-heading {
   margin-bottom: 0;
 }
-
+#sign-proposal.mdl-button.mdl-button--colored.mdl-button--colored {
+  color: $orange;
+}
 .proposal-container {
   padding-top: 40px;
   .mdl-card {
@@ -256,9 +258,7 @@ div.proposal-timeline-wrapper{
     align-items: center;
 
     div.signature-button {
-      button.mdl-button--colored {
-        color: $red;
-      }
+
 
       #sign-proposal {
         .proposal-item {

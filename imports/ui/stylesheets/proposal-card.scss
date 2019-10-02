@@ -71,6 +71,7 @@ div.proposal-card-votes{
   height: 125px;
   background: url('/img/deep_blue_hands.jpg') center / cover;
   padding: 0px;
+  border-bottom: solid 5px grey;
    // Standard syntax (must be last)
   div{
     background-color: transparent; // For browsers that do not support gradients
@@ -105,5 +106,8 @@ div.proposal-card-votes{
   background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
 }
 div.proposal-card-wide:hover{
-  border: solid 3px $orange;
+  box-shadow: 0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12),0 8px 10px -5px rgba(0,0,0,.2);
+  div.mdl-card__title{
+    border-bottom: solid 5px $orange;
+  }
 }

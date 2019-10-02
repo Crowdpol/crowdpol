@@ -11,10 +11,49 @@ Template.ProposalCardTest.onCreated(function(){
 });
 
 Template.ProposalCardTest.onRendered(function(){
+  var self = this;
+  var clipboard = new Clipboard('#copy-proposal-link');
 
+  clipboard.on('success', function(e) {
+    Bert.alert({
+      title: TAPi18n.__('pages.proposals.view.alerts.linkToClipboardSuccess'),
+      type: 'success',
+      style: 'growl-bottom-right',
+      icon: 'fa-link'
+    });
+    e.clearSelection();
+  });
+
+  clipboard.on('error', function(e) {
+    Bert.alert({
+      title: TAPi18n.__('pages.proposals.view.alerts.linkToClipboardFailed'),
+      message: e.action + "; " + e.trigger,
+      type: 'warning',
+      style: 'growl-bottom-right',
+      icon: 'fa-link'
+    });
+  });
 });
 
 Template.ProposalCardTest.events({
+  'click #sign-proposal' (event, template){
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    let proposalId = this.proposal._id;
+    if (Meteor.user()&&proposalId) {
+      Meteor.call('toggleSignProposal', proposalId, function(error){
+        if (error){
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          //template.templateDictionary.set('signatures', Proposals.findOne({_id: proposalId}).signatures)
+        }
+      });
+    } else {
+      openSignInModal();
+    }
+
+  },
   'click .proposal-link': function(event,target){
     //console.log(event.currentTarget.dataset.style);
     proposalId = this.proposal._id;
@@ -22,10 +61,49 @@ Template.ProposalCardTest.events({
 		Session.set("proposal",proposal);
 
 		openProposalModal();
-  }
+  },
+  'click .delete-proposal-button': function(event, template){
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    var proposalId = this.proposal._id;
+    if(proposalId){
+      if (window.confirm(TAPi18n.__('pages.proposals.list.confirmDelete'))){
+        Meteor.call('deleteProposal', proposalId, function(error){
+          if (error){
+            RavenClient.captureException(error);
+            Bert.alert(error.reason, 'danger');
+          } else {
+            Bert.alert(TAPi18n.__('pages.proposals.list.deletedMessage'), 'success');
+          }
+        });
+      }
+    }
+  },
+  'click .edit-proposal-button': function(event, template){
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    var proposalId = this.proposal._id;
+    if(typeof proposalId != 'undefined'){
+      FlowRouter.go('App.proposal.edit', {id: proposalId});
+    }
+  },
 });
 
 Template.ProposalCardTest.helpers({
+  isSigned: function(){
+    var signatures = this.proposal.signatures;
+    if(signatures){
+      return signatures.indexOf( Meteor.userId()) > -1;
+    }
+
+  },
+  isLive: function(){
+    let stage = this.proposal.stage
+    if(stage=='live'){
+      return true;
+    }
+    return false;
+  },
 	isVote: function(style){
     if(style=='vote'){
       //console.log("isVote true " + style);

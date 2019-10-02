@@ -304,7 +304,7 @@ loggedInRoutes.route('/dash', {
 });
 
 loggedInRoutes.route('/dash/vote', {
-  name: 'App.dash',
+  name: 'App.dash-vote',
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
@@ -317,7 +317,7 @@ loggedInRoutes.route('/dash/vote', {
   },
 });
 loggedInRoutes.route('/dash/proposals', {
-  name: 'App.dash',
+  name: 'App.dash-proposals',
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
@@ -344,7 +344,7 @@ loggedInRoutes.route('/dash/delegates', {
   },
 });
 loggedInRoutes.route('/dash/members', {
-  name: 'App.dash',
+  name: 'App.dash-members',
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
@@ -357,7 +357,7 @@ loggedInRoutes.route('/dash/members', {
   },
 });
 loggedInRoutes.route('/dash/groups', {
-  name: 'App.dash',
+  name: 'App.dash-groups',
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
@@ -370,7 +370,7 @@ loggedInRoutes.route('/dash/groups', {
   },
 });
 loggedInRoutes.route('/dash/communities', {
-  name: 'App.dash',
+  name: 'App.dash-communities',
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
@@ -383,7 +383,7 @@ loggedInRoutes.route('/dash/communities', {
   },
 });
 loggedInRoutes.route('/dash/feed', {
-  name: 'App.dash',
+  name: 'App.dash-feed',
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){

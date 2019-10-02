@@ -64,10 +64,23 @@
         <i class="material-icons">share</i>
       </button>
       -->
+      {{#if isLive}}
+       <!--
+        <button class="mdl-button mdl-button- -icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+          <i class="material-icons">share</i>
+        </button>
+      -->
+        <button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
+          <i class="material-icons">{{#if isSigned}}favorite{{else}}favorite_border{{/if}}</i>
+        </button>
+      {{/if}}
       {{#if canEdit}}
-      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-        <i class="material-icons">edit</i>
-      </button>
+        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect delete-proposal-button" data-proposal-id="{{proposal._id}}">
+          <i class="material-icons delete-proposal-button" data-proposal-id="{{proposal._id}}">delete</i>
+        </button>
+        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect edit-proposal-button" data-proposal-id="{{proposal._id}}">
+          <i class="material-icons edit-proposal-button" data-proposal-id="{{proposal._id}}">edit</i>
+        </button>
       {{/if}}
     </div>
   </div>

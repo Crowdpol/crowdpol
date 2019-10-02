@@ -237,9 +237,9 @@ Template.EditProposal.events({
 			//event.preventDefault();
 		//}
 		event.preventDefault();
-		if(!saveChanges(event, template, 'App.proposals')){
+		if(!saveChanges(event, template, 'App.dash-proposals')){
 			FlowRouter.go('/dash/proposals');
-		};
+		}
 		//FlowRouter.go('/proposals');
 		//Session.set('proposalTab','my-proposals-tab');
 	},

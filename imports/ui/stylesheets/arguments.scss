@@ -35,6 +35,7 @@ div.argument-container{
             display: flex;
             height: 30px;
             font-size: 10pt;
+            overflow: hidden;
             div.argument-author{
               width: 80%;
               color: $light-grey;

@@ -313,6 +313,7 @@ Template.ViewProposal.helpers({
     //if(showControls()){
       var commentCount = Template.instance().templateDictionary.get( 'commentCount' );
       if(commentCount>0 || userIsInvited()){
+        //console.log("show comments");
         return true;
       }
     //}
@@ -415,7 +416,7 @@ Template.ViewProposal.helpers({
       return eventLogs.reverse();
     }else{
       let eventLogs = Template.instance().templateDictionary.get( 'eventLogs' );
-      return eventLogs;
+      return eventLogs.reverse();
     }
   },
   eventLogCommment: function(){

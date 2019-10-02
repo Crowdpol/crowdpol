@@ -412,12 +412,14 @@ export function loadCommunitySection(selection){
   }else{
     //console.log("selection is set to " + selection);
   }
-
   switch(selection){
     case 'vote':
       tabId = 'community-votes';
       break;
     case 'proposals':
+      tabId = 'community-proposals'
+      break;
+    case 'edit':
       tabId = 'community-proposals'
       break;
     case 'delegates':
