@@ -213,6 +213,11 @@ Template.ViewProposal.events({
 		event.preventDefault();
     window.history.back();
 	},
+  'click #show-all-logs' (event,template){
+    //event.preventDefault();
+    //$('#show-all-logs:checked').prop('checked', true);
+    $('.event-log-updated').toggle();
+  }
 });
 
 Template.ViewProposal.helpers({

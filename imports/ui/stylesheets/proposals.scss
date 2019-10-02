@@ -18,6 +18,21 @@
   }
 }
 
+div.proposal-timeline-wrapper{
+  display: flex;
+  div.proposal-timeline-header{
+    flex:60%;
+  }
+  div.proposal-timeline-filter{
+    flex: 40%;
+    display: flex;
+    justify-content: flex-end;
+    div.proposal-timeline-label{
+      padding-right: 5px;
+    }
+  }
+}
+
 .proposal-event-log{
   padding: 5px 0px;
   border-bottom: solid 1px rgba(0,0,0,.12);;
@@ -32,6 +47,9 @@
       color: $light-blue-dark;
     }
   }
+}
+.event-log-updated{
+  display:none;
 }
 .event-log-submitted,.event-log-created{
   border-color: $bright-blue;

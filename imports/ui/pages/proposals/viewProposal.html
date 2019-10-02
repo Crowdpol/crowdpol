@@ -268,12 +268,28 @@
 					{{/if}}
 				{{else}} <!-- not live -->
 					<!-- Proposal Timeline -->
-					<h6>Proposal Timeline</h6>
+
+
 					{{#if isInvited }}
 						{{#unless isAdminProposalView}}
 							{{> CommentForm}}
 						{{/unless}}
 					{{/if}}
+					<div class="proposal-timeline-wrapper">
+						<div class="proposal-timeline-header">
+							<h6>Proposal Timeline</h6>
+						</div>
+						<div class="proposal-timeline-filter">
+							<div class="proposal-timeline-label">
+								<small>Show All</small>
+							</div>
+							<div class="proposal-timeline-switch">
+								<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="show-all-logs">
+								  <input type="checkbox" id="show-all-logs" class="mdl-switch__input" >
+								</label>
+							</div>
+						</div>
+					</div>
 					{{#each eventLogs}}
 						<div class="proposal-event-log event-log-{{this.type}}">
 							{{>UserCard style="date-time" userId=this.triggerUserId date=this.createdAt}}
