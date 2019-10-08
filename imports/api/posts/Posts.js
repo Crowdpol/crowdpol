@@ -8,7 +8,7 @@ PostsSchema = new SimpleSchema({
       type: String,
       optional: false,
   },
-  userFeedId: {
+  feedId: {
       type: String,
       optional: false,
   },

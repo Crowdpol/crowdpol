@@ -145,3 +145,70 @@ div.argument-container{
     flex-direction: column;
   }
 }
+
+@media only screen and (min-width: $tiny){ //yellow
+  div.argument-container{
+    display: block;
+    margin-top: 50px;
+    div.arguments-column{
+      width: auto;
+      flex: 50%;
+      margin-top: 30px;
+      ul.arguments-list{
+        li.argument{
+          div.argument-content {
+            width: 100%;
+
+          }
+        }
+      }
+      div.argument-box{
+        div.argument-box-textarea{
+          width: 90%;
+        }
+        div.argument-box-menu{
+          width: 10%;
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: $mobile){ //orange
+
+}
+@media only screen and (min-width: $tablet){ //green
+  div.argument-container{
+    margin-top: 45px;
+    display: flex;
+
+    div.arguments-column{
+      border-top: solid 1px #ccc;
+      padding-top: 20px;
+      ul.arguments-list{
+        li.argument{
+          div.argument-content {
+            width: 90%;
+
+          }
+        }
+      }
+      div.argument-box{
+        div.argument-box-textarea{
+          width: 80%;
+        }
+        div.argument-box-menu{
+          width: 20%;
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: $laptop){ //red
+
+}
+@media only screen and (min-width: $desktop){ //blue
+
+}
+@media only screen and (min-width: $big){ //pink
+
+}

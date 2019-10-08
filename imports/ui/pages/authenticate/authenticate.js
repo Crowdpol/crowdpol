@@ -15,9 +15,10 @@ Template.Authenticate.events({
 		Meteor.loginWithFacebook({requestPermissions: ['public_profile', 'email']}, function(err){
 			if (err) {
 				RavenClient.captureException(err);
+				console.log(err);
 				Bert.alert(err.reason, 'danger');
 			}else{
-				FlowRouter.go('/dash');
+				FlowRouter.go('/wizard');
 			}
 		});
   },
@@ -26,6 +27,7 @@ Template.Authenticate.events({
     Meteor.loginWithGoogle({}, function(err,response){
     	if (err) {
       	RavenClient.captureException(err);
+				console.log(err);
         Bert.alert(err.reason, 'danger');
       }else{
 				FlowRouter.go('/wizard');
@@ -37,6 +39,7 @@ Template.Authenticate.events({
 	    Meteor.loginWithTwitter({}, function(err,response){
 	    	if (err) {
 	      	RavenClient.captureException(err);
+					console.log(err);
 	        Bert.alert(err.reason, 'danger');
 	      }else{
 					FlowRouter.go('/wizard');

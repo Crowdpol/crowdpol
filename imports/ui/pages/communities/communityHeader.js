@@ -1,4 +1,5 @@
 import './communityHeader.html';
+import { loadCommunityMap } from '../../../ui/components/maps/communityMap.js'
 import { setCommunity } from '../../../utils/community';
 import { Communities } from '../../../api/communities/Communities.js'
 
@@ -32,13 +33,16 @@ Template.CommunityHeader.events({
     if(id){
       //console.log("setting community to: " + id);
       setCommunity(id);
+      loadCommunityMap(id);
+      /*
       tabcontent = document.getElementsByClassName("community-tab");
       for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
       }
       $("#communities-tab").show();
       $('*[data-tab="communities-tab"]').addClass("active");
-      FlowRouter.go('App.dash');
+      //FlowRouter.go('App.dash');
+      */
     }
   }
 });

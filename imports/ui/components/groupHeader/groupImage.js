@@ -1,6 +1,5 @@
-import "./profileImage.html"
-import { userfullname } from '../../../utils/users';
-import { username } from '../../../utils/users';
+import "./groupImage.html"
+import { getUserfullname,getUsername } from '../../../utils/users';
 
 Template.ProfileImage.onCreated(function() {
 	var dict = new ReactiveDict();
@@ -23,10 +22,10 @@ Template.ProfileImage.helpers({
 		return Template.instance().templateDictionary.get('change-photo');
 	},
 	profileName: function(userId) {
-  	return userfullname(userId);
+  	return getUserfullname(userId);
   },
   profileUsername: function(userId) {
-  	return username(userId);
+  	return getUsername(userId);
   },
 	currentUser: function(){
     if(getOwnerId()==Meteor.userId()){

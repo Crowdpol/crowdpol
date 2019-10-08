@@ -86,7 +86,7 @@
 					<!--<h3 class="proposal-heading">{{_ "pages.proposals.edit.heading"}}</h3>-->
 					{{#each languages}}
 						<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
-							{{> ProposalForm content=proposalContent language=this}}
+							{{> ProposalForm content=proposalContent language=this proposalId=proposalId}}
 						</div>
 					{{/each}}
 				</div>

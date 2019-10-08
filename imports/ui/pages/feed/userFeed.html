@@ -1,4 +1,10 @@
-<template name="UserHome">
+<template name="UserFeed">
+  <!--
+  <div class="container narrow-container static-content-wrap">
+    <h1 class="title-underline center">User Feed</h1>
+    <p class="center p-subtitle">{{_ "pages.privacy.subtitle"}}</p>
+  </div>
+  -->
   <header class="header">
     {{> ProfileHeader editable=false userId=thisUser}}
   </header>
@@ -9,30 +15,30 @@
         <small>{{profileUsername}}</small><br/>
         {{#unless currentUser}}
           {{#if alreadyFollowing}}
-            <button class="mdl-button mdl-js-button" id="unfollow-me">Unfollow<i class="material-icons">minus</i></button>
+            <button class="mdl-button mdl-js-button" id="unfollow-me">{{_ "feed.unfollow"}}<i class="material-icons">minus</i></button>
           {{else}}
-            <button class="mdl-button mdl-js-button" id="follow-me">Follow<i class="material-icons">add</i></button>
+            <button class="mdl-button mdl-js-button" id="follow-me">{{_ "feed.follow"}}<i class="material-icons">add</i></button>
           {{/if}}
         {{/unless}}
         <br>
         {{#if interestsCount}}
           <strong>Interests</strong>
           <div class="tags-wrap" >
-        		<!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
-        		{{#each interests}}
-        			<a class="tag taggle-tag tag-chip {{isAuthorised this}}" id="{{this._id}}" data-id="{{this._id}}">{{this.keyword}}</a>
-        		{{/each}}
-        	</div>
+            <!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
+            {{#each interests}}
+              <a class="tag taggle-tag tag-chip {{isAuthorised this}}" id="{{this._id}}" data-id="{{this._id}}">{{this.keyword}}</a>
+            {{/each}}
+          </div>
         {{/if}}
       </div>
     </aside>
     <article class="main">
       <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
         <div class="mdl-tabs__tab-bar">
-          <a href="#user-home-panel" class="mdl-tabs__tab is-active">Feed</a>
-          <a href="#activity-panel" class="mdl-tabs__tab">Activity</a>
-          <a href="#followers-panel" class="mdl-tabs__tab">Followers {{#if followersCount}}({{followersCount}}){{/if}}</a>
-          <a href="#following-panel" class="mdl-tabs__tab">Following {{#if followingCount}}({{followingCount}}){{/if}}</a>
+          <a href="#user-home-panel" class="mdl-tabs__tab is-active">{{_ "feed.feed"}}</a>
+          <a href="#activity-panel" class="mdl-tabs__tab">{{_ "feed.activity"}}</a>
+          <a href="#followers-panel" class="mdl-tabs__tab">{{_ "feed.followers"}} {{#if followersCount}}({{followersCount}}){{/if}}</a>
+          <a href="#following-panel" class="mdl-tabs__tab">{{_ "feed.following"}} {{#if followingCount}}({{followingCount}}){{/if}}</a>
         </div>
 
         <div class="mdl-tabs__panel" id="activity-panel">

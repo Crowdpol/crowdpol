@@ -1,8 +1,8 @@
 {
 	"layout": {
 		"header": {
-			"app_title": "Syntropi",
-			"home_title": "Syntropi",
+			"app_title": "Crowdpol",
+			"home_title": "Crowdpol",
 			"nav_home": "Hem",
 			"nav_dash": "Instrumentpanel",
 			"nav_ideas": "Forum",
@@ -23,7 +23,7 @@
 			"nav_use_organisation": "Använd som organisation",
 			"nav_use_party": "Använd som parti",
 			"nav_use_delegate": "Använd som Delegat",
-			"nav_using_individual": "Inloggad som privatperson",
+			"nav_using_individual": "Du röstar privat",
 			"nav_using_organisation": "Du representerar en organisation",
 			"nav_using_party": "Du representerar ett politisk parti",
 			"nav_using_delegate": "Du röstar nu som delegat",
@@ -34,7 +34,7 @@
 			"role_selector": "Byt Roll",
 			"no_notifications": "Du har inga meddelanden.",
 			"search_tags": "Sök efter taggar...",
-			"vote_as_individual": "Du röstar nu som privatperson",
+			"vote_as_individual": "Du röstar nu som en privatperson",
 			"vote_as_delegate": "Du röstar nu i egenskap av delegat"
 		},
 		"drawer": {
@@ -42,6 +42,7 @@
 			"nav_logout": "Logga ut",
 			"nav_profile" : "Profil",
 			"nav_dash" : "Instrumentpanel",
+			"nav_feed" : "Nyheter",
 			"nav_ideas": "Forum",
 			"nav_contact" : "Kontakt",
 			"nav_privacy" : "Sekretesspolicy",

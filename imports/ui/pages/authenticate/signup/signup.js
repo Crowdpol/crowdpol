@@ -42,8 +42,9 @@ Template.Signup.onRendered( function() {
 Template.Signup.events({
 	'submit #individual-signup-form' (event, template){
 		event.preventDefault();
-
-		var community = Communities.findOne({subdomain: LocalStore.get('subdomain')});
+		var communityId = LocalStore.get('communityId');
+		var email = template.find('[name="emailAddress"]').value;
+		/*
 		if(!hasOwnProperty(community,'settings')){
 			Bert.alert('Community does not have settings', 'danger');
 			return;
@@ -58,10 +59,11 @@ Template.Signup.events({
 			Bert.alert('Community does not have settings.emailWhitelist', 'danger');
 			return;
 		}
-		var email = template.find('[name="emailAddress"]').value;
+
 		if ((!enforceWhitelist) || (enforceWhitelist == false) || ((enforceWhitelist == true) && (emailWhitelist.includes(email)))) {
+		*/
 			if(Session.get('termsAccepted')){
-				communityId = community._id;
+				//communityId = community._id;
 				var termsAccepted = $('#terms-checkbox-label').hasClass('is-checked');
 
 				let user = {
@@ -130,10 +132,11 @@ Template.Signup.events({
 			} else {
 				Bert.alert(TAPi18n.__('pages.signup.accept-terms'), 'danger')
 			}
+		/*
 		} else {
 			Bert.alert(TAPi18n.__('pages.signup.not-in-whitelist'), 'danger')
 		}
-
+		*/
 
 	}
 });

@@ -55,7 +55,7 @@ Template.Drawer.events({
 	},
 	'click .change-role'(event,template){
     let switchRole = event.target.dataset.role;
-    console.log("switching role from: " + LocalStore.get('currentUserRole') + " to:" + switchRole);
+    //console.log("switching role from: " + LocalStore.get('currentUserRole') + " to:" + switchRole);
 
     LocalStore.set('otherRole',LocalStore.get('currentUserRole'));
     LocalStore.set('currentUserRole', switchRole);
@@ -174,8 +174,12 @@ Template.RightDrawer.helpers({
 	voteIcon: function(vote){
     if (vote=='yes'){
       return 'check_circle'
-    } else if (vote=='no'){
+    }
+    if (vote=='no'){
       return 'cancel'
+    }
+    if(vote=='abstain'){
+      return 'block'
     }
   }
 })

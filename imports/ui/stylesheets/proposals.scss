@@ -159,9 +159,9 @@
 }
 
 .proposal-vote-progress-bar,
-.proposal-vote-yes-bar {
+.proposal-vote-bar {
   height: $space / 4;
-  margin-bottom: $space / 2;
+  //margin-bottom: $space / 2;
 }
 
 .proposal-percentage-text-left {

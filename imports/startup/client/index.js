@@ -71,16 +71,15 @@ function loadCommunityInfo() {
         subdomain = "landing";//window.location.host.split('.')[0];
     */
   }
-  //console.log(subdomain);
   if(subdomain){
     //set title to commuinty name
     document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
     //console.log("subomdain after case: " + subdomain);
     LocalStore.set('subdomain', subdomain);
     // set LocalStorage info
-    if (subdomain!=='landing'){
+    //if (subdomain!=='landing'){
 
-        Meteor.call('getCommunityBySubdomain', subdomain, function(err, result) {
+        Meteor.call('getCommunityBySubdomain', 'global', function(err, result) {
           if (err) {
             Bert.alert(err.reason, 'danger');
           } else {
@@ -89,7 +88,12 @@ function loadCommunityInfo() {
               LocalStore.set('communityId', result._id);
               //console.log('setting community to : ' + result.name);
               let settings = result.settings;
-
+              let defaultLanguage = settings.defaultLanguage;
+              if(!defaultLanguage){
+                defaultLanguage = 'en';
+              }
+              LocalStore.set('settings', settings);
+              Session.set('i18n_lang',defaultLanguage);
               //set favicon if community icon is set
               if(typeof settings.faviconUrl != 'undefined'){
                 var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
@@ -105,9 +109,11 @@ function loadCommunityInfo() {
             }
           }
         });
+    /*
     } else {
       //Bert.alert(TAPi18n.__('pages.routes.alerts.no-subdomain'), 'danger');
       console.log(TAPi18n.__('pages.routes.alerts.no-subdomain'));
     }
+    */
   }
 }

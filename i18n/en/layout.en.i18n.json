@@ -60,7 +60,10 @@
 			"ideas": "Ideas",
 			"propose": "Propose",
 			"nominate": "Nominate",
-			"vote": "Vote"
+			"vote": "Vote",
+			"feed": "Feed",
+			"group": "Group",
+			"delegate": "Delegate"
 		}
 	}
 }

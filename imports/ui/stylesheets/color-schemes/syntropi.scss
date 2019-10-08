@@ -34,7 +34,7 @@
         position: relative;
   background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
   background-size: 1800% 1800%;
-  
+
   -webkit-animation: rainbow 24s ease infinite;
   -z-animation: rainbow 24s ease infinite;
   -o-animation: rainbow 24s ease infinite;
@@ -56,7 +56,7 @@
   position: relative;
   background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
   background-size: 1800% 1800%;
-  
+
   -webkit-animation: rainbow 24s ease infinite;
   -z-animation: rainbow 24s ease infinite;
   -o-animation: rainbow 24s ease infinite;
@@ -69,7 +69,7 @@
   position: relative;
   background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
   background-size: 1800% 1800%;
-  
+
   -webkit-animation: rainbow 24s ease infinite;
   -z-animation: rainbow 24s ease infinite;
   -o-animation: rainbow 24s ease infinite;
@@ -95,7 +95,7 @@
     50%{background-position:100% 19%}
     100%{background-position:0% 82%}
 }
-@keyframes rainbow { 
+@keyframes rainbow {
     0%{background-position:0% 82%}
     50%{background-position:100% 19%}
     100%{background-position:0% 82%}
@@ -280,13 +280,6 @@
   background-color: $light-grey;
 }
 
-.proposal-vote-progress-bar {
-    background-color: $light-grey;
-}
-
-.proposal-vote-yes-bar {
-  background-color: $bright-grey;
-}
 
 // Side-Nav -----------------------------------------------
 

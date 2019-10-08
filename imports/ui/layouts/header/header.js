@@ -1,5 +1,5 @@
 import { Session } from 'meteor/session';
-import { userProfilePhoto } from '../../../utils/users';
+import { getUserProfilePhoto } from '../../../utils/users';
 import './header.html';
 import './clamp.min.js'
 import { Tags } from '../../../api/tags/Tags.js'
@@ -18,6 +18,7 @@ Template.Header.onCreated(function(){
   if (user && user.roles){
     var currentRole = LocalStore.get('currentUserRole');
     var userRoles = user.roles;
+    var userDelegateCommunities = user.profile.delegateCommunities;
     //if (!currentRole){
       //console.log(userRoles);
       if(userRoles.indexOf("individual") > -1){
@@ -35,13 +36,7 @@ Template.Header.onCreated(function(){
         LocalStore.set('currentUserRole', 'party');
         LocalStore.set('otherRole','party');
       }
-      if(userRoles.indexOf("delegate") > -1){
-        //console.log("user has delegate role");
-        LocalStore.set('isDelegate',true);
-      }else{
-        //console.log("user is not a delegate");
-        LocalStore.set('isDelegate',false);
-      }
+      LocalStore.set('isDelegate',false);
       LocalStore.set('usingAsDelegate',false);
       //console.log("localstore currentUserRole: " + LocalStore.get('currentUserRole'));
       //console.log("localstore isDelegate: " + LocalStore.get('isDelegate'));
@@ -60,9 +55,9 @@ Template.Header.onCreated(function(){
     self.subscribe('communities.subdomain', subdomain, function(){
       self.community.set(Communities.findOne({subdomain: subdomain}));
       //set default language for community is none is selected
-      var community = Communities.findOne({subdomain: subdomain});
-      var lang = community.settings.defaultLanguage;
-      var languages = community.settings.languages;
+      //var community = Communities.findOne({subdomain: subdomain});
+      //var lang = community.settings.defaultLanguage;
+      //var languages = community.settings.languages;
       //LocalStore.set('languages', languages);
       //Session.set("i18n_lang",lang)
       //TAPi18n.setLanguage(lang);
@@ -73,7 +68,7 @@ Template.Header.onCreated(function(){
 
 Template.Header.helpers({
   userPhoto: function() {
-    let photoURL = userProfilePhoto(Meteor.userId());
+    let photoURL = getUserProfilePhoto(Meteor.userId());
     if(photoURL){
       return photoURL;
     }
@@ -82,6 +77,8 @@ Template.Header.helpers({
     return "Crowdpol";//Template.instance().community.get().name;
   },
   logoUrlSet: function(){
+    return true;
+    /*
     let community = Template.instance().community.get();
     if(typeof community !='undefined'){
       let settings = community.settings;
@@ -91,12 +88,12 @@ Template.Header.helpers({
         }
       }
     }
-    return false;
+    return false;*/
   },
   logoUrl: function() {
-    let community = Template.instance().community.get();
-    let settings = community.settings;
-    return settings.logoUrl;
+    //let community = Template.instance().community.get();
+    //let settings = community.settings;
+    return '/img/crowdpol_logo_transparent.png';//settings.logoUrl;
   },
   hideHamburger() {
     //$(".mdl-layout__drawer-button").hide();
@@ -106,10 +103,11 @@ Template.Header.helpers({
   },
   lang() {
     var str = Session.get("i18n_lang")
-    //console.log("Session.get('i18n_lang'): " + Session.get("i18n_lang"));
-    if(str){
-      return str.toUpperCase();
+    if(!str){
+      Session.set("i18n_lang","en");
+      str = 'en';
     }
+    return str.toUpperCase();
 
   },
   currentUserRole() {
@@ -163,6 +161,21 @@ Template.Header.helpers({
     return LocalStore.get('usingAsDelegate');
   },
   isDelegate() {
+    var user = Meteor.user();
+    var communityId = LocalStore.get('communityId');
+    if (user && user.roles){
+      var currentRole = LocalStore.get('currentUserRole');
+      var userRoles = user.roles;
+      var userDelegateCommunities = user.profile.delegateCommunities;
+      //console.log("userDelegateCommunities.includes(communityId): " + userDelegateCommunities.includes(communityId));
+      if((userRoles.indexOf("delegate") > -1)&&(userDelegateCommunities.includes(communityId))){
+        //console.log("user has delegate role in community: " + communityId);
+        LocalStore.set('isDelegate',true);
+      }else{
+        //console.log("user is not a delegate in community: " + communityId);
+        LocalStore.set('isDelegate',false);
+      }
+    }
     return LocalStore.get('isDelegate');
   },
   matchedTags(){
@@ -195,26 +208,28 @@ Template.Header.helpers({
   },
   */
   showLanguages(){
-    var langs = Template.instance().community.get().settings.languageSelector;
-
+    let settings = LocalStore.get('settings');
+    var langs = settings.languages;
     if(langs){
-      return langs;
+      return true;
     }
-
     return false;
   },
   langs(){
-    var langs = LocalStore.get('languages');
+    let settings = LocalStore.get('settings');
+    var langs = settings.languages;
     if(langs){
       if (typeof langs !== 'undefined' && langs.length > 0) {
       // the array is defined and has at least one element
         //console.log("languages: " + langs);
         return langs;
       }
+    }else{
+      console.log("no langs");
     }
 
-    //console.log("no langs");
-    return 0;
+
+    return ['en'];
   },
   getLang(lang){
     switch (lang) {

@@ -173,6 +173,13 @@ publicRoutes.route('/test', {
   },
 });
 
+publicRoutes.route('/leaflet', {
+  name: 'App.leaflet',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Leaflet' });
+  },
+});
+
 //USER SEARCH
 FlowRouter.route('/search/users', {
   name: 'App.search.users',
@@ -270,14 +277,14 @@ loggedInRoutes.route('/group/:handle?', {
 loggedInRoutes.route('/feed', {
   name: 'App.feed',
   action() {
-    BlazeLayout.render('App_body', { main: 'UserHome' });
+    BlazeLayout.render('App_body', { main: 'UserFeed' });
   },
 });
 
 loggedInRoutes.route('/feed/:id', {
   name: 'App.feed',
   action() {
-    BlazeLayout.render('App_body', { main: 'UserHome' });
+    BlazeLayout.render('App_body', { main: 'UserFeed' });
   },
 });
 
@@ -296,6 +303,98 @@ loggedInRoutes.route('/dash', {
   },
 });
 
+loggedInRoutes.route('/dash/vote', {
+  name: 'App.dash',
+  action() {
+    //console.log("/dash route called");
+    if (Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      //console.log("/dash points to community dash");
+    }else{
+      BlazeLayout.render('App_body', { main: 'App_notFound' });
+      //console.log("/dash points to app not found");
+    }
+  },
+});
+loggedInRoutes.route('/dash/proposals', {
+  name: 'App.dash',
+  action() {
+    //console.log("/dash route called");
+    if (Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      //console.log("/dash points to community dash");
+    }else{
+      BlazeLayout.render('App_body', { main: 'App_notFound' });
+      //console.log("/dash points to app not found");
+    }
+  },
+});
+
+loggedInRoutes.route('/dash/delegates', {
+  name: 'App.dash',
+  action() {
+    //console.log("/dash route called");
+    if (Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      //console.log("/dash points to community dash");
+    }else{
+      BlazeLayout.render('App_body', { main: 'App_notFound' });
+      //console.log("/dash points to app not found");
+    }
+  },
+});
+loggedInRoutes.route('/dash/members', {
+  name: 'App.dash',
+  action() {
+    //console.log("/dash route called");
+    if (Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      //console.log("/dash points to community dash");
+    }else{
+      BlazeLayout.render('App_body', { main: 'App_notFound' });
+      //console.log("/dash points to app not found");
+    }
+  },
+});
+loggedInRoutes.route('/dash/groups', {
+  name: 'App.dash',
+  action() {
+    //console.log("/dash route called");
+    if (Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      //console.log("/dash points to community dash");
+    }else{
+      BlazeLayout.render('App_body', { main: 'App_notFound' });
+      //console.log("/dash points to app not found");
+    }
+  },
+});
+loggedInRoutes.route('/dash/communities', {
+  name: 'App.dash',
+  action() {
+    //console.log("/dash route called");
+    if (Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      //console.log("/dash points to community dash");
+    }else{
+      BlazeLayout.render('App_body', { main: 'App_notFound' });
+      //console.log("/dash points to app not found");
+    }
+  },
+});
+loggedInRoutes.route('/dash/feed', {
+  name: 'App.dash',
+  action() {
+    //console.log("/dash route called");
+    if (Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      //console.log("/dash points to community dash");
+    }else{
+      BlazeLayout.render('App_body', { main: 'App_notFound' });
+      //console.log("/dash points to app not found");
+    }
+  },
+});
 
 loggedInRoutes.route('/ideas', {
   name: 'App.ideas',

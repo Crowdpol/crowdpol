@@ -5,7 +5,7 @@
     {{/if}}
     {{#if isDate style}}
       <div class="profile-card-flat">
-        <a href="/feed/{{userId}}" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
+        <a href="/feed/{{userId}}" class="profile-image-link view-user"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
         <div class="profile-card-flat-details">
           <span class="fullname">{{userFullname userId}}&nbsp;({{username userId}})</span>
           <span class="username">{{formatDate date}}</span>
@@ -37,16 +37,16 @@
 
         </div>
         <div class="mdl-card__supporting-text">
-          <a href="/feed/{{userId}}" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
+          <a href="/feed/{{userId}}" class="profile-image-link view-user"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
           <h6 class="mdl-card__title-text">{{userFullname userId}}</h6>
           <span class="username">{{username userId}}</span>
         </div>
         <div class="mdl-card__actions mdl-card--border">
           {{#if notMe userId}}
             {{#if alreadyFollowing userId}}
-              <button class="mdl-button mdl-js-button" id="unfollow-user" data-id="{{userId}}">Unfollow<i class="material-icons">minus</i></button>
+              <button class="mdl-button mdl-js-button" id="unfollow-user" data-id="{{userId}}">Unfollow<i class="material-icons" data-id="{{userId}}">minus</i></button>
             {{else}}
-              <button class="mdl-button mdl-js-button" id="follow-user" data-id="{{userId}}">Follow<i class="material-icons">add</i></button>
+              <button class="mdl-button mdl-js-button" id="follow-user" data-id="{{userId}}">Follow<i class="material-icons" data-id="{{userId}}">add</i></button>
             {{/if}}
           {{/if}}
         </div>

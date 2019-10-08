@@ -5,9 +5,12 @@
 	{{#if hasHeader}}
 		{{>Cover}}
 	{{/if}}
-	{{#if showEditable}}
-		{{#if currentUser }}
-			{{> backButton text="generic.back-to-proposals" url=backUrl hasHeader=hasHeader}}
+	{{#if showControls}}
+		{{#if showEditable}}
+			{{#if currentUser }}
+
+				{{> backButton text="generic.back-to-proposals" url=backUrl hasHeader=hasHeader}}
+			{{/if}}
 		{{/if}}
 	{{/if}}
 	{{#if Template.subscriptionsReady}}
@@ -58,7 +61,7 @@
 								<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
 									{{_ "pages.proposals.view.editProposal"}}
 								</button>
-								{{#if statusApproved}}
+								{{#if statusApproved status}}
 									<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="publish-proposal">
 										{{_ "pages.proposals.view.publishProposal"}}
 									</button>
@@ -316,9 +319,11 @@
 		{{#if status}}
 			<span class="tag status-chip {{status}}">{{status}}</span>
 		{{/if}}
+		<br>
+		<small>{{readingTimeText}}</small>
 		<p class="proposal-info">{{{ abstract }}}</p>
 	</div>
-	<br>
+
 	<div id="proposal-body-wrap" class="proposal-body-wrap">
 		{{{ body }}}
 	</div>
@@ -336,7 +341,7 @@
 
 			{{/if}}
 			{{#if showEditable}}
-				{{>ArgumentsBox type="for" lang=language args=argumentsFor state="view"}}
+				{{>ArgumentsBox type="for" lang=language args=argumentsFor state="view" proposalId=proposalId}}
 			{{/if}}
 		</div>
 		<div class="against-container arguments-column">
@@ -349,7 +354,7 @@
 				</ul>
 			{{/if}}
 			{{#if showEditable}}
-				{{>ArgumentsBox type="against" lang=language args=argumentsAgainst state="view"}}
+				{{>ArgumentsBox type="against" lang=language args=argumentsAgainst state="view" proposalId=proposalId}}
 			{{/if}}
 		</div>
 	</div>

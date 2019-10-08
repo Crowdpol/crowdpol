@@ -135,6 +135,13 @@ Template.EditProposal.helpers({
 	bioCount: function(){
     return Template.instance().dict.get('bioCount');
   },
+	proposalId: function(){
+		proposalId = FlowRouter.getParam("id");
+		if(proposalId){
+			return proposalId
+		}
+		return false;
+	},
 	proposalContent: function(){
 		proposalId = FlowRouter.getParam("id");
 		if (proposalId){
@@ -150,7 +157,13 @@ Template.EditProposal.helpers({
 		}
 	},
 	languages: function(){
-		return LocalStore.get('languages');
+		let settings = LocalStore.get('settings');
+		//console.log(settings);
+		let langs = settings.languages;//LocalStore.get('languages');
+		if(langs){
+			return langs;
+		}
+		return ['en'];
 	},
 	activeClass: function(language){
 		var currentLang = TAPi18n.getLanguage();
@@ -225,7 +238,7 @@ Template.EditProposal.events({
 		//}
 		event.preventDefault();
 		if(!saveChanges(event, template, 'App.proposals')){
-			FlowRouter.go('/proposals');
+			FlowRouter.go('/dash/proposals');
 		};
 		//FlowRouter.go('/proposals');
 		//Session.set('proposalTab','my-proposals-tab');
@@ -320,7 +333,12 @@ var timer = function(){
 
 function saveChanges(event, template, returnTo){
 	var communityId = LocalStore.get('communityId');
-	var languages = LocalStore.get('languages');
+	let settings = LocalStore.get('settings');
+	//console.log(settings);
+	let languages = settings.languages;//LocalStore.get('languages');
+	if(!languages){
+		languages =['en'];
+	}
 	var content = [];
 	var contentCount = 0;
 	// Get Translatable field for each language and loop through them
@@ -497,10 +515,11 @@ export function getTotalInvites(){
 	proposalId = FlowRouter.getParam("id");
 	if (proposalId){
 		let proposal = Proposals.findOne({_id: proposalId});
+		if(proposal){
+			//console.log(proposal.invited);
+		}
 	}
-	if(proposal){
-		console.log(proposal.invited);
-	}
+
 	let invitedUsers = Session.get("invited");
 	let invitedEmails = Session.get('emailInvites');;
 	let totalCount = 0;

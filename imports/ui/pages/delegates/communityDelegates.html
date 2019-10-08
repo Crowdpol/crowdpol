@@ -1,0 +1,110 @@
+<template name="CommunityDelegates">
+  <!--<p><strong>Community Delegates</strong> ({{delegatesCount}})</p>-->
+  {{#if delegatesCount}}
+    <div class="search-wrapper">
+      <i class="material-icons search-icon">search</i>
+      <input type="text" name="focus" required class="search-box" placeholder='{{_ "pages.delegates.search"}}' id="delegate-search"/>
+      <button class="close-icon" type="reset">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    {{#if Template.subscriptionsReady}}
+      <div class="delegate-list">
+        {{#each delegates}}
+          <div class="delegate-item">
+            <div class="card-main-wrap">
+              <div class="card-main delegate-view">
+                <img src={{profile.photo}} class="card-avatar">
+                <div class="delegate-name">
+                  <h6>{{profile.firstName}} {{profile.lastName}}</h6>
+                  <p>
+                    ({{profile.username}})
+                    <br>
+                    {{#each filteredRoles roles}}
+                      <a class="tag tag-chip role-chip">{{this}}</a>
+                    {{/each}}
+                  </p>
+                </div>
+              </div>
+              <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delegate-checkbox-{{@index}}">
+                <input type="checkbox" id="delegate-checkbox-{{@index}}" class="mdl-checkbox__input delegate-select" />
+              </label>
+            </div>
+            <div class="card-secondary-wrap">
+              {{#each showTags profile.tags}}
+                <a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
+              {{/each}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      {{> loader}}
+    {{/if}}
+  {{else}}
+    Currently no active delegates in this community.
+  {{/if}}
+</template>
+
+<template name="CommunitySelectedDelegates">
+  <!--<p><strong>Community Delegates</strong> ({{rankCount}})</p>-->
+  <div id="sortable" class="delegate-list" >
+    {{#if Template.subscriptionsReady}}
+      {{#each ranks}}
+        <div class="delegate-item selected" id="{{_id}}" data-ex="{{getRanking}}">
+          <div class="card-main-wrap delegate-card-main-wrap">
+            <div class="card-main delegate-view">
+              <img src={{profile.photo}} class="card-avatar">
+              <div class="delegate-name">
+                <h6>{{getRank _id}}{{profile.firstName}} {{profile.lastName}}</h6>
+                <p>
+                  ({{profile.username}})
+                  <br>
+                  {{#each filteredRoles roles}}
+                    <a class="tag tag-chip role-chip">{{this}}</a>
+                  {{/each}}
+                </p>
+              </div>
+            </div>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-{{@index}}">
+              <input type="checkbox" id="list-checkbox-{{@index}}" class="mdl-checkbox__input rank-select" checked/>
+            </label>
+          </div>
+
+          <div class="card-secondary-wrap">
+            {{#each showTags profile.tags}}
+              <a href="{{this.url}}" class="tag tag-chip">{{this.keyword}}</a>
+            {{/each}}
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      {{> loader}}
+    {{/if}}
+  </div>
+  {{#unless rankCount}}
+    <br>
+    <center><p>{{_ "pages.delegates.no-delegates"}}</p></center>
+  {{/unless}}
+</template>
+
+<template name="CommunityDelegateStatus">
+  <br>
+  <p><strong>My Delegate Status</strong></p>
+  <br>
+  <small>{{_ "pages.profile.delegate-switch-description"}}</small>
+  <br>
+  <div id="delegate-switch-container">
+    {{#if delegateChecked}}
+      <input type="checkbox" id="profile-delegate-switch" name="profile-delegate-switch" class="switch-input switch-checked {{delegateSwitchClass}}" checked="checked">
+    {{else}}
+      <input type="checkbox" id="profile-delegate-switch" name="profile-delegate-switch" class="switch-input">
+    {{/if}}
+    <label for="profile-delegate-switch" class="switch-label">{{_ "pages.profile.delegate"}} <span class="toggle--on">{{delegateStatus}}</span><span class="toggle--off">{{delegateStatus}}</span></label>
+    <div class="mdl-tooltip mdl-tooltip--large" for="profile-delegate-switch-label">
+      {{_ "pages.profile.tooltips.delegateSwitch"}}
+    </div>
+
+
+  </div>
+</template>

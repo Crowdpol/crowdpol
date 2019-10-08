@@ -1,0 +1,109 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+//$base-font-size
+//$small-font-size
+.community-proposal-card-list{
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+.proposal-card-wide.mdl-card {
+  //flex: 32%;
+  //max-width: 32%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: solid 3px transparent;
+  div.mdl-card__supporting-text{
+    max-height: 120px;
+    min-height: 120px;
+    //white-space: nowrap;
+    overflow: hidden;
+    font-size: 14px;
+  }
+}
+div.proposal-card-votes{
+  border-top: 1px solid rgba(0,0,0,.1);
+  min-height: 39px;
+  max-height: 39px;
+  background-color: rgba(222, 222, 222, 0.25);
+  div.proposal-vote-progress-bar{
+    //border: solid 1px black;
+    div.proposal-percentage-text{
+      display: flex;
+      div{
+        text-align: center;
+        vertical-align: middle;
+        font-size: 0.6rem;
+      }
+      div.vote-percentage{
+        flex: 30%;
+      }
+      div.no-votes{
+        flex: 100%;
+      }
+    }
+    div.proposal-vote-bar{
+      position: relative;
+      float: left;
+    }
+    div.vote-bar-yes{
+        background-color:lighten( $green, 10% );
+    }
+    div.vote-bar-abstain{
+        background-color:lighten( $yellow, 10% );
+    }
+    div.vote-bar-no{
+        background-color:lighten( $red, 10% );
+    }
+    div.vote-bar-none{
+      background-color:$light-grey-dark;
+    }
+  }
+}
+
+
+
+.proposal-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 125px;
+  background: url('/img/deep_blue_hands.jpg') center / cover;
+  padding: 0px;
+   // Standard syntax (must be last)
+  div{
+    background-color: transparent; // For browsers that do not support gradients
+    background-image: -webkit-linear-gradient(transparent, black);
+    background-image: -o-linear-gradient(transparent, black);
+    background-image: linear-gradient(transparent, black);
+    margin-top: auto;
+    width: 100%;
+    .mdl-card__title-text{
+      padding: 16px;
+      font-size: 14px;
+    }
+  }
+
+}
+.proposal-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+.fade {
+  position: relative;
+  height: 3 * $base-line-height; /* exactly three lines */
+}
+.fade:after {
+  content: "";
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 70%;
+  height: $base-line-height;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+}
+div.proposal-card-wide:hover{
+  border: solid 3px $orange;
+}

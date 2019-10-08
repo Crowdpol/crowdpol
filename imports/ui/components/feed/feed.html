@@ -1,0 +1,22 @@
+<template name="Feed">
+  <ul class="user-home-list">
+    <li class="user-home-post user-home-form">
+      <div class="post-header">
+        <div class="author-pic">
+          <!--<img src="{{profilePic currentUserId}}" class="">-->
+        </div>
+        <div class="post-content">
+          <div class="post-area">
+            <textarea class="post-textarea-small" type="text" rows= "1" id="post-message" placeholder="Say something..."></textarea>
+            <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
+          </div>
+        </div>
+      </div>
+    </li>
+    {{#each post in feed}}
+      <li class="user-home-post">
+        {{>ActivityFeed post=post}}
+      </li>
+    {{/each}}
+  </ul>
+</template>

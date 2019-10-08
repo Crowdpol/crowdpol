@@ -1,6 +1,5 @@
 import "./profileImage.html"
-import { userfullname } from '../../../utils/users';
-import { username } from '../../../utils/users';
+import { getUserfullname, getUsername } from '../../../utils/users';
 import { getGroup } from '../../pages/group/group.js';
 import { _ } from 'meteor/underscore';
 
@@ -9,6 +8,7 @@ Template.ProfileImage.onCreated(function() {
 	dict.set('change-photo', false);
 	this.templateDictionary = dict;
 });
+
 Template.ProfileImage.onRendered(function() {
 	let photoURL = Session.get("photoURL");
 	if(!photoURL){
@@ -26,7 +26,7 @@ Template.ProfileImage.helpers({
 	},
 	profileName: function(userId,groupHandle) {
 		if(userId){
-			return userfullname(userId);
+			return getUserfullname(userId);
 		}
 		if(groupHandle){
 			let group = getGroup();
@@ -43,7 +43,7 @@ Template.ProfileImage.helpers({
   },
   profileUsername: function(userId,groupHandle) {
 		if(userId){
-			return username(userId);
+			return getUsername(userId);
 		}
 		if(groupHandle){
 
@@ -58,8 +58,9 @@ Template.ProfileImage.helpers({
   },
 	alreadyFollowing: function(){
     return Meteor.users.find({_id: Meteor.userId(), "profile.following":getOwnerId()}).count()
-  },
+  }
 });
+
 Template.ProfileImage.events({
 	//show image change form
 	'click #change-photo-button' (event, template) {
@@ -170,6 +171,15 @@ function getOwnerId(){
   if(typeof userId =='undefined'){
     userId = Meteor.userId();
   }
-  console.log("ownerId: " + userId);
+  //console.log("ownerId: " + userId);
   return userId;
+}
+
+export function getProfilePic(){
+	let picURL = $('#profilePhoto').val();
+	return picURL;
+}
+export function showProfileUrl(){
+	console.log("showing profile url");
+	$( "#change-photo" ).show();
 }

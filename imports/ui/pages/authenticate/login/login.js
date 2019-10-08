@@ -37,8 +37,9 @@ Template.Login.events({
         /* Check if subdomain matches user's community */
           var communityId = LocalStore.get('communityId');
           var userCommunities = Meteor.user().profile.communityIds;
-          console.log("communityId:"+communityId);
-          console.log("userCommunities:"+userCommunities);
+          //console.log("communityId:"+communityId);
+          //console.log("userCommunities:"+userCommunities);
+          /*
           if (!_.contains(userCommunities, communityId)) {
             // log them out and redirect to their community
             Bert.alert(TAPi18n.__('pages.authenticate.individual.login.wrong-community'), 'danger');
@@ -46,6 +47,7 @@ Template.Login.events({
             Meteor.logout();
             //FlowRouter.go('/login');
           } else {
+          */
             var redirect = LocalStore.get('signUpRedirectURL');
             LocalStore.set('signUpRedirectURL', '');
             var user = Meteor.user();
@@ -74,7 +76,7 @@ Template.Login.events({
                 LocalStore.set('isDelegate',false);
                 LocalStore.set('otherRole','');
               }
-            }
+            //}
             //console.log(LocalStore.get('currentUserRole'));
             //console.log(LocalStore.get('isDelegate'));
             if (Roles.userIsInRole(Meteor.userId(), ['admin'])){

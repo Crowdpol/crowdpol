@@ -1,0 +1,74 @@
+<template name="ProposalCardTest">
+
+  <div class="proposal-card-wide mdl-card mdl-shadow--2dp proposal-link" data-style="{{style}}">
+    {{#if proposalHasImage proposal}}
+      <div class="mdl-card__title" style="background: {{proposal.coverURL}} center / cover">
+        <div>
+        <h2 class="mdl-card__title-text">{{ title proposal}}</h2>
+        </div>
+      </div>
+    {{else}}
+      <div class="mdl-card__title">
+        <div>
+          <h2 class="mdl-card__title-text">{{ title proposal}}</h2>
+        </div>
+      </div>
+    {{/if}}
+    <div class="mdl-card__supporting-text overflow">
+      {{abstract proposal}}
+    </div>
+    {{#if isVote style}}
+      <div class="proposal-card-votes">
+        {{#if hasVotes proposal._id}}
+
+          <div class="proposal-vote-progress-bar">
+            <div class="proposal-percentage-text">
+              <div class="vote-percentage">{{_ "pages.voting.for"}} {{ yesCount proposal._id }} ({{ yesPercentage proposal._id }}%)</div>
+              <div class="vote-percentage">{{_ "pages.voting.abstain"}}{{ abstainCount proposal._id }} ({{ abstainPercentage proposal._id }}%)</div>
+              <div class="vote-percentage">{{_ "pages.voting.against"}}{{ noCount proposal._id }} ({{ noPercentage proposal._id }}%)</div>
+            </div>
+            <div class="proposal-vote-bar vote-bar-yes" style="width:{{ yesPercentage proposal._id }}%"></div>
+            <div class="proposal-vote-bar vote-bar-abstain" style="width:{{ abstainPercentage proposal._id }}%"></div>
+            <div class="proposal-vote-bar vote-bar-no" style="width:{{ noPercentage proposal._id }}%"></div>
+          </div>
+        {{else}}
+          <div class="proposal-vote-progress-bar">
+            <div class="proposal-percentage-text">
+              <div class="no-votes">{{_ "pages.voting.no-votes-used"}}</div>
+            </div>
+            <div class="proposal-vote-bar vote-bar-none" style="width:100%"></div>
+          </div>
+        {{/if}}
+      </div>
+    {{/if}}
+    <!--
+    {{#if isDraft style}}
+      <div class="proposal-card-votes">
+  		  Show Draft Card
+      </div>
+  	{{/if}}
+    -->
+    {{#if isPetition style}}
+      <div class="proposal-card-votes">
+  		  Show Petition Card
+      </div>
+  	{{/if}}
+  	{{#if isPoll style}}
+      <div class="proposal-card-votes">
+  		  Show Poll Card
+      </div>
+  	{{/if}}
+    <div class="mdl-card__menu">
+      <!--
+      <button class="mdl-button mdl-button- -icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">share</i>
+      </button>
+      -->
+      {{#if canEdit}}
+      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">edit</i>
+      </button>
+      {{/if}}
+    </div>
+  </div>
+</template>

@@ -6,7 +6,7 @@ Meteor.methods({
   createPost: function(post) {
     check(post, {
       userId: String,
-      userFeedId: String,
+      feedId: String,
       //url: Match.Maybe([String]),
       message: String,
     });
@@ -18,7 +18,7 @@ Meteor.methods({
   updatePost: function(post){
     check(post, {
       userId: String,
-      userFeedId: String,
+      feedId: String,
       //url: Match.Maybe([String]),
       message: String,
     });

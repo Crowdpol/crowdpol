@@ -25,7 +25,7 @@
 
 .side-nav-header {
   padding: $space $space ($space / 2);
-
+  background-color: darken($orange,10%);
   img {
     width: $space * 2.5;
     height: $space * 2.5;

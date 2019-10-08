@@ -26,7 +26,6 @@ Template.voteButtons.helpers({
 		Template.instance().dict.set('delegateVote',delegateVote);
 		//User Vote
 		let query = Votes.findOne({"proposalId" : proposalId});
-
 		let vote = false;
 		if(query){
 			if(typeof query.vote !== undefined){
@@ -57,6 +56,7 @@ Template.voteButtons.helpers({
 Template.voteButtons.events({
 
 	'click .vote-button' (event, template){
+
 		//1. check existing user vote
 		let proposalId = event.currentTarget.dataset.proposalId;
 		let voteValue = event.currentTarget.dataset.voteValue;

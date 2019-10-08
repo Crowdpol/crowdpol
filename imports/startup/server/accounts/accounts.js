@@ -271,8 +271,9 @@ Accounts.onCreateUser((options, user) => {
   }else{
     console.log("no options in setRootCommunities");
   }
-  */
+
   console.log("---calling getRootCommunities()---");
+  */
   profile.communityIds = Meteor.call('getRootCommunities');
   /*
   Meteor.call('getRootCommunities',function(err, result){
@@ -294,12 +295,64 @@ Accounts.onCreateUser((options, user) => {
       }
     }
   });
-  */
+
   console.log("---getRootCommunities() finished---");
   console.log("--profile:---");
   console.log(profile);
   console.log("-----");
+  */
+  console.clear();
   console.log("starting to normalise");
+  let existingUser = Meteor.user();
+	let email;
+	let firstName;
+	let lastName;
+	let service;
+  let social = false;
+
+	if (user.services.facebook) {
+    social=true;
+    console.log("user signing in with facebook");
+			firstName = user.services.facebook.first_name;
+			lastName = user.services.facebook.last_name;
+			email = user.services.facebook.email;
+			service = 'facebook';
+	}
+  if (user.services.google) {
+    social=true;
+    console.log("user signing in with google");
+			firstName = user.services.google.given_name;
+			lastName = user.services.google.family_name;
+			email = user.services.google.email;
+			service = 'google';
+	}
+  if(user.services.twitter){
+    social=true;
+    console.log("user signing in with twitter");
+    console.log(user.services.twitter)
+
+	}
+  if(!social){
+    console.log("user is signing in with email address")
+    firstName = '';
+    lastName = '';
+    email = options.email;
+    service = 'password';
+    verified = false;
+  }
+
+	if (!existingUser){
+    console.log("could not find Meteor.user(), checking by Meteor.users.findOne({'emails.address': email })");
+    existingUser = Meteor.users.findOne({"emails.address": email });
+  }
+	if (existingUser) {
+    console.log("found existingUser");
+			existingUser.services = existingUser.services || {};
+			existingUser.services[service] = user.services[service];
+			//Meteor.users.remove({ _id: existingUser._id });
+			//user = existingUser;
+      console.log(existingUser);
+	}
   if (profile) {
     if (user.services.facebook) {
       return normalizeFacebookUser(profile, user);
@@ -345,7 +398,7 @@ Accounts.onCreateUser((options, user) => {
 });
 
 Accounts.onLogin(() => {
-  //console.log("onLogin called: user logged in");
+  console.log("onLogin called: user logged in");
 });
 Accounts.validateNewUser((user) => {
 

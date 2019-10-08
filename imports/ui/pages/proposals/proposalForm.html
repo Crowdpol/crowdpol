@@ -41,7 +41,7 @@
 	          {{>ArgumentsListItem argument=argument lang=language type="for" state=getState}}
 	        {{/each}}
 	      </ul>
-	      {{>ArgumentsBox type="for" lang=language args=argumentsFor state=getState}}
+	      {{>ArgumentsBox type="for" lang=language args=argumentsFor state=getState proposalId=proposalId}}
 	    </div>
 	    <div class="against-container arguments-column">
 	      <p>{{_ "pages.proposals.edit.pointAgainst"}}</p>
@@ -50,7 +50,7 @@
 	          {{>ArgumentsListItem  argument=argument lang=language type="against" state=getState}}
 	        {{/each}}
 	      </ul>
-	      {{>ArgumentsBox type="against" lang=language args=argumentsAgainst state=getState}}
+	      {{>ArgumentsBox type="against" lang=language args=argumentsAgainst state=getState proposalId=proposalId}}
 	    </div>
 	  </div>
 	{{/if}}

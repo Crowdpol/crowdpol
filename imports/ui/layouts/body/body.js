@@ -75,12 +75,17 @@ Template.App_body.helpers({
 		return showDrawer;
 	},
   isLanding: function(){
+    //console.log(LocalStore.get('subdomain'));
+    return false;
+    /*
     let subdomain = LocalStore.get('subdomain');
     if(subdomain=='landing'){
       return true;
     }else{
       return false;
     }
+    */
+
   }
 });
 

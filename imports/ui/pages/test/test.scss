@@ -1,13 +1,31 @@
-.parallax {
-  /* The image used */
-  background-image: url("/img/syntropi_grey.jpg");
+.test-container {
+  width: 1000px;
+  position: relative;
+}
 
-  /* Set a specific height */
-  min-height: 500px;
+.test-header {
+  clear: both;
+  margin-bottom: 10px;
+  border: 1px solid #000000;
+  height: 90px;
+}
 
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.test-sidebar {
+  float: left;
+  width: 350px;
+  border: 1px solid #000000;
+}
+
+.test-content {
+  float: right;
+  width: 640px;
+  border: 1px solid #000000;
+  height: 800px;
+}
+
+.test-footer {
+  clear: both;
+  margin-top: 10px;
+  border: 1px solid #000000;
+  height: 820px;
 }

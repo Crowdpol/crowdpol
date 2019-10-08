@@ -1,7 +1,7 @@
 import './flagModal.html'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Comments } from '../../../api/comments/Comments.js'
-import { userProfilePhoto, userfullname, username, userTags } from '../../../utils/users';
+import { getUserProfilePhoto, getUserfullname, getUsername, getUserTags } from '../../../utils/users';
 import RavenClient from 'raven-js';
 
 Template.FlagModal.helpers({
@@ -11,7 +11,7 @@ Template.FlagModal.helpers({
     if(flagContent){
       contentId = flagContent.contentId;
     }else{
-      console.log("no flag contentId");
+      //console.log("no flag contentId");
     }
     return contentId;
   },
@@ -21,7 +21,7 @@ Template.FlagModal.helpers({
     if(flagContent){
       contentAuthor = flagContent.contentAuthor;
     }else{
-      console.log("no flag author");
+      //console.log("no flag author");
     }
     return contentAuthor;
   },
@@ -54,7 +54,7 @@ Template.FlagModal.helpers({
           text = "Could not work out which element you are reporting";
       }
     }else{
-      console.log("content type undefined");
+      //console.log("content type undefined");
     }
     return text;
   },

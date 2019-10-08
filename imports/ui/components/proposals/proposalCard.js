@@ -1,3 +1,4 @@
+import './proposalCardTest.js'
 import './proposalCard.html'
 import "../../components/proposals/proposalCard.js"
 import RavenClient from 'raven-js';

@@ -1,0 +1,51 @@
+{
+  "map-toggle": "Visa/Dölj Karta",
+  "menu-tab":{
+    "votes":{
+      "proposals": "Förslag",
+      "polls": "Opinionsundersökning",
+      "petitions": "Upprop"
+    },
+    "proposals":{
+      "drafts": "Utkast på förslag",
+      "submitted": "Inlämnade förslag",
+      "write": "Skriv ett nytt förslag"
+    },
+    "feed":{
+      "feed":"Nyheter",
+      "activity":"Aktivitetsflöde"
+    },
+    "delegates":{
+      "available": "Användbar",
+      "selected": "Vald",
+      "status": "Min Status",
+      "about": "Handla Om"
+    },
+    "members":{
+      "members": "Medlemmar",
+      "administrator": "Administratörer",
+      "ambassador": "Ambassadör"
+    },
+    "groups":{
+      "available": "Användbar",
+      "create": "Skapa"
+    }
+  },
+  "sidebar-tab": {
+    "vote": "Rösta",
+    "proposals": "Mina Förslag",
+    "feed": "Nyheter",
+    "delegates": "Delegater",
+    "members": "Medlemmar",
+    "groups": "Grupp"
+  },
+  "header-title": {
+    "vote": "Rösta",
+    "proposals": "Mina förslag",
+    "feed": "Nyheter",
+    "delegates": "Delegater",
+    "members": "Medlemmar",
+    "groups": "Grupp",
+    "not-found":"Hoppsan. Något gick fel. Förlåt!"
+  }
+}

@@ -55,13 +55,13 @@
   <div class="argument-box">
     <div class="argument-box-textarea">
       <div class="input-wrap mdl-textfield mdl-js-textfield">
-        <textarea class="argument-input mdl-textfield__input" type="text" rows= "2" data-type="{{type}}" data-lang="{{lang}}" placeholder="{{_ "pages.proposals.edit.argument"}}" id="argument-{{type}}"></textarea>
+        <textarea class="argument-input mdl-textfield__input" type="text" rows= "2" data-type="{{type}}" data-lang="{{lang}}" placeholder='{{_ "pages.proposals.edit.argument"}}' id="argument-{{type}}"></textarea>
         <label class="mdl-textfield__label" for="argument-{{type}}">{{_ "pages.proposals.edit.argument"}}</label>
       </div>
     </div>
     <div class="argument-box-menu">
-      <button class="mdl-button mdl-js-button mdl-button--icon add-argument-button" data-type="{{type}}" data-lang="{{lang}}" id="{{type}}-button" style="display:none;">
-        <i class="material-icons add-argument-icon" data-id="{{argument._id}}" data-type="{{type}}" data-lang="{{lang}}">add</i>
+      <button class="mdl-button mdl-js-button mdl-button--icon add-argument-button add-argument" data-type="{{type}}" data-lang="{{lang}}" id="{{type}}-button">
+        <i class="material-icons add-argument-icon add-argument" data-id="{{argument._id}}" data-type="{{type}}" data-lang="{{lang}}">add</i>
       </button>
       <!-- Rich Tooltip -->
       <div class="mdl-tooltip" data-mdl-for="{{type}}-button">

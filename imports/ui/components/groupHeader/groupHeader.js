@@ -1,7 +1,6 @@
 import './groupHeader.html';
 import "./groupImage.js"
-import { userHasCover } from '../../../utils/users';
-import { userProfilePhoto } from '../../../utils/users';
+import { getUserHasCover, getUserProfilePhoto } from '../../../utils/users';
 import { setCoverState } from '../cover/cover.js'
 
 Template.GroupHeader.onCreated(function(){
@@ -28,7 +27,7 @@ Template.GroupHeader.helpers({
     //check if userId has been passed through
     if(userId){
       //check if user has cover, if true: URL will be returned, else false returned
-      let coverURL = userHasCover(userId);
+      let coverURL = getUserHasCover(userId);
       //if coverURL returned is not false
       if(coverURL){
         //set appropriate sessions variables
@@ -53,7 +52,7 @@ Template.GroupHeader.helpers({
 
       }
       //get current user photo, if none set, default profilephoto image returned
-      let photoURL = userProfilePhoto(userId);
+      let photoURL = getUserProfilePhoto(userId);
       Session.set('photoURL',photoURL);
     }else{
       //no user id could be detected, do not display cover

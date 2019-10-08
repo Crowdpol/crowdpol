@@ -1,6 +1,7 @@
 import './userCard.html'
 import {titleCase} from '../../../utils/functions';
-import { userHasCover,userfullname,username,userProfilePhoto } from '../../../utils/users';
+import { getUserHasCover,getUserfullname,getUsername,getUserProfilePhoto } from '../../../utils/users';
+import RavenClient from 'raven-js';
 
 Template.UserCard.onCreated(function(){
   /*
@@ -72,25 +73,32 @@ Template.UserCard.helpers({
     return false;
   },
   userPhoto: function(userId){
-    //console.log("userPhoto userid: " + userId);
-    return userProfilePhoto(userId);
+    return getUserProfilePhoto(userId);
   },
   userFullname: function(userId){
-    return titleCase(userfullname(userId));
+    let fullname = getUserfullname(userId);
+    if(fullname){
+      return titleCase(fullname);
+    }
+    return "Published";
   },
   username: function(userId){
-    return "@" + username(userId);
+    let username = getUsername(userId)
+    if(!username){
+      return "Anonymously";
+    }
+    return "@" + username;
   },
   hasCover: function(userId){
-    let coverURL = userHasCover(userId);
+    let coverURL = getUserHasCover(userId);
     if(coverURL){
       return "has-cover";
     }
   },
   coverURL: function(userId){
-    let coverURL = userHasCover(userId);
+    let coverURL = getUserHasCover(userId);
     if(coverURL){
-      return userHasCover(userId);
+      return getUserHasCover(userId);
     }
 
   },
@@ -108,6 +116,7 @@ Template.UserCard.helpers({
 Template.UserCard.events({
   'click #follow-user': function(event,template){
     followId = event.target.dataset.id;
+    console.log("followId: " + followId);
     if(followId!=Meteor.userId()){
       Meteor.call('addFollower', Meteor.userId(),followId, function(error, postId){
     		if (error){
@@ -133,5 +142,16 @@ Template.UserCard.events({
     		}
     	});
     }
+  },
+  'click .view-user': function(event, template){
+    event.preventDefault();
+    Session.set('drawerId',this.userId);
+    if($('.mdl-layout__drawer-right').hasClass('active')){
+        $('.mdl-layout__drawer-right').removeClass('active');
+     }
+     else{
+        $('.mdl-layout__drawer-right').addClass('active');
+     }
+
   },
 });

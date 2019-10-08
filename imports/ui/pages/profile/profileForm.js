@@ -517,8 +517,9 @@ Template.ProfileSettingsForm.events({
         });
         return;
       }
+      var communityId = LocalStore.get('communityId');
       // Profile is complete, submit approval request
-      Meteor.call('requestApproval', Meteor.userId(), 'delegate', function(error) {
+      Meteor.call('requestApproval', Meteor.userId(), 'delegate', communityId, function(error) {
         if (error) {
           RavenClient.captureException(error);
           Bert.alert(error.reason, 'danger');

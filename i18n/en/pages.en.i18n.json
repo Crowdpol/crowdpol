@@ -327,6 +327,7 @@
 				"inactive-vote-message": "Voting on this proposal runs from __startDate__ to __endDate__",
 				"abstract": "Summary",
 				"proposal": "Proposal",
+				"read-time": "__readTime__ min read.",
 				"yes": "For",
 				"no": "Against",
 				"abstain": "Abstain",
@@ -398,9 +399,10 @@
 				"delegate": "Vote as a Delegate",
 				"individual": "Cast your Individual vote"
 			},
-			"no-votes-used": "No users voted on this proposal.",
+			"no-votes-used": "No-one had voted on this proposal.",
 			"for": "For:",
 			"against": "Against:",
+			"abstain": "Abstain:",
 			"expires": "Voting closes",
 			"invited": "Invited"
 		},

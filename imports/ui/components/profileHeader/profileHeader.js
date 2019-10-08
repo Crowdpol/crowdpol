@@ -1,6 +1,5 @@
 import { Groups } from '../../../api/group/Groups.js';
-import { userHasCover } from '../../../utils/users';
-import { userProfilePhoto } from '../../../utils/users';
+import { getUserHasCover,getUserProfilePhoto } from '../../../utils/users';
 import { setCoverState } from '../cover/cover.js'
 import './profileHeader.html';
 import "./profileImage.js"
@@ -21,6 +20,7 @@ Template.ProfileHeader.onCreated(function(){
 
   });
   */
+  var self = this;
   var handle = FlowRouter.getParam("handle");
   self.autorun(function() {
     self.subscribe("groups.handle",handle);
@@ -30,9 +30,9 @@ Template.ProfileHeader.onCreated(function(){
 Template.ProfileHeader.helpers({
   //START HERE: THIS HAS TO GO SOMEWHERE ELSE
   setHeader: function(userId,groupHandle,editable) {
-    console.log("userId: " + userId);
-    console.log("groupHandle: " + groupHandle);
-    console.log("editable: " + editable);
+    //console.log("userId: " + userId);
+    //console.log("groupHandle: " + groupHandle);
+    //console.log("editable: " + editable);
     //check if userId has been passed through
     if(userId){
       setUserHeader(userId,editable)
@@ -58,7 +58,7 @@ Template.ProfileHeader.helpers({
 });
 
 var detectScroll = function(e){
-  console.log("window.onscroll");
+  //console.log("window.onscroll");
     var aTop = $('#profile-header-image').height();
     console.log(aTop);
     if($(this).scrollTop()>=aTop){
@@ -67,10 +67,10 @@ var detectScroll = function(e){
 }
 
 function setUserHeader(userId,editable){
-  console.log("settings userHeader");
+  //console.log("settings userHeader");
   if(userId){
     //check if user has cover, if true: URL will be returned, else false returned
-    let coverURL = userHasCover(userId);
+    let coverURL = getUserHasCover(userId);
     //if coverURL returned is not false
     if(coverURL){
       //set appropriate sessions variables
@@ -95,7 +95,7 @@ function setUserHeader(userId,editable){
 
     }
     //get current user photo, if none set, default profilephoto image returned
-    let photoURL = userProfilePhoto(userId);
+    let photoURL = getUserProfilePhoto(userId);
     Session.set('photoURL',photoURL);
   }else{
     //no user id could be detected, do not display cover
@@ -103,19 +103,19 @@ function setUserHeader(userId,editable){
   }
 }
 function setGroupHeader(userId,editable){
-  console.log("settings groupHeader");
+  //console.log("settings groupHeader");
   if(groupHandle){
     let group = Groups.findOne("handle":groupHandle);
-    console.log(group);
+    //console.log(group);
     //check if user has cover, if true: URL will be returned, else false returned
     let coverURL = null;
     //if coverURL returned is not false
     if(coverURL){
-      console.log("coverUrl is being set to null")
+      //console.log("coverUrl is being set to null")
       //set appropriate sessions variables
       Session.set("coverURL",coverURL);
     }else{
-      console.log("coverURL is null, should be default");
+      //console.log("coverURL is null, should be default");
     }
     Session.set("hasCover",true);
     if(editable==true){
@@ -125,7 +125,7 @@ function setGroupHeader(userId,editable){
       Session.set('coverState','view');
     }
     //get current user photo, if none set, default profilephoto image returned
-    //let photoURL = userProfilePhoto(userId);
+    //let photoURL = getUserProfilePhoto(userId);
     //Session.set('photoURL',photoURL);
   }else{
     //no user id could be detected, do not display cover

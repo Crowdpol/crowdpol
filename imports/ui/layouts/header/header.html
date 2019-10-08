@@ -6,14 +6,16 @@
 		<div class="header-inner mdl-layout__header-row">
 			{{#if currentUser}}
 				<a href="/dash" class="header-link-signed-in">
-					<span class="mdl-layout-title">
+					<span class="mdl-layout-title" style="color:#f64900;">
 						{{#if logoUrlSet}}
 							<img class="header-logo" src='{{logoUrl}}'/>
 						{{/if}}
-						<!-- This should be the page title -->
+						Crowdpol
+						<!-- This should be the page title
 						{{#if Template.subscriptionsReady}}
 							{{ title }}
 						{{/if}}
+						-->
 					</span>
 				</a>
 				<nav class="mdl-navigation">
@@ -97,9 +99,10 @@
 							{{/if}}
 						</li>
 					</ul>
-					<!--<a class="mdl-navigation__link mdl-layout-large-screen-only" href="/ideas" id="ideas-menu">{{_ "layout.header.nav_ideas"}}</a>-->
-					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/proposals" id="proposals-menu">{{_ "layout.header.nav_proposals"}}</a>
-					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/voting" id="vote-menu">{{_ "layout.header.nav_vote"}}</a>
+					<!--<a class="mdl-navigation__link mdl-layout-large-screen-only" href="/ideas" id="ideas-menu">{{_ "layout.header.nav_ideas"}}</a>
+					<a class="mdl-navigation__link mdl-layout- -large-screen-only" href="/proposals" id="proposals-menu">{{_ "layout.header.nav_proposals"}}</a>
+					<a class="mdl-navigation__link mdl-layout- -large-screen-only" href="/voting" id="vote-menu">{{_ "layout.header.nav_vote"}}</a>
+					-->
 					<!--
 					<a class="mdl-navigation__link" href="/candidate">{{_ "layout.header.nav_nominate"}}</a>
 					-->
@@ -115,8 +118,9 @@
 					<div class="notification-menu-content">
 				  	{{> NotificationsDrawer}}
 				  </div>
-
-					<a id="help-menu" class="mdl-navigation__link mdl-layout--large-screen-only" href="/"><i class="material-icons" id="main-help">help_outline</i></a>
+					<!--
+					<a id="help-menu" class="mdl-navigation__link mdl-layout- -large-screen-only" href="/"><i class="material-icons" id="main-help">help_outline</i></a>
+					-->
 					<!-- Language Menu -->
 					{{#if Template.subscriptionsReady}}
 						{{#if showLanguages}}

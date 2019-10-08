@@ -1,0 +1,9 @@
+<template name="UserProposalList">
+  <div class="community-proposal-card-list">
+    {{#each proposal in proposals}}
+      {{>ProposalCardTest style=stage proposal=proposal}}
+    {{else}}
+      <p>{{_ "pages.proposals.list.your-proposals" status=""}}&nbsp;<a href="#" id="create-proposal">{{_ "pages.proposals.list.create-link" }}</a></p>
+    {{/each}}
+  </div>
+</template>

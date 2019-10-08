@@ -5,7 +5,7 @@ import { Comments } from '../../../api/comments/Comments.js'
 import { Proposals } from '../../../api/proposals/Proposals.js'
 import { Tags } from '../../../api/tags/Tags.js'
 import { setCoverState } from '../../components/cover/cover.js'
-import { urlify } from '../../../utils/functions';
+import { urlify,calcReadingTime } from '../../../utils/functions';
 import RavenClient from 'raven-js';
 
 Template.ViewProposal.onCreated(function(language){
@@ -83,6 +83,7 @@ Template.ViewProposal.onRendered(function(language){
       icon: 'fa-link'
     });
   });
+
   this.autorun(function() {
     /*
     let hasCover = Template.instance().templateDictionary.get('hasCover');
@@ -320,7 +321,7 @@ Template.ViewProposal.helpers({
     return userIsInvited();
   },
   isVotingAsDelegate: function(){
-    console.log("isVotingAsDelegate: " + LocalStore.get('currentUserRole'));
+    //console.log("isVotingAsDelegate: " + LocalStore.get('currentUserRole'));
     return (LocalStore.get('currentUserRole') == 'delegate');
   },
   isAuthor: function() {
@@ -380,7 +381,15 @@ Template.ViewProposal.helpers({
     return true;
   },
   getProposalLink: function() {
-    return window.location.href;
+    //console.log(this.proposalId);
+    let proposalId = this.proposalId;
+    let origin = window.location.origin;
+
+    if(proposalId){
+      return origin + "/proposals/view/" + proposalId;
+    }
+    return window.location;
+
   },
   signatureCount: function(){
     return Template.instance().templateDictionary.get('signatures').length
@@ -466,8 +475,10 @@ Template.ViewProposal.helpers({
   isAdminProposalView: function(){
     return isAdmin();
   },
-  statusApproved: function(){
-    let status = Template.instance().templateDictionary.get('status');
+  statusApproved: function(status){
+    //console.log("status: " + status);
+    status = Template.instance().templateDictionary.get('status');
+    //console.log("status: " + status);
     if(status=='approved'){
       return true;
     }
@@ -573,6 +584,15 @@ Template.ProposalContent.helpers({
   getAvatar: function(authorId){
     var user = Meteor.users.findOne(authorId);
     return user.profile.photo;
+  },
+  readingTimeText: function(){
+    let body = Template.instance().templateDictionary.get( 'body' );
+    if(body==undefined||body.length==0){
+      //retrun// TAPi18n.__('pages.proposals.view.body-empty') + "</i>";
+    }else{
+      readTime = calcReadingTime(body);
+      return TAPi18n.__('pages.proposals.view.read-time',{readTime:readTime});
+    }
   },
   body: function() {
     var body = Template.instance().templateDictionary.get( 'body' );
@@ -817,8 +837,10 @@ function showControls(){
   var hostname = window.location.pathname;
   var res = hostname.substr(1, 5);
   if(res=='admin'){
+    //console.log("showControls is false");
     return false;
   }
+  //console.log("showControls is true");
   return true;
 }
 

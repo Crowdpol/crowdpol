@@ -27,6 +27,7 @@ Template.FlagButton.onRendered(function(){
 
 Template.FlagButton.events({
   'click .flag-button': function(event, template){
+    console.log("flag button clicked");
     let contentType = event.currentTarget.getAttribute("data-content-type");
     let contentId = event.currentTarget.getAttribute("data-content-id");
     let authorId = event.currentTarget.getAttribute("data-content-author-id");

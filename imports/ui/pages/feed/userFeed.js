@@ -1,13 +1,14 @@
-import "./userHome.html"
+import "./userFeed.html"
+
 import '../../components/profileHeader/profileHeader.js';
-import { userProfilePhoto, userfullname, username, userTags } from '../../../utils/users';
+import { getUserProfilePhoto, getUserfullname, getUsername, getUserTags } from '../../../utils/users';
 import { Tags } from '../../../api/tags/Tags.js'
 import { Posts } from '../../../api/posts/Posts.js'
 import { Likes } from '../../../api/likes/Likes.js'
 import RavenClient from 'raven-js';
 import snarkdown from 'snarkdown';
 
-Template.UserHome.onCreated(function () {
+Template.UserFeed.onCreated(function () {
   var communityId = LocalStore.get('communityId');
   Session.set("coverURL","");
   Session.set("hasCover","");
@@ -22,39 +23,28 @@ Template.UserHome.onCreated(function () {
     $("#unsplash-close").hide();
   });
 });
-/*
-Template.UserHome.onRendered(function(){
-	self = this;
 
-	this.autorun(function() {
-
-
-  });
+Template.UserFeed.onRendered(function(){
 });
-*/
-Template.UserHome.helpers({
+
+Template.UserFeed.helpers({
   thisUser: function() {
     return getOwnerId();
   },
   profilePic: function(userId) {
-    return userProfilePhoto(userId);
-    //console.log(userProfilePhoto(userId));
-    /*let userId = Template.instance().userId.get();
-    user = Meteor.users.findOne({"_id":userId});
-    if(typeof user != 'undefined'){
-      return user.profile.photo;
-    }*/
+    return getUserProfilePhoto(userId);
+    //console.log(getUserProfilePhoto(userId));
   	//return Meteor.user().profile.photo;
   },
   profileName: function(userId) {
-  	return userfullname(getOwnerId());
+  	return getUserfullname(getOwnerId());
   },
   profileUsername: function(userId) {
-  	return "@" + username(getOwnerId());
+  	return "@" + getUsername(getOwnerId());
   },
   userFeed: function(){
     let ownerId = getOwnerId();
-    let posts = Posts.find({"userFeedId":ownerId}, {sort: {createdAt: -1}});
+    let posts = Posts.find({"feedId":ownerId}, {sort: {createdAt: -1}});
   	return posts;
   },
   currentUserId: function(){
@@ -78,7 +68,7 @@ Template.UserHome.helpers({
       followers = Meteor.user().profile.following;
     }
     if(Array.isArray(followers)){
-      console.log(Meteor.users.find( { _id : { $in :  followers} }).count());
+      //console.log(Meteor.users.find( { _id : { $in :  followers} }).count());
       return Meteor.users.find( { _id : { $in :  followers} });
     }
     return null;
@@ -103,15 +93,19 @@ Template.UserHome.helpers({
     return Meteor.users.find( { "profile.following" : getOwnerId() }).count();
   },
   interestsCount: function(userId){
-    let tagIdArray = userTags(getOwnerId());
+    let tagIdArray = getUserTags(getOwnerId());
     //console.log(tagIdArray);
-    return Tags.find({_id: {$in: tagIdArray}}).count();
+    if(Array.isArray(tagIdArray)){
+      return Tags.find({_id: {$in: tagIdArray}}).count();
+    }
   },
   interests: function(userId){
-    let tagIdArray = userTags(getOwnerId());
+    let tagIdArray = getUserTags(getOwnerId());
     //console.log(tagIdArray);
-    let foundTags = Tags.find({_id: {$in: tagIdArray}});
-    return foundTags;
+    if(Array.isArray(tagIdArray)){
+      let foundTags = Tags.find({_id: {$in: tagIdArray}});
+      return foundTags;
+    }
   },
   'isAuthorised'(tag){
     if(tag.authorized){
@@ -122,7 +116,7 @@ Template.UserHome.helpers({
   }
 });
 
-Template.UserHome.events({
+Template.UserFeed.events({
   'click #follow-me': function(event,template){
     followId = getOwnerId();
     if(followId!=Meteor.userId()){
@@ -132,7 +126,7 @@ Template.UserHome.events({
     			Bert.alert(error.reason, 'danger');
     			return false;
     		} else {
-    			 Bert.alert(TAPi18n.__('pages.feed.following'), 'success');
+    			 Bert.alert(TAPi18n.__('feed.following'), 'success');
     		}
     	});
     }
@@ -146,7 +140,7 @@ Template.UserHome.events({
     			Bert.alert(error.reason, 'danger');
     			return false;
     		} else {
-    			 Bert.alert(TAPi18n.__('pages.feed.unfollow'), 'success');
+    			 Bert.alert(TAPi18n.__('feed.unfollow'), 'success');
     		}
     	});
     }
@@ -156,7 +150,7 @@ Template.UserHome.events({
     let message = template.find('#post-message').value
     let post = {
       userId: Meteor.userId(),
-      userFeedId: getOwnerId(),
+      feedId: getOwnerId(),
       message: message,
     };
     Meteor.call('createPost', post, function(error, postId){
@@ -165,7 +159,7 @@ Template.UserHome.events({
   			Bert.alert(error.reason, 'danger');
   			return false;
   		} else {
-  			 Bert.alert(TAPi18n.__('pages.feed.post-created'), 'success');
+  			 Bert.alert(TAPi18n.__('feed.post-created'), 'success');
          template.find('#post-message').value = "";
          $("#post-message").addClass('post-textarea-small');
          $("#post-message").removeClass('post-textarea-large');
@@ -207,19 +201,19 @@ Template.UserHome.events({
     }
   },
   'click .comment-post': function(event,tempate){
-    console.log("make comment");
+    //console.log("make comment");
   }
 });
 
 Template.ActivityFeed.helpers({
   profilePic: function(userId) {
-  	return userProfilePhoto(userId);
+  	return getUserProfilePhoto(userId);
   },
   profileName: function(userId) {
-  	return userfullname(userId);
+  	return getUserfullname(userId);
   },
   profileUsername: function(userId) {
-  	return username(userId);
+  	return getUsername(userId);
   },
   profileDate: function(postDate) {
     return moment(postDate).fromNow();
@@ -260,16 +254,7 @@ function getOwnerId(){
   let userId = FlowRouter.getParam("id");
   if(typeof userId =='undefined'){
     userId = Meteor.userId();
-    /* CONSIDER DELETING
-    user = Meteor.users.findOne({"_id":userId});
-    if(typeof user != 'undefined'){
-      let profile = user.profile;
-      if(typeof profile.coverURL == 'undefined'){
-        console.log("cover undefined, leave blank");
-      }else{
-        console.log("coverURL found");
-      }
-    }*/
+
   }
   //console.log("ownerId: " + userId);
   return userId;

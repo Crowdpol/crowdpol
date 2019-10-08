@@ -1,0 +1,85 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+.info {
+	padding: 6px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+}
+.info h4 {
+	margin: 0 0 5px;
+	color: #777;
+}
+
+.leaflet-control-attribution{
+  display:none;
+  a{
+
+  }
+}
+.leaflet-retina .leaflet-control-layers-toggle{
+	background-image: url('/img/layers.png');
+}
+
+#leaflet-map{
+	background: lighten(#92e2e8,20%);
+	min-height: 350px;
+	min-width: 100%;
+}
+
+.map-community-info{
+  div{
+		padding: 6px 8px;
+	}
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+	//min-height: 200px;
+	a{
+		font: 14px/16px Arial, Helvetica, sans-serif;
+		text-decoration: none;
+	}
+  .map-community-info-header{
+    width: 200px;
+    height: 80px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+@media only screen and (min-width: $tiny){
+	#leaflet-map{
+		min-height: 250px;
+	}
+}
+@media only screen and (min-width: $mobile){
+	#leaflet-map{
+		min-height: 300px;
+	}
+}
+@media only screen and (min-width: $tablet){
+	#leaflet-map{
+		min-height: 350px;
+	}
+}
+@media only screen and (min-width: $laptop){
+	#leaflet-map{
+		min-height: 350px;
+	}
+}
+@media only screen and (min-width: $desktop){
+	#leaflet-map{
+		min-height: 450px;
+	}
+}
+@media only screen and (min-width: $big){
+	#leaflet-map{
+		min-height: 450px;
+	}
+}
