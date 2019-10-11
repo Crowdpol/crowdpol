@@ -40,16 +40,22 @@ Template.CommunityMap.helpers({
 //custom FUNCTIONS
 function loadGeoJSON(){
   //start with the global map (i.e. load countries)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  /*
   var greyscaleMap = L.tileLayer.provider('Esri.WorldGrayCanvas');
   var streetMap = L.tileLayer.provider('Esri.WorldStreetMap');
+  */
   var mapsData = buildGeoJSON(currentRoot);
   mapLayer = new L.geoJSON(mapsData,{
     style: mapStyle,
     onEachFeature: mapOnEachFeature
   });
-  addLayer(greyscaleMap);
-  addLayer(streetMap);
+  //addLayer(greyscaleMap);
+  //addLayer(streetMap);
   addLayer(mapLayer);
+  /*
   //streetMap.addTo(map);
   //mapLayer.addTo(map);
   var baseMaps = {
@@ -64,7 +70,7 @@ function loadGeoJSON(){
   //group.addTo(map);
 
   L.control.layers(baseMaps, overlayMaps,{position: 'topleft'}).addTo(map);
-
+  */
   //console.log(mapLayer.getBounds());
   //map.fitBounds(mapLayer.getBounds());
 

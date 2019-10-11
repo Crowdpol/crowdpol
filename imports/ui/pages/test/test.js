@@ -1,5 +1,6 @@
 //import './amchart.js';
 //import './leaflet.js';
+import L from 'leaflet';
 import './test.html';
 import './test.scss';
 
@@ -7,9 +8,53 @@ Template.Test.onCreated(function(){
   //console.log("Test: onCreated()");
 });
 
-Template.Test.onRendered(function(){
+Template.TestLanding.onRendered(function(){
   //console.log("Test: onRendered()");
-  $(window).scroll( fancyFunction );
+  //$(window).scroll( fancyFunction );
+  $('#fader img:not(:first)').hide();
+    //$('#fader img').css('position', 'absolute');
+    //$('#fader img').css('top', '0px');
+    //$('#fader img').css('left', '50%');
+    $('#fader img').each(function() {
+        var img = $(this);
+        $('<img>').attr('src', $(this).attr('src')).load(function() {
+            //img.css('margin-left', -this.width / 2 + 'px');
+        });
+    });
+
+    var pause = false;
+
+    function fadeNext() {
+        $('#fader img').first().fadeOut();
+        $('#fader img').first().fadeIn();
+    }
+
+    function fadePrev() {
+        $('#fader img').first().fadeOut();
+        $('#fader img').last().fadeIn();
+    }
+
+    $('#fader, #next').click(function() {
+        fadeNext();
+    });
+
+    $('#prev').click(function() {
+        fadePrev();
+    });
+
+    $('#fader, .button').hover(function() {
+        pause = true;
+    },function() {
+        pause = false;
+    });
+
+    function doRotate() {
+        if(!pause) {
+            fadeNext();
+        }
+    }
+
+    var rotate = setInterval(doRotate, 2000);
 });
 
 Template.Test.events({
