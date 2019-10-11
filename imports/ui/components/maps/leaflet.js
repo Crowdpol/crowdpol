@@ -21,7 +21,7 @@ Template.Leaflet.helpers({
 export function loadMap(){
   //console.log("Leaflet: loadMap()");
 
-  L.Icon.Default.imagePath = '/packages/bevanhunt_leaflet/images/';
+  //L.Icon.Default.imagePath = '/packages/bevanhunt_leaflet/images/';
 
   //create map - more settings options: https://leafletjs.com/reference-1.5.0.html#map-option
   map = L.map('leaflet-map', {
@@ -89,8 +89,11 @@ function setStartingPosition(){
 function setTiles(){
   //console.log("Leaflet: setTiles()");
   //load base tiles map, to see more: https://leaflet-extras.github.io/leaflet-providers/preview/
-  var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
-  tiles.addTo(map);
+  //var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
+  //tiles.addTo(map);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
 }
 export function addLayer(layer){
   //console.log("Leaflet: addLayer()");
