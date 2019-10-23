@@ -43,6 +43,7 @@
 		"update": "Update",
 		"cancel": "Cancel",
 		"signup": "Sign Up",
-		"profile-photo": "Profile photo"
+		"profile-photo": "Profile photo",
+		"dob": "Date of Birth"
 	}
 }

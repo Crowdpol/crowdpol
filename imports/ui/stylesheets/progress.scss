@@ -1,0 +1,50 @@
+.progress-bubbles-container{
+  //position: absolute;
+  //top: 50%;
+  //left: 50%;
+  //transform: translate(-50%, -50%);
+  /*display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  */
+  border: solid 1px red;
+}
+
+.steps {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  //width: 200px;
+}
+.step {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 2px solid #ACACA6;
+  border-radius: 50%;
+  transition: background 1s;
+}
+.step.selected {
+  border: 2px solid #4B81BD;
+}
+.step.completed {
+  border: 2px solid #4B81BD;
+  background: #4B81BD;
+}
+.progress {
+  position: absolute;
+  width: 98%;
+  height: 10px;
+  border-bottom: 2px solid #ACACA6;
+  z-index: -1;
+}
+.percent {
+  position: absolute;
+  width: 0;
+  height: 100%;
+  border-bottom: 2px solid #4B81BD;
+  z-index: 1;
+  transition: width 1s;
+}

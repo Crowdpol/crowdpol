@@ -10,7 +10,8 @@ Template.Wizard.onCreated(function(){
 });
 
 Template.Wizard.onRendered(function(){
-  showProfileUrl()
+  showProfileUrl();
+  var picker = new Pikaday({ field: document.getElementById('startDate') });
 });
 
 Template.Wizard.helpers({
@@ -24,6 +25,9 @@ Template.Wizard.helpers({
 });
 
 Template.Wizard.events({
+  'click #startDate' (event, template){
+    $('#startDate')[0].MaterialTextfield.checkDirty();
+  },
   'click .wizard-skip' (event, template){
     event.preventDefault();
     FlowRouter.go('/dash/vote');
