@@ -8,8 +8,8 @@
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  */
   border: solid 1px red;
+  */
 }
 
 .steps {
@@ -35,10 +35,10 @@
 }
 .progress {
   position: absolute;
-  width: 98%;
+  width: 95%;
   height: 10px;
   border-bottom: 2px solid #ACACA6;
-  z-index: -1;
+  z-index: 0;
 }
 .percent {
   position: absolute;

@@ -1,94 +1,37 @@
-import { getTags } from '../../../components/taggle/taggle.js'
-import { getProfilePic,showProfileUrl } from '../../../components/profileHeader/profileImage.js'
-import { progressSetStep,progressGetStep } from '../../../components/progress/progressBubbles.js'
-import './wizard.html';
+import './compass.html';
 
-Template.Wizard.onCreated(function(){
+Template.Compass.onCreated(function(){
   self = this;
   //Reactive Variables
   self.currentStep = new ReactiveVar([]);
   self.currentStep.set("1");
 });
 
-Template.Wizard.onRendered(function(){
-  showProfileUrl();
-  var picker = new Pikaday({ field: document.getElementById('startDate') });
-  console.log(Meteor.settings)
+Template.Compass.onRendered(function(){
+
 });
 
-Template.Wizard.helpers({
-	profile: function(){
-    let user = Meteor.user();
-    return user.profile;
-  },
-  userId: function(){
-    return Meteor.userId();
-  },
-  photo: function () {
-    return Session.get("photo");
-  }
+Template.Compass.helpers({
+
 });
 
-Template.Wizard.events({
-  'click #take-photo'(event, template){
-    /*MeteorCameraUI.getPicture([
-      "width": 100,
-      "height": 100,
-      "quality": 1
-    ]);
-    */
-    event.preventDefault();
-    var cameraOptions = {
-            width: 800,
-            height: 600
-        };
-        MeteorCameraUI.getPicture(cameraOptions, function (error, data) {
-           if (!error) {
-             Session.set("photo", data);
-               template.$('.photo').attr('src', data);
-           }else{
-             console.log(error);
-           }
-        });
-  },
-
-  'click #startDate' (event, template){
-    $('#startDate')[0].MaterialTextfield.checkDirty();
-  },
-  'click .wizard-skip' (event, template){
+Template.Compass.events({
+  'click .compass-skip' (event, template){
     event.preventDefault();
     FlowRouter.go('/dash/vote');
   },
-	'click .wizard-next' (event, template){
+	'click .compass-next' (event, template){
 		event.preventDefault();
     $( "#change-photo" ).show();
 		template.currentStep.set(moveStep(template.currentStep.get(),1));
-
 	},
-  'click .wizard-back' (event, template){
+  'click .compass-back' (event, template){
 		event.preventDefault();
 		template.currentStep.set(moveStep(template.currentStep.get(),-1));
 	},
-  'click .wizard-complete' (event, template){
+  'click .compass-complete' (event, template){
     event.preventDefault();
-    var profile = {};
-    profile.username = $('#profile-username').val();
-    profile.firstname = $('#profile-firstname').val();
-    profile.lastname = $('#profile-lastname').val();
-    profile.dob = $('#profile-dob').val();
-    profile.image = getProfilePic();//'https://upload.wikimedia.org/wikipedia/commons/b/b4/Brett_king_futurist_speaker_author.jpg';//$('#profile-image').val();
-    profile.tagline = $('#profile-tagline').val();
-    profile.presentation = $('#profile-presentation').val();
-    profile.tags = getTags();//$('#profile-tags').val();
-    profile.skills = {};//$('#profile-skills').val();
-    profile.twitter = $('#profile-twitter').val();
-    profile.google  = $('#profile-google').val();
-    profile.facebook  = $('#profile-facebook').val();
-    profile.linkedin  = $('#profile-linkedin').val();
-    profile.youtube = $('#profile-youtube').val();
-    profile.website = $('#profile-website').val();
-    profile.location = $('#profile-location').val();
-    console.log(profile);
+
     FlowRouter.go('/dash/vote');
   }
 });
@@ -102,14 +45,13 @@ function moveStep(currentStep,direction){;
   let nextStepSelector = '*[data-section="'+nextStep+'"]';
   $(currentStepSelector).hide();
   $(nextStepSelector).show();
-  progressSetStep(nextStep-1);
   return nextStep;
 }
 
-Template.Wizard.rendered = function() {
+Template.Compass.rendered = function() {
   L.Icon.Default.imagePath = '/packages/bevanhunt_leaflet/images/';
 
-  var map = L.map('wizard-map', {
+  var map = L.map('compass-map', {
     doubleClickZoom: false
   //}).setView([49.25044, -123.137], 2);
   }).setView([62.54114431714147, 16.192131042480472], 3);

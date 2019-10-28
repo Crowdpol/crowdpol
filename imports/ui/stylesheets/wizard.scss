@@ -1,3 +1,22 @@
+
+.wizard-container{
+  background-image: url('img/landing/worldmap.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: right top;
+  .wizard-section{
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 1.6rem;
+  }
+  .mdl-textfield{
+    width: 100%;
+  }
+}
+.wizard-next{
+  color: rgb(255, 242, 242);
+background-color: rgb(27, 185, 17);
+}
 .mdl-textfield__label__icon {
  position: absolute;
  right: 0;

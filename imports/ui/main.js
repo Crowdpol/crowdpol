@@ -44,6 +44,7 @@ import './pages/communities/communities.js';
 //import './pages/candidates/candidates.js';
 import './pages/notifications/notifications.js';
 import './pages/group/group.js';
+import './pages/compass/compass.js';
 import './pages/tags/interests.js';
 import './pages/test/test.js';
 import './pages/not-found/not-found.js';

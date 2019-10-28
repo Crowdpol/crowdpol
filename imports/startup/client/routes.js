@@ -252,6 +252,13 @@ publicRoutes.route('/wizard', {
   },
 });
 
+publicRoutes.route('/compass', {
+  name: 'App.compass',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Compass' });
+  },
+});
+
 loggedInRoutes.route('/profile', {
   name: 'App.profile',
   action() {

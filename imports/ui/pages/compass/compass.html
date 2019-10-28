@@ -1,0 +1,62 @@
+<template name="Compass">
+  <div class="container narrow-container">
+    {{>ProgressBubbles stepCount="5"}}
+    <section id="step1" data-section="1" class="compass-section">
+      <h1>Welcome</h1>
+      <button class="mdl-button mdl-js-button mdl-button--raised">
+        <i class="material-icons">emoji_nature</i>&nbsp;Explore The World&nbsp;<i class="material-icons">arrow_right_alt</i>
+      </button>
+      <hr>
+      <center>OR</center>
+      <hr>
+      <p>These settings will determine what proposals show up in your flow</p>
+      <br>
+      <p>Selecet political areas</p>
+      <button class="mdl-button mdl-js-button mdl-button--raised">
+        <i class="material-icons">color_lens</i>&nbsp;Culture
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised">
+        <i class="material-icons">attach_money</i>&nbsp;Finance
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised">
+        <i class="material-icons">emoji_nature</i>Defense
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised">
+        <i class="material-icons">emoji_nature</i>Education
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised">
+        <i class="material-icons">emoji_nature</i>Enterprise
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised">
+        <i class="material-icons">emoji_nature</i>Environment
+      </button>
+    </section>
+    <section id="step2" data-section="2" class="compass-section" style="display:none;">
+      <h1>Step 6</h1>
+      <p>Select your location</p>
+      <!-- Location -->
+      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label class="mdl-textfield__label" for="profile-location">Enter your location</label>
+        <input type="text" name="profile-location" id="profile-location" class="mdl-textfield__input" >
+      </div>
+      <div id="compass-map" style="min-height: 350px; min-width: 100%;"></div>
+      <div class="notice">
+        Double-click on map creates a marker<br>
+        Click on a marker to delete it
+      </div>
+      <br>
+      <center>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
+          Skip
+        </button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
+          Back
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-complete" data-step="6">
+          Complete
+        </button>
+      </center>
+    </section>
+  </div>
+
+</template>

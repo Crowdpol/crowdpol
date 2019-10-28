@@ -1,6 +1,9 @@
 <template name="Wizard">
-  <div class="container narrow-container">
-    <section id="step1" data-section="1" class="wizard-section">
+  <div class="container wizard-container">
+    <div >
+      {{>ProgressBubbles stepCount="5"}}
+    </div>
+    <section id="step1" data-section="1" class="wizard-section narrow-container">
       <h1>Step 1</h1>
       <p>Provide us with your basic information</p>
       <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -38,6 +41,14 @@
         <div id="profile-details-header" class="profile-details app-container collapsed">
           {{>ProfileImage editable=true userId=userId groupHandle=false}}
         </div>
+        {{#if photo}}
+          <div>
+            <img src={{photo}} />
+          </div>
+        {{/if}}
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="take-photo">
+          Take Photo
+        </button>
       </div>
       <!--
       <button class="mdl-button mdl-js-button mdl-button-raised mdl-button-colored">
@@ -157,49 +168,133 @@
     <section id="step5" data-section="5" class="wizard-section" style="display:none;">
       <h1>Step 5</h1>
       <p>External Links</p>
+
       <!-- Twitter -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <i class="fa fa-twitter fa-fw  mdl-textfield__label__icon"></i>
-        <label class="mdl-textfield__label" for="profile-twitter">Twitter</label>
-        <input type="text" name="profile-twitter" id="profile-twitter" class="mdl-textfield__input" value="{{profile.social.twitter}}">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--9-col">
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <i class="fa fa-twitter fa-fw  mdl-textfield__label__icon"></i>
+            <label class="mdl-textfield__label" for="profile-twitter">Twitter</label>
+            <input type="text" name="profile-twitter" id="profile-twitter" class="mdl-textfield__input" value="{{profile.social.twitter}}">
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col">
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="twitter-switch">
+            <input type="checkbox" id="twitter-switch" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
       </div>
+
+
       <!-- Google Plus -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
-        <i class="fa fa-google-plus  mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-google">Google+</label>
-        <input type="text" name="profile-google" id="profile-google" class="mdl-textfield__input"  value="{{profile.social.google}}">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--9-col">
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
+            <i class="fa fa-google-plus  mdl-textfield__label__icon" aria-hidden="true"></i>
+            <label class="mdl-textfield__label" for="profile-google">Google+</label>
+            <input type="text" name="profile-google" id="profile-google" class="mdl-textfield__input"  value="{{profile.social.google}}">
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col">
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="google-switch">
+            <input type="checkbox" id="google-switch" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
       </div>
+
+
       <!-- Linked In -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <i class="fa fa-linkedin mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-linkedin">Linked In</label>
-        <input type="text" id="profile-linkedin" name="profile-linkedin" class="mdl-textfield__input" value="{{profile.social.linkedin}}">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--9-col">
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <i class="fa fa-linkedin mdl-textfield__label__icon" aria-hidden="true"></i>
+            <label class="mdl-textfield__label" for="profile-linkedin">Linked In</label>
+            <input type="text" id="profile-linkedin" name="profile-linkedin" class="mdl-textfield__input" value="{{profile.social.linkedin}}">
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col">
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="linkedin-switch">
+            <input type="checkbox" id="linkedin-switch" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
       </div>
+
+
       <!-- Facebook-->
-      <div class="input-wrap mdl-textfield mdl-js-textfield">
-        <i class="fa fa-facebook mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-facebook" >Facebook</label>
-        <input type="text" id="profile-facebook" name="profile-facebook" class="mdl-textfield__input" value="{{profile.social.facebook}}">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--9-col">
+          <div class="input-wrap mdl-textfield mdl-js-textfield">
+            <i class="fa fa-facebook mdl-textfield__label__icon" aria-hidden="true"></i>
+            <label class="mdl-textfield__label" for="profile-facebook" >Facebook</label>
+            <input type="text" id="profile-facebook" name="profile-facebook" class="mdl-textfield__input" value="{{profile.social.facebook}}">
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col">
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="facebook-switch">
+            <input type="checkbox" id="facebok-switch" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
       </div>
+
+
       <!-- Instagram -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <i class="fa fa-instagram mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-instagram">Instagram</label>
-        <input type="text" id="profile-instagram" name="profile-instagram" class="mdl-textfield__input" value="{{profile.social.instagram}}">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--9-col">
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <i class="fa fa-instagram mdl-textfield__label__icon" aria-hidden="true"></i>
+            <label class="mdl-textfield__label" for="profile-instagram">Instagram</label>
+            <input type="text" id="profile-instagram" name="profile-instagram" class="mdl-textfield__input" value="{{profile.social.instagram}}">
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col">
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="instagram-switch">
+            <input type="checkbox" id="instagram-switch" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
       </div>
+
+
       <!-- YouTube -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <i class="fa fa-instagram mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-instagram">Youtube</label>
-        <input type="text" id="profile-youtube" name="profile-youtube" class="mdl-textfield__input" value="{{profile.social.youtube}}">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--9-col">
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <i class="fa fa-instagram mdl-textfield__label__icon" aria-hidden="true"></i>
+            <label class="mdl-textfield__label" for="profile-instagram">Youtube</label>
+            <input type="text" id="profile-youtube" name="profile-youtube" class="mdl-textfield__input" value="{{profile.social.youtube}}">
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col">
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="youtube-switch">
+            <input type="checkbox" id="youtube-switch" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
       </div>
+
+
       <p>Website or blog</p>
       <!-- Website -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <i class="fa fa-home mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-website">Website</label>
-        <input type="text" id="profile-website" name="profile-website" class="mdl-textfield__input" value="{{profile.website}}">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--9-col">
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <i class="fa fa-home mdl-textfield__label__icon" aria-hidden="true"></i>
+            <label class="mdl-textfield__label" for="profile-website">Website</label>
+            <input type="text" id="profile-website" name="profile-website" class="mdl-textfield__input" value="{{profile.website}}">
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col">
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="website-switch">
+            <input type="checkbox" id="website-switch" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
       </div>
+
       <br>
       <center>
         <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
