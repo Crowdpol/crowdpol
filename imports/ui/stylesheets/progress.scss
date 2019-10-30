@@ -18,7 +18,7 @@
   justify-content: space-between;
   //width: 200px;
 }
-.step {
+.progress-step {
   width: 20px;
   height: 20px;
   background: #fff;
@@ -26,10 +26,10 @@
   border-radius: 50%;
   transition: background 1s;
 }
-.step.selected {
+.progress-step.selected {
   border: 2px solid #4B81BD;
 }
-.step.completed {
+.progress-step.completed {
   border: 2px solid #4B81BD;
   background: #4B81BD;
 }

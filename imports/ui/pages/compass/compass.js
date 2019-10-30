@@ -1,3 +1,4 @@
+import {map,loadMap,addLayer} from '../../components/maps/leaflet.js'
 import './compass.html';
 
 Template.Compass.onCreated(function(){
@@ -8,7 +9,12 @@ Template.Compass.onCreated(function(){
 });
 
 Template.Compass.onRendered(function(){
-
+  //loadMap();
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition,showError);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
 });
 
 Template.Compass.helpers({
@@ -47,7 +53,7 @@ function moveStep(currentStep,direction){;
   $(nextStepSelector).show();
   return nextStep;
 }
-
+/*
 Template.Compass.rendered = function() {
   L.Icon.Default.imagePath = '/packages/bevanhunt_leaflet/images/';
 
@@ -71,7 +77,7 @@ Template.Compass.rendered = function() {
   var markers = L.markerClusterGroup();
   map.addLayer(markers);
   //console.log(markers);
-  /*
+
   var query = Markers.find();
   query.observe({
     added: function (document) {
@@ -94,11 +100,14 @@ Template.Compass.rendered = function() {
       }
     }
 
-  });*/
-};
+  });
+};*/
 
 function showPosition(position) {
-  console.log(position.coords.latitude + ", " + position.coords.longitude);
+  let coords = [ position.coords.latitude,position.coords.longitude];
+  console.log(coords)
+  var marker = L.marker(coords).addTo(map);
+  map.panTo(new L.LatLng(position.coords.latitude,position.coords.longitude));
 }
 
 function showError(error) {

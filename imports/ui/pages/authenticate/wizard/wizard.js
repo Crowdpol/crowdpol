@@ -1,19 +1,34 @@
 import { getTags } from '../../../components/taggle/taggle.js'
 import { getProfilePic,showProfileUrl } from '../../../components/profileHeader/profileImage.js'
-import { progressSetStep,progressGetStep } from '../../../components/progress/progressBubbles.js'
+//import { progressSetStep,progressGetStep } from '../../../components/progress/progressBubbles.js'
+import Images from '/lib/images.collection.js';
 import './wizard.html';
+let steps = [];
 
 Template.Wizard.onCreated(function(){
   self = this;
   //Reactive Variables
-  self.currentStep = new ReactiveVar([]);
-  self.currentStep.set("1");
+  self.currentStep = new ReactiveVar(1);
+  self.currentUpload = new ReactiveVar(false);
+  self.currentSelection = new ReactiveVar('/img/default-user-image.png');
 });
 
 Template.Wizard.onRendered(function(){
   showProfileUrl();
   var picker = new Pikaday({ field: document.getElementById('startDate') });
-  console.log(Meteor.settings)
+  //console.log(Meteor.settings)
+  let els = document.getElementsByClassName('step');
+
+  Array.prototype.forEach.call(els, (e) => {
+    steps.push(e);
+  });
+  setStep = FlowRouter.getParam("step");
+  if(setStep){
+    this.currentStep = setStep;
+    setStep = setStep -1
+    els[setStep].classList.add('selected');
+  }
+  els[0].classList.add('selected');
 });
 
 Template.Wizard.helpers({
@@ -26,17 +41,33 @@ Template.Wizard.helpers({
   },
   photo: function () {
     return Session.get("photo");
+  },
+  currentUpload: function () {
+    return Template.instance().currentUpload.get();
+  },
+  uploadedUserFiles: function () {
+    return Images.find({"userId":Meteor.userId()});
+  },
+  currentSelection: function () {
+    return Template.instance().currentSelection.get();
+  },
+  currentStep: function () {
+    return Template.instance().currentStep.get();
   }
 });
 
 Template.Wizard.events({
+  'click .step': function(e){
+    let nextStep = e.target.dataset.step;
+    if(nextStep){
+      progressSetStep(e.target.dataset.step);
+    }
+  },
+  'click .wizard-avatar'(event, template){
+    Template.instance().currentSelection.set(event.currentTarget.src);
+    $('.profile-pic').css("background-image","url("+event.currentTarget.src+")");
+  },
   'click #take-photo'(event, template){
-    /*MeteorCameraUI.getPicture([
-      "width": 100,
-      "height": 100,
-      "quality": 1
-    ]);
-    */
     event.preventDefault();
     var cameraOptions = {
             width: 800,
@@ -51,7 +82,36 @@ Template.Wizard.events({
            }
         });
   },
+  'change #fileInput': function (e, template) {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      // We upload only one file, in case
+      // there was multiple files selected
+      var file = e.currentTarget.files[0];
+      if (file) {
+        var uploadInstance = Images.insert({
+          file: file,
+          streams: 'dynamic',
+          chunkSize: 'dynamic'
+        }, false);
 
+        uploadInstance.on('start', function() {
+          template.currentUpload.set(this);
+        });
+
+        uploadInstance.on('end', function(error, fileObj) {
+          if (error) {
+            Bert.alert('Error during upload: ' + error.reason,'danger');
+          } else {
+            console.log(fileObj);
+            Bert.alert('File "' + fileObj.name + '" successfully uploaded','success');
+          }
+          template.currentUpload.set(false);
+        });
+
+        uploadInstance.start();
+      }
+    }
+  },
   'click #startDate' (event, template){
     $('#startDate')[0].MaterialTextfield.checkDirty();
   },
@@ -61,13 +121,19 @@ Template.Wizard.events({
   },
 	'click .wizard-next' (event, template){
 		event.preventDefault();
-    $( "#change-photo" ).show();
-		template.currentStep.set(moveStep(template.currentStep.get(),1));
+    //$( "#change-photo" ).show();
+    currentStep = Template.instance().currentStep.get()
+    nextStep = currentStep + 1;
+    progressSetStep(nextStep);
+		//template.currentStep.set(moveStep(template.currentStep.get(),1));
 
 	},
   'click .wizard-back' (event, template){
 		event.preventDefault();
-		template.currentStep.set(moveStep(template.currentStep.get(),-1));
+    currentStep = Template.instance().currentStep.get()
+    nextStep = currentStep - 1;
+    progressSetStep(nextStep);
+		//template.currentStep.set(moveStep(template.currentStep.get(),-1));
 	},
   'click .wizard-complete' (event, template){
     event.preventDefault();
@@ -89,23 +155,26 @@ Template.Wizard.events({
     profile.website = $('#profile-website').val();
     profile.location = $('#profile-location').val();
     console.log(profile);
-    FlowRouter.go('/dash/vote');
+    FlowRouter.go('/compass');
   }
 });
 
 /*
 ** -1 for back, 1 for forwards
-*/
+
 function moveStep(currentStep,direction){;
   let nextStep = direction + parseFloat(currentStep);
   let currentStepSelector = '*[data-section="'+currentStep+'"]';
   let nextStepSelector = '*[data-section="'+nextStep+'"]';
-  $(currentStepSelector).hide();
+  console.log("nextStepSelector: " + nextStepSelector);
+  console.log("currentStepSelector: " + currentStepSelector);
+  $(".wizard-section").hide();
   $(nextStepSelector).show();
   progressSetStep(nextStep-1);
   return nextStep;
 }
-
+*/
+/*
 Template.Wizard.rendered = function() {
   L.Icon.Default.imagePath = '/packages/bevanhunt_leaflet/images/';
 
@@ -129,7 +198,7 @@ Template.Wizard.rendered = function() {
   var markers = L.markerClusterGroup();
   map.addLayer(markers);
   //console.log(markers);
-  /*
+
   var query = Markers.find();
   query.observe({
     added: function (document) {
@@ -152,9 +221,9 @@ Template.Wizard.rendered = function() {
       }
     }
 
-  });*/
+  });
 };
-
+*/
 function showPosition(position) {
   console.log(position.coords.latitude + ", " + position.coords.longitude);
 }
@@ -174,4 +243,27 @@ function showError(error) {
       console.log("An unknown error occurred.");
       break;
   }
+}
+
+function progressSetStep(stepNum){
+  let nextStepSelector = '*[data-section="'+stepNum+'"]';
+  $(".wizard-section").hide();
+  $(nextStepSelector).show();
+  currentStep = stepNum;
+  Template.instance().currentStep.set(currentStep);
+  let distance = 100/(steps.length-1);
+  let p = stepNum * distance;
+  document.getElementsByClassName('percent')[0].style.width = `${p}%`;
+  steps.forEach((e) => {
+    if (e.id === stepNum) {
+      e.classList.add('selected');
+      e.classList.remove('completed');
+    }
+    if (e.id < stepNum) {
+      e.classList.add('completed');
+    }
+    if (e.id > stepNum) {
+      e.classList.remove('selected', 'completed');
+    }
+  });
 }

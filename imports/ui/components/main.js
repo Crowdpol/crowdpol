@@ -15,3 +15,4 @@ import './maps/leaflet.js';
 import './maps/communityMap.js';
 import './feed/feed.js';
 import './progress/progressBubbles.js';
+import './files/files.js';

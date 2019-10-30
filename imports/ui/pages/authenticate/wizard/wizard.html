@@ -1,7 +1,19 @@
 <template name="Wizard">
   <div class="container wizard-container">
-    <div >
-      {{>ProgressBubbles stepCount="5"}}
+    <div class="">
+      <div class="progress-bubbles-container">
+        <div class="progress">
+           <div class="percent"></div>
+         </div>
+         <div class="steps">
+             <div class="progress-step step" id="1" data-step="1"></div>
+             <div class="progress-step step" id="2" data-step="2"></div>
+             <div class="progress-step step" id="3" data-step="3"></div>
+             <div class="progress-step step" id="4" data-step="4"></div>
+             <div class="progress-step step" id="5" data-step="5"></div>
+             <div class="progress-step step" id="6" data-step="6"></div>
+         </div>
+      </div>
     </div>
     <section id="step1" data-section="1" class="wizard-section narrow-container">
       <h1>Step 1</h1>
@@ -28,7 +40,7 @@
         <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
           Skip
         </button>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="1">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next">
           Next
         </button>
       </center>
@@ -36,19 +48,69 @@
     <section id="step2" data-section="2" class="wizard-section" style="display:none;">
       <h1>Step 2</h1>
       <p>Upload a profile picture</p>
+      <!--
+      <img src="{{currentSelection}}" alt="Avatar" class="image">
+      <div class="profile-pic-container">
+        <div id="selected-profile-pic"></div>
 
+        <div class="overlay">
+          <Label class="input-custom-file mdl-button mdl-js-button mdl-button- -raised mdl-js-ripple-effect mdl-button- -colored" id="photo-button">
+            <i class="material-icons" id="change-photo-icon">camera_alt</i>
+            <input type="file" id="fileInput">
+          </label>
+        </div>
+
+      </div>
+      -->
+      <div class="profile-pic-container">
+        <div class="profile-pic-wrapper">
+        	<div class="profile-pic"></div>
+          <div class="overlay">
+            <div class="text">
+              <Label class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="photo-button">
+                <i class="material-icons" id="change-photo-icon">camera_alt</i>
+                <input type="file" id="fileInput">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="profile-cover">
-        <div id="profile-details-header" class="profile-details app-container collapsed">
+
+        <!--<div id="profile-details-header" class="profile-details app-container collapsed">
           {{>ProfileImage editable=true userId=userId groupHandle=false}}
+        </div>-->
+        <!-- Accent-colored raised button with ripple -->
+
+        {{#with currentUpload}}
+          Uploading <b>{{file.name}}</b>:
+          <span id="progress">{{progress.get}}%</span>
+        {{else}}
+
+        <center><small>Upload file in <code>jpeg</code> or <code>png</code> format, with size less or equal to 2MB</small></center>
+        {{/with}}
+        {{currentUpload}}
+        <div>
+          {{#if uploadedUserFiles.count}}
+            <img src="/img/default-user-image.png" class="wizard-avatar">
+              {{#each file in uploadedUserFiles.each}}
+                <img src="{{file.link}}" alt="Avatar" class="wizard-avatar">
+              {{/each}}
+          <!--{{else}}
+            <center><small>No files uploaded, yet</small></center>-->
+          {{/if}}
         </div>
         {{#if photo}}
           <div>
             <img src={{photo}} />
           </div>
         {{/if}}
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="take-photo">
-          Take Photo
-        </button>
+        <br>
+        <center>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="take-photo">
+            Take Photo
+          </button>
+        </center>
       </div>
       <!--
       <button class="mdl-button mdl-js-button mdl-button-raised mdl-button-colored">
@@ -63,12 +125,12 @@
       <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
         Back
       </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="2">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next">
         Next
       </button>
       </center>
     </section>
-    <section id="step1" data-section="3" class="wizard-section" style="display:none;">
+    <section id="step3" data-section="3" class="wizard-section" style="display:none;">
       <h1>Step 3</h1>
       <p>My motto</p>
       <div class="mdl-textfield mdl-js-textfield">
@@ -91,7 +153,7 @@
         Back
       </button>
 
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="4">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next">
         Next
       </button>
       </center>
@@ -150,7 +212,6 @@
         </div>
       </div>
 
-
       {{>SkillDescription}}
       <br>
       <center>
@@ -160,7 +221,7 @@
       <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
         Back
       </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="4">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next">
         Next
       </button>
       </center>
@@ -186,7 +247,6 @@
         </div>
       </div>
 
-
       <!-- Google Plus -->
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--9-col">
@@ -203,7 +263,6 @@
           </label>
         </div>
       </div>
-
 
       <!-- Linked In -->
       <div class="mdl-grid">
@@ -222,7 +281,6 @@
         </div>
       </div>
 
-
       <!-- Facebook-->
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--9-col">
@@ -239,7 +297,6 @@
           </label>
         </div>
       </div>
-
 
       <!-- Instagram -->
       <div class="mdl-grid">
@@ -258,7 +315,6 @@
         </div>
       </div>
 
-
       <!-- YouTube -->
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--9-col">
@@ -275,7 +331,6 @@
           </label>
         </div>
       </div>
-
 
       <p>Website or blog</p>
       <!-- Website -->
@@ -300,39 +355,29 @@
         <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
           Skip
         </button>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back" data-step="4">
           Back
         </button>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="5">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="6">
           Next
         </button>
       </center>
     </section>
     <section id="step6" data-section="6" class="wizard-section" style="display:none;">
       <h1>Step 6</h1>
-      <p>Select your location</p>
-      <!-- Location -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <label class="mdl-textfield__label" for="profile-location">Enter your location</label>
-        <input type="text" name="profile-location" id="profile-location" class="mdl-textfield__input" >
-      </div>
-      <div id="wizard-map" style="min-height: 350px; min-width: 100%;"></div>
-      <div class="notice">
-        Double-click on map creates a marker<br>
-        Click on a marker to delete it
-      </div>
-      <br>
-      <center>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
-          Skip
-        </button>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
-          Back
-        </button>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-complete" data-step="6">
-          Complete
-        </button>
-      </center>
+      <button class="mdl-button mdl-js-button mdl-button--raised">
+        <i class="material-icons">emoji_nature</i>&nbsp;Explore The World&nbsp;<i class="material-icons">arrow_right_alt</i>
+      </button>
+      <hr>
+      <center>OR</center>
+      <hr>
+      {{> Compass}}
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back" data-step="5">
+        Back
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-complete">
+        Complete
+      </button>
     </section>
   </div>
 
