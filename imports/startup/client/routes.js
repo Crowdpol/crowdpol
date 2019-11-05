@@ -301,6 +301,24 @@ loggedInRoutes.route('/feed/:id', {
   },
 });
 
+loggedInRoutes.route('/presence', {
+  name: 'App.presence',
+  action() {
+    BlazeLayout.render('Test', {
+      left: 'PresenceLeft',
+      main: 'PresenceContent',
+      left: 'PresenceRight'
+    });
+  },
+});
+
+loggedInRoutes.route('/presence/:id', {
+  name: 'App.presence',
+  action() {
+    BlazeLayout.render('App_body', { main: 'UserPresence' });
+  },
+});
+
 
 loggedInRoutes.route('/dash', {
   name: 'App.dash',

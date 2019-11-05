@@ -46,6 +46,8 @@ import './pages/notifications/notifications.js';
 import './pages/group/group.js';
 import './pages/compass/compass.js';
 import './pages/tags/interests.js';
+import './pages/presence/userPresence.js';
+import './pages/test/test.js';
 import './pages/test/test.js';
 import './pages/not-found/not-found.js';
 import './stylesheets/stylesheets.js';
