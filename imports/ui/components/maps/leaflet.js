@@ -90,6 +90,7 @@ function setTiles(){
   //console.log("Leaflet: setTiles()");
   //load base tiles map, to see more: https://leaflet-extras.github.io/leaflet-providers/preview/
   var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
+
   tiles.addTo(map);
 }
 export function addLayer(layer){

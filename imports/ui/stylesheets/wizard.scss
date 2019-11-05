@@ -1,14 +1,33 @@
+.wizard-profile-preview-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .wizard-avatar-preview{
+    width: 100px;
+    height: 100px;
+    background-image: url('/img/default-user-image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
 
+  }
+  .wizard-avatar-preview.selected{
+    border: solid 3px orange;
+  }
+}
 .wizard-container{
   background-image: url('img/landing/worldmap.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center top;
   .wizard-section{
-    max-width: 40rem;
-    margin: 0 auto;
-    padding: 1.6rem;
-    //border: solid 1px red;
+    div.wizard-section-container{
+      max-width: 40rem;
+      margin: 0 auto;
+      padding: 1.6rem;
+      //border: solid 1px red;
+    }
+
   }
   .mdl-textfield{
     width: 100%;

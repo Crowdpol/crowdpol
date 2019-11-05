@@ -245,11 +245,17 @@ var loggedInRoutes = FlowRouter.group({
   }]
 });
 
-publicRoutes.route('/wizard', {
+loggedInRoutes.route('/wizard', {
   name: 'App.wizard',
   action() {
     BlazeLayout.render('App_body', { main: 'Wizard' });
   },
+});
+loggedInRoutes.route('/wizard/step/:id', {
+name: 'App.wizard',
+action() {
+  BlazeLayout.render('App_body', { main: 'Wizard' });
+},
 });
 
 publicRoutes.route('/compass', {

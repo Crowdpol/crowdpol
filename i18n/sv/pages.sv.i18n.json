@@ -472,7 +472,9 @@
 					"profile":"Min Profil",
 					"settings":"Profilinställningar",
 					"interests":"Mina Intressen",
-					"delegates":"Delegera"
+					"delegates":"Delegera",
+					"links":"TODO: Links",
+					"skills":"TODO: Skills"
 				}
 			},
 			"account":{

@@ -1,7 +1,8 @@
 import { getTags } from '../../../components/taggle/taggle.js'
 import { getProfilePic,showProfileUrl } from '../../../components/profileHeader/profileImage.js'
-//import { progressSetStep,progressGetStep } from '../../../components/progress/progressBubbles.js'
+import {map,loadMap,addLayer} from '../../../components/maps/leaflet.js'
 import Images from '/lib/images.collection.js';
+import RavenClient from 'raven-js';
 import './wizard.html';
 let steps = [];
 
@@ -15,20 +16,46 @@ Template.Wizard.onCreated(function(){
 
 Template.Wizard.onRendered(function(){
   showProfileUrl();
-  var picker = new Pikaday({ field: document.getElementById('startDate') });
+  var picker = new Pikaday({
+    field: document.getElementById('profile-dob'),
+    firstDay: 1,
+    minDate: new Date(1900, 0, 1),
+    maxDate: new Date(),
+    yearRange: [1900, 2020],
+    showTime: false,
+    autoClose: true,
+    format: 'DD-MMM-YYYY',
+    disableDayFn: function(date) {
+      return moment().isBefore(moment(date), 'day');
+    }
+  });
+  picker.setDate(new Date());
   //console.log(Meteor.settings)
   let els = document.getElementsByClassName('step');
 
   Array.prototype.forEach.call(els, (e) => {
     steps.push(e);
   });
-  setStep = FlowRouter.getParam("step");
+  setStep = FlowRouter.getParam("id");
   if(setStep){
     this.currentStep = setStep;
+    progressSetStep(setStep);
     setStep = setStep -1
     els[setStep].classList.add('selected');
   }
   els[0].classList.add('selected');
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition,showError);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+  var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
+    for (var i = 0, l = mdlInputs.length; i < l; i++) {
+      console.log(mdlInputs[i]);
+      console.log(mdlInputs[i].MaterialTextfield);
+      console.log(mdlInputs[i].MaterialTextfield.checkDirty());
+      mdlInputs[i].MaterialTextfield.checkDirty();
+    }
 });
 
 Template.Wizard.helpers({
@@ -53,10 +80,35 @@ Template.Wizard.helpers({
   },
   currentStep: function () {
     return Template.instance().currentStep.get();
-  }
+  },
+  selectedTags: ()=> {
+
+    let userProfile = Meteor.user().profile;
+    if(typeof userProfile == 'undefined'){
+      return [];
+    }
+    let tagsArray = userProfile.tags;
+    if(typeof tagsArray == 'undefined'){
+      tagsArray = [];
+      //selectedTags = Tags.find({_id: {$in: tagsArray}});
+      //Session.set("selectedTags",selectedTags);
+      //return selectedTags;
+    }
+    return tagsArray;
+  },
 });
 
 Template.Wizard.events({
+  'click .wizard-avatar-preview'(event, template){
+    $(".wizard-avatar-preview.selected").removeClass("selected");
+    $(event.currentTarget).addClass("selected");
+
+    let image = $(event.currentTarget).css('background-image');
+    url = image.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+    console.log(url);
+    Template.instance().currentSelection.set(url);
+    $('.profile-pic').css("background-image",image);
+  },
   'click .step': function(e){
     let nextStep = e.target.dataset.step;
     if(nextStep){
@@ -117,13 +169,16 @@ Template.Wizard.events({
   },
   'click .wizard-skip' (event, template){
     event.preventDefault();
+    confirm("Press a button!");
     FlowRouter.go('/dash/vote');
   },
 	'click .wizard-next' (event, template){
 		event.preventDefault();
     //$( "#change-photo" ).show();
-    currentStep = Template.instance().currentStep.get()
+    currentStep = template.currentStep.get()
     nextStep = currentStep + 1;
+    console.log("next - currentStep: " + currentStep + " nextStep: " + nextStep);
+    Template.instance().currentStep.set(nextStep);
     progressSetStep(nextStep);
 		//template.currentStep.set(moveStep(template.currentStep.get(),1));
 
@@ -132,6 +187,8 @@ Template.Wizard.events({
 		event.preventDefault();
     currentStep = Template.instance().currentStep.get()
     nextStep = currentStep - 1;
+    console.log("back - currentStep: " + currentStep + " nextStep: " + nextStep);
+    Template.instance().currentStep.set(nextStep);
     progressSetStep(nextStep);
 		//template.currentStep.set(moveStep(template.currentStep.get(),-1));
 	},
@@ -139,23 +196,130 @@ Template.Wizard.events({
     event.preventDefault();
     var profile = {};
     profile.username = $('#profile-username').val();
-    profile.firstname = $('#profile-firstname').val();
-    profile.lastname = $('#profile-lastname').val();
-    profile.dob = $('#profile-dob').val();
-    profile.image = getProfilePic();//'https://upload.wikimedia.org/wikipedia/commons/b/b4/Brett_king_futurist_speaker_author.jpg';//$('#profile-image').val();
+    profile.firstName = $('#profile-firstname').val();
+    profile.lastName = $('#profile-lastname').val();
+    profile.birthday = $('#profile-dob').val();
+    profile.photo = $('#profile-image').val();//getProfilePic();//'https://upload.wikimedia.org/wikipedia/commons/b/b4/Brett_king_futurist_speaker_author.jpg';//$('#profile-image').val();
     profile.tagline = $('#profile-tagline').val();
-    profile.presentation = $('#profile-presentation').val();
-    profile.tags = getTags();//$('#profile-tags').val();
-    profile.skills = {};//$('#profile-skills').val();
-    profile.twitter = $('#profile-twitter').val();
-    profile.google  = $('#profile-google').val();
-    profile.facebook  = $('#profile-facebook').val();
-    profile.linkedin  = $('#profile-linkedin').val();
-    profile.youtube = $('#profile-youtube').val();
-    profile.website = $('#profile-website').val();
+    profile.bio = $('#profile-bio').val();
+    profile.tags = getTags();
+    profile.motto  = $('#profile-motto').val();
+    //profile.skills = {};//$('#profile-skills').val();
+    //profile.twitter = $('#profile-twitter').val();
+    //profile.google  = $('#profile-google').val();
+    //profile.facebook  = $('#profile-facebook').val();
+    //profile.linkedin  = $('#profile-linkedin').val();
+    //profile.youtube = $('#profile-youtube').val();
+    //profile.website = $('#profile-website').val();
     profile.location = $('#profile-location').val();
+    profile.social = [
+      {
+        "type": "twitter",
+        "url": $('#profile-twitter').val(),
+        "validated": false,
+        "visible": $('#twitter-switch').is(":checked"),
+      },
+      {
+        "type": "google",
+        "url": $('#profile-google').val(),
+        "validated": false,
+        "visible": $('#google-switch').is(":checked"),
+      },
+      {
+        "type": "facebook",
+        "url": $('#profile-facebook').val(),
+        "validated": false,
+        "visible": $('#facebook-switch').is(":checked"),
+      },
+      {
+        "type": "linkedin",
+        "url": $('#profile-linkedin').val(),
+        "validated": false,
+        "visible": $('#linkedin-switch').is(":checked"),
+      },
+      {
+        "type": "instagram",
+        "url": $('#profile-instagram').val(),
+        "validated": false,
+        "visible": $('#instagram-switch').is(":checked"),
+      },
+      {
+        "type": "youtube",
+        "url": $('#profile-youtube').val(),
+        "validated": false,
+        "visible": $('#youtube-switch').is(":checked"),
+      },
+      {
+        "type": "website",
+        "url": $('#profile-website').val(),
+        "validated": false,
+        "visible": $('#youtube-website').is(":checked"),
+      }
+    ];
+    profile.skillsDescription = $("#profile-skills-description").val();
+    profile.skills = [
+      {
+        type:"legal",
+        description:"",
+        selected:$('#checkbox-legal').is(":checked")
+      },
+      {
+        type:"business",
+        description:"",
+        selected:$('#checkbox-business').is(":checked")
+      },
+      {
+        type:"finance",
+        description:"",
+        selected:$('#checkbox-finance').is(":checked")
+      },
+      {
+        type:"marketing",
+        description:"",
+        selected:$('#checkbox-marketing').is(":checked")
+      },
+      {
+        type:"environment",
+        description:"",
+        selected:$('#checkbox-environment').is(":checked")
+      },
+      {
+        type:"political",
+        description:"",
+        selected:$('#checkbox-political').is(":checked")
+      },
+      {
+        type:"management",
+        description:"",
+        selected:$('#checkbox-management').is(":checked")
+      },
+      {
+        type:"administration",
+        description:"",
+        selected:$('#checkbox-admin').is(":checked")
+      },
+      {
+        type:"design",
+        description:"",
+        selected:$('#checkbox-design').is(":checked")
+      },
+      {
+        type:"programming",
+        description:"",
+        selected:$('#checkbox-programming').is(":checked")
+      }
+    ]
     console.log(profile);
-    FlowRouter.go('/compass');
+    Meteor.call('updateProfile', profile, function(error) {
+      if (error) {
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
+        FlowRouter.go('/compass');
+      }
+    });
+
   }
 });
 
@@ -224,9 +388,6 @@ Template.Wizard.rendered = function() {
   });
 };
 */
-function showPosition(position) {
-  console.log(position.coords.latitude + ", " + position.coords.longitude);
-}
 
 function showError(error) {
   switch(error.code) {
@@ -250,9 +411,12 @@ function progressSetStep(stepNum){
   $(".wizard-section").hide();
   $(nextStepSelector).show();
   currentStep = stepNum;
-  Template.instance().currentStep.set(currentStep);
   let distance = 100/(steps.length-1);
-  let p = stepNum * distance;
+  let p = (stepNum+1) * distance;
+  console.log("steps.length: " + steps.length);
+  console.log("currentStep: " + stepNum);
+  console.log("nextStepSelector: " + nextStepSelector);
+  console.log("distance: " + distance);
   document.getElementsByClassName('percent')[0].style.width = `${p}%`;
   steps.forEach((e) => {
     if (e.id === stepNum) {
@@ -266,4 +430,12 @@ function progressSetStep(stepNum){
       e.classList.remove('selected', 'completed');
     }
   });
+}
+
+function showPosition(position) {
+  let coords = [ position.coords.latitude,position.coords.longitude];
+  console.log(coords)
+  //var marker = L.marker(coords).addTo(map);
+  //map.panTo(new L.LatLng(position.coords.latitude,position.coords.longitude));
+  $("#profile-location").val(position.coords.latitude + ", " + position.coords.longitude);
 }

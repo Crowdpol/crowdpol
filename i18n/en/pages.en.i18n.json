@@ -482,7 +482,9 @@
 					"profile":"Profile",
 					"settings":"Settings",
 					"interests":"Interests",
-					"delegates":"Delegates"
+					"delegates":"Delegates",
+					"links":"Links",
+					"skills":"Skills"
 				}
 			},
 			"account":{

@@ -1,4 +1,4 @@
-import {map,loadMap,addLayer} from '../../components/maps/leaflet.js'
+
 import './compass.html';
 
 Template.Compass.onCreated(function(){
@@ -106,8 +106,8 @@ Template.Compass.rendered = function() {
 function showPosition(position) {
   let coords = [ position.coords.latitude,position.coords.longitude];
   console.log(coords)
-  var marker = L.marker(coords).addTo(map);
-  map.panTo(new L.LatLng(position.coords.latitude,position.coords.longitude));
+  //var marker = L.marker(coords).addTo(map);
+  //map.panTo(new L.LatLng(position.coords.latitude,position.coords.longitude));
 }
 
 function showError(error) {
