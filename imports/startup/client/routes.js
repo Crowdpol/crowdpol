@@ -300,7 +300,18 @@ loggedInRoutes.route('/feed/:id', {
     BlazeLayout.render('App_body', { main: 'UserFeed' });
   },
 });
-
+/*
+loggedInRoutes.route('/scaffold/dash', {
+  name: 'App.scaffold',
+  action() {
+    BlazeLayout.render('Scaffold', {
+      left: 'PresenceLeft',
+      main: 'PresenceContent',
+      left: 'PresenceRight'
+    });
+  },
+});
+*/
 loggedInRoutes.route('/presence', {
   name: 'App.presence',
   action() {

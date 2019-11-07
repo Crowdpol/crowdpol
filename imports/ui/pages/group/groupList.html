@@ -1,0 +1,24 @@
+<template name="GroupList">
+  <h5>Group List</h5>
+  {{#each group in groups}}
+    <div class="profile-card mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp" >
+      <div class="mdl-card__title profile-card-header" data-id="{{group._id}}">
+      <!-- style="background-image:{{coverURL userId}};" -->
+      </div>
+      <div class="mdl-card__supporting-text">
+        <a href="/feed/{{userId}}" class="profile-image-link view-user"><img src="{{group.photo}}" class="profile-image mdl-list__item-avatar"/></a>
+        <h6 class="mdl-card__title-text">{{group.name}}</h6>
+        <span class="username">{{group.handle}}</span>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        {{#if group.isOpen}}
+          {{#if alreadyFollowing userId}}
+            <button class="mdl-button mdl-js-button" id="unfollow-user" data-id="{{group._id}}">Unfollow<i class="material-icons" data-id="{{group._id}}">minus</i></button>
+          {{else}}
+            <button class="mdl-button mdl-js-button" id="follow-user" data-id="{{group._id}}">Follow<i class="material-icons" data-id="{{group._id}}">add</i></button>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+  {{/each}}
+</template>
