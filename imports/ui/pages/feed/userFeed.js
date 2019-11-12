@@ -1,7 +1,7 @@
 import "./userFeed.html"
 
 import '../../components/profileHeader/profileHeader.js';
-import { getUserProfilePhoto, getUserfullname, getUsername, getUserTags } from '../../../utils/users';
+import { getUserProfilePhoto, getUserfullname, getUsername, getUserTags, getUserInterests } from '../../../utils/users';
 import { Tags } from '../../../api/tags/Tags.js'
 import { Posts } from '../../../api/posts/Posts.js'
 import { Likes } from '../../../api/likes/Likes.js'
@@ -92,14 +92,14 @@ Template.UserFeed.helpers({
   followersCount: function(){
     return Meteor.users.find( { "profile.following" : getOwnerId() }).count();
   },
-  interestsCount: function(userId){
+  valuesCount: function(userId){
     let tagIdArray = getUserTags(getOwnerId());
     //console.log(tagIdArray);
     if(Array.isArray(tagIdArray)){
       return Tags.find({_id: {$in: tagIdArray}}).count();
     }
   },
-  interests: function(userId){
+  values: function(userId){
     let tagIdArray = getUserTags(getOwnerId());
     //console.log(tagIdArray);
     if(Array.isArray(tagIdArray)){
@@ -113,6 +113,9 @@ Template.UserFeed.helpers({
     }else{
       return 'tag-not-authorised';
     }
+  },
+  interests: function(){
+    return getUserInterests();
   }
 });
 

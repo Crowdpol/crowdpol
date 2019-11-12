@@ -6,105 +6,158 @@
   </div>
   -->
   <header class="header">
+    <!--{{>Cover editable=editable}}-->
     {{> ProfileHeader editable=false userId=thisUser}}
   </header>
-  <div class="column-container app-container" id="feed-body">
-    <aside class="aside aside-1" id="feed-side-column">
-      <div class="profile-card">
-        <h5>{{profileName}}</h5>
-        <small>{{profileUsername}}</small><br/>
-        {{#unless currentUser}}
-          {{#if alreadyFollowing}}
-            <button class="mdl-button mdl-js-button" id="unfollow-me">{{_ "feed.unfollow"}}<i class="material-icons">minus</i></button>
-          {{else}}
-            <button class="mdl-button mdl-js-button" id="follow-me">{{_ "feed.follow"}}<i class="material-icons">add</i></button>
-          {{/if}}
-        {{/unless}}
-        <br>
-        {{#if interestsCount}}
-          <strong>Interests</strong>
-          <div class="tags-wrap" >
-            <!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
-            {{#each interests}}
-              <a class="tag taggle-tag tag-chip {{isAuthorised this}}" id="{{this._id}}" data-id="{{this._id}}">{{this.keyword}}</a>
-            {{/each}}
-          </div>
-        {{/if}}
-      </div>
-    </aside>
-    <article class="main">
-      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-        <div class="mdl-tabs__tab-bar">
-          <a href="#user-home-panel" class="mdl-tabs__tab is-active">{{_ "feed.feed"}}</a>
-          <a href="#activity-panel" class="mdl-tabs__tab">{{_ "feed.activity"}}</a>
-          <a href="#followers-panel" class="mdl-tabs__tab">{{_ "feed.followers"}} {{#if followersCount}}({{followersCount}}){{/if}}</a>
-          <a href="#following-panel" class="mdl-tabs__tab">{{_ "feed.following"}} {{#if followingCount}}({{followingCount}}){{/if}}</a>
-        </div>
-
-        <div class="mdl-tabs__panel" id="activity-panel">
-
-          <ul class="user-home-list">
-
-            <li class="user-home-post">
-              {{>ActivityFeed}}
-            </li>
-          </ul>
-        </div>
-        <div class="mdl-tabs__panel is-active" id="user-home-panel">
-
-          <ul class="user-home-list">
-            <li class="user-home-post user-home-form">
-              <div class="post-header">
-                <div class="author-pic">
-                  <img src="{{profilePic currentUserId}}" class="">
+  <div class="" id="feed-body">
+    <div class='feed-wrapper'>
+      <div class='row'>
+        <div class='column left-column my-sidebar'>
+            <div class="sidebar-header">
+              <div class="profile-image"></div>
+              <div class="profile-name">
+                <h5>{{profileName}}</h5>
+                <small>{{profileUsername}}</small>
+              </div>
+              <div class="profile-follow">
+                {{#unless currentUser}}
+                  {{#if alreadyFollowing}}
+                    <button class="mdl-button mdl-js-button" id="unfollow-me">{{_ "feed.unfollow"}}<i class="material-icons">minus</i></button>
+                  {{else}}
+                    <button class="mdl-button mdl-js-button" id="follow-me">{{_ "feed.follow"}}<i class="material-icons">add</i></button>
+                  {{/if}}
+                {{/unless}}
+              </div>
+            </div>
+            <div class="sidebar-content">
+              <div class="row">
+                <div class="feed-sidebar-followers">
+                  {{followersCount}}
+                  <br>
+                  FOLLOWERS
                 </div>
-                <div class="post-content">
-                  <div class="post-area">
-                    <textarea class="post-textarea-small" type="text" rows= "1" id="post-message" placeholder="Say something..."></textarea>
-                    <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
-                  </div>
+                <div class="feed-sidebar-following">
+                  {{followingCount}}
+                  <br>
+                  FOLLOWING
+                </div>
+                <div class="feed-sidebar-movements">
+                  0
+                  <br>
+                  MOVEMENTS
                 </div>
               </div>
-            </li>
-            {{#each post in userFeed}}
-            <li class="user-home-post">
-              {{>ActivityFeed post=post}}
-            </li>
-            {{/each}}
-          </ul>
-        </div>
-        <div class="mdl-tabs__panel" id="followers-panel">
-          {{#unless followersCount}}
-            <br>
-            <center>No followers</center>
-          {{else}}
-            {{#each follower in followers}}
-              {{>UserCard userId=follower._id style="card"}}
-            {{/each}}
-          {{/unless}}
-        </div>
-        <div class="mdl-tabs__panel" id="following-panel">
-          {{#unless followingCount}}
-            <br>
-            <center>Not following anyone</center>
-          {{else}}
-            <div class="mdl-grid">
-            {{#each follow in following}}
-              {{>UserCard userId=follow._id style="card"}}
-            {{/each}}
+              <div class="row sidebar-social">
+                <i class="fa fa-google-plus  mdl-textfield__label__icon" aria-hidden="true"></i>
+                <i class="fa fa-twitter fa-fw  mdl-textfield__label__icon"></i>
+              </div>
+              <div class="row values-interests">
+                <div class="feed-values">
+                  <h6>Values</h6>
+                  {{#each value in values}}
+                    <span>{{value.keyword}}</span><br>
+                  {{/each}}
+                </div>
+                <div class="feed-interests">
+                  <h6>Interests</h6>
+                  <div class="row">
+                    <div class="interest">Interest 1</div>
+                    <div class="interest-amount"> <!-- Slider with Starting Value -->
+                      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="0">
+                    </div>
+                  </div>
+                  {{#each interest in interests}}
+                    <div class="row">
+                      <div class="interest">{{interest.type}}</div>
+                      <div class="interest-amount"> <!-- Slider with Starting Value -->
+                        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="0">
+                      </div>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+              <div class="row">
+                <h6>Influence</h6>
+                Show Map Here
+              </div>
             </div>
-          {{/unless}}
+        </div>
+        <div class='column center-column'>
+          <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+            <div class="mdl-tabs__tab-bar">
+              <a href="#user-home-panel" class="mdl-tabs__tab is-active">{{_ "feed.feed"}}</a>
+              <a href="#activity-panel" class="mdl-tabs__tab">{{_ "feed.activity"}}</a>
+              <a href="#followers-panel" class="mdl-tabs__tab">{{_ "feed.followers"}} </a>
+              <a href="#following-panel" class="mdl-tabs__tab">{{_ "feed.following"}} </a>
+            </div>
+
+            <div class="mdl-tabs__panel" id="activity-panel">
+
+              <ul class="user-home-list">
+
+                <li class="user-home-post">
+                  {{>ActivityFeed}}
+                </li>
+              </ul>
+            </div>
+            <div class="mdl-tabs__panel is-active" id="user-home-panel">
+
+              <ul class="user-home-list">
+                <li class="user-home-post user-home-form">
+                  <div class="post-header">
+                    <div class="author-pic">
+                      <img src="{{profilePic currentUserId}}" class="">
+                    </div>
+                    <div class="post-content">
+                      <div class="post-area">
+                        <textarea class="post-textarea-small" type="text" rows= "1" id="post-message" placeholder="Say something..."></textarea>
+                        <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                {{#each post in userFeed}}
+                <li class="user-home-post">
+                  {{>ActivityFeed post=post}}
+                </li>
+                {{/each}}
+              </ul>
+            </div>
+            <div class="mdl-tabs__panel" id="followers-panel">
+              {{#unless followersCount}}
+                <br>
+                <center>No followers</center>
+              {{else}}
+                {{#each follower in followers}}
+                  {{>UserCard userId=follower._id style="card"}}
+                {{/each}}
+              {{/unless}}
+            </div>
+            <div class="mdl-tabs__panel" id="following-panel">
+              {{#unless followingCount}}
+                <br>
+                <center>Not following anyone</center>
+              {{else}}
+                <div class="mdl-grid">
+                {{#each follow in following}}
+                  {{>UserCard userId=follow._id style="card"}}
+                {{/each}}
+                </div>
+              {{/unless}}
+            </div>
+          </div>
+        </div>
+        <div class='column right-column my-sidebar'>
+          <h5>Change Makers I follow</h5>
+          <br>
+          <div class="community-member-box">
+          {{#each follow in following}}
+            {{>UserCard userId=follow._id style="flat"}}
+          {{/each}}
+          </div>
         </div>
       </div>
-    </article>
-    <!--
-    <aside class="aside aside-2">
-      This is a side column.
-    </aside>
-    -->
-    <!--
-    <footer class="footer">Footer</footer>
-    -->
+    </div>
   </div>
 </template>
 

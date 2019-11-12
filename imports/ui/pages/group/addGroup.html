@@ -60,34 +60,45 @@
 </template>
 
 <template name="CreateGroup">
-  <h4>Create Group</h4>
   <form id="create-group-form">
-    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="group-type-selector">
-      <label class="mdl-textfield__label">Select Community</label>
-      <select class="mdl-textfield__input" id="group-type">
-        <option value="organisation" selected="selected">Organisation</option>
-        <option value="party">Political Party</option>
-        <option value="network">Network</option>
-        <option value="social">Social Interest Group</option>
-      </select>
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text"></h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="group-type-selector">
+            <label class="mdl-textfield__label">Select Community</label>
+            <select class="mdl-textfield__input" id="group-type">
+              <option value="organisation" selected="selected">Organisation</option>
+              <option value="party">Political Party</option>
+              <option value="network">Network</option>
+              <option value="social">Social Interest Group</option>
+            </select>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="group-name" name="group-name">
+            <label class="mdl-textfield__label" for="group-name">{{_ "form.name"}}</label>
+          </div>
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for="group-username">{{_ "form.username"}}</label>
+            <input type="text" id="group-username" class="mdl-textfield__input" name="group-username">
+            <span id="valid-username" class="valid-username"></span>
+          </div>
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="group-open">
+            <input type="checkbox" id="group-open" class="mdl-switch__input" checked>
+            <span class="mdl-switch__label">Open</span>
+          </label>
+
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect " id="create-group">
+          Create Group
+        </button>
+      </div>
     </div>
-    <div class="mdl-textfield mdl-js-textfield">
-              <input class="mdl-textfield__input" type="text" id="group-name" name="group-name">
-              <label class="mdl-textfield__label" for="group-name">{{_ "form.name"}}</label>
-    </div>
-    <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <label class="mdl-textfield__label" for="group-username">{{_ "form.username"}}</label>
-              <input type="text" id="group-username" class="mdl-textfield__input" name="group-username">
-              <span id="valid-username" class="valid-username"></span>
-    </div>
-    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="group-open">
-      <input type="checkbox" id="group-open" class="mdl-switch__input" checked>
-      <span class="mdl-switch__label">Open</span>
-    </label>
-    <button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create-group">
-    Create Group
-    </button>
   </form>
+
         <!--
         <div class="form-group">
           {{> UserSearch}}

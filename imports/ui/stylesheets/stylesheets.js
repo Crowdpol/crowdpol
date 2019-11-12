@@ -50,4 +50,5 @@ import './usersearch.scss';
 import './wizard.scss';
 import './maps.scss';
 import './proposal-card.scss';
+import './layout.scss';
 import './modals/createGroupModal.scss';

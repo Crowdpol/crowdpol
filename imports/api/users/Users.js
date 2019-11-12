@@ -95,6 +95,18 @@ Schema.Skills = new SimpleSchema({
   },
 });
 
+Schema.Interests = new SimpleSchema({
+  type: {
+    type: String,
+    allowedValues: ['culture','finance','defense','education','enterprise','environment','foreign-affairs','social-affairs','infrastructure','justice'],
+    optional: true,
+  },
+  amount: {
+    type: String,
+    optional: true,
+  },
+});
+
 Schema.Credential = new SimpleSchema({
   source: {
     type: String,
@@ -176,6 +188,14 @@ Schema.UserProfile = new SimpleSchema({
     birthday: {
         type: Date,
         optional: true
+    },
+    interests: {
+        type: Array,
+        optional: true,
+    },
+    'interests.$': {
+        type: Schema.Interests,
+        optional: true,
     },
     skills: {
         type: Array,

@@ -1,0 +1,281 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+
+.feed-wrapper{
+  .row {
+    display: flex;
+    //flex-direction: row;
+    //flex-wrap: wrap;
+    width: 100%;
+    //border: solid 1px white;
+
+    .column {
+      display: flex;
+      //flex-direction: column;
+      //flex: 25%;
+      padding: 10px;
+      //flex-basis: 33%;
+      //border: solid 2px green;
+    }
+    .left-column{
+      background-color: $orange;
+      color: white;
+      flex-grow: 2;
+      flex-direction: column;
+      .sidebar-header{
+        //border: solid 1px white;
+        height: 100px;
+        min-height: 50px;
+        width: 100%;
+      }
+      .sidebar-content{
+        height: 200px;
+        min-height: 200px;
+        //border: solid 1px white;
+        width: 100%;
+        flex-direction: column;
+      }
+    }
+    .center-column{
+      background-color: transparent;
+      flex: auto;
+      flex-grow: 5;
+    }
+    .right-column{
+      background-color: $light-grey;
+      color: white;
+      flex-grow: 2;
+      flex-direction: column;
+      max-width: 200px;
+    }
+    .my-sidebar{
+      //min-width: 300px;
+    }
+  }
+}
+.sidebar-social{
+  border-right: solid 1px white;
+  height: 50px;
+
+}
+.feed-values{
+  border-right: solid 1px white;
+  flex-direction: column;
+  flex: 50%;
+  span{
+    color: white;
+  }
+}
+.feed-interests{
+  border-right: solid 1px white;
+}
+.values-interests{
+  border-top: solid 1px white;
+  border-right: solid 1px white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+@media only screen and (min-width: 100px){
+  .feed-wrapper{
+    border-top: solid 5px yellow;
+    background-color: yellow;
+  }
+  div.feed-wrapper{
+    .row {
+      flex-direction: column;
+      .column {
+
+      }
+      .left-column{
+        .sidebar-header{
+          display:flex;
+        }
+        .sidebar-content{
+          display: none;
+        }
+      }
+      .center-column{
+
+      }
+      .right-column{
+        display:none;
+      }
+      .my-sidebar{
+
+      }
+    }
+  }
+}
+@media only screen and (min-width: 480px){
+  .feed-wrapper{
+    border-top: solid 5px orange;
+    background-color: orange;
+  }
+  div.feed-wrapper{
+    .row {
+      flex-direction: column;
+      .column {
+
+      }
+      .left-column{
+        display:flex;
+        .sidebar-header{
+          display:flex;
+        }
+        .sidebar-content{
+          display: none;
+        }
+
+      }
+      .center-column{
+
+      }
+      .right-column{
+        display:none;
+      }
+      .my-sidebar{
+
+      }
+    }
+  }
+}
+@media only screen and (min-width: 768px){
+  .feed-wrapper{
+    border-top: solid 5px green;
+    background-color: green;
+  }
+  div.feed-wrapper{
+    .row {
+      flex-direction: row;
+      .column {
+
+      }
+      .left-column{
+        display:flex;
+        .sidebar-header{
+          display:flex;
+        }
+        .sidebar-content{
+          display: flex;
+        }
+      }
+      .center-column{
+
+      }
+      .right-column{
+        display:none;
+      }
+      .my-sidebar{
+
+      }
+    }
+  }
+
+  /*
+  .column {
+    flex: 1
+  }
+
+  .double-column {
+    flex: 2
+  }
+  */
+}
+@media only screen and (min-width: 1024px){
+  .feed-wrapper{
+    border-top: solid 5px red;
+    background-color: red;
+  }
+  div.feed-wrapper{
+    .row {
+      flex-direction: row;
+      .column {
+
+      }
+      .left-column{
+        display:flex;
+        .sidebar-header{
+          display:flex;
+        }
+        .sidebar-content{
+          display: flex;
+        }
+      }
+      .center-column{
+
+      }
+      .right-column{
+        display:none;
+      }
+      .my-sidebar{
+
+      }
+    }
+  }
+}
+@media only screen and (min-width: 1200px){
+  .feed-wrapper{
+    border-top: solid 5px blue;
+    background-color: blue;
+  }
+  div.feed-wrapper{
+    .row {
+      flex-direction: row;
+      .column {
+
+      }
+      .left-column{
+        display:flex;
+        .sidebar-header{
+          display:flex;
+        }
+        .sidebar-content{
+          display: flex;
+        }
+      }
+      .center-column{
+
+      }
+      .right-column{
+        display:flex;
+      }
+      .my-sidebar{
+
+      }
+    }
+  }
+}
+@media only screen and (min-width: 1440px){
+  .feed-wrapper{
+    border-top: solid 5px pink;
+    background-color: pink;
+  }
+  div.feed-wrapper{
+    .row {
+      flex-direction: row;
+      .column {
+
+      }
+      .left-column{
+        display:flex;
+        .sidebar-header{
+          display:flex;
+        }
+        .sidebar-content{
+          display: flex;
+        }
+      }
+      .center-column{
+
+      }
+      .right-column{
+        display:flex;
+      }
+      .my-sidebar{
+
+      }
+    }
+  }
+}

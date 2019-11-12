@@ -1,5 +1,5 @@
 <template name="GroupList">
-  <h5>Group List</h5>
+  <div style="display: flex; flex-wrap: wrap;">
   {{#each group in groups}}
     <div class="profile-card mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp" >
       <div class="mdl-card__title profile-card-header" data-id="{{group._id}}">
@@ -21,4 +21,5 @@
       </div>
     </div>
   {{/each}}
+  </div>
 </template>

@@ -73,6 +73,18 @@ export const getUserCover = (id) => {
   return false;
 };
 
+//returns user cover
+export const getUserInterests = (id) => {
+  let user = returnUser(id);
+  if(user){
+    profile = returnProfile(user);
+    if(profile){
+      return returnProfileKey(profile,'interests');
+    }
+  }
+  return false;
+};
+
 //returns user tags/interests
 export const getUserTags = (id) => {
   let user = returnUser(id);
