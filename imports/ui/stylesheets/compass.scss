@@ -13,3 +13,17 @@
     padding: $space ($space / 2) ($space * 3);
   }
 }
+
+.compass-button{
+  margin: 5px;
+  i{
+    padding-right: 5px;
+  }
+}
+.compass-button.selected{
+  background-color: $orange;
+  color: $white;
+  i{
+    color: $white;
+  }
+}

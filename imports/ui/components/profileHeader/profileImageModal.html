@@ -1,0 +1,91 @@
+<template name="ProfileImageModal">
+  <div id="overlay"></div>
+	<div class="profile-image-modal">
+    <div class="profile-image-modal-wrapper">
+      <br><br>
+      <div class="profile-pic-container">
+            <div class="profile-pic-wrapper">
+              <div class="profile-pic"></div>
+            </div>
+      </div>
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#upload-panel" class="mdl-tabs__tab is-active">Upload</a>
+            <a href="#url-panel" class="mdl-tabs__tab">URL</a>
+        </div>
+        <div class="mdl-tabs__panel is-active" id="upload-panel">
+          <br>
+          <input type="text" value="{{currentSelection}}" name="profile-image" id="profile-image-selection">
+          <center>
+            <label class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              Choose File <i class="material-icons" id="change-photo-icon">cloud_upload</i>
+              <input type="file" id="fileInput">
+            </label>
+            <br>
+            <small>Upload file in <code>jpeg</code> or <code>png</code> format, with size less or equal to 2MB</small>
+          </center>
+          <br>
+          <div class="profile-cover">
+            {{#with currentUpload}}
+              Uploading <b>{{file.name}}</b>:
+              <span id="progress">{{progress.get}}%</span>
+            {{else}}
+
+
+            {{/with}}
+            {{currentUpload}}
+            <div class="wizard-profile-preview-wrapper">
+              {{#if uploadedUserFiles.count}}
+                <div class="wizard-avatar-preview selected"></div>
+
+                  {{#each file in uploadedUserFiles.each}}
+                    {{#if validImagePath file}}
+                      <div class="wizard-avatar-preview" style="background-image: url('{{file.link}}'"></div>
+                    {{/if}}
+                  {{/each}}
+              <!--{{else}}
+                <center><small>No files uploaded, yet</small></center>
+                <img src="{{file.link}}" alt="Avatar" class="wizard-avatar">
+                <img src="/img/default-user-image.png" class="wizard-avatar">
+              -->
+              {{/if}}
+            </div>
+            {{#if photo}}
+              <div>
+                <img src={{photo}} />
+              </div>
+            {{/if}}
+            <!--
+            <br>
+            <center>
+              <button class="mdl-button mdl-js-button mdl-button- -raised mdl-button- -colored" id="take-photo">
+                Take Photo
+              </button>
+            </center>
+            -->
+          </div>
+        </div>
+        <div class="mdl-tabs__panel" id="url-panel">
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for="profile-photo">{{_ "pages.profile.photo-url"}}</label>
+            <input type="url" id="profilePhoto" name="profilePhoto" class="mdl-textfield__input">
+            <span class="mdl-textfield__error" id="valid-photo-path">Invalid URL</span>
+          </div>
+          <button class="mdl-button mdl-js-button mdl-button--icon" name="search-images-button" id="profile-image-refresh">
+            <i class="material-icons">refresh</i>
+          </button>
+        </div>
+      </div>
+      <br>
+      <center>
+        <button class="mdl-button mdl-js-button mdl-button--raised profile-image-modal-close">
+          Cancel
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored profile-image-modal-set">
+          Done
+        </button>
+      </center>
+      <br>
+    </div>
+  </div>
+</template>

@@ -39,6 +39,9 @@ Template.Compass.events({
     event.preventDefault();
 
     FlowRouter.go('/dash/vote');
+  },
+  '.compass-button' (event, template){
+    console.log(this);
   }
 });
 

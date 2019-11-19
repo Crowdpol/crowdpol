@@ -102,7 +102,7 @@ Schema.Interests = new SimpleSchema({
     optional: true,
   },
   amount: {
-    type: String,
+    type: Number,
     optional: true,
   },
 });

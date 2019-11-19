@@ -1,3 +1,4 @@
+import {map,loadMap,addLayer} from '../../components/maps/leaflet.js'
 //import './amchart.js';
 //import './leaflet.js';
 import './test.html';

@@ -1,5 +1,5 @@
 <template name="Test">
-  <!--{{>CommunityMap}}-->
+  {{>CommunityMap}}
 
     <!--
     <br><br><br><br><br><br><br><br><br><br>
@@ -102,7 +102,7 @@
   <h5>Presence Group</h5>
   <p>Layout 1: 3 column - left column collapse to top, right column hidden</p>
 
-  <div class='some-page-wrapper layout1'>
+  <div class='some-page-wrapper layout-1'>
     <div class='row'>
       <div class='column left-column my-sidebar'>
           <div class="sidebar-header">SideBar Header</div>
@@ -165,20 +165,24 @@
           Right
       </div>
     </div>
-    <div class="footer-menu">
-      This is the footer menu
-    </div>
   </div>
   <hr>
   <h5>Admin Dash</h5>
-
+  <h5>Profile settings</h5>
+  <h5>Account Settings</h5>
   <p>Layout 2: 3 column - left column collapse to menu, right column hidden</p>
 
 
-  <div class='some-page-wrapper layout2'>
+  <div class='some-page-wrapper layout-2'>
     <div class='row'>
       <div class='column left-column'>
         Left
+        <div class="sidebar-menu">
+          <a class="active" href="#home">Home</a>
+          <a href="#news">News</a>
+          <a href="#contact">Contact</a>
+          <a href="#about">About</a>
+        </div>
       </div>
       <div class='column center-column'>
         <table border="1">
@@ -232,19 +236,16 @@
               <td>False</td>
             </tr>
         </table>
-      </div>
-      <div class='column right-column'>
-        Right
       </div>
     </div>
   </div>
   <hr>
   <h5>Navigator</h5>
 
-  <p>Layout 2: 3 column - left column collapse to footer, right column hidden</p>
+  <p>Layout 3: 3 column - left column collapse to footer, right column hidden</p>
 
 
-  <div class='some-page-wrapper layout2'>
+  <div class='some-page-wrapper layout-3'>
     <div class='row'>
       <div class='column left-column'>
         Left
@@ -305,14 +306,17 @@
       <div class='column right-column'>
         Right
       </div>
+
+    </div>
+    <div class="footer-menu">
+      This is the footer menu
     </div>
   </div>
   <hr>
-  <h5>Profile settings</h5>
-  <h5>Account Settings</h5>
 
-  <p>Layout 3: 2 column - left column collapse to menu, no right column</p>
-  <div class='some-page-wrapper'>
+
+  <p>Layout 4: 2 column - left column collapse to menu, no right column</p>
+  <div class='some-page-wrapper layout-4'>
     <div class='row'>
       <div class='column left-column'>
         Left
@@ -376,8 +380,8 @@
   <h5>Proposal View</h5>
   <h5>Proposal Edit</h5>
   <hr>
-  <p>Layout 4: 3 column - left hidden, right hidden</p>
-  <div class='some-page-wrapper layout2'>
+  <p>Layout 5: 3 column - left hidden, right hidden</p>
+  <div class='some-page-wrapper layout-5'>
     <div class='row'>
       <div class='column left-column'>
         Left
@@ -442,8 +446,8 @@
   </div>
   <hr>
   <h5>Still have no use for this...</h5>
-  <p>Layout 5: 3 column - left column hidden, right column hidden</p>
-  <div class='some-page-wrapper'>
+  <p>Layout 6: 3 column - left column hidden, right column hidden</p>
+  <div class='some-page-wrapper layout-6'>
     <div class='row'>
       <div class='column left-column'>
         Left
@@ -503,8 +507,8 @@
       </div>
     </div>
   </div>
-  <p>Layout 6: 2 column - no left column, right column</p>
-  <div class='some-page-wrapper'>
+  <p>Layout 7: 2 column - no left column, right column</p>
+  <div class='some-page-wrapper layout-7'>
     <div class='row'>
       <div class='column center-column'>
         <table border="1">

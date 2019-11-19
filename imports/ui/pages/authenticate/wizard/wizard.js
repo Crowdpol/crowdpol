@@ -1,21 +1,25 @@
 import { getTags } from '../../../components/taggle/taggle.js'
 import { getProfilePic,showProfileUrl } from '../../../components/profileHeader/profileImage.js'
-import {map,loadMap,addLayer} from '../../../components/maps/leaflet.js'
-import Images from '/lib/images.collection.js';
+import { showProfileImageModal,hideProfileImageModal,getSelectedImage } from '../../../components/profileHeader/profileImageModal.js'
+import { map,loadMap,addLayer } from '../../../components/maps/leaflet.js'
+
 import RavenClient from 'raven-js';
 import './wizard.html';
 let steps = [];
+//let map;
 
 Template.Wizard.onCreated(function(){
   self = this;
   //Reactive Variables
   self.currentStep = new ReactiveVar(1);
-  self.currentUpload = new ReactiveVar(false);
-  self.currentSelection = new ReactiveVar('/img/default-user-image.png');
+
 });
 
 Template.Wizard.onRendered(function(){
-  showProfileUrl();
+  //loadMap();
+  $("#leaflet-map").hide();
+
+  //showProfileUrl();
   var picker = new Pikaday({
     field: document.getElementById('profile-dob'),
     firstDay: 1,
@@ -30,30 +34,15 @@ Template.Wizard.onRendered(function(){
     }
   });
   picker.setDate(new Date());
-  //console.log(Meteor.settings)
-  let els = document.getElementsByClassName('step');
 
-  Array.prototype.forEach.call(els, (e) => {
-    steps.push(e);
-  });
-  setStep = FlowRouter.getParam("id");
-  if(setStep){
-    this.currentStep = setStep;
-    progressSetStep(setStep);
-    setStep = setStep -1
-    els[setStep].classList.add('selected');
-  }
-  els[0].classList.add('selected');
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition,showError);
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
+
   var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
     for (var i = 0, l = mdlInputs.length; i < l; i++) {
-      console.log(mdlInputs[i]);
-      console.log(mdlInputs[i].MaterialTextfield);
-      console.log(mdlInputs[i].MaterialTextfield.checkDirty());
       mdlInputs[i].MaterialTextfield.checkDirty();
     }
 });
@@ -63,21 +52,14 @@ Template.Wizard.helpers({
     let user = Meteor.user();
     return user.profile;
   },
+  profileImageSelection: function(){
+    console.log("getSelectedImage(): " + getSelectedImage());
+    return Session.get("selectedImage");
+  },
   userId: function(){
     return Meteor.userId();
   },
-  photo: function () {
-    return Session.get("photo");
-  },
-  currentUpload: function () {
-    return Template.instance().currentUpload.get();
-  },
-  uploadedUserFiles: function () {
-    return Images.find({"userId":Meteor.userId()});
-  },
-  currentSelection: function () {
-    return Template.instance().currentSelection.get();
-  },
+
   currentStep: function () {
     return Template.instance().currentStep.get();
   },
@@ -99,26 +81,20 @@ Template.Wizard.helpers({
 });
 
 Template.Wizard.events({
-  'click .wizard-avatar-preview'(event, template){
-    $(".wizard-avatar-preview.selected").removeClass("selected");
-    $(event.currentTarget).addClass("selected");
-
-    let image = $(event.currentTarget).css('background-image');
-    url = image.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-    console.log(url);
-    Template.instance().currentSelection.set(url);
-    $('.profile-pic').css("background-image",image);
+  'click .photo-button-class'(event, template){
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    console.log("showModal");
+    showProfileImageModal();
   },
+
   'click .step': function(e){
     let nextStep = e.target.dataset.step;
     if(nextStep){
       progressSetStep(e.target.dataset.step);
     }
   },
-  'click .wizard-avatar'(event, template){
-    Template.instance().currentSelection.set(event.currentTarget.src);
-    $('.profile-pic').css("background-image","url("+event.currentTarget.src+")");
-  },
+  /*
   'click #take-photo'(event, template){
     event.preventDefault();
     var cameraOptions = {
@@ -134,36 +110,7 @@ Template.Wizard.events({
            }
         });
   },
-  'change #fileInput': function (e, template) {
-    if (e.currentTarget.files && e.currentTarget.files[0]) {
-      // We upload only one file, in case
-      // there was multiple files selected
-      var file = e.currentTarget.files[0];
-      if (file) {
-        var uploadInstance = Images.insert({
-          file: file,
-          streams: 'dynamic',
-          chunkSize: 'dynamic'
-        }, false);
-
-        uploadInstance.on('start', function() {
-          template.currentUpload.set(this);
-        });
-
-        uploadInstance.on('end', function(error, fileObj) {
-          if (error) {
-            Bert.alert('Error during upload: ' + error.reason,'danger');
-          } else {
-            console.log(fileObj);
-            Bert.alert('File "' + fileObj.name + '" successfully uploaded','success');
-          }
-          template.currentUpload.set(false);
-        });
-
-        uploadInstance.start();
-      }
-    }
-  },
+  */
   'click #startDate' (event, template){
     $('#startDate')[0].MaterialTextfield.checkDirty();
   },
@@ -177,7 +124,7 @@ Template.Wizard.events({
     //$( "#change-photo" ).show();
     currentStep = template.currentStep.get()
     nextStep = currentStep + 1;
-    console.log("next - currentStep: " + currentStep + " nextStep: " + nextStep);
+    //console.log("next - currentStep: " + currentStep + " nextStep: " + nextStep);
     Template.instance().currentStep.set(nextStep);
     progressSetStep(nextStep);
 		//template.currentStep.set(moveStep(template.currentStep.get(),1));
@@ -187,7 +134,7 @@ Template.Wizard.events({
 		event.preventDefault();
     currentStep = Template.instance().currentStep.get()
     nextStep = currentStep - 1;
-    console.log("back - currentStep: " + currentStep + " nextStep: " + nextStep);
+    //console.log("back - currentStep: " + currentStep + " nextStep: " + nextStep);
     Template.instance().currentStep.set(nextStep);
     progressSetStep(nextStep);
 		//template.currentStep.set(moveStep(template.currentStep.get(),-1));
@@ -308,7 +255,19 @@ Template.Wizard.events({
         description:"",
         selected:$('#checkbox-programming').is(":checked")
       }
-    ]
+    ];
+    interests = [];
+    interestCount = $('.compass-button.selected').length;
+    interestValue = roundHalf(100/interestCount);
+    $( ".compass-button" ).each(function( index ) {
+      console.log( index + ": " + $( this ).attr("data-id") );
+      interest = {
+        "type": $( this ).attr("data-id"),
+        "amount":interestValue
+      }
+      interests.push(interest);
+    });
+    profile.interests = interests;
     console.log(profile);
     Meteor.call('updateProfile', profile, function(error) {
       if (error) {
@@ -316,78 +275,16 @@ Template.Wizard.events({
         Bert.alert(error.reason, 'danger');
       } else {
         Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
-        FlowRouter.go('/compass');
+        FlowRouter.go('/dash');
       }
     });
 
+  },
+  'click .compass-button' (event, template){
+    $(event.currentTarget).toggleClass('selected');
   }
 });
 
-/*
-** -1 for back, 1 for forwards
-
-function moveStep(currentStep,direction){;
-  let nextStep = direction + parseFloat(currentStep);
-  let currentStepSelector = '*[data-section="'+currentStep+'"]';
-  let nextStepSelector = '*[data-section="'+nextStep+'"]';
-  console.log("nextStepSelector: " + nextStepSelector);
-  console.log("currentStepSelector: " + currentStepSelector);
-  $(".wizard-section").hide();
-  $(nextStepSelector).show();
-  progressSetStep(nextStep-1);
-  return nextStep;
-}
-*/
-/*
-Template.Wizard.rendered = function() {
-  L.Icon.Default.imagePath = '/packages/bevanhunt_leaflet/images/';
-
-  var map = L.map('wizard-map', {
-    doubleClickZoom: false
-  //}).setView([49.25044, -123.137], 2);
-  }).setView([62.54114431714147, 16.192131042480472], 3);
-  L.tileLayer.provider('Esri.WorldGrayCanvas').addTo(map);
-
-  map.on('dblclick', function(event) {
-    console.log(event.latlng);
-  });
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition,showError);
-  } else {
-    console.log("Geolocation is not supported by this browser.");
-  }
-
-  // add clustermarkers
-  var markers = L.markerClusterGroup();
-  map.addLayer(markers);
-  //console.log(markers);
-
-  var query = Markers.find();
-  query.observe({
-    added: function (document) {
-      var marker = L.marker(document.latlng)
-        .on('click', function(event) {
-          Markers.remove({_id: document._id});
-        });
-       markers.addLayer(marker);
-    },
-    removed: function (oldDocument) {
-      layers = map._layers;
-      var key, val;
-      for (key in layers) {
-        val = layers[key];
-        if (val._latlng) {
-          if (val._latlng.lat === oldDocument.latlng.lat && val._latlng.lng === oldDocument.latlng.lng) {
-            markers.removeLayer(val);
-          }
-        }
-      }
-    }
-
-  });
-};
-*/
 
 function showError(error) {
   switch(error.code) {
@@ -411,31 +308,35 @@ function progressSetStep(stepNum){
   $(".wizard-section").hide();
   $(nextStepSelector).show();
   currentStep = stepNum;
-  let distance = 100/(steps.length-1);
-  let p = (stepNum+1) * distance;
-  console.log("steps.length: " + steps.length);
-  console.log("currentStep: " + stepNum);
-  console.log("nextStepSelector: " + nextStepSelector);
-  console.log("distance: " + distance);
-  document.getElementsByClassName('percent')[0].style.width = `${p}%`;
-  steps.forEach((e) => {
-    if (e.id === stepNum) {
-      e.classList.add('selected');
-      e.classList.remove('completed');
-    }
-    if (e.id < stepNum) {
-      e.classList.add('completed');
-    }
-    if (e.id > stepNum) {
-      e.classList.remove('selected', 'completed');
-    }
+  $( "li.step" ).each(function() {
+    $( this ).removeClass("is-active")
   });
+  let stepSelector = '.step[data-step="'+stepNum+'"]';
+  $(stepSelector).addClass("is-active");
+  if(stepNum==4){
+    $("#leaflet-map").show("fast", function() {
+      map.invalidateSize();
+      map.setView([37.000,-120.652], 1);
+    });
+  }else{
+    $("#leaflet-map").hide();
+  }
 }
 
 function showPosition(position) {
   let coords = [ position.coords.latitude,position.coords.longitude];
-  console.log(coords)
+  //console.log("showPosition() :" +coords);
   //var marker = L.marker(coords).addTo(map);
   //map.panTo(new L.LatLng(position.coords.latitude,position.coords.longitude));
   $("#profile-location").val(position.coords.latitude + ", " + position.coords.longitude);
+  var marker1 = L.marker(coords, {
+    title: "marker_1"
+  }).addTo(map)
+  map.panTo(new L.LatLng(position.coords.latitude, position.coords.longitude));
+  //map.setView(coords,5);
+  //map.panTo(coords);
+}
+
+function roundHalf(num) {
+  return Math.round(num*2)/2;
 }
