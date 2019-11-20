@@ -79,6 +79,18 @@ export const getUserInterests = (id) => {
   if(user){
     profile = returnProfile(user);
     if(profile){
+      console.log(profile);
+      return returnProfileKey(profile,'interests');
+    }
+  }
+  return false;
+};
+export const getUserLocation = (id) => {
+  let user = returnUser(id);
+  if(user){
+    profile = returnProfile(user);
+    if(profile){
+      console.log(profile);
       return returnProfileKey(profile,'interests');
     }
   }

@@ -28,6 +28,42 @@
     }
   }
 }
+.profile-card-block{
+  height: 40px;
+  background-color: $orange;
+  width: 100%;
+  height: 70px;
+  overflow: hidden;
+  a.view-user{
+    display: flex;
+    text-decoration: none;
+    div.profile-card-block-image{
+      min-width: 70px;
+      width: 70px;
+      height: 70px;
+      background-image: url('/img/default-user-image.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    div.profile-card-block-details{
+      background-color: $orange;
+      span{
+        line-height: $small-font-size;
+        color: $white;
+      }
+      span.fullname{
+        font-size: 0.7rem;
+        line-height: 0.7rem;
+        font-weight: 500;
+
+      },
+      span.followers-count{
+        font-size: $xsmall-font-size;
+        font-weight: 300;
+      }
+    }
+  }
+}
 
 .profile-card{
   min-height: 0;

@@ -1,5 +1,6 @@
 import "./userFeed.html"
-
+import { smallworldGeoJSON } from '/lib/world.js'
+//import {map,loadMap,addLayer} from '../../components/maps/leaflet.js'
 import '../../components/profileHeader/profileHeader.js';
 import { getUserProfilePhoto, getUserfullname, getUsername, getUserTags, getUserInterests } from '../../../utils/users';
 import { Tags } from '../../../api/tags/Tags.js'
@@ -25,6 +26,34 @@ Template.UserFeed.onCreated(function () {
 });
 
 Template.UserFeed.onRendered(function(){
+  /*
+  let geojson = smallworldGeoJSON;
+  mapLayer = new L.geoJSON(geojson,{
+    style: mapStyle
+  });
+  //let map = L.map('feed-map').fitWorld();
+  var map = L.map('feed-map', {
+      //minZoom: 0,
+      //maxZoom: 0
+      doubleClickZoom: false,
+      zoomControl: false,
+  });//.fitWorld();
+  //L.tileLayer.provider('Esri.WorldGrayCanvas').addTo(map);
+
+  mapLayer.addTo(map);
+  map.dragging.disable();
+  //map.setView([0, 0], 0);
+  map.touchZoom.disable();
+  map.doubleClickZoom.disable();
+  map.scrollWheelZoom.disable();
+  map.fitBounds(mapLayer.getBounds());
+  /*
+  $.getScript('json/world.json', function(json){
+    // script should be loaded and do something with it.
+    console.log(json);
+  });
+  */
+
 });
 
 Template.UserFeed.helpers({
@@ -115,7 +144,8 @@ Template.UserFeed.helpers({
     }
   },
   interests: function(){
-    return getUserInterests();
+    console.log(getUserInterests(getOwnerId()));
+    return getUserInterests(getOwnerId());
   }
 });
 
@@ -261,4 +291,14 @@ function getOwnerId(){
   }
   //console.log("ownerId: " + userId);
   return userId;
+}
+
+function mapStyle(feature) {
+  return {
+    fillColor: "#fff",
+    fillOpacity: 1,
+    color: '#fff',
+    stroke: true,
+    weight: 1
+  };
 }

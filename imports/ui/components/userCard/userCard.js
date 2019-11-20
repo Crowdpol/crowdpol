@@ -36,6 +36,12 @@ Template.UserCard.helpers({
     }
     return false;
   },
+  isBlock: function(style){
+    if(style=='block'){
+      return true;
+    }
+    return false;
+  },
   isDateTime: function(style){
     if(style=='date-time'){
       return true;

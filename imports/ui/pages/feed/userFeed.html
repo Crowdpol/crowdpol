@@ -12,7 +12,21 @@
   <div class="" id="feed-body">
     <div class='feed-wrapper'>
       <div class='row'>
+
         <div class='column left-column my-sidebar'>
+          <div class="profile-pic-container">
+                <div class="profile-pic-wrapper">
+                	<div class="profile-pic"></div>
+                  <div class="overlay">
+                    <div class="text">
+                      <label class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored photo-button-class" id="photo-button">
+                        <i class="material-icons" id="change-photo-icon photo-button-class">camera_alt</i>
+                        <!--<input type="file" id="fileInput">-->
+                      </label>
+                    </div>
+                  </div>
+                </div>
+          </div>
             <div class="sidebar-header">
               <div class="profile-image"></div>
               <div class="profile-name">
@@ -31,46 +45,59 @@
             </div>
             <div class="sidebar-content">
               <div class="row">
-                <div class="feed-sidebar-followers">
-                  {{followersCount}}
-                  <br>
-                  FOLLOWERS
+                <div class="feed-sidebar-stats feed-sidebar-followers">
+                  <strong>{{followersCount}}</strong>
+                  <small>FOLLOWERS</small>
                 </div>
-                <div class="feed-sidebar-following">
-                  {{followingCount}}
-                  <br>
-                  FOLLOWING
+                <div class="feed-sidebar-stats feed-sidebar-following">
+                  <strong>{{followingCount}}</strong>
+                  <small>FOLLOWING</small>
                 </div>
-                <div class="feed-sidebar-movements">
-                  0
-                  <br>
-                  MOVEMENTS
+                <div class="feed-sidebar-stats feed-sidebar-movements">
+                  <strong>0</strong>
+                  <small>MOVEMENTS</small>
                 </div>
               </div>
               <div class="row sidebar-social">
-                <i class="fa fa-google-plus  mdl-textfield__label__icon" aria-hidden="true"></i>
-                <i class="fa fa-twitter fa-fw  mdl-textfield__label__icon"></i>
+                <div class="social-link">
+                  <i class="fa fa-twitter fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-facebook fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-linkedin fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-youtube fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-instagram fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-google-plus fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-home fa-fw"></i>
+                </div>
               </div>
               <div class="row values-interests">
                 <div class="feed-values">
                   <h6>Values</h6>
                   {{#each value in values}}
-                    <span>{{value.keyword}}</span><br>
+                    <span></span>
+                    <div class="row">
+                      <div class="value">{{value.keyword}}</div>
+                    </div>
                   {{/each}}
                 </div>
                 <div class="feed-interests">
                   <h6>Interests</h6>
-                  <div class="row">
-                    <div class="interest">Interest 1</div>
-                    <div class="interest-amount"> <!-- Slider with Starting Value -->
-                      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="0">
-                    </div>
-                  </div>
                   {{#each interest in interests}}
                     <div class="row">
                       <div class="interest">{{interest.type}}</div>
                       <div class="interest-amount"> <!-- Slider with Starting Value -->
-                        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="0">
+                        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="{{interest.amount}}">
                       </div>
                     </div>
                   {{/each}}
@@ -78,7 +105,10 @@
               </div>
               <div class="row">
                 <h6>Influence</h6>
-                Show Map Here
+              </div>
+              <div class="row">
+                <!--<div id="feed-map"></div>-->
+                <div id="feed-map-fake"></div>
               </div>
             </div>
         </div>
@@ -147,18 +177,18 @@
             </div>
           </div>
         </div>
-        <div class='column right-column my-sidebar'>
-          <h5>Change Makers I follow</h5>
-          <br>
+        <div class='column right-column feed-sidebar'>
+          <h5>Change Makers I Follow</h5>
           <div class="community-member-box">
           {{#each follow in following}}
-            {{>UserCard userId=follow._id style="flat"}}
+            {{>UserCard userId=follow._id style="block"}}
           {{/each}}
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <template name="ActivityFeed">
@@ -186,4 +216,5 @@
       </div>
     </div>
   </div>
+
 </template>

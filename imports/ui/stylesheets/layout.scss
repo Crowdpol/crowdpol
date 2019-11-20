@@ -1,8 +1,30 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
+$range-color: $white;
+$range-bg-color: $white;
+$range-faded-color: $white;
+.mdl-slider {
+    &:active::-webkit-slider-thumb,
+    &::-webkit-slider-thumb {
+        background: $white !important;
+    }
 
+    &:active::-moz-range-thumb,
+    &::-moz-range-thumb {
+        background: $white !important;
+    }
 
+    &:active::-ms-thumb,
+    &::-ms-thumb {
+        background: $white !important;
+    }
+}
+#feed-body{
+  background-color: #efefef;
+}
 .feed-wrapper{
+  max-width: 80rem;
+  margin: 0 auto;
   .row {
     display: flex;
     //flex-direction: row;
@@ -14,40 +36,85 @@
       display: flex;
       //flex-direction: column;
       //flex: 25%;
-      padding: 10px;
+      //padding: 10px;
       //flex-basis: 33%;
       //border: solid 2px green;
     }
     .left-column{
-      background-color: $orange;
+
       color: white;
       flex-grow: 2;
       flex-direction: column;
+      max-width: 300px;
+      height: 100%;
       .sidebar-header{
         //border: solid 1px white;
-        height: 100px;
+        padding: 15px;
+        background-color: $orange;
+        height: 70px;
         min-height: 50px;
         width: 100%;
+        div.profile-name{
+          h5{
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 0 0 0 0;
+          }
+          small{
+            text-transform: lowercase;
+            font-weight: 600;
+          }
+        }
       }
       .sidebar-content{
-        height: 200px;
+        padding: 15px;
+        background-color: $orange;
+        height: 100%;
         min-height: 200px;
         //border: solid 1px white;
         width: 100%;
         flex-direction: column;
+        div.feed-sidebar-stats{
+          flex: 1;
+          display: flex;
+          justify-content:center;
+          flex-direction: column;
+          strong{
+            font-weight: 900;
+            line-height: 1rem;
+          }
+          small{
+            font-size: 12px;
+          }
+        }
+        div.sidebar-social{
+          display: flex;
+          justify-content: space-around;
+          div.social-link{
+            font-size: 22px;
+          }
+          margin-bottom: 20px;
+          margin-top: 10px;
+          border: none;
+        }
       }
     }
     .center-column{
-      background-color: transparent;
+      background-color: white;
       flex: auto;
       flex-grow: 5;
     }
     .right-column{
-      background-color: $light-grey;
+      background-color: transparent;
       color: white;
       flex-grow: 2;
       flex-direction: column;
       max-width: 200px;
+      padding-top: 50px;
+      h5{
+        text-transform: uppercase;
+        font-weight: 600;
+      }
     }
     .my-sidebar{
       //min-width: 300px;
@@ -55,32 +122,44 @@
   }
 }
 .sidebar-social{
-  border-right: solid 1px white;
+  border-right: solid 1px lighten($orange,25%);
   height: 50px;
-
 }
 .feed-values{
-  border-right: solid 1px white;
+  border-right: solid 1px lighten($orange,25%);
   flex-direction: column;
   flex: 50%;
-  span{
-    color: white;
+  div.row{
+    div.value{
+      padding-left: 5px;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
   }
 }
 .feed-interests{
-  border-right: solid 1px white;
+  //border-right: solid 1px lighten($orange,25%);
+  padding-left: 10px;
+  div.row{
+    div.interest{
+      padding-left: 5px;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+  }
 }
 .values-interests{
-  border-top: solid 1px white;
-  border-right: solid 1px white;
+  border-top: solid 1px lighten($orange,25%);
+  border-bottom: solid 1px lighten($orange,25%);
   padding-top: 20px;
   padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 @media only screen and (min-width: 100px){
   .feed-wrapper{
-    border-top: solid 5px yellow;
-    background-color: yellow;
+    //border-top: solid 5px yellow;
+    //background-color: yellow;
   }
   div.feed-wrapper{
     .row {
@@ -89,8 +168,10 @@
 
       }
       .left-column{
+        max-width: none;
         .sidebar-header{
           display:flex;
+          width: 100%;
         }
         .sidebar-content{
           display: none;
@@ -110,8 +191,8 @@
 }
 @media only screen and (min-width: 480px){
   .feed-wrapper{
-    border-top: solid 5px orange;
-    background-color: orange;
+    //border-top: solid 5px orange;
+    //background-color: orange;
   }
   div.feed-wrapper{
     .row {
@@ -121,8 +202,10 @@
       }
       .left-column{
         display:flex;
+        max-width: none;
         .sidebar-header{
           display:flex;
+          width: 100%;
         }
         .sidebar-content{
           display: none;
@@ -143,8 +226,8 @@
 }
 @media only screen and (min-width: 768px){
   .feed-wrapper{
-    border-top: solid 5px green;
-    background-color: green;
+    //border-top: solid 5px green;
+    //background-color: green;
   }
   div.feed-wrapper{
     .row {
@@ -154,6 +237,7 @@
       }
       .left-column{
         display:flex;
+        max-width: 300px;
         .sidebar-header{
           display:flex;
         }
@@ -185,8 +269,8 @@
 }
 @media only screen and (min-width: 1024px){
   .feed-wrapper{
-    border-top: solid 5px red;
-    background-color: red;
+    //border-top: solid 5px red;
+    //background-color: red;
   }
   div.feed-wrapper{
     .row {
@@ -196,6 +280,7 @@
       }
       .left-column{
         display:flex;
+        max-width: 300px;
         .sidebar-header{
           display:flex;
         }
@@ -217,8 +302,8 @@
 }
 @media only screen and (min-width: 1200px){
   .feed-wrapper{
-    border-top: solid 5px blue;
-    background-color: blue;
+    //border-top: solid 5px blue;
+    //background-color: blue;
   }
   div.feed-wrapper{
     .row {
@@ -228,6 +313,7 @@
       }
       .left-column{
         display:flex;
+        max-width: 300px;
         .sidebar-header{
           display:flex;
         }
@@ -249,8 +335,8 @@
 }
 @media only screen and (min-width: 1440px){
   .feed-wrapper{
-    border-top: solid 5px pink;
-    background-color: pink;
+    //border-top: solid 5px pink;
+    //background-color: pink;
   }
   div.feed-wrapper{
     .row {
@@ -260,6 +346,7 @@
       }
       .left-column{
         display:flex;
+        max-width: 300px;
         .sidebar-header{
           display:flex;
         }
