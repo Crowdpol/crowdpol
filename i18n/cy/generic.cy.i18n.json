@@ -38,6 +38,7 @@
 		"update": "CY: Update",
 		"cancel": "CY: Cancel",
 		"signup": "CY: Sign Up",
-		"profile-photo": "CY: Profile photo"
+		"profile-photo": "CY: Profile photo",
+		"dob": "CY: Date of Birth"
 	}
 }

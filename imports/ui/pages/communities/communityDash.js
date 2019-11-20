@@ -339,24 +339,6 @@ Template.CommunityDash.helpers({
   }
 });
 
-openCreateGroupModal = function(event) {
-  $(".create-group-modal").addClass('active');
-  $("#overlay").addClass('dark-overlay');
-}
-
-closeCreateGroupModal = function(event) {
-  $(".create-group-modal").removeClass('active');
-  $("#overlay").removeClass('dark-overlay');
-}
-/*
-Template.CreateGroupModal.events({
-  'click #create-group': function(event, template){
-    event.preventDefault();
-    console.log("creating group");
-  }
-})
-*/
-
 
 //--------------------------------------------------------------------------------------------------------------//
 function transformProposal(proposal) {

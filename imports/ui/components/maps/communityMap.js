@@ -52,8 +52,17 @@ function loadGeoJSON(){
     style: mapStyle,
     onEachFeature: mapOnEachFeature
   });
-  //addLayer(greyscaleMap);
-  //addLayer(streetMap);
+  mapLayer.on('loading', function (event) {
+      console.log("loeading");
+      //mapInstance.fireEvent('dataloading', event);
+  });
+
+  mapLayer.on('load', function (event) {
+    console.log("loead");
+      //mapInstance.fireEvent('dataload', event);
+  });
+  addLayer(greyscaleMap);
+  addLayer(streetMap);
   addLayer(mapLayer);
   /*
   //streetMap.addTo(map);
@@ -69,8 +78,8 @@ function loadGeoJSON(){
   //var group = new L.LayerGroup([streetMap, mapLayer]);
   //group.addTo(map);
 
-  L.control.layers(baseMaps, overlayMaps,{position: 'topleft'}).addTo(map);
-  */
+  var layerInstance = L.control.layers(baseMaps, overlayMaps,{position: 'topleft'}).addTo(map);
+
   //console.log(mapLayer.getBounds());
   //map.fitBounds(mapLayer.getBounds());
 
@@ -87,10 +96,14 @@ function loadGeoJSON(){
       selection = null;
       //document.getElementById('summaryLabel').innerHTML = '<p>Click a garden or food pantry on the map to get more information.</p>';
     }
-    */
+
+    var marker = L.marker([scope.lat, scope.lng],{draggable: true});
+    marker.setLatLng(event.latlng);
+    marker.addTo(map);
+
     L.DomEvent.stopPropagation(e);
   });
-
+  */
 }
 
 function buildGeoJSON(){

@@ -1,5 +1,6 @@
 import './signup.html';
 import './entitySignup.js';
+//import './signupWizard.js';
 import "../../../components/termsModal/termsModal.js"
 import { hasOwnProperty } from '../../../../utils/functions';
 import { Communities } from '../../../../api/communities/Communities.js'

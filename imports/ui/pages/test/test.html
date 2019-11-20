@@ -204,30 +204,575 @@
 
 </template>
 <template name="Test">
-    <style>
-    body { margin:0; padding:0; }
-    #test-map { position: absolute; top:0; bottom:0; right:0; left:0; }
-  </style>
+  {{>CommunityMap}}
 
-  <!--{{>CommunityMap}}-->
-  <div class="container app-container">
+    <!--
+    <br><br><br><br><br><br><br><br><br><br>
+    <div class='progress'>
+    <div class='progress_inner'>
+      <div class='progress_inner__step'>
+        <label for='step-1'>Start order</label>
+      </div>
+      <div class='progress_inner__step'>
+        <label for='step-2'>Prepare gift</label>
+      </div>
+      <div class='progress_inner__step'>
+        <label for='step-3'>Pack gift</label>
+      </div>
+      <div class='progress_inner__step'>
+        <label for='step-4'>Decorate box</label>
+      </div>
+      <div class='progress_inner__step'>
+        <label for='step-5'>Send gift</label>
+      </div>
+      <div class='progress_inner__step'>
+        <label for='step-6'>Compass</label>
+      </div>
+      <input checked='checked' id='step-1' name='step' type='radio'>
+      <input id='step-2' name='step' type='radio'>
+      <input id='step-3' name='step' type='radio'>
+      <input id='step-4' name='step' type='radio'>
+      <input id='step-5' name='step' type='radio'>
+      <input id='step-6' name='step' type='radio'>
+      <div class='progress_inner__bar'></div>
+      <div class='progress_inner__bar- -set'></div>
+      <div class='progress_inner__tabs'>
+        <div class='tab tab-0'>
+          <h1>Start order</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tortor ipsum, eleifend vitae massa non, dignissim finibus eros. Maecenas non eros tristique nisl maximus sollicitudin.</p>
+        </div>
+        <div class='tab tab-1'>
+          <h1>Prepare gift</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tortor ipsum, eleifend vitae massa non, dignissim finibus eros. Maecenas non eros tristique nisl maximus sollicitudin.</p>
+        </div>
+        <div class='tab tab-2'>
+          <h1>Pack gift</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tortor ipsum, eleifend vitae massa non, dignissim finibus eros. Maecenas non eros tristique nisl maximus sollicitudin.</p>
+        </div>
+        <div class='tab tab-3'>
+          <h1>Decorate box</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tortor ipsum, eleifend vitae massa non, dignissim finibus eros. Maecenas non eros tristique nisl maximus sollicitudin.</p>
+        </div>
+        <div class='tab tab-4'>
+          <h1>Send gift</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tortor ipsum, eleifend vitae massa non, dignissim finibus eros. Maecenas non eros tristique nisl maximus sollicitudin.</p>
+        </div>
+        <div class='tab tab-5'>
+          <h1>Send gift 5</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tortor ipsum, eleifend vitae massa non, dignissim finibus eros. Maecenas non eros tristique nisl maximus sollicitudin.</p>
+        </div>
+        <div class='tab tab-6'>
+          <h1>Send gift 6</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tortor ipsum, eleifend vitae massa non, dignissim finibus eros. Maecenas non eros tristique nisl maximus sollicitudin.</p>
+        </div>
+      </div>
+      <div class='progress_inner__status'>
+        <div class='box_base'></div>
+        <div class='box_lid'></div>
+        <div class='box_ribbon'></div>
+        <div class='box_bow'>
+          <div class='box_bow__left'></div>
+          <div class='box_bow__right'></div>
+        </div>
+        <div class='box_item'></div>
+        <div class='box_tag'></div>
+        <div class='box_string'></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
     <div class="test-container">
       <div class="test-header">
-        This is header
+
       </div>
-      <div class="test-sidebar test-sticky">
-        This is side bar
+      <div class="test-sidebar-left test-sticky">
+        {{> Template.dynamic template=left}}
       </div>
       <div class="test-content">
-        This is main content:
-        <input type="text" name="map-search" id="map-search">
-        <div id="test-map"></div>
+        {{> Template.dynamic template=main}}
+      </div>
+      <div class="test-sidebar-right test-sticky">
+        {{> Template.dynamic template=right}}
       </div>
       <div class="test-footer" id="test-footer-id">
         <div class="test-sticky-stopper"></div>
         This is my footer
       </div>
     </div>
+  -->
+
+
+  <h5>Presence User</h5>
+  <h5>Presence Group</h5>
+  <p>Layout 1: 3 column - left column collapse to top, right column hidden</p>
+
+  <div class='some-page-wrapper layout-1'>
+    <div class='row'>
+      <div class='column left-column my-sidebar'>
+          <div class="sidebar-header">SideBar Header</div>
+          <div class="sidebar-content">Left</div>
+      </div>
+      <div class='column center-column'>
+        <table border="1">
+            <tr>
+              <th>Layout</th>
+              <th class="left-column">Left Column</th>
+              <th>Center Column</th>
+              <th class="right-column">Right Column</th>
+              <th>Passing</th>
+            </tr>
+            <tr>
+              <td class="tiny">Tiny</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>True</td>
+            </tr>
+            <tr>
+              <td class="mobile">Mobile</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>True</td>
+            </tr>
+            <tr>
+              <td class="tablet">Tablet</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>True</td>
+            </tr>
+            <tr>
+              <td class="laptop">Laptop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>True</td>
+            </tr>
+            <tr>
+              <td class="desktop">Desktop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>True</td>
+            </tr>
+            <tr>
+              <td class="big">Big</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>True</td>
+            </tr>
+        </table>
+      </div>
+      <div class='column right-column my-sidebar'>
+          Right
+      </div>
+    </div>
   </div>
+  <hr>
+  <h5>Admin Dash</h5>
+  <h5>Profile settings</h5>
+  <h5>Account Settings</h5>
+  <p>Layout 2: 3 column - left column collapse to menu, right column hidden</p>
+
+
+  <div class='some-page-wrapper layout-2'>
+    <div class='row'>
+      <div class='column left-column'>
+        Left
+        <div class="sidebar-menu">
+          <a class="active" href="#home">Home</a>
+          <a href="#news">News</a>
+          <a href="#contact">Contact</a>
+          <a href="#about">About</a>
+        </div>
+      </div>
+      <div class='column center-column'>
+        <table border="1">
+            <tr>
+              <th>Layout</th>
+              <th class="left-column">Left Column</th>
+              <th>Center Column</th>
+              <th class="right-column">Right Column</th>
+              <th>Passing</th>
+            </tr>
+            <tr>
+              <td class="tiny">Tiny</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="mobile">Mobile</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="tablet">Tablet</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="laptop">Laptop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="desktop">Desktop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="big">Big</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <h5>Navigator</h5>
+
+  <p>Layout 3: 3 column - left column collapse to footer, right column hidden</p>
+
+
+  <div class='some-page-wrapper layout-3'>
+    <div class='row'>
+      <div class='column left-column'>
+        Left
+      </div>
+      <div class='column center-column'>
+        <table border="1">
+            <tr>
+              <th>Layout</th>
+              <th class="left-column">Left Column</th>
+              <th>Center Column</th>
+              <th class="right-column">Right Column</th>
+              <th>Passing</th>
+            </tr>
+            <tr>
+              <td class="tiny">Tiny</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="mobile">Mobile</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="tablet">Tablet</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="laptop">Laptop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="desktop">Desktop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="big">Big</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+        </table>
+      </div>
+      <div class='column right-column'>
+        Right
+      </div>
+
+    </div>
+    <div class="footer-menu">
+      This is the footer menu
+    </div>
+  </div>
+  <hr>
+
+
+  <p>Layout 4: 2 column - left column collapse to menu, no right column</p>
+  <div class='some-page-wrapper layout-4'>
+    <div class='row'>
+      <div class='column left-column'>
+        Left
+      </div>
+      <div class='column center-column'>
+        <table border="1">
+            <tr>
+              <th>Layout</th>
+              <th class="left-column">Left Column</th>
+              <th>Center Column</th>
+              <th class="right-column">Right Column</th>
+              <th>Passing</th>
+            </tr>
+            <tr>
+              <td class="tiny">Tiny</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="mobile">Mobile</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="tablet">Tablet</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="laptop">Laptop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="desktop">Desktop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="big">Big</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <h5>Proposal View</h5>
+  <h5>Proposal Edit</h5>
+  <hr>
+  <p>Layout 5: 3 column - left hidden, right hidden</p>
+  <div class='some-page-wrapper layout-5'>
+    <div class='row'>
+      <div class='column left-column'>
+        Left
+      </div>
+      <div class='column center-column'>
+        <table border="1">
+            <tr>
+              <th>Layout</th>
+              <th class="left-column">Left Column</th>
+              <th>Center Column</th>
+              <th class="right-column">Right Column</th>
+              <th>Passing</th>
+            </tr>
+            <tr>
+              <td class="tiny">Tiny</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="mobile">Mobile</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="tablet">Tablet</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="laptop">Laptop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="desktop">Desktop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="big">Big</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+        </table>
+      </div>
+      <div class='column right-column'>
+        Right
+      </div>
+    </div>
+  </div>
+  <hr>
+  <h5>Still have no use for this...</h5>
+  <p>Layout 6: 3 column - left column hidden, right column hidden</p>
+  <div class='some-page-wrapper layout-6'>
+    <div class='row'>
+      <div class='column left-column'>
+        Left
+      </div>
+      <div class='column center-column'>
+        <table border="1">
+            <tr>
+              <th>Layout</th>
+              <th class="left-column">Left Column</th>
+              <th>Center Column</th>
+              <th class="right-column">Right Column</th>
+              <th>Passing</th>
+            </tr>
+            <tr>
+              <td class="tiny">Tiny</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="mobile">Mobile</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="tablet">Tablet</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="laptop">Laptop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="desktop">Desktop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="big">Big</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <p>Layout 7: 2 column - no left column, right column</p>
+  <div class='some-page-wrapper layout-7'>
+    <div class='row'>
+      <div class='column center-column'>
+        <table border="1">
+            <tr>
+              <th>Layout</th>
+              <th class="left-column">Left Column</th>
+              <th>Center Column</th>
+              <th class="right-column">Right Column</th>
+              <th>Passing</th>
+            </tr>
+            <tr>
+              <td class="tiny">Tiny</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="mobile">Mobile</td>
+              <td>Collapsed</td>
+              <td>Visible</td>
+              <td>Hidden</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="tablet">Tablet</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="laptop">Laptop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="desktop">Desktop</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td class="big">Big</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>Visible</td>
+              <td>False</td>
+            </tr>
+        </table>
+      </div>
+      <div class='column right-column'>
+        Right
+      </div>
+    </div>
+  </div>
+  <hr>
 
 </template>

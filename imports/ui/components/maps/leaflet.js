@@ -89,11 +89,11 @@ function setStartingPosition(){
 function setTiles(){
   //console.log("Leaflet: setTiles()");
   //load base tiles map, to see more: https://leaflet-extras.github.io/leaflet-providers/preview/
-  //var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
-  //tiles.addTo(map);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+
+  var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
+
+  tiles.addTo(map);
+
 }
 export function addLayer(layer){
   //console.log("Leaflet: addLayer()");

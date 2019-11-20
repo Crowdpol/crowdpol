@@ -114,10 +114,12 @@ Meteor.methods({
       return users[0].profile.tags;
     },
     updateProfile: function (profile) {
+      console.log(profile);
       searchString = profile.firstName + " " + profile.lastName + " " + profile.username;
       profile["searchString"] = searchString;
       var oldProfile = Meteor.user().profile;
       var newProfile = _.extend(oldProfile, profile);
+      console.log(newProfile);
       Meteor.users.update({_id: Meteor.userId()}, {$set: {"profile": newProfile}});
     },
     togglePublic: function (userID,isPublic) {

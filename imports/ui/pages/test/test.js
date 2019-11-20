@@ -1,70 +1,65 @@
+import {map,loadMap,addLayer} from '../../components/maps/leaflet.js'
 //import './amchart.js';
 //import './leaflet.js';
 import L from 'leaflet';
 import './test.html';
 import './test.scss';
 
+//let steps = [];
+
 Template.Test.onCreated(function(){
   //console.log("Test: onCreated()");
 });
 
-Template.TestLanding.onRendered(function(){
-  //console.log("Test: onRendered()");
-  //$(window).scroll( fancyFunction );
-  $('#fader img:not(:first)').hide();
-    //$('#fader img').css('position', 'absolute');
-    //$('#fader img').css('top', '0px');
-    //$('#fader img').css('left', '50%');
-    $('#fader img').each(function() {
-        var img = $(this);
-        $('<img>').attr('src', $(this).attr('src')).load(function() {
-            //img.css('margin-left', -this.width / 2 + 'px');
-        });
+Template.Test.onRendered(function(){
+  /*
+  let els = document.getElementsByClassName('step');
+
+  Array.prototype.forEach.call(els, (e) => {
+    steps.push(e);
+    /*
+    e.addEventListener('click', (x) => {
+      progress(x.target.id);
     });
 
-    var pause = false;
+  });
+*/
 
-    function fadeNext() {
-        $('#fader img').first().fadeOut();
-        $('#fader img').first().fadeIn();
-    }
-
-    function fadePrev() {
-        $('#fader img').first().fadeOut();
-        $('#fader img').last().fadeIn();
-    }
-
-    $('#fader, #next').click(function() {
-        fadeNext();
-    });
-
-    $('#prev').click(function() {
-        fadePrev();
-    });
-
-    $('#fader, .button').hover(function() {
-        pause = true;
-    },function() {
-        pause = false;
-    });
-
-    function doRotate() {
-        if(!pause) {
-            fadeNext();
-        }
-    }
-
-    var rotate = setInterval(doRotate, 2000);
 });
+  /*
+function progress(stepNum) {
 
+  let p = stepNum * 30;
+  document.getElementsByClassName('percent')[0].style.width = `${p}%`;
+  steps.forEach((e) => {
+    if (e.id === stepNum) {
+      e.classList.add('selected');
+      e.classList.remove('completed');
+    }
+    if (e.id < stepNum) {
+      e.classList.add('completed');
+    }
+    if (e.id > stepNum) {
+      e.classList.remove('selected', 'completed');
+    }
+  });
+
+}
+  */
 Template.Test.events({
+  /*
+  'click .step': function(e){
+    console.log(e.currentTarget.id);
+    progress(e.currentTarget.id);
+  },
+
   'click .test-header': function(e){
     console.log("click test-header");
     e.preventDefault();
       $('html, body').animate({
           scrollTop: $("#test-footer-id").offset().top
       }, 600);
-  }
+  }*/
 });
 
 Template.Test.helpers({

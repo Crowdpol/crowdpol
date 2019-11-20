@@ -1,0 +1,14 @@
+<template name="ProgressBubbles">
+  {{#if enoughSteps}}
+    <div class="progress-bubbles-container">
+      <div class="progress">
+         <div class="percent"></div>
+       </div>
+       <div class="steps">
+         {{#each steps}}
+           <div class="step" id="{{@index}}"></div>
+         {{/each}}
+       </div>
+    </div>
+  {{/if}}
+</template>

@@ -1,6 +1,13 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
 
+#cover-container{
+  background: rgb(251,78,5);
+  background: -moz-radial-gradient(circle, rgba(251,78,5,1) 0%, rgba(246,73,0,1) 30%, rgba(170,50,0,1) 93%);
+  background: -webkit-radial-gradient(circle, rgba(251,78,5,1) 0%, rgba(246,73,0,1) 30%, rgba(170,50,0,1) 93%);
+  background: radial-gradient(circle, rgba(251,78,5,1) 0%, rgba(246,73,0,1) 30%, rgba(170,50,0,1) 93%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fb4e05",endColorstr="#aa3200",GradientType=1);
+}
 #cover-image-overlay{
   /* default fallback */
   background: rgb(48,48,48) transparent;

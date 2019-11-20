@@ -1,0 +1,29 @@
+@import 'variables.scss';
+
+#wizard-background{
+  background-image: url('img/landing/worldmap.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: right top;
+  z-index: -50;
+  #landing-page-grid{
+    position: relative;
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: $space ($space / 2) ($space * 3);
+  }
+}
+
+.compass-button{
+  margin: 5px;
+  i{
+    padding-right: 5px;
+  }
+}
+.compass-button.selected{
+  background-color: $orange;
+  color: $white;
+  i{
+    color: $white;
+  }
+}

@@ -7,17 +7,25 @@
       <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
         <div class="mdl-tabs__tab-bar">
             <a href="#profile-panel" class="mdl-tabs__tab is-active">{{_ "pages.settings.profile.nav.profile"}}</a>
-            <a href="#settings-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.settings"}}</a>
             <a href="#interests-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.interests"}}</a>
+            <a href="#links-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.links"}}</a>
+            <a href="#skills-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.skills"}}</a>
+            <a href="#settings-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.settings"}}</a>
         </div>
-        <div class="mdl-tabs__panel is-active" id="profile-panel">
+        <div class="mdl-tabs__panel is-active profile-tab" id="profile-panel">
           {{>ProfileForm}}
         </div>
-        <div class="mdl-tabs__panel" id="settings-panel">
+        <div class="mdl-tabs__panel profile-tab" id="settings-panel">
           {{> ProfileSettingsForm}}
         </div>
-        <div class="mdl-tabs__panel" id="interests-panel">
+        <div class="mdl-tabs__panel profile-tab" id="interests-panel">
           {{> Interests}}
+        </div>
+        <div class="mdl-tabs__panel profile-tab" id="links-panel">
+          {{> ProfileLinks}}
+        </div>
+        <div class="mdl-tabs__panel profile-tab" id="skills-panel">
+          {{>ProfileSkills}}
         </div>
       </div>
     </div>
