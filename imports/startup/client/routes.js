@@ -82,6 +82,13 @@ publicRoutes.route('/reset-password/:token?', {
   }
 });
 
+publicRoutes.route('/test/landing', {
+  name: 'App.test-landing',
+  action() {
+    BlazeLayout.render('TestLanding');
+  },
+});
+
 publicRoutes.route('/login', {
   name: 'App.login',
   action() {
@@ -92,6 +99,7 @@ publicRoutes.route('/login', {
     }
   },
 });
+
 publicRoutes.route('/signup', {
   name: 'App.login',
   action() {

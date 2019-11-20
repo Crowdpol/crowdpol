@@ -1,3 +1,208 @@
+<template name="TestLanding">
+  <!-- Uses a transparent header that draws on top of the layout's background -->
+  <style>
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
+  .mdl-layout__header{
+    background-color: transparent;
+  }
+  .header-logo {
+    height: 55px;
+  }
+  .mdl-layout__header-row .mdl-navigation__link{
+    color: grey;
+  }
+  section {
+    height: 100vh;
+    padding: 50px;
+  }
+  .section-image{
+    max-height: 80vh;
+  }
+  section:nth-child(1) {
+    background: white;
+    background: url('../img/landing_demo.png');
+    background-size:     contain;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+  }
+  section:nth-child(2) {
+    background: #f64900;
+  }
+  section:nth-child(3) {
+    background: white;
+  }
+  section:nth-child(4) {
+    background: #f64900;
+  }
+  section:nth-child(5) {
+    background: white;
+  }
+  </style>
+  <!-- Always shows a header, even in smaller screens. -->
+  <div class="mdl-layout mdl-js-layout ">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title"><img class="header-logo" src='../img/landing_header.png'/></span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Title</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <div class="landing-page-wrapper">
+          <section id="jumbotron">
+          </section>
+          <section id="establish">
+            <h1>Establish your presence</h1>
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--6-col">
+                <ol>
+                  <li>Create Your Account</li>
+                  <li>Set your Compass</li>
+                  <li>Establish your presence</li>
+                </ol>
+              </div>
+              <div class="mdl-cell mdl-cell--6-col"  id="fader">
+                <img class="section-image" src='../img/landing_signup.png'/>
+                <img class="section-image" src='../img/landing_presence.png'/>
+              </div>
+            </div>
+          </section>
+          <section id="explore">
+            <h1>Explore your communities</h1>
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--6-col">
+                <ol>
+                  <li>Navigate the world</li>
+                  <li>Find your communities</li>
+                  <li>Participate where it matters most to you</li>
+                </ol>
+              </div>
+              <div class="mdl-cell mdl-cell--6-col">
+                <img class="section-image" src='../img/landing_navigator.png'/>
+              </div>
+            </div>
+          </section>
+          <section id="engage">
+            <h1>Engage in Change</h1>
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--6-col">
+                    <ol>
+                      <li>Initiate Change</li>
+                      <li>Support Others</li>
+                      <li>Oversee your community</li>
+                    </ol>
+              </div>
+              <div class="mdl-cell mdl-cell--6-col">
+                    <img class="section-image" src='../img/landing_proposals.png'/>
+              </div>
+            </div>
+          </section>
+          <section id="level">
+            <h1>Level Up</h1>
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--6-col">
+                <ol>
+                  <li>Citizen</li>
+                  <li>Debater</li>
+                  <li>Supporter</li>
+                  <li>Initiator</li>
+                  <li>Delegate</li>
+                  <li>Facilitator</li>
+                  <li>Ambassador</li>
+                </ol>
+              </div>
+              <div class="mdl-cell mdl-cell--6-col">
+                <img class="section-image" src='../img/landing_level.png'/>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <footer class="mdl-mega-footer">
+        <div class="mdl-mega-footer__middle-section">
+
+          <div class="mdl-mega-footer__drop-down-section">
+            <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+            <h1 class="mdl-mega-footer__heading">Features</h1>
+            <ul class="mdl-mega-footer__link-list">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Terms</a></li>
+              <li><a href="#">Partners</a></li>
+              <li><a href="#">Updates</a></li>
+            </ul>
+          </div>
+
+          <div class="mdl-mega-footer__drop-down-section">
+            <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+            <h1 class="mdl-mega-footer__heading">Details</h1>
+            <ul class="mdl-mega-footer__link-list">
+              <li><a href="#">Specs</a></li>
+              <li><a href="#">Tools</a></li>
+              <li><a href="#">Resources</a></li>
+            </ul>
+          </div>
+
+          <div class="mdl-mega-footer__drop-down-section">
+            <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+            <h1 class="mdl-mega-footer__heading">Technology</h1>
+            <ul class="mdl-mega-footer__link-list">
+              <li><a href="#">How it works</a></li>
+              <li><a href="#">Patterns</a></li>
+              <li><a href="#">Usage</a></li>
+              <li><a href="#">Products</a></li>
+              <li><a href="#">Contracts</a></li>
+            </ul>
+          </div>
+
+          <div class="mdl-mega-footer__drop-down-section">
+            <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+            <h1 class="mdl-mega-footer__heading">FAQ</h1>
+            <ul class="mdl-mega-footer__link-list">
+              <li><a href="#">Questions</a></li>
+              <li><a href="#">Answers</a></li>
+              <li><a href="#">Contact us</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="mdl-mega-footer__bottom-section">
+          <div class="mdl-logo">Title</div>
+          <ul class="mdl-mega-footer__link-list">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy & Terms</a></li>
+          </ul>
+        </div>
+
+      </footer>
+    </main>
+  </div>
+
+
+</template>
 <template name="Test">
   {{>CommunityMap}}
 

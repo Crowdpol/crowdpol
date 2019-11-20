@@ -1,6 +1,7 @@
 import {map,loadMap,addLayer} from '../../components/maps/leaflet.js'
 //import './amchart.js';
 //import './leaflet.js';
+import L from 'leaflet';
 import './test.html';
 import './test.scss';
 
