@@ -1,0 +1,324 @@
+<template name="SignupWizard">
+  <div class="progress-step-container">
+    <ul class="progress-step">
+      <li class="active" data-step="1">Step 1</li>
+      <li class="active" data-step="2">Step 2</li>
+      <li data-step="3">Step 3</li>
+      <li data-step="4">Step 4</li>
+    </ul>
+  </div>
+  <hr>
+  <div class="my-progress">
+    <ul class="my-progress-step">
+      <li class="active" data-step="1">
+        <div class="step-circle">1</div>
+        <div class="step-text">Step 1</div>
+      </li>
+      <li data-step="2">
+        <div class="step-circle">2</div>
+        <div class="step-text">Step 2</div>
+      </li>
+      <li data-step="3">
+        <div class="step-circle">3</div>
+        <div class="step-text">Step 3</div>
+      </li>
+      <li data-step="4">
+        <div class="step-circle">4</div>
+        <div class="step-text">Step 4</div>
+      </li>
+    </ul>
+  </div>
+  {{>CommunityMap}}
+  <div class="">
+    <div class="progress-bubbles-container">
+      <div class="progress">
+         <div class="percent"></div>
+       </div>
+       <div class="steps">
+           <div class="progress-step step" id="1" data-step="1"></div>
+           <div class="progress-step step" id="2" data-step="2"></div>
+           <div class="progress-step step" id="3" data-step="3"></div>
+           <div class="progress-step step" id="4" data-step="4"></div>
+           <div class="progress-step step" id="5" data-step="5"></div>
+           <div class="progress-step step" id="6" data-step="6"></div>
+       </div>
+    </div>
+  </div>
+  <div class="my-progress">
+    <ul class="my-progress-step">
+      <li class="active" data-step="1">
+        <div class="step-circle">1</div>
+        <div class="step-text">Basics</div>
+      </li>
+      <li class="active" data-step="2">
+        <div class="step-circle">2</div>
+        <div class="step-text">Interests</div>
+      </li>
+      <li class="active" data-step="3">
+        <div class="step-circle">3</div>
+        <div class="step-text">Values</div>
+      </li>
+      <li class="active" data-step="4">
+        <div class="step-circle">4</div>
+        <div class="step-text">Location</div>
+      </li>
+    </ul>
+  </div>
+
+  <section id="step5" data-section="5" style="display:none;" class="wizard-section">
+    <div class="wizard-section-container">
+    <h4>Step 5</h4>
+    <p>External Links</p>
+
+    <!-- Twitter -->
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--9-col">
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <i class="fa fa-twitter fa-fw  mdl-textfield__label__icon"></i>
+          <label class="mdl-textfield__label" for="profile-twitter">Twitter</label>
+          <input type="text" name="profile-twitter" id="profile-twitter" class="mdl-textfield__input" value="{{profile.social.twitter}}">
+        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--3-col">
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="twitter-switch">
+          <input type="checkbox" id="twitter-switch" class="mdl-switch__input">
+          <span class="mdl-switch__label"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Google Plus -->
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--9-col">
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
+          <i class="fa fa-google-plus  mdl-textfield__label__icon" aria-hidden="true"></i>
+          <label class="mdl-textfield__label" for="profile-google">Google+</label>
+          <input type="text" name="profile-google" id="profile-google" class="mdl-textfield__input"  value="{{profile.social.google}}">
+        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--3-col">
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="google-switch">
+          <input type="checkbox" id="google-switch" class="mdl-switch__input">
+          <span class="mdl-switch__label"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Linked In -->
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--9-col">
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <i class="fa fa-linkedin mdl-textfield__label__icon" aria-hidden="true"></i>
+          <label class="mdl-textfield__label" for="profile-linkedin">Linked In</label>
+          <input type="text" id="profile-linkedin" name="profile-linkedin" class="mdl-textfield__input" value="{{profile.social.linkedin}}">
+        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--3-col">
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="linkedin-switch">
+          <input type="checkbox" id="linkedin-switch" class="mdl-switch__input">
+          <span class="mdl-switch__label"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Facebook-->
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--9-col">
+        <div class="input-wrap mdl-textfield mdl-js-textfield">
+          <i class="fa fa-facebook mdl-textfield__label__icon" aria-hidden="true"></i>
+          <label class="mdl-textfield__label" for="profile-facebook" >Facebook</label>
+          <input type="text" id="profile-facebook" name="profile-facebook" class="mdl-textfield__input" value="{{profile.social.facebook}}">
+        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--3-col">
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="facebook-switch">
+          <input type="checkbox" id="facebook-switch" class="mdl-switch__input">
+          <span class="mdl-switch__label"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Instagram -->
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--9-col">
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <i class="fa fa-instagram mdl-textfield__label__icon" aria-hidden="true"></i>
+          <label class="mdl-textfield__label" for="profile-instagram">Instagram</label>
+          <input type="text" id="profile-instagram" name="profile-instagram" class="mdl-textfield__input" value="{{profile.social.instagram}}">
+        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--3-col">
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="instagram-switch">
+          <input type="checkbox" id="instagram-switch" class="mdl-switch__input">
+          <span class="mdl-switch__label"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- YouTube -->
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--9-col">
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <i class="fa fa-youtube mdl-textfield__label__icon" aria-hidden="true"></i>
+          <label class="mdl-textfield__label" for="profile-instagram">Youtube</label>
+          <input type="text" id="profile-youtube" name="profile-youtube" class="mdl-textfield__input" value="{{profile.social.youtube}}">
+        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--3-col">
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="youtube-switch">
+          <input type="checkbox" id="youtube-switch" class="mdl-switch__input">
+          <span class="mdl-switch__label"></span>
+        </label>
+      </div>
+    </div>
+
+    <p>Website or blog</p>
+    <!-- Website -->
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--9-col">
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <i class="fa fa-home mdl-textfield__label__icon" aria-hidden="true"></i>
+          <label class="mdl-textfield__label" for="profile-website">Website</label>
+          <input type="text" id="profile-website" name="profile-website" class="mdl-textfield__input" value="{{profile.website}}">
+        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--3-col">
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="website-switch">
+          <input type="checkbox" id="website-switch" class="mdl-switch__input">
+          <span class="mdl-switch__label"></span>
+        </label>
+      </div>
+    </div>
+
+    <br>
+    <center>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
+        Skip
+      </button>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back" data-step="4">
+        Back
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="6">
+        Next
+      </button>
+    </center>
+    </div>
+  </section>
+  <section id="step6" data-section="6" style="display:none;" class="wizard-section">
+    <div class="wizard-section-container">
+      <h4>Step 6</h4>
+      <center>
+        <button class="mdl-button mdl-js-button mdl-button--raised">
+          <i class="material-icons">public</i>&nbsp;Explore The World&nbsp;<i class="material-icons">arrow_right_alt</i>
+        </button>
+      </center>
+      <hr>
+      <center>OR</center>
+      <hr>
+      <p>These settings will determine what proposals show up in your flow</p>
+      <br>
+      <p>Selecet political areas</p>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--6-col">
+          <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="culture">
+            <i class="material-icons">color_lens</i>&nbsp;Culture
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="finance">
+            <i class="material-icons">attach_money</i>&nbsp;Finance
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="defense">
+            <i class="material-icons">grade</i>Defense
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="education">
+            <i class="material-icons">school</i>Education
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="enterprise">
+            <i class="material-icons">storefront</i>Enterprise
+          </button>
+
+        </div>
+        <div class="mdl-cell mdl-cell--6-col">
+          <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="environment">
+            <i class="material-icons">local_florist</i>Environment
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="foreign-affairs">
+            <i class="material-icons">account_balance</i>Foreign Affairs
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="social-affairs">
+            <i class="material-icons">accessibility</i>Social Affairs
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="infrastructure">
+            <i class="material-icons">commute</i>Infrastructure
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="justice">
+            <i class="material-icons">gavel</i>Justice
+          </button>
+        </div>
+      </div>
+      <hr>
+      <p>What skills can you contribute</p>
+      <h5>Background and skills</h5>
+      <p>Select labels below that best describe what you would like to contribute with on Crowdpol. The system will use this data to match you with other users for collaborative efforts on proposals and projects.</p>
+      <h5>Select skills</h5>
+      <p>You can add or remove skills at any time.</p>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--6-col">
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-legal">
+            <input type="checkbox" id="checkbox-legal" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Legal</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-business">
+            <input type="checkbox" id="checkbox-business" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Business</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-finance">
+            <input type="checkbox" id="checkbox-finance" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Finance</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-marketing">
+            <input type="checkbox" id="checkbox-marketing" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Marketing</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-environment">
+            <input type="checkbox" id="checkbox-environment" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Environment</span>
+          </label>
+        </div>
+        <div class="mdl-cell mdl-cell--6-col">
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-political">
+            <input type="checkbox" id="checkbox-political" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Political</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-management">
+            <input type="checkbox" id="checkbox-management" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Management</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-admin">
+            <input type="checkbox" id="checkbox-admin" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Administration</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-design">
+            <input type="checkbox" id="checkbox-design" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Design</span>
+          </label>
+          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-programming">
+            <input type="checkbox" id="checkbox-programming" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Programming</span>
+          </label>
+        </div>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <textarea class="mdl-textfield__input" type="text" rows= "3" id="profile-skills-description" name="profile-skills-description"></textarea>
+        <label class="mdl-textfield__label" for="profile-skills-description">Write a few words about your experience in this area (max 520 letters)</label>
+      </div>
+      <!-- {{>SkillDescription}} -->
+
+      <center>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back" data-step="5">
+          Back
+        </button>
+        
+      </center>
+    </div>
+  </section>
+</template>

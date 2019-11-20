@@ -107,6 +107,30 @@
   flex: 1 100%;
 }
 */
+.feed-body{
+  background-color: #efefef;
+}
+.left-column{
+  div.profile-pic-container{
+    margin-top: -110px;
+    margin-bottom: 10px;
+    div.profile-pic{
+      border: solid 5px white;
+    }
+  }
+}
+#feed-map{
+  width: 300px;
+  height: 200px;
+  background-color: $orange;
+}
+#feed-map-fake{
+  width: 300px;
+  height: 200px;
+  background-image: url('/img/fakemap.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 ul.feed-list{
   list-style-type: none;
   padding-inline-start: 0px;
@@ -211,6 +235,15 @@ ul.feed-list{
   }
 }
 
+div.feed-sidebar{
+  background-color: transparent;
+  min-width: 250px;
+  h5{
+    color: $orange;
+    font-size: 18px;
+  }
+}
+
 
 /*
 @media all and (min-width: 600px) {
@@ -231,7 +264,7 @@ ul.feed-list{
 */
 @media only screen and (min-width: $tiny){
   #feed-body{
-    border: solid $test-border-width red;
+    //border: solid $test-border-width red;
     .aside-1{
       display:none;
     }

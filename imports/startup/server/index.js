@@ -1,6 +1,7 @@
 // Import server startup through a single index entry point
 import { Meteor } from 'meteor/meteor';
 import './fixtures.js';
+import './functions.js';
 import './register-api.js';
 import './cron-jobs.js';
 import "./accounts/accounts.js";

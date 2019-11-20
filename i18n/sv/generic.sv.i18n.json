@@ -43,6 +43,7 @@
 		"update": "Uppdatera",
 		"cancel": "Avbryt",
 		"signup": "Bli Medlem",
-		"profile-photo": "Profilbild"
+		"profile-photo": "Profilbild",
+		"dob": "Födelsedatum"
 	}
 }

@@ -25,6 +25,7 @@ Template.ProfileForm.onCreated(function() {
   //console.log("Setting reactive vars from Meteor.user()");
   dict.set('isPublic', userData.isPublic);
   dict.set('username', userData.profile.username);
+  dict.set('dob', userData.profile.birthday);
   dict.set('firstname', userData.profile.firstName);
   dict.set('lastname', userData.profile.lastName);
   dict.set('bio', userData.profile.bio);
@@ -176,7 +177,20 @@ Template.ProfileForm.onRendered(function() {
     //}
   });
 
-
+  var picker = new Pikaday({
+    field: document.getElementById('profile-dob'),
+    firstDay: 1,
+    minDate: new Date(1900, 0, 1),
+    maxDate: new Date(),
+    yearRange: [1900, 2020],
+    showTime: false,
+    autoClose: true,
+    format: 'DD-MMM-YYYY',
+    disableDayFn: function(date) {
+      return moment().isBefore(moment(date), 'day');
+    }
+  });
+  picker.setDate(Template.instance().dict.get('dob'));
 
   let template = Template.instance();
   //console.log("username validator being called");
@@ -343,6 +357,9 @@ Template.ProfileForm.helpers({
   },
   bio: function() {
     return Template.instance().dict.get('bio');
+  },
+  motto: function() {
+    return Template.instance().dict.get('motto');
   },
   website: function() {
     return Template.instance().dict.get('website');

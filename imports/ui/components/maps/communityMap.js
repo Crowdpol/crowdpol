@@ -40,16 +40,31 @@ Template.CommunityMap.helpers({
 //custom FUNCTIONS
 function loadGeoJSON(){
   //start with the global map (i.e. load countries)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  /*
   var greyscaleMap = L.tileLayer.provider('Esri.WorldGrayCanvas');
   var streetMap = L.tileLayer.provider('Esri.WorldStreetMap');
+  */
   var mapsData = buildGeoJSON(currentRoot);
   mapLayer = new L.geoJSON(mapsData,{
     style: mapStyle,
     onEachFeature: mapOnEachFeature
   });
+  mapLayer.on('loading', function (event) {
+      console.log("loeading");
+      //mapInstance.fireEvent('dataloading', event);
+  });
+
+  mapLayer.on('load', function (event) {
+    console.log("loead");
+      //mapInstance.fireEvent('dataload', event);
+  });
   addLayer(greyscaleMap);
   addLayer(streetMap);
   addLayer(mapLayer);
+  /*
   //streetMap.addTo(map);
   //mapLayer.addTo(map);
   var baseMaps = {
@@ -63,7 +78,7 @@ function loadGeoJSON(){
   //var group = new L.LayerGroup([streetMap, mapLayer]);
   //group.addTo(map);
 
-  L.control.layers(baseMaps, overlayMaps,{position: 'topleft'}).addTo(map);
+  var layerInstance = L.control.layers(baseMaps, overlayMaps,{position: 'topleft'}).addTo(map);
 
   //console.log(mapLayer.getBounds());
   //map.fitBounds(mapLayer.getBounds());
@@ -81,10 +96,14 @@ function loadGeoJSON(){
       selection = null;
       //document.getElementById('summaryLabel').innerHTML = '<p>Click a garden or food pantry on the map to get more information.</p>';
     }
-    */
+
+    var marker = L.marker([scope.lat, scope.lng],{draggable: true});
+    marker.setLatLng(event.latlng);
+    marker.addTo(map);
+
     L.DomEvent.stopPropagation(e);
   });
-
+  */
 }
 
 function buildGeoJSON(){

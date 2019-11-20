@@ -52,6 +52,17 @@
         </div>
       </div>
     {{/if}}
+    {{#if isBlock style}}
+      <div class="profile-card-block">
+        <a href="/feed/{{userId}}" class="view-user">
+          <div class="profile-card-block-image" style="background-image:url('{{userPhoto userId}}')"></div>
+          <div class="profile-card-block-details">
+            <span class="fullname">{{userFullname userId}}</span><br>
+            <span class="followers-count">{{alreadyFollowing userId}} FOLLOWERS</span>
+          </div>
+        </a>
+      </div>
+    {{/if}}
   {{else}}
     <div class="profile-card-flat">
       <a href="/feed/{{userId}}" class="profile-image-link"><img src="/img/default-user-image.png" class="profile-image mdl-list__item-avatar"/></a>

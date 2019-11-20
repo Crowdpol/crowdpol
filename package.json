@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "prod": "meteor --settings=settings.json",
-    "start": "ROOT_URL=http://global.localhost:3000 meteor --settings=development.settings.json",
+    "start": "ROOT_URL=http://global.localhost:3000 meteor --settings=settings-development.json",
     "test": "meteor test --driver-package practicalmeteor:mocha --port 8000"
   },
   "dependencies": {
@@ -16,9 +16,11 @@
     "faker": "^4.1.0",
     "i": "^0.3.6",
     "json-schema-faker": "^0.4.6",
+    "leaflet": "^1.5.1",
+    "leaflet-geosearch": "^2.7.0",
     "meteor-node-stubs": "~0.2.4",
     "npm": "^6.11.2",
-    "quill": "^1.3.6",
+    "quill": "^1.3.7",
     "raven": "^2.6.4",
     "raven-js": "^3.27.2",
     "simpl-schema": "^0.3.2",

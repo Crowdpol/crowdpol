@@ -1,251 +1,164 @@
 <template name="Wizard">
-  <div class="container narrow-container">
+  {{>ProfileImageModal}}
+  <div class="wizard-container">
+    <div class="container-fluid">
+      <ul class="list-unstyled multi-steps">
+        <li class="step is-active" data-step="1">Welcome</li>
+        <li class="step" data-step="2">Interests</li>
+        <li class="step" data-step="3">Values</li>
+        <li class="step" data-step="4">Location</li>
+      </ul>
+    </div>
     <section id="step1" data-section="1" class="wizard-section">
-      <h1>Step 1</h1>
-      <p>Provide us with your basic information</p>
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
-        <input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{profile.username}}">
-        <span id="valid-username" class="valid-username"></span>
-      </div>
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
-        <label class="mdl-textfield__label" for="profile-firstname">{{_ "form.firstname"}}</label>
-        <input type="text" name="profileFirstName" id="profileFirstName" class="mdl-textfield__input"  value="{{profile.firstName}}">
-      </div>
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <label class="mdl-textfield__label" for="profile-lastname">{{_ "form.lastname"}}</label>
-        <input type="text" id="profile-lastname" name="profileLastName" class="mdl-textfield__input" value="{{profile.lastName}}">
-      </div>
-      <div class="input-wrap mdl-textfield mdl-js-textfield">
-        <label class="mdl-textfield__label">{{_ "form.dob"}}</label>
-        <input type="date" name="startDate" id="profile-dob" class="mdl-textfield__input" value="{{profile.dob}}">
-      </div>
-      <br>
-      <center>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
-          Skip
-        </button>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="1">
-          Next
-        </button>
-      </center>
-    </section>
-    <section id="step2" data-section="2" class="wizard-section" style="display:none;">
-      <h1>Step 2</h1>
-      <p>Upload a profile picture</p>
-
-      <div class="profile-cover">
-        <div id="profile-details-header" class="profile-details app-container collapsed">
-          {{>ProfileImage editable=true userId=userId groupHandle=false}}
+      <div class="wizard-section-container">
+        <center>
+          <h4>Welcome</h4>
+          <small>Let's get you set up...</small>
+        </center>
+        <input type="hidden" value="{{profileImageSelection}}" name="profile-image" id="profile-image">
+        <div class="profile-pic-container">
+              <div class="profile-pic-wrapper">
+              	<div class="profile-pic"></div>
+                <div class="overlay">
+                  <div class="text">
+                    <label class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored photo-button-class" id="photo-button">
+                      <i class="material-icons" id="change-photo-icon photo-button-class">camera_alt</i>
+                      <!--<input type="file" id="fileInput">-->
+                    </label>
+                  </div>
+                </div>
+              </div>
         </div>
-      </div>
-      <!--
-      <button class="mdl-button mdl-js-button mdl-button-raised mdl-button-colored">
-        Upload
-      </button>
-      -->
-      <br>
-      <center>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
-          Skip
-        </button>
-      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
-        Back
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="2">
-        Next
-      </button>
-      </center>
-    </section>
-    <section id="step1" data-section="3" class="wizard-section" style="display:none;">
-      <h1>Step 3</h1>
-      <p>My motto</p>
-      <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="profile-tagline">
-        <label class="mdl-textfield__label" for="profile-tagline">If you had a tagline, what would it be?</label>
-      </div>
-      <p>Me at a glance</p>
-      <div class="mdl-textfield mdl-js-textfield">
-        <textarea class="mdl-textfield__input" type="text" rows= "3" id="profile-presentation" ></textarea>
-        <label class="mdl-textfield__label" for="profile-presentation">Write a short presentation about yourself</label>
-      </div>
-      <p>My Values</p>
-      {{> NewTaggle showTags=true}}
-      <br>
-      <center>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
-          Skip
-        </button>
-      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
-        Back
-      </button>
-
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="4">
-        Next
-      </button>
-      </center>
-    </section>
-    <section id="step4" data-section="4" class="wizard-section" style="display:none;">
-      <h1>Step 4</h1>
-      <p>What skills can you contribute</p>
-      <h5>Background and skills</h5>
-      <p>Select labels below that best describe what you would like to contribute with on Crowdpol. The system will use this data to match you with other users for collaborative efforts on proposals and projects.</p>
-      <h5>Select skills</h5>
-      <p>You can add or remove skills at any time.</p>
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--6-col">
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-            <span class="mdl-checkbox__label">Legal</span>
-          </label>
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-            <span class="mdl-checkbox__label">Business</span>
-          </label>
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-            <span class="mdl-checkbox__label">Finance</span>
-          </label>
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-            <span class="mdl-checkbox__label">Marketing</span>
-          </label>
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-            <span class="mdl-checkbox__label">Environment</span>
-          </label>
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
+          <input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{profile.username}}">
+          <span id="valid-username" class="valid-username"></span>
         </div>
-        <div class="mdl-cell mdl-cell--6-col">
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-            <span class="mdl-checkbox__label">Political</span>
-          </label>
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-            <span class="mdl-checkbox__label">Management</span>
-          </label>
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-            <span class="mdl-checkbox__label">Administration</span>
-          </label>
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-            <span class="mdl-checkbox__label">Design</span>
-          </label>
-          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-            <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-            <span class="mdl-checkbox__label">Programming</span>
-          </label>
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
+          <label class="mdl-textfield__label" for="profile-firstname">{{_ "form.firstname"}}</label>
+          <input type="text" name="profile-firstname" id="profile-firstname" class="mdl-textfield__input"  value="{{profile.firstName}}">
         </div>
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <label class="mdl-textfield__label" for="profile-lastname">{{_ "form.lastname"}}</label>
+          <input type="text" id="profile-lastname" name="profile-lastname" class="mdl-textfield__input" value="{{profile.lastName}}">
+        </div>
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-dirty is-upgraded">
+          <label class="mdl-textfield__label"  for="profile-dob">{{_ "form.dob"}}</label>
+          <input type="text" name="profile-dob" id="profile-dob" class="mdl-textfield__input" value="{{profile.birthday}}">
+        </div>
+
+        <br>
+        <center>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">Skip</button>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next">Next</button>
+        </center>
       </div>
-
-
-      {{>SkillDescription}}
-      <br>
-      <center>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
-          Skip
-        </button>
-      <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
-        Back
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="4">
-        Next
-      </button>
-      </center>
     </section>
-    <section id="step5" data-section="5" class="wizard-section" style="display:none;">
-      <h1>Step 5</h1>
-      <p>External Links</p>
-      <!-- Twitter -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <i class="fa fa-twitter fa-fw  mdl-textfield__label__icon"></i>
-        <label class="mdl-textfield__label" for="profile-twitter">Twitter</label>
-        <input type="text" name="profile-twitter" id="profile-twitter" class="mdl-textfield__input" value="{{profile.social.twitter}}">
-      </div>
-      <!-- Google Plus -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
-        <i class="fa fa-google-plus  mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-google">Google+</label>
-        <input type="text" name="profile-google" id="profile-google" class="mdl-textfield__input"  value="{{profile.social.google}}">
-      </div>
-      <!-- Linked In -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <i class="fa fa-linkedin mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-linkedin">Linked In</label>
-        <input type="text" id="profile-linkedin" name="profile-linkedin" class="mdl-textfield__input" value="{{profile.social.linkedin}}">
-      </div>
-      <!-- Facebook-->
-      <div class="input-wrap mdl-textfield mdl-js-textfield">
-        <i class="fa fa-facebook mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-facebook" >Facebook</label>
-        <input type="text" id="profile-facebook" name="profile-facebook" class="mdl-textfield__input" value="{{profile.social.facebook}}">
-      </div>
-      <!-- Instagram -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <i class="fa fa-instagram mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-instagram">Instagram</label>
-        <input type="text" id="profile-instagram" name="profile-instagram" class="mdl-textfield__input" value="{{profile.social.instagram}}">
-      </div>
-      <!-- YouTube -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <i class="fa fa-instagram mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-instagram">Youtube</label>
-        <input type="text" id="profile-youtube" name="profile-youtube" class="mdl-textfield__input" value="{{profile.social.youtube}}">
-      </div>
-      <p>Website or blog</p>
-      <!-- Website -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <i class="fa fa-home mdl-textfield__label__icon" aria-hidden="true"></i>
-        <label class="mdl-textfield__label" for="profile-website">Website</label>
-        <input type="text" id="profile-website" name="profile-website" class="mdl-textfield__input" value="{{profile.website}}">
-      </div>
-      <br>
-      <center>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
-          Skip
-        </button>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
-          Back
-        </button>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next" data-step="5">
-          Next
-        </button>
-      </center>
-    </section>
-    <section id="step6" data-section="6" class="wizard-section" style="display:none;">
-      <h1>Step 6</h1>
-      <p>Select your location</p>
-      <!-- Location -->
-      <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <label class="mdl-textfield__label" for="profile-location">Enter your location</label>
-        <input type="text" name="profile-location" id="profile-location" class="mdl-textfield__input" >
-      </div>
-      <div id="wizard-map" style="min-height: 350px; min-width: 100%;"></div>
-      <div class="notice">
-        Double-click on map creates a marker<br>
-        Click on a marker to delete it
-      </div>
-      <br>
-      <center>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
-          Skip
-        </button>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
-          Back
-        </button>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-complete" data-step="6">
-          Complete
-        </button>
-      </center>
-    </section>
-  </div>
+    <section id="step2" data-section="2" style="display:none;" class="wizard-section">
+      <div class="wizard-section-container">
+        <center>
+          <h4>Interests</h4>
+          <small>What do you care most about?</small>
+        </center>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--6-col">
+            <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="culture">
+              <i class="material-icons">color_lens</i>&nbsp;Culture
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="finance">
+              <i class="material-icons">attach_money</i>&nbsp;Finance
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="defense">
+              <i class="material-icons">grade</i>Defense
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="education">
+              <i class="material-icons">school</i>Education
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="enterprise">
+              <i class="material-icons">storefront</i>Enterprise
+            </button>
 
-</template>
+          </div>
+          <div class="mdl-cell mdl-cell--6-col">
+            <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="environment">
+              <i class="material-icons">local_florist</i>Environment
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="foreign-affairs">
+              <i class="material-icons">account_balance</i>Foreign Affairs
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="social-affairs">
+              <i class="material-icons">accessibility</i>Social Affairs
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="infrastructure">
+              <i class="material-icons">commute</i>Infrastructure
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised wide-button compass-button" data-id="justice">
+              <i class="material-icons">gavel</i>Justice
+            </button>
+          </div>
+        </div>
+        <center>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">Skip</button>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">Back</button>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next">Next</button>
+        </center>
+      </div>
+    </section>
+    <section id="step3" data-section="3" style="display:none;" class="wizard-section">
+      <div class="wizard-section-container">
+        <center>
+          <h4>Values</h4>
+          <small>What do you value most?</small>
+        </center>
+        <div class="wizard-taggle">
+          {{> NewTaggle showTags=true selectedTags=selectedTags}}
+        </div>
+        <br>
+        <center>
+          <small>Tell the world what you care about.</small>
+        </center>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="profile-motto" name="profile-motto" value="{{profile.motto}}">
+          <label class="mdl-textfield__label" for="profile-motto">If you had a tagline, what would it be?</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <textarea class="mdl-textfield__input" type="text" rows= "3" id="profile-bio" value="{{profile.bio}}"></textarea>
+          <label class="mdl-textfield__label" for="profile-bio">Write a short presentation about yourself</label>
+        </div>
 
-<template name="SkillDescription">
-  <div class="mdl-textfield mdl-js-textfield">
-    <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
-    <label class="mdl-textfield__label" for="sample5">Write a few words about your experience in this area (max 520 letters)</label>
+        <br>
+        <center>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">Skip</button>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">Back</button>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-next">Next</button>
+        </center>
+      </div>
+    </section>
+    <section id="step4" data-section="4" style="display:none;" class="wizard-section">
+      <div class="wizard-section-container">
+        <center>
+          <h4>Location</h4>
+          <small>Select a community to get started.</small>
+        </center>
+        <!-- Location -->
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <label class="mdl-textfield__label" for="profile-location">Enter your location</label>
+          <input type="text" name="profile-location" id="profile-location" class="mdl-textfield__input" >
+        </div>
+        {{>CommunityMap}}
+        <br>
+        <center>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">
+            Skip
+          </button>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-back">
+            Back
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent wizard-complete">
+            Complete
+          </button>
+        </center>
+      </div>
+    </section>
   </div>
 </template>

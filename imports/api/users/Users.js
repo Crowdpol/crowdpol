@@ -79,13 +79,41 @@ Schema.Card = new SimpleSchema({
     },
 });
 
+Schema.Skills = new SimpleSchema({
+  type: {
+    type: String,
+    allowedValues: ['legal','business','marketing','finance','environment','political','management','administration','design','programming'],
+    optional: true,
+  },
+  description: {
+    type: String,
+    optional: true,
+  },
+  selected: {
+    type: Boolean,
+    optional: true,
+  },
+});
+
+Schema.Interests = new SimpleSchema({
+  type: {
+    type: String,
+    allowedValues: ['culture','finance','defense','education','enterprise','environment','foreign-affairs','social-affairs','infrastructure','justice'],
+    optional: true,
+  },
+  amount: {
+    type: Number,
+    optional: true,
+  },
+});
+
 Schema.Credential = new SimpleSchema({
   source: {
     type: String,
     //allowedValues: ['facebook', 'twitter', 'google', 'script', 'default'],
     optional: true,
   },
-  URL: {
+  url: {
     type: String,
     optional: true,
   },
@@ -94,6 +122,28 @@ Schema.Credential = new SimpleSchema({
     optional: true,
   },
 });
+
+Schema.Social = new SimpleSchema({
+  type: {
+    type: String,
+    allowedValues: ['facebook', 'twitter', 'google', 'youtube', 'linkedin','instagram','website'],
+    optional: true,
+  },
+  url: {
+    type: String,
+    //regEx: SimpleSchema.RegEx.Url,
+    optional: true,
+  },
+  validated: {
+    type: Boolean,
+    optional: true,
+  },
+  visible: {
+    type: Boolean,
+    optional: true,
+  },
+});
+
 
 Schema.UserCountry = new SimpleSchema({
     name: {
@@ -139,12 +189,39 @@ Schema.UserProfile = new SimpleSchema({
         type: Date,
         optional: true
     },
-    website: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Url,
-        optional: true
+    interests: {
+        type: Array,
+        optional: true,
+    },
+    'interests.$': {
+        type: Schema.Interests,
+        optional: true,
+    },
+    skills: {
+        type: Array,
+        optional: true,
+    },
+    'skills.$': {
+        type: Schema.Skills,
+        optional: true,
+    },
+    skillsDescription:{
+      type: String,
+      optional: true
+    },
+    social: {
+        type: Array,
+        optional: true,
+    },
+    'social.$': {
+        type: Schema.Social,
+        optional: true,
     },
     bio: {
+        type: String,
+        optional: true
+    },
+    motto: {
         type: String,
         optional: true
     },

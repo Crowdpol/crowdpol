@@ -82,6 +82,13 @@ publicRoutes.route('/reset-password/:token?', {
   }
 });
 
+publicRoutes.route('/test/landing', {
+  name: 'App.test-landing',
+  action() {
+    BlazeLayout.render('TestLanding');
+  },
+});
+
 publicRoutes.route('/login', {
   name: 'App.login',
   action() {
@@ -92,6 +99,7 @@ publicRoutes.route('/login', {
     }
   },
 });
+
 publicRoutes.route('/signup', {
   name: 'App.login',
   action() {
@@ -245,10 +253,23 @@ var loggedInRoutes = FlowRouter.group({
   }]
 });
 
-publicRoutes.route('/wizard', {
+loggedInRoutes.route('/wizard', {
   name: 'App.wizard',
   action() {
     BlazeLayout.render('App_body', { main: 'Wizard' });
+  },
+});
+loggedInRoutes.route('/wizard/step/:id', {
+name: 'App.wizard',
+action() {
+  BlazeLayout.render('App_body', { main: 'Wizard' });
+},
+});
+
+publicRoutes.route('/compass', {
+  name: 'App.compass',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Compass' });
   },
 });
 
@@ -285,6 +306,35 @@ loggedInRoutes.route('/feed/:id', {
   name: 'App.feed',
   action() {
     BlazeLayout.render('App_body', { main: 'UserFeed' });
+  },
+});
+/*
+loggedInRoutes.route('/scaffold/dash', {
+  name: 'App.scaffold',
+  action() {
+    BlazeLayout.render('Scaffold', {
+      left: 'PresenceLeft',
+      main: 'PresenceContent',
+      left: 'PresenceRight'
+    });
+  },
+});
+*/
+loggedInRoutes.route('/presence', {
+  name: 'App.presence',
+  action() {
+    BlazeLayout.render('Test', {
+      left: 'PresenceLeft',
+      main: 'PresenceContent',
+      left: 'PresenceRight'
+    });
+  },
+});
+
+loggedInRoutes.route('/presence/:id', {
+  name: 'App.presence',
+  action() {
+    BlazeLayout.render('App_body', { main: 'UserPresence' });
   },
 });
 

@@ -203,3 +203,38 @@
     display: none;
   }
 }
+
+.profile-image-modal.active {
+  display: block;
+  cursor: default;
+  background: #FFF;
+  border-radius: .125em;
+  height: 80%;
+  width: 80%;
+  box-shadow: 0 25px 35px 0 rgba(0, 0, 0, 0.35);
+  right: 10%;
+  top: 10%;
+  overflow: scroll
+}
+
+.profile-image-modal {
+  display: none;
+  z-index: 5;
+  cursor: pointer;
+  border-radius: 50%;
+  position: fixed;
+  right: 10%;
+  top: 10%;
+  //color: #fff;
+  background: #d35400;
+  height: 80%;
+  width: 80%;
+  box-shadow: 0 5px 5px rgba(126, 111, 111, 0.39);
+  -webkit-transition: all 600ms cubic-bezier(0.200, 0.965, 0.000, 1.005);
+  transition: all 600ms cubic-bezier(0.200, 0.965, 0.000, 1.005);
+}
+
+.profile-image-modal-wrapper{
+  padding-left: 20%;
+  padding-right: 20%;
+}
