@@ -30,7 +30,7 @@ Template.Group.onCreated(function(){
           }
         }else{
           Bert.alert('Group not found','danger');
-          FlowRouter.go('/dash');
+          //FlowRouter.go('/dash');
         }
 
         /*
@@ -109,7 +109,7 @@ Template.Group.helpers({
   groupFeed: function(){
     return null;
   },
-  groupProfilePic: function(){
+  groupPic: function(){
     let group = Template.instance().templateDictionary.get( 'group' );
     console.log(group);
     return null;
@@ -117,10 +117,20 @@ Template.Group.helpers({
   thisUser: function(){
     return Meteor.userId();
   },
+  groupName: function(){
+    let group = Template.instance().templateDictionary.get( 'group' );
+    if(group){
+      console.log("groupName: " + group.name);
+      return group.name;
+    }
+
+  },
   groupHandle: function(){
-    groupHandle = Template.instance().templateDictionary.get( 'handle' );
-    console.log("groupHandle: " + groupHandle);
-    return groupHandle;
+    let group = Template.instance().templateDictionary.get( 'group' );
+    if(group){
+      console.log("groupHandle: " + group.handle);
+      return group.handle;
+    }
   },
   groupFeed: function(){
     let group = Template.instance().templateDictionary.get('group');
@@ -137,8 +147,50 @@ Template.Group.helpers({
     }
 
   },
+  membersCount: function(){
+    let group = Template.instance().templateDictionary.get('group');
+    if(group){
+      if(typeof(group.members) !== 'undefined'){
+        let members = group.members;
+        console.log(members);
+        return members.length;
+      }
+    }
+    return 0;
+  },
+  followingCount: function(){
+    return 0;
+  },
   members: function(){
-    return
+    let group = Template.instance().templateDictionary.get('group');
+    if(group){
+      return group.members;
+      /*
+      if(typeof(group.members) !== 'undefined'){
+        return group.members;
+      }
+      */
+    }
+    return 0;
+  },
+  userIsAdmin: function(){
+    let group = Template.instance().templateDictionary.get('group');
+    if(group){
+      if(typeof(group.admins) !== 'undefined'){
+        let admins = group.admins;
+        console.log(admins);
+        let userId = Meteor.userId();
+        console.log(userId);
+        console.log(admins.indexOf(userId));
+        if(admins.indexOf(userId)){
+          console.log("user is admin");
+        }else{
+          console.log("user is NOT admin");
+        }
+      }
+    }
+    console.log("user is NOT admin");
+    return false;
   }
 });
 
