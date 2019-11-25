@@ -44,6 +44,10 @@
               </div>
               <div class="community-tabs" data-sidebar-nav-id="community-groups">
                 <a class="community-tab active" data-id="groups-all">{{_ "menu-tab.groups.available"}}</a>
+                <a class="community-tab" data-id="groups-parties">{{_ "menu-tab.groups.parties"}}</a>
+                <a class="community-tab" data-id="groups-orgs">{{_ "menu-tab.groups.organisations"}}</a>
+                <a class="community-tab" data-id="groups-social">{{_ "menu-tab.groups.social"}}</a>
+                <a class="community-tab" data-id="groups-network">{{_ "menu-tab.groups.network"}}</a>
                 <a class="community-tab" data-id="groups-create">{{_ "menu-tab.groups.create"}}</a>
               </div>
         </div>
@@ -182,6 +186,19 @@
       <div id="community-groups" class="tabcontent">
         <div class="community-tabs-panel active" id="groups-all">
           {{> GroupList}}
+        </div>
+
+        <div class="community-tabs-panel" id="groups-parties">
+          {{> GroupList type="party"}}
+        </div>
+        <div class="community-tabs-panel" id="groups-orgs">
+          {{> GroupList type="organisation"}}
+        </div>
+        <div class="community-tabs-panel" id="groups-social">
+          {{> GroupList type="social"}}
+        </div>
+        <div class="community-tabs-panel" id="groups-network">
+          {{> GroupList type="network"}}
         </div>
         <div class="community-tabs-panel" id="groups-create">
           {{> CreateGroup}}

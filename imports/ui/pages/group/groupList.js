@@ -8,8 +8,9 @@ Template.GroupList.onCreated(function(){
   var communityId = LocalStore.get('communityId');
   //Reactive Dictionary
   var dict = new ReactiveDict();
-  this.templateDictionary = dict;
+  this.dict = dict;
   dict.set("communityId",LocalStore.get('communityId'));
+  dict.set("type",self.data.type);
   //subscriptions
   self.autorun(function() {
     self.subscribe("groups.all");
@@ -20,32 +21,30 @@ Template.GroupList.onCreated(function(){
 Template.GroupList.onRendered(function(){
 
 });
-/*
-Template.GroupList.events({
-  'click .some-class': function(event, template){
-    var communityId = Template.instance().templateDictionary.get( 'communityId' );
-    delegateId = this._id;
-    var ranks = Session.get('ranked');
-    let settings = LocalStore.get('settings');
-    let delegateLimit = -1;
 
-    if(typeof settings != 'undefined'){
-      //do something
+Template.GroupList.events({
+  'click .group-image-link': function(event, template){
+    console.log(event.currentTarget);
+  },
+  'click .view-group': function(event, template){
+    let handle = '/group/' + event.currentTarget.getAttribute("data-handle");
+    if(handle){
+      FlowRouter.go(handle);
     }
-    Meteor.call('someMethod', someParameter, function(error, result){
-      if(error) {
-        RavenClient.captureException(error);
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert(TAPi18n.__('pages.delegates.alerts.ranking-updated'), 'success');
-      }
-    });
+
   },
 });
-*/
+
 Template.GroupList.helpers({
 	groups: function(){
-    console.log("groups called");
+    if(this.type){
+      let type = this.type;
+      console.log(type);
+      console.log(Groups.find({"type":type}).count());
+      return Groups.find({"type":type});
+    }else{
+      console.log("no type man");
+    }
     return Groups.find({});
   },
   alreadyFollowing: function(){

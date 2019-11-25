@@ -27,8 +27,12 @@
       "ambassador": "Ambassador"
     },
     "groups":{
-      "available": "Available",
-      "create": "Create"
+      "available": "All",
+      "create": "Create",
+      "parties": "Political Parties",
+      "organisations": "Organisations",
+      "social": "Social",
+      "network": "Network"
     }
   },
   "sidebar-tab": {

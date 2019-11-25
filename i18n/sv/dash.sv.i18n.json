@@ -28,7 +28,11 @@
     },
     "groups":{
       "available": "Användbar",
-      "create": "Skapa"
+      "create": "Skapa",
+      "parties": "Political Parties",
+      "organisations": "Organisations",
+      "social": "Social",
+      "network": "Network"
     }
   },
   "sidebar-tab": {
