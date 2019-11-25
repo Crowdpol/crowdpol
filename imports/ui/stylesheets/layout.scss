@@ -59,6 +59,7 @@ $range-faded-color: $white;
             text-transform: uppercase;
             font-weight: 600;
             margin: 0 0 0 0;
+            color: $white;
           }
           small{
             text-transform: lowercase;
@@ -129,6 +130,9 @@ $range-faded-color: $white;
   border-right: solid 1px lighten($orange,25%);
   flex-direction: column;
   flex: 50%;
+  h6{
+    color: $white;
+  }
   div.row{
     div.value{
       padding-left: 5px;
@@ -137,9 +141,17 @@ $range-faded-color: $white;
     }
   }
 }
+.influence-map{
+  h6{
+    color: $white;
+  }
+}
 .feed-interests{
   //border-right: solid 1px lighten($orange,25%);
   padding-left: 10px;
+  h6{
+    color: $white;
+  }
   div.row{
     div.interest{
       padding-left: 5px;
