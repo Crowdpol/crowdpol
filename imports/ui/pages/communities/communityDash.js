@@ -172,9 +172,11 @@ Template.CommunityDash.events({
   },
   'click #create-group': function(event, template){
     event.preventDefault();
+    console.log('$("#group-type").val(): ' + $("#group-type").val());
     let group = {
       name: $("#group-name").val(),
       handle: $("#group-username").val(),
+      type: $("#group-type").val(),
       isOpen: template.openGroup.get(),
       communityId: LocalStore.get('communityId'),
       isArchived: false
