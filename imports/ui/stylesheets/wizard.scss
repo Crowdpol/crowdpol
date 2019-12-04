@@ -300,4 +300,34 @@ background-color: rgb(27, 185, 17);
   //width: 200px;
   height: 300px;
   border: solid 1px orange;
+  border-top: solid 1px grey;
+  border-bottom: solid 1px grey;
+  border-left: solid 1px grey;
+  border-right: solid 1px grey;
+}
+
+div.wizard-map-header{
+  background-color: $white;
+  border-top: solid 1px grey;
+  border-bottom: solid 1px grey;
+  border-left: solid 1px grey;
+  border-right: solid 1px grey;
+  div.community-header{
+    padding-left: 10px;
+    font-size: 12px;
+    border-bottom: solid 1px grey;
+    span.community-breadcrumb{
+      font-size: 12px;
+
+    }
+    span.community-breadcrumb:hover{
+      text-decoration: underline;
+    }
+    input#profile-location{
+      width: 100%;
+      border: none;
+      padding-left: 10px;
+      font-size: 12px;
+    }
+  }
 }

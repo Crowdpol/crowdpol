@@ -140,12 +140,17 @@
           <h4>Location</h4>
           <small>Select a community to get started.</small>
         </center>
-        <!-- Location -->
-        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <label class="mdl-textfield__label" for="profile-location">Enter your location</label>
-          <input type="text" name="profile-location" id="profile-location" class="mdl-textfield__input" >
+        <!-- Location
+        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield- -floating-label">
+          <label class="mdl-textfield__label" for="profile-location">Enter your location</label>-->
+
+        <!--</div>-->
+        <div class="wizard-map-header">
+          {{>CommunityHeader}}
+          {{>CommunityMap}}
+          <input type="hidden" name="profile-location" id="profile-location"  >
         </div>
-        {{>CommunityMap}}
+
         <br>
         <center>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">

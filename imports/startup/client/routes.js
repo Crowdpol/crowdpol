@@ -295,14 +295,14 @@ loggedInRoutes.route('/group/:handle?', {
   },
 });
 
-loggedInRoutes.route('/feed', {
+loggedInRoutes.route('/presence', {
   name: 'App.feed',
   action() {
     BlazeLayout.render('App_body', { main: 'UserFeed' });
   },
 });
 
-loggedInRoutes.route('/feed/:id', {
+loggedInRoutes.route('/presence/:id', {
   name: 'App.feed',
   action() {
     BlazeLayout.render('App_body', { main: 'UserFeed' });
@@ -319,7 +319,7 @@ loggedInRoutes.route('/scaffold/dash', {
     });
   },
 });
-*/
+
 loggedInRoutes.route('/presence', {
   name: 'App.presence',
   action() {
@@ -337,7 +337,7 @@ loggedInRoutes.route('/presence/:id', {
     BlazeLayout.render('App_body', { main: 'UserPresence' });
   },
 });
-
+*/
 
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
