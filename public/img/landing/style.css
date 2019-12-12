@@ -7810,7 +7810,7 @@ a.learn-more {
   margin-left: 0.4375rem;
 }
 a.learn-more:after {
-  content: url(img/landing/crowdpol_ecosystem_arrow_grey.svg);
+  content: url(../../assets/img/crowdpol_ecosystem_arrow_grey.svg);
   width: 8px;
   height: auto;
   margin-left: 8px;
@@ -7822,7 +7822,7 @@ a.learn-more:after {
   */
 }
 a.text-small:after {
-  content: url(img/landing/crowdpol_ecosystem_arrow_grey.svg);
+  content: url(../../assets/img/crowdpol_ecosystem_arrow_grey.svg);
   width: 8px;
   height: auto;
   margin-left: 8px;
@@ -8246,7 +8246,7 @@ button:hover, button:focus, .button:hover, .button:focus {
 }
 
 .cta_button:after {
-  content: url(img/landing/crowdpol_ecosystem_arrow_right.svg);
+  content: url(../../assets/img/crowdpol_ecosystem_arrow_right.svg);
   width: 10px;
   height: auto;
   margin-left: 0.8em;
@@ -10286,7 +10286,7 @@ header {
   height: 1.875rem;
   display: block;
   overflow: hidden;
-  background-image: url("img/landing/crowdpol_ecosystem_logo_tools.svg");
+  background-image: url("../../assets/img/crowdpol_ecosystem_logo_tools.svg");
   background-repeat: no-repeat;
   background-position: left center;
   background-size: contain;
@@ -10352,7 +10352,7 @@ header {
 */
 #header-map {
   min-height: 900px;
-  background-image: url(img/landing/map_desktop_landingpage.svg);
+  background-image: url(../../assets/img/map_desktop_landingpage.svg);
   background-size: contain;
   background-repeat: no-repeat;
   width: 100%;
@@ -10372,7 +10372,7 @@ header {
   position: absolute;
   top: 30%;
   left: 45%;
-  background-image: url(img/landing/play_button.svg);
+  background-image: url(../../assets/img/play_button.svg);
   background-size: contain;
   background-repeat: no-repeat;
   width: 100px;
@@ -10558,7 +10558,7 @@ ENTRY CONTENT
 *********************/
 .slide-dots {
   min-height: 25px;
-  background-image: url(img/landing/slide_dots.svg);
+  background-image: url(../../assets/img/slide_dots.svg);
   background-repeat: no-repeat;
   width: 100%;
   background-position: center 0;
@@ -10772,206 +10772,6 @@ blockquote {
     margin-bottom: 2.5rem;
   }
 }
-/*
-* Owl Carousel v2.3.4
-* Copyright 2013-2018 David Deutsch
-* Licensed under: SEE LICENSE IN https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE
-
-
-*  Owl Carousel - Core
-*/
-.owl-carousel {
- display: none;
- width: 100%;
- -webkit-tap-highlight-color: transparent;
- /* position relative and z-index fix webkit rendering fonts issue */
- position: relative;
- z-index: 1; }
- .owl-carousel .owl-stage {
-   position: relative;
-   touch-action: manipulation;
-   -moz-backface-visibility: hidden;
-   /* fix firefox animation glitch */ }
- .owl-carousel .owl-stage:after {
-   content: ".";
-   display: block;
-   clear: both;
-   visibility: hidden;
-   line-height: 0;
-   height: 0; }
- .owl-carousel .owl-stage-outer {
-   position: relative;
-   overflow: hidden;
-   /* fix for flashing background */
-   -webkit-transform: translate3d(0px, 0px, 0px); }
- .owl-carousel .owl-wrapper,
- .owl-carousel .owl-item {
-   -webkit-backface-visibility: hidden;
-   -moz-backface-visibility: hidden;
-   -ms-backface-visibility: hidden;
-   -webkit-transform: translate3d(0, 0, 0);
-   -moz-transform: translate3d(0, 0, 0);
-   -ms-transform: translate3d(0, 0, 0); }
- .owl-carousel .owl-item {
-   position: relative;
-   min-height: 1px;
-   float: left;
-   -webkit-backface-visibility: hidden;
-   -webkit-tap-highlight-color: transparent;
-   -webkit-touch-callout: none; }
- .owl-carousel .owl-item img {
-   display: block;
-   width: 100%; }
- .owl-carousel .owl-nav.disabled,
- .owl-carousel .owl-dots.disabled {
-   display: none; }
- .owl-carousel .owl-nav .owl-prev,
- .owl-carousel .owl-nav .owl-next,
- .owl-carousel .owl-dot {
-   cursor: pointer;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none; }
- .owl-carousel .owl-nav button.owl-prev,
- .owl-carousel .owl-nav button.owl-next,
- .owl-carousel button.owl-dot {
-   background: none;
-   color: inherit;
-   border: none;
-   padding: 0 !important;
-   font: inherit; }
- .owl-carousel.owl-loaded {
-   display: block; }
- .owl-carousel.owl-loading {
-   opacity: 0;
-   display: block; }
- .owl-carousel.owl-hidden {
-   opacity: 0; }
- .owl-carousel.owl-refresh .owl-item {
-   visibility: hidden; }
- .owl-carousel.owl-drag .owl-item {
-   touch-action: pan-y;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none; }
- .owl-carousel.owl-grab {
-   cursor: move;
-   cursor: -webkit-grab;
-   cursor: grab; }
- .owl-carousel.owl-rtl {
-   direction: rtl; }
- .owl-carousel.owl-rtl .owl-item {
-   float: right; }
-
-/* No Js */
-.no-js .owl-carousel {
- display: block; }
-
-/*
-*  Owl Carousel - Animate Plugin
-*/
-.owl-carousel .animated {
- -webkit-animation-duration: 1000ms;
-         animation-duration: 1000ms;
- -webkit-animation-fill-mode: both;
-         animation-fill-mode: both; }
-
-.owl-carousel .owl-animated-in {
- z-index: 0; }
-
-.owl-carousel .owl-animated-out {
- z-index: 1; }
-
-.owl-carousel .fadeOut {
- -webkit-animation-name: fadeOut;
-         animation-name: fadeOut; }
-
-@-webkit-keyframes fadeOut {
- 0% {
-   opacity: 1; }
- 100% {
-   opacity: 0; } }
-
-@keyframes fadeOut {
- 0% {
-   opacity: 1; }
- 100% {
-   opacity: 0; } }
-
-/*
-* 	Owl Carousel - Auto Height Plugin
-*/
-.owl-height {
- -webkit-transition: height 500ms ease-in-out;
- transition: height 500ms ease-in-out; }
-
-/*
-* 	Owl Carousel - Lazy Load Plugin
-*/
-.owl-carousel .owl-item {
- /**
-     This is introduced due to a bug in IE11 where lazy loading combined with autoheight plugin causes a wrong
-     calculation of the height of the owl-item that breaks page layouts
-    */ }
- .owl-carousel .owl-item .owl-lazy {
-   opacity: 0;
-   -webkit-transition: opacity 400ms ease;
-   transition: opacity 400ms ease; }
- .owl-carousel .owl-item .owl-lazy[src^=""], .owl-carousel .owl-item .owl-lazy:not([src]) {
-   max-height: 0; }
- .owl-carousel .owl-item img.owl-lazy {
-   -webkit-transform-style: preserve-3d;
-           transform-style: preserve-3d; }
-
-/*
-* 	Owl Carousel - Video Plugin
-*/
-.owl-carousel .owl-video-wrapper {
- position: relative;
- height: 100%;
- background: #000; }
-
-.owl-carousel .owl-video-play-icon {
- position: absolute;
- height: 80px;
- width: 80px;
- left: 50%;
- top: 50%;
- margin-left: -40px;
- margin-top: -40px;
- background: url(/images/vendor/owl.carousel/dist/owl.video.play.png?4a37f8008959c75f619bf0a3a4e2d7a2) no-repeat;
- cursor: pointer;
- z-index: 1;
- -webkit-backface-visibility: hidden;
- -webkit-transition: -webkit-transform 100ms ease;
- transition: -webkit-transform 100ms ease;
- transition: transform 100ms ease;
- transition: transform 100ms ease, -webkit-transform 100ms ease; }
-
-.owl-carousel .owl-video-play-icon:hover {
- -webkit-transform: scale(1.3, 1.3);
-         transform: scale(1.3, 1.3); }
-
-.owl-carousel .owl-video-playing .owl-video-tn,
-.owl-carousel .owl-video-playing .owl-video-play-icon {
- display: none; }
-
-.owl-carousel .owl-video-tn {
- opacity: 0;
- height: 100%;
- background-position: center center;
- background-repeat: no-repeat;
- background-size: contain;
- -webkit-transition: opacity 400ms ease;
- transition: opacity 400ms ease; }
-
-.owl-carousel .owl-video-frame {
- position: relative;
- z-index: 1;
- height: 100%;
- width: 100%; }
 
 .owl-carousel {
   opacity: 0;
@@ -12321,7 +12121,7 @@ hr {
 */
 footer .bg-arrow-up {
   min-height: 100px;
-  background-image: url(img/landing/arrow_up.svg);
+  background-image: url(../../assets/img/arrow_up.svg);
   background-repeat: no-repeat;
   width: 100%;
   background-position: center 0;
@@ -12336,7 +12136,7 @@ footer .logo-bar-footer .footer-logo {
   height: 3.75rem;
   display: block;
   overflow: hidden;
-  background-image: url("/img/landing/crowdpol_ecosystem_logo.svg");
+  background-image: url("../../assets/img/crowdpol_ecosystem_logo.svg");
   background-repeat: no-repeat;
   background-position: left center;
   background-size: contain;
@@ -12364,7 +12164,7 @@ footer .language-selector {
   display: block;
 }
 footer .language-selector:before {
-  content: url(img/landing/globe.svg);
+  content: url(../../assets/img/globe.svg);
   width: 18px;
   height: auto;
   margin-right: 0.3125rem;
@@ -12372,7 +12172,7 @@ footer .language-selector:before {
   vertical-align: middle;
 }
 footer .language-selector:after {
-  content: url(img/landing/arrow_down_small.svg);
+  content: url(../../assets/img/arrow_down_small.svg);
   width: 10px;
   height: auto;
   margin-left: 0.3125rem;
@@ -12434,7 +12234,7 @@ footer .social-bar-footer a:hover img {
 }
 
 #potential .bg-img-potential {
-  background-image: url(img/landing/who_do_yo_want_to_be_in_the_world.svg);
+  background-image: url(../../assets/img/who_do_yo_want_to_be_in_the_world.svg);
   background-size: contain;
   background-repeat: no-repeat;
   width: 100%;
@@ -12474,14 +12274,14 @@ footer .social-bar-footer a:hover img {
 }
 #potential .arrow-wrap .arrow-right-potential {
   min-height: 100px;
-  background-image: url(img/landing/arrow_right.svg);
+  background-image: url(../../assets/img/arrow_right.svg);
   background-repeat: no-repeat;
   width: 100%;
   background-position: center 0;
 }
 
 #global-village .bg-img-initiate {
-  background-image: url(img/landing/global_village_changemakers.svg);
+  background-image: url(../../assets/img/global_village_changemakers.svg);
   background-size: contain;
   background-repeat: no-repeat;
   width: 100%;
@@ -12546,7 +12346,7 @@ footer .social-bar-footer a:hover img {
 
 #results .presence-img {
   height: 100%;
-  background-image: url(img/landing/crowdpol_presence_overview.svg);
+  background-image: url(../../assets/img/crowdpol_presence_overview.svg);
   background-size: contain;
   background-repeat: no-repeat;
   width: 100%;
@@ -13904,10 +13704,10 @@ body {
 Stylesheet: Print Stylesheet
 
 This is the print stylesheet. There's probably not a lot
-of reasons to edit this stylesheet.
+of reasons to edit this stylesheet. 
 
-Remember to add things that won't make sense to print at
-the bottom. Things like nav, ads, and forms shouldbe set
+Remember to add things that won't make sense to print at 
+the bottom. Things like nav, ads, and forms shouldbe set 
 to display none.
 ******************************************************************/
 @media print {

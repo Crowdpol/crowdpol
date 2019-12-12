@@ -181,8 +181,24 @@ div.my-progress{
     }
   }
 }
-
-
+#reg-wizard-basics{
+  padding-left: 200px;
+}
+.wizard-cover-container{
+  border: solid 1px red;
+  div#cover-container{
+    div#cover-image{
+      height: 200px;
+    }
+    div#cover-image-overlay{
+      height: 200px;
+      margin-top: -200px;
+    }
+  }
+}
+.profile-pic-container{
+  margin-top: -100px;
+}
 //OLD STUFF - CONSIDER DELETING
 .wizard-profile-preview-wrapper{
   display: flex;
@@ -237,10 +253,12 @@ div.my-progress{
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  border: solid 5px $white;
 }
 .profile-pic-container{
   display: flex;
-  justify-content: center;
+  //justify-content: center;
+  padding-left: 15px;
 }
 .profile-pic-wrapper {
   position: relative;

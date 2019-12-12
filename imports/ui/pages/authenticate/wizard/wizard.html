@@ -15,38 +15,42 @@
           <h4>Welcome</h4>
           <small>Let's get you set up...</small>
         </center>
-        <input type="hidden" value="{{profileImageSelection}}" name="profile-image" id="profile-image">
-        <div class="profile-pic-container">
-              <div class="profile-pic-wrapper">
-              	<div class="profile-pic"></div>
-                <div class="overlay">
-                  <div class="text">
-                    <label class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored photo-button-class" id="photo-button">
-                      <i class="material-icons" id="change-photo-icon photo-button-class">camera_alt</i>
-                      <!--<input type="file" id="fileInput">-->
-                    </label>
-                  </div>
-                </div>
-              </div>
-        </div>
-        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
-          <input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{profile.username}}">
-          <span id="valid-username" class="valid-username"></span>
-        </div>
-        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
-          <label class="mdl-textfield__label" for="profile-firstname">{{_ "form.firstname"}}</label>
-          <input type="text" name="profile-firstname" id="profile-firstname" class="mdl-textfield__input"  value="{{profile.firstName}}">
-        </div>
-        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <label class="mdl-textfield__label" for="profile-lastname">{{_ "form.lastname"}}</label>
-          <input type="text" id="profile-lastname" name="profile-lastname" class="mdl-textfield__input" value="{{profile.lastName}}">
-        </div>
-        <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-dirty is-upgraded">
-          <label class="mdl-textfield__label"  for="profile-dob">{{_ "form.dob"}}</label>
-          <input type="text" name="profile-dob" id="profile-dob" class="mdl-textfield__input" value="{{profile.birthday}}">
+        <div class="wizard-cover-container">
+          {{>Cover editable=editable}}
         </div>
 
+        <div class="profile-pic-container">
+          <div class="profile-pic-wrapper">
+            <div class="profile-pic"></div>
+            <div class="overlay">
+              <div class="text">
+                <label class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored photo-button-class" id="photo-button">
+                  <i class="material-icons" id="change-photo-icon photo-button-class">camera_alt</i><!--<input type="file" id="fileInput">-->
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" value="{{profileImageSelection}}" name="profile-image" id="profile-image">
+        <div id="reg-wizard-basics">
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for="profile-username">{{_ "form.username"}}</label>
+            <input type="text" name="profileUsername" id="profile-username" class="mdl-textfield__input" value="{{profile.username}}">
+            <span id="valid-username" class="valid-username"></span>
+          </div>
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="test">
+            <label class="mdl-textfield__label" for="profile-firstname">{{_ "form.firstname"}}</label>
+            <input type="text" name="profile-firstname" id="profile-firstname" class="mdl-textfield__input"  value="{{profile.firstName}}">
+          </div>
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for="profile-lastname">{{_ "form.lastname"}}</label>
+            <input type="text" id="profile-lastname" name="profile-lastname" class="mdl-textfield__input" value="{{profile.lastName}}">
+          </div>
+          <div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-dirty is-upgraded">
+            <label class="mdl-textfield__label"  for="profile-dob">{{_ "form.dob"}}</label>
+            <input type="text" name="profile-dob" id="profile-dob" class="mdl-textfield__input" value="{{profile.birthday}}">
+          </div>
+        </div>
         <br>
         <center>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">Skip</button>
@@ -96,6 +100,9 @@
               <i class="material-icons">gavel</i>Justice
             </button>
           </div>
+        </div>
+        <div>
+          <canvas id="myChart"></canvas>
         </div>
         <center>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect wizard-skip">Skip</button>
