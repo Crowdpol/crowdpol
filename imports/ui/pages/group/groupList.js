@@ -36,16 +36,17 @@ Template.GroupList.events({
 });
 
 Template.GroupList.helpers({
-	groups: function(){
+	groups: function(event, template){
+    let communityId = Template.instance().dict.get("communityId");
     if(this.type){
       let type = this.type;
       console.log(type);
       console.log(Groups.find({"type":type}).count());
-      return Groups.find({"type":type});
+      return Groups.find({"type":type,"communityId":communityId});
     }else{
       console.log("no type man");
     }
-    return Groups.find({});
+    return Groups.find();//{"communityId":communityId}
   },
   alreadyFollowing: function(){
     return true;

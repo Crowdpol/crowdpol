@@ -100,11 +100,13 @@ Template.Cover.events({
 		event.preventDefault();
     let hasCover = Session.get("hasCover");
     if(hasCover){
-      Session.set('coverState','edit-hide');
-      setCoverState('edit-hide');
+      //Session.set('coverState','edit-hide');
+      console.log("show cover");
+      //setCoverState('edit-hide');
     }else{
-      Session.set('coverState','edit-show');
-      setCoverState('edit-show');
+      //Session.set('coverState','edit-show');
+      console.log("hide cover");
+      //setCoverState('edit-show');
     }
     Session.set("hasCover",!Session.get("hasCover"));
     $(".back-button").addClass('has-header');
@@ -123,7 +125,7 @@ Template.Cover.events({
     if(typeof state!='undefined'){
       if((state=='view-edit')||(state=='edit-show')){
         coverEdit = Template.instance().dict.get("coverEdit");
-        //console.log("coverEdit: " + coverEdit);
+        console.log("coverEdit: " + coverEdit);
         if(coverEdit==false){
           $("#cover-image-overlay").show();
         }

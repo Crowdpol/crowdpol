@@ -22,7 +22,8 @@ var publicRoutes = FlowRouter.group({name: 'public'});
 Accounts.onLogout(function() {
   console.log("routes: set community to root");
   //setCommunityToRoot();
-	BlazeLayout.render('App_body', { main: 'Home' });
+	//BlazeLayout.render('App_body', { main: 'Home' });
+  BlazeLayout.render('Landing');
 });
 
 publicRoutes.route('/', {
@@ -30,10 +31,12 @@ publicRoutes.route('/', {
   action() {
     let subdomain = LocalStore.get('subdomain');
     if(subdomain=='landing'){
-      BlazeLayout.render('App_body', { main: 'Landing' });
+      //BlazeLayout.render('App_body', { main: 'Landing' });
+      BlazeLayout.render('Landing');
     }else{
       if (!Meteor.user()){
-        BlazeLayout.render('App_body', { main: 'Home' });
+        //BlazeLayout.render('App_body', { main: 'Home' });
+        BlazeLayout.render('Landing');
       }else{
         BlazeLayout.render('App_body', { main: 'CommunityDash' });
       }
@@ -295,14 +298,14 @@ loggedInRoutes.route('/group/:handle?', {
   },
 });
 
-loggedInRoutes.route('/feed', {
+loggedInRoutes.route('/presence', {
   name: 'App.feed',
   action() {
     BlazeLayout.render('App_body', { main: 'UserFeed' });
   },
 });
 
-loggedInRoutes.route('/feed/:id', {
+loggedInRoutes.route('/presence/:id', {
   name: 'App.feed',
   action() {
     BlazeLayout.render('App_body', { main: 'UserFeed' });
@@ -319,7 +322,7 @@ loggedInRoutes.route('/scaffold/dash', {
     });
   },
 });
-*/
+
 loggedInRoutes.route('/presence', {
   name: 'App.presence',
   action() {
@@ -337,7 +340,7 @@ loggedInRoutes.route('/presence/:id', {
     BlazeLayout.render('App_body', { main: 'UserPresence' });
   },
 });
-
+*/
 
 loggedInRoutes.route('/dash', {
   name: 'App.dash',

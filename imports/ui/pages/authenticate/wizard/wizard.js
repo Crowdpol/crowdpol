@@ -2,7 +2,7 @@ import { getTags } from '../../../components/taggle/taggle.js'
 import { getProfilePic,showProfileUrl } from '../../../components/profileHeader/profileImage.js'
 import { showProfileImageModal,hideProfileImageModal,getSelectedImage } from '../../../components/profileHeader/profileImageModal.js'
 import { map,loadMap,addLayer } from '../../../components/maps/leaflet.js'
-
+import { setCoverState } from '../../../components/cover/cover.js'
 import RavenClient from 'raven-js';
 import './wizard.html';
 let steps = [];
@@ -17,6 +17,7 @@ Template.Wizard.onCreated(function(){
 
 Template.Wizard.onRendered(function(){
   //loadMap();
+  setCoverState('edit-show');
   $("#leaflet-map").hide();
 
   //showProfileUrl();
@@ -45,6 +46,26 @@ Template.Wizard.onRendered(function(){
     for (var i = 0, l = mdlInputs.length; i < l; i++) {
       mdlInputs[i].MaterialTextfield.checkDirty();
     }
+
+  var ctx = document.getElementById("myChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'polarArea',
+    data: {
+      labels: ["M", "T", "W", "T", "F", "S", "S"],
+      datasets: [{
+        backgroundColor: [
+          "#2ecc71",
+          "#3498db",
+          "#95a5a6",
+          "#9b59b6",
+          "#f1c40f",
+          "#e74c3c",
+          "#34495e"
+        ],
+        data: [12, 19, 3, 17, 28, 24, 7]
+      }]
+    }
+  });
 });
 
 Template.Wizard.helpers({
