@@ -111,7 +111,7 @@ sup {
 img {
   border-style: none;
 }
-
+/*
 button,
 input,
 optgroup,
@@ -158,7 +158,7 @@ button:-moz-focusring,
 fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
-
+*/
 legend {
   box-sizing: border-box;
   color: inherit;
@@ -175,7 +175,7 @@ progress {
 textarea {
   overflow: auto;
 }
-
+/*
 [type=checkbox],
 [type=radio] {
   box-sizing: border-box;
@@ -200,7 +200,7 @@ textarea {
   -webkit-appearance: button;
   font: inherit;
 }
-
+*/
 details {
   display: block;
 }
@@ -272,7 +272,7 @@ select {
 .mqa-display object {
   max-width: none !important;
 }
-
+/*
 button {
   padding: 0;
   -webkit-appearance: none;
@@ -287,11 +287,11 @@ button {
 [data-whatinput=mouse] button {
   outline: 0;
 }
-
+*/
 pre {
   overflow: auto;
 }
-
+/*
 button,
 input,
 optgroup,
@@ -299,7 +299,7 @@ select,
 textarea {
   font-family: inherit;
 }
-
+*/
 .is-visible {
   display: block !important;
 }
@@ -9801,7 +9801,7 @@ footer ul {
 */
 /*********************
 FORM STYLES
-*********************/
+********************
 input[type=text],
 input[type=email],
 input[type=tel],
@@ -10356,7 +10356,7 @@ header {
   background-size: contain;
   background-repeat: no-repeat;
   width: 100%;
-  margin-top: 5.25rem;
+  padding-top: 5.25rem;
   background-position: center 0;
   position: relative;
   z-index: -1;
