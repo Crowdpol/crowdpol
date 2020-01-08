@@ -50,7 +50,7 @@ a {
 }
 .header {
 	background-color: #fff;
-	box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+	//(box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
 	position: fixed;
 	width: 100%;
 	z-index: 3;
@@ -82,17 +82,18 @@ a {
       color: #6d7272;
       margin: 0 1.0625rem;
       font-size: 0.9rem;
-
-      border-bottom: 2px solid transparent;
+			padding-bottom: 0px;
+      border-bottom: 1px solid transparent;
 
 			&:hover {
 				//background-color: #f4f4f4;
-        text-decoration: underline;
+        //text-decoration: underline;
+				border-bottom: 2px solid #909090;
 			}
 		}
 		a.header-divider{
 			margin-top:23px;
-			border-right: solid 1px #6d7272;
+			border-right: solid 1px #909090;
 		}
 		a.header-button{
 			border-radius: 24px;
@@ -210,7 +211,15 @@ a {
 		}
 	}
 }
-
+hr#potential-anchor{
+	margin-bottom: 100px;
+}
+hr#global-village-anchor{
+	margin-bottom: 100px;
+}
+hr#results-anchor{
+	margin-bottom: 100px;
+}
 div.landing-page-content{
   padding-top: 75px;
 }
@@ -597,34 +606,34 @@ footer{
 
 @media only screen and (min-width: $tiny){
   div.landing-page-content{
-    border: solid 5px yellow;
+    border: solid $test-border-width yellow;
   }
 }
 
 
 @media only screen and (min-width: $mobile){
   div.landing-page-content{
-    border: solid 5px orange;
+    border: solid $test-border-width orange;
   }
 }
 @media only screen and (min-width: $tablet){
   div.landing-page-content{
-    border: solid 5px green;
+    border: solid $test-border-width green;
   }
 }
 @media only screen and (min-width: $laptop){
   div.landing-page-content{
-    border: solid 5px red;
+    border: solid $test-border-width red;
   }
 }
 @media only screen and (min-width: $desktop){
   div.landing-page-content{
-    border: solid 5px blue;
+    border: solid $test-border-width blue;
   }
 }
 @media only screen and (min-width: $big){
   div.landing-page-content{
-    border: solid 5px pink;
+    border: solid $test-border-width pink;
 
   }
 }
