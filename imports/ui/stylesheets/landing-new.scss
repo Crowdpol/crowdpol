@@ -55,37 +55,24 @@ a {
 	width: 100%;
 	z-index: 3;
   padding: 7px;
-  padding-left: 20px;
+  padding-left: 16px;
+	max-height: 74px;
+	min-height: 74px;
+	height: 74px;
 	ul {
 		margin: 0;
 		padding: 0;
 		list-style: none;
 		overflow: hidden;
-		background-color: #fff;
-    min-height: auto;
-    height: 100%;
     background-color: transparent;
-    padding: 0;
-    transform: none;
-    display: flex;
-    -webkit-box-pack: end;
-    justify-content: flex-end;
-    -webkit-box-align: center;
-    align-items: center;
-    position: relative;
-    top: auto;
-    left: auto;
-    transition: transform 0.25s, -webkit-transform 0.25s;
 	}
 	li {
-    align-items: center;
+    //align-items: center;
     display: inline-flex;
     border-bottom: none;
-    height: 100%;
-    -webkit-box-align: center;
 		a {
 			display: block;
-			//padding: 20px 20px;
+			padding-top: 17px;
 			//border-right: 1px solid #f4f4f4;
 
 			text-decoration: none;
@@ -95,7 +82,7 @@ a {
       color: #6d7272;
       margin: 0 1.0625rem;
       font-size: 0.9rem;
-      margin-top: 0.5rem;
+
       border-bottom: 2px solid transparent;
 
 			&:hover {
@@ -103,7 +90,31 @@ a {
         text-decoration: underline;
 			}
 		}
+		a.header-divider{
+			margin-top:23px;
+			border-right: solid 1px #6d7272;
+		}
+		a.header-button{
+			border-radius: 24px;
+			color: white;
+			background-color: #00ce31;
+			padding: 0px;
+			margin: 0px;
+			height: 42px;
+			max-height: 42px;
+			padding: 0px 16px;
+			margin-top: 10px;
+
+			i.material-icons{
+				position: relative;
+		    top: 7px;
+		    left: 5px;
+		    font-size: 28px;
+			}
+
+		}
 	}
+
 	.menu-btn {
 		&:hover {
 			background-color: #f4f4f4;
@@ -142,14 +153,15 @@ a {
 		display: block;
 		float: left;
 		font-size: 2em;
-		padding: 10px 20px;
+
 		text-decoration: none;
     background-image: url(img/landing/crowdpol_ecosystem_logo_tools.svg);//crowdpol_ecosystem_logo.svg);
     background-size: contain;
     background-repeat: no-repeat;
     color: #000; /* Fallback for older browsers */
     color: rgba(0, 0, 0, 0);
-    width: 300px;
+		width: 400px;
+    height: 60px;
 	}
 	.menu {
 		clear: both;

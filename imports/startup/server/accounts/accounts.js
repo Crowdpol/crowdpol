@@ -303,7 +303,7 @@ Accounts.onCreateUser((options, user) => {
   */
   console.clear();
   console.log("starting to normalise");
-  let existingUser = Meteor.user();
+  //let existingUser = Meteor.user();
 	let email;
 	let firstName;
 	let lastName;
@@ -340,7 +340,7 @@ Accounts.onCreateUser((options, user) => {
     service = 'password';
     verified = false;
   }
-
+  /*
 	if (!existingUser){
     console.log("could not find Meteor.user(), checking by Meteor.users.findOne({'emails.address': email })");
     existingUser = Meteor.users.findOne({"emails.address": email });
@@ -353,6 +353,7 @@ Accounts.onCreateUser((options, user) => {
 			//user = existingUser;
       console.log(existingUser);
 	}
+  */
   if (profile) {
     if (user.services.facebook) {
       return normalizeFacebookUser(profile, user);
