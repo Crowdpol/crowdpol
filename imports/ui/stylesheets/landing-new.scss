@@ -96,20 +96,25 @@ a {
 		}
 		a.header-button{
 			border-radius: 24px;
-			color: white;
-			background-color: #00ce31;
-			padding: 0px;
-			margin: 0px;
-			height: 42px;
-			max-height: 42px;
-			padding: 0px 16px;
-			margin-top: 10px;
+	    color: white;
+	    background-color: #50c22e;
+	    padding: 0px;
+	    margin: 0px;
+	    height: 43px;
+	    max-height: 44px;
+	    padding: 0px 16px;
+			padding-left: 21px;
+			padding-right: 16px;
+	    margin-top: 10px;
+			margin-right: 9px;
+	    margin-left: 12px;
 
 			i.material-icons{
 				position: relative;
-		    top: 7px;
+		    top: 8px;
 		    left: 5px;
 		    font-size: 28px;
+		    font-weight: 900;
 			}
 
 		}
