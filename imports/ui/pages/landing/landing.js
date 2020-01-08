@@ -4,7 +4,7 @@ import './landing.html';
 
 
 Template.Landing.events({
-  'click .menu-scroll-link': function(event, template){
+  'click .menu-scroll-link, click .header-button': function(event, template){
     event.preventDefault();
     console.log($(this).hasClass( "active" ));
     let anchorId = event.currentTarget.dataset.anchor;
@@ -16,5 +16,5 @@ Template.Landing.events({
 function scrollTo(elementId){
   $('html, body').animate({
     scrollTop: $(elementId).offset().top
-  }, 2000);
+  }, 800);
 }
