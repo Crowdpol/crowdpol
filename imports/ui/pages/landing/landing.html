@@ -5,10 +5,10 @@
       <input class="menu-btn" type="checkbox" id="menu-btn" />
       <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
       <ul class="menu">
-        <li><a href="#header-map">Imagine</a></li>
-        <li><a href="#about">Potential</a></li>
-        <li><a href="#careers">Global village</a></li>
-        <li><a href="#contact">Results</a></li>
+        <li><a href="#header-map" class="menu-scroll-link active" data-anchor="#header-map">Imagine</a></li>
+        <li><a href="#potential-anchor" class="menu-scroll-link" data-anchor="#potential-anchor">Potential</a></li>
+        <li><a href="#global-village-anchor" class="menu-scroll-link" data-anchor="#global-village-anchor">Global village</a></li>
+        <li><a href="#results-anchor" class="menu-scroll-link" data-anchor="#results-anchor">Results</a></li>
         <li><a class="header-divider"></a></li>
         <li><a href="/login">Login</a></li>
         <li>
@@ -73,8 +73,8 @@
           </div>
         </div>
       </section>
-      <hr>
-      <section class="section-header">
+      <hr id="potential-anchor">
+      <section class="section-header" >
         <h2 class="h1">Who do you want to be in the world?</h2>
       </section>
 
@@ -89,24 +89,8 @@
         </div>
       </section>
 
-      <section class="divider-section">
 
-        <div class="grid-x max-width-global center">
-
-          <div class="cell small-12 offset-1">
-
-            <span class="divider center">
-
-              <hr>
-
-            </span>
-
-          </div>
-
-        </div>
-
-      </section>
-      <hr>
+      <hr id="global-village-anchor">
       <section class="section-header">
         <h2 class="h1">Join a global village of changemakers</h2>
       </section>
@@ -124,7 +108,7 @@
           </div>
         </div>
       </section>
-      <hr>
+      <hr id="results-anchor">
       <section class="section-header">
         <h2 class="h1">Results that can increase your influence</h2>
       </section>
@@ -151,8 +135,15 @@
 
     </div>
     <hr>
+
     <section class="section-header final-section">
       <h2>It has never been easier to change the world</h2>
+      <div class="section-content">
+        <div class="sign-up-form">
+          {{>SocialLogin}}
+          {{>Signup}}
+        </div>
+      </div>
       <center><img src="/img/landing/arrow_up.svg"></center>
     </section>
   	<footer>
