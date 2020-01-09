@@ -625,7 +625,7 @@ footer{
     div.footer-content{
       display: flex;
       align-items: flex-start;
-      justify-content: space-between;
+      //justify-content: space-between;
       div.footer-column{
         width: 200px;
 				//border: solid 1px grey;
@@ -702,6 +702,24 @@ footer{
   div.landing-page-content, footer{
     border: solid $test-border-width yellow;
   }
+	footer{
+		div.footer-container{
+			width: 100px;
+		}
+	  div.section-content{
+			flex-wrap: wrap;
+	    div#info-footer{
+
+			}
+			div.footer-content{
+				display: flex;
+				flex-wrap: wrap;
+	      div.footer-column{
+	        //width: 200px;
+				}
+			}
+		}
+	}
 }
 
 
@@ -709,6 +727,11 @@ footer{
   div.landing-page-content, footer{
     border: solid $test-border-width orange;
   }
+	footer{
+		div.footer-container{
+			width: 480px;
+		}
+	}
 }
 @media only screen and (min-width: $tablet){
   div.landing-page-content, footer{
@@ -716,9 +739,7 @@ footer{
   }
 	footer{
 		div.footer-container{
-			width: 1000px;
-			margin: 0 auto;
-			//border: solid $test-border-width grey;
+			width: 768px;
 		}
 	}
 }
@@ -726,6 +747,11 @@ footer{
   div.landing-page-content, footer{
     border: solid $test-border-width red;
   }
+	footer{
+		div.footer-container{
+			width: 1000px;
+		}
+	}
 }
 @media only screen and (min-width: $desktop){
   div.landing-page-content, footer{

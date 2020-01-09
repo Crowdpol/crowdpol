@@ -48,6 +48,7 @@ import './progress.scss';
 //import './communities.scss';
 import './usersearch.scss';
 import './wizard.scss';
+import './reg-wizard.scss';
 import './maps.scss';
 import './compass.scss';
 import './proposal-card.scss';
