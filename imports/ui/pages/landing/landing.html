@@ -5,15 +5,22 @@
       <input class="menu-btn" type="checkbox" id="menu-btn" />
       <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
       <ul class="menu">
-        <li><a href="#header-map">Imagine</a></li>
-        <li><a href="#potential-anchor">Potential</a></li>
-        <li><a href="#global-village-anchor">Global village</a></li>
-        <li><a href="#results-anchor">Results</a></li>
-        <li><a href="#final-section-anchor">Get Started</a></li>
+        <li><a href="#header-map" class="menu-scroll-link active" data-anchor="#header-map">Imagine</a></li>
+        <li><a href="#potential-anchor" class="menu-scroll-link" data-anchor="#potential-anchor">Potential</a></li>
+        <li><a href="#global-village-anchor" class="menu-scroll-link" data-anchor="#global-village-anchor">Global village</a></li>
+        <li><a href="#results-anchor" class="menu-scroll-link" data-anchor="#results-anchor">Results</a></li>
+        <li><a class="header-divider"></a></li>
         <li><a href="/login">Login</a></li>
+        <li>
+          <a href="#get-started-anchor" class="header-button" data-anchor="#get-started-anchor">
+            Get Started<i class="material-icons">keyboard_arrow_right</i>
+          </a>
+        </li>
       </ul>
     </header>
+
     <div class="landing-page-content">
+
       <section id="header-map" class="landing-page-section">
         <div class="section-content">
           <div class="jumbo-header">
@@ -68,8 +75,8 @@
           </div>
         </div>
       </section>
-      <hr  id="potential-anchor" class="section-divider">
-      <section class="section-header">
+      <hr id="potential-anchor">
+      <section class="section-header" >
         <h2 class="h1">Who do you want to be in the world?</h2>
       </section>
 
@@ -128,89 +135,97 @@
       </section>
 
     </div>
-    <hr id="final-section-anchor" class="section-divider">
+    <hr id="get-started-anchor" class="section-divider">
     <section class="section-header final-section" >
       <h2>It has never been easier to change the world</h2>
+      <div class="section-content">
+        <div class="sign-up-form">
+          <!--{{>SocialLogin}}
+          {{>Signup}}-->
+        </div>
+      </div>
       <center><img src="/img/landing/arrow_up.svg"></center>
     </section>
-  	<footer>
-      <div class="section-content">
-
-    		<div class="footer-content">
-    			<div id="info-footer" class="footer-column">
-            <div class="logo-bar-footer">
-        			<a href="http://crowdpol-dev/" class="footer-logo logo">Crowdpol</a>
-        		</div>
-    				<p>All Rights Reserved</p>
-    				<span id="copyright">© crowdpol.com</span>
-    				<p class="no-margin-bottom">Crowdpol Ecosystem</p>
-    				<p>Tools for changemakers</p>
-    				<div class="language-select">
-    				  <span class="language-selector">English</span>
-    				</div>
-    			</div>
-    			<div class="footer-column">
-    				<h3>Ecosystem</h3>
-    				<ul class="footer-ul">
-    					<li class="footer-li-link"><a href="/product">Product</a></li>
-    					<li class="footer-li-link"><a href="/pricing">Pricing</a></li>
-    					<li class="footer-li-link"><a href="/enterprise">Enterprice</a></li>
-    					<li class="footer-li-link"><a href="/partners">Partners</a></li>
-    					<li class="footer-li-link"><a href="/partner-search">Find a partner</a></li>
-    					<li class="footer-li-link"><a href="/templates">Templates</a></li>
-    					<li class="footer-li-link"><a href="/integrations">Integrations</a></li>
-    					<li class="footer-li-link"><a href="/developers">Developers</a></li>
-    					<li class="footer-li-link"><a href="/students">Students</a></li>
-    				</ul>
-    			</div>
-
-    			<div class="footer-column">
-    				<h3>Team</h3>
-    				<ul class="footer-ul">
-    					<li class="footer-li-link"><a href="/about">About us</a></li>
-    					<li class="footer-li-link"><a href="/contact">Contact us</a></li>
-    					<li class="footer-li-link"><a href="/contact">Careers</a></li>
-    					<li class="footer-li-link"><a href="/media">In the news</a></li>
-    					<li class="footer-li-link"><a href="/press-kit">Press kit</a></li>
-    					<li class="footer-li-link"><a href="/blog">Blog</a></li>
-    				</ul>
-    			</div>
-    			<div class="footer-column">
-    				<h3>Press</h3>
-    				<ul class="footer-ul">
-    					<li class="footer-li-link"><a href="/clients">Client projects</a></li>
-    					<li class="footer-li-link"><a href="/creative">Creative agencies</a></li>
-    					<li class="footer-li-link"><a href="/product">Product management</a></li>
-    					<li class="footer-li-link"><a href="/agile">Agile projects</a></li>
-    					<li class="footer-li-link"><a href="/sales">Sales pipeline</a></li>
-    					<li class="footer-li-link"><a href="/usecases">All use cases</a></li>
-    				</ul>
-    			</div>
-    			<div class="footer-column">
-    				<h3>Faq</h3>
-    				<ul class="footer-ul">
-    					<li class="footer-li-link"><a href="/webinars">Daily webinars</a></li>
-    					<li class="footer-li-link"><a href="/guides">Guides</a></li>
-    					<li class="footer-li-link"><a href="/services">Professional services</a></li>
-    					<li class="footer-li-link"><a href="/support">Support</a></li>
-    				</ul>
-    				<h3>Legal</h3>
-    				<ul class="footer-ul">
-    					<li class="footer-li-link"><a href="/terms">Terms of service</a></li>
-    					<li class="footer-li-link"><a href="/privacy">Privacy policy</a></li>
-    					<li class="footer-li-link"><a href="/security">Security</a></li>
-    				</ul>
-    			</div>
-    		</div>
-    		<div class="social-bar-footer">
-    			<a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social twitter"><img src="/img/landing/twitter.svg"></a>
-    			<a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social linkedin"><img src="/img/landing/linkedin.svg"></a>
-    			<a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social facebook"><img src="/img/landing/facebook.svg"></a>
-    			<a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social instagram"><img src="/img/landing/instagram.svg"></a>
-    			<a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social youtube"><img src="/img/landing/youtube.svg"></a>
-    			<a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social soundcloud"><img src="/img/landing/soundcloud.svg"></a>
-    		</div>
+    <footer>
+      <div class="logo-bar-footer footer-container">
+        <a href="http://crowdpol-dev/" class="footer-logo logo">Crowdpol</a>
       </div>
-  	</footer>
+      <div class="section-content footer-container">
+
+        <div class="footer-content">
+          <div id="info-footer" class="footer-column">
+
+            <p>All Rights Reserved</p>
+            <span id="copyright">© crowdpol.com</span>
+            <p class="no-margin-bottom">Crowdpol Ecosystem</p>
+            <p>Tools for changemakers</p>
+            <div class="language-select">
+              <i class="material-icons">language</i><span class="language-selector">English</span>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Ecosystem</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/product">Product</a></li>
+              <li class="footer-li-link"><a href="/pricing">Pricing</a></li>
+              <li class="footer-li-link"><a href="/enterprise">Enterprice</a></li>
+              <li class="footer-li-link"><a href="/partners">Partners</a></li>
+              <li class="footer-li-link"><a href="/partner-search">Find a partner</a></li>
+              <li class="footer-li-link"><a href="/templates">Templates</a></li>
+              <li class="footer-li-link"><a href="/integrations">Integrations</a></li>
+              <li class="footer-li-link"><a href="/developers">Developers</a></li>
+              <li class="footer-li-link"><a href="/students">Students</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Team</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/about">About us</a></li>
+              <li class="footer-li-link"><a href="/contact">Contact us</a></li>
+              <li class="footer-li-link"><a href="/contact">Careers</a></li>
+              <li class="footer-li-link"><a href="/media">In the news</a></li>
+              <li class="footer-li-link"><a href="/press-kit">Press kit</a></li>
+              <li class="footer-li-link"><a href="/blog">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Press</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/clients">Client projects</a></li>
+              <li class="footer-li-link"><a href="/creative">Creative agencies</a></li>
+              <li class="footer-li-link"><a href="/product">Product management</a></li>
+              <li class="footer-li-link"><a href="/agile">Agile projects</a></li>
+              <li class="footer-li-link"><a href="/sales">Sales pipeline</a></li>
+              <li class="footer-li-link"><a href="/usecases">All use cases</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Faq</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/webinars">Daily webinars</a></li>
+              <li class="footer-li-link"><a href="/guides">Guides</a></li>
+              <li class="footer-li-link"><a href="/services">Professional services</a></li>
+              <li class="footer-li-link"><a href="/support">Support</a></li>
+            </ul>
+            <h3>Legal</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/terms">Terms of service</a></li>
+              <li class="footer-li-link"><a href="/privacy">Privacy policy</a></li>
+              <li class="footer-li-link"><a href="/security">Security</a></li>
+            </ul>
+            <div class="social-bar-footer">
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social twitter"><img src="/img/landing/twitter.svg"></a>
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social linkedin"><img src="/img/landing/linkedin.svg"></a>
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social facebook"><img src="/img/landing/facebook.svg"></a>
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social instagram"><img src="/img/landing/instagram.svg"></a>
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social youtube"><img src="/img/landing/youtube.svg"></a>
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social soundcloud"><img src="/img/landing/soundcloud_icon.svg"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </footer>
   </body>
 </template>
