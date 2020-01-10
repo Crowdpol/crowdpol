@@ -70,14 +70,14 @@ div.reg-wizard-container{
         }
       }
       div.section-intro-content-right{
-        border: solid 1px;
-        margin-left: 20px;
+        //border: solid 1px;
+        margin-left: 60px;
       }
     }
   }
   div.section-step{
     width: 80%;
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     div.section-step-header{
       div.step-heading{
@@ -107,7 +107,8 @@ div.reg-wizard-container{
         }
         div.step-content-right{
           margin-left: 20px;
-          border: solid 1px grey;
+          //border: solid 1px grey;
+          padding-left:25px;
         }
       }
       div.step-buttons{
@@ -125,7 +126,51 @@ div.reg-wizard-container{
       }
     }
   }
+  div.sunburst-step{
+    div.section-step-header{
+      div.step-heading{
 
+      }
+      div.step-info{
+
+      }
+      div.step-content{
+
+        div.step-content-left{
+          min-width: 300px;
+          border: solid 1px red;
+        }
+        div.step-content-right{
+
+        }
+      }
+      div.step-buttons{
+
+        button.mdl-button{
+
+        }
+        button.mdl-button--colored{
+
+        }
+      }
+    }
+  }
+
+  img.iso-sun{
+    width: 290px;
+    position: relative;
+    top: -45px;
+  }
+  img.iso-heart{
+    width: 290px;
+    position: relative;
+    top: -45px;
+  }
+  img.iso-world{
+    width: 290px;
+    position: relative;
+    top: -45px;
+  }
   input:not([type=submit]):not([type=file]):not(.mdl-slider) {
      /* omg so much cleaner */
        width: 100%;

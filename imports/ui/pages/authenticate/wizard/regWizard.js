@@ -7,7 +7,7 @@ import RavenClient from 'raven-js';
 import './regWizard.html';
 let steps = [];
 //let map;
-
+let canvas;
 Template.RegistrationWizard.onCreated(function(){
   self = this;
   //Reactive Variables
@@ -15,57 +15,57 @@ Template.RegistrationWizard.onCreated(function(){
 
 });
 
-Template.RegistrationWizard.onRendered(function(){
-  //loadMap();
-  setCoverState('edit-show');
-  $("#leaflet-map").hide();
+Template.Sunburst.onRendered(function(){
+  //let sections = ["culture","finance","defence","education","enterprise","environment","foreign-affairs","social-affairs","infrastructure","justice"];
 
-  //showProfileUrl();
-  var picker = new Pikaday({
-    field: document.getElementById('profile-dob'),
-    firstDay: 1,
-    minDate: new Date(1900, 0, 1),
-    maxDate: new Date(),
-    yearRange: [1900, 2020],
-    showTime: false,
-    autoClose: true,
-    format: 'DD-MMM-YYYY',
-    disableDayFn: function(date) {
-      return moment().isBefore(moment(date), 'day');
+  var tempArc;
+  var arcId = "";
+  var startAngle = 0;
+  var width = (2*Math.PI)/8;
+  var endAngle = width;
+  var segementCount = 1;
+    let colors = ["#F5E829","#C7D310","#6AB435","#40B8EB","#3F79BD","#30509D","#E94F1D","#F3901D"];
+    let sections = ["education","health","environment","infrastructure","law","economy","geopolitics","enterprise"];
+    canvas = d3.select("#sunburst")
+      .append("svg")
+      .attr("width", 350)
+      .attr("height", 350)
+    var curves = canvas.append("g")
+      .attr("transform", "translate(175,175)");
+
+    curves.selectAll("path")
+      .data(sections)
+      .enter().append("path")
+      .each(arcFunction);
+
+    function arcFunction(d, i) {
+      var start = 10;
+      var end = 20;
+        for (j = 0; j < 10; j++) {
+          tempArc = d3.svg.arc()
+            .innerRadius(start)
+            .outerRadius(end)
+            .startAngle(startAngle)
+            .endAngle(endAngle)
+            .padAngle(.05)
+            .padRadius(120)
+            .cornerRadius(5);
+
+          //arcId = "arc" + j;
+          curves.append("path")
+            .attr("class", d)
+            //.attr("class", "arc")
+            .attr("data-id",j)
+            .style("fill", colors[i])
+            .attr("d", tempArc);
+
+          start = start + 15;
+          end = end + 15;
+        }
+        startAngle = endAngle;
+        endAngle = endAngle + width;
+
     }
-  });
-  picker.setDate(new Date());
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition,showError);
-  } else {
-    console.log("Geolocation is not supported by this browser.");
-  }
-
-  var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
-    for (var i = 0, l = mdlInputs.length; i < l; i++) {
-      mdlInputs[i].MaterialTextfield.checkDirty();
-    }
-
-  var ctx = document.getElementById("myChart").getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'polarArea',
-    data: {
-      labels: ["M", "T", "W", "T", "F", "S", "S"],
-      datasets: [{
-        backgroundColor: [
-          "#2ecc71",
-          "#3498db",
-          "#95a5a6",
-          "#9b59b6",
-          "#f1c40f",
-          "#e74c3c",
-          "#34495e"
-        ],
-        data: [12, 19, 3, 17, 28, 24, 7]
-      }]
-    }
-  });
 });
 
 Template.RegistrationWizard.helpers({
@@ -101,209 +101,25 @@ Template.RegistrationWizard.helpers({
   },
 });
 
-Template.RegistrationWizard.events({
-  'click .photo-button-class'(event, template){
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    console.log("showModal");
-    showProfileImageModal();
-  },
-
-  'click .step': function(e){
-    let nextStep = e.target.dataset.step;
-    if(nextStep){
-      progressSetStep(e.target.dataset.step);
+Template.Sunburst.events({
+  'change #sunburst-range': function(e,t) {
+    console.log(e.target.value);
+    let rangeVal = e.target.value;
+    d3.selectAll("path.education").style("opacity", 0.25);
+    d3.selectAll("path.education").filter(function(d) {
+      let val = $(this).data('id');
+      return val <= rangeVal
+    }).style("opacity", 1.0);
+      //.style("opacity")
+    /*
+    for (x = 1; x <= e.target.value; x++) {
+      let arcId = "path#arc0-" + x;
+      console.log(arcId);
+      //$(arcId).addClass("arc-green");
+      d3.select("#path#arc0-1").style("color", "green");
     }
-  },
-  /*
-  'click #take-photo'(event, template){
-    event.preventDefault();
-    var cameraOptions = {
-            width: 800,
-            height: 600
-        };
-        MeteorCameraUI.getPicture(cameraOptions, function (error, data) {
-           if (!error) {
-             Session.set("photo", data);
-               template.$('.photo').attr('src', data);
-           }else{
-             console.log(error);
-           }
-        });
-  },
-  */
-  'click #startDate' (event, template){
-    $('#startDate')[0].MaterialTextfield.checkDirty();
-  },
-  'click .wizard-skip' (event, template){
-    event.preventDefault();
-    confirm("Press a button!");
-    FlowRouter.go('/dash/vote');
-  },
-	'click .wizard-next' (event, template){
-		event.preventDefault();
-    //$( "#change-photo" ).show();
-    currentStep = template.currentStep.get()
-    nextStep = currentStep + 1;
-    //console.log("next - currentStep: " + currentStep + " nextStep: " + nextStep);
-    Template.instance().currentStep.set(nextStep);
-    progressSetStep(nextStep);
-		//template.currentStep.set(moveStep(template.currentStep.get(),1));
-
-	},
-  'click .wizard-back' (event, template){
-		event.preventDefault();
-    currentStep = Template.instance().currentStep.get()
-    nextStep = currentStep - 1;
-    //console.log("back - currentStep: " + currentStep + " nextStep: " + nextStep);
-    Template.instance().currentStep.set(nextStep);
-    progressSetStep(nextStep);
-		//template.currentStep.set(moveStep(template.currentStep.get(),-1));
-	},
-  'click .wizard-complete' (event, template){
-    event.preventDefault();
-    var profile = {};
-    profile.username = $('#profile-username').val();
-    profile.firstName = $('#profile-firstname').val();
-    profile.lastName = $('#profile-lastname').val();
-    profile.birthday = $('#profile-dob').val();
-    profile.photo = $('#profile-image').val();//getProfilePic();//'https://upload.wikimedia.org/wikipedia/commons/b/b4/Brett_king_futurist_speaker_author.jpg';//$('#profile-image').val();
-    profile.tagline = $('#profile-tagline').val();
-    profile.bio = $('#profile-bio').val();
-    profile.tags = getTags();
-    profile.motto  = $('#profile-motto').val();
-    //profile.skills = {};//$('#profile-skills').val();
-    //profile.twitter = $('#profile-twitter').val();
-    //profile.google  = $('#profile-google').val();
-    //profile.facebook  = $('#profile-facebook').val();
-    //profile.linkedin  = $('#profile-linkedin').val();
-    //profile.youtube = $('#profile-youtube').val();
-    //profile.website = $('#profile-website').val();
-    profile.location = $('#profile-location').val();
-    profile.social = [
-      {
-        "type": "twitter",
-        "url": $('#profile-twitter').val(),
-        "validated": false,
-        "visible": $('#twitter-switch').is(":checked"),
-      },
-      {
-        "type": "google",
-        "url": $('#profile-google').val(),
-        "validated": false,
-        "visible": $('#google-switch').is(":checked"),
-      },
-      {
-        "type": "facebook",
-        "url": $('#profile-facebook').val(),
-        "validated": false,
-        "visible": $('#facebook-switch').is(":checked"),
-      },
-      {
-        "type": "linkedin",
-        "url": $('#profile-linkedin').val(),
-        "validated": false,
-        "visible": $('#linkedin-switch').is(":checked"),
-      },
-      {
-        "type": "instagram",
-        "url": $('#profile-instagram').val(),
-        "validated": false,
-        "visible": $('#instagram-switch').is(":checked"),
-      },
-      {
-        "type": "youtube",
-        "url": $('#profile-youtube').val(),
-        "validated": false,
-        "visible": $('#youtube-switch').is(":checked"),
-      },
-      {
-        "type": "website",
-        "url": $('#profile-website').val(),
-        "validated": false,
-        "visible": $('#youtube-website').is(":checked"),
-      }
-    ];
-    profile.skillsDescription = $("#profile-skills-description").val();
-    profile.skills = [
-      {
-        type:"legal",
-        description:"",
-        selected:$('#checkbox-legal').is(":checked")
-      },
-      {
-        type:"business",
-        description:"",
-        selected:$('#checkbox-business').is(":checked")
-      },
-      {
-        type:"finance",
-        description:"",
-        selected:$('#checkbox-finance').is(":checked")
-      },
-      {
-        type:"marketing",
-        description:"",
-        selected:$('#checkbox-marketing').is(":checked")
-      },
-      {
-        type:"environment",
-        description:"",
-        selected:$('#checkbox-environment').is(":checked")
-      },
-      {
-        type:"political",
-        description:"",
-        selected:$('#checkbox-political').is(":checked")
-      },
-      {
-        type:"management",
-        description:"",
-        selected:$('#checkbox-management').is(":checked")
-      },
-      {
-        type:"administration",
-        description:"",
-        selected:$('#checkbox-admin').is(":checked")
-      },
-      {
-        type:"design",
-        description:"",
-        selected:$('#checkbox-design').is(":checked")
-      },
-      {
-        type:"programming",
-        description:"",
-        selected:$('#checkbox-programming').is(":checked")
-      }
-    ];
-    interests = [];
-    interestCount = $('.compass-button.selected').length;
-    interestValue = roundHalf(100/interestCount);
-    $( ".compass-button" ).each(function( index ) {
-      console.log( index + ": " + $( this ).attr("data-id") );
-      interest = {
-        "type": $( this ).attr("data-id"),
-        "amount":interestValue
-      }
-      interests.push(interest);
-    });
-    profile.interests = interests;
-    console.log(profile);
-    Meteor.call('updateProfile', profile, function(error) {
-      if (error) {
-        RavenClient.captureException(error);
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
-        FlowRouter.go('/dash');
-      }
-    });
-
-  },
-  'click .compass-button' (event, template){
-    $(event.currentTarget).toggleClass('selected');
-  }
+    */
+   }
 });
 
 
