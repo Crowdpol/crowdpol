@@ -1,6 +1,7 @@
 <template name="RegistrationWizard">
   {{>ProfileImageModal}}
   <div class="reg-wizard-container">
+
     <hr>
     <div class="section-intro">
       <div class="section-intro-header">
@@ -28,7 +29,7 @@
           </ol>
         </div>
         <div class="section-intro-content-right">
-          place image here
+          <img src="img/reg/isometric_sun_facing_left.svg" class="iso-sun">
         </div>
       </div>
     </div>
@@ -38,7 +39,7 @@
         <div class="step-heading">Choose your username</div>
         <div class="step-info">This name will appear as  your @handle</div>
         <div class="step-content">
-          <input type="text" id="fname" name="firstname" placeholder="Your name..">
+          <input type="text" id="username" name="username" placeholder="Your name..">
         </div>
         <div class="step-buttons">
           <button class="mdl-button mdl-js-button">
@@ -56,7 +57,7 @@
         <div class="step-heading">What's your first name?</div>
         <div class="step-info">Legal first (given) name</div>
         <div class="step-content">
-          <input type="text" id="fname" name="firstname" placeholder="@Your_Name">
+          <input type="text" id="firstname" name="firstname" placeholder="@Your_Name">
         </div>
         <div class="step-buttons">
           <button class="mdl-button mdl-js-button">
@@ -74,7 +75,7 @@
         <div class="step-heading">What's your last name?</div>
         <div class="step-info">Legal last name (surname)</div>
         <div class="step-content">
-          <input type="text" id="fname" name="firstname" placeholder="Your surname">
+          <input type="text" id="lastname" name="lastname" placeholder="Your surname">
         </div>
         <div class="step-buttons">
           <button class="mdl-button mdl-js-button">
@@ -92,7 +93,7 @@
         <div class="step-heading">What's your date of birth?</div>
         <div class="step-info">MM / DD / YYYY</div>
         <div class="step-content">
-          <input type="text" id="fname" name="firstname" placeholder="01/01/2001">
+          <input type="text" id="dob" name="dob" placeholder="01/01/2001">
         </div>
         <div class="step-buttons">
           <button class="mdl-button mdl-js-button">
@@ -131,22 +132,44 @@
           </ol>
         </div>
         <div class="section-intro-content-right">
-          place image here
+
         </div>
       </div>
     </div>
     <hr>
-    <div class="section-step">
+    <div class="section-step sunburst-step">
       <div class="section-step-header">
         <div class="step-heading">How are you interested in Culture?</div>
         <div class="step-info">This scale will determine the amount of proposals, polls, petitions, and fundraisers related to cultural issues that will apprear in your feed. Adjust the slider to your prefered value.</div>
         <div class="step-content">
           <div class="step-content-left">
-            0&nbsp;<input type="range" min="1" max="100" value="50">&nbsp;10
-
+            <div class="content-row">
+              <span>0</span><input type="range" min="1" max="10" value="1" class="sunburst-range" data-segment="education"><span>10</span>
+            </div>
+            <div class="content-row">
+              <span>0</span><input type="range" min="1" max="10" value="1" class="sunburst-range" data-segment="health"><span>10</span>
+            </div>
+            <div class="content-row">
+              <span>0</span><input type="range" min="1" max="10" value="1" class="sunburst-range" data-segment="environment"><span>10</span>
+            </div>
+            <div class="content-row">
+              <span>0</span><input type="range" min="1" max="10" value="1" class="sunburst-range" data-segment="infrastructure"><span>10</span>
+            </div>
+            <div class="content-row">
+              <span>0</span><input type="range" min="1" max="10" value="1" class="sunburst-range" data-segment="law"><span>10</span>
+            </div>
+            <div class="content-row">
+              <span>0</span><input type="range" min="1" max="10" value="1" class="sunburst-range" data-segment="economy"><span>10</span>
+            </div>
+            <div class="content-row">
+              <span>0</span><input type="range" min="1" max="10" value="1" class="sunburst-range" data-segment="geopolitics"><span>10</span>
+            </div>
+            <div class="content-row">
+              <span>0</span><input type="range" min="1" max="10" value="1" class="sunburst-range" data-segment="enterprise"><span>10</span>
+            </div>
           </div>
           <div class="step-content-right">
-            place polar chart graph here...
+            {{>Sunburst}}
           </div>
         </div>
         <div class="step-buttons">
@@ -186,7 +209,7 @@
           </ol>
         </div>
         <div class="section-intro-content-right">
-          place image here
+          <img src="img/reg/isometric_heart.svg" class="iso-heart">
         </div>
       </div>
     </div>
@@ -217,7 +240,7 @@
           </ol>
         </div>
         <div class="section-intro-content-right">
-          place image here
+          <img src="img/reg/isometric_globe.svg" class="iso-world">
         </div>
       </div>
     </div>
@@ -253,4 +276,8 @@
       </div>
     </div>
   </div>
+</template>
+
+<template name="Sunburst">
+  <div id="sunburst"></div>
 </template>

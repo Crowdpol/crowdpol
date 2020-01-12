@@ -53,4 +53,5 @@ import './maps.scss';
 import './compass.scss';
 import './proposal-card.scss';
 import './layout.scss';
+import './sunburst.scss';
 import './modals/createGroupModal.scss';
