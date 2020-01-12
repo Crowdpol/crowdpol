@@ -139,6 +139,17 @@ div.reg-wizard-container{
         div.step-content-left{
           min-width: 300px;
           border: solid 1px red;
+          display: flex;
+          flex-direction: column;
+          div.content-row{
+            display: flex;
+            flex-direction: row;
+            max-height: 20px;
+            margin-bottom: 10px;
+            span{
+              padding: 7px;
+            }
+          }
         }
         div.step-content-right{
 

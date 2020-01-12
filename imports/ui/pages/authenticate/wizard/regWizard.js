@@ -15,6 +15,29 @@ Template.RegistrationWizard.onCreated(function(){
 
 });
 
+Template.RegistrationWizard.events({
+  'change .sunburst-range': function(e,t) {
+    console.log(e.target.value);
+    let segment = e.currentTarget.dataset.segment;
+    let rangeVal = e.target.value;
+    let selector = "path." + segment;
+    d3.selectAll(selector).style("opacity", 0.25);
+    d3.selectAll(selector).filter(function(d) {
+      let val = $(this).data('id');
+      return val <= rangeVal
+    }).style("opacity", 1.0);
+      //.style("opacity")
+    /*
+    for (x = 1; x <= e.target.value; x++) {
+      let arcId = "path#arc0-" + x;
+      console.log(arcId);
+      //$(arcId).addClass("arc-green");
+      d3.select("#path#arc0-1").style("color", "green");
+    }
+    */
+   }
+});
+
 Template.Sunburst.onRendered(function(){
   //let sections = ["culture","finance","defence","education","enterprise","environment","foreign-affairs","social-affairs","infrastructure","justice"];
 
@@ -101,26 +124,7 @@ Template.RegistrationWizard.helpers({
   },
 });
 
-Template.Sunburst.events({
-  'change #sunburst-range': function(e,t) {
-    console.log(e.target.value);
-    let rangeVal = e.target.value;
-    d3.selectAll("path.education").style("opacity", 0.25);
-    d3.selectAll("path.education").filter(function(d) {
-      let val = $(this).data('id');
-      return val <= rangeVal
-    }).style("opacity", 1.0);
-      //.style("opacity")
-    /*
-    for (x = 1; x <= e.target.value; x++) {
-      let arcId = "path#arc0-" + x;
-      console.log(arcId);
-      //$(arcId).addClass("arc-green");
-      d3.select("#path#arc0-1").style("color", "green");
-    }
-    */
-   }
-});
+
 
 
 function showError(error) {
