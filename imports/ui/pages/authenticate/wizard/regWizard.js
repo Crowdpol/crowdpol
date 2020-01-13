@@ -12,7 +12,14 @@ Template.RegistrationWizard.onCreated(function(){
   self = this;
   //Reactive Variables
   self.currentStep = new ReactiveVar(1);
-
+  var communityId = LocalStore.get('communityId');
+  var dict = new ReactiveDict();
+	self.dict = dict;
+  dict.set('communityId',communityId);
+  //dict.set('currentHeader','community-proposals');
+  Session.set('selectedCommunity','Global');
+  Session.set('selectedMap','GLOBAL');
+  Session.set('breadcrumbs',['GLOBAL']);
 });
 //149, 197, 96 // #95c560red
 Template.Sunburst.onRendered(function(){
@@ -42,7 +49,7 @@ Template.Sunburst.onRendered(function(){
       var start = 10;
       var end = 20;
         for (j = 0; j < 10; j++) {
-          tempArc = d3.svg.arc()
+          tempArc = d3.arc()
             .innerRadius(start)
             .outerRadius(end)
             .startAngle(startAngle)
