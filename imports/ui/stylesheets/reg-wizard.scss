@@ -137,8 +137,8 @@ div.reg-wizard-container{
       div.step-content{
 
         div.step-content-left{
-          min-width: 300px;
-          border: solid 1px red;
+          min-width: 450px;
+          //border: solid 1px red;
           display: flex;
           flex-direction: column;
           div.content-row{
@@ -146,8 +146,24 @@ div.reg-wizard-container{
             flex-direction: row;
             max-height: 20px;
             margin-bottom: 10px;
-            span{
-              padding: 7px;
+            input.sunburst-range{
+              width: 150px;
+              margin-top: 7px;
+            }
+            div.sunburst-range-label{
+              font-weight: 600;
+              color: #6d7272;
+              font-size: 14px;
+              width: 225px;
+              //border: solid 1px red;
+            }
+            div.sunburst-range-value{
+              font-weight: 600;
+              color: #6d7272;
+              padding-left: 18px;
+              font-size: 14px;
+              width: 50px;
+              //border: solid 1px red;
             }
           }
         }
@@ -182,9 +198,9 @@ div.reg-wizard-container{
     position: relative;
     top: -45px;
   }
-  input:not([type=submit]):not([type=file]):not(.mdl-slider) {
+  input:not([type=range]):not([type=submit]):not([type=file]):not(.mdl-slider) {
      /* omg so much cleaner */
-       width: 100%;
+      width: 100%;
       padding: 12px 20px;
       margin: 8px 0;
       display: inline-block;
@@ -195,4 +211,50 @@ div.reg-wizard-container{
   input{
 
   }
+}
+/*------- RANGE INPUT -------*/
+
+
+input[type=range] {
+    -webkit-appearance: none;
+    -moz-apperance: none;
+    border-radius: 6px;
+    height: 6px;
+    background-image: -webkit-gradient(linear,
+        left top,
+        right top,
+        color-stop(0%, #50c22e),
+        color-stop(0%, #ccc));
+
+    background-image: -moz-linear-gradient(left center,
+        #50c22e 0%,
+        #ccc 100%);
+}
+
+input[type="range"]::-moz-range-track {
+    border: none;
+    background: none;
+    outline: none;
+}
+
+input[type=range]:focus {
+    outline: none;
+    border: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background-color: #50c22e;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+}
+
+input[type=range]::-moz-range-thumb {
+    -moz-appearance: none !important;
+    background-color: #50c22e;
+    border: none;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
 }
