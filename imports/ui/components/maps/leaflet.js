@@ -8,6 +8,16 @@ Template.Leaflet.onCreated(function(){
 
 Template.Leaflet.onRendered(function(){
   //console.log("Leaflet rendered");
+  // zoom in function
+        $('#in').click(function(){
+          map.setZoom(map.getZoom() + 1)
+        });
+
+
+        // zoom out function
+        $('#out').click(function(){
+          map.setZoom(map.getZoom() - 1)
+        });
 });
 
 Template.Leaflet.events({
@@ -36,12 +46,12 @@ export function loadMap(){
         [85.0, 180.0]
     ]
   });
-
+  /*
   //set zoom controls
   L.control.zoom({
      position:'bottomleft'
   }).addTo(map);
-
+  */
   //setTiles();
 
 }

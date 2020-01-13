@@ -54,6 +54,28 @@
   }
 }
 
+#in{
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding-right: 10px;
+        padding-left: 10px;
+        z-index: 9000;
+        background-color: #69D2E7;
+        cursor:pointer;
+
+      }
+      #out{
+        position: absolute;
+        top: 70px;
+        left: 20px;
+        padding-right: 5px;
+        padding-left: 10px;
+        z-index: 9000;
+        background-color: #A7DBDB;
+        cursor:pointer;
+      }
+
 @media only screen and (min-width: $tiny){
 	#leaflet-map{
 		min-height: 250px;
