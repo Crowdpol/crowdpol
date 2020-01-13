@@ -14,30 +14,7 @@ Template.RegistrationWizard.onCreated(function(){
   self.currentStep = new ReactiveVar(1);
 
 });
-
-Template.RegistrationWizard.events({
-  'change .sunburst-range': function(e,t) {
-    console.log(e.target.value);
-    let segment = e.currentTarget.dataset.segment;
-    let rangeVal = e.target.value;
-    let selector = "path." + segment;
-    d3.selectAll(selector).style("opacity", 0.25);
-    d3.selectAll(selector).filter(function(d) {
-      let val = $(this).data('id');
-      return val <= rangeVal
-    }).style("opacity", 1.0);
-      //.style("opacity")
-    /*
-    for (x = 1; x <= e.target.value; x++) {
-      let arcId = "path#arc0-" + x;
-      console.log(arcId);
-      //$(arcId).addClass("arc-green");
-      d3.select("#path#arc0-1").style("color", "green");
-    }
-    */
-   }
-});
-
+//149, 197, 96 // #95c560red
 Template.Sunburst.onRendered(function(){
   //let sections = ["culture","finance","defence","education","enterprise","environment","foreign-affairs","social-affairs","infrastructure","justice"];
 
@@ -89,6 +66,45 @@ Template.Sunburst.onRendered(function(){
         endAngle = endAngle + width;
 
     }
+    let selectors = document.getElementsByClassName("sunburst-range");//document.querySelector('.sunburst-range');
+    console.log(selectors);
+    console.log(selectors.length);
+    for(var i = 0; i < selectors.length; i += 1){
+      console.log(selectors[i]);
+      selectors[i].addEventListener('input', function (e) {
+        let segment = e.currentTarget.dataset.segment;
+        let rangeVal = e.target.value;
+        let selector = "path." + segment;
+        console.log(selector);
+        d3.selectAll(selector).style("opacity", 0.25);
+        d3.selectAll(selector).filter(function(d) {
+          let val = $(this).data('id');
+          //console.log("val: " + (val+1) + " rangeVal: " + rangeVal);
+          return (val+1) <= rangeVal
+        }).style("opacity", 1.0);
+        selector = "#"+segment+"-count";
+        $(selector).html(e.target.value);
+        console.log(selector);
+      });
+    }
+    /*
+    i.addEventListener('input', function (e) {
+
+
+    }, false);
+    */
+    $("input[type=range]").mousemove(function (e) {
+      var val = ($(this).val() - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
+      var percent = val * 100;
+      $(this).css('background-image',
+          '-webkit-gradient(linear, left top, right top, ' +
+          'color-stop(' + percent + '%, #50c22e), ' +
+          'color-stop(' + percent + '%, #ccc)' +
+          ')');
+
+      $(this).css('background-image',
+          '-moz-linear-gradient(left center, #50c22e 0%, #50c22e ' + percent + '%, #ccc ' + percent + '%, #ccc 100%)');
+    });
 });
 
 Template.RegistrationWizard.helpers({
