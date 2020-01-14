@@ -6,22 +6,15 @@ Template.Leaflet.onCreated(function(){
   //console.log("Leaflet onCreated");
 });
 
-Template.Leaflet.onRendered(function(){
-  //console.log("Leaflet rendered");
-  // zoom in function
-        $('#in').click(function(){
-          map.setZoom(map.getZoom() + 1)
-        });
-
-
-        // zoom out function
-        $('#out').click(function(){
-          map.setZoom(map.getZoom() - 1)
-        });
-});
-
 Template.Leaflet.events({
-
+  'click #leaflet-zoom-in': function(event, template){
+    console.log("zoom in");
+    map.setZoom(map.getZoom() + 1)
+  },
+  'click #leaflet-zoom-out': function(event, template){
+    console.log("zoom out");
+    map.setZoom(map.getZoom() - 1)
+  },
 });
 
 Template.Leaflet.helpers({
@@ -38,7 +31,7 @@ export function loadMap(){
     doubleClickZoom: false,
     zoomControl: false,
     zoom: 3,
-    minZoom: 2,
+    minZoom: 1,
     center: [49.009952, 2.548635],
     //        maxBounds: [[-90.0,-180.0],[90.0,180.0]]
     maxBounds: [
@@ -46,13 +39,15 @@ export function loadMap(){
         [85.0, 180.0]
     ]
   });
+
+  //L.tileLayer.provider('Esri.WorldGrayCanvas').addTo(map)
   /*
   //set zoom controls
   L.control.zoom({
      position:'bottomleft'
   }).addTo(map);
   */
-  //setTiles();
+  setTiles();
 
 }
 
@@ -97,12 +92,14 @@ function setStartingPosition(){
 }
 //set base tile layer of the map
 function setTiles(){
-  //console.log("Leaflet: setTiles()");
+  console.log("Leaflet: setTiles()");
   //load base tiles map, to see more: https://leaflet-extras.github.io/leaflet-providers/preview/
 
-  var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
-
-  tiles.addTo(map);
+  //var tiles = L.tileLayer.provider('Esri.WorldGrayCanvas')
+  var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+  	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+  });
+  Esri_WorldStreetMap.addTo(map);
 
 }
 export function addLayer(layer){

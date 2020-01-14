@@ -1,6 +1,49 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
+.leaflet-map-wrapper{
+	//border: solid 1px red;
+	width: 80%;
+	max-width: 1000px;
+	margin: 0 auto;
+	#leaflet-map{
+		background: lighten(#92e2e8,20%);
+		min-height: 350px;
+		min-width: 100%;
+		max-height: 350px;
+		//border: solid 1px green;
+	}
+	div.map-zoom-button{
+		width: 50px;
+		height: 50px;
+		//border: solid 1px red;
+		background-color: transparent;
+		cursor:pointer;
+		i{
+			color: $white;
+		}
+		&:hover{
+			i{
+				color: $orange;
+			}
+		}
+	}
+	div#leaflet-zoom-in{
+		position: relative;
 
+	  margin-top: -60px;
+		padding-right: 10px;
+		padding-left: 10px;
+		z-index: 9000;
+
+	}
+	div#leaflet-zoom-out{
+		position: relative;
+		margin-top: -25px;
+		padding-right: 5px;
+		padding-left: 10px;
+		z-index: 9000;
+	}
+}
 .info {
 	padding: 6px 8px;
 	font: 14px/16px Arial, Helvetica, sans-serif;
@@ -24,12 +67,7 @@
 	background-image: url('/img/layers.png');
 }
 
-#leaflet-map{
-	background: lighten(#92e2e8,20%);
-	min-height: 350px;
-	min-width: 100%;
-	max-height: 350px;
-}
+
 
 .map-community-info{
   div{
@@ -54,27 +92,7 @@
   }
 }
 
-#in{
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        padding-right: 10px;
-        padding-left: 10px;
-        z-index: 9000;
-        background-color: #69D2E7;
-        cursor:pointer;
 
-      }
-      #out{
-        position: absolute;
-        top: 70px;
-        left: 20px;
-        padding-right: 5px;
-        padding-left: 10px;
-        z-index: 9000;
-        background-color: #A7DBDB;
-        cursor:pointer;
-      }
 
 @media only screen and (min-width: $tiny){
 	#leaflet-map{

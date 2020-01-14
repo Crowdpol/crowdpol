@@ -209,8 +209,15 @@ div.reg-wizard-container{
       border-radius: 4px;
       box-sizing: border-box;
   }
-  input{
 
+}
+div#reg-wizard-map{
+  .leaflet-map-wrapper{
+    //border: solid 1px green;
+    #leaflet-map{
+      //border: solid 1px orange;
+      background: #f9f8f7;//lighten(#92e2e8,20%);
+    }
   }
 }
 /*------- RANGE INPUT -------*/

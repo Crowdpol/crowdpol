@@ -64,12 +64,15 @@ function loadGeoJSON(){
       //mapInstance.fireEvent('dataload', event);
   });
   //addLayer(greyscaleMap);
-  //var streetMap = L.tileLayer.provider('Esri.WorldStreetMap');
+
   //addLayer(streetMap);
   addLayer(mapLayer);
-  /*
+
   //streetMap.addTo(map);
   //mapLayer.addTo(map);
+  /*
+  //var streetMap = L.tileLayer.provider('Esri.WorldStreetMap');
+  //var greyscaleMap = L.tileLayer.provider('Esri.WorldGrayCanvas');
   var baseMaps = {
     "Streets": streetMap,
   	"Greyscale": greyscaleMap
@@ -82,10 +85,10 @@ function loadGeoJSON(){
   //group.addTo(map);
 
   var layerInstance = L.control.layers(baseMaps, overlayMaps,{position: 'topleft'}).addTo(map);
-
+  */
   //console.log(mapLayer.getBounds());
   //map.fitBounds(mapLayer.getBounds());
-
+  /*
 
   // handle clicks on the map that didn't hit a feature
 
