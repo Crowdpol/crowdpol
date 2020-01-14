@@ -69,9 +69,12 @@ Template.Header.onCreated(function(){
 Template.Header.helpers({
   userPhoto: function() {
     let photoURL = getUserProfilePhoto(Meteor.userId());
+    console.log(photoURL);
+    return "/img/default-user-image.png";
+    /*
     if(photoURL){
       return photoURL;
-    }
+    }*/
   },
   title: function() {
     return "Crowdpol";//Template.instance().community.get().name;

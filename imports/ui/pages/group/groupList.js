@@ -40,11 +40,11 @@ Template.GroupList.helpers({
     let communityId = Template.instance().dict.get("communityId");
     if(this.type){
       let type = this.type;
-      console.log(type);
-      console.log(Groups.find({"type":type}).count());
+      //console.log(type);
+      //console.log(Groups.find({"type":type}).count());
       return Groups.find({"type":type,"communityId":communityId});
     }else{
-      console.log("no type man");
+      //console.log("no type man");
     }
     return Groups.find();//{"communityId":communityId}
   },
