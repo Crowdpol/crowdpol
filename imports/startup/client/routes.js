@@ -30,7 +30,7 @@ publicRoutes.route('/', {
   action() {
     let subdomain = LocalStore.get('subdomain');
     if(subdomain=='landing'){
-      BlazeLayout.render('App_body', { main: 'Landing' });
+      BlazeLayout.render('Landing');
     }else{
       if (!Meteor.user()){
         BlazeLayout.render('App_body', { main: 'Home' });
