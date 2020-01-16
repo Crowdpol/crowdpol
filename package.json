@@ -16,7 +16,7 @@
     "faker": "^4.1.0",
     "i": "^0.3.6",
     "json-schema-faker": "^0.4.6",
-    "leaflet": "^1.5.1",
+    "leaflet": "^1.6.0",
     "leaflet-geosearch": "^2.7.0",
     "meteor-node-stubs": "~0.2.4",
     "npm": "^6.11.2",

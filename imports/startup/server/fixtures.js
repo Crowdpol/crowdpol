@@ -144,7 +144,7 @@ Meteor.startup(() => {
 	let southAfricaId = createCommunity(southAfricaCommunity);
 
 	/* Register admins for both communities */
-	registerAdmins([globalId,demoId]);
+	//registerAdmins([globalId,demoId]);
 
 	/* Create demo tags for each community */
 	//createDemoTags(globalId);
