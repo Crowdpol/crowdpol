@@ -29,7 +29,7 @@
   			display: block;
   			padding-top: 17px;
   			//border-right: 1px solid #f4f4f4;
-
+				line-height: 1.6rem;
   			text-decoration: none;
         font-family: futura-pt, sans-serif;
         font-weight: 700;
@@ -308,23 +308,25 @@ input.search-bar::-webkit-search-cancel-button {
 
 
 input[type=search].search-bar {
+	width: 190px;
+	margin-top: 16px;
 	background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
 	border: solid 1px #ccc;
-	padding: 9px 10px 9px 32px;
+	padding: 0px 8px 2px 33px;
 	width: 55px;
 
-	-webkit-border-radius: 10em;
-	-moz-border-radius: 10em;
-	border-radius: 10em;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 
-	-webkit-transition: all .5s;
-	-moz-transition: all .5s;
-	transition: all .5s;
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	transition: all .2s;
 }
 input[type=search].search-bar:focus {
 	width: 130px;
 	background-color: #fff;
-	border-color: #66CC75;
+	border-color: $orange;
 
 	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
 	-moz-box-shadow: 0 0 5px rgba(109,207,246,.5);

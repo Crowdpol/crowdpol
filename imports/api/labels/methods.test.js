@@ -1,3 +1,4 @@
+/* disabled until Labels are re-introduced into the functional line-up
 import { Meteor } from 'meteor/meteor';
 import { assert, expect } from 'meteor/practicalmeteor:chai';
 import { Factory } from 'meteor/dburles:factory';
@@ -77,3 +78,4 @@ if (Meteor.isServer) {
 
   });
 }
+*/
