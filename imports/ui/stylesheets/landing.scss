@@ -1,3 +1,6 @@
+@charset "UTF-8";
+/******************************************************************/
+
 @import 'variables.scss';
 
 @import url("https://p.typekit.net/p.css?s=1&k=wid8gbr&ht=tk&f=10879.10881.10884.10885.15586&a=6076671&app=typekit&e=css");
@@ -35,6 +38,23 @@ font-display:auto;font-style:normal;font-weight:600;
 /* menu */
 /* menu icon */
 /* menu btn */
+
+.crowdpol-logo {
+	display: block;
+	float: left;
+	font-size: 2em;
+
+	text-decoration: none;
+	background-image: url(img/landing/crowdpol_ecosystem_logo_tools.svg);//crowdpol_ecosystem_logo.svg);
+	background-size: contain;
+	background-repeat: no-repeat;
+	color: #000; /* Fallback for older browsers */
+	color: rgba(0, 0, 0, 0);
+	width: 400px;
+	height: 60px;
+}
+
+
 body {
 	margin: 0;
   background: #f9f8f7;
@@ -45,6 +65,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 a {
 	color: #000;
 }
@@ -418,7 +439,7 @@ footer{
       display: flex;
       flex-direction: column;
 			width: 240px;
-			//min-width: 240px;
+			min-width: 240px;
 			max-width: 240px;
       p{
 				padding-top: 3px;
@@ -460,7 +481,8 @@ footer{
       align-items: flex-start;
       //justify-content: space-between;
       div.footer-column{
-        width: 200px;
+				width: 15%;
+    		min-width: 175px;
 				//border: solid 1px grey;
         h3{
           font-size: 1rem;
@@ -541,12 +563,15 @@ footer{
 		}
 	  div.section-content{
 			flex-wrap: wrap;
-	    div#info-footer{
 
-			}
 			div.footer-content{
 				display: flex;
 				flex-wrap: wrap;
+				#info-footer{
+					width: 100%;
+					min-width: 100%;
+					max-width: 0;
+				}
 	      div.footer-column{
 	        //width: 200px;
 				}
@@ -563,6 +588,11 @@ footer{
 	footer{
 		div.footer-container{
 			width: 480px;
+			#info-footer{
+				width: 100%;
+				min-width: 100%;
+				max-width: 0;
+			}
 		}
 	}
 }
@@ -573,6 +603,15 @@ footer{
 	footer{
 		div.footer-container{
 			width: 768px;
+			#info-footer{
+				width: 100%;
+				min-width: 100%;
+				max-width: 0;
+				.language-select{
+					margin-top: 13px;
+					margin-bottom: 25px;
+				}
+			}
 		}
 	}
 }
@@ -583,6 +622,14 @@ footer{
 	footer{
 		div.footer-container{
 			width: 1000px;
+			#info-footer{
+				width: 24%;
+				min-width: 240px;
+				.language-select{
+					margin-top: 13px;
+					margin-bottom: 25px;
+				}
+			}
 		}
 	}
 }
@@ -594,7 +641,15 @@ footer{
 @media only screen and (min-width: $big){
   div.landing-page-content, footer{
     border: solid $test-border-width pink;
-
+		#info-footer{
+			width: 24%;
+			min-width: 240px;
+			//max-width: 240px;
+			.language-select{
+				margin-top: 13px;
+				margin-bottom: 25px;
+			}
+		}
   }
 }
 
@@ -612,5 +667,5 @@ footer{
   }
   .header .menu-icon {
     //display: none;
-  }
+	}
 }
