@@ -43,30 +43,31 @@ function loadGeoJSON(){
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
-  /*
-  var greyscaleMap = L.tileLayer.provider('Esri.WorldGrayCanvas');
-  var streetMap = L.tileLayer.provider('Esri.WorldStreetMap');
-  */
+
   var mapsData = buildGeoJSON(currentRoot);
   mapLayer = new L.geoJSON(mapsData,{
     style: mapStyle,
     onEachFeature: mapOnEachFeature
   });
   mapLayer.on('loading', function (event) {
-      console.log("loeading");
+      console.log("loading maps....");
       //mapInstance.fireEvent('dataloading', event);
   });
 
   mapLayer.on('load', function (event) {
-    console.log("loead");
+    console.log("loading maps...");
       //mapInstance.fireEvent('dataload', event);
   });
-  addLayer(greyscaleMap);
-  addLayer(streetMap);
+
   addLayer(mapLayer);
-  /*
-  //streetMap.addTo(map);
-  //mapLayer.addTo(map);
+
+  /* LAYER MAPS FOR OPTIONS
+
+  var greyscaleMap = L.tileLayer.provider('Esri.WorldGrayCanvas');
+  var streetMap = L.tileLayer.provider('Esri.WorldStreetMap');
+
+  streetMap.addTo(map); //addLayer(greyscaleMap);
+  mapLayer.addTo(map); //addLayer(streetMap);
   var baseMaps = {
     "Streets": streetMap,
   	"Greyscale": greyscaleMap
@@ -75,6 +76,7 @@ function loadGeoJSON(){
   var overlayMaps = {
       "Communities": mapLayer
   };
+
   //var group = new L.LayerGroup([streetMap, mapLayer]);
   //group.addTo(map);
 
@@ -82,10 +84,10 @@ function loadGeoJSON(){
 
   //console.log(mapLayer.getBounds());
   //map.fitBounds(mapLayer.getBounds());
-
+  */
 
   // handle clicks on the map that didn't hit a feature
-
+  /*
   map.addEventListener('click', function(e) {
     currentRoot='GLOBAL';
     loadCommunityMap('GLOBAL');

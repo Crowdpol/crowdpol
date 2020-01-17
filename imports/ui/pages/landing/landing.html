@@ -1,114 +1,231 @@
 <template name="Landing">
-  <script>
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    //ctx.strokeStyle("#FCFCFC");
-    ctx.font = "10px Arial";
-    ctx.fillText("700 BCE", 10, 70);
-    ctx.fillText("930", 80, 350);
-    ctx.fillText("1215", 40, 450);
-    ctx.fillText("1893", 0, 600);
-    ctx.fillText("1967", 10, 680);
-    ctx.fillText("2019", 35, 750);
-    ctx.fillText("Early examples of democratic",90, 70);
-    ctx.fillText("governance in Athens and Sparta",90, 80);
-    ctx.fillText("First Parliament",120, 350);
-    ctx.fillText("organized on Island",120, 360);
-    ctx.fillText("Magna Carta introduces",85,450);
-    ctx.fillText("individual rights in Britain",85,460);
-    ctx.fillText("Women given the same right",50, 600);
-    ctx.fillText("as men to vote in Australia",50, 610);
-    ctx.fillText("Interactive democracy",60, 680);
-    ctx.fillText("proposed for the first time",60, 690);
-    ctx.fillText("The first global pro-social",80, 750);
-    ctx.fillText("platform for changemakers",80, 760);
-    ctx.setLineDash([1, 5]);
-    ctx.beginPath();
-    ctx.moveTo(65, 70);
-    ctx.quadraticCurveTo(180, 200, 70, 450);//ctx.quadraticCurveTo(250, 150, 150, 350);
-    ctx.quadraticCurveTo(00, 590, 70, 750);//ctx.quadraticCurveTo(05, 550, 150, 700);
-    ctx.stroke();
-    ctx.closePath();
-    //ctx.restore();
-    ctx.moveTo(65, 70);
-    ctx.beginPath();
-    ctx.setLineDash([]);
-    ctx.fillStyle = "#d3d3d3";
-    ctx.strokeStyle = "#d3d3d3";
-    //700 BCE
-    ctx.arc(65, 70, 5, 0, 2 * Math.PI);
-    //second dot
-    ctx.moveTo(122, 195);
-    ctx.arc(122, 195, 5, 0, 2 * Math.PI);
-    //third dot
-    ctx.moveTo(122, 270);
-    ctx.arc(122, 270, 5, 0, 2 * Math.PI);
-    //930
-    ctx.moveTo(107, 347);
-    ctx.arc(107, 347, 5, 0, 2 * Math.PI);
-    //1215
-    ctx.moveTo(72, 448);
-    ctx.arc(72, 448, 5, 0, 2 * Math.PI);
-    //sisth dot
-    ctx.moveTo(43, 525);
-    ctx.arc(43, 525, 5, 0, 2 * Math.PI);
-    //1893
-    ctx.moveTo(35, 597);
-    ctx.arc(35, 597, 5, 0, 2 * Math.PI);
-    //1967
-    ctx.moveTo(45, 677);
-    ctx.arc(45, 677, 5, 0, 2 * Math.PI);
-    //2019
-    ctx.moveTo(68, 747);
-    ctx.arc(68, 747, 5, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.stroke();
-  </script>
-  <div id="landing-page-background">
-    <div class="mdl-grid" id="landing-page-grid">
-			<div class="mdl-cell mdl-cell--8-col mdl-cell--12-col-tablet mdl-cell--12-col-phone container narrow-container" id="landing-page-container">
-        <h1>What is Democracy<img src="img/landing/compass.png" id="compass-image"></h1>
-        <p>
-          Democracy (Greek: δημοκρατία /dēmokratía/, literally "rule by people") is a
-          system of government where the citizens exercise power by voting. In a direct
-          democracy, the citisens as a whole form a governing body and vote directly on
-          each issue. In a representative democracy the citizens elect representatives
-          from among themselves.
-        </p>
-        <p>
-          Right now, we are building an elegant online platform for Global Liquid
-          Democracy, a system that combines the virtues of both it's predeccessors but
-          none of the drawbacks. Our goal is to give every citizen in every country
-          access to a set of digital tools for creating local, national and even global
-          democratic development.
-        </p>
-        <!--
-        <h1>In <span id="days">00</span> days, <span id="hours">00</span> hours, <span id="minutes">00</span> minutes, and <span id="seconds">00</span> seconds [UTC+2]</h1>
-        -->
-        <h1>On 15 September 2019</h1>
-        <p>
-          ...we launched the Crowdpol MVP, the world's first global, pro-social
-          platform for changemakers. Enter your email-address below and click the "sign up" button
-          to receive news regarding the unfolding of next level global democracy.
-        </p>
-        <form class="landing-form" id="newletterSignupForm">
-          <input type="text" placeholder="Your e-mail address" id="signupEmail" name="signupEmail">
-          <button id="submit-newsletter" type="submit">
-            Sign Up <i class="material-icons">arrow_right</i>
-          </button>
-        </form>
+  <body id="scroll-point-top" class="crowdpol-body state--scrolled-up">
+    <header class="header">
+      <a href="http://www.crowdpol.com/" class="crowdpol-logo">Crowdpol</a>
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+      <ul class="menu">
+        <li><a href="#header-map" class="menu-scroll-link active" data-anchor="#header-map">Imagine</a></li>
+        <li><a href="#potential-anchor" class="menu-scroll-link" data-anchor="#potential-anchor">Potential</a></li>
+        <li><a href="#global-village-anchor" class="menu-scroll-link" data-anchor="#global-village-anchor">Global village</a></li>
+        <li><a href="#results-anchor" class="menu-scroll-link" data-anchor="#results-anchor">Results</a></li>
+        <li><a class="header-divider"></a></li>
+        <li><a href="/login">Login</a></li>
+        <li>
+          <a href="#get-started-anchor" class="header-button" data-anchor="#get-started-anchor">
+            Get Started<i class="material-icons">keyboard_arrow_right</i>
+          </a>
+        </li>
+      </ul>
+    </header>
 
-        <div id="signature-box">
-          <img src="img/landing/crowdpol_signature.png">
-          <span id="crowdpol-team">The Crowdpol Team</span>
+    <div class="landing-page-content">
+
+      <section id="header-map" class="landing-page-section">
+        <div class="section-content">
+          <div class="jumbo-header">
+            <h1>Imagine changing the world from your phone</h1>
+            <p>Initiate and support global change with a click!</p>
+            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" href="http://soundweb.se/crowdp/index.html">Get Started</a>
+          </div>
+          <div class="jumbo-content">
+            <div class="recent-stories">
+              <p class="text-large dark-gray recent-stories-heading">Recent stories:</p>
+              <div class="recent-stories-scroller">
+                <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                  <div class="mdl-card__title mdl-card--expand">
+                    <h2 class="mdl-card__title-text">Recent Story 1</h2>
+                  </div>
+                  <div class="mdl-card__supporting-text">
+                    This is a proposal from the site. It will have some content on it.
+                  </div>
+                  <div class="mdl-card__actions mdl-card--border">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                      View More
+                    </a>
+                  </div>
+                </div>
+                <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                  <div class="mdl-card__title mdl-card--expand">
+                    <h2 class="mdl-card__title-text">Recent Story 1</h2>
+                  </div>
+                  <div class="mdl-card__supporting-text">
+                    This is another proposal that will be from the live site.
+                  </div>
+                  <div class="mdl-card__actions mdl-card--border">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                      View
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="jumbo-copy">
+              <h2>When you have the world in your hands, it’s easier to <span class="green">navigate</span> its needs.</h2>
+              <ul class="landing-page-list">
+                <li>Get an <span class="heavy">overview</span> of the trending proposals, polls, petitions and fundraisers in the local and global areas that you select.</li>
+                <li>Write your own <span class="heavy">proposals</span> and put them in the spotlight through our network.</li>
+                <li>Become a <span class="heavy">delegate</span> and raise awareness about your causes</li>
+                <li>Allocate funds and support projects through the <span class="heavy">altruistic</span> wallet</li>
+              </ul>
+
+              <a href="http://soundweb.se/crowdp/index.html" id="what" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <hr id="potential-anchor">
+      <section class="section-header" >
+        <h2 class="h1">Who do you want to be in the world?</h2>
+      </section>
+
+      <section id="potential" class="landing-page-section">
+
+        <div class="section-content">
+          <div class="potential-content">
+            <h3 class="h2">Use the <span class="orange">compass</span> to define your values, political intersets &amp; geographical areas</h3>
+
+            <p>When you register on Crowdpol you create a precense and will receive a feed with initiatives in your areas, suited to your values and interests.</p>
+          </div>
+        </div>
+      </section>
+
+      <hr id="global-village-anchor" class="section-divider">
+      <section class="section-header" id="global-village-header">
+        <h2 class="h1">Join a global village of changemakers</h2>
+      </section>
+      <section id="global-village" class="landing-page-section">
+        <div class="section-content">
+          <div class="global-content">
+              <h3 class="h2">Create <span class="red">initiatives</span> &amp; connect with like-minded individuals around the globe</h3>
+              <p>Collective competence is the result of sharing information, resources and advice. The red button will help you:</p>
+              <ul class="landing-page-list">
+                <li><span class="heavy">Initiate</span> powerful change processes that can effect local, national and global decisionmaking.</li>
+                <li><span class="heavy">Support</span> important causes aligned with your values.</li>
+                <li><span class="heavy">Donate</span> and strengthen groups and individuals in need.</li>
+                <li><span class="heavy">Debate</span> crucial and compelling ideas.</li>
+              </ul>
+          </div>
+        </div>
+      </section>
+      <hr id="results-anchor">
+      <section class="section-header" id="results-heading">
+        <h2 class="h1">Results that can increase your influence</h2>
+      </section>
+      <section id="results" class="landing-page-section">
+        <div class="section-content">
+          <div class="results-copy">
+            <h3 class="h2">Get an overview of your <span class="turquoise">presence</span> in the world</h3>
+            <p>Are you following your compass? Measure the positive impact of your actions.</p>
+            <ul class="landing-page-list">
+              <li>Get an <span class="heavy">overview</span> of the proposals, debates, petitions and fundraisers that you engage in.</li>
+              <li>List the other changemakers that you <span class="heavy">follow</span>.</li>
+              <li><span class="heavy">Share</span> successful stories that you have been part of.</li>
+              <li>Your presence generates a <span class="heavy">score</span> based on your activity.</li>
+              <li>See the <span class="heavy">communities</span> that you influence worldwide.</li>
+              <li>Manage the <span class="heavy">groups</span> that you are a part of.</li>
+            </ul>
+            <a href="http://soundweb.se/crowdp/index.html" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
+          </div>
+          <div class="results-image">
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+    <hr id="get-started-anchor" class="section-divider">
+    <section class="section-header final-section" >
+      <h2>It has never been easier to change the world</h2>
+      <div class="section-content">
+        <div class="sign-up-form">
+          <!--{{>SocialLogin}}
+          {{>Signup}}-->
+        </div>
+      </div>
+      <center><img src="/img/landing/arrow_up.svg"></center>
+    </section>
+    <footer>
+      <div class="logo-bar-footer footer-container">
+        <a href="http://crowdpol-dev/" class="footer-logo">Crowdpol</a>
+      </div>
+      <div class="section-content footer-container">
+
+        <div class="footer-content">
+          <div id="info-footer" class="footer-column">
+
+            <p>All Rights Reserved</p>
+            <span id="copyright">© crowdpol.com</span>
+            <p class="no-margin-bottom">Crowdpol Ecosystem</p>
+            <p>Tools for changemakers</p>
+            <div class="language-select">
+              <i class="material-icons">language</i><span class="language-selector">English</span>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Ecosystem</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/product">Product</a></li>
+              <li class="footer-li-link"><a href="/pricing">Pricing</a></li>
+              <li class="footer-li-link"><a href="/enterprise">Enterprice</a></li>
+              <li class="footer-li-link"><a href="/partners">Partners</a></li>
+              <li class="footer-li-link"><a href="/partner-search">Find a partner</a></li>
+              <li class="footer-li-link"><a href="/templates">Templates</a></li>
+              <li class="footer-li-link"><a href="/integrations">Integrations</a></li>
+              <li class="footer-li-link"><a href="/developers">Developers</a></li>
+              <li class="footer-li-link"><a href="/students">Students</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Team</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/about">About us</a></li>
+              <li class="footer-li-link"><a href="/contact">Contact us</a></li>
+              <li class="footer-li-link"><a href="/contact">Careers</a></li>
+              <li class="footer-li-link"><a href="/media">In the news</a></li>
+              <li class="footer-li-link"><a href="/press-kit">Press kit</a></li>
+              <li class="footer-li-link"><a href="/blog">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Press</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/clients">Client projects</a></li>
+              <li class="footer-li-link"><a href="/creative">Creative agencies</a></li>
+              <li class="footer-li-link"><a href="/product">Product management</a></li>
+              <li class="footer-li-link"><a href="/agile">Agile projects</a></li>
+              <li class="footer-li-link"><a href="/sales">Sales pipeline</a></li>
+              <li class="footer-li-link"><a href="/usecases">All use cases</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Faq</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/webinars">Daily webinars</a></li>
+              <li class="footer-li-link"><a href="/guides">Guides</a></li>
+              <li class="footer-li-link"><a href="/services">Professional services</a></li>
+              <li class="footer-li-link"><a href="/support">Support</a></li>
+            </ul>
+            <h3>Legal</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/terms">Terms of service</a></li>
+              <li class="footer-li-link"><a href="/privacy">Privacy policy</a></li>
+              <li class="footer-li-link"><a href="/security">Security</a></li>
+            </ul>
+            <div class="social-bar-footer">
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social twitter"><img src="/img/landing/twitter.svg"></a>
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social linkedin"><img src="/img/landing/linkedin.svg"></a>
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social facebook"><img src="/img/landing/facebook.svg"></a>
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social instagram"><img src="/img/landing/instagram.svg"></a>
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social youtube"><img src="/img/landing/youtube.svg"></a>
+              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social soundcloud"><img src="/img/landing/soundcloud_icon.svg"></a>
+            </div>
+          </div>
         </div>
 
       </div>
-      <div class="mdl-cell mdl-cell--4-col mdl-cell--hide-tablet mdl-cell--hide-phone">
-        <canvas id="myCanvas" width="300" height="850">
-          Your browser does not support the HTML5 canvas tag.
-        </canvas>
-      </div>
-    </div>
-  </div>
+    </footer>
+  </body>
 </template>
