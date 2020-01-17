@@ -105,11 +105,11 @@ publicRoutes.route('/login', {
 publicRoutes.route('/signup', {
   name: 'App.login',
   action() {
-    if (!Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'Authenticate' });
-    }else{
-      BlazeLayout.render('App_body', { main: 'Dash' });
-    }
+    //if (!Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'RegistrationWizard' });
+    /*}else{
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+    }*/
   },
 });
 

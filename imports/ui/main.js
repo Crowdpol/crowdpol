@@ -13,14 +13,13 @@ import { Session } from 'meteor/session';
 // Import needed templates
 import './layouts/body/body.js';
 import './components/main.js';
-import './pages/home/home.js';
+
 import './pages/landing/landing.js';
-import './pages/ideas/ideas.js';
-import './pages/faq/faq.js';
-import './pages/feed/userFeed.js';
+
+
+
 import './pages/settings/profileSettings.js';
 import './pages/settings/accountSettings.js';
-import './pages/not-found/not-found.js';
 import './pages/authenticate/authenticate.js';
 import './pages/dash/dash.js';
 import './pages/resetPassword/newPassword/newPassword.js';
@@ -47,11 +46,23 @@ import './pages/group/group.js';
 import './pages/compass/compass.js';
 import './pages/tags/interests.js';
 import './pages/presence/userPresence.js';
-import './pages/test/test.js';
+
 import './pages/group/groupList.js';
 import './pages/not-found/not-found.js';
 import './stylesheets/stylesheets.js';
+
+/*
+
+ TODO: CONSIDER CLEANING OR REMOVING
+
+import './pages/home/home.js';
+import './pages/ideas/ideas.js';
+import './pages/faq/faq.js';
+import './pages/feed/userFeed.js';
+import './pages/test/test.js';
 import './v2/main.js';
+
+*/
 
 Meteor.startup(function () {
 	/*

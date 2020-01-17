@@ -1,6 +1,3 @@
-@charset "UTF-8";
-/******************************************************************/
-
 @import 'variables.scss';
 
 @import url("https://p.typekit.net/p.css?s=1&k=wid8gbr&ht=tk&f=10879.10881.10884.10885.15586&a=6076671&app=typekit&e=css");
@@ -38,7 +35,19 @@ font-display:auto;font-style:normal;font-weight:600;
 /* menu */
 /* menu icon */
 /* menu btn */
-
+body {
+	margin: 0;
+  background: #f9f8f7;
+  font-family: "futura-pt", sans-serif;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #1A1A1A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a {
+	color: #000;
+}
 .crowdpol-logo {
 	display: block;
 	float: left;
@@ -53,23 +62,161 @@ font-display:auto;font-style:normal;font-weight:600;
 	width: 400px;
 	height: 60px;
 }
+.header {
+	background-color: #fff;
+	//(box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+	position: fixed;
+	width: 100%;
+	z-index: 3;
+  padding: 7px;
+  padding-left: 16px;
+	max-height: 74px;
+	min-height: 74px;
+	height: 74px;
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		overflow: hidden;
+    background-color: transparent;
+	}
+	li {
+    //align-items: center;
+    display: inline-flex;
+    border-bottom: none;
+		a {
+			display: block;
+			padding-top: 17px;
+			//border-right: 1px solid #f4f4f4;
 
+			text-decoration: none;
+      font-family: futura-pt, sans-serif;
+      font-weight: 700;
+      font-style: normal;
+      color: #6d7272;
+      margin: 0 1.0625rem;
+      font-size: 0.9rem;
+			padding-bottom: 0px;
+      border-bottom: 1px solid transparent;
 
-body {
-	margin: 0;
-  background: #f9f8f7;
-  font-family: "futura-pt", sans-serif;
-  font-weight: normal;
-  line-height: 1.5;
-  color: #1A1A1A;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+			&:hover {
+				//background-color: #f4f4f4;
+        //text-decoration: underline;
+				border-bottom: 2px solid #909090;
+			}
+		}
+		a.header-divider{
+			margin-top:23px;
+			border-right: solid 1px #909090;
+		}
+		a.header-button{
+			border-radius: 24px;
+	    color: white;
+	    background-color: #50c22e;
+	    padding: 0px;
+	    margin: 0px;
+	    height: 43px;
+	    max-height: 44px;
+	    padding: 0px 16px;
+			padding-left: 21px;
+			padding-right: 16px;
+	    margin-top: 10px;
+			margin-right: 9px;
+	    margin-left: 12px;
+			&:hover {
+				//background-color: #f4f4f4;
+        //text-decoration: underline;
+				border-bottom: 2px solid transparent;
+			}
+
+			i.material-icons{
+				position: relative;
+		    top: 8px;
+		    left: 5px;
+		    font-size: 28px;
+		    font-weight: 900;
+			}
+
+		}
+	}
+
+	.menu-btn {
+		&:hover {
+			background-color: #f4f4f4;
+		}
+		display: none;
+		&:checked {
+			~ {
+				.menu {
+					max-height: 400px;
+				}
+				.menu-icon {
+					.navicon {
+						background: transparent;
+						&:before {
+							transform: rotate(-45deg);
+						}
+						&:after {
+							transform: rotate(45deg);
+						}
+					}
+					&:not(.steps) {
+						.navicon {
+							&:before {
+								top: 0;
+							}
+							&:after {
+								top: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.menu {
+		clear: both;
+		max-height: 0;
+		transition: max-height .2s ease-out;
+	}
+	.menu-icon {
+		cursor: pointer;
+		display: inline-block;
+		float: right;
+		padding: 28px 20px;
+		position: relative;
+		user-select: none;
+		.navicon {
+			background: #333;
+			display: block;
+			height: 2px;
+			position: relative;
+			transition: background .2s ease-out;
+			width: 18px;
+			&:before {
+				background: #333;
+				content: '';
+				display: block;
+				height: 100%;
+				position: absolute;
+				transition: all .2s ease-out;
+				width: 100%;
+				top: 5px;
+			}
+			&:after {
+				background: #333;
+				content: '';
+				display: block;
+				height: 100%;
+				position: absolute;
+				transition: all .2s ease-out;
+				width: 100%;
+				top: -5px;
+			}
+		}
+	}
 }
-
-a {
-	color: #000;
-}
-
 hr#potential-anchor{
 	margin-bottom: 100px;
 }
@@ -481,8 +628,7 @@ footer{
       align-items: flex-start;
       //justify-content: space-between;
       div.footer-column{
-				width: 15%;
-    		min-width: 175px;
+        width: 200px;
 				//border: solid 1px grey;
         h3{
           font-size: 1rem;
@@ -563,15 +709,12 @@ footer{
 		}
 	  div.section-content{
 			flex-wrap: wrap;
+	    div#info-footer{
 
+			}
 			div.footer-content{
 				display: flex;
 				flex-wrap: wrap;
-				#info-footer{
-					width: 100%;
-					min-width: 100%;
-					max-width: 0;
-				}
 	      div.footer-column{
 	        //width: 200px;
 				}
@@ -588,11 +731,6 @@ footer{
 	footer{
 		div.footer-container{
 			width: 480px;
-			#info-footer{
-				width: 100%;
-				min-width: 100%;
-				max-width: 0;
-			}
 		}
 	}
 }
@@ -603,15 +741,6 @@ footer{
 	footer{
 		div.footer-container{
 			width: 768px;
-			#info-footer{
-				width: 100%;
-				min-width: 100%;
-				max-width: 0;
-				.language-select{
-					margin-top: 13px;
-					margin-bottom: 25px;
-				}
-			}
 		}
 	}
 }
@@ -622,14 +751,6 @@ footer{
 	footer{
 		div.footer-container{
 			width: 1000px;
-			#info-footer{
-				width: 24%;
-				min-width: 240px;
-				.language-select{
-					margin-top: 13px;
-					margin-bottom: 25px;
-				}
-			}
 		}
 	}
 }
@@ -641,15 +762,7 @@ footer{
 @media only screen and (min-width: $big){
   div.landing-page-content, footer{
     border: solid $test-border-width pink;
-		#info-footer{
-			width: 24%;
-			min-width: 240px;
-			//max-width: 240px;
-			.language-select{
-				margin-top: 13px;
-				margin-bottom: 25px;
-			}
-		}
+
   }
 }
 
@@ -666,6 +779,6 @@ footer{
     max-height: none;
   }
   .header .menu-icon {
-    //display: none;
-	}
+    display: none;
+  }
 }
