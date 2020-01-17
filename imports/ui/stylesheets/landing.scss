@@ -47,6 +47,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.crowdpol-logo {
+	display: block;
+	float: left;
+	font-size: 2em;
+
+	text-decoration: none;
+	background-image: url(img/landing/crowdpol_ecosystem_logo_tools.svg);//crowdpol_ecosystem_logo.svg);
+	background-size: contain;
+	background-repeat: no-repeat;
+	color: #000; /* Fallback for older browsers */
+	color: rgba(0, 0, 0, 0);
+	width: 400px;
+	height: 60px;
+}
 a {
 	color: #000;
 }
@@ -462,7 +476,8 @@ footer{
       align-items: flex-start;
       //justify-content: space-between;
       div.footer-column{
-        width: 200px;
+				width: 15%;
+    		min-width: 175px;
 				//border: solid 1px grey;
         h3{
           font-size: 1rem;
@@ -543,12 +558,15 @@ footer{
 		}
 	  div.section-content{
 			flex-wrap: wrap;
-	    div#info-footer{
 
-			}
 			div.footer-content{
 				display: flex;
 				flex-wrap: wrap;
+				#info-footer{
+					width: 100%;
+					min-width: 100%;
+					max-width: 0;
+				}
 	      div.footer-column{
 	        //width: 200px;
 				}
@@ -565,6 +583,11 @@ footer{
 	footer{
 		div.footer-container{
 			width: 480px;
+			#info-footer{
+				width: 100%;
+				min-width: 100%;
+				max-width: 0;
+			}
 		}
 	}
 }
@@ -575,6 +598,15 @@ footer{
 	footer{
 		div.footer-container{
 			width: 768px;
+			#info-footer{
+				width: 100%;
+				min-width: 100%;
+				max-width: 0;
+				.language-select{
+					margin-top: 13px;
+					margin-bottom: 25px;
+				}
+			}
 		}
 	}
 }
@@ -585,6 +617,15 @@ footer{
 	footer{
 		div.footer-container{
 			width: 1000px;
+			#info-footer{
+				width: 240px;
+				min-width: 240px;
+				max-width: 240px;
+				.language-select{
+					margin-top: 13px;
+					margin-bottom: 25px;
+				}
+			}
 		}
 	}
 }
@@ -596,7 +637,15 @@ footer{
 @media only screen and (min-width: $big){
   div.landing-page-content, footer{
     border: solid $test-border-width pink;
-
+		#info-footer{
+			width: 240px;
+			min-width: 240px;
+			max-width: 240px;
+			.language-select{
+				margin-top: 13px;
+				margin-bottom: 25px;
+			}
+		}
   }
 }
 
