@@ -1,0 +1,55 @@
+<template name="Header">
+	<header class="header app-header">
+		<a href="http://www.crowdpol.com/" class="logo">Crowdpol</a>
+		<input class="menu-btn" type="checkbox" id="menu-btn" />
+		<label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+		<ul class="menu">
+			<li><input type="search" placeholder="Search the global village" class="search-bar"></li>
+			<li class="menu-item"><a href="/login">Login</a></li>
+			<li class="menu-item"><a class="header-divider"></a></li>
+			<li class="menu-item">
+				<div class="header-dropdown">
+			    <button class="dropbtn profile-dropdown">
+						{{#if isDelegate}}{{currentUserRoleText}}{{/if}}
+						<img src="{{userPhoto}}" class="profile-avatar">
+			      <i class="material-icons down-caret">keyboard_arrow_down</i>
+			    </button>
+			    <div class="dropdown-content">
+						{{#if isDelegate}}
+							{{#if usingAsDelegate}}
+								<a href="#" class="change-role" data-role="{{otherRole}}">{{otherRoleText}}</a>
+							{{else}}
+								<a href="#" class="change-role" data-role="delegate">{{_ "layout.header.nav_use_delegate"}}</a>
+							{{/if}}
+						{{/if}}
+						<a href="/presence">{{_ "layout.header.nav_presence"}}</a>
+						<a href="/profile">{{_ "layout.header.nav_profile_settings"}}</a>
+						<a href="/settings">{{_ "layout.header.nav_account_settings"}}</a>
+						{{#if currentUserIsAdmin}}
+							<a href="/admin/dash">{{_ "layout.header.nav_admin"}}</a>
+						{{/if}}
+						{{#if currentUser}}
+							<a href="#" id="nav-logout">{{_ "layout.drawer.nav_logout"}}</a>
+						{{else}}
+							<a href="/login">{{_ "layout.drawer.nav_login"}}</a>
+						{{/if}}
+			    </div>
+			  </div>
+			</li>
+			<li class="menu-item">
+				<div class="header-dropdown">
+			    <button class="dropbtn">
+						<i class="material-icons">language</i>
+						{{ lang }}
+			      <i class="material-icons">keyboard_arrow_down</i>
+			    </button>
+			    <div class="dropdown-content">
+						{{#each langs}}
+			      	<a href="#" id="{{this}}">{{getLang this}}</a>
+						{{/each}}
+			    </div>
+			  </div>
+			</li>
+		</ul>
+	</header>
+</template>

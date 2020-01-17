@@ -1,25 +1,103 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
 
-.mdl-layout__header .mdl-layout__drawer-button{
-  background-color: transparent;
-}
-.mdl-layout__header-delegate {
-  background-color: #ccc;
-}
-/* Make header sticky on desktop, but not on mobile */
-.mdl-layout__container .mdl-layout--fixed-header .mdl-layout__content {
-  overflow-y: visible;
-  overflow-x: visible;
-  overflow: visible;
 
-  @include breakpoint($tablet) {
-    overflow-y: inherit;
-    overflow-x: inherit;
-    overflow: inherit;
+/* DAVID'S NEW CLUSTERFUCK HEADER */
+.new-app-header{
+  height: 74px;
+  min-height: 74px;
+  max-height: 74px;
+  padding: 7px;
+  padding-left: 16px;
+  .header-inner{
+    .crowdpol-logo{
+      .mdl-layout-title{
+        text-indent: 0;
+        text-decoration: none;
+      	color: #000; /* Fallback for older browsers */
+      	color: rgba(0, 0, 0, 0);
+      }
+    }
   }
 }
+.header-inner{
+  padding: 0px !important;
+}
 
+//take away the positioning of the default positioning of header logo
+.crowdpol-logo{
+
+}
+
+.header-logo{
+  display: block;
+	float: left;
+	font-size: 2em;
+
+	width: 400px;
+	height: 60px;
+}
+
+.logged-out-header {
+  display: block;
+  background-color: $white;
+
+  .header-inner {
+    nav {
+      display: none;
+    }
+  }
+
+  .mdl-layout-title {
+    text-indent: 50px;
+    font-size: 25px;
+    line-height: 2.5rem;
+  }
+
+  @include breakpoint($tablet) {
+    .mdl-layout__drawer-button {
+      display: none;
+    }
+
+    .header-inner nav {
+      display: flex;
+    }
+  }
+
+  .header-inner {
+    padding: 0 $space / 2;
+    color: $blue;
+
+    a {
+      vertical-align: middle;
+      font-family: $home-title-font;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: $blue;
+    }
+
+    .mdl-layout-title{
+      font-size: $base-font-size * 1.35;
+      line-height: $base-line-height;
+      color: $blue;
+    }
+
+    i {
+      vertical-align: middle;
+      font-size: $space * 1.5;
+    }
+
+    h5 {
+      display: none;
+
+      @include breakpoint($tablet) {
+        display: inline-block;
+        margin: 0;
+      }
+    }
+
+  }
+}
 #header_nav-profile-image-header{
   padding-right: 0px;
   img{
@@ -35,7 +113,30 @@
   }
 }
 
-.logged-in-header {
+/* ORIGINAL HEADER */
+.mdl-layout__header .mdl-layout__drawer-button{
+  background-color: transparent;
+  box-shadow: none;
+}
+.mdl-layout__header-delegate {
+  background-color: #ccc;
+}
+// Make header sticky on desktop, but not on mobile
+.mdl-layout__container .mdl-layout--fixed-header .mdl-layout__content {
+  overflow-y: visible;
+  overflow-x: visible;
+  overflow: visible;
+
+  @include breakpoint($tablet) {
+    overflow-y: inherit;
+    overflow-x: inherit;
+    overflow: inherit;
+  }
+}
+
+
+/*
+.logged-out-header {
   background-color: $white;
 
   .header-inner {
@@ -130,7 +231,7 @@
 #help-menu{
   padding: 0px;
 }
-
+/*
 .logged-out-header {
   display: block;
   background-color: $white;
@@ -163,7 +264,6 @@
 
     a {
       vertical-align: middle;
-      font-family: $home-title-font;
       text-transform: uppercase;
       text-decoration: none;
       color: $blue;
@@ -191,3 +291,4 @@
 
   }
 }
+*/

@@ -40,6 +40,7 @@ Template.CommunityMap.helpers({
 //custom FUNCTIONS
 function loadGeoJSON(){
   //start with the global map (i.e. load countries)
+
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
@@ -59,7 +60,12 @@ function loadGeoJSON(){
       //mapInstance.fireEvent('dataload', event);
   });
 
-  addLayer(mapLayer);
+  if(mapsData!==null){
+    //addLayer(mapLayer);
+  }else{
+    Bert.alert("No community maps have been loaded","danger");
+  }
+
 
   /* LAYER MAPS FOR OPTIONS
 

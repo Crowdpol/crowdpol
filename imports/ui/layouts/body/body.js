@@ -90,6 +90,7 @@ Template.App_body.helpers({
 });
 
 Template.App_body.onRendered(function () {
+
   $('.mdl-layout__obfuscator-right').click(function(){
    if($('.mdl-layout__drawer-right').hasClass('active')){
       $('.mdl-layout__drawer-right').removeClass('active');
