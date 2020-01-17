@@ -1,31 +1,42 @@
 <template name="ProfileSettings">
-  <div class="settings-wrapper">
-    <header class="header">
-      {{> ProfileHeader editable=true userId=thisUser}}
-    </header>
-    <div class="column-container app-container">
-      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-        <div class="mdl-tabs__tab-bar">
-            <a href="#profile-panel" class="mdl-tabs__tab is-active">{{_ "pages.settings.profile.nav.profile"}}</a>
-            <a href="#interests-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.interests"}}</a>
-            <a href="#links-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.links"}}</a>
-            <a href="#skills-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.skills"}}</a>
-            <a href="#settings-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.settings"}}</a>
+  <header class="header">
+    {{> ProfileHeader editable=true userId=thisUser}}
+  </header>
+  <div class='some-page-wrapper layout-2'>
+    <div class='row'>
+      <div class='column left-column'>
+        Left
+        <div class="sidebar-menu">
+          <a class="active" href="#home">Home</a>
+          <a href="#news">News</a>
+          <a href="#contact">Contact</a>
+          <a href="#about">About</a>
         </div>
-        <div class="mdl-tabs__panel is-active profile-tab" id="profile-panel">
-          {{>ProfileForm}}
-        </div>
-        <div class="mdl-tabs__panel profile-tab" id="settings-panel">
-          {{> ProfileSettingsForm}}
-        </div>
-        <div class="mdl-tabs__panel profile-tab" id="interests-panel">
-          {{> Interests}}
-        </div>
-        <div class="mdl-tabs__panel profile-tab" id="links-panel">
-          {{> ProfileLinks}}
-        </div>
-        <div class="mdl-tabs__panel profile-tab" id="skills-panel">
-          {{>ProfileSkills}}
+      </div>
+      <div class='column center-column'>
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+          <div class="mdl-tabs__tab-bar">
+              <a href="#profile-panel" class="mdl-tabs__tab is-active">{{_ "pages.settings.profile.nav.profile"}}</a>
+              <a href="#interests-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.interests"}}</a>
+              <a href="#links-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.links"}}</a>
+              <a href="#skills-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.skills"}}</a>
+              <a href="#settings-panel" class="mdl-tabs__tab">{{_ "pages.settings.profile.nav.settings"}}</a>
+          </div>
+          <div class="mdl-tabs__panel is-active profile-tab" id="profile-panel">
+            {{>ProfileForm}}
+          </div>
+          <div class="mdl-tabs__panel profile-tab" id="settings-panel">
+            {{> ProfileSettingsForm}}
+          </div>
+          <div class="mdl-tabs__panel profile-tab" id="interests-panel">
+            {{> Interests}}
+          </div>
+          <div class="mdl-tabs__panel profile-tab" id="links-panel">
+            {{> ProfileLinks}}
+          </div>
+          <div class="mdl-tabs__panel profile-tab" id="skills-panel">
+            {{>ProfileSkills}}
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,9 @@
 @import 'variables.scss';
 
+.hidden{
+  display: none;
+}
+
 label.input-custom-file input[type=file] {
   display: none;
 }

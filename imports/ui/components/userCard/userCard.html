@@ -5,7 +5,7 @@
     {{/if}}
     {{#if isDate style}}
       <div class="profile-card-flat">
-        <a href="/feed/{{userId}}" class="profile-image-link view-user"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
+        <a href="/presence/{{userId}}" class="profile-image-link view-user"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
         <div class="profile-card-flat-details">
           <span class="fullname">{{userFullname userId}}&nbsp;({{username userId}})</span>
           <span class="username">{{formatDate date}}</span>
@@ -14,7 +14,7 @@
     {{/if}}
     {{#if isDateTime style}}
       <div class="profile-card-flat">
-        <a href="/feed/{{userId}}" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
+        <a href="/presence/{{userId}}" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
         <div class="profile-card-flat-details">
           <span class="fullname">{{userFullname userId}}&nbsp;({{username userId}})</span>
           <span class="username">{{formatDateTime date}}</span>
@@ -23,7 +23,7 @@
     {{/if}}
     {{#if isFlat style}}
       <div class="profile-card-flat">
-        <a href="/feed/{{userId}}" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
+        <a href="/presence/{{userId}}" class="profile-image-link"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
         <div class="profile-card-flat-details">
           <span class="fullname">{{userFullname userId}}</span>
           <span class="username">{{username userId}}</span>
@@ -37,7 +37,7 @@
 
         </div>
         <div class="mdl-card__supporting-text">
-          <a href="/feed/{{userId}}" class="profile-image-link view-user"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
+          <a href="/presence/{{userId}}" class="profile-image-link view-user"><img src="{{userPhoto userId}}" class="profile-image mdl-list__item-avatar"/></a>
           <h6 class="mdl-card__title-text">{{userFullname userId}}</h6>
           <span class="username">{{username userId}}</span>
         </div>
@@ -54,7 +54,7 @@
     {{/if}}
     {{#if isBlock style}}
       <div class="profile-card-block">
-        <a href="/feed/{{userId}}" class="view-user">
+        <a href="/presence/{{userId}}" class="view-user">
           <div class="profile-card-block-image" style="background-image:url('{{userPhoto userId}}')"></div>
           <div class="profile-card-block-details">
             <span class="fullname">{{userFullname userId}}</span><br>
@@ -65,7 +65,7 @@
     {{/if}}
   {{else}}
     <div class="profile-card-flat">
-      <a href="/feed/{{userId}}" class="profile-image-link"><img src="/img/default-user-image.png" class="profile-image mdl-list__item-avatar"/></a>
+      <a href="/presence/{{userId}}" class="profile-image-link"><img src="/img/default-user-image.png" class="profile-image mdl-list__item-avatar"/></a>
       <div class="profile-card-flat-details">
         <span class="fullname">Published Anonymously</span>
         <span class="username">{{formatDate date}}</span>

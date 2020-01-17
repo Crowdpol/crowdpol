@@ -16,6 +16,7 @@
 			"nav_logout": "JA: Logout",
 			"nav_faq": "JA: FAQ",
 			"nav_feed": "JA: Feed",
+			"nav_presence": "JA: Presence",
 			"nav_profile_settings": "JA: Profile",
 			"nav_account_settings": "JA: Settings",
 			"lang_en": "JA: English",
@@ -40,6 +41,7 @@
 			"nav_admin_dash" : "JA: Admin dashboard",
 			"right_about" : "JA: About",
 			"website": "JA: Website",
+			"nav_presence": "JA: Presence",
 			"recent-votes": "JA: Recent Votes",
 			"no-votes": "JA: This delegate has not voted on any proposals yet."
 		},

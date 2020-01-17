@@ -8,6 +8,7 @@ Meteor.methods({
       check(group, {
         name: String,
         handle: String,
+        type: Match.Maybe(String),
         isOpen: Boolean,
         communityId: String,
         isArchived: Match.Maybe(Boolean),
@@ -17,6 +18,8 @@ Meteor.methods({
         name: group.name,
         handle: group.handle,
         isOpen: group.isOpen,
+        type: group.type,
+        hasCover: true,
         communityId: group.communityId,
         admins: [Meteor.userId()],
         members:[Meteor.userId()],

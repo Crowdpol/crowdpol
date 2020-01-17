@@ -7,7 +7,7 @@
   -->
   <header class="header">
     <!--{{>Cover editable=editable}}-->
-    {{> ProfileHeader editable=false userId=thisUser}}
+    {{> ProfileHeader editable=true userId=thisUser}}
   </header>
   <div class="" id="feed-body">
     <div class='feed-wrapper'>
@@ -103,7 +103,8 @@
                   {{/each}}
                 </div>
               </div>
-              <div class="row">
+
+              <div class="row influence-map">
                 <h6>Influence</h6>
               </div>
               <div class="row">

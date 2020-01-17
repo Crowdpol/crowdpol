@@ -40,13 +40,15 @@ Template.CommunityMap.helpers({
 //custom FUNCTIONS
 function loadGeoJSON(){
   //start with the global map (i.e. load countries)
+  /*
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
-  /*
+
   var greyscaleMap = L.tileLayer.provider('Esri.WorldGrayCanvas');
-  var streetMap = L.tileLayer.provider('Esri.WorldStreetMap');
+
   */
+  L.Icon.Default.imagePath = '/packages/bevanhunt_leaflet/images/'
   var mapsData = buildGeoJSON(currentRoot);
   mapLayer = new L.geoJSON(mapsData,{
     style: mapStyle,
@@ -61,8 +63,9 @@ function loadGeoJSON(){
     console.log("loead");
       //mapInstance.fireEvent('dataload', event);
   });
-  addLayer(greyscaleMap);
-  addLayer(streetMap);
+  //addLayer(greyscaleMap);
+  //var streetMap = L.tileLayer.provider('Esri.WorldStreetMap');
+  //addLayer(streetMap);
   addLayer(mapLayer);
   /*
   //streetMap.addTo(map);

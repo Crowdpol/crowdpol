@@ -1,5 +1,194 @@
 <template name="Group">
   <header class="header">
+    <!--{{>Cover editable=editable}}-->
+    {{> ProfileHeader editable=true userId=thisUser}}
+  </header>
+  <div class="" id="feed-body">
+    <div class='feed-wrapper'>
+      <div class='row'>
+
+        <div class='column left-column my-sidebar'>
+          <div class="profile-pic-container">
+                <div class="profile-pic-wrapper">
+                  <div class="profile-pic"></div>
+                  <div class="overlay">
+                    <div class="text">
+                      <label class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored photo-button-class" id="photo-button">
+                        <i class="material-icons" id="change-photo-icon photo-button-class">camera_alt</i>
+                        <!--<input type="file" id="fileInput">-->
+                      </label>
+                    </div>
+                  </div>
+                </div>
+          </div>
+            <div class="sidebar-header">
+              <div class="profile-image"></div>
+              <div class="profile-name">
+                <h5>{{groupName}}</h5>
+                <small>@{{groupHandle}}</small>
+              </div>
+              <div class="profile-follow">
+                {{#unless currentUser}}
+                  {{#if alreadyFollowing}}
+                    <button class="mdl-button mdl-js-button" id="unfollow-me">{{_ "feed.unfollow"}}<i class="material-icons">minus</i></button>
+                  {{else}}
+                    <button class="mdl-button mdl-js-button" id="follow-me">{{_ "feed.follow"}}<i class="material-icons">add</i></button>
+                  {{/if}}
+                {{/unless}}
+              </div>
+            </div>
+            <div class="sidebar-content">
+              <div class="row">
+                <div class="feed-sidebar-stats feed-sidebar-followers">
+                  <strong>{{membersCount}}</strong>
+                  <small>MEMBERS</small>
+                </div>
+                <div class="feed-sidebar-stats feed-sidebar-following">
+                  <strong>{{followingCount}}</strong>
+                  <small>FOLLOWING</small>
+                </div>
+                <div class="feed-sidebar-stats feed-sidebar-movements">
+                  <strong>0</strong>
+                  <small>MOVEMENTS</small>
+                </div>
+              </div>
+              <div class="row sidebar-social">
+                <div class="social-link">
+                  <i class="fa fa-twitter fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-facebook fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-linkedin fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-youtube fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-instagram fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-google-plus fa-fw"></i>
+                </div>
+                <div class="social-link">
+                  <i class="fa fa-home fa-fw"></i>
+                </div>
+              </div>
+              <div class="row values-interests">
+                <div class="feed-values">
+                  <h6>Values</h6>
+                  {{#each value in values}}
+                    <span></span>
+                    <div class="row">
+                      <div class="value">{{value.keyword}}</div>
+                    </div>
+                  {{/each}}
+                </div>
+                <div class="feed-interests">
+                  <h6>Interests</h6>
+                  {{#each interest in interests}}
+                    <div class="row">
+                      <div class="interest">{{interest.type}}</div>
+                      <div class="interest-amount"> <!-- Slider with Starting Value -->
+                        <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="{{interest.amount}}">
+                      </div>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+              <div class="row influence-map">
+                <h6>Influence</h6>
+              </div>
+              <div class="row">
+                <!--<div id="feed-map"></div>-->
+                <div id="feed-map-fake"></div>
+              </div>
+            </div>
+        </div>
+        <div class='column center-column'>
+          <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+            <div class="mdl-tabs__tab-bar">
+              <a href="#group-home-panel" class="mdl-tabs__tab is-active">{{_ "feed.feed"}}</a>
+              <a href="#activity-panel" class="mdl-tabs__tab">{{_ "feed.activity"}}</a>
+              <a href="#members-panel" class="mdl-tabs__tab">{{_ "feed.members"}} </a>
+              <a href="#admin-panel" class="mdl-tabs__tab">{{_ "feed.admin"}} </a>
+              {{#if userIsAdmin}}
+                <a href="#settings-panel" class="mdl-tabs__tab">{{_ "feed.settings"}} </a>
+              {{/if}}
+            </div>
+
+            <div class="mdl-tabs__panel" id="activity-panel">
+
+              <ul class="user-home-list">
+
+                <li class="user-home-post">
+                  {{>ActivityFeed}}
+                </li>
+              </ul>
+            </div>
+            <div class="mdl-tabs__panel is-active" id="group-home-panel">
+
+              <ul class="user-home-list">
+                <li class="user-home-post user-home-form">
+                  <div class="post-header">
+                    <div class="author-pic">
+                      <img src="{{groupPic currentUserId}}" class="">
+                    </div>
+                    <div class="post-content">
+                      <div class="post-area">
+                        <textarea class="post-textarea-small" type="text" rows= "1" id="post-message" placeholder="Say something..."></textarea>
+                        <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                {{#each post in groupFeed}}
+                <li class="user-home-post">
+                  {{>ActivityFeed post=post}}
+                </li>
+                {{/each}}
+              </ul>
+            </div>
+            <div class="mdl-tabs__panel" id="activity-panel">
+              {{#unless followersCount}}
+                <br>
+                <center>No followers</center>
+              {{else}}
+                {{#each follower in followers}}
+                  {{>UserCard userId=follower._id style="card"}}
+                {{/each}}
+              {{/unless}}
+            </div>
+            <div class="mdl-tabs__panel" id="members-panel">
+              {{#unless followingCount}}
+                <br>
+                <center>Not following anyone</center>
+              {{else}}
+                <div class="mdl-grid">
+                {{#each follow in following}}
+                  {{>UserCard userId=follow._id style="card"}}
+                {{/each}}
+                </div>
+              {{/unless}}
+            </div>
+            <div class="mdl-tabs__panel" id="admin-panel"></div>
+          </div>
+        </div>
+        <div class='column right-column feed-sidebar'>
+          <h5>Change Makers Who are Members</h5>
+          <div class="community-member-box">
+          {{#each member in members}}
+            {{member._id}}
+            <!--{{>UserCard userId=member._id style="block"}}-->
+          {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- OLD GROUP PAGE
+  <header class="header">
     {{> ProfileHeader editable=true groupHandle=groupHandle}}
   </header>
   <div class="column-container app-container">
@@ -18,7 +207,6 @@
         {{#if interestsCount}}
           <strong>Interests</strong>
           <div class="tags-wrap" >
-            <!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
             {{#each interests}}
               <a class="tag taggle-tag tag-chip {{isAuthorised this}}" id="{{this._id}}" data-id="{{this._id}}">{{this.keyword}}</a>
             {{/each}}
@@ -40,7 +228,6 @@
           <ul class="user-home-list">
 
             <li class="user-home-post">
-              <!--{{>ActivityFeed}}-->
               Group Feed
             </li>
           </ul>
@@ -55,7 +242,7 @@
                 <div class="post-content">
                   <div class="post-area">
                     <textarea class="post-textarea-small" type="text" rows= "1" id="post-message" placeholder="Say something..."></textarea>
-                    <button class="mdl-button mdl-js-button mdl-button--icon" id="create-post"><i class="material-icons">send</i></button>
+                    <button class="mdl-button mdl-js-button mdl-button- -icon" id="create-post"><i class="material-icons">send</i></button>
                   </div>
                 </div>
               </div>
@@ -82,13 +269,10 @@
         </div>
       </div>
     </article>
-    <!--
     <aside class="aside aside-2">
       This is a side column.
     </aside>
-    -->
-    <!--
-    <footer class="footer">Footer</footer>
-    -->
+
   </div>
+  -->
 </template>

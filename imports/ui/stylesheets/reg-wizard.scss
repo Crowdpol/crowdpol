@@ -1,0 +1,261 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+div.reg-wizard-container{
+  div.section-intro{
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+    div.section-intro-header{
+      h3{
+        font-family: futura-pt, sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        color: #54575a;
+        letter-spacing: -1px;
+        font-size: 2rem;
+        line-height: 2.4rem;
+      }
+    }
+    div.section-intro-content{
+      display:flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      div.section-intro-content-left{
+        //border: solid 1px;
+        ol{
+          counter-reset: my-awesome-counter;
+          list-style: none;
+          padding-left: 40px;
+          li{
+            margin: 0 0 0.5rem 0;
+            counter-increment: my-awesome-counter;
+            position: relative;
+            flex-direction: column;
+            div.step-header{
+              font-weight: bold;
+              color: #6d7272;
+              font-size: 16px;
+              height: 23px;
+            }
+            div.step-info{
+              color: #6d7272;
+              font-size: 16px;
+            }
+            &:before{
+              content: counter(my-awesome-counter);
+              color: $green;
+              font-size: 15px;
+              font-weight: bold;
+              position: absolute;
+              left: -50px;
+              --size: 25px;
+              left: calc(-1 * var(--size) - 10px);
+              line-height: var(--size);
+              width: var(--size);
+              height: var(--size);
+              top: 5px;
+              background: transparent;
+              text-align: center;
+            }
+
+          }
+          li.step-complete{
+            &:before{
+              background: $green;
+              color: $white;
+              border-radius: 55%;
+            }
+          }
+        }
+      }
+      div.section-intro-content-right{
+        //border: solid 1px;
+        margin-left: 60px;
+      }
+    }
+  }
+  div.section-step{
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    div.section-step-header{
+      div.step-heading{
+        font-family: futura-pt, sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        color: #54575a;
+        letter-spacing: -1px;
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+        margin-bottom: 10px;
+      }
+      div.step-info{
+        color: #6d7272;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+      div.step-content{
+        width: 500px;
+        display: flex;
+        flex-direction: row;
+        //border: solid 1px grey;
+        div.step-content-left{
+          //border: solid 1px grey;
+          display: flex;
+
+        }
+        div.step-content-right{
+          margin-left: 20px;
+          //border: solid 1px grey;
+          padding-left:25px;
+        }
+      }
+      div.step-buttons{
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-around;
+        //flex-direction: row;
+        button.mdl-button{
+          text-transform: none;
+        }
+        button.mdl-button--colored{
+          background-color: $green;
+          color: $white;
+        }
+      }
+    }
+  }
+  div.sunburst-step{
+    div.section-step-header{
+      div.step-heading{
+
+      }
+      div.step-info{
+
+      }
+      div.step-content{
+
+        div.step-content-left{
+          padding-top: 65px;
+          min-width: 450px;
+          //border: solid 1px red;
+          display: flex;
+          flex-direction: column;
+          div.content-row{
+            display: flex;
+            flex-direction: row;
+            max-height: 20px;
+            margin-bottom: 10px;
+            input.sunburst-range{
+              width: 150px;
+              margin-top: 7px;
+            }
+            div.sunburst-range-label{
+              font-weight: 600;
+              color: #6d7272;
+              font-size: 14px;
+              width: 225px;
+              //border: solid 1px red;
+            }
+            div.sunburst-range-value{
+              font-weight: 600;
+              color: #6d7272;
+              padding-left: 18px;
+              font-size: 14px;
+              width: 50px;
+              //border: solid 1px red;
+            }
+          }
+        }
+        div.step-content-right{
+
+        }
+      }
+      div.step-buttons{
+
+        button.mdl-button{
+
+        }
+        button.mdl-button--colored{
+
+        }
+      }
+    }
+  }
+
+  img.iso-sun{
+    width: 290px;
+    position: relative;
+    top: -45px;
+  }
+  img.iso-heart{
+    width: 290px;
+    position: relative;
+    top: -45px;
+  }
+  img.iso-world{
+    width: 290px;
+    position: relative;
+    top: -45px;
+  }
+  input:not([type=range]):not([type=submit]):not([type=file]):not(.mdl-slider) {
+     /* omg so much cleaner */
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+  }
+  input{
+
+  }
+}
+/*------- RANGE INPUT -------*/
+
+
+input[type=range] {
+    -webkit-appearance: none;
+    -moz-apperance: none;
+    border-radius: 6px;
+    height: 6px;
+    background-image: -webkit-gradient(linear,
+        left top,
+        right top,
+        color-stop(0%, #50c22e),
+        color-stop(0%, #ccc));
+
+    background-image: -moz-linear-gradient(left center,
+        #50c22e 0%,
+        #ccc 100%);
+}
+
+input[type="range"]::-moz-range-track {
+    border: none;
+    background: none;
+    outline: none;
+}
+
+input[type=range]:focus {
+    outline: none;
+    border: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background-color: #50c22e;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+}
+
+input[type=range]::-moz-range-thumb {
+    -moz-appearance: none !important;
+    background-color: #50c22e;
+    border: none;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+}

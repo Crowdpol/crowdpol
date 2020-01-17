@@ -50,6 +50,7 @@ import './pages/presence/userPresence.js';
 import './pages/test/test.js';
 import './pages/group/groupList.js';
 import './pages/not-found/not-found.js';
+import './pages/landing/landing.js';
 import './stylesheets/stylesheets.js';
 import './v2/main.js';
 
