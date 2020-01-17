@@ -40,6 +40,16 @@ Schema.Approval = new SimpleSchema({
         type: Date,
         optional: true,
     },
+},
+{
+  clean: {
+    filter: false,
+    autoConvert: false,
+    removeEmptyStrings: false,
+    trimStrings: false,
+    getAutoValues: false,
+    removeNullsFromArrays: false
+  },
 });
 
 Schema.Card = new SimpleSchema({
@@ -77,6 +87,16 @@ Schema.Card = new SimpleSchema({
         type: Date,
         optional: true,
     },
+},
+{
+  clean: {
+    filter: false,
+    autoConvert: false,
+    removeEmptyStrings: false,
+    trimStrings: false,
+    getAutoValues: false,
+    removeNullsFromArrays: false
+  },
 });
 
 Schema.Skills = new SimpleSchema({
@@ -93,6 +113,16 @@ Schema.Skills = new SimpleSchema({
     type: Boolean,
     optional: true,
   },
+},
+{
+  clean: {
+    filter: false,
+    autoConvert: false,
+    removeEmptyStrings: false,
+    trimStrings: false,
+    getAutoValues: false,
+    removeNullsFromArrays: false
+  },
 });
 
 Schema.Interests = new SimpleSchema({
@@ -104,6 +134,16 @@ Schema.Interests = new SimpleSchema({
   amount: {
     type: Number,
     optional: true,
+  },
+},
+{
+  clean: {
+    filter: false,
+    autoConvert: false,
+    removeEmptyStrings: false,
+    trimStrings: false,
+    getAutoValues: false,
+    removeNullsFromArrays: false
   },
 });
 
@@ -120,6 +160,16 @@ Schema.Credential = new SimpleSchema({
   validated: {
     type: Boolean,
     optional: true,
+  },
+},
+{
+  clean: {
+    filter: false,
+    autoConvert: false,
+    removeEmptyStrings: false,
+    trimStrings: false,
+    getAutoValues: false,
+    removeNullsFromArrays: false
   },
 });
 
@@ -142,6 +192,16 @@ Schema.Social = new SimpleSchema({
     type: Boolean,
     optional: true,
   },
+},
+{
+  clean: {
+    filter: false,
+    autoConvert: false,
+    removeEmptyStrings: false,
+    trimStrings: false,
+    getAutoValues: false,
+    removeNullsFromArrays: false
+  },
 });
 
 
@@ -153,6 +213,16 @@ Schema.UserCountry = new SimpleSchema({
         type: String,
         regEx: /^[A-Z]{2}$/
     }
+},
+{
+  clean: {
+    filter: false,
+    autoConvert: false,
+    removeEmptyStrings: false,
+    trimStrings: false,
+    getAutoValues: false,
+    removeNullsFromArrays: false
+  },
 });
 
 Schema.UserProfile = new SimpleSchema({
@@ -316,6 +386,16 @@ Schema.UserProfile = new SimpleSchema({
         optional: true
     },
     */
+},
+{
+  clean: {
+    filter: false,
+    autoConvert: false,
+    removeEmptyStrings: false,
+    trimStrings: false,
+    getAutoValues: false,
+    removeNullsFromArrays: false
+  },
 });
 
 Schema.User = new SimpleSchema({
@@ -434,6 +514,16 @@ Schema.User = new SimpleSchema({
         type: Date,
         optional: true
     }
+},
+{
+  clean: {
+    filter: false,
+    autoConvert: false,
+    removeEmptyStrings: false,
+    trimStrings: false,
+    getAutoValues: false,
+    removeNullsFromArrays: true
+  },
 });
 
 Meteor.users.attachSchema(Schema.User);

@@ -63,11 +63,16 @@ function loadGeoJSON(){
     console.log("loead");
       //mapInstance.fireEvent('dataload', event);
   });
+
+
+  if(mapsData!==null){
+    addLayer(mapLayer);
+  }else{
+    console.log("maps layer not added, as no DB records for maps found");
+  }
+
   //addLayer(greyscaleMap);
-
   //addLayer(streetMap);
-  addLayer(mapLayer);
-
   //streetMap.addTo(map);
   //mapLayer.addTo(map);
   /*
@@ -146,9 +151,9 @@ function buildGeoJSON(){
       "features": mapCollection
     }
   }else{
-    //console.log("maps query is of 0 length");
+    console.log("maps query is of 0 length");
   }
-  //console.log("finished building geojson");
+  console.log("finished building geojson");
   return geoJSON;
 }
 //zoom and centeres in on selected map

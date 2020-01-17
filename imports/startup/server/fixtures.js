@@ -143,8 +143,11 @@ Meteor.startup(() => {
 	};
 	let southAfricaId = createCommunity(southAfricaCommunity);
 
+
+/* DEBUGGING: Disabling all registration on fixtures
+
 	/* Register admins for both communities */
-	registerAdmins([globalId,demoId]);
+	//registerAdmins([globalId,demoId]);
 
 	/* Create demo tags for each community */
 	//createDemoTags(globalId);
@@ -162,8 +165,7 @@ Meteor.startup(() => {
 	//registerCountries(globalId);
 
 	/* Convert existing proposals to new format*/
-	convertProposals();
-
+	//convertProposals();
 
 });
 
