@@ -623,9 +623,8 @@ footer{
 		div.footer-container{
 			width: 1000px;
 			#info-footer{
-				width: 240px;
+				width: 24%;
 				min-width: 240px;
-				max-width: 240px;
 				.language-select{
 					margin-top: 13px;
 					margin-bottom: 25px;
@@ -643,9 +642,9 @@ footer{
   div.landing-page-content, footer{
     border: solid $test-border-width pink;
 		#info-footer{
-			width: 240px;
+			width: 24%;
 			min-width: 240px;
-			max-width: 240px;
+			//max-width: 240px;
 			.language-select{
 				margin-top: 13px;
 				margin-bottom: 25px;

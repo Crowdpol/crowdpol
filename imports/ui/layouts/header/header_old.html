@@ -1,0 +1,171 @@
+<template name="Header">
+
+	<!-- Always shows a header, even in smaller screens. -->
+	<header class="{{#if currentUser}}logged-in-header{{else}}logged-out-header{{/if}} mdl-layout__header ">
+
+		<div class="header-inner mdl-layout__header-row">
+			{{#if currentUser}}
+				<a href="/dash" class="header-link-signed-in">
+					<span class="mdl-layout-title" style="color:#f64900;">
+						{{#if logoUrlSet}}
+							<img class="header-logo" src='{{logoUrl}}'/>
+						{{/if}}
+						Crowdpol
+						<!-- This should be the page title
+						{{#if Template.subscriptionsReady}}
+							{{ title }}
+						{{/if}}
+						-->
+					</span>
+				</a>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/about">{{_ "layout.header.nav_about"}}</a>
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/faq">{{_ "layout.header.nav_faq"}}</a>
+					<a class="mdl-navigation__link mdl-layout--large-screen-only" href="/contact">{{_ "layout.header.nav_contact"}}</a>
+				</nav>
+			{{else}}
+				<a href="/">
+					<span class="mdl-layout-title">
+						{{#if logoUrlSet}}
+							<img class="header-logo" src='{{logoUrl}}'/>
+						{{/if}}
+						{{#if Template.subscriptionsReady}}
+							{{ title }}
+						{{/if}}
+					</span>
+				</a>
+			{{/if}}
+			<!-- Add spacer, to align navigation to the right -->
+			<div class="mdl-layout-spacer"></div>
+			{{#if currentUser}}
+				<!-- Tag Search Field
+				<form action="#" id="header-tag-search-form" >
+					<div class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="text" id="header-tag-search" placeholder="{{_ 'layout.header.search_tags'}}">
+					</div>
+					<label class="mdl-button mdl-js-button mdl-button-/-icon" for="header-tag-search" id="search-button">
+				      <i class="material-icons">search</i>
+				    </label>
+					{{#if matchedTags}}
+					<ul class="demo-list-item mdl-list autocomplete-list" id="headerMatchedTagsList">
+						{{#each matchedTags}}
+						<li class="mdl-list__item autocomplete-item" data-keyword={{this}}>
+							<span class="mdl-list__item-primary-content" data-keyword={{this}}>
+								{{this}}
+							</span>
+						</li>
+						{{/each}}
+					</ul>
+					{{/if}}
+				</form>
+				-->
+				<!-- Navigation. We hide it in small screens. -->
+				<nav class="mdl-navigation" id="main-menu">
+					<a id="header_nav-profile-image-header" class="mdl-navigation__link mdl-layout--large-screen-only" href="#">
+						{{currentUserRoleText}}
+						<img src="{{userPhoto}}" class="mdl-list__item-avatar">
+					</a>
+					<a id="profile-dropdown" class="mdl-navigation__link mdl-layout--large-screen-only">
+						<i class="material-icons">arrow_drop_down</i>
+					</a>
+					<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="profile-dropdown">
+						{{#if isDelegate}}
+							{{#if usingAsDelegate}}
+								<li class="mdl-menu__item mdl-layout--large-screen-only">
+									<a class="mdl-navigation__link change-role" href="#" data-role="{{otherRole}}">{{otherRoleText}}</a>
+								</li>
+							{{else}}
+							<li class="mdl-menu__item mdl-layout--large-screen-only">
+								<a class="mdl-navigation__link change-role" href="#" data-role="delegate">{{_ "layout.header.nav_use_delegate"}}</a>
+							</li>
+							{{/if}}
+						{{/if}}
+						<li class="mdl-menu__item  mdl-layout--large-screen-only">
+							<a class="mdl-navigation__link" href="/profile">{{_ "layout.header.nav_profile_settings"}}</a>
+						</li>
+						<li class="mdl-menu__item  mdl-layout--large-screen-only">
+							<a class="mdl-navigation__link" href="/settings">{{_ "layout.header.nav_account_settings"}}</a>
+						</li>
+						{{#if currentUserIsAdmin}}
+							<li class="mdl-menu__item mdl-layout--large-screen-only">
+								<a class="mdl-navigation__link" href="/admin/dash">{{_ "layout.header.nav_admin"}}</a>
+							</li>
+						{{/if}}
+						<li class="mdl-menu__item mdl-layout--large-screen-only">
+							{{#if currentUser}}
+								<a class="mdl-navigation__link" href="" id="nav-logout">{{_ "layout.drawer.nav_logout"}}</a>
+							{{else}}
+								<a class="mdl-navigation__link" href="/login">{{_ "layout.drawer.nav_login"}}</a>
+							{{/if}}
+						</li>
+					</ul>
+					<!--<a class="mdl-navigation__link mdl-layout-large-screen-only" href="/ideas" id="ideas-menu">{{_ "layout.header.nav_ideas"}}</a>
+					<a class="mdl-navigation__link mdl-layout- -large-screen-only" href="/proposals" id="proposals-menu">{{_ "layout.header.nav_proposals"}}</a>
+					<a class="mdl-navigation__link mdl-layout- -large-screen-only" href="/voting" id="vote-menu">{{_ "layout.header.nav_vote"}}</a>
+					-->
+					<!--
+					<a class="mdl-navigation__link" href="/candidate">{{_ "layout.header.nav_nominate"}}</a>
+					-->
+
+					{{#unless currentUser}}
+						<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
+					{{/unless}}
+
+					<!-- Notification Menu -->
+					<div id="notifications-menu-icon" class="material-icons mdl-badge mdl-badge--overlap {{ unreadClass }}" data-badge="{{ unreadNotificationCount }}">notifications</div>
+
+					<!---->
+					<div class="notification-menu-content">
+				  	{{> NotificationsDrawer}}
+				  </div>
+					<!--
+					<a id="help-menu" class="mdl-navigation__link mdl-layout- -large-screen-only" href="/"><i class="material-icons" id="main-help">help_outline</i></a>
+					-->
+					<!-- Language Menu -->
+					{{#if Template.subscriptionsReady}}
+						{{#if showLanguages}}
+							<button id="language-menu" class="mdl-button mdl-js-button">
+								<i class="material-icons">language</i>{{ lang }}
+							</button>
+							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="language-menu">
+									{{#each langs}}
+										<li class="mdl-menu__item lang-sel" id="{{this}}">{{getLang this}}</li>
+									{{/each}}
+							</ul>
+						{{/if}}
+					{{/if}}
+				</nav>
+			{{else}}
+				<nav class="mdl-navigation" id="logged-out-nav">
+					<a class="mdl-navigation__link" href="/about">{{_ "layout.header.nav_about"}}</a>
+					<a class="mdl-navigation__link" href="/contact">{{_ "layout.header.nav_contact"}}</a>
+					{{#unless currentUser}}
+						<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
+					{{/unless}}
+				</nav>
+			{{/if}}
+		</div>
+	</header>
+
+</template>
+
+<template name="HomeHeader">
+	<!-- Always shows a header, even in smaller screens. -->
+	<header class="logged-out-header mdl-layout__header">
+		<div class="header-inner mdl-layout__header-row">
+			<a href="/">
+				<i class="material-icons">add</i>
+				<h5>{{_ "layout.header.home_title"}}</h5>
+			</a>
+			<!-- Add spacer, to align navigation to the right -->
+			<div class="mdl-layout-spacer"></div>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="/about">{{_ "layout.header.nav_about"}}</a>
+					<a class="mdl-navigation__link" href="/contact">{{_ "layout.header.nav_contact"}}</a>
+					{{#unless currentUser}}
+						<a class="mdl-navigation__link" href="/login">{{_ "layout.header.nav_login"}}</a>
+					{{/unless}}
+				</nav>
+		</div>
+	</header>
+</template>
