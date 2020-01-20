@@ -54,3 +54,4 @@ import './compass.scss';
 import './proposal-card.scss';
 import './layout.scss';
 import './modals/createGroupModal.scss';
+import './navigator.scss';

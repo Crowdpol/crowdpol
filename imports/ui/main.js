@@ -14,14 +14,23 @@ import { Session } from 'meteor/session';
 import './layouts/body/body.js';
 import './components/main.js';
 
+//index or home page
 import './pages/landing/landing.js';
+// user authentication
+import './pages/authenticate/authenticate.js';
+import './pages/resetPassword/newPassword/newPassword.js';
+import './pages/resetPassword/recoverPassword/recoverPassword.js';
+
+// user navigator or dash
+import './pages/navigator/navigator.js';
 
 import './pages/settings/profileSettings.js';
 import './pages/settings/accountSettings.js';
-import './pages/authenticate/authenticate.js';
 
-import './pages/resetPassword/newPassword/newPassword.js';
-import './pages/resetPassword/recoverPassword/recoverPassword.js';
+
+
+
+
 import './pages/contact/contact.js';
 import './pages/admin/dash.js';
 import './pages/profile/profile.js';

@@ -25,7 +25,7 @@ Template.CommunityMap.onCreated(function(){
 
 Template.CommunityMap.onRendered(function(){
   loadMap();
-  addInfoControl();
+  //addInfoControl();
   addCommunityControl();
 });
 
