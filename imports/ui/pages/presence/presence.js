@@ -1,6 +1,6 @@
-import './userPresence.html'
+import './presence.html'
 
-Template.UserPresence.onCreated(function(){
+Template.Presence.onCreated(function(){
   self = this;
   //Local Storage
   var communityId = LocalStore.get('communityId');
@@ -19,11 +19,11 @@ Template.UserPresence.onCreated(function(){
   });
 });
 
-Template.UserPresence.onRendered(function(){
+Template.Presence.onRendered(function(){
 
 });
 
-Template.UserPresence.events({
+Template.Presence.events({
 	'keyup #some-id': function(event, template){
 		Session.set('searchPhrase',event.target.value);
 	},
@@ -48,7 +48,7 @@ Template.UserPresence.events({
   },
 });
 
-Template.UserPresence.helpers({
+Template.Presence.helpers({
   isOwner: function(){
     return true;
   },

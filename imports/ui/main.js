@@ -43,7 +43,7 @@ import './pages/notifications/notifications.js';
 import './pages/group/group.js';
 import './pages/compass/compass.js';
 import './pages/tags/interests.js';
-import './pages/presence/userPresence.js';
+import './pages/presence/presence.js';
 
 import './pages/group/groupList.js';
 import './pages/not-found/not-found.js';

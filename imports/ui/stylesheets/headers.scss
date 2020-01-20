@@ -17,17 +17,20 @@
 }
 
 //hide the default drawer button
-.mdl-layout__header .mdl-layout__drawer-button{
-  display: none;
-  /*
-  border: solid 1px red;
-  i{
-    color: $orange;
+.mdl-layout__header {
+  box-shadow: none;
+  .mdl-layout__drawer-button{
+    display: none;
+    /*
+    border: solid 1px red;
+    i{
+      color: $orange;
+    }
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    */
   }
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  */
 }
 
 //take away the positioning of the default positioning of header logo
@@ -94,6 +97,14 @@
 .main-menu{
 
 }
+.profile-avatar{
+  height: 30px;
+  width: 30px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
 .nav-dropdown{
   float: left;
   overflow: hidden;
@@ -108,14 +119,6 @@
     font-family: inherit;
     margin: 0;
     color: #ccc;
-    .profile-avatar{
-      height: 30px;
-      width: 30px;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      border-radius: 50%;
-    }
-
   }
 
   &:hover .dropbtn {
@@ -178,11 +181,10 @@
 .menu-item{
   margin-left: 15px;
 }
+
 .header-hamburger{
   padding: 0px;
-
   color: $orange;
-  border:solid 1px white;
 	cursor: pointer;
 	-moz-transition: all 0.3s ease;
 	transition: all 0.3s ease;
@@ -219,4 +221,17 @@
 			opacity: 0;
 		}
 	}
+  &:focus {
+    border: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+  }
+}
+
+.responsive-menu{
+  border: solid 1px red;
+  position: absolute;
+  right: 0;
+  top: 75px;
 }

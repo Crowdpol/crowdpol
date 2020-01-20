@@ -1,7 +1,7 @@
 <template name="Header">
 
 	<!-- Always shows a header, even in smaller screens. -->
-	<header class="mdl-layout__header new-app-header">
+	<header class="mdl-layout__header new-app-header mdl-layout--no-drawer-button">
 		<div class="header-inner mdl-layout__header-row">
 			<a href="/dash" class="header-link-signed-in crowdpol-logo" style="font-color: transparent;" >
 				<span class="mdl-layout-title">Crowdpol</span>
@@ -52,6 +52,7 @@
 							      <a class="change-role" href="#" data-role="delegate">{{_ "layout.header.nav_use_delegate"}}</a>
 							    {{/if}}
 							  {{/if}}
+								<a href="/presence">{{_ "layout.header.nav_presence"}}</a>
 					      <a href="/profile">{{_ "layout.header.nav_profile_settings"}}</a>
 					      <a href="/settings">{{_ "layout.header.nav_account_settings"}}</a>
 								{{#if currentUser}}
@@ -90,12 +91,22 @@
 							    </div>
 							</div>
 						{{/if}}
-						<button class="header-hamburger menu-item">
-							<div class="icons">
-								<i class="material-icons icon-default">menu</i>
-								<i class="material-icons icon-hover">close</i>
+						<div id="menu-dropdown" class="nav-dropdown menu-item">
+							<button class="header-hamburger dropbtn">
+								<div class="icons">
+									<i class="material-icons icon-default">menu</i>
+									<i class="material-icons icon-hover">close</i>
+								</div>
+							</button>
+							<div class="dropdown-content responsive-menu">
+								<div class="search-bar-wrapper">
+									<input type="search" placeholder="Search the global village" class="search-bar">
+								</div>
+								<a href="/presence"><img src="{{userPhoto}}" class="profile-avatar">Presence</a>
+								<a href="/settings">Settings</a>
+								<a href="/notifications"><i class="material-icons-outlined">notifications</i>Notifications</a>
 							</div>
-						</button>
+						</div>
 					</nav>
 				{{else}}
 					<nav class="mdl-navigation" id="logged-out-nav">

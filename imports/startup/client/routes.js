@@ -255,6 +255,20 @@ var loggedInRoutes = FlowRouter.group({
   }]
 });
 
+loggedInRoutes.route('/presence', {
+  name: 'App.presence',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Presence' });
+  },
+});
+
+loggedInRoutes.route('/presence:id', {
+  name: 'App.presence',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Presence' });
+  },
+});
+
 loggedInRoutes.route('/wizard', {
   name: 'App.wizard',
   action() {
