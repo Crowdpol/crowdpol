@@ -2,293 +2,221 @@
 @import 'breakpoint.scss';
 
 
-/* DAVID'S NEW CLUSTERFUCK HEADER */
+/* DAVID'S NEW HEADER */
 .new-app-header{
   height: 74px;
   min-height: 74px;
   max-height: 74px;
-  padding: 7px;
+  padding: 5px;
   padding-left: 16px;
+  background-color: $white;
   .header-inner{
-    .crowdpol-logo{
-      .mdl-layout-title{
-        text-indent: 0;
-        text-decoration: none;
-      	color: #000; /* Fallback for older browsers */
-      	color: rgba(0, 0, 0, 0);
-      }
-    }
+    padding: 0px !important;
+
   }
 }
-.header-inner{
-  padding: 0px !important;
+
+//hide the default drawer button
+.mdl-layout__header .mdl-layout__drawer-button{
+  display: none;
+  /*
+  border: solid 1px red;
+  i{
+    color: $orange;
+  }
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  */
 }
 
 //take away the positioning of the default positioning of header logo
 .crowdpol-logo{
-
-}
-
-.header-logo{
-  display: block;
-	float: left;
-	font-size: 2em;
-
-	width: 400px;
-	height: 60px;
-}
-
-.logged-out-header {
-  display: block;
-  background-color: $white;
-
-  .header-inner {
-    nav {
-      display: none;
-    }
-  }
-
-  .mdl-layout-title {
-    text-indent: 50px;
-    font-size: 25px;
-    line-height: 2.5rem;
-  }
-
-  @include breakpoint($tablet) {
-    .mdl-layout__drawer-button {
-      display: none;
-    }
-
-    .header-inner nav {
-      display: flex;
-    }
-  }
-
-  .header-inner {
-    padding: 0 $space / 2;
-    color: $blue;
-
-    a {
-      vertical-align: middle;
-      font-family: $home-title-font;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: $blue;
-    }
-
-    .mdl-layout-title{
-      font-size: $base-font-size * 1.35;
-      line-height: $base-line-height;
-      color: $blue;
-    }
-
-    i {
-      vertical-align: middle;
-      font-size: $space * 1.5;
-    }
-
-    h5 {
-      display: none;
-
-      @include breakpoint($tablet) {
-        display: inline-block;
-        margin: 0;
-      }
-    }
-
+  .mdl-layout-title{
+    text-indent: 0;
+    text-decoration: none;
+    color: #000; /* Fallback for older browsers */
+    color: rgba(0, 0, 0, 0);
   }
 }
-#header_nav-profile-image-header{
-  padding-right: 0px;
-  img{
-    height: 30px;
-    width: 30px;
+
+.search-bar-wrapper{
+  border-radius: 8px;
+  background-color: rgb(224, 224, 224);
+  color: #464242;
+  margin-right: 5px;
+  input[type=search].search-bar::-webkit-search-decoration{
+    -webkit-appearance:none
+  }
+  input[type=search].search-bar{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    color: rgb(177,179,178);
+    border: none;
+    font-size: $small-font-size;
+    font-weight: 700;
+    background-color: rgb(245,245,245);
+    background: url(img/search.svg);
+    background-repeat: no-repeat;
+    background-position: 9px center;
+    width: 243px;
+    padding: 0px 8px 0px 36px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    color: #7b7d7c;
+    &:focus {
+      width: 450px;
+      border: 0px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      outline: none;
+    }
+    &::-webkit-input-placeholder { /* Edge */
+      color: rgb(177,179,178);;
+    }
+
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: rgb(177,179,178);;
+    }
+
+    &::placeholder {
+      color: rgb(177,179,178);;
+    }
+  }
+}
+
+
+.header-divider{
+  border-left: solid 1px #ccc;
+  width: 20px;
+  height: 20px;
+}
+.main-menu{
+
+}
+.nav-dropdown{
+  float: left;
+  overflow: hidden;
+  .dropbtn {
+    font-size: $base-font-size;
+    line-height: $base-line-height;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 2px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    color: #ccc;
+    .profile-avatar{
+      height: 30px;
+      width: 30px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+    }
+
+  }
+
+  &:hover .dropbtn {
+    //background-color: #ccc;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  &:hover .dropdown-content {
+    display: block;
+  }
+}
+.dropbtn{
+  .fa-angle-down{
+    font-weight: 900;
+    font-size: 1rem;
   }
 }
 #profile-dropdown{
-  padding: 0 0;
-
-  i{
-    padding: 0px;
-  }
-}
-
-/* ORIGINAL HEADER */
-.mdl-layout__header .mdl-layout__drawer-button{
-  background-color: transparent;
-  box-shadow: none;
-}
-.mdl-layout__header-delegate {
-  background-color: #ccc;
-}
-// Make header sticky on desktop, but not on mobile
-.mdl-layout__container .mdl-layout--fixed-header .mdl-layout__content {
-  overflow-y: visible;
-  overflow-x: visible;
-  overflow: visible;
-
-  @include breakpoint($tablet) {
-    overflow-y: inherit;
-    overflow-x: inherit;
-    overflow: inherit;
-  }
-}
-
-
-/*
-.logged-out-header {
-  background-color: $white;
-
-  .header-inner {
-    i,
-    a,
-    small {
-      color: $blue;
-      text-decoration: none;
-      padding: 0 10px;
+  .dropbtn{
+    .fa-angle-down{
+      position: relative;
+      top: 5px;
     }
   }
-
-  // Tag Search:
-  .mdl-textfield__input{
-    color: $blue;
-  }
-
-  #header-tag-search-form {
-      display: none;
-      @include breakpoint($laptop) {
-        display: block;
-      }
-  }
-
-  .mdl-textfield--expandable{
-    padding-top: 0px;
-    padding-bottom: 20px;
-  }
-
-  // Autocomplete
-
-  #headerMatchedTagsList{
-    overflow-y: scroll;
-    height: 200px;
-    width: 25%;
-    position: absolute;
-    padding-top: 0px;
-    margin-top: 0px;
-    top: 50px;
-    background-color: white;
-
-    .autocomplete-item{
-      padding: 0px;
-      padding-left: 5px;
-
-      &:hover {
-        background: $light-blue-dark;
-        cursor: pointer;
-
-        .mdl-list__item-primary-content {
-            color: white !important;
-        }
+}
+#notifications-dropdown, #language-dropdown{
+  .dropbtn{
+    font-weight: 900;
+    .material-icons-outlined, .material-icons{
+      position: relative;
+      top: 5px;
     }
-      span {
-        font-size: $small-font-size;
-      }
+    .fa-angle-down{
+      position: relative;
+      top: 1px;
     }
   }
-
-  .material-icons.mdl-badge.mdl-badge--overlap{
-    color: $blue;
-    cursor: pointer;
-  }
-
-  .material-icons.mdl-badge[data-badge]::after,
-  .material-label.mdl-badge[data-badge]::after{
-    background-color: $yellow;
-  }
-
-  .material-icons.mdl-badge[data-badge].noUnreads::after,
-  .material-label.mdl-badge[data-badge].noUnreads::after{
-    visibility: hidden;
-  }
-
 }
-
-.logged-in-header.delegate_header{
-  background-color: $delegate-color;
+.menu-item{
+  margin-left: 15px;
 }
-.mdl-layout__drawer-button i {
-  color: $blue;
-}
-
-#language-menu{
+.header-hamburger{
   padding: 0px;
-  min-width: 0px;
-  i{
-    padding: 0px;
-  }
+
+  color: $orange;
+  border:solid 1px white;
+	cursor: pointer;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	.icons {
+    height: 35px;
+    width: 35px;
+    top: 0px;
+    font-size: 22px;
+    position: relative;
+		i {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: block;
+      font-size: 1.8rem;
+		}
+		.icon-default {
+      transition: opacity .3s, transform .3s;
+		}
+		.icon-hover {
+      transition: opacity .3s, transform .3s;
+			transform: rotate(-180deg) scale(.5);
+			opacity: 0;
+		}
+	}
+
+	&:hover {
+		.icon-hover {
+			transform: rotate(0deg) scale(1);
+			opacity: 1;
+		}
+		.icon-default {
+			transform: rotate(180deg) scale(.5);
+			opacity: 0;
+		}
+	}
 }
-
-#help-menu{
-  padding: 0px;
-}
-/*
-.logged-out-header {
-  display: block;
-  background-color: $white;
-
-  .header-inner {
-    nav {
-      display: none;
-    }
-  }
-
-  .mdl-layout-title {
-    text-indent: 50px;
-    font-size: 25px;
-    line-height: 2.5rem;
-  }
-
-  @include breakpoint($tablet) {
-    .mdl-layout__drawer-button {
-      display: none;
-    }
-
-    .header-inner nav {
-      display: flex;
-    }
-  }
-
-  .header-inner {
-    padding: 0 $space / 2;
-    color: $blue;
-
-    a {
-      vertical-align: middle;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: $blue;
-    }
-
-    .mdl-layout-title{
-      font-size: $base-font-size * 1.35;
-      line-height: $base-line-height;
-      color: $blue;
-    }
-
-    i {
-      vertical-align: middle;
-      font-size: $space * 1.5;
-    }
-
-    h5 {
-      display: none;
-
-      @include breakpoint($tablet) {
-        display: inline-block;
-        margin: 0;
-      }
-    }
-
-  }
-}
-*/

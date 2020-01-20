@@ -16,12 +16,10 @@ import './components/main.js';
 
 import './pages/landing/landing.js';
 
-
-
 import './pages/settings/profileSettings.js';
 import './pages/settings/accountSettings.js';
 import './pages/authenticate/authenticate.js';
-import './pages/dash/dash.js';
+
 import './pages/resetPassword/newPassword/newPassword.js';
 import './pages/resetPassword/recoverPassword/recoverPassword.js';
 import './pages/contact/contact.js';
@@ -61,7 +59,7 @@ import './pages/faq/faq.js';
 import './pages/feed/userFeed.js';
 import './pages/test/test.js';
 import './v2/main.js';
-
+//import './pages/dash/dash.js';
 */
 
 Meteor.startup(function () {

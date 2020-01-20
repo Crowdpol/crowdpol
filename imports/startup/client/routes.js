@@ -97,7 +97,7 @@ publicRoutes.route('/login', {
     if (!Meteor.user()){
       BlazeLayout.render('App_body', { main: 'Authenticate' });
     }else{
-      BlazeLayout.render('App_body', { main: 'Dash' });
+      BlazeLayout.render('App_body', { main: 'CommunityDash' });
     }
   },
 });
