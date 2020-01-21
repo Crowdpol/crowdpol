@@ -1,0 +1,31 @@
+<template name="Navigator_Menu_Tabs">
+  <div class="community-tabs active" data-sidebar-nav-id="community-votes">
+    <a class="community-tab active" data-id="proposal-votes">{{_ "menu-tab.votes.proposals"}}</a>
+    <a class="community-tab" data-id="proposal-polls">{{_ "menu-tab.votes.polls"}}</a>
+    <a class="community-tab" data-id="proposal-petitions">{{_ "menu-tab.votes.petitions"}}</a>
+  </div>
+  <div class="community-tabs" data-sidebar-nav-id="community-proposals">
+    <a class="community-tab active" data-id="proposal-drafts">{{_ "menu-tab.proposals.drafts"}}</a>
+    <a class="community-tab" data-id="proposal-submitted">{{_ "menu-tab.proposals.submitted"}}</a>
+    <a class="community-tab" href="/proposals/edit" data-id="proposal-write">{{_ "menu-tab.proposals.write"}}</a>
+  </div>
+  <div class="community-tabs" data-sidebar-nav-id="community-feed-wrapper">
+    <a class="community-tab active" data-id="community-feed">{{_ "menu-tab.feed.feed"}}</a>
+    <a class="community-tab" data-id="community-activity">{{_ "menu-tab.feed.activity"}}</a>
+  </div>
+  <div class="community-tabs" data-sidebar-nav-id="community-delegates">
+    <a class="community-tab active" data-id="delegate-available">{{_ "menu-tab.delegates.available"}}</a>
+    <a class="community-tab" data-id="delegate-selected">{{_ "menu-tab.delegates.selected"}}</a>
+    <a class="community-tab" data-id="delegate-status">{{_ "menu-tab.delegates.status"}}</a>
+    <a class="community-tab" data-id="delegate-about">{{_ "menu-tab.delegates.about"}}</a>
+  </div>
+  <div class="community-tabs" data-sidebar-nav-id="community-members">
+    <a class="community-tab active" data-id="members-all">{{_ "menu-tab.members.members"}}</a>
+    <a class="community-tab" data-id="members-admin">{{_ "menu-tab.members.administrator"}}</a>
+    <a class="community-tab" data-id="members-ambassador">{{_ "menu-tab.members.ambassador"}}</a>
+  </div>
+  <div class="community-tabs" data-sidebar-nav-id="community-groups">
+    <a class="community-tab active" data-id="groups-all">{{_ "menu-tab.groups.available"}}</a>
+    <a class="community-tab" data-id="groups-create">{{_ "menu-tab.groups.create"}}</a>
+  </div>
+</template>

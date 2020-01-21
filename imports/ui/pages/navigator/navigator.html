@@ -1,236 +1,214 @@
-<template name="Navigator">
-  <div class="navigator-wrapper">
-    <div class="navigator-map-container">
-      {{> CommunityMap}}
+<template name="NavigatorCover">
+  <div class="navigator-map-container">
+    {{> CommunityMap}}
+  </div>
+</template>
+<template name="NavigatorMenu">
+  <div class="global-columns global-two-columns">
+    <div class="global-left-column">
+      Show Community Map
     </div>
-    <div class="navigator-header navigator-container flex-wrap">
-      <div class="navigator-left-column">Navigator Header Left Column</div>
-      <div class="navigator-center-column">
-        <div class="navigator-breadcrumbs">
-          {{>CommunityBreadcrumb}}
-          <button class="mdl-button mdl-js-button mdl-button--icon" id="map-toggle">
-            <i class="material-icons">keyboard_arrow_up</i>
+    <div class="global-center-column">
+      <div class="navigator-breadcrumbs">
+        {{>CommunityBreadcrumb}}
+      </div>
+      <div class="community-menu">
+        <div class="community-title">
+          <h5 id="community-current-header">Vote</h5>
+        </div>
+        <div class="community-tabs-container">
+          {{>Navigator_Menu_Tabs}}
+        </div>
+      </div>
+      <div class="navigator-compass">
+        <div class="everything-toggle selected">Everything</div>
+        <div class="compass-link"></div>
+        <div class="compass-toggles">
+          <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored education" data-id="education">
+            <i class="material-icons">eco</i>
+          </button>
+          <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored health" data-id="health">
+            <i class="material-icons">eco</i>
+          </button>
+          <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored environment" data-id="environment">
+            <i class="material-icons">eco</i>
+          </button>
+          <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored infrastructure" data-id="infrastructure">
+            <i class="material-icons">eco</i>
+          </button>
+          <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored law" data-id="law">
+            <i class="material-icons">eco</i>
+          </button>
+          <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored economy" data-id="economy">
+            <i class="material-icons">eco</i>
+          </button>
+          <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored geopolitics" data-id="geopolitics">
+            <i class="material-icons">eco</i>
+          </button>
+          <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored enterprise" data-id="enterprise">
+            <i class="material-icons">eco</i>
           </button>
         </div>
-        <div class="community-menu">
-          <div class="community-title">
-            <h5 id="community-current-header">Vote</h5>
-          </div>
-          <div class="community-tabs-container">
-                <div class="community-tabs active" data-sidebar-nav-id="community-votes">
-                  <a class="community-tab active" data-id="proposal-votes">{{_ "menu-tab.votes.proposals"}}</a>
-                  <a class="community-tab" data-id="proposal-polls">{{_ "menu-tab.votes.polls"}}</a>
-                  <a class="community-tab" data-id="proposal-petitions">{{_ "menu-tab.votes.petitions"}}</a>
-                </div>
-                <div class="community-tabs" data-sidebar-nav-id="community-proposals">
-                  <a class="community-tab active" data-id="proposal-drafts">{{_ "menu-tab.proposals.drafts"}}</a>
-                  <a class="community-tab" data-id="proposal-submitted">{{_ "menu-tab.proposals.submitted"}}</a>
-                  <a class="community-tab" href="/proposals/edit" data-id="proposal-write">{{_ "menu-tab.proposals.write"}}</a>
-                </div>
-                <div class="community-tabs" data-sidebar-nav-id="community-feed-wrapper">
-                  <a class="community-tab active" data-id="community-feed">{{_ "menu-tab.feed.feed"}}</a>
-                  <a class="community-tab" data-id="community-activity">{{_ "menu-tab.feed.activity"}}</a>
-                </div>
-                <div class="community-tabs" data-sidebar-nav-id="community-delegates">
-                  <a class="community-tab active" data-id="delegate-available">{{_ "menu-tab.delegates.available"}}</a>
-                  <a class="community-tab" data-id="delegate-selected">{{_ "menu-tab.delegates.selected"}}</a>
-                  <a class="community-tab" data-id="delegate-status">{{_ "menu-tab.delegates.status"}}</a>
-                  <a class="community-tab" data-id="delegate-about">{{_ "menu-tab.delegates.about"}}</a>
-                </div>
-                <div class="community-tabs" data-sidebar-nav-id="community-members">
-                  <a class="community-tab active" data-id="members-all">{{_ "menu-tab.members.members"}}</a>
-                  <a class="community-tab" data-id="members-admin">{{_ "menu-tab.members.administrator"}}</a>
-                  <a class="community-tab" data-id="members-ambassador">{{_ "menu-tab.members.ambassador"}}</a>
-                </div>
-                <div class="community-tabs" data-sidebar-nav-id="community-groups">
-                  <a class="community-tab active" data-id="groups-all">{{_ "menu-tab.groups.available"}}</a>
-                  <a class="community-tab" data-id="groups-create">{{_ "menu-tab.groups.create"}}</a>
-                </div>
-          </div>
+        <div class="tag-link">
+          <button class="add-value-tags mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+            <i class="material-icons">add-circle</i>
+          </button>
         </div>
-        <div class="navigator-compass">
-          <div class="everything-toggle">Everything</div>
-          <div class="compass-link"></div>
-          <div class="compass-toggles">
-            <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored education" data-id="education">
-              <i class="material-icons">eco</i>
-            </button>
-            <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored health" data-id="health">
-              <i class="material-icons">eco</i>
-            </button>
-            <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored environment" data-id="environment">
-              <i class="material-icons">eco</i>
-            </button>
-            <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored infrastructure" data-id="infrastructure">
-              <i class="material-icons">eco</i>
-            </button>
-            <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored law" data-id="law">
-              <i class="material-icons">eco</i>
-            </button>
-            <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored economy" data-id="economy">
-              <i class="material-icons">eco</i>
-            </button>
-            <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored geopolitics" data-id="geopolitics">
-              <i class="material-icons">eco</i>
-            </button>
-            <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored enterprise" data-id="enterprise">
-              <i class="material-icons">eco</i>
-            </button>
-          </div>
-          <div class="value-toggles tags-wrap">
-            <button class="add-value-tags mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-              <i class="material-icons">add-circle</i>
-            </button>
-            <a class="tag taggle-tag tag-chip">tag
-    					<button type="button" class="mdl-chip__action tag-chip-delete"><i class="material-icons tag-chip-delete">cancel</i></button>
-    				</a>
-          </div>
+        <div class="value-toggles tags-wrap">
+
+          <a class="tag taggle-tag tag-chip">tag
+            <button type="button" class="mdl-chip__action tag-chip-delete"><i class="material-icons tag-chip-delete">cancel</i></button>
+          </a>
         </div>
       </div>
-      <!--<div class="navigator-right-column">Navigator Header Right</div>-->
     </div>
-    <div class="navigator-body navigator-container flex-wrap">
-      <div class="navigator-left-column">
-        <div class="sidebar navigator-sidebar">
-          <a class="sidebar-nav active" data-id="community-votes">{{_ "sidebar-tab.vote"}}<small>{{currentCommunityProposalCount}}</small></a>
-          <a class="sidebar-nav" data-id="community-proposals">{{_ "sidebar-tab.proposals"}}</a>
-          <a class="sidebar-nav" data-id="community-feed-wrapper">{{_ "sidebar-tab.feed"}}</a>
-          <a class="sidebar-nav" data-id="community-delegates">{{_ "sidebar-tab.delegates"}} <small>{{currentCommunityGroupCount}}</small></a>
-          <a class="sidebar-nav" data-id="community-members">{{_ "sidebar-tab.members"}} <small>{{currentCommunityMemberCount}}</small></a>
-          <a class="sidebar-nav" data-id="community-groups">{{_ "sidebar-tab.groups"}} <small>{{currentCommunityGroupCount}}</small></a>
-        </div>
-      </div>
-      <div class="navigator-center-column">
-        <div class="community-content">
-          <div id="community-feed-wrapper" class="tabcontent">
-            <div class="community-tabs-panel" id="community-activity">
-              <br>
-              <p><strong>Activity</strong> - Coming soon in version 2</p>
-              <div class="mdl-spinner mdl-js-spinner is-active"></div>
-                <p>
-                  This will list all recent activities within the community, including:
-                  <ul>
-                    <li>New proposals added</li>
-                    <li>New members joining</li>
-                    <li>Proposals expiring soon</li>
-                    <li>New delegates added</li>
-                    <li>New delegate votes</li>
-                  </ul>
-                </p>
-            </div>
-            <div class="community-tabs-panel active" id="community-feed">
-                {{>Feed feedId=communityId}}
-            </div>
-          </div>
-
-          <div id="community-proposals" class="tabcontent">
-            <div class="community-tabs-panel active" id="proposal-drafts">
-              {{>UserProposalList stage="draft"}}
-            </div>
-            <div class="community-tabs-panel" id="proposal-submitted">
-              {{>UserProposalList stage="submitted"}}
-            </div>
-          </div>
-
-          <div id="community-votes" class="tabcontent active">
-            <div class="community-tabs-panel" id="proposal-draft">
-              <br>
-              <p><strong>Polls</strong> - Coming soon in version 2</p>
-              <p>
-                This will be proposals that allow for user defined selection options rather than yes/no/abstain vote options
-              </p>
-            </div>
-            <div class="community-tabs-panel" id="proposal-petitions">
-              <br>
-              <p><strong>Petitions</strong> - Coming soon in version 2</p>
-              <p>
-                This will be proposals that allow users to digitally sign to gather support for an idea.
-              </p>
-            </div>
-            <div class="community-tabs-panel active" id="proposal-votes">
-              {{>CommunityProposalList communityId=communityId}}
-              <!--
-              <ul class="demo-list-control mdl-list">
-                {{#each openProposals false}}
-                  {{> VotingCard}}
-                {{else}}
-                  {{_ "pages.voting.no-open-proposals"}}
-                  <a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
-                {{/each}}
-              </ul>
-              -->
-            </div>
-          </div>
-
-          <div id="community-members" class="tabcontent">
-            <div class="community-tabs-panel active" id="members-all">
-              <div class="community-member-box">
-                {{#each member in communityMembers}}
-                  {{>UserCard userId=member._id style="card"}}
-                {{/each}}
-              </div>
-            </div>
-            <div class="community-tabs-panel" id="members-admin">
-              <br>
-              <p><strong>Administrators</strong> - Coming soon in version 2</p>
-              <p>
-                This is will be page where the community administrators will be visible. These people will be responsible the following:
-                <ul>
-                  <ol>Review and approve/reject submitted proposals</ol>
-                  <ol>Approve or reject delegate applications</ol>
-                  <ol>Verify member accounts</ol>
-                  <ol>Respond to user flagged content within the community</ol>
-                  <ol>Manage community settings</ol>
-                </ul>
-              </p>
-            </div>
-            <div class="community-tabs-panel" id="members-ambassador">
-              <br>
-              <p><strong>Ambassador</strong> - Coming soon in version 2</p>
-              <p>This will display the details of the Community's Ambassador. May consider putting in a contact form here.</p>
-            </div>
-
-          </div>
-
-          <div id="community-delegates" class="tabcontent">
-            <div class="community-tabs-panel active" id="delegate-available">
-              {{>CommunityDelegates}}
-            </div>
-            <div class="community-tabs-panel" id="delegate-selected">
-              {{>CommunitySelectedDelegates}}
-            </div>
-            <div class="community-tabs-panel" id="delegate-status">
-              {{>CommunityDelegateStatus}}
-            </div>
-            <div class="community-tabs-panel" id="delegate-about">
-              <br>
-              <p><strong>How does the delegate function work?</strong></p>
-              <small>{{_ "pages.delegates.instructions-1"}}</small>
-              <br/>
-              <small>{{_ "pages.delegates.instructions-2"}}</small>
-              <br/>
-              <small>{{_ "pages.delegates.instructions-3"}}</small>
-              <br>
-            </div>
-
-          </div>
-
-          <div id="community-groups" class="tabcontent">
-            <div class="community-tabs-panel active" id="groups-all">
-              {{> GroupList}}
-            </div>
-            <div class="community-tabs-panel" id="groups-create">
-              {{> CreateGroup}}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="navigator-right-column">
-        <h6>Side Columun Heading</h6>
-        <p>
-          Navigator Body Right Column
-        </p>
-      </div>
+    <div class="global-right-column">
+      This should be hidden
     </div>
   </div>
+</template>
+<template name="NavigatorBody">
+  <div class="global-columns global-three-columns">
+    <div class="global-left-column">
+      {{>Navigator_Sidebar}}
+    </div>
+    <div class="global-center-column">
+      <div class="community-content">
+        <div id="community-feed-wrapper" class="tabcontent">
+          <div class="community-tabs-panel" id="community-activity">
+            <br>
+            <p><strong>Activity</strong> - Coming soon in version 2</p>
+            <div class="mdl-spinner mdl-js-spinner is-active"></div>
+              <p>
+                This will list all recent activities within the community, including:
+                <ul>
+                  <li>New proposals added</li>
+                  <li>New members joining</li>
+                  <li>Proposals expiring soon</li>
+                  <li>New delegates added</li>
+                  <li>New delegate votes</li>
+                </ul>
+              </p>
+          </div>
+          <div class="community-tabs-panel active" id="community-feed">
+              {{>Feed feedId=communityId}}
+          </div>
+        </div>
+
+        <div id="community-proposals" class="tabcontent">
+          <div class="community-tabs-panel active" id="proposal-drafts">
+            {{>UserProposalList stage="draft"}}
+          </div>
+          <div class="community-tabs-panel" id="proposal-submitted">
+            {{>UserProposalList stage="submitted"}}
+          </div>
+        </div>
+
+        <div id="community-votes" class="tabcontent active">
+          <div class="community-tabs-panel" id="proposal-draft">
+            <br>
+            <p><strong>Polls</strong> - Coming soon in version 2</p>
+            <p>
+              This will be proposals that allow for user defined selection options rather than yes/no/abstain vote options
+            </p>
+          </div>
+          <div class="community-tabs-panel" id="proposal-petitions">
+            <br>
+            <p><strong>Petitions</strong> - Coming soon in version 2</p>
+            <p>
+              This will be proposals that allow users to digitally sign to gather support for an idea.
+            </p>
+          </div>
+          <div class="community-tabs-panel active" id="proposal-votes">
+            {{>CommunityProposalList communityId=communityId}}
+            <!--
+            <ul class="demo-list-control mdl-list">
+              {{#each openProposals false}}
+                {{> VotingCard}}
+              {{else}}
+                {{_ "pages.voting.no-open-proposals"}}
+                <a href="/proposals/edit">{{_"pages.dashboard.card.proposals.new-proposal"}}</a>
+              {{/each}}
+            </ul>
+            -->
+          </div>
+        </div>
+
+        <div id="community-members" class="tabcontent">
+          <div class="community-tabs-panel active" id="members-all">
+            <div class="community-member-box">
+              {{#each member in communityMembers}}
+                {{>UserCard userId=member._id style="card"}}
+              {{/each}}
+            </div>
+          </div>
+          <div class="community-tabs-panel" id="members-admin">
+            <br>
+            <p><strong>Administrators</strong> - Coming soon in version 2</p>
+            <p>
+              This is will be page where the community administrators will be visible. These people will be responsible the following:
+              <ul>
+                <ol>Review and approve/reject submitted proposals</ol>
+                <ol>Approve or reject delegate applications</ol>
+                <ol>Verify member accounts</ol>
+                <ol>Respond to user flagged content within the community</ol>
+                <ol>Manage community settings</ol>
+              </ul>
+            </p>
+          </div>
+          <div class="community-tabs-panel" id="members-ambassador">
+            <br>
+            <p><strong>Ambassador</strong> - Coming soon in version 2</p>
+            <p>This will display the details of the Community's Ambassador. May consider putting in a contact form here.</p>
+          </div>
+
+        </div>
+
+        <div id="community-delegates" class="tabcontent">
+          <div class="community-tabs-panel active" id="delegate-available">
+            {{>CommunityDelegates}}
+          </div>
+          <div class="community-tabs-panel" id="delegate-selected">
+            {{>CommunitySelectedDelegates}}
+          </div>
+          <div class="community-tabs-panel" id="delegate-status">
+            {{>CommunityDelegateStatus}}
+          </div>
+          <div class="community-tabs-panel" id="delegate-about">
+            <br>
+            <p><strong>How does the delegate function work?</strong></p>
+            <small>{{_ "pages.delegates.instructions-1"}}</small>
+            <br/>
+            <small>{{_ "pages.delegates.instructions-2"}}</small>
+            <br/>
+            <small>{{_ "pages.delegates.instructions-3"}}</small>
+            <br>
+          </div>
+
+        </div>
+
+        <div id="community-groups" class="tabcontent">
+          <div class="community-tabs-panel active" id="groups-all">
+            {{> GroupList}}
+          </div>
+          <div class="community-tabs-panel" id="groups-create">
+            {{> CreateGroup}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="global-right-column">
+      <h6>Side Columun Heading</h6>
+      <p>
+        Navigator Body Right Column
+      </p>
+    </div>
+  </div>
+</template>
+<template name="NavigatorFooter">
+  Navigator Footer
+</template>
+
+<template name="Navigator">
+  This is now empty, please click <a href="/global">here</a> to see new layout.
 </template>

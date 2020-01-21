@@ -11,7 +11,7 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 
 // Import needed templates
-import './layouts/body/body.js';
+import './layouts/main.js';
 import './components/main.js';
 
 //index or home page
@@ -26,10 +26,6 @@ import './pages/navigator/navigator.js';
 
 import './pages/settings/profileSettings.js';
 import './pages/settings/accountSettings.js';
-
-
-
-
 
 import './pages/contact/contact.js';
 import './pages/admin/dash.js';

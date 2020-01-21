@@ -1,3 +1,4 @@
+import { showModal, closeModal} from '../../components/modal/modal.js'
 import { Maps } from '../../../api/maps/Maps.js';
 import { Posts } from '../../../api/posts/Posts.js'
 import { Proposals } from '../../../api/proposals/Proposals.js';
@@ -82,17 +83,23 @@ Template.Navigator.onRendered(function(){
 });
 
 Template.Navigator.events({
+  //enable/disable compass category
   'click .compass-value': function(event,template){
     let category = event.currentTarget.dataset.id;
-    console.log($(event.currentTarget));
     $(event.currentTarget).toggleClass('selected');
     //disableCompassCategory(category)
   },
-
-  'click .sidebar-nav': function(event,template){
-    updateHeaderMenu(event.target.dataset.id);
-    $(event.target).addClass('active');
+  //toggle compass categories
+  'click .everything-toggle': function(event,template){
+    $(event.currentTarget).toggleClass('selected');
+    $(".compass-toggles, .value-toggles").fadeToggle().animate();//1000,"swing");
   },
+  //toggle compass
+  'click .compass-link': function(event,template){
+    $("#leaflet-map").fadeToggle();
+    //showModal();
+  },
+
   'click .community-tab': function(){
     //remove active from all neighbouring tabs
     $(event.target).parent().children().each(function(i,obj){

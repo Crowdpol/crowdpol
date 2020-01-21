@@ -1,0 +1,259 @@
+@import 'variables.scss';
+
+//SET STATIC HEIGHTS AND WIDTHS
+$header-height: 74px;
+$viewport-height: 100vh;
+$menu-height: 100px;
+$footer-height: 10vh;
+
+@function percentOf($amount,$percent){
+  @return calc(calc(#{$percent} * #{$amount}) / 100);
+}
+
+//SET VARIABLE HEIGHTS AND WIDTHS
+
+$available-height: calc(calc(#{$viewport-height} - calc(#{$header-height} + #{$menu-height}) + 10vh); //100vh - ($header-height + $menu-height)
+$available-width: 100vw;
+$cover-height: percentOf($viewport-height,40);
+$body-height: calc(#{$viewport-height} - calc(#{$header-height} + #{$footer-height})); //viewport height - (header-height + global-menu-height)   ;//calc(calc(100vh - 100px) * 0.6); //60% of available viewport height
+$body-container-height: auto;
+$global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height});
+
+.global-wrapper{
+  display:block;
+  height: 100vh;
+  //border: solid 1px orange;
+  height: $global-wrapper-height;//calc(100vh + (calc(calc(100vh - 100px) * 0.4))); //viewport + (40% of cover-height)
+  //background-color: yellow;
+  overflow: hidden;
+  &.cover-hidden{
+    height: calc(#{$global-wrapper-height} - #{$cover-height});
+  }
+}
+
+.global-cover{
+  //border: solid 1px black;
+  height: $cover-height;
+  overflow: hidden;
+}
+.global-menu{
+  //border: solid 1px black;
+  min-height: $menu-height;
+  height: $menu-height;
+  max-height: $menu-height;
+}
+.global-body{
+  position: sticky;
+  top: 100px;
+  padding-bottom: $footer-height;
+  height: calc(#{$viewport-height} - #{$menu-height});//percentOf($available-height,60); //calc(#{$global-wrapper-height} - #{$menu-height});//
+}
+.global-footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 10vh;
+  width: 100%;
+  border: solid 1px black;
+}
+
+.global-columns{
+  display: flex;
+  flex-direction: row;
+  .global-center-column{
+    flex: 1;
+  }
+  &.global-two-columns{
+    .global-right-column{
+      display:none;
+    }
+  }
+}
+
+//RESPONSIVE LAYOUTS
+@media only screen and (min-width: $tiny){
+  .global-footer{
+    display: block;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: none;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: none;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display:none;
+    }
+    .global-center-column{
+
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: none;
+    }
+  }
+}
+@media only screen and (min-width: $mobile){
+  .global-footer{
+    display: block;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: none;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: none;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display:none;
+    }
+    .global-center-column{
+      padding-left: 12px;
+    }
+  }
+}
+@media only screen and (min-width: $tablet){
+  .global-footer{
+    display: block;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: none;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: none;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display:none;
+    }
+    .global-center-column{
+      padding-left: 12px;
+    }
+  }
+}
+@media only screen and (min-width: $laptop){
+  .global-footer{
+    display: none;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: none;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      padding-left: 12px;
+    }
+  }
+}
+@media only screen and (min-width: $desktop){
+  .global-footer{
+    display: none;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      padding-left: 12px;
+    }
+  }
+}
+@media only screen and (min-width: $big){
+  .global-footer{
+    display: none;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      padding-left: 12px;
+    }
+  }
+}
+
+//COLUMN LAYOUTS
+.global-three-columns{
+  .global-left-column{
+    width: 30%;
+    max-width: 215px;
+  }
+  .global-center-column{
+    flex: 1;
+    padding-left: 12px;
+  }
+  .global-right-column{
+    width: 30%;
+    max-width: 215px;
+  }
+}

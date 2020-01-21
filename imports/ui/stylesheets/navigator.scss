@@ -44,7 +44,7 @@ https://stackoverflow.com/questions/15715574/can-i-calculate-and-use-element-hei
     left: 15px;
     top: 20px;//calc(60vh - 80px);
     color: $white;
-    z-index: 900;
+    z-index: 1;
   }
 }
 //default settings for navigator containers
@@ -81,7 +81,7 @@ https://stackoverflow.com/questions/15715574/can-i-calculate-and-use-element-hei
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 900;
+  z-index: 1;
   background-color: #fff;
 
 }
@@ -145,17 +145,19 @@ https://stackoverflow.com/questions/15715574/can-i-calculate-and-use-element-hei
   .everything-toggle{
     margin-top: 5px;
     margin-right: 10px;
-    border: solid 1px #ccc;
+    border: solid 1px $light-grey-dark;
     border-radius: 10%;
-    color: grey;
+    color: $light-grey-xdark;
     height: 20px;
     text-transform: uppercase;
     font-size: 0.625rem;
     line-height: 0.938rem;
     padding: 2px 4px;
-    .active{
+    &.selected{
       font-weight: 600;
-      color: black;
+      color: $dark-grey-light;
+      background: transparent;
+      border: solid 1px $dark-grey-light;
     }
   }
   .compass-link{
@@ -181,12 +183,13 @@ https://stackoverflow.com/questions/15715574/can-i-calculate-and-use-element-hei
       }
     }
   }
+  .add-value-tags{
+    border: solid 1px;
+    background-color: $green;
+    color: $white;
+  }
   .value-toggles{
-    .add-value-tags{
-      border: solid 1px;
-      background-color: $green;
-      color: $white;
-    }
+
     .tag-chip{
       background-color: $green;
       color: $white;

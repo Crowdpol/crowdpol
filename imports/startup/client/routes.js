@@ -255,6 +255,26 @@ var loggedInRoutes = FlowRouter.group({
   }]
 });
 
+loggedInRoutes.route('/global', {
+  name: 'App.global',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "navigator",
+      cover: "NavigatorCover",
+      menu: "NavigatorMenu",
+      body: "NavigatorBody",
+      footer: "NavigatorFooter"
+    }});
+    /*
+    BlazeLayout.render('Global', {
+      contentCover: 'Presence-Cover',
+      contentMenu: 'Presence-Menu',
+      contentBody: 'Presence-Body'
+    });
+    */
+  },
+});
+
 loggedInRoutes.route('/presence', {
   name: 'App.presence',
   action() {

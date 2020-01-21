@@ -1,0 +1,10 @@
+<template name="Navigator_Sidebar">
+  <div class="sidebar navigator-sidebar">
+    <a class="sidebar-nav active" data-id="community-votes">{{_ "sidebar-tab.vote"}}<small>{{currentCommunityProposalCount}}</small></a>
+    <a class="sidebar-nav" data-id="community-proposals">{{_ "sidebar-tab.proposals"}}</a>
+    <a class="sidebar-nav" data-id="community-feed-wrapper">{{_ "sidebar-tab.feed"}}</a>
+    <a class="sidebar-nav" data-id="community-delegates">{{_ "sidebar-tab.delegates"}} <small>{{currentCommunityGroupCount}}</small></a>
+    <a class="sidebar-nav" data-id="community-members">{{_ "sidebar-tab.members"}} <small>{{currentCommunityMemberCount}}</small></a>
+    <a class="sidebar-nav" data-id="community-groups">{{_ "sidebar-tab.groups"}} <small>{{currentCommunityGroupCount}}</small></a>
+  </div>
+</template>

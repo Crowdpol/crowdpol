@@ -1,0 +1,66 @@
+<template name="Global">
+  <div class="global-wrapper {{content.class}}">
+    <!-- Your content goes here -->
+      <div class="global-cover">
+        {{> Template.dynamic template=content.cover}}
+      </div>
+      <div class="global-menu">
+        <button class="mdl-button mdl-js-button mdl-button--icon" id="map-toggle">
+          <i class="material-icons">keyboard_arrow_up</i>
+        </button>
+        {{> Template.dynamic template=content.menu}}
+      </div>
+      <div class="global-body">
+        {{> Template.dynamic template=content.body}}
+      </div>
+      <div class="global-footer">
+        {{> Template.dynamic template=content.footer}}
+      </div>
+  </div>
+</template>
+
+<!-- GLOBAL PRESENCE
+<template name="PresenceCover">
+  Presence Cover
+</template>
+<template name="PresenceMenu">
+  <div class="global-three-columns">
+    <div class="global-left-column">Left</div>
+    <div class="global-center-column">Center</div>
+    <div class="global-right-column">Right</div>
+  </div>
+</template>
+<template name="PresenceBody">
+  <div class="global-three-columns">
+    <div class="global-left-column">Left</div>
+    <div class="global-center-column">Center</div>
+    <div class="global-right-column">Right</div>
+  </div>
+</template>
+<template name="PresenceFooter">
+  Presence Footer
+</template>
+-->
+
+<!-- GLOBAL PROPOSAL
+<template name="ProposalCover">
+  Proposal Cover
+</template>
+<template name="ProposalMenu">
+  <div class="global-three-columns">
+    <div class="global-left-column">Left</div>
+    <div class="global-center-column">Center</div>
+    <div class="global-right-column">Right</div>
+  </div>
+</template>
+<template name="ProposalBody">
+  <div class="global-three-columns">
+    <div class="global-left-column">Left</div>
+    <div class="global-center-column">Center</div>
+    <div class="global-right-column">Right</div>
+  </div>
+</template>
+<template name="ProposalFooter">
+  Proposal Footer
+</template>
+-->
