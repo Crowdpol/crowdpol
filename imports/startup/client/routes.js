@@ -311,6 +311,12 @@ loggedInRoutes.route('/profile/:id', {
   },
 });
 */
+loggedInRoutes.route('/navigator', {
+  name: 'App.navigator',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Navigator' });
+  },
+});
 loggedInRoutes.route('/group/:handle?', {
   name: 'App.group',
   action() {
