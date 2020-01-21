@@ -21,7 +21,7 @@ let info;
 let communityInfo;
 */
 var currentHeader = 'community-proposals';
-Template.CommunityDash.onCreated(function(){
+Template.Navigator.onCreated(function(){
   self = this;
   var communityId = LocalStore.get('communityId');
   var dict = new ReactiveDict();
@@ -43,7 +43,7 @@ Template.CommunityDash.onCreated(function(){
 
 });
 
-Template.CommunityDash.onRendered(function(){
+Template.Navigator.onRendered(function(){
   loadCommunitySection();
   $('.mdl-layout__tab').on('click', function() {
 	$this = $(this);
@@ -81,7 +81,14 @@ Template.CommunityDash.onRendered(function(){
 
 });
 
-Template.CommunityDash.events({
+Template.Navigator.events({
+  'click .compass-value': function(event,template){
+    let category = event.currentTarget.dataset.id;
+    console.log($(event.currentTarget));
+    $(event.currentTarget).toggleClass('selected');
+    //disableCompassCategory(category)
+  },
+
   'click .sidebar-nav': function(event,template){
     updateHeaderMenu(event.target.dataset.id);
     $(event.target).addClass('active');
@@ -229,7 +236,7 @@ Template.CommunityDash.events({
   }
 });
 
-Template.CommunityDash.helpers({
+Template.Navigator.helpers({
   communityId: function(){
     return LocalStore.get('communityId');
   },
@@ -440,7 +447,7 @@ function updateHeaderMenu(tabId){
   let id = "#" + tabId;
   //template.dict.set('currentHeader',event.target.dataset.id);
   currentHeader = tabId;
-  //Template.CommunityDash.instance().dict.set('currentHeader',event.target.dataset.id);
+  //Template.Navigator.instance().dict.set('currentHeader',event.target.dataset.id);
   //disabke all current community content tabs
   $('.tabcontent').each(function(i, obj) {
     $(this).removeClass('active');

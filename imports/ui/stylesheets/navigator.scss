@@ -1,8 +1,38 @@
 @import './variables.scss';
 
+//map layout related variables
 $community-header-height: 100px;
 $sidebar-width: 20%;
 $content-width: 80%;
+
+//navigator map related variables
+$navigator-map-max-height: 375px;
+//$navigator-map-min-height: 375px;
+$navigator-map-responsive-height: 60vh;
+$navigator-map-zoom-top: calc(60vh - 80px);
+
+/* GIVE THIS A RETHINK, FUNCTIONS AND MIXINS NEED SET VARIABLES, NOT CALCULATED VARIABLES *
+https://stackoverflow.com/questions/15715574/can-i-calculate-and-use-element-height-with-sass-compass
+
+@function setZoomTop($mapHeight){
+  @return calc($mapHeight - 80px);
+}
+
+
+//check it responsive height is greater than max height for map, position zoom buttons accordingly
+@mixin zoomPosition(){
+  position: absolute;
+  left: 15px;
+
+  @if $navigator-map-responsive-height > $navigator-map-max-height{
+    top: setZoomTop($navigator-map-max-height);
+    border: solid 1px green;
+  } @else{
+    top: setZoomTop($navigator-map-responsive-height);
+    border: solid 1px red;
+  }
+}
+*/
 
 //default map settings
 .navigator-map-container{
@@ -11,8 +41,8 @@ $content-width: 80%;
   }
   .zoom-inputs{
     position: absolute;
-    top: calc(60vh - 80px);
     left: 15px;
+    top: 20px;//calc(60vh - 80px);
     color: $white;
     z-index: 900;
   }
@@ -27,6 +57,8 @@ $content-width: 80%;
   flex-direction: row;
   justify-content: flex-start;
 }
+
+//layout
 .navigator-left-column{
   width: 30%;
   max-width: 215px;
@@ -39,6 +71,7 @@ $content-width: 80%;
   width: 30%;
   max-width: 215px;
 }
+
 //navigator header
 .navigator-header{
   display: flex;
@@ -144,6 +177,7 @@ $content-width: 80%;
       opacity: 0.45;
       &.selected{
         opacity: 1;
+        background: transparent;
       }
     }
   }
@@ -186,7 +220,10 @@ $content-width: 80%;
   }
 }
 
-
+//left column menu sidebar
+.navigator-sidebar{
+  width: 100%;
+}
 
 
 
