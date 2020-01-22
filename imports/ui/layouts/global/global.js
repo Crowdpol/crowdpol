@@ -1,55 +1,57 @@
+import './menus/menus.js'
+import './content/content.js'
 import './global.html'
 
 Template.Global.onCreated(function(){
   self = this;
-  /*
-  //Local Storage
-  var communityId = LocalStore.get('communityId');
-  //Session variables
-  Session.set('variableName','variableValue');
-  //Reactive Variables
-  self.reactiveVariable = new ReactiveVar([]);
-  self.reactiveVariable.set("exampleData");
-  //Reactive Dictionary
-  var dict = new ReactiveDict();
-  this.templateDictionary = dict;
-  dict.set("communityId",LocalStore.get('communityId'));
-  //subscriptions
-  self.autorun(function() {
-    self.subscribe("simpleSearch",Session.get('searchPhrase'),"delegate", communityId);
-  });
-  */
 });
 
 Template.Global.onRendered(function(){
-
+  $( ".global-template-link" ).click(function() {
+    //remove active from all neighbouring tabs
+    $(event.currentTarget).parent().children().each(function(i,obj){
+      $(this).removeClass('active');
+    });
+    $(event.currentTarget).toggleClass("active");
+    let content = $(event.currentTarget).data("id");
+    //loadNavigatorContent(content)
+  });
+  $(".global-template-link").click(function() {
+    let globalTemplate = $(event.currentTarget).data("template");
+    Session.set("globalTemplate",globalTemplate);
+    $(".global-menu-tabs").each(function(i,obj){
+      $(this).removeClass('active');
+    });
+    let selector = ".global-menu-tabs[data-template='" + globalTemplate + "']"
+    $(selector).addClass("active");
+    //console.log("show tab selector: " + selector );
+  });
+  $(".global-menu-tab").click(function() {
+    $(event.currentTarget).parent().children().each(function(i,obj){
+      $(this).removeClass('active');
+    });
+    let currentTab = $(event.currentTarget).data("id");
+    let selector = ".global-menu-tab[data-id='" + currentTab + "']"
+    console.log("tab selector: " + selector);
+    $(selector).addClass("active");
+    $(event.currentTarget).parent().children().each(function(i,obj){
+      $(this).removeClass('active');
+    });
+    $(".community-tabs-panel").each(function(i,obj){
+      $(this).removeClass("active");
+    });
+    selector = "#" + currentTab;
+    $(selector).addClass("active");
+  });
 });
 
 Template.Global.events({
-  /*
-	'keyup #some-id': function(event, template){
-		Session.set('searchPhrase',event.target.value);
-	},
-  'click .some-class': function(event, template){
-    var communityId = Template.instance().templateDictionary.get( 'communityId' );
-    delegateId = this._id;
-    var ranks = Session.get('ranked');
-    let settings = LocalStore.get('settings');
-    let delegateLimit = -1;
-
-    if(typeof settings != 'undefined'){
-      //do something
-    }
-    Meteor.call('someMethod', someParameter, function(error, result){
-      if(error) {
-        RavenClient.captureException(error);
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert(TAPi18n.__('pages.delegates.alerts.ranking-updated'), 'success');
-      }
+  'click #cover-toggle': function(event, template){
+    $(".global-cover").slideToggle(1000,"swing",function(){
+      $(".cover-toggle-icon").toggle();
+      $(".global-wrapper").toggleClass("cover-hidden")
     });
   },
-  */
 });
 
 Template.Global.helpers({

@@ -6,9 +6,11 @@ import { Communities } from '../../../api/communities/Communities.js';
 import { Groups } from '../../../api/group/Groups.js';
 import { setCommunity } from '../../../utils/community';
 import { getUserProfilePhoto} from '../../../utils/users';
+import { getGlobalTemplate} from '../../layouts/global/global';
 import RavenClient from 'raven-js';
 import './navigator.html';
 
+Session.set("globalTemplate","Navigator_Vote_Content");
 //declare global variables:
 /*
 let mapDataSet = {};
@@ -353,7 +355,12 @@ Template.Navigator.helpers({
   }
 });
 
-
+Template.NavigatorBody.helpers({
+  navigatorContent: function(){
+    console.log("getGlobalTemplate(): " + Session.get("globalTemplate"));
+    return Session.get("globalTemplate");
+  },
+});
 //--------------------------------------------------------------------------------------------------------------//
 function transformProposal(proposal) {
   var currentLang = TAPi18n.getLanguage();
@@ -395,7 +402,8 @@ function openPage(pageName,elmnt,color) {
   elmnt.style.backgroundColor = color;
 }
 
-export function loadCommunitySection(selection){
+export function loadNavigatorContent(selection){
+  /*
   let tabId = '';
   if(!selection){
     //console.log("loadCommunitySection() is empty");
@@ -408,7 +416,8 @@ export function loadCommunitySection(selection){
   }else{
     //console.log("selection is set to " + selection);
   }
-
+  */
+  console.log("selection: " + selection);
   switch(selection){
     case 'vote':
       tabId = 'community-votes';
@@ -435,7 +444,7 @@ export function loadCommunitySection(selection){
       tabId = 'community-votes'
       break;
   }
-  //console.log("tab id is: " + tabId);
+  console.log("tab id is: " + tabId);
   updateHeaderMenu(tabId)
 }
 
@@ -501,5 +510,3 @@ function setCurrentHeader(tabId){
   }
   $("#community-current-header").html(currentHeader);
 }
-
-//function set

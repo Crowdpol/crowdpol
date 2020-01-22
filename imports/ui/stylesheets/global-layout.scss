@@ -21,7 +21,6 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
 
 .global-wrapper{
   display:block;
-  height: 100vh;
   //border: solid 1px orange;
   height: $global-wrapper-height;//calc(100vh + (calc(calc(100vh - 100px) * 0.4))); //viewport + (40% of cover-height)
   //background-color: yellow;
@@ -38,9 +37,16 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
 }
 .global-menu{
   //border: solid 1px black;
+  background-color: $white;
   min-height: $menu-height;
   height: $menu-height;
   max-height: $menu-height;
+  #cover-toggle{
+    position: relative;
+    float: right;
+    margin-right: 5px;
+    margin-top: 5px;
+  }
 }
 .global-body{
   position: sticky;
@@ -50,16 +56,18 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
 }
 .global-footer{
   position: fixed;
+  background-color: $white;
   left: 0;
   bottom: 0;
   height: 10vh;
   width: 100%;
-  border: solid 1px black;
+  padding-top: 5px;
 }
 
 .global-columns{
   display: flex;
   flex-direction: row;
+  height: 100%;
   .global-center-column{
     flex: 1;
   }
@@ -68,6 +76,75 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
       display:none;
     }
   }
+  .global-right-column{
+    padding: 5px;
+    background-color: $orange;
+  }
+}
+
+//SIDEBAR MENU
+.sidebar {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  .global-template-link{
+    color: $crowdpol-grey;
+    display: block;
+    padding: 10px;
+    font-weight: 600;
+    .global-template-link-icon{
+      display: none;
+    }
+    .global-template-link-text{
+      text-decoration: none;
+      font-size: 16px;
+      padding-left: 20px;
+      small{
+        display:none;
+        color: grey;
+        font-size: 12px;
+      }
+    }
+    &.active{
+      font-weight: bold;
+      background-color: $orange;
+      color: #fff;
+    }
+    &:hover:not(.active) {
+      color: $orange;
+    }
+  }
+}
+
+//TABS MENU
+.global-menu-tabs{
+  margin-top: auto;
+
+  display: none;
+  .global-menu-tab{
+    font-size: $base-font-size;
+    font-weight: 600;
+    color: #ccc;
+    display: inline-block;
+    padding: 0 5px;
+
+    &:hover{
+      color: grey;
+    }
+    &.active{
+      color: black;
+    }
+  }
+}
+
+
+//TABS CONTENT
+div.community-tabs-panel{
+  display:none;
+}
+div.community-tabs-panel.active{
+  padding: 10px;
+  display:block;
 }
 
 //RESPONSIVE LAYOUTS
