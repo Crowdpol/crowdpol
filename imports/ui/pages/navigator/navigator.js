@@ -357,10 +357,16 @@ Template.Navigator.helpers({
 
 Template.NavigatorBody.helpers({
   navigatorContent: function(){
-    console.log("getGlobalTemplate(): " + Session.get("globalTemplate"));
     return Session.get("globalTemplate");
   },
 });
+
+Template.NavigatorMenu.helpers({
+  menuBarTitle: function(){
+    return Session.get("menuBarTitle");
+  },
+});
+
 //--------------------------------------------------------------------------------------------------------------//
 function transformProposal(proposal) {
   var currentLang = TAPi18n.getLanguage();

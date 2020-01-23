@@ -13,7 +13,7 @@ import { Session } from 'meteor/session';
 // Import needed templates
 import './layouts/main.js';
 import './components/main.js';
-
+import './global_pages/main.js';
 //index or home page
 import './pages/landing/landing.js';
 // user authentication

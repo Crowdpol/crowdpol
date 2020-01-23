@@ -254,16 +254,35 @@ var loggedInRoutes = FlowRouter.group({
     }
   }]
 });
-
+// GLOBAL LAYOUTS
 loggedInRoutes.route('/global', {
   name: 'App.global',
   action() {
     BlazeLayout.render('App_body', { main: 'Global', content: {
-      class: "navigator",
-      cover: "NavigatorCover",
-      menu: "NavigatorMenu",
-      body: "NavigatorBody",
-      footer: "NavigatorFooter"
+      class: "generic",
+      cover: "Generic_Cover",
+      menu: "Generic_Menubar",
+      body: "Generic_Body",
+      footer: "Generic_Footer"
+    }});
+    /*
+    BlazeLayout.render('Global', {
+      contentCover: 'Presence-Cover',
+      contentMenu: 'Presence-Menu',
+      contentBody: 'Presence-Body'
+    });
+    */
+  },
+});
+loggedInRoutes.route('/navigator', {
+  name: 'App.navigator',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "navigagtor",
+      cover: "Navigator_Cover",
+      menu: "Navigator_Menubar",
+      body: "Navigator_Body",
+      footer: "Navigator_Footer"
     }});
     /*
     BlazeLayout.render('Global', {
@@ -300,13 +319,6 @@ name: 'App.wizard',
 action() {
   BlazeLayout.render('App_body', { main: 'Wizard' });
 },
-});
-
-publicRoutes.route('/navigator', {
-  name: 'App.navigator',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Navigator' });
-  },
 });
 
 publicRoutes.route('/compass', {

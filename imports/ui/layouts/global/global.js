@@ -7,44 +7,65 @@ Template.Global.onCreated(function(){
 });
 
 Template.Global.onRendered(function(){
+  //Note: because the content is dynamic, better to use global event handlers instead of template level.
+  //      These events are used throught the global layout
+
+  //Global Event Handler for Sidebar and Footer links
   $( ".global-template-link" ).click(function() {
-    //remove active from all neighbouring tabs
+
+    //remove active from all neighbouring menu items
     $(event.currentTarget).parent().children().each(function(i,obj){
       $(this).removeClass('active');
     });
-    $(event.currentTarget).toggleClass("active");
-    let content = $(event.currentTarget).data("id");
-    //loadNavigatorContent(content)
-  });
-  $(".global-template-link").click(function() {
+    //set current menu item to active
+    $(event.currentTarget).addClass("active");
+    //get current template from menu data attribute
     let globalTemplate = $(event.currentTarget).data("template");
+    //assign template name to session for use in other templates
     Session.set("globalTemplate",globalTemplate);
+
+    //disable current active menu bar tabs
     $(".global-menu-tabs").each(function(i,obj){
       $(this).removeClass('active');
+      $(this).children().removeClass('active');
+      $(this).children(":first").addClass('active');
     });
+    //enable appropriate menu bar tab
     let selector = ".global-menu-tabs[data-template='" + globalTemplate + "']"
     $(selector).addClass("active");
-    //console.log("show tab selector: " + selector );
+
+    //update menu bar title
+    let menuBarTitle = $(event.currentTarget).find(".global-template-link-text").text().trim();
+    Session.set("menuBarTitle",menuBarTitle);
+
   });
+
+  //Global Event Handler for MenuBar tabs
   $(".global-menu-tab").click(function() {
-    $(event.currentTarget).parent().children().each(function(i,obj){
+    let selectedTab = event.currentTarget;
+    //
+    $(selectedTab).parent().children().each(function(i,obj){
       $(this).removeClass('active');
     });
-    let currentTab = $(event.currentTarget).data("id");
-    let selector = ".global-menu-tab[data-id='" + currentTab + "']"
-    console.log("tab selector: " + selector);
-    $(selector).addClass("active");
-    $(event.currentTarget).parent().children().each(function(i,obj){
-      $(this).removeClass('active');
-    });
-    $(".community-tabs-panel").each(function(i,obj){
-      $(this).removeClass("active");
-    });
-    selector = "#" + currentTab;
-    $(selector).addClass("active");
+    $(selectedTab).addClass("active");
+    //Take a selected .global-menu-tab and show the corresponding .content-tab-panel
+    let currentTab = $(selectedTab).data("id");
+    enableTabContent(currentTab);
   });
+
 });
 
+//Enables the tab content selected in the MenuBar
+function enableTabContent(currentTab){
+  //hide other content-tab-panel divs
+  $(".content-tab-panel").each(function(i,obj){
+    $(this).removeClass("active");
+  });
+  let selector = "#" + currentTab;
+  $(selector).addClass("active");
+}
+
+//Move this to MenuBar
 Template.Global.events({
   'click #cover-toggle': function(event, template){
     $(".global-cover").slideToggle(1000,"swing",function(){
@@ -53,30 +74,6 @@ Template.Global.events({
     });
   },
 });
-
-Template.Global.helpers({
-  /*
-  content: function(data){
-    var template = Template.instance();
-    console.log(this)
-    console.log(template);
-    return {
-      cover: "NavigatorMenu",
-      menu: "PresenceMenu",
-      body: "ProposalBody"
-    }
-  },
-  contentCover: function(){
-    return "PresenceCover";
-  },
-  contentMenu: function(){
-    return "NavigatorMenu";
-  },
-  contentBody: function(){
-    return "NavigatorBody";
-  },
-  contentFooter: function(){
-    return "NavigatorFooter";
-  },
-  */
-});
+/*
+Template.Global.helpers({});
+*/

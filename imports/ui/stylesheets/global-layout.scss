@@ -11,7 +11,6 @@ $footer-height: 10vh;
 }
 
 //SET VARIABLE HEIGHTS AND WIDTHS
-
 $available-height: calc(calc(#{$viewport-height} - calc(#{$header-height} + #{$menu-height}) + 10vh); //100vh - ($header-height + $menu-height)
 $available-width: 100vw;
 $cover-height: percentOf($viewport-height,40);
@@ -19,6 +18,7 @@ $body-height: calc(#{$viewport-height} - calc(#{$header-height} + #{$footer-heig
 $body-container-height: auto;
 $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height});
 
+//GLOBAL WRAPPER: RESIZES ON ADMIN
 .global-wrapper{
   display:block;
   //border: solid 1px orange;
@@ -30,6 +30,7 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
   }
 }
 
+//GLOBAL LAYOUT STRUCTURE
 .global-cover{
   //border: solid 1px black;
   height: $cover-height;
@@ -64,6 +65,7 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
   padding-top: 5px;
 }
 
+//TWO OR THREE COLUMNS
 .global-columns{
   display: flex;
   flex-direction: row;
@@ -71,19 +73,33 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
   .global-center-column{
     flex: 1;
   }
+  .global-right-column{
+    padding: 5px;
+    background-color: $orange;
+  }
   &.global-two-columns{
     .global-right-column{
       display:none;
     }
   }
-  .global-right-column{
-    padding: 5px;
-    background-color: $orange;
+  &.global-three-columns{
+    .global-left-column{
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      width: 30%;
+      max-width: 215px;
+    }
   }
 }
 
 //SIDEBAR MENU
-.sidebar {
+.global-sidebar-menu {
   display: flex;
   flex-flow: column;
   height: 100%;
@@ -116,6 +132,40 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
   }
 }
 
+//FOOTER MENU
+.global-footer-links{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  .global-template-link{
+    display: inline-block;
+    .global-template-link-icon{
+      width: 100%;
+      text-align: center;
+      height: 20px;
+      .material-icons{
+        font-size: 20px;
+      }
+    }
+    .global-template-link-text{
+      width: 100%;
+      text-align: center;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+    &.active{
+      background-color: transparent;
+      .material-icons{
+        color: $orange;
+      }
+      .global-template-link-text{
+        color: $orange;
+      }
+    }
+  }
+}
+
 //TABS MENU
 .global-menu-tabs{
   margin-top: auto;
@@ -137,15 +187,26 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
   }
 }
 
+//DYNAMIC MENU
+.global-content-dynamic{
+  .content-tab{
+    border: solid 1px red;
+    min-height: 50px;
+    //display:none;
+    &.active{
+      //display: block;
+    }
+  }
+  //TABS CONTENT
+  .content-tab-panel{
+    display: none;
+    &.active{
+      padding: 10px;
+      display:block;
+    }
+  }
+}
 
-//TABS CONTENT
-div.community-tabs-panel{
-  display:none;
-}
-div.community-tabs-panel.active{
-  padding: 10px;
-  display:block;
-}
 
 //RESPONSIVE LAYOUTS
 @media only screen and (min-width: $tiny){
@@ -319,18 +380,9 @@ div.community-tabs-panel.active{
   }
 }
 
-//COLUMN LAYOUTS
-.global-three-columns{
-  .global-left-column{
-    width: 30%;
-    max-width: 215px;
-  }
-  .global-center-column{
-    flex: 1;
-    padding-left: 12px;
-  }
-  .global-right-column{
-    width: 30%;
-    max-width: 215px;
-  }
+.generic-label{
+  font-size: 10px;
+  background: grey;
+  width: 100%;
+  color: $white;
 }
