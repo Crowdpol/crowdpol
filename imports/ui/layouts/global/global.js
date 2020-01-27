@@ -7,8 +7,16 @@ Template.Global.onCreated(function(){
 });
 
 Template.Global.onRendered(function(){
+
   //Note: because the content is dynamic, better to use global event handlers instead of template level.
   //      These events are used throught the global layout
+  Session.set("globalTemplate","");
+  let firstActiveTemplateLinkText = $(".global-sidebar-menu > a.active > div.global-template-link-text").text().trim();
+  //$(".global-menubar-title").text(firstActiveTemplateLinkText);
+  console.log(firstActiveTemplateLinkText);
+  Session.set("menuBarTitle",firstActiveTemplateLinkText);
+
+
 
   //Global Event Handler for Sidebar and Footer links
   $( ".global-template-link" ).click(function() {

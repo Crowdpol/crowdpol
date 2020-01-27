@@ -1,20 +1,20 @@
 <template name="Global">
-  <div class="global-wrapper {{content.class}}">
+  <div class="global-wrapper" id="{{content.id}}">
     <!-- Your content goes here -->
-      <div class="global-cover">
+      <div class="global-cover" data-id="{{content.id}}">
         {{> Template.dynamic template=content.cover}}
       </div>
-      <div class="global-menu">
+      <div class="global-menu" data-id="{{content.id}}">
         <button class="mdl-button mdl-js-button mdl-button--icon" id="cover-toggle">
           <i class="material-icons cover-toggle-icon">keyboard_arrow_up</i>
           <i class="material-icons cover-toggle-icon" style='display:none;'>keyboard_arrow_down</i>
         </button>
         {{> Template.dynamic template=content.menu}}
       </div>
-      <div class="global-body">
+      <div class="global-body" data-id="{{content.id}}">
         {{> Template.dynamic template=content.body}}
       </div>
-      <div class="global-footer">
+      <div class="global-footer" data-id="{{content.id}}">
         {{> Template.dynamic template=content.footer}}
       </div>
   </div>

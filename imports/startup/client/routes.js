@@ -259,7 +259,7 @@ loggedInRoutes.route('/global', {
   name: 'App.global',
   action() {
     BlazeLayout.render('App_body', { main: 'Global', content: {
-      class: "generic",
+      id: "generic",
       cover: "Generic_Cover",
       menu: "Generic_Menubar",
       body: "Generic_Body",
