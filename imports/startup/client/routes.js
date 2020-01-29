@@ -50,6 +50,21 @@ publicRoutes.notFound = {
   },
 };
 
+publicRoutes.route('/not-found', {
+  name: 'App.not-found',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_notFound' });
+  },
+});
+
+
+publicRoutes.route('/style', {
+  name: 'App.style',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Style' });
+  }
+});
+
 // Email Verification
 publicRoutes.route('/verify-email/:token',{
 	name: 'verify-email',
