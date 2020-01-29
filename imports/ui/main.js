@@ -14,8 +14,13 @@ import { Session } from 'meteor/session';
 import './layouts/main.js';
 import './components/main.js';
 import './global_pages/main.js';
+
+//site style template
+import './pages/style/style.js';
+
 //index or home page
 import './pages/landing/landing.js';
+
 // user authentication
 import './pages/authenticate/authenticate.js';
 import './pages/resetPassword/newPassword/newPassword.js';

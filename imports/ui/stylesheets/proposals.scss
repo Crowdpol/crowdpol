@@ -156,6 +156,9 @@
 
 .proposal-list-item-link {
   text-decoration: none;
+  li{
+    list-style-type:none;
+  }
 }
 
 .proposal-vote-progress-bar,

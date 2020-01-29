@@ -5,14 +5,14 @@
       <input class="menu-btn" type="checkbox" id="menu-btn" />
       <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
       <ul class="menu">
-        <li><a href="#header-map" class="menu-scroll-link active" data-anchor="#header-map">Imagine</a></li>
-        <li><a href="#potential-anchor" class="menu-scroll-link" data-anchor="#potential-anchor">Potential</a></li>
-        <li><a href="#global-village-anchor" class="menu-scroll-link" data-anchor="#global-village-anchor">Global village</a></li>
-        <li><a href="#results-anchor" class="menu-scroll-link" data-anchor="#results-anchor">Results</a></li>
+        <li><a href="#imagine-section" class="menu-scroll-link active" data-anchor="#imagine-section">Imagine</a></li>
+        <li><a href="#contribute-section" class="menu-scroll-link" data-anchor="#contribute-section">Contribute</a></li>
+        <li><a href="#network-section" class="menu-scroll-link" data-anchor="#network-section">Network</a></li>
+        <li><a href="#results-section" class="menu-scroll-link" data-anchor="#results-section">Results</a></li>
         <li><a class="header-divider"></a></li>
         <li><a href="/login">Login</a></li>
         <li>
-          <a href="#get-started-anchor" class="header-button" data-anchor="#get-started-anchor">
+          <a href="#get-started-anchor" class="header-button landing-button" data-anchor="#get-started-anchor">
             Get Started<i class="material-icons">keyboard_arrow_right</i>
           </a>
         </li>
@@ -20,43 +20,56 @@
     </header>
 
     <div class="landing-page-content">
-
-      <section id="header-map" class="landing-page-section">
-        <div class="section-content">
+      <!-- THIS IS JUST FOR RESPONSIVE TESTING, CAN BE REMOVED -->
+      <div id="viewport-size">{{viewportSize}}</div>
+      <!-- IMAGINE SECTION -->
+      <section id="imagine-section" class="landing-page-section">
+        <!-- CURRENTLY NOT ENABLED: MOVIE INTRO PENDING
+        <div class="movie-overlay"></div>
+        -->
+        <div class="section-content world-map" id="imagine-section-content">
           <div class="jumbo-header">
             <h1>Imagine changing the world from your phone</h1>
             <p>Initiate and support global change with a click!</p>
-            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" href="http://soundweb.se/crowdp/index.html">Get Started</a>
+            <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
+            <div id="landing-phone" class="isometric-phone"></div>
           </div>
           <div class="jumbo-content">
             <div class="recent-stories">
-              <p class="text-large dark-gray recent-stories-heading">Recent stories:</p>
-              <div class="recent-stories-scroller">
-                <div class="demo-card-square mdl-card mdl-shadow--2dp">
-                  <div class="mdl-card__title mdl-card--expand">
-                    <h2 class="mdl-card__title-text">Recent Story 1</h2>
-                  </div>
-                  <div class="mdl-card__supporting-text">
-                    This is a proposal from the site. It will have some content on it.
-                  </div>
-                  <div class="mdl-card__actions mdl-card--border">
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                      View More
-                    </a>
-                  </div>
+              <h2>Recent stories<span class="hide-480">:</span></h2>
+
+              <div class="recent-stories-wrapper">
+                <div class="recent-stories-left recent-stories-arrow">
+                  <i class="material-icons">keyboard_arrow_left</i>
                 </div>
-                <div class="demo-card-square mdl-card mdl-shadow--2dp">
-                  <div class="mdl-card__title mdl-card--expand">
-                    <h2 class="mdl-card__title-text">Recent Story 1</h2>
+                <div class="recent-stories-viewport">
+                  <!--
+                  <div class="recent-stories-scroller">
+
+                    {{#each proposal in previewProposals}}
+                      <div class="recent-story">
+                        <a href="/proposals/view/{{proposal.id}}" class="">
+                      		<li class="proposal-item" data-id="{{proposal.id}}">
+                      			<div class="card-proposal-unsplash" style="background-image: {{proposal.coverURL}}; background-position: center;"></div>
+                      			<div class="card-main-wrap">
+                      				<div class="card-title">
+                      					<h6>{{proposal.title}}</h6>
+                      				</div>
+                      			</div>
+                      			<div class="card-secondary-wrap">
+                      				<p class="proposal-abstract">{{proposal.abstract}}</p>
+                      			</div>
+                      		</li>
+                      	</a>
+                      </div>
+                    {{/each}}
+
+
                   </div>
-                  <div class="mdl-card__supporting-text">
-                    This is another proposal that will be from the live site.
-                  </div>
-                  <div class="mdl-card__actions mdl-card--border">
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                      View
-                    </a>
-                  </div>
+                  -->
+                </div>
+                <div class="recent-stories-left recent-stories-arrow">
+                  <i class="material-icons">keyboard_arrow_right</i>
                 </div>
               </div>
 
@@ -70,82 +83,137 @@
                 <li>Allocate funds and support projects through the <span class="heavy">altruistic</span> wallet</li>
               </ul>
 
-              <a href="http://soundweb.se/crowdp/index.html" id="what" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
+              <a href="/not-found" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
             </div>
           </div>
         </div>
       </section>
-      <hr id="potential-anchor">
-      <section class="section-header" >
-        <h2 class="h1">Who do you want to be in the world?</h2>
-      </section>
 
-      <section id="potential" class="landing-page-section">
-
-        <div class="section-content">
-          <div class="potential-content">
-            <h3 class="h2">Use the <span class="orange">compass</span> to define your values, political intersets &amp; geographical areas</h3>
-
-            <p>When you register on Crowdpol you create a precense and will receive a feed with initiatives in your areas, suited to your values and interests.</p>
+      <!-- CONTRIBUTE SECTION -->
+      <section id="contribute-section" class="landing-page-section">
+        <div class="section-content world-map" id="contribute-section-content">
+          <div class="jumbo-header">
+            <h2 class="h1">A global village of changemakers</h2>
+            <p>Collective competence comes through sharing ideas.</p>
+            <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
           </div>
-        </div>
-      </section>
+          <div class="jumbo-content">
+            <div id="red-button-graphic">
+              <div class="speechbubble">c02 emission tax?</div>
+              <div class="isometric-man"></div>
+              <div class="speechbubble hide-480">Gay marriage?</div>
+              <div class="isometric-man hide-480"></div>
+              <div class="speechbubble hide-480">Gun Control?</div>
+              <div class="isometric-woman hide-480"></div>
+              <div class="speechbubble">Equal pay?</div>
+              <div class="isometric-woman"></div>
+              <div class="speechbubble">Basic income?</div>
+              <div class="isometric-man"></div>
 
-      <hr id="global-village-anchor" class="section-divider">
-      <section class="section-header" id="global-village-header">
-        <h2 class="h1">Join a global village of changemakers</h2>
-      </section>
-      <section id="global-village" class="landing-page-section">
-        <div class="section-content">
-          <div class="global-content">
-              <h3 class="h2">Create <span class="red">initiatives</span> &amp; connect with like-minded individuals around the globe</h3>
-              <p>Collective competence is the result of sharing information, resources and advice. The red button will help you:</p>
-              <ul class="landing-page-list">
-                <li><span class="heavy">Initiate</span> powerful change processes that can effect local, national and global decisionmaking.</li>
-                <li><span class="heavy">Support</span> important causes aligned with your values.</li>
-                <li><span class="heavy">Donate</span> and strengthen groups and individuals in need.</li>
-                <li><span class="heavy">Debate</span> crucial and compelling ideas.</li>
-              </ul>
-          </div>
-        </div>
-      </section>
-      <hr id="results-anchor">
-      <section class="section-header" id="results-heading">
-        <h2 class="h1">Results that can increase your influence</h2>
-      </section>
-      <section id="results" class="landing-page-section">
-        <div class="section-content">
-          <div class="results-copy">
-            <h3 class="h2">Get an overview of your <span class="turquoise">presence</span> in the world</h3>
-            <p>Are you following your compass? Measure the positive impact of your actions.</p>
+              <div class="crowdpol_red_button"></div>
+            </div>
+            <h3 class="h2">Create <span class="red">proposals</span> &amp; connect with like-minded individuals around the globe</h3>
+            <p>Collective competence is the result of sharing information, resources and advice. The red button will help you:</p>
             <ul class="landing-page-list">
-              <li>Get an <span class="heavy">overview</span> of the proposals, debates, petitions and fundraisers that you engage in.</li>
-              <li>List the other changemakers that you <span class="heavy">follow</span>.</li>
-              <li><span class="heavy">Share</span> successful stories that you have been part of.</li>
-              <li>Your presence generates a <span class="heavy">score</span> based on your activity.</li>
-              <li>See the <span class="heavy">communities</span> that you influence worldwide.</li>
-              <li>Manage the <span class="heavy">groups</span> that you are a part of.</li>
+              <li><span class="heavy">Initiate</span> powerful change processes that can effect local, national and global decisionmaking.</li>
+              <li><span class="heavy">Support</span> important causes aligned with your values.</li>
+              <li><span class="heavy">Debate</span> crucial and compelling ideas.</li>
+              <li><span class="heavy">Raise funds</span> to strengthen causes and groups.</li>
             </ul>
-            <a href="http://soundweb.se/crowdp/index.html" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
-          </div>
-          <div class="results-image">
-
+            <a href="/not-found" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
           </div>
         </div>
       </section>
 
-    </div>
-    <hr id="get-started-anchor" class="section-divider">
-    <section class="section-header final-section" >
-      <h2>It has never been easier to change the world</h2>
-      <div class="section-content">
-        <div class="sign-up-form">
-          <!--{{>SocialLogin}}
-          {{>Signup}}-->
+      <!-- NETWORK SECTION -->
+      <section id="network-section" class="landing-page-section">
+        <div class="section-content polygon-landscape" id="network-section-content">
+          <div class="jumbo-header">
+            <h2 class="h1">What problems do you want to solve?</h2>
+            <p>Find your space in the political sphere</p>
+            <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
+          </div>
+
+          <div class="jumbo-content">
+            <div class="isometric_sun_facing_right"></div>
+            <div class="isometric-man"></div>
+            <div class="isometric_globe hide-480"></div>
+            <h3 class="h2">Set your <span class="orange">compass</span> to discover global landscapes of competing values & interests.</h3>
+            <p>To be able to navigate intelligently through the vast amounts of political causes generated by our users, we have developed a personalised filtering-system that we call <strong>the Compass.</strong> When you register you will get a presence that receives a feed with a propsals tailored to your areas, interests and values.</p>
+            <a href="/not-found" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
+            <div class="isometric_globe"></div>
+          </div>
         </div>
-      </div>
-      <center><img src="/img/landing/arrow_up.svg"></center>
-    </section>
+      </section>
+
+      <!-- RESULTS SECTION -->
+      <section id="results-section" class="landing-page-section">
+        <div class="section-content" id="results-section-content">
+          <div class="jumbo-header">
+            <h2 class="h1">Increase your presence</h2>
+            <p>Overview positive impacts of your actions</p>
+            <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
+          </div>
+          <div class="jumbo-content">
+            <div class="isometric-man"></div>
+            <h3 class="h2">Get an overview of your <span class="turquoise">presence</span> in the world</h3>
+            <ul class="landing-page-list">
+              <li><span class="heavy">Overview</span> your proposals, debates, petitions and fundraisers.</li>
+              <li><span class="heavy">Manage</span> communities you influence.</li>
+              <li><span class="heavy">List</span> changemakers you follow.</li>
+              <li><span class="heavy">Share</span> stories that you have been part of.</li>
+              <li><span class="heavy">Track</span> your "Presence Score".</li>
+            </ul>
+            <a href="/not-found" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SIGNUP SECTION -->
+      <section id="signup-section" class="landing-page-section">
+        <div class="section-content" id="signup-section-content">
+          <div class="jumbo-header">
+            <h2 class="h1">It has never been easier to change the world</h2>
+          </div>
+          <div class="jumbo-content">
+            <form>
+              <input type="text" name="signup-email" placeholder="Email Address" class="landing-input"/>
+              <input type="password" name="signup-password" placeholder="Password"  class="landing-input"/>
+              <button class="landing-button">Get Started<i class="material-icons">keyboard_arrow_right</i></button>
+              <input type="checkbox" name="signup-newsletter" class="landing-input"/>
+              <small>Clicking Get Started accepts <a href="/aup">terms of use</a></small>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- SUPPORT SECTION -->
+      <section id="support-section" class="landing-page-section">
+        <div class="section-content" id="support-section-content">
+          <div class="jumbo-header">
+            <h3>Support Crowdpol</h3>
+          </div>
+          <div class="jumbo-content">
+            <div class="isometric_heart"></div>
+            <div class="">
+              <ul class="landing-page-list">
+                <li><span class="heavy">Fund</span> the project.</li>
+                <li><span class="heavy">Create</span> a presence.</li>
+                <li><span class="heavy">Spread</span> the word.</li>
+                <li><span class="heavy">Testpilot</span> the platform.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="return-section" class="landing-page-section">
+        <div class="section-content" id="return-section-content">
+          <a href="#imagine-section" data-anchor="#imagine-section" class="arrow_up"></a>
+        </div>
+      </section>
+    </div>
+
     <footer>
       <div class="logo-bar-footer footer-container">
         <a href="http://crowdpol-dev/" class="footer-logo">Crowdpol</a>
