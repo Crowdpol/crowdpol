@@ -7,6 +7,7 @@ import '../../ui/main.js';
 
 // Global onEnter trigger to save communityInfo in LocalStore
 //FlowRouter.triggers.enter([loadCommunityInfo]);
+var publicRoutes = FlowRouter.group({name: 'public'});
 
 // the App_notFound template is used for unknown routes and missing lists
 FlowRouter.notFound = {
@@ -14,10 +15,14 @@ FlowRouter.notFound = {
     BlazeLayout.render('App_body', {main: 'App_notFound'});
   }
 };
+console.log('Session.get("verified"): ' + Session.get("verified"));
+//TODO: Remove this at some point
+if(Session.get("verified")){
+  console.log("user is verfied");
 
 // Public Routes (no need to log in):
 
-var publicRoutes = FlowRouter.group({name: 'public'});
+
 
 Accounts.onLogout(function() {
   console.log("routes: set community to root");
@@ -120,11 +125,7 @@ publicRoutes.route('/login', {
 publicRoutes.route('/signup', {
   name: 'App.login',
   action() {
-    //if (!Meteor.user()){
       BlazeLayout.render('App_body', { main: 'RegistrationWizard' });
-    /*}else{
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
-    }*/
   },
 });
 
@@ -280,13 +281,6 @@ loggedInRoutes.route('/global', {
       body: "Generic_Body",
       footer: "Generic_Footer"
     }});
-    /*
-    BlazeLayout.render('Global', {
-      contentCover: 'Presence-Cover',
-      contentMenu: 'Presence-Menu',
-      contentBody: 'Presence-Body'
-    });
-    */
   },
 });
 loggedInRoutes.route('/navigator', {
@@ -299,13 +293,6 @@ loggedInRoutes.route('/navigator', {
       body: "Navigator_Body",
       footer: "Navigator_Footer"
     }});
-    /*
-    BlazeLayout.render('Global', {
-      contentCover: 'Presence-Cover',
-      contentMenu: 'Presence-Menu',
-      contentBody: 'Presence-Body'
-    });
-    */
   },
 });
 
@@ -349,15 +336,7 @@ loggedInRoutes.route('/profile', {
     BlazeLayout.render('App_body', { main: 'ProfileSettings' });
   },
 });
-/*
-loggedInRoutes.route('/profile/:id', {
-  name: 'App.profile',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Profile' });
 
-  },
-});
-*/
 loggedInRoutes.route('/navigator', {
   name: 'App.navigator',
   action() {
@@ -384,18 +363,7 @@ loggedInRoutes.route('/feed/:id', {
     BlazeLayout.render('App_body', { main: 'UserFeed' });
   },
 });
-/*
-loggedInRoutes.route('/scaffold/dash', {
-  name: 'App.scaffold',
-  action() {
-    BlazeLayout.render('Scaffold', {
-      left: 'PresenceLeft',
-      main: 'PresenceContent',
-      left: 'PresenceRight'
-    });
-  },
-});
-*/
+
 loggedInRoutes.route('/presence', {
   name: 'App.presence',
   action() {
@@ -413,7 +381,6 @@ loggedInRoutes.route('/presence/:id', {
     BlazeLayout.render('App_body', { main: 'UserPresence' });
   },
 });
-
 
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
@@ -571,7 +538,7 @@ loggedInRoutes.route('/proposals/view/:id?', {
   }
 });
 
-/* Users without an account can see individual proposals */
+// Users without an account can see individual proposals
 
 
 loggedInRoutes.route('/delegate', {
@@ -580,14 +547,6 @@ loggedInRoutes.route('/delegate', {
     BlazeLayout.render('App_body', { main: 'Delegate' });
   },
 });
-/*
-loggedInRoutes.route('/candidate', {
-  name: 'App.candidate',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Candidate' });
-  },
-});
-*/
 
 
 // Admin Routes:
@@ -658,13 +617,13 @@ adminRoutes.route('/communities', {
   }
 });
 
-
-/*
-(function() {
-    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-    link.type = 'image/x-icon';
-    link.rel = 'shortcut icon';
-    link.href = 'http://www.stackoverflow.com/favicon.ico';
-    document.getElementsByTagName('head')[0].appendChild(link);
-})();
-*/
+//TODO: Remove this at some point
+}else{
+  console.log("user is not verfied");
+  publicRoutes.route('/', {
+    name: 'App.holding',
+    action() {
+      BlazeLayout.render('Holding');
+    },
+  });
+}
