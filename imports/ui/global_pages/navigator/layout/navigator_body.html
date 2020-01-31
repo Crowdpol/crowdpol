@@ -1,5 +1,4 @@
 <template name="Navigator_Body">
-  Navigator Body
   <div class="global-columns global-three-columns">
     <div class="global-left-column global-sidebar-menu">
       {{>Navigator_Sidebar_Links}}
@@ -9,9 +8,10 @@
         {{> loader}}
       </div>
       <div class="global-content-dynamic">
-        {{> Template.dynamic template=globalContent}}
+        {{>UnderConstruction}}
+        <!--{{> Template.dynamic template=globalContent}}-->
       </div>
     </div>
-    <div class="global-right-column">Right</div>
+    <div class="global-right-column"></div>
   </div>
 </template>

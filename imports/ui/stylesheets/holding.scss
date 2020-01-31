@@ -30,6 +30,12 @@ $holding-orange: rgb(238,125,73);
       //color: $holding-orange;
       text-transform: uppercase;
     }
+    .user-verified{
+      //display: none;
+    }
+    .under-construction{
+
+    }
     .holding-form{
       input[type=text],
       input[type=url],
@@ -41,7 +47,7 @@ $holding-orange: rgb(238,125,73);
         margin-top: 20px;
           padding: 12px 20px;
           box-sizing: border-box;
-          border: 2px solid $holding-orange;
+          border: 1px solid #ccc;//$holding-orange;
           border-radius: 4px;
       }
       .holding-password{

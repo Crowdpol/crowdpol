@@ -9,20 +9,14 @@ import '../../ui/main.js';
 //FlowRouter.triggers.enter([loadCommunityInfo]);
 var publicRoutes = FlowRouter.group({name: 'public'});
 
+// Public Routes (no need to log in):
+
 // the App_notFound template is used for unknown routes and missing lists
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('App_body', {main: 'App_notFound'});
   }
 };
-console.log('Session.get("verified"): ' + Session.get("verified"));
-//TODO: Remove this at some point
-if(Session.get("verified")){
-  console.log("user is verfied");
-
-// Public Routes (no need to log in):
-
-
 
 Accounts.onLogout(function() {
   console.log("routes: set community to root");
@@ -33,20 +27,32 @@ Accounts.onLogout(function() {
 publicRoutes.route('/', {
   name: 'App.home',
   action() {
-    let subdomain = LocalStore.get('subdomain');
-    if(subdomain=='landing'){
-      //BlazeLayout.render('App_body', { main: 'Landing' });
-      BlazeLayout.render('Landing');
+    if(!Session.get("bulletproof")){
+      console.log("rendering holding");
+        BlazeLayout.render('Holding');
     }else{
       if (!Meteor.user()){
+        console.log("rendering landing");
         //BlazeLayout.render('App_body', { main: 'Home' });
         BlazeLayout.render('Landing');
       }else{
+        console.log("rendering navigator");
         BlazeLayout.render('App_body', { main: 'navigator' });
       }
     }
+  }
+});
 
-  },
+publicRoutes.route('/landing', {
+  name: 'App.home',
+  action() {
+    if(!Session.get("bulletproof")){
+      console.log("rendering holding");
+        BlazeLayout.render('Holding');
+    }else{
+        BlazeLayout.render('Landing');
+    }
+  }
 });
 
 publicRoutes.notFound = {
@@ -114,10 +120,15 @@ publicRoutes.route('/test/landing', {
 publicRoutes.route('/login', {
   name: 'App.login',
   action() {
-    if (!Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'Authenticate' });
+    if(!Session.get("bulletproof")){
+      console.log("rendering holding");
+        BlazeLayout.render('Holding');
     }else{
-      FlowRouter.go('/navigator');
+      if (!Meteor.user()){
+        BlazeLayout.render('App_body', { main: 'Authenticate' });
+      }else{
+        FlowRouter.go('/navigator');
+      }
     }
   },
 });
@@ -125,7 +136,12 @@ publicRoutes.route('/login', {
 publicRoutes.route('/signup', {
   name: 'App.login',
   action() {
+    if(!Session.get("bulletproof")){
+      console.log("rendering holding");
+        BlazeLayout.render('Holding');
+    }else{
       BlazeLayout.render('App_body', { main: 'RegistrationWizard' });
+    }
   },
 });
 
@@ -616,14 +632,3 @@ adminRoutes.route('/communities', {
     BlazeLayout.render('App_body', {main: 'AdminCommunities'});
   }
 });
-
-//TODO: Remove this at some point
-}else{
-  console.log("user is not verfied");
-  publicRoutes.route('/', {
-    name: 'App.holding',
-    action() {
-      BlazeLayout.render('Holding');
-    },
-  });
-}

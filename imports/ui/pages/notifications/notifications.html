@@ -1,4 +1,6 @@
 <template name="Notifications">
+	{{>UnderConstruction}}
+  <!--
 	{{#if Template.subscriptionsReady}}
 		<div class="container narrow-container static-content-wrap">
 			<h3>{{_ "notifications.heading"}}</h3>
@@ -18,7 +20,7 @@
 						</li>
 						<ul class="demo-list-three mdl-list notifications-list">
 							{{#each unreadNotifications}}
-								<li class="mdl-list__item mdl-list__item--three-line notification-item {{ notificationItemClass read}}" data-url="{{ url }}" data-id="{{_id}}">
+								<li class="mdl-list__item mdl-list__item- -three-line notification-item {{ notificationItemClass read}}" data-url="{{ url }}" data-id="{{_id}}">
 									<span class="mdl-list__item-primary-content" data-url="{{ url }}" data-id="{{_id}}">
 										<span class="notification-time">{{ notificationDate createdAt }}</span>
 										<span class="mdl-list__item-text-body notification-item-text" id="wrap-span" data-url="{{ url }}" data-id="{{_id}}">
@@ -42,7 +44,7 @@
 						</li>
 						<ul class="demo-list-three mdl-list notifications-list">
 							{{#each readNotifications}}
-								<li class="mdl-list__item mdl-list__item--three-line notification-item {{ notificationItemClass read}}" data-url="{{ url }}" data-id="{{_id}}">
+								<li class="mdl-list__item mdl-list__item- -three-line notification-item {{ notificationItemClass read}}" data-url="{{ url }}" data-id="{{_id}}">
 									<span class="mdl-list__item-primary-content" data-url="{{ url }}" data-id="{{_id}}">
 										<span class="notification-time">{{ notificationDate createdAt }}</span>
 										<span class="mdl-list__item-text-body notification-item-text" id="wrap-span" data-url="{{ url }}" data-id="{{_id}}">
@@ -57,7 +59,7 @@
 						</ul>
 					{{/if}}
 				{{else}}
-					<li class="mdl-list__item mdl-list__item--three-line">
+					<li class="mdl-list__item mdl-list__item- -three-line">
 						<span class="mdl-list__item-primary-content">
 							<span class="mdl-list__item-text-body notification-item-text">
 								{{_ "layout.header.no_notifications"}}
@@ -68,4 +70,5 @@
 			</div>
 		</div>
 	{{/if}}
+	-->
 </template>
