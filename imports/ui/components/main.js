@@ -17,3 +17,5 @@ import './feed/feed.js';
 import './progress/progressBubbles.js';
 import './profileHeader/profileImageModal.js';
 import './files/files.js';
+import './modal/modal.js';
+//import './menus/menus.js';

@@ -1,7 +1,11 @@
 import './landing.html';
 //import './landing_files/app.js" type="text/javascript"></script>
 //import './landing.scss';
-
+Template.Landing.onRendered(function() {
+  $(window).on('resize', function(){
+    $("#viewport-size").text($(window).height() + "x" + $(window).width());
+  });
+});
 
 Template.Landing.events({
   'click .menu-scroll-link, click .header-button': function(event, template){
@@ -9,6 +13,11 @@ Template.Landing.events({
     console.log($(this).hasClass( "active" ));
     let anchorId = event.currentTarget.dataset.anchor;
     scrollTo(anchorId);
+  },
+  'click .recent-stories-right': function(event,template){
+    $('.recent-stories-scroller').animate({
+          right: '200px'
+      });
   }
 });
 
@@ -18,3 +27,43 @@ function scrollTo(elementId){
     scrollTop: $(elementId).offset().top
   }, 800);
 }
+
+Template.Landing.helpers({
+	viewportSize: function(){
+		return $(window).height() + "x" + $(window).width();
+	},
+  previewProposals: function(){
+    let testProposals = [
+      {
+        _id: 1,
+        title: "Test Propsal 1",
+        coverURL: "url('https://source.unsplash.com/random/800x600')",
+        abstract: "This is an abstract for Test Proposal 1"
+      },
+      {
+        _id: 2,
+        title: "Test Propsal 2",
+        coverURL: "url('https://source.unsplash.com/random/800x600')",
+        abstract: "This is an abstract for Test Proposal 2"
+      },
+      {
+        _id: 3,
+        title: "Test Propsal 3",
+        coverURL: "url('https://source.unsplash.com/random/800x600')",
+        abstract: "This is an abstract for Test Proposal 3"
+      },
+      {
+        _id: 4,
+        title: "Test Propsal 4",
+        coverURL: "url('https://source.unsplash.com/random/800x600')",
+        abstract: "This is an abstract for Test Proposal 4"
+      },{
+        _id: 5,
+        title: "Test Propsal 5",
+        coverURL: "url('https://source.unsplash.com/random/800x600')",
+        abstract: "This is an abstract for Test Proposal 5"
+      }
+    ];
+    return testProposals;
+  }
+});

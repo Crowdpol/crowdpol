@@ -1,0 +1,388 @@
+@import 'variables.scss';
+
+//SET STATIC HEIGHTS AND WIDTHS
+$header-height: 74px;
+$viewport-height: 100vh;
+$menu-height: 100px;
+$footer-height: 10vh;
+
+@function percentOf($amount,$percent){
+  @return calc(calc(#{$percent} * #{$amount}) / 100);
+}
+
+//SET VARIABLE HEIGHTS AND WIDTHS
+$available-height: calc(calc(#{$viewport-height} - calc(#{$header-height} + #{$menu-height}) + 10vh); //100vh - ($header-height + $menu-height)
+$available-width: 100vw;
+$cover-height: percentOf($viewport-height,40);
+$body-height: calc(#{$viewport-height} - calc(#{$header-height} + #{$footer-height})); //viewport height - (header-height + global-menu-height)   ;//calc(calc(100vh - 100px) * 0.6); //60% of available viewport height
+$body-container-height: auto;
+$global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height});
+
+//GLOBAL WRAPPER: RESIZES ON ADMIN
+.global-wrapper{
+  display:block;
+  //border: solid 1px orange;
+  height: $global-wrapper-height;//calc(100vh + (calc(calc(100vh - 100px) * 0.4))); //viewport + (40% of cover-height)
+  //background-color: yellow;
+  overflow: hidden;
+  &.cover-hidden{
+    height: calc(#{$global-wrapper-height} - #{$cover-height});
+  }
+}
+
+//GLOBAL LAYOUT STRUCTURE
+.global-cover{
+  //border: solid 1px black;
+  height: $cover-height;
+  overflow: hidden;
+}
+.global-menu{
+  //border: solid 1px black;
+  background-color: $white;
+  min-height: $menu-height;
+  height: $menu-height;
+  max-height: $menu-height;
+  #cover-toggle{
+    position: relative;
+    float: right;
+    margin-right: 5px;
+    margin-top: 5px;
+  }
+}
+.global-body{
+  position: sticky;
+  top: 100px;
+  padding-bottom: $footer-height;
+  height: calc(#{$viewport-height} - #{$menu-height});//percentOf($available-height,60); //calc(#{$global-wrapper-height} - #{$menu-height});//
+}
+.global-footer{
+  position: fixed;
+  background-color: $white;
+  left: 0;
+  bottom: 0;
+  height: 10vh;
+  width: 100%;
+  padding-top: 5px;
+}
+
+//TWO OR THREE COLUMNS
+.global-columns{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  .global-center-column{
+    flex: 1;
+  }
+  .global-right-column{
+    padding: 5px;
+    background-color: $orange;
+  }
+  &.global-two-columns{
+    .global-right-column{
+      display:none;
+    }
+  }
+  &.global-three-columns{
+    .global-left-column{
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      width: 30%;
+      max-width: 215px;
+    }
+  }
+}
+
+//SIDEBAR MENU
+.global-sidebar-menu {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  .global-template-link{
+    color: $crowdpol-grey;
+    display: block;
+    padding: 10px;
+    font-weight: 600;
+    .global-template-link-icon{
+      display: none;
+    }
+    .global-template-link-text{
+      text-decoration: none;
+      font-size: 16px;
+      padding-left: 20px;
+      small{
+        display:none;
+        color: grey;
+        font-size: 12px;
+      }
+    }
+    &.active{
+      font-weight: bold;
+      background-color: $orange;
+      color: #fff;
+    }
+    &:hover:not(.active) {
+      color: $orange;
+    }
+  }
+}
+
+//FOOTER MENU
+.global-footer-links{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  .global-template-link{
+    display: inline-block;
+    .global-template-link-icon{
+      width: 100%;
+      text-align: center;
+      height: 20px;
+      .material-icons{
+        font-size: 20px;
+      }
+    }
+    .global-template-link-text{
+      width: 100%;
+      text-align: center;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+    &.active{
+      background-color: transparent;
+      .material-icons{
+        color: $orange;
+      }
+      .global-template-link-text{
+        color: $orange;
+      }
+    }
+  }
+}
+
+//TABS MENU
+.global-menu-tabs{
+  margin-top: auto;
+
+  display: none;
+  .global-menu-tab{
+    font-size: $base-font-size;
+    font-weight: 600;
+    color: #ccc;
+    display: inline-block;
+    padding: 0 5px;
+
+    &:hover{
+      color: grey;
+    }
+    &.active{
+      color: black;
+    }
+  }
+}
+
+//DYNAMIC MENU
+.global-content-dynamic{
+  .content-tab{
+    border: solid 1px red;
+    min-height: 50px;
+    //display:none;
+    &.active{
+      //display: block;
+    }
+  }
+  //TABS CONTENT
+  .content-tab-panel{
+    display: none;
+    &.active{
+      padding: 10px;
+      display:block;
+    }
+  }
+}
+
+
+//RESPONSIVE LAYOUTS
+@media only screen and (min-width: $tiny){
+  .global-footer{
+    display: block;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: none;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: none;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display:none;
+    }
+    .global-center-column{
+
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: none;
+    }
+  }
+}
+@media only screen and (min-width: $mobile){
+  .global-footer{
+    display: block;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: none;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: none;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display:none;
+    }
+    .global-center-column{
+      padding-left: 12px;
+    }
+  }
+}
+@media only screen and (min-width: $tablet){
+  .global-footer{
+    display: block;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: none;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: none;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display:none;
+    }
+    .global-center-column{
+      padding-left: 12px;
+    }
+  }
+}
+@media only screen and (min-width: $laptop){
+  .global-footer{
+    display: none;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: none;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      padding-left: 12px;
+    }
+  }
+}
+@media only screen and (min-width: $desktop){
+  .global-footer{
+    display: none;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      padding-left: 12px;
+    }
+  }
+}
+@media only screen and (min-width: $big){
+  .global-footer{
+    display: none;
+  }
+  .global-three-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      flex: 1;
+      padding-left: 12px;
+    }
+    .global-right-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+  }
+  .global-two-columns{
+    .global-left-column{
+      display: block;
+      width: 30%;
+      max-width: 215px;
+    }
+    .global-center-column{
+      padding-left: 12px;
+    }
+  }
+}
+
+.generic-label{
+  font-size: 10px;
+  background: grey;
+  width: 100%;
+  color: $white;
+}

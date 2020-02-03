@@ -87,7 +87,7 @@ Template.Login.events({
                 window.location.href = redirect;
               } else {
                 //console.log("no redirect sent with signup, redirecting to /dash");
-                FlowRouter.go('/dash');
+                FlowRouter.go('/');
               }
             }
           }

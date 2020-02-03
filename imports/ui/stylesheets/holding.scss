@@ -1,0 +1,72 @@
+@import 'variables.scss';
+
+$holding-orange: rgb(238,125,73);
+.holding-container{
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: rgb(255,255,255);
+  background: radial-gradient(circle, rgba(255,255,255,1) 51%, rgba(204,204,204,1) 100%);
+  .holding-wrapper{
+    width: 410px;
+    margin: auto auto;
+    text-align: center;
+    .holding-logo{
+      display: block;
+    	float: left;
+      margin-bottom: 45px;
+    	text-decoration: none;
+    	background-image: url(img/landing/crowdpol_ecosystem_logo_tools.svg);//crowdpol_ecosystem_logo.svg);
+    	background-size: contain;
+    	background-repeat: no-repeat;
+    	color: #000; /* Fallback for older browsers */
+    	color: rgba(0, 0, 0, 0);
+    	width: 400px;
+    	height: 60px;
+    }
+    p{
+      //color: $holding-orange;
+      text-transform: uppercase;
+    }
+    .user-verified{
+      //display: none;
+    }
+    .under-construction{
+
+    }
+    .holding-form{
+      input[type=text],
+      input[type=url],
+      input[type=tel],
+      input[type=number],
+      input[type=color],
+      input[type=email],
+      input[type=password], {
+        margin-top: 20px;
+          padding: 12px 20px;
+          box-sizing: border-box;
+          border: 1px solid #ccc;//$holding-orange;
+          border-radius: 4px;
+      }
+      .holding-password{
+
+        display: block;
+        width: 100%;
+      }
+      .holding-signin{
+        padding: 12px 20px;
+        margin-top: 20px;
+        display: block;
+        width: 100%;
+        color: #fff;
+        background-color: $orange;
+        box-sizing: border-box;
+        border-radius: 4px;
+        border: none;
+      }
+    }
+  }
+
+}

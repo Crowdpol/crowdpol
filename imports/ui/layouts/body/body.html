@@ -1,6 +1,6 @@
 <template name="App_body">
 	<!-- Hotjar Tracking Code for https://merdemokrati.socialsystems.io/
-	<script>
+		<script>
 	    (function(h,o,t,j,a,r){
 	        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
 	        h._hjSettings={hjid:799922,hjsv:6};
@@ -9,66 +9,32 @@
 	        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
 	        a.appendChild(r);
 	    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-	</script>
+		</script>
+	-->
 
-	<script>
-	  window.fbAsyncInit = function() {
-	    FB.init({
-	      appId      : '882920215388865',
-	      xfbml      : true,
-	      version    : 'v3.3'
-	    });
-	    FB.AppEvents.logPageView();
-	  };
-
-	  (function(d, s, id){
-	     var js, fjs = d.getElementsByTagName(s)[0];
-	     if (d.getElementById(id)) {return;}
-	     js = d.createElement(s); js.id = id;
-	     js.src = "https://connect.facebook.net/en_US/sdk.js";
-	     fjs.parentNode.insertBefore(js, fjs);
-	   }(document, 'script', 'facebook-jssdk'));
-	</script>
-		-->
 	<div id="site-wrapper-div">
 		<div class="site mdl-layout mdl-js-layout mdl-layout--fixed-header" >
-			{{#if isLanding}}
+			<!-- imports/ui/components/layout/header/header.html-->
+			{{> Header}}
+			<!-- imports/ui/components/layout/drawer/drawer.html -->
+			{{> Drawer}}
 
-			{{else}}
-			<!--{{#if showDrawer}}-->
-				<!-- imports/ui/components/layout/header/header.html -->
-				{{> Header}}
-				<!-- imports/ui/components/layout/drawer/drawer.html -->
-
-				{{> Drawer}}
-
-				{{> RightDrawer}}
-	       <!--
-	    {{else}}
-	    	{{> HomeHeader}}
-	    {{/if}}-->
-			{{/if}}
+			{{> RightDrawer}}
 	    <main class="mdl-layout__content">
 				<div class="page-content">
-				   <div class="ribbon" id="status-ribbon"><span>ALPHA</span></div>
-					 	{{#if isLanding}}
-		 				{{else}}
-						<!--
-							{{#if currentUser}}
-								{{> CommunityHeader}}
-						 	{{/if}}
-						-->
-						{{/if}}
-
+				  <!--<div class="ribbon" id="status-ribbon"><span>ALPHA</span></div>-->
+					{{> Modal}}
 					<!-- Your content goes here -->
 					{{> Template.dynamic template=main}}
 				</div>
 			</main>
 			<div class="mdl-layout__obfuscator-right"></div>
-			<!-- imports/ui/components/layout/footer/footer.html -->
+			<!-- imports/ui/components/layout/footer/footer.html
 			{{#if currentUser}}
 				{{> Footer}}
 			{{/if}}
+
+			-->
 		</div>
 	</div>
 </template>

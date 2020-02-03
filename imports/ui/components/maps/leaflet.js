@@ -30,19 +30,19 @@ export function loadMap(){
     zoom: 3,
     minZoom: 2,
     center: [49.009952, 2.548635],
-    //        maxBounds: [[-90.0,-180.0],[90.0,180.0]]
-    maxBounds: [
-        [-85.0, -180.0],
-        [85.0, 180.0]
-    ]
+    //maxBounds: [[-90.0,-180.0],[90.0,180.0]]
+    //maxBounds: [[-85.0, -180.0],[85.0, 180.0]]
   });
 
-  //set zoom controls
-  L.control.zoom({
-     position:'bottomleft'
-  }).addTo(map);
+  // zoom in function
+  $('#leaft-zoom-in').click(function(){
+    map.setZoom(map.getZoom() + 1)
+  });
 
-  //setTiles();
+  // zoom out function
+  $('#leaft-zoom-out').click(function(){
+    map.setZoom(map.getZoom() - 1)
+  });
 
 }
 

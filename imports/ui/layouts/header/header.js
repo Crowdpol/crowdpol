@@ -68,6 +68,7 @@ Template.Header.onCreated(function(){
 
 Template.Header.helpers({
   userPhoto: function() {
+    return "/img/default-user-image.png";
     let photoURL = getUserProfilePhoto(Meteor.userId());
     if(photoURL){
       return photoURL;
@@ -114,6 +115,9 @@ Template.Header.helpers({
     return LocalStore.get('currentUserRole');
   },
   currentUserRoleText() {
+    //TODO: SEARCHING FOR USE ROLE NEEDS IMPROVING, CONSIDER ADDING TO USER UTIL.
+    // HAS BEEN SLOWING THE SITE DOWN TREMENDOUSLY, COULD BE ISSUE WITH EMPTY LOCALSTORE
+    /*
     let currentUserRole = LocalStore.get('currentUserRole');
     //console.log("currentUserRoleText: " + currentUserRole);
     switch (currentUserRole) {
@@ -132,9 +136,12 @@ Template.Header.helpers({
       default:
           text = '';
     }
+    */
+    let text = "currentUserRoleText()";
     return text;
   },
   otherRoleText(){
+    /*
     let otherRole = LocalStore.get('otherRole');
     switch (otherRole) {
       case 'delegate':
@@ -151,16 +158,18 @@ Template.Header.helpers({
           break;
       default:
           text = TAPi18n.__('layout.header.nav_use_individual');
-    }
+    }*/
+    let text = "otherRoleText()";
     return text;
   },
   otherRole(){
-    return LocalStore.get('otherRole');
+    return "otherRole()";//LocalStore.get('otherRole');
   },
   usingAsDelegate(){
-    return LocalStore.get('usingAsDelegate');
+    return false;//LocalStore.get('usingAsDelegate');
   },
   isDelegate() {
+    /*
     var user = Meteor.user();
     var communityId = LocalStore.get('communityId');
     if (user && user.roles){
@@ -177,6 +186,8 @@ Template.Header.helpers({
       }
     }
     return LocalStore.get('isDelegate');
+    */
+    return false;
   },
   matchedTags(){
     return Template.instance().matchedTags.get();
@@ -201,12 +212,16 @@ Template.Header.helpers({
   notificationDate(createdAt) {
     return moment(createdAt).fromNow();
   },
+  */
   unreadClass(){
+    return 'noUnreads';
+    /*
     if (Notifications.find({read: false}).count() == 0){
       return 'noUnreads'
     }
+    */
   },
-  */
+
   showLanguages(){
     let settings = LocalStore.get('settings');
     var langs = settings.languages;

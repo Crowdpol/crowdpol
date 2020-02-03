@@ -1,9 +1,9 @@
-import './communityHeader.html';
+import './communityBreadcrumb.html';
 import { loadCommunityMap } from '../../../ui/components/maps/communityMap.js'
 import { setCommunity } from '../../../utils/community';
 import { Communities } from '../../../api/communities/Communities.js'
 
-Template.CommunityHeader.onCreated(function(){
+Template.CommunityBreadcrumb.onCreated(function(){
   self = this;
   //Local Storage
   var communityId = LocalStore.get('communityId');
@@ -21,7 +21,7 @@ Template.CommunityDash.onRendered(function(){
 
 });
 
-Template.CommunityHeader.events({
+Template.CommunityBreadcrumb.events({
   'click .community-card-image': function(event, template){
     let id = event.currentTarget.dataset.id;
     if(id){
@@ -47,7 +47,7 @@ Template.CommunityHeader.events({
   }
 });
 
-Template.CommunityHeader.helpers({
+Template.CommunityBreadcrumb.helpers({
   currentCommunity: function(){
     var communityId = LocalStore.get('communityId');
     let community = Communities.findOne({"_id":communityId});

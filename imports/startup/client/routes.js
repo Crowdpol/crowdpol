@@ -7,6 +7,9 @@ import '../../ui/main.js';
 
 // Global onEnter trigger to save communityInfo in LocalStore
 //FlowRouter.triggers.enter([loadCommunityInfo]);
+var publicRoutes = FlowRouter.group({name: 'public'});
+
+// Public Routes (no need to log in):
 
 // the App_notFound template is used for unknown routes and missing lists
 FlowRouter.notFound = {
@@ -14,10 +17,6 @@ FlowRouter.notFound = {
     BlazeLayout.render('App_body', {main: 'App_notFound'});
   }
 };
-
-// Public Routes (no need to log in):
-
-var publicRoutes = FlowRouter.group({name: 'public'});
 
 Accounts.onLogout(function() {
   console.log("routes: set community to root");
@@ -28,20 +27,32 @@ Accounts.onLogout(function() {
 publicRoutes.route('/', {
   name: 'App.home',
   action() {
-    let subdomain = LocalStore.get('subdomain');
-    if(subdomain=='landing'){
-      //BlazeLayout.render('App_body', { main: 'Landing' });
-      BlazeLayout.render('Landing');
+    if(!Session.get("bulletproof")){
+      console.log("rendering holding");
+        BlazeLayout.render('Holding');
     }else{
       if (!Meteor.user()){
+        console.log("rendering landing");
         //BlazeLayout.render('App_body', { main: 'Home' });
         BlazeLayout.render('Landing');
       }else{
-        BlazeLayout.render('App_body', { main: 'CommunityDash' });
+        console.log("rendering navigator");
+        BlazeLayout.render('App_body', { main: 'navigator' });
       }
     }
+  }
+});
 
-  },
+publicRoutes.route('/landing', {
+  name: 'App.home',
+  action() {
+    if(!Session.get("bulletproof")){
+      console.log("rendering holding");
+        BlazeLayout.render('Holding');
+    }else{
+        BlazeLayout.render('Landing');
+    }
+  }
 });
 
 publicRoutes.notFound = {
@@ -49,6 +60,21 @@ publicRoutes.notFound = {
     BlazeLayout.render('App_body', { main: 'App_notFound' });
   },
 };
+
+publicRoutes.route('/not-found', {
+  name: 'App.not-found',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_notFound' });
+  },
+});
+
+
+publicRoutes.route('/style', {
+  name: 'App.style',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Style' });
+  }
+});
 
 // Email Verification
 publicRoutes.route('/verify-email/:token',{
@@ -94,10 +120,15 @@ publicRoutes.route('/test/landing', {
 publicRoutes.route('/login', {
   name: 'App.login',
   action() {
-    if (!Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'Authenticate' });
+    if(!Session.get("bulletproof")){
+      console.log("rendering holding");
+        BlazeLayout.render('Holding');
     }else{
-      BlazeLayout.render('App_body', { main: 'Dash' });
+      if (!Meteor.user()){
+        BlazeLayout.render('App_body', { main: 'Authenticate' });
+      }else{
+        FlowRouter.go('/navigator');
+      }
     }
   },
 });
@@ -105,11 +136,12 @@ publicRoutes.route('/login', {
 publicRoutes.route('/signup', {
   name: 'App.login',
   action() {
-    //if (!Meteor.user()){
+    if(!Session.get("bulletproof")){
+      console.log("rendering holding");
+        BlazeLayout.render('Holding');
+    }else{
       BlazeLayout.render('App_body', { main: 'RegistrationWizard' });
-    /*}else{
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
-    }*/
+    }
   },
 });
 
@@ -254,6 +286,45 @@ var loggedInRoutes = FlowRouter.group({
     }
   }]
 });
+// GLOBAL LAYOUTS
+loggedInRoutes.route('/global', {
+  name: 'App.global',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      id: "generic",
+      cover: "Generic_Cover",
+      menu: "Generic_Menubar",
+      body: "Generic_Body",
+      footer: "Generic_Footer"
+    }});
+  },
+});
+loggedInRoutes.route('/navigator', {
+  name: 'App.navigator',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "navigagtor",
+      cover: "Navigator_Cover",
+      menu: "Navigator_Menubar",
+      body: "Navigator_Body",
+      footer: "Navigator_Footer"
+    }});
+  },
+});
+
+loggedInRoutes.route('/presence', {
+  name: 'App.presence',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Presence' });
+  },
+});
+
+loggedInRoutes.route('/presence:id', {
+  name: 'App.presence',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Presence' });
+  },
+});
 
 loggedInRoutes.route('/wizard', {
   name: 'App.wizard',
@@ -281,15 +352,13 @@ loggedInRoutes.route('/profile', {
     BlazeLayout.render('App_body', { main: 'ProfileSettings' });
   },
 });
-/*
-loggedInRoutes.route('/profile/:id', {
-  name: 'App.profile',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Profile' });
 
+loggedInRoutes.route('/navigator', {
+  name: 'App.navigator',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Navigator' });
   },
 });
-*/
 loggedInRoutes.route('/group/:handle?', {
   name: 'App.group',
   action() {
@@ -310,18 +379,7 @@ loggedInRoutes.route('/feed/:id', {
     BlazeLayout.render('App_body', { main: 'UserFeed' });
   },
 });
-/*
-loggedInRoutes.route('/scaffold/dash', {
-  name: 'App.scaffold',
-  action() {
-    BlazeLayout.render('Scaffold', {
-      left: 'PresenceLeft',
-      main: 'PresenceContent',
-      left: 'PresenceRight'
-    });
-  },
-});
-*/
+
 loggedInRoutes.route('/presence', {
   name: 'App.presence',
   action() {
@@ -339,7 +397,6 @@ loggedInRoutes.route('/presence/:id', {
     BlazeLayout.render('App_body', { main: 'UserPresence' });
   },
 });
-
 
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
@@ -360,7 +417,7 @@ loggedInRoutes.route('/dash/vote', {
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      BlazeLayout.render('App_body', { main: 'Navigator' });
       //console.log("/dash points to community dash");
     }else{
       BlazeLayout.render('App_body', { main: 'App_notFound' });
@@ -387,7 +444,7 @@ loggedInRoutes.route('/dash/delegates', {
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      BlazeLayout.render('App_body', { main: 'Navigator' });
       //console.log("/dash points to community dash");
     }else{
       BlazeLayout.render('App_body', { main: 'App_notFound' });
@@ -413,7 +470,7 @@ loggedInRoutes.route('/dash/groups', {
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      BlazeLayout.render('App_body', { main: 'Navigator' });
       //console.log("/dash points to community dash");
     }else{
       BlazeLayout.render('App_body', { main: 'App_notFound' });
@@ -439,7 +496,7 @@ loggedInRoutes.route('/dash/feed', {
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      BlazeLayout.render('App_body', { main: 'Navigator' });
       //console.log("/dash points to community dash");
     }else{
       BlazeLayout.render('App_body', { main: 'App_notFound' });
@@ -497,7 +554,7 @@ loggedInRoutes.route('/proposals/view/:id?', {
   }
 });
 
-/* Users without an account can see individual proposals */
+// Users without an account can see individual proposals
 
 
 loggedInRoutes.route('/delegate', {
@@ -506,14 +563,6 @@ loggedInRoutes.route('/delegate', {
     BlazeLayout.render('App_body', { main: 'Delegate' });
   },
 });
-/*
-loggedInRoutes.route('/candidate', {
-  name: 'App.candidate',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Candidate' });
-  },
-});
-*/
 
 
 // Admin Routes:
@@ -583,14 +632,3 @@ adminRoutes.route('/communities', {
     BlazeLayout.render('App_body', {main: 'AdminCommunities'});
   }
 });
-
-
-/*
-(function() {
-    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-    link.type = 'image/x-icon';
-    link.rel = 'shortcut icon';
-    link.href = 'http://www.stackoverflow.com/favicon.ico';
-    document.getElementsByTagName('head')[0].appendChild(link);
-})();
-*/

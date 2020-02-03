@@ -1,0 +1,20 @@
+<template name="Navigator_Menubar">
+  <div class="global-columns global-two-columns">
+    <div class="global-left-column"></div>
+    <div class="global-center-column">
+      <div class="navigator-breadcrumbs">
+        {{>CommunityBreadcrumb}}
+      </div>
+      <div class="community-menu">
+        <div class="community-title">
+          <h5 id="community-current-header global-menubar-title">{{menuBarTitle}}</h5>
+        </div>
+        <div class="community-tabs-container">
+          {{>Navigator_Menubar_Tabs}}
+        </div>
+      </div>
+      {{> NavigatorCompass}}
+    </div>
+    <div class="global-right-column"></div>
+  </div>
+</template>

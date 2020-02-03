@@ -2,6 +2,7 @@
 // Colours: General
 
 $black: #061219;
+$crowdpol-grey: #6d7272;
 
 $dark-grey-xdark: #182528;
 $dark-grey-dark: #343f42;
@@ -34,7 +35,7 @@ $green: #29A584;
 $light-red: #f2806a;
 $red: #D86852;
 $red-dark: #bb422a;
-$orange: #f64900;
+$orange: rgb(233,125,67);//#f64900;
 // Colours: Greyscale
 
 $grey-xdark: #282828;
@@ -42,6 +43,16 @@ $grey: #3d3d3d;
 $light-grey: #757575;
 $bright-grey: #5b5b5b;
 $taggle-grey: #5e5e5e;
+
+
+$education: #F5E829;
+$health: #C7D310;
+$environment: #6AB435;
+$infrastructure: #40B8EB;
+$law: #3F79BD;
+$economy: #30509D;
+$geopolitics: #E94F1D;
+$enterprise: #F3901D;
 
 $greyscale: #cecece;
 $greyscale-light: #ffffff;
@@ -51,11 +62,11 @@ $no-button: $red;
 $abstain-button: $yellow;
 
 // Fonts
-$default-font: 'Open Sans','Roboto', sans-serif;
-$body-font: 'Open Sans','Lora', serif;
-$home-title-font: 'Open Sans','Montserrat', sans-serif;
-$landing-paragraph-font: 'Open Sans','Georgia', sans-serif;
-$landing-heading-font: 'Open Sans',Arial, serif;
+$default-font: "futura-pt",'Open Sans','Roboto', sans-serif;
+$body-font: "futura-pt",'Open Sans','Lora', serif;
+$home-title-font: "futura-pt",'Open Sans','Montserrat', sans-serif;
+$landing-paragraph-font: "futura-pt",'Open Sans','Georgia', sans-serif;
+$landing-heading-font: "futura-pt",'Open Sans',Arial, serif;
 $base-line-height: 1.6rem;
 $base-font-size: 1rem;
 $small-font-size: 0.8rem;

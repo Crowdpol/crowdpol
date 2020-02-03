@@ -11,19 +11,27 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 
 // Import needed templates
-import './layouts/body/body.js';
+import './layouts/main.js';
 import './components/main.js';
+import './global_pages/main.js';
 
+//site style template
+import './pages/style/style.js';
+
+//index or home page
 import './pages/landing/landing.js';
+import './pages/holding/holding.js';
+// user authentication
+import './pages/authenticate/authenticate.js';
+import './pages/resetPassword/newPassword/newPassword.js';
+import './pages/resetPassword/recoverPassword/recoverPassword.js';
 
-
+// user navigator or dash
+import './pages/navigator/navigator.js';
 
 import './pages/settings/profileSettings.js';
 import './pages/settings/accountSettings.js';
-import './pages/authenticate/authenticate.js';
-import './pages/dash/dash.js';
-import './pages/resetPassword/newPassword/newPassword.js';
-import './pages/resetPassword/recoverPassword/recoverPassword.js';
+
 import './pages/contact/contact.js';
 import './pages/admin/dash.js';
 import './pages/profile/profile.js';
@@ -45,7 +53,7 @@ import './pages/notifications/notifications.js';
 import './pages/group/group.js';
 import './pages/compass/compass.js';
 import './pages/tags/interests.js';
-import './pages/presence/userPresence.js';
+import './pages/presence/presence.js';
 
 import './pages/group/groupList.js';
 import './pages/not-found/not-found.js';
@@ -61,7 +69,7 @@ import './pages/faq/faq.js';
 import './pages/feed/userFeed.js';
 import './pages/test/test.js';
 import './v2/main.js';
-
+//import './pages/dash/dash.js';
 */
 
 Meteor.startup(function () {

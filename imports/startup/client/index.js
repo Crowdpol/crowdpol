@@ -15,6 +15,7 @@ Tracker.autorun(function() {
 
 Meteor.startup(function () {
   // Client startup method.
+  
   var subdomain = window.location.host.split('.')[0]
   var rootUrl = 'https://' + subdomain + Meteor.settings.public.domain;
   process.env.ROOT_URL = rootUrl;

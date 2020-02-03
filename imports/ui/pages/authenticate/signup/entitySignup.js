@@ -132,7 +132,7 @@ Template.entitySignup.events({
              //console.log(LocalStore.get('currentUserRole'));
              //console.log(LocalStore.get('isDelegate'));
              //console.log("entity user created, now redirect given, redirecting to /dash");
-             FlowRouter.go('/dash');
+             FlowRouter.go('/');
            }
          }
        });

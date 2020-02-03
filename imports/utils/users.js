@@ -45,7 +45,7 @@ export const getUserProfilePhoto = (id) => {
       return photoURL;
     }
   }
-  return "/img/default-user-image.png";;
+  return "/img/default-user-image.png";
 };
 
 //check if user has cover, if true, return coverURL or return false

@@ -1,0 +1,13 @@
+<template name="Modal">
+  <div id="overlay"></div>
+  <div class="modal">
+    <div class="close-modal">
+      <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="close-modal">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="modal-content">
+      {{> Template.dynamic template=templateName}}
+    </div>
+  </div>
+</template>
