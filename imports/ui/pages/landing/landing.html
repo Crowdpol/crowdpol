@@ -32,7 +32,25 @@
             <h1>Imagine changing the world from your phone</h1>
             <p>Initiate and support global change with a click!</p>
             <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
-            <div id="landing-phone" class="isometric-phone"></div>
+            <div class="phone-wrapper">
+            <div id="landing-phone" class="isometric-phone">
+
+            </div>
+            <!-- Add in later when there is time-->
+            <svg width="100vw" height="500px">
+              <circle cx="50" cy="50" r="20"
+              stroke="green" stroke-width="3" fill="transparent" />
+              <circle cx="50" cy="50" r="8"
+              stroke="green" stroke-width="1" fill="green" />
+              <line x1="50" y1="50" x2="200" y2="200" style="stroke:#ccc;stroke-width:2" stroke-dasharray="5,5" />
+              <g fill="none" stroke="#ccc" stroke-width="3">
+                <path stroke-dasharray="5,5" d="M50 50 l215 250"  />
+
+              </g>
+            Sorry, your browser does not support inline SVG.
+            </svg>
+
+            </div>
           </div>
           <div class="jumbo-content">
             <div class="recent-stories">
@@ -43,7 +61,8 @@
                   <i class="material-icons">keyboard_arrow_left</i>
                 </div>
                 <div class="recent-stories-viewport">
-                  <!--
+                  Under Construction
+
                   <div class="recent-stories-scroller">
 
                     {{#each proposal in previewProposals}}
@@ -66,7 +85,7 @@
 
 
                   </div>
-                  -->
+                <!--  -->
                 </div>
                 <div class="recent-stories-left recent-stories-arrow">
                   <i class="material-icons">keyboard_arrow_right</i>
@@ -77,7 +96,7 @@
             <div class="jumbo-copy">
               <h2>When you have the world in your hands, it’s easier to <span class="green">navigate</span> its needs.</h2>
               <ul class="landing-page-list">
-                <li>Get an <span class="heavy">overview</span> of the trending proposals, polls, petitions and fundraisers in the local and global areas that you select.</li>
+                <li>Get an <span class="heavy">overview</span> of the trending proposals, polls, petitions and fundraisers.</li>
                 <li>Write your own <span class="heavy">proposals</span> and put them in the spotlight through our network.</li>
                 <li>Become a <span class="heavy">delegate</span> and raise awareness about your causes</li>
                 <li>Allocate funds and support projects through the <span class="heavy">altruistic</span> wallet</li>
@@ -112,8 +131,8 @@
 
               <div class="crowdpol_red_button"></div>
             </div>
-            <h3 class="h2">Create <span class="red">proposals</span> &amp; connect with like-minded individuals around the globe</h3>
-            <p>Collective competence is the result of sharing information, resources and advice. The red button will help you:</p>
+            <h3 class="h2">Create <span class="red">proposals</span> &amp; connect with like-minded people around the globe</h3>
+            <p class="hide-480">Collective competence is the result of sharing information, resources and advice. The red button will help you:</p>
             <ul class="landing-page-list">
               <li><span class="heavy">Initiate</span> powerful change processes that can effect local, national and global decisionmaking.</li>
               <li><span class="heavy">Support</span> important causes aligned with your values.</li>
@@ -179,8 +198,14 @@
             <form>
               <input type="text" name="signup-email" placeholder="Email Address" class="landing-input"/>
               <input type="password" name="signup-password" placeholder="Password"  class="landing-input"/>
-              <button class="landing-button">Get Started<i class="material-icons">keyboard_arrow_right</i></button>
-              <input type="checkbox" name="signup-newsletter" class="landing-input"/>
+              <a class="landing-button signup-button" href="/signup">
+                Get Started<i class="material-icons">keyboard_arrow_right</i>
+              </a>
+              <label class="checkbox-container">
+                Sign up to our newsletter
+                <input type="checkbox" name="signup-newsletter" id="signup-newsletter">
+                <span class="checkmark"></span>
+              </label>
               <small>Clicking Get Started accepts <a href="/aup">terms of use</a></small>
             </form>
           </div>
@@ -202,6 +227,7 @@
                 <li><span class="heavy">Spread</span> the word.</li>
                 <li><span class="heavy">Testpilot</span> the platform.</li>
               </ul>
+              <a href="/not-found" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
             </div>
           </div>
         </div>
@@ -209,7 +235,7 @@
 
       <section id="return-section" class="landing-page-section">
         <div class="section-content" id="return-section-content">
-          <a href="#imagine-section" data-anchor="#imagine-section" class="arrow_up"></a>
+          <a href="#imagine-section" data-anchor="#imagine-section" class="arrow-up"></a>
         </div>
       </section>
     </div>
@@ -238,12 +264,9 @@
               <li class="footer-li-link"><a href="/product">Product</a></li>
               <li class="footer-li-link"><a href="/pricing">Pricing</a></li>
               <li class="footer-li-link"><a href="/enterprise">Enterprice</a></li>
-              <li class="footer-li-link"><a href="/partners">Partners</a></li>
               <li class="footer-li-link"><a href="/partner-search">Find a partner</a></li>
-              <li class="footer-li-link"><a href="/templates">Templates</a></li>
               <li class="footer-li-link"><a href="/integrations">Integrations</a></li>
               <li class="footer-li-link"><a href="/developers">Developers</a></li>
-              <li class="footer-li-link"><a href="/students">Students</a></li>
             </ul>
           </div>
 
@@ -254,14 +277,12 @@
               <li class="footer-li-link"><a href="/contact">Contact us</a></li>
               <li class="footer-li-link"><a href="/contact">Careers</a></li>
               <li class="footer-li-link"><a href="/media">In the news</a></li>
-              <li class="footer-li-link"><a href="/press-kit">Press kit</a></li>
               <li class="footer-li-link"><a href="/blog">Blog</a></li>
             </ul>
           </div>
           <div class="footer-column">
             <h3>Press</h3>
             <ul class="footer-ul">
-              <li class="footer-li-link"><a href="/clients">Client projects</a></li>
               <li class="footer-li-link"><a href="/creative">Creative agencies</a></li>
               <li class="footer-li-link"><a href="/product">Product management</a></li>
               <li class="footer-li-link"><a href="/agile">Agile projects</a></li>
@@ -276,21 +297,24 @@
               <li class="footer-li-link"><a href="/guides">Guides</a></li>
               <li class="footer-li-link"><a href="/services">Professional services</a></li>
               <li class="footer-li-link"><a href="/support">Support</a></li>
+              <li class="footer-li-link"><a href="/blog">Blog</a></li>
             </ul>
+          </div>
+          <div class="footer-column">
             <h3>Legal</h3>
             <ul class="footer-ul">
               <li class="footer-li-link"><a href="/terms">Terms of service</a></li>
               <li class="footer-li-link"><a href="/privacy">Privacy policy</a></li>
               <li class="footer-li-link"><a href="/security">Security</a></li>
             </ul>
-            <div class="social-bar-footer">
-              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social twitter"><img src="/img/landing/twitter.svg"></a>
-              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social linkedin"><img src="/img/landing/linkedin.svg"></a>
-              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social facebook"><img src="/img/landing/facebook.svg"></a>
-              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social instagram"><img src="/img/landing/instagram.svg"></a>
-              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social youtube"><img src="/img/landing/youtube.svg"></a>
-              <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social soundcloud"><img src="/img/landing/soundcloud_icon.svg"></a>
-            </div>
+          </div>
+          <div class="social-bar-footer">
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social twitter"><img src="/img/landing/twitter.svg"></a>
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social linkedin"><img src="/img/landing/linkedin.svg"></a>
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social facebook"><img src="/img/landing/facebook.svg"></a>
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social instagram"><img src="/img/landing/instagram.svg"></a>
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social youtube"><img src="/img/landing/youtube.svg"></a>
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social soundcloud"><img src="/img/landing/soundcloud_icon.svg"></a>
           </div>
         </div>
 
