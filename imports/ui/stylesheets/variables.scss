@@ -1,4 +1,14 @@
 
+/* MOVE TO VARIABLES.SCSS WHEN COMPLETE */
+$landing-green: #7fc93e;//#50c22e;
+//color: #6d7272; //grey, guessing for font
+$landing-orange: #fa970e; //orange
+$landing-red: #fa5427; //red
+$landing-blue: #91b4b7;
+$landing-background: rgb(249,249,249);
+$landing-header: rgb(95,102,103);
+
+
 // Colours: General
 
 $black: #061219;
@@ -93,4 +103,4 @@ $header-height-xs: 200px;
 $aside-width: 200px;
 
 //test border max-width
-$test-border-width: 5px;
+$test-border-width: 0px;
