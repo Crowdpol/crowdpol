@@ -20,7 +20,7 @@ import './pages/style/style.js';
 
 //index or home page
 import './pages/landing/landing.js';
-
+import './pages/holding/holding.js';
 // user authentication
 import './pages/authenticate/authenticate.js';
 import './pages/resetPassword/newPassword/newPassword.js';
