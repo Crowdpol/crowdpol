@@ -1,6 +1,7 @@
 import './breakpoint.scss';
 import './variables.scss';
 import './typography.scss';
+import './holding.scss';
 import './global-layout.scss';
 import './global.scss';
 import './headers.scss';

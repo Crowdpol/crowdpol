@@ -1,0 +1,32 @@
+<template name="Holding">
+  <div class="holding-container">
+    <div class="holding-wrapper">
+      <div class="holding-logo"></div>
+      {{#if userVerified}}
+        <div class="user-verified">
+          <p>You are verified</p>
+          <a href="/landing">Proceed</a>
+        </div>
+      {{else}}
+        <div class="under-construction">
+          <p>Under Construction</p>
+          <div class="holding-form">
+            <input type="password" class="holding-password" name="holding-password">
+            <button class="holding-signin">Unlock</button>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="UnderConstruction">
+  <div class="holding-container">
+    <div class="holding-wrapper">
+      <div class="holding-logo"></div>
+        <div class="under-construction">
+          <p>Coming soon</p>
+        </div>
+    </div>
+  </div>
+</template>
