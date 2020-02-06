@@ -1550,22 +1550,24 @@ footer{
 
 	/* SECTION 4: RESULTS */
 	#results-section{
-		margin-bottom: 0px;
+		margin-bottom: 85px;
 	}
 	#results-section-content{
 		position: relative;
 		.jumbo-header{
 			position: absolute;
-			right: 0;
+			right: 25px;
 			top: 0;
 			width: 50%;
+			p{
+				margin-bottom: 45px;
+			}
 		}
 		.jumbo-content{
 			position: relative;
 			float: left;
 			width: 69%;
 			margin-left: 23%;
-			border: solid 1px red;
 			h3.h2{
 				margin-right: 35%;
 				margin-bottom: 20px;
@@ -1602,13 +1604,7 @@ footer{
 	}
 
 	/* SECTION 5: RESULT */
-	#results-section{
-		h1, h2, h3{
-			span{
-				color: $landing-blue !important;;
-			}
-		}
-	}
+
 	/* SECTION 6: SUPPORT */
 	#support-section{
 
