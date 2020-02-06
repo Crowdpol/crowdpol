@@ -12,12 +12,13 @@ var publicRoutes = FlowRouter.group({name: 'public'});
 // Public Routes (no need to log in):
 
 // the App_notFound template is used for unknown routes and missing lists
+/*
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('App_body', {main: 'App_notFound'});
   }
 };
-
+*/
 Accounts.onLogout(function() {
   console.log("routes: set community to root");
   //setCommunityToRoot();
