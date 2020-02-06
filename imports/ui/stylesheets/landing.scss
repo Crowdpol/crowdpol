@@ -426,6 +426,7 @@ ul.landing-page-list{
 		text-decoration: none;
 	}
 }
+
 /* TESTING ONLY - CAN REMOVE */
 #viewport-size{
 	border: solid 1px black;
@@ -1439,357 +1440,196 @@ footer{
   div.landing-page-content, footer{
     border: solid $test-border-width red;
   }
-	.hide-768{
+	.hide-480, .hide-768{
+		display: inline-block;
+	}
+	.hide-1024{
 		display: none;
 	}
-	h1, h2{
-		font-size: 1.9rem;
-		line-height: 2.1rem;
-		span{
-			font-size: 1.9rem !important;
-			line-height: 2.1rem !important;
-			font-weight: 900 !important;
-		}
-	}
-	h3{
-		font-size: 1.7rem;
-		line-height: 2.1rem;
-		span{
-			font-size: 1.7rem !important;
-			line-height: 2.1rem !important;
-			font-weight: 900 !important;
-		}
-	}
-	.section-content{
-		text-align: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		p{
-			margin-bottom: 25px;
-		}
-		ul.landing-page-list{
-			text-align: left;
-		}
-	}
 
+	h1, h2.h1{
+		font-weight: 600;
+	}
 	/* SECTION 1: IMAGINE */
 	#imagine-section{
-
+		margin-bottom: 90px;
 	}
 	#imagine-section-content{
-		background-position: 35% -85px;
-		background-size: 1450px auto;
-		padding-top: 40px;
-
+		background-image: url(img/landing/crowdpol_landing_1_1200_bg.jpg);
+		background-position: center top;
+		padding-top: 111px;
 		.jumbo-header{
-			//display: flex;
-			//justify-content: column;
-			//margin-top: 40px;
-			margin: 0;
-			text-align:center;
-			margin-bottom: 40px;
-			p,h1{
-				margin: 0 60px;
-				margin-bottom: 25px;
+			margin: 0 70px;
+			p{
+				font-size: 1.2rem;
+				margin-top: 37px;
+				margin-bottom: 41px;
+				margin-left: 0px;
 			}
-			#landing-phone{
-				height:525px;
-				width: 230px;
-				margin: 0 auto;
-				margin-top: 25px;
+			h1{
+				margin-left: 0px;
+				margin-right: 30%
 			}
-
-		}
-		.jumbo-content{
-			display: flex;
-			flex-direction: column-reverse;
-		}
-		.recent-stories{
-			height: 270px;
-			text-align: center;
-			margin-top: 50px;
-		}
-		.jumbo-copy{
-			margin: 0 80px;
-		}
-		.recent-stories-wrapper{
-			text-align: center;
-			height: 200px;
-			width: 100vw;
-			display: flex;
+			.landing-button{
+				margin-left: 0px;
+			}
+	    #landing-phone{
+				display:none;
+	    }
+	  }
+	  .jumbo-content{
+			margin: 0px;
+			margin-top: 110px;
 			flex-direction: row;
-			padding: 10px;
-			.recent-stories-viewport{
-				width: calc(100vw - 70px);
-				height: 350px;
-				max-height: 350px;
-				overflow: hidden;
-				//border: solid 1px red;
-			}
-		}
-		.recent-stories-scroller{
-			flex-direction: row;
-			display: flex;
-			width: calc(5 * 100vw);
-			.proposal-item{
-
-				list-style: none;
-				max-height: 350px;
-			}
-		}
-		.recent-story{
-			width: 9%;
-		}
-		.phone-wrapper{
-			#landing-phone{
-
-			}
-			svg{
-				position: absolute;
-				top: 0;
-				right: 0;
+	  }
+	  .recent-stories{
+			min-width: 52%;
+	  }
+	  .jumbo-copy{
+			min-width: 44%;
+			margin-top: 100px;
+	  }
+	  .recent-stories-wrapper{
+	    .recent-stories-viewport{
+	    }
+	  }
+		ul.landing-page-list{
+			li{
+				line-height: 1.1rem;
 			}
 		}
 	}
 
 	/* SECTION 2: CONTRIBUTE */
 	#contribute-section{
-
+		margin-bottom: 112px;
 	}
 	#contribute-section-content{
+		background-image: url(img/landing/crowdpol_landing_3_1200_bg.jpg);
+		background-position: center 155px;
 		.jumbo-header{
-			margin-bottom: 70px;
+			p{
+				font-size: 1.2rem;
+			}
 		}
 		.jumbo-content{
-			margin: 0px 22px;
-			.landing-page-list{
-				padding-inline-start: 30px;
-				margin-bottom: 25px;
-			}
+			margin-top: 490px;
+			margin-left: 36%;
 		}
-
 		#red-button-graphic{
-			display: flex;
-			flex-wrap: wrap;
-			width: 100%;
-			height: 460px;
-			//border: solid 1px pink;
-			.isometric-man,.isometric-woman{
-				width: 60px;
-				height: 120px;
-			}
-			.speechbubble{
-				width:110px;
-				height: 95px;
-			}
-			.crowdpol_red_button{
-				width:185px;
-				height:205px;
-			}
+
 		}
 	}
 
 	/* SECTION 3: NETWORK */
 	#network-section{
-
-		margin-bottom: 75px;
+		margin-bottom: 152px;
 	}
 	#network-section-content{
-		//background-position: 0 250px;
-		//background-size: 1000px;
-		background-position: center 250px;
-		background-size: 1430px;
+		background-image: url(img/landing/crowdpol_landing_2_1200_bg.jpg);
+		background-position: center 155px;
+		padding-right: 50px;
 		.jumbo-header{
-			margin: 0px;
-		}
-		.jumbo-content{
-
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			h3{
-				margin: 45px 25px
+			margin-left: 12%;
+			h1.h2{
+				line-height: 3.5rem;
 			}
 			p{
-				margin: 0 60px;
+				font-size: 1.2rem;
 			}
 		}
-		.isometric_sun_facing_right{
-			margin-top: 86px;
-			margin-bottom: 30px;
-			width: 260px;
-			height: 270px;
-		}
-		.isometric_globe{
-			width: 275px;
-			height: 300px;
-			margin-top: 65px;
+		.jumbo-content{
+			margin-left: 26%;
+			margin-top: 40px;
+			p{
+				line-height: 1.6rem;
+				margin-bottom: 15px;
+			}
 		}
 	}
 
 	/* SECTION 4: RESULTS */
 	#results-section{
-		margin-bottom: 98px;
+		margin-bottom: 0px;
 	}
 	#results-section-content{
+		position: relative;
 		.jumbo-header{
-			margin: 0 40px;
-			h2{
-				//margin: 0 80px;
-				margin-bottom: 25px;
-			}
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 50%;
 		}
 		.jumbo-content{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-		}
-		.isometric-man{
-			height: 300px;
-			width: 135px;
-			margin-top: 66px;
-			margin-bottom: 69px;
-		}
-		.landing-page-list{
-			margin: 0 30px;
-		}
-	}
-
-	/* SECTION 5: SIGNUP */
-	#signup-section{
-		margin-bottom: 51px;
-	}
-	#signup-section-content{
-		.jumbo-header{
-			margin: 0 30px;
-		}
-		.jumbo-content{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			padding: 0 25px;
-
-			.landing-input{
-				width: 100%;
-				height: 60px;
-				font-size: 1rem;
-				padding: 12px 20px;
-				margin: 8px 0;
-				display: inline-block;
-				border: 1px solid #ccc;
-				border-radius: 4px;
-				box-sizing: border-box;
-
+			position: relative;
+			float: left;
+			width: 69%;
+			margin-left: 23%;
+			border: solid 1px red;
+			h3.h2{
+				margin-right: 35%;
+				margin-bottom: 20px;
+    		font-size: 1.9rem;
+    		line-height: 1.9rem;
 			}
-			::-webkit-input-placeholder { /* Edge */
-				color: #ccc;
-			}
-
-			:-ms-input-placeholder { /* Internet Explorer 10-11 */
-				color: #ccc;
-			}
-
-			::placeholder {
-				color: #ccc;
-			}
-			/*
-			input[type=submit] {
-				width: 100%;
-				background-color: #4CAF50;
-				color: white;
-				padding: 14px 20px;
-				margin: 8px 0;
-				border: none;
-				border-radius: 4px;
-				cursor: pointer;
-			}
-			*/
-			.signup-button{
-				display: inline-block;
-				margin-top: 25px;
-				height: 65px;
-				width: 100%;
-				border-radius: 36px;
-				border: none;
-				background-color: $landing-green;
-				margin-bottom: 25px;
-				&:hover {
-					background-color: #45a049;
+			ul.landing-page-list{
+				li{
+					line-height: 1.2rem;
+					margin-bottom: 5px;
 				}
 			}
+		}
+		.isometric-man{
+			margin-top: 0px;
+			width: 28%;
+			height: 435px;
+			margin-bottom: 50px;
+			-moz-transform: scaleX(-1);
+	    -o-transform: scaleX(-1);
+	    -webkit-transform: scaleX(-1);
+	    transform: scaleX(-1);
+	    filter: FlipH;
+	    -ms-filter: "FlipH";
+		}
+	}
+	/* SECTION 5: SIGNUP */
+	#signup-section{
 
-			.checkbox-container{
-				padding-left: 0px;
-				margin: 0px 77px;
-				font-size: 1.1rem;
-				margin-bottom: 5px;
-				font-weight: lighter;
-			}
-			a{
-				font-size: 0.8rem;
+	}
+	#signup-section-content{
+		.jumbo-header{}
+		.jumbo-content{}
+	}
+
+	/* SECTION 5: RESULT */
+	#results-section{
+		h1, h2, h3{
+			span{
+				color: $landing-blue !important;;
 			}
 		}
 	}
-
 	/* SECTION 6: SUPPORT */
 	#support-section{
-		margin-bottom: 50px;
+
 	}
 	#support-section-content{
-		.jumbo-content{
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-		}
-		.isometric_heart{
-			width: 200px;
-			height: 235px;
-		}
-	}
-	#return-section{
+		#real_isometric_heart{
 
+
+		}
 	}
+
 	#return-section-content{
-		display: flex;
-		a{
-			display: inline-block;
-			width: 90px;
-			height: 100px;
+		.arrow_up{
+			width: 93;
+			height: 100;
+			display: block;
+			border: none;
+			text-decoration: none;
 		}
 	}
 
-	footer{
-		margin: 0 85px;
-		div.footer-container{
-			div.footer-content{
-				display: flex;
-				flex-direction: row;
-				flex-wrap: wrap;
-			}
-		}
-		#info-footer,.footer-column{
-			min-width: 50%;
-			text-align: left;
-			margin-bottom: 40px;
-		}
-		div.logo-bar-footer{
-			.footer-logo{
-				height: 40px;
-				width: 100%;
-			}
-			margin-bottom: 35px;
-		}
-		div.social-bar-footer{
-			width: 100%;
-		}
-
-	}
 }
 @media only screen and (min-width: $desktop){
   div.landing-page-content, footer{
