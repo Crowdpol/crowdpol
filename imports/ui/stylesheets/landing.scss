@@ -572,6 +572,10 @@ footer{
 	}*/
 	margin-bottom:30px;
 }
+
+.hide-480, .hide-768, .hide-1024, .hide1200{
+	display: none;
+}
 /* RESPONSIVE LAYOUTS
 
 @media only screen and (min-width: $tiny){
@@ -642,8 +646,9 @@ footer{
     border: solid $test-border-width orange;
   }
 	.hide-480{
-		display: none;
+		display: none !important;
 	}
+
 	h1, h2.h1{
 		font-size: 2.34rem;
     line-height: 2.34rem;
@@ -1091,11 +1096,11 @@ footer{
 	div.landing-page-content, footer{
 		border: solid $test-border-width green;
 	}
-	.hide-480{
-		display:inline;
+	.hide-480, .hide-1024{
+		display:inline !important;
 	}
 	.hide-768{
-		display: none;
+		display: none !important;
 	}
 	h1, h2.h1{
 		font-size: 3.8rem;
@@ -1444,7 +1449,7 @@ footer{
 		display: inline-block;
 	}
 	.hide-1024{
-		display: none;
+		display: none !important;
 	}
 
 	h1, h2.h1{
@@ -1599,8 +1604,13 @@ footer{
 
 	}
 	#signup-section-content{
-		.jumbo-header{}
-		.jumbo-content{}
+		.jumbo-header{
+			margin: 0 95px;
+		}
+		.jumbo-content{
+			margin: 0 247px;
+			margin-top: 33px
+		}
 	}
 
 	/* SECTION 5: RESULT */
@@ -1610,19 +1620,61 @@ footer{
 
 	}
 	#support-section-content{
-		#real_isometric_heart{
-
-
+		#isometric-heart-column{
+			width: 22%;
+			margin-left: 220px;
 		}
 	}
 
-	#return-section-content{
-		.arrow_up{
-			width: 93;
-			height: 100;
+	footer{
+		.section-content {
+			align-items:stretch;
+		}
+		margin-left: 70px;
+		a{
+			font-size: 0.8rem;
+		}
+		div.logo-bar-footer {
+			.footer-logo{
+				height: 60px;
+			}
+		}
+		#info-footer{
+			width: 100%;
 			display: block;
-			border: none;
-			text-decoration: none;
+			min-width: 215px;
+			width: 20%;
+			p{
+				font-size: 0.8rem;
+				color: $landing-header !important;
+			}
+			#all-rights{
+				margin-bottom: 0;
+				line-height: 0.5rem;
+				margin-top: 8px;
+			}
+			#copyright{
+				margin-bottom: 28px;
+				font-size: 0.8rem;
+			}
+			#crowdpol-ecosystem{
+				margin-bottom: 0px;
+				line-height: 0.8rem;
+			}
+			#tools-for-change{
+				margin-bottom: 62px;
+			}
+			.language-select{
+				display: flex;
+				align-content: flex-start;
+				i.material-icons{
+					top: -4px !important;
+				}
+			}
+		}
+		.footer-column{
+			min-width: 160px;
+			width: 15%;
 		}
 	}
 
