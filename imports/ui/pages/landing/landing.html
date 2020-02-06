@@ -27,16 +27,16 @@
         <!-- CURRENTLY NOT ENABLED: MOVIE INTRO PENDING
         <div class="movie-overlay"></div>
         -->
-        <div class="section-content world-map" id="imagine-section-content">
+        <div class="section-content" id="imagine-section-content">
           <div class="jumbo-header">
             <h1>Imagine changing the world from your phone</h1>
             <p>Initiate and support global change with a click!</p>
             <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
+            <!--
             <div class="phone-wrapper">
             <div id="landing-phone" class="isometric-phone">
 
             </div>
-            <!-- Add in later when there is time-->
             <svg width="100vw" height="500px">
               <circle cx="50" cy="50" r="20"
               stroke="green" stroke-width="3" fill="transparent" />
@@ -51,18 +51,20 @@
             </svg>
 
             </div>
+            -->
           </div>
           <div class="jumbo-content">
             <div class="recent-stories">
-              <h2>Recent stories<span class="hide-480">:</span></h2>
+              <h2>Recent stories</h2>
 
               <div class="recent-stories-wrapper">
+
                 <div class="recent-stories-left recent-stories-arrow">
                   <i class="material-icons">keyboard_arrow_left</i>
                 </div>
                 <div class="recent-stories-viewport">
                   Under Construction
-
+                  <!--
                   <div class="recent-stories-scroller">
 
                     {{#each proposal in previewProposals}}
@@ -85,7 +87,7 @@
 
 
                   </div>
-                <!--  -->
+                  -->
                 </div>
                 <div class="recent-stories-left recent-stories-arrow">
                   <i class="material-icons">keyboard_arrow_right</i>
@@ -94,7 +96,7 @@
 
             </div>
             <div class="jumbo-copy">
-              <h2>When you have the world in your hands, it’s easier to <span class="green">navigate</span> its needs.</h2>
+              <h2>When you have the world in your hands, it’s easier to <span class="green">navigate</span> it's needs.</h2>
               <ul class="landing-page-list">
                 <li>Get an <span class="heavy">overview</span> of the trending proposals, polls, petitions and fundraisers.</li>
                 <li>Write your own <span class="heavy">proposals</span> and put them in the spotlight through our network.</li>
@@ -110,13 +112,14 @@
 
       <!-- CONTRIBUTE SECTION -->
       <section id="contribute-section" class="landing-page-section">
-        <div class="section-content world-map" id="contribute-section-content">
+        <div class="section-content" id="contribute-section-content">
           <div class="jumbo-header">
             <h2 class="h1">A global village of changemakers</h2>
             <p>Collective competence comes through sharing ideas.</p>
             <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
           </div>
           <div class="jumbo-content">
+            <!--
             <div id="red-button-graphic">
               <div class="speechbubble">c02 emission tax?</div>
               <div class="isometric-man"></div>
@@ -131,8 +134,9 @@
 
               <div class="crowdpol_red_button"></div>
             </div>
-            <h3 class="h2">Create <span class="red">proposals</span> &amp; connect with like-minded people around the globe</h3>
-            <p class="hide-480">Collective competence is the result of sharing information, resources and advice. The red button will help you:</p>
+            -->
+            <h3 class="h2">Create <span class="red">proposals</span> &amp; connect with other changemakers around the globe</h3>
+            <p class="hide-480 hide-768">Collective competence is the result of sharing information, resources and advice. The red button will help you:</p>
             <ul class="landing-page-list">
               <li><span class="heavy">Initiate</span> powerful change processes that can effect local, national and global decisionmaking.</li>
               <li><span class="heavy">Support</span> important causes aligned with your values.</li>
@@ -146,7 +150,7 @@
 
       <!-- NETWORK SECTION -->
       <section id="network-section" class="landing-page-section">
-        <div class="section-content polygon-landscape" id="network-section-content">
+        <div class="section-content" id="network-section-content">
           <div class="jumbo-header">
             <h2 class="h1">What problems do you want to solve?</h2>
             <p>Find your space in the political sphere</p>
@@ -154,19 +158,22 @@
           </div>
 
           <div class="jumbo-content">
+            <!--
             <div class="isometric_sun_facing_right"></div>
             <div class="isometric-man"></div>
             <div class="isometric_globe hide-480"></div>
+            -->
             <h3 class="h2">Set your <span class="orange">compass</span> to discover global landscapes of competing values & interests.</h3>
             <p>To be able to navigate intelligently through the vast amounts of political causes generated by our users, we have developed a personalised filtering-system that we call <strong>the Compass.</strong> When you register you will get a presence that receives a feed with a propsals tailored to your areas, interests and values.</p>
             <a href="/not-found" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
-            <div class="isometric_globe"></div>
+            <div class="isometric_globe hide-768"></div>
           </div>
         </div>
       </section>
 
       <!-- RESULTS SECTION -->
       <section id="results-section" class="landing-page-section">
+        <div class="isometric-man hide-480" id="isometric-man-column"></div>
         <div class="section-content" id="results-section-content">
           <div class="jumbo-header">
             <h2 class="h1">Increase your presence</h2>
@@ -174,7 +181,7 @@
             <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
           </div>
           <div class="jumbo-content">
-            <div class="isometric-man"></div>
+            <div class="isometric-man hide-768"></div>
             <h3 class="h2">Get an overview of your <span class="turquoise">presence</span> in the world</h3>
             <ul class="landing-page-list">
               <li><span class="heavy">Overview</span> your proposals, debates, petitions and fundraisers.</li>
@@ -214,13 +221,14 @@
 
       <!-- SUPPORT SECTION -->
       <section id="support-section" class="landing-page-section">
+        <div class="isometric_heart hide-480" id="isometric-heart-column"></div>
         <div class="section-content" id="support-section-content">
           <div class="jumbo-header">
-            <h3>Support Crowdpol</h3>
+            <h3 class="h2">Support Crowdpol</h3>
           </div>
           <div class="jumbo-content">
-            <div class="isometric_heart"></div>
-            <div class="">
+            <div class="isometric_heart hide-768"></div>
+            <div >
               <ul class="landing-page-list">
                 <li><span class="heavy">Fund</span> the project.</li>
                 <li><span class="heavy">Create</span> a presence.</li>
@@ -249,11 +257,14 @@
 
         <div class="footer-content">
           <div id="info-footer">
-
-            <p>All Rights Reserved</p>
-            <span id="copyright">© crowdpol.com</span>
-            <p class="no-margin-bottom">Crowdpol Ecosystem</p>
-            <p>Tools for changemakers</p>
+            <div>
+            <p id="all-rights">All Rights Reserved</p>
+            <p id="copyright">© crowdpol.com</p>
+            </div>
+            <div>
+            <p id="crowdpol-ecosystem">Crowdpol Ecosystem</p>
+            <p id="tools-for-change">Tools for changemakers</p>
+            </div>
             <div class="language-select">
               <i class="material-icons">language</i><span class="language-selector">English</span>
             </div>
