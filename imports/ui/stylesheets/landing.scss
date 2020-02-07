@@ -199,6 +199,18 @@ h2 > span{
 	//line-height: 1.8rem;
 	//font-weight: 600;
 }
+.recent-stories{
+	border: solid 1px #ccc;
+}
+.recent-stories-wrapper{
+	border: solid 1px blue;
+}
+.recent-stories-viewport{
+	border: solid 1px red;
+}
+.recent-stories-scroller{
+	border: solid 1px orange;
+}
 
 /* PAGE CONTENT */
 .landing-page-content{
@@ -736,9 +748,12 @@ footer{
 			flex-direction: column-reverse;
 		}
 		.recent-stories{
-			height: 270px;
+			height: 285px;
 			text-align: center;
 			margin-top: 50px;
+			h2{
+				margin-bottom: 15px;
+			}
 		}
 		.jumbo-copy{
 			margin: 0 80px;
@@ -746,7 +761,7 @@ footer{
 		}
 		.recent-stories-wrapper{
 			text-align: center;
-			height: 200px;
+			height: 235px;
 			width: 100vw;
 			display: flex;
 			flex-direction: row;
@@ -754,8 +769,8 @@ footer{
 			overflow: hidden;
 			.recent-stories-viewport{
 				width: calc(100vw - 70px);
-				height: 210px;
-				max-height: 210px;
+				height: 222px;
+				max-height: 222px;
 				overflow: hidden;
 				//border: solid 1px red;
 			}
@@ -770,8 +785,24 @@ footer{
 		    max-height: 210px;;
 			}
 		}
+
 		.recent-story{
-			width: 9%;
+			width: 215px;
+			height: 220px;
+			
+			.proposal-item{
+				.card-proposal-unsplash{
+					height: 122px;
+				}
+				.card-title{
+					text-align: left;
+					text-decoration: none;
+					h6{
+						line-height: 1.9rem;
+						color: $landing-header;
+					}
+				}
+			}
 		}
 		.phone-wrapper{
 			#landing-phone{
