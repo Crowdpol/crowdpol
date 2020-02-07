@@ -789,17 +789,87 @@ footer{
 		.recent-story{
 			width: 215px;
 			height: 220px;
-			
+			margin-right: 12px;
+			a{
+				text-decoration: none;
+			}
 			.proposal-item{
 				.card-proposal-unsplash{
 					height: 122px;
+					box-shadow: none;
 				}
 				.card-title{
 					text-align: left;
 					text-decoration: none;
+					height: 50px;
+					max-height: 50px;
+    			overflow: hidden;
 					h6{
-						line-height: 1.9rem;
+						margin-top: 5px;
+						line-height: 1.4rem;
 						color: $landing-header;
+						font-weight: 500;
+						font-size: 1.1rem;
+						letter-spacing: normal;
+					}
+				}
+				.card-status{
+					height: 40px;
+					width: 100%;
+					.vote-percent-wrapper{
+						width: 100%;
+
+					}
+					.vote-percent{
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						height: 10px
+					}
+					.yes-percent{
+						background-color: $green;
+						width: 33%;
+						-webkit-border-top-left-radius: 25px;
+						-webkit-border-bottom-left-radius: 25px;
+						-moz-border-radius-topleft: 25px;
+						-moz-border-radius-bottomleft: 25px;
+						border-top-left-radius: 25px;
+						border-bottom-left-radius: 25px;
+					}
+					.abstain-percent{
+						background-color: $yellow;
+						width: 33%;
+					}
+					.no-percent{
+						background-color: $red;
+						width: 33%;
+						-webkit-border-top-right-radius: 25px;
+						-webkit-border-bottom-right-radius: 25px;
+						-moz-border-radius-topright: 25px;
+						-moz-border-radius-bottomright: 25px;
+						border-top-right-radius: 25px;
+						border-bottom-right-radius: 25px;
+					}
+					.vote-stats{
+						display: flex;
+						flex-direction: row;
+						align-content: space-between;
+						height: 25px;
+						font-size: 0.7rem;
+						width: 100%;
+						.vote-count, .view-count{
+							border: solid 1px grey;
+							min-width: 50%;
+							overflow-x: hidden;
+							font-size: 0.7rem;
+							text-transform: uppercase;
+						}
+						.vote-count{
+							text-align: left;
+						}
+						.view-count{
+							text-align: right;
+						}
 					}
 				}
 			}

@@ -38,30 +38,55 @@ Template.Landing.helpers({
         _id: 1,
         title: "Test Propsal 1",
         coverURL: "url('https://source.unsplash.com/random/800x600')",
-        abstract: "This is an abstract for Test Proposal 1"
+        abstract: "This is an abstract for Test Proposal 1",
+        yes: 10,
+        abstain: 30,
+        no: 60,
+        votecount: 82680,
+        viewcount: 756902
       },
       {
         _id: 2,
         title: "Test Propsal 2",
         coverURL: "url('https://source.unsplash.com/random/800x600')",
-        abstract: "This is an abstract for Test Proposal 2"
+        abstract: "This is an abstract for Test Proposal 2",
+        yes: 70,
+        abstain: 5,
+        no: 25,
+        votecount: 7422,
+        viewcount: 10023
       },
       {
         _id: 3,
         title: "Test Propsal 3",
         coverURL: "url('https://source.unsplash.com/random/800x600')",
-        abstract: "This is an abstract for Test Proposal 3"
+        abstract: "This is an abstract for Test Proposal 3",
+        yes: 35,
+        abstain: 35,
+        no: 30,
+        votecount: 153,
+        viewcount: 24981
       },
       {
         _id: 4,
         title: "Test Propsal 4",
         coverURL: "url('https://source.unsplash.com/random/800x600')",
-        abstract: "This is an abstract for Test Proposal 4"
+        abstract: "This is an abstract for Test Proposal 4",
+        yes: 90,
+        abstain: 5,
+        no: 5,
+        votecount: 832,
+        viewcount: 526
       },{
         _id: 5,
         title: "Test Propsal 5",
         coverURL: "url('https://source.unsplash.com/random/800x600')",
-        abstract: "This is an abstract for Test Proposal 5"
+        abstract: "This is an abstract for Test Proposal 5",
+        yes: 70,
+        abstain: 10,
+        no: 30,
+        votecount: 6064,
+        viewcount: 6802
       }
     ];
     return testProposals;

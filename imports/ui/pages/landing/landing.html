@@ -64,7 +64,6 @@
                 </div>
                 <div class="recent-stories-viewport">
                   <div class="recent-stories-scroller">
-                    <!--
                     {{#each proposal in previewProposals}}
                       <div class="recent-story">
                         <a href="/proposals/view/{{proposal.id}}" class="">
@@ -73,11 +72,23 @@
                             <div class="card-title">
                               <h6>{{proposal.title}}</h6>
                             </div>
+                            <div class="card-status">
+                              <div class="vote-percent-wrapper">
+                                <div class="vote-percent">
+                                  <div class="yes-percent" style="width: {{proposal.yes}}%;"></div>
+                                  <div class="abstain-percent" style="width: {{proposal.abstain}}%;"></div>
+                                  <div class="no-percent" style="width: {{proposal.no}}%;"></div>
+                                </div>
+                              </div>
+                              <div class="vote-stats">
+                                <div class="vote-count">{{proposal.votecount}} voted</div>
+                                <div class="view-count">{{proposal.viewcount}} viewed</div>
+                              </div>
+                            </div>
                       		</div>
                       	</a>
                       </div>
                     {{/each}}
-                    -->
 
                   </div>
                 </div>
