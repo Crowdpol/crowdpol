@@ -1756,33 +1756,41 @@ footer{
 		}
 	}
 	#results-section{
-		margin-bottom: 102px;
+		margin-bottom: 174px;
 	}
 	#results-section-content{
 		position: relative;
+		.jumbo-header, .jumbo-content{
+			min-width: 1073px;
+			max-width: 1145px;
+			margin: 0 auto;
+		}
 		.jumbo-header{
 			position: relative;
-			width: 1145px;
+
 			height: 477px;
 			background-image: url(img/landing/presence.png);
 		  background-repeat: no-repeat;
 			background-position: 0 0;
 			right: 0px;
-			margin: 0 auto;
 
 			h2{
-				margin-left: 75%;
+				margin-left: 60%;
 			}
 
 		}
 		.jumbo-content{
-			position: relative;
-			margin-top: 15px;
-			margin-left: 0;
-			width: 1145px;
-			padding-right: 40%;
+			width: 1073px;
+			padding-top: 15px;
+			h3.h2{
+				margin-right: 24%;
+			}
+
 		}
 
+	}
+	#signup-section{
+		margin-bottom: 100px;
 	}
 	#signup-section-content{
 		.jumbo-header{
@@ -1790,6 +1798,23 @@ footer{
 				margin: 0 10%;
 			}
 		}
+		.jumbo-content{
+			padding-top: 25px;
+			padding: 0 22%;
+		}
+	}
+	#support-section{
+		margin-bottom: 0px;
+		#isometric-heart-column{
+			width: 208px;
+			margin-left: 33%;
+		}
+	}
+	#support-section-content{
+		.jumbo-header, .jumbo-content{
+			width: 300px;
+		}
+
 	}
 }
 @media only screen and (min-width: $big){
