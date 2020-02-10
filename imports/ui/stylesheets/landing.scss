@@ -199,6 +199,22 @@ h2 > span{
 	//line-height: 1.8rem;
 	//font-weight: 600;
 }
+.recent-stories{
+	//border: solid 1px #ccc;
+	.proposal-item{
+		background-color: transparent;
+	  box-shadow: none;
+	}
+}
+.recent-stories-wrapper{
+	//border: solid 1px blue;
+}
+.recent-stories-viewport{
+	//border: solid 1px red;
+}
+.recent-stories-scroller{
+	//border: solid 1px orange;
+}
 
 /* PAGE CONTENT */
 .landing-page-content{
@@ -333,6 +349,7 @@ ul.landing-page-list{
 	display: flex;
   flex-direction: column;
   justify-content: center;
+	height: 70%;
 }
 
 /* SECTION 1: IMAGINE */
@@ -641,6 +658,7 @@ footer{
 }
 */
 
+//>768
 @media only screen and (min-width: $mobile){
   div.landing-page-content, footer{
     border: solid $test-border-width orange;
@@ -736,9 +754,12 @@ footer{
 			flex-direction: column-reverse;
 		}
 		.recent-stories{
-			height: 270px;
+			height: 285px;
 			text-align: center;
 			margin-top: 50px;
+			h2{
+				margin-bottom: 15px;
+			}
 		}
 		.jumbo-copy{
 			margin: 0 80px;
@@ -746,20 +767,23 @@ footer{
 		}
 		.recent-stories-wrapper{
 			text-align: center;
-			height: 200px;
+			height: 235px;
 			width: 100vw;
 			display: flex;
 			flex-direction: row;
+			justify-content: center;
 			padding: 10px;
 			overflow: hidden;
 			.recent-stories-viewport{
 				width: calc(100vw - 70px);
-				height: 210px;
-				max-height: 210px;
+				max-width: 444px;
+				height: 222px;
+				max-height: 222px;
 				overflow: hidden;
 				//border: solid 1px red;
 			}
 		}
+
 		.recent-stories-scroller{
 			flex-direction: row;
     	display: flex;
@@ -770,8 +794,95 @@ footer{
 		    max-height: 210px;;
 			}
 		}
+
 		.recent-story{
-			width: 9%;
+			width: 215px;
+			height: 220px;
+			margin-right: 12px;
+			a{
+				text-decoration: none;
+			}
+			.proposal-item{
+				.card-proposal-unsplash{
+					height: 122px;
+					box-shadow: none;
+				}
+				.card-title{
+					text-align: left;
+					text-decoration: none;
+					height: 50px;
+					max-height: 50px;
+    			overflow: hidden;
+					h6{
+						margin-top: 5px;
+						line-height: 1.4rem;
+						color: $landing-header;
+						font-weight: 500;
+						font-size: 1.1rem;
+						letter-spacing: normal;
+					}
+				}
+				.card-status{
+					height: 40px;
+					width: 100%;
+					.vote-percent-wrapper{
+						width: 100%;
+
+					}
+					.vote-percent{
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						height: 10px
+					}
+					.yes-percent{
+						background-color: $green;
+						width: 33%;
+						-webkit-border-top-left-radius: 25px;
+						-webkit-border-bottom-left-radius: 25px;
+						-moz-border-radius-topleft: 25px;
+						-moz-border-radius-bottomleft: 25px;
+						border-top-left-radius: 25px;
+						border-bottom-left-radius: 25px;
+					}
+					.abstain-percent{
+						background-color: $yellow;
+						width: 33%;
+					}
+					.no-percent{
+						background-color: $red;
+						width: 33%;
+						-webkit-border-top-right-radius: 25px;
+						-webkit-border-bottom-right-radius: 25px;
+						-moz-border-radius-topright: 25px;
+						-moz-border-radius-bottomright: 25px;
+						border-top-right-radius: 25px;
+						border-bottom-right-radius: 25px;
+					}
+					.vote-stats{
+						display: flex;
+						flex-direction: row;
+						align-content: space-between;
+						height: 25px;
+						font-size: 0.7rem;
+						width: 100%;
+						.vote-count, .view-count{
+							min-width: 50%;
+							overflow-x: hidden;
+							font-size: 0.6rem;
+							text-transform: uppercase;
+							overflow-y: hidden;
+
+						}
+						.vote-count{
+							text-align: left;
+						}
+						.view-count{
+							text-align: right;
+						}
+					}
+				}
+			}
 		}
 		.phone-wrapper{
 			#landing-phone{
@@ -1092,6 +1203,7 @@ footer{
 
 	}
 }
+//768px
 @media only screen and (min-width: $tablet){
 	div.landing-page-content, footer{
 		border: solid $test-border-width green;
@@ -1170,20 +1282,25 @@ footer{
 	  .jumbo-content{
 			text-align:left;
 			flex-direction: column;
+			max-width: 945px;
 	  }
 	  .recent-stories{
 			height: 250px;
 	    text-align: left;
 	    margin-top: 50px;
 			margin-bottom: 65px;
-	    width: 65%;
-	    border: solid 1px red;
+	    width: 100%;
+	    //border: solid 1px red;
 	    overflow: hidden;
+			justify-content: flex-start;
 			h2{
 				font-size: 1.5rem;
 				font-size: 1.6rem;
 		    font-weight: 500;
 		    letter-spacing: 0;
+				text-align: left;
+				margin-bottom: 5px;
+
 				span{
 					color: #5f6667 !important;
 				}
@@ -1192,6 +1309,7 @@ footer{
 		.jumbo-copy{
 			margin: 0px;
 			text-align: left;
+			width: 100%;
 			h2{
 				font-size: 1.9rem;
 				line-height: 2.1rem;
@@ -1206,12 +1324,24 @@ footer{
 			margin: 0 45px;
 	  }
 	  .recent-stories-wrapper{
-			width: 440px;
+			width: 100%;
 			height: 250px;
+			padding: 0px;
+			margin: 0px;
+			justify-content: flex-start;
 	    .recent-stories-viewport{
-				width: 438px;
+				width: 396px;
+				max-width: 396px;
 	    }
 	  }
+		.recent-story{
+			width: 190px;
+			.proposal-item {
+				.card-proposal-unsplash {
+	    		height: 100px;
+				}
+			}
+		}
 	}
 
 
@@ -1441,11 +1571,12 @@ footer{
 		}
 	}
 }
+//1024
 @media only screen and (min-width: $laptop){
   div.landing-page-content, footer{
     border: solid $test-border-width red;
   }
-	.hide-480, .hide-768{
+	.hide-480, .hide-768, .hide-1200{
 		display: inline-block;
 	}
 	.hide-1024{
@@ -1485,15 +1616,16 @@ footer{
 	    }
 	  }
 	  .jumbo-content{
-			margin: 0px;
+			width: 1145px;
+			margin: 0px auto;
 			margin-top: 110px;
 			flex-direction: row;
 	  }
 	  .recent-stories{
-			min-width: 52%;
+			width: 50%;
 	  }
 	  .jumbo-copy{
-			min-width: 44%;
+			width: 45%;
 			margin-top: 100px;
 	  }
 	  .recent-stories-wrapper{
@@ -1681,6 +1813,7 @@ footer{
 	}
 
 }
+//1200
 @media only screen and (min-width: $desktop){
   div.landing-page-content, footer{
     border: solid $test-border-width blue;
@@ -1689,6 +1822,9 @@ footer{
 		//border: solid 1px red;
 		//margin: 0 5%;
 		width: 1145px;
+	}
+	.hide-1200{
+		display:none;
 	}
 	ul.landing-page-list li{
 		margin-bottom: 5px;
@@ -1728,6 +1864,12 @@ footer{
 				text-align: left;
     		font-size: 1.4rem;
 			}
+		}
+		.jumbo-content{
+			max-width: 1145px;
+			width: 100%;
+			margin: 0px;
+			margin-top: 110px;
 		}
 	}
 	#contribute-section{
@@ -1769,9 +1911,10 @@ footer{
 			position: relative;
 
 			height: 477px;
-			background-image: url(img/landing/presence.png);
+			background-image: url(img/landing/crowdpol_new_presence.jpg);
 		  background-repeat: no-repeat;
 			background-position: 0 0;
+			background-size: contain;
 			right: 0px;
 
 			h2{
@@ -1817,6 +1960,7 @@ footer{
 
 	}
 }
+//<1200
 @media only screen and (min-width: $big){
   div.landing-page-content, footer{
     border: solid $test-border-width pink;

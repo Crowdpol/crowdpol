@@ -63,31 +63,34 @@
                   <i class="material-icons">keyboard_arrow_left</i>
                 </div>
                 <div class="recent-stories-viewport">
-                  Under Construction
-                  <!--
                   <div class="recent-stories-scroller">
-
                     {{#each proposal in previewProposals}}
                       <div class="recent-story">
                         <a href="/proposals/view/{{proposal.id}}" class="">
-                      		<li class="proposal-item" data-id="{{proposal.id}}">
+                      		<div class="proposal-item" data-id="{{proposal.id}}">
                       			<div class="card-proposal-unsplash" style="background-image: {{proposal.coverURL}}; background-position: center;"></div>
-                      			<div class="card-main-wrap">
-                      				<div class="card-title">
-                      					<h6>{{proposal.title}}</h6>
-                      				</div>
-                      			</div>
-                      			<div class="card-secondary-wrap">
-                      				<p class="proposal-abstract">{{proposal.abstract}}</p>
-                      			</div>
-                      		</li>
+                            <div class="card-title">
+                              <h6>{{proposal.title}}</h6>
+                            </div>
+                            <div class="card-status">
+                              <div class="vote-percent-wrapper">
+                                <div class="vote-percent">
+                                  <div class="yes-percent" style="width: {{proposal.yes}}%;"></div>
+                                  <div class="abstain-percent" style="width: {{proposal.abstain}}%;"></div>
+                                  <div class="no-percent" style="width: {{proposal.no}}%;"></div>
+                                </div>
+                              </div>
+                              <div class="vote-stats">
+                                <div class="vote-count">{{proposal.votecount}} voted</div>
+                                <div class="view-count">{{proposal.viewcount}} viewed</div>
+                              </div>
+                            </div>
+                      		</div>
                       	</a>
                       </div>
                     {{/each}}
 
-
                   </div>
-                  -->
                 </div>
                 <div class="recent-stories-left recent-stories-arrow">
                   <i class="material-icons">keyboard_arrow_right</i>
@@ -173,7 +176,7 @@
 
       <!-- RESULTS SECTION -->
       <section id="results-section" class="landing-page-section">
-        <div class="isometric-man hide-480 hide-1024" id="isometric-man-column"></div>
+        <div class="isometric-man hide-480" id="isometric-man-column"></div>
         <div class="section-content" id="results-section-content">
           <div class="jumbo-header">
             <h2 class="h1">Increase your presence</h2>
