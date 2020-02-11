@@ -313,6 +313,13 @@ loggedInRoutes.route('/navigator', {
   },
 });
 
+loggedInRoutes.route('/newproposal/:id', {
+  name: 'App.newproposal',
+  action() {
+    BlazeLayout.render('App_body', { main: 'NewViewProposal'});
+  },
+});
+
 loggedInRoutes.route('/presence', {
   name: 'App.presence',
   action() {

@@ -20,8 +20,10 @@ Template.ProposalCardTest.events({
     proposalId = this.proposal._id;
 		proposal = Proposals.findOne({_id: proposalId});
 		Session.set("proposal",proposal);
-
-		openProposalModal();
+    let path = "/newproposal/" + proposalId;
+    console.log("path: " +path);
+    FlowRouter.go(path);
+		//openProposalModal();
   }
 });
 
