@@ -150,7 +150,7 @@ Template.NewViewProposal.events({
           Bert.alert(error.reason, 'danger');
         } else {
           Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalPublished'), 'success');
-          FlowRouter.go('App.proposals');
+          FlowRouter.go('App.navigator');
 
         }
       });
@@ -165,7 +165,7 @@ Template.NewViewProposal.events({
             Bert.alert(error.reason, 'danger');
           } else {
             Bert.alert(TAPi18n.__('pages.proposals.view.alerts.proposalSubmitted'), 'success');
-            FlowRouter.go('App.proposals');
+            FlowRouter.go('App.navigator');
 
           }
         });
