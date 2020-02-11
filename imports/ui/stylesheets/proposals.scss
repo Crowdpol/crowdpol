@@ -63,6 +63,46 @@
     }
   }
 }
+#proposal-info-stats{
+  display: flex;
+  flex-direction: row;
+  div{
+    width: 33%;
+    padding-top: 10px;
+    .proposal-stats-number{
+      text-align:center;
+      font-size: 0.8rem;
+      line-height: 0.3rem;
+      font-weight: 600;
+      color: $white;
+      width: 100%;
+    }
+    .proposal-stats-label{
+      text-align:center;
+      font-size: 0.5rem;
+      line-height: 0rem;
+      color: $white;
+      width: 100%;
+      text-transform: uppercase;
+    }
+  }
+}
+#proposal-info-support{
+
+  button{
+    border: solid 2px $white;
+    color: $white;
+    height: 20px;
+    width: 80%;
+    margin: 0 10px;
+    background-color: $orange;
+    border-radius: 25px;
+    &:hover{
+      color: $orange;
+      background: $white;
+    }
+  }
+}
 #proposal-sidemenu-bar{
   .info-section-content{
     button{
@@ -78,6 +118,7 @@
 }
 #influence-map{
   height: 105px;
+  width: 100%;
   background-image: url(/img/world_map_white.png);
   background-repeat: no-repeat;
   background-size: contain;
