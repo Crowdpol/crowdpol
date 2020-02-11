@@ -3,23 +3,22 @@
 </template>
 
 <template name="Navigator_Vote_Content">
-  Navigator_Vote_Content
   <div id="community-votes" class="tabcontent active">
-    <div class="community-tabs-panel" id="proposal-polls">
+    <div class="content-tab-panel" id="proposal-polls">
       <br>
       <p><strong>Polls</strong> - Coming soon in version 2</p>
       <p>
         This will be proposals that allow for user defined selection options rather than yes/no/abstain vote options
       </p>
     </div>
-    <div class="community-tabs-panel" id="proposal-petitions">
+    <div class="content-tab-panel" id="proposal-petitions">
       <br>
       <p><strong>Petitions</strong> - Coming soon in version 2</p>
       <p>
         This will be proposals that allow users to digitally sign to gather support for an idea.
       </p>
     </div>
-    <div class="community-tabs-panel active" id="proposal-votes">
+    <div class="content-tab-panel active" id="proposal-votes">
       {{>CommunityProposalList communityId=communityId}}
       <!--
       <ul class="demo-list-control mdl-list">
@@ -36,21 +35,19 @@
 </template>
 
 <template name="Navigator_Proposal_Content">
-  Navigator_Proposal_Content
   <div id="community-proposals" class="tabcontent">
-    <div class="community-tabs-panel active" id="proposal-drafts">
+    <div class="content-tab-panel active" id="proposal-drafts">
       {{>UserProposalList stage="draft"}}
     </div>
-    <div class="community-tabs-panel" id="proposal-submitted">
+    <div class="content-tab-panel" id="proposal-submitted">
       {{>UserProposalList stage="submitted"}}
     </div>
   </div>
 </template>
 
 <template name="Navigator_Feed_Content">
-  Navigator_Feed_Content
   <div id="community-feed-wrapper" class="tabcontent">
-    <div class="community-tabs-panel" id="community-activity">
+    <div class="content-tab-panel" id="community-activity">
       <br>
       <p><strong>Activity</strong> - Coming soon in version 2</p>
       <div class="mdl-spinner mdl-js-spinner is-active"></div>
@@ -65,25 +62,24 @@
           </ul>
         </p>
     </div>
-    <div class="community-tabs-panel active" id="community-feed">
-        {{>Feed feedId=communityId}}
+    <div class="content-tab-panel active" id="community-feed">
+        <!--{{>Feed feedId=communityId}}-->
     </div>
   </div>
 </template>
 
 <template name="Navigator_Delegate_Content">
-  Navigator_Delegate_Content
   <div id="community-delegates" class="tabcontent">
-    <div class="community-tabs-panel active" id="delegate-available">
+    <div class="content-tab-panel active" id="delegate-available">
       {{>CommunityDelegates}}
     </div>
-    <div class="community-tabs-panel" id="delegate-selected">
+    <div class="content-tab-panel" id="delegate-selected">
       {{>CommunitySelectedDelegates}}
     </div>
-    <div class="community-tabs-panel" id="delegate-status">
+    <div class="content-tab-panel" id="delegate-status">
       {{>CommunityDelegateStatus}}
     </div>
-    <div class="community-tabs-panel" id="delegate-about">
+    <div class="content-tab-panel" id="delegate-about">
       <br>
       <p><strong>How does the delegate function work?</strong></p>
       <small>{{_ "pages.delegates.instructions-1"}}</small>
@@ -98,16 +94,15 @@
 </template>
 
 <template name="Navigator_Members_Content">
-  Navigator_Members_Content
   <div id="community-members" class="tabcontent">
-    <div class="community-tabs-panel active" id="members-all">
+    <div class="content-tab-panel active" id="members-all">
       <div class="community-member-box">
         {{#each member in communityMembers}}
           {{>UserCard userId=member._id style="card"}}
         {{/each}}
       </div>
     </div>
-    <div class="community-tabs-panel" id="members-admin">
+    <div class="content-tab-panel" id="members-admin">
       <br>
       <p><strong>Administrators</strong> - Coming soon in version 2</p>
       <p>
@@ -121,7 +116,7 @@
         </ul>
       </p>
     </div>
-    <div class="community-tabs-panel" id="members-ambassador">
+    <div class="content-tab-panel" id="members-ambassador">
       <br>
       <p><strong>Ambassador</strong> - Coming soon in version 2</p>
       <p>This will display the details of the Community's Ambassador. May consider putting in a contact form here.</p>
@@ -131,12 +126,11 @@
 </template>
 
 <template name="Navigator_Group_Content">
-  Navigator_Group_Content
   <div id="community-groups" class="tabcontent">
-    <div class="community-tabs-panel active" id="groups-all">
+    <div class="content-tab-panel active" id="groups-all">
       {{> GroupList}}
     </div>
-    <div class="community-tabs-panel" id="groups-create">
+    <div class="content-tab-panel" id="groups-create">
       {{> CreateGroup}}
     </div>
   </div>

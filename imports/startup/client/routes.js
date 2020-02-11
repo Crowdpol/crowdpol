@@ -12,12 +12,13 @@ var publicRoutes = FlowRouter.group({name: 'public'});
 // Public Routes (no need to log in):
 
 // the App_notFound template is used for unknown routes and missing lists
+/*
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('App_body', {main: 'App_notFound'});
   }
 };
-
+*/
 Accounts.onLogout(function() {
   console.log("routes: set community to root");
   //setCommunityToRoot();
@@ -403,7 +404,7 @@ loggedInRoutes.route('/dash', {
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      BlazeLayout.render('App_body', { main: 'Navigator' });
       //console.log("/dash points to community dash");
     }else{
       BlazeLayout.render('App_body', { main: 'App_notFound' });
@@ -430,7 +431,7 @@ loggedInRoutes.route('/dash/proposals', {
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      BlazeLayout.render('App_body', { main: 'Navigator' });
       //console.log("/dash points to community dash");
     }else{
       BlazeLayout.render('App_body', { main: 'App_notFound' });
@@ -457,7 +458,7 @@ loggedInRoutes.route('/dash/members', {
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      BlazeLayout.render('App_body', { main: 'Navigator' });
       //console.log("/dash points to community dash");
     }else{
       BlazeLayout.render('App_body', { main: 'App_notFound' });
@@ -483,7 +484,7 @@ loggedInRoutes.route('/dash/communities', {
   action() {
     //console.log("/dash route called");
     if (Meteor.user()){
-      BlazeLayout.render('App_body', { main: 'CommunityDash' });
+      BlazeLayout.render('App_body', { main: 'Navigator' });
       //console.log("/dash points to community dash");
     }else{
       BlazeLayout.render('App_body', { main: 'App_notFound' });

@@ -1,12 +1,14 @@
 @import 'variables.scss';
 
-/* MOVE TO VARIABLES.SCSS WHEN COMPLETE */
-$landing-green: #50c22e;
-//color: #6d7272; //grey, guessing for font
-$landing-orange: #fa970e; //orange
-$landing-red: #fa5427; //red
-$landing-blue: #91b4b7;
-$landing-background: rgb(249,249,249);
+
+
+body{
+	background-color: #F9F9F9;
+	color: $landing-header !important;
+	p, ul, ol, li, span{
+		color: $landing-paragraph !important;
+	}
+}
 
 /* HEADER */
 .header {
@@ -189,11 +191,29 @@ h1, h2, h3, h4, h5, h6 {
 h2{
 	//font-size: 1.4rem;
 	//line-height: 1.8rem;
+	color: $landing-header !important;
+	font-weight: 900;
 }
 h2 > span{
 	//font-size: 1.4rem;
 	//line-height: 1.8rem;
 	//font-weight: 600;
+}
+.recent-stories{
+	//border: solid 1px #ccc;
+	.proposal-item{
+		background-color: transparent;
+	  box-shadow: none;
+	}
+}
+.recent-stories-wrapper{
+	//border: solid 1px blue;
+}
+.recent-stories-viewport{
+	//border: solid 1px red;
+}
+.recent-stories-scroller{
+	//border: solid 1px orange;
 }
 
 /* PAGE CONTENT */
@@ -203,15 +223,15 @@ h2 > span{
 	background-color: $landing-background;
 	.landing-page-section{
 		margin-bottom: 120px;
-		border: solid 1px grey;
+		//border: solid 1px grey;
 	}
 	.section-content{
-		border: solid 1px blue;
+		//border: solid 1px blue;
 		.jumbo-header{
-			border: solid 1px red;
+			//border: solid 1px red;
 		}
 		.jumbo-content{
-			border: solid 1px green;
+			//border: solid 1px green;
 		}
 	}
 }
@@ -221,9 +241,8 @@ h2 > span{
 	background-color: $landing-green;
   text-decoration: none;
   color: #fff;
-  font-size: 0.8rem;
-	line-height: 1.4;
-  padding: 8px 16px;
+  font-size: 0.9rem;
+  padding: 14px 19px;
 	font-weight: 800;
 	i.material-icons{
 		position: relative;
@@ -242,35 +261,37 @@ a.learn-more{
 	line-height: 1.5rem;
   padding: 8px 16px;
 	font-weight: 800;
+	color: #6d7272;
 	i.material-icons{
 		position: relative;
     top: 9px;
     left: 6px;
     font-size: 28px;
     font-weight: 600;
+		color: #6d7272;
 	}
 }
 
 ul.landing-page-list{
   list-style-type:disc;
+	padding-inline-start: 25px;
   li{
-    margin-bottom: 12px;
-    color: #6d7272;
-    font-size: 1.1875rem;
-    letter-spacing: -0.2px;
-    line-height: 1.4;
+		text-align: left !important;
+		margin-bottom: 12px;
+    color: $landing-paragraph;
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+		letter-spacing: normal;
     span.heavy{
-      letter-spacing: -0.2px;
-      line-height: 1.4;
+			color: $landing-paragraph;
+			font-size: 1.1rem;
+	    line-height: 1.6rem;
       font-weight: 600;
     }
   }
 }
 
-.jumbo-header{
-	margin: 0 80px;
-	text-align: center;
-}
+
 .jumbo-content{
 	margin-bottom: 60px;
 }
@@ -301,7 +322,7 @@ ul.landing-page-list{
 	background-repeat: no-repeat;
 }
 .isometric_heart{
-	background-image: url(img/landing/real_isometric_heart.svg);//url(img/landing/isometric_heart.svg);
+	background-image: url(img/landing/isometric_heart.svg);//url(img/landing/isometric_heart.svg);
 	background-repeat: no-repeat;
 }
 .isometric_sun_facing_right{
@@ -313,11 +334,7 @@ ul.landing-page-list{
 	background-repeat: no-repeat;
 }
 .polygon-landscape{
-	background-image: url(img/landing/polygon_landscape_holder.png);
-	background-repeat: no-repeat;
-}
-.speechbubble{
-	background-image: url(img/landing/speechbubble.svg);
+	background-image: url(img/landing/problem_grid.svg);
 	background-repeat: no-repeat;
 }
 .speechbubble{
@@ -328,10 +345,20 @@ ul.landing-page-list{
 	background-image: url(img/landing/arrow_up.svg);
 	background-repeat: no-repeat;
 }
+.recent-stories-arrow{
+	display: flex;
+  flex-direction: column;
+  justify-content: center;
+	height: 70%;
+}
 
 /* SECTION 1: IMAGINE */
 #imagine-section{
-
+	h1, h2, h3{
+		span{
+			color: $landing-green !important;;
+		}
+	}
 }
 #imagine-section-content{
 	.jumbo-header{
@@ -352,7 +379,11 @@ ul.landing-page-list{
 
 /* SECTION 2: CONTRIBUTE */
 #contribute-section{
-
+	h1, h2, h3{
+		span{
+			color: $landing-red !important;;
+		}
+	}
 }
 #contribute-section-content{
 	.jumbo-header{}
@@ -364,7 +395,11 @@ ul.landing-page-list{
 
 /* SECTION 3: NETWORK */
 #network-section{
-
+	h1, h2, h3{
+		span{
+			color: $landing-orange !important;;
+		}
+	}
 }
 #network-section-content{
 	.jumbo-header{}
@@ -380,7 +415,15 @@ ul.landing-page-list{
 	.jumbo-content{}
 }
 
-/* SECTION 5: SUPPORT */
+/* SECTION 5: RESULT */
+#results-section{
+	h1, h2, h3{
+		span{
+			color: $landing-blue !important;;
+		}
+	}
+}
+/* SECTION 6: SUPPORT */
 #support-section{
 
 }
@@ -400,6 +443,7 @@ ul.landing-page-list{
 		text-decoration: none;
 	}
 }
+
 /* TESTING ONLY - CAN REMOVE */
 #viewport-size{
 	border: solid 1px black;
@@ -415,66 +459,44 @@ ul.landing-page-list{
 
 /* FOOTER */
 footer{
-  background-color: #F9F9F9;
-  padding-top: 50px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
 	padding-bottom: 50px;
+	p,a, span{
+		font-size: 1rem;
+	}
 	div.footer-container{
-		width: 1000px;
-		margin: 0 auto;
-		//border: solid $test-border-width grey;
+
 	}
 	div.logo-bar-footer{
-		padding-bottom: 62px;
+
 		a{
-			display: block;
-			float: left;
-			font-size: 2em;
-			padding: 10px 20px;
+			display: inline-block;
 			text-decoration: none;
 			background-image: url(img/landing/crowdpol_ecosystem_logo.svg);//crowdpol_ecosystem_logo.svg);
 			background-size: contain;
 			background-repeat: no-repeat;
 			color: #000; /* Fallback for older browsers */
 			color: rgba(0, 0, 0, 0);
-			width: 100%;
-			height: 60px;
+
 		}
 	}
   div.section-content{
-		padding: 0px;
+
     div#info-footer{
-      display: flex;
-      flex-direction: column;
-			width: 240px;
-			min-width: 240px;
-			max-width: 240px;
-      p{
-				padding-top: 3px;
-        margin-bottom: 0px;
-				font-size: 16px;
-				font-weight: 600;
+			p,span{
 				color: #6d7272;
-				line-height: 16px;
-      }
+			}
+
       span#copyright{
-				margin-top: -4px;
-        font-size: 14px;
-        font-weight: 600;
-        color: #6d7272;
-        margin-bottom: 24px;
-        display: block;
       }
 			div.language-select{
-				margin-top: 64px;
+
 				i.material-icons{
 					color: #6d7272;
-					font-weight: 100;
-					position: relative;
-					top: 7px;
-					margin-right: 10px;
+			    font-weight: lighter;
+			    position: relative;
+			    top: 7px;
+			    margin-right: 10px;
+			    font-size: 1.4rem;
 				}
 				.language-selector{
 	        margin-bottom: 0px;
@@ -487,12 +509,9 @@ footer{
     }
 
     div.footer-content{
-      display: flex;
-      align-items: flex-start;
-      //justify-content: space-between;
+
       div.footer-column{
-        width: 200px;
-				//border: solid 1px grey;
+
         h3{
           font-size: 1rem;
           line-height: 1.2;
@@ -519,11 +538,10 @@ footer{
           margin-bottom: 20px;
           font-weight: 400;
           li{
-            margin-bottom: 9px;
+            margin-bottom: 11px;
             a{
               text-decoration: none;
-              color: #6d7272;
-							font-size: 16px;
+              color: $landing-paragraph;
 							letter-spacing: 0px;
             }
           }
@@ -532,18 +550,14 @@ footer{
 
     }
     div.social-bar-footer{
-			margin-top: 45px;
-      display: flex;
-      flex-direction: row;
+
       a.footer-social{
         font-size: 16px;
         display: inline;
 				color: #BFBFBF;
         margin-right: 0.75rem;
         img{
-					//border: solid 1px grey;
-          //width: 23px;
-          height: 23px;
+          height: 0.9rem;;
           opacity: 0.3;
           display: inline-block;
           vertical-align: middle;
@@ -560,7 +574,25 @@ footer{
 
 }
 
+.phone-wrapper{
+	width: 100%;
+	height: 500px;
+	position: relative;
+	//border: solid 2px yellow;
+	//position: relative;
+	/*
+	svg{
+		border: solid 1px black;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+	}*/
+	margin-bottom:30px;
+}
 
+.hide-480, .hide-768, .hide-1024, .hide1200{
+	display: none;
+}
 /* RESPONSIVE LAYOUTS
 
 @media only screen and (min-width: $tiny){
@@ -626,62 +658,94 @@ footer{
 }
 */
 
+//>768
 @media only screen and (min-width: $mobile){
   div.landing-page-content, footer{
     border: solid $test-border-width orange;
   }
 	.hide-480{
-		display: none;
+		display: none !important;
 	}
-	h1{
-		font-size: 1.4rem;
-		line-height: 1.8rem;
+
+	h1, h2.h1{
+		font-size: 2.34rem;
+    line-height: 2.34rem;
+    letter-spacing: normal;
 	}
-	h2,h3{
-		font-size: 1.4rem;
-		line-height: 1.8rem;
+	h2, h3.h2{
+		font-size: 2rem;
+    line-height: 2rem;
+    letter-spacing: normal;
+    font-weight: 600;
+		text-align: center;
 		span{
-			font-size: 1.4rem !important;
-			line-height: 1.8rem !important;
-			font-weight: 600 !important;
+			font-size: 2rem !important;
+	    line-height: 2rem !important;
+	    letter-spacing: normal !important;
+	    font-weight: 600 !important;
+		}
+	}
+	h3{
+		font-size: 1.7rem;
+    line-height: 2.1rem;
+		span{
+			font-size: 1.7rem !important;
+			line-height: 2.1rem !important;
+			font-weight: 900 !important;
+		}
+	}
+
+	.jumbo-header{
+		//margin: 0 80px;
+		//text-align: center;
+		p{
+			font-size: 1.1rem;
 		}
 	}
 	.section-content{
-		text-align: center;
+		//text-align: center;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-
-		ul.landing-page-list{
-			text-align: left;
+		p{
+			margin-bottom: 25px;
 		}
 	}
 
 	/* SECTION 1: IMAGINE */
 	#imagine-section{
-		h1, h2, h3{
-			span{
-				color: $landing-green;
-			}
-		}
+		margin-bottom: 60px;
+		//display: none;
 	}
 	#imagine-section-content{
-		background-position: 30% -70px;
-    background-size: 1200px auto;
-		padding-top: 40px;
-		
+		background-image: url(img/landing/crowdpol_landing_1_480_bg.jpg);
+	  background-repeat: no-repeat;
+		background-position: center top;
+
 		.jumbo-header{
 			//display: flex;
 			//justify-content: column;
-			margin-top: 40px;
-			margin: 0 80px;
+			//margin-top: 40px;
+			margin: 0;
 			text-align:center;
+			margin-bottom: 588px;
+			p{
+				margin: 0 60px;
+				margin-bottom: 25px;
+			}
+			h1{
+
+				margin: 0 70px;
+				margin-bottom: 25px;
+				margin-top: 25px;
+			}
+
 			#landing-phone{
 				height:525px;
 				width: 230px;
 				margin: 0 auto;
-				margin-top: 20px;
+				margin-top: 25px;
 			}
 
 		}
@@ -690,45 +754,183 @@ footer{
 			flex-direction: column-reverse;
 		}
 		.recent-stories{
-			height: 270px;
+			height: 285px;
 			text-align: center;
+			margin-top: 50px;
+			h2{
+				margin-bottom: 15px;
+			}
 		}
 		.jumbo-copy{
 			margin: 0 80px;
+			text-align: center;
 		}
 		.recent-stories-wrapper{
 			text-align: center;
-			height: 200px;
+			height: 235px;
 			width: 100vw;
 			display: flex;
 			flex-direction: row;
+			justify-content: center;
+			padding: 10px;
+			overflow: hidden;
 			.recent-stories-viewport{
 				width: calc(100vw - 70px);
-				border: solid 1px red;
+				max-width: 444px;
+				height: 222px;
+				max-height: 222px;
+				overflow: hidden;
+				//border: solid 1px red;
+			}
+		}
+
+		.recent-stories-scroller{
+			flex-direction: row;
+    	display: flex;
+			width: calc(5 * 100vw);
+			.proposal-item{
+
+		    list-style: none;
+		    max-height: 210px;;
+			}
+		}
+
+		.recent-story{
+			width: 215px;
+			height: 220px;
+			margin-right: 12px;
+			a{
+				text-decoration: none;
+			}
+			.proposal-item{
+				.card-proposal-unsplash{
+					height: 122px;
+					box-shadow: none;
+				}
+				.card-title{
+					text-align: left;
+					text-decoration: none;
+					height: 50px;
+					max-height: 50px;
+    			overflow: hidden;
+					h6{
+						margin-top: 5px;
+						line-height: 1.4rem;
+						color: $landing-header;
+						font-weight: 500;
+						font-size: 1.1rem;
+						letter-spacing: normal;
+					}
+				}
+				.card-status{
+					height: 40px;
+					width: 100%;
+					.vote-percent-wrapper{
+						width: 100%;
+
+					}
+					.vote-percent{
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						height: 10px
+					}
+					.yes-percent{
+						background-color: $green;
+						width: 33%;
+						-webkit-border-top-left-radius: 25px;
+						-webkit-border-bottom-left-radius: 25px;
+						-moz-border-radius-topleft: 25px;
+						-moz-border-radius-bottomleft: 25px;
+						border-top-left-radius: 25px;
+						border-bottom-left-radius: 25px;
+					}
+					.abstain-percent{
+						background-color: $yellow;
+						width: 33%;
+					}
+					.no-percent{
+						background-color: $red;
+						width: 33%;
+						-webkit-border-top-right-radius: 25px;
+						-webkit-border-bottom-right-radius: 25px;
+						-moz-border-radius-topright: 25px;
+						-moz-border-radius-bottomright: 25px;
+						border-top-right-radius: 25px;
+						border-bottom-right-radius: 25px;
+					}
+					.vote-stats{
+						display: flex;
+						flex-direction: row;
+						align-content: space-between;
+						height: 25px;
+						font-size: 0.7rem;
+						width: 100%;
+						.vote-count, .view-count{
+							min-width: 50%;
+							overflow-x: hidden;
+							font-size: 0.6rem;
+							text-transform: uppercase;
+							overflow-y: hidden;
+
+						}
+						.vote-count{
+							text-align: left;
+						}
+						.view-count{
+							text-align: right;
+						}
+					}
+				}
+			}
+		}
+		.phone-wrapper{
+			#landing-phone{
+
+			}
+			svg{
+				position: absolute;
+				top: 0;
+				right: 0;
 			}
 		}
 	}
 
 	/* SECTION 2: CONTRIBUTE */
 	#contribute-section{
-		h1, h2, h3{
-			span{
-				color: $landing-red;
-			}
-		}
+		margin-bottom: 143px;
+		//display: none;
 	}
 	#contribute-section-content{
+		background-image: url(img/landing/crowdpol_landing_3_480_bg.jpg);
+		background-repeat: no-repeat;
+		background-position: center 243px;
 		.jumbo-header{
-			margin-bottom: 70px;
+			text-align: center;
+			margin-bottom: 757px;
+			h1{
+				margin: 0 80px;
+				margin-bottom: 25px;
+			}
+			p{
+				margin-bottom: 32px;
+			}
 		}
-		.jumbo-content{}
+		.jumbo-content{
+			text-align: center;
+			margin: 0px 22px;
+			.landing-page-list{
+				padding-inline-start: 30px;
+				margin-bottom: 25px;
+			}
+		}
 
 		#red-button-graphic{
 			display: flex;
 			flex-wrap: wrap;
-			width: 100vw;
+			width: 100%;
 			height: 460px;
-			border: solid 1px pink;
+			//border: solid 1px pink;
 			.isometric-man,.isometric-woman{
 				width: 60px;
 				height: 120px;
@@ -746,41 +948,64 @@ footer{
 
 	/* SECTION 3: NETWORK */
 	#network-section{
-		h1, h2, h3{
-			span{
-				color: $landing-orange;
-			}
-		}
+
+		margin-bottom: 75px;
 	}
 	#network-section-content{
-		.jumbo-header{}
+		background-image: url(img/landing/crowdpol_landing_2_480_bg.jpg);
+	  background-repeat: no-repeat;
+		background-position: center 218px;
+
+		.jumbo-header{
+			margin: 0px;
+			margin-bottom: 380px;
+			text-align: center;
+		}
 		.jumbo-content{
+
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+			h3{
+				margin: 45px 35px;
+				margin-bottom: 35px;
+			}
+			p{
+				font-size: 1.1rem;
+				margin: 0 67px;
+				line-height: 1.8rem;
+    		text-align: center;
+			}
 		}
 		.isometric_sun_facing_right{
+			margin-top: 86px;
+			margin-bottom: 30px;
 			width: 260px;
 			height: 270px;
 		}
 		.isometric_globe{
 			width: 275px;
 			height: 300px;
+			margin-top: 65px;
 		}
 	}
 
 	/* SECTION 4: RESULTS */
 	#results-section{
-		h1, h2, h3{
-			span{
-				color: $landing-blue;
-			}
+		margin-bottom: 98px;
+		#isometric-man-column{
+			display: none;
 		}
 	}
 	#results-section-content{
 		.jumbo-header{
-
+			text-align: center;
+			margin: 0 40px;
+			h2{
+				//margin: 0 80px;
+    		margin-bottom: 25px;
+			}
 		}
 		.jumbo-content{
 			display: flex;
@@ -791,44 +1016,970 @@ footer{
 		.isometric-man{
 			height: 300px;
 			width: 135px;
+			margin-top: 66px;
+    	margin-bottom: 69px;
 		}
+		.landing-page-list{
+			margin: 0 58px;
+		}
+
 	}
 
 	/* SECTION 5: SIGNUP */
 	#signup-section{
-
+		margin-bottom: 51px;
 	}
 	#signup-section-content{
-		.jumbo-header{}
+		.jumbo-header{
+			margin: 0 30px;
+		}
 		.jumbo-content{
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+			text-align: center;
+			padding: 0 25px;
+
+			.landing-input{
+				font-family: "Futura PT Heavy","futura-pt", sans-serif;
+			  width: 100%;
+				height: 60px;
+				font-size: 1.1rem;
+			  padding: 12px 20px;
+			  margin: 8px 0;
+			  display: inline-block;
+			  border: 1px solid #676565;
+			  border-radius: 4px;
+			  box-sizing: border-box;
+
+			}
+			::-webkit-input-placeholder { /* Edge */
+				color: rgb(192,189,187);
+				font-weight: 600;
+			}
+
+			:-ms-input-placeholder { /* Internet Explorer 10-11 */
+				color: rgb(192,189,187);
+				font-weight: 600;
+			}
+
+			::placeholder {
+				color: rgb(192,189,187);
+				font-weight: 600;
+			}
+			/*
+			input[type=submit] {
+			  width: 100%;
+			  background-color: #4CAF50;
+			  color: white;
+			  padding: 14px 20px;
+			  margin: 8px 0;
+			  border: none;
+			  border-radius: 4px;
+			  cursor: pointer;
+			}
+			*/
+			small,a{
+				font-size: 1rem;
+				color: $landing-paragraph;
+			}
+			.signup-button{
+				display: inline-block;
+				margin-top: 25px;
+				height: 65px;
+				width: 100%;
+				border-radius: 36px;
+				border: none;
+				background-color: $landing-green;
+				margin-bottom: 25px;
+				color: $white;
+				padding: 9px 19px;
+				font-weight: 500;
+				&:hover {
+			  	background-color: #45a049;
+					text-decoration: none;
+				}
+			}
+
+			.checkbox-container{
+				padding-left: 25px;
+				margin: 0px 104px;
+    		font-size: 1.1rem;
+				margin-bottom: 5px;
+				font-weight: lighter;
+			}
+
 		}
 	}
 
 	/* SECTION 6: SUPPORT */
 	#support-section{
-
+		margin-bottom: 35px;
 	}
 	#support-section-content{
+		.jumbo-header{
+			margin-bottom: 10px;
+		}
 		.jumbo-content{
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
 			align-items: center;
+			margin-bottom: 0px;
 		}
 		.isometric_heart{
 			width: 200px;
 			height: 235px;
 		}
 	}
+	#return-section{
 
-
-	footer{
-		div.footer-container{
-			width: 480px;
+	}
+	#return-section-content{
+		display: flex;
+		a{
+			display: inline-block;
+			width: 90px;
+			height: 100px;
 		}
 	}
+
+	footer{
+		margin-left: 80px;
+		p{
+			font-size: 1rem;
+		}
+		div.footer-container{
+			div.footer-content{
+				display: flex;
+    		flex-direction: row;
+    		flex-wrap: wrap;
+			}
+		}
+		#info-footer{
+			p{
+				font-size: 0.9rem;
+				color: #6d7272;
+			}
+
+			p,#copyright,language-select{
+				font-weight: 600;
+
+				margin-bottom: 0;
+			}
+			small{
+				font-size: 0.8rem;
+			}
+			#all-rights{
+				margin-bottom: 0;
+				line-height: 0.5rem;
+			}
+			#copyright{
+				margin-bottom: 28px;
+				font-size: 0.8rem;
+			}
+			#crowdpol-ecosystem{
+				margin-bottom: 0px;
+				line-height: 0.8rem;
+			}
+			#tools-for-change{
+				margin-bottom: 62px;
+			}
+			#language-select{}
+		}
+		#info-footer,.footer-column{
+			min-width: 50%;
+			text-align: left;
+			margin-bottom: 40px;
+		}
+		div.logo-bar-footer{
+			.footer-logo{
+				height: 40px;
+				width: 100%;
+			}
+			margin-bottom: 35px;
+		}
+		div.social-bar-footer{
+			width: 100%;
+			text-align: center;
+		}
+
+	}
+}
+//768px
+@media only screen and (min-width: $tablet){
+	div.landing-page-content, footer{
+		border: solid $test-border-width green;
+	}
+	.hide-480, .hide-1024{
+		display:inline !important;
+	}
+	.hide-768{
+		display: none !important;
+	}
+	h1, h2.h1{
+		font-size: 3.8rem;
+		line-height: 3.9rem;
+		font-weight: 700;
+	}
+	h2, h3.h2{
+		font-size: 2rem;
+    line-height: 2rem;
+    letter-spacing: normal;
+    font-weight: 600;
+		text-align: center;
+		span{
+			font-size: 2rem !important;
+	    line-height: 2rem !important;
+	    letter-spacing: normal !important;
+	    font-weight: 600 !important;
+		}
+	}
+	h3{
+		font-size: 1.7rem;
+    line-height: 2.1rem;
+		span{
+			font-size: 1.7rem !important;
+			line-height: 2.1rem !important;
+			font-weight: 900 !important;
+		}
+	}
+	p{
+		font-size: 1.3rem;
+		font-weight: 100;
+	}
+	.jumbo-header{
+		p{
+			font-size: 1.3rem;
+			font-weight: 100;
+		}
+	}
+	#imagine-section{
+		//display: none;
+	}
+	/* SECTION 1: IMAGINE */
+	#imagine-section-content{
+		background-image: url(img/landing/crowdpol_landing_1_768_bg.jpg);
+	  background-repeat: no-repeat;
+		text-align: left;
+		.jumbo-header{
+			text-align:left;
+			margin-bottom: 25px;
+			h1{
+				margin: 0 45px;
+				margin-top: 57px;
+				margin-right: 100px;
+			}
+			p{
+				margin: 25px 45px;
+				margin-bottom: 50px;
+			}
+			.landing-button {
+				margin-left: 45px;
+				margin-bottom: 65px;
+			}
+	    .phone-wrapper{
+				display:none;
+	    }
+	  }
+	  .jumbo-content{
+			text-align:left;
+			flex-direction: column;
+			max-width: 945px;
+	  }
+	  .recent-stories{
+			height: 250px;
+	    text-align: left;
+	    margin-top: 50px;
+			margin-bottom: 65px;
+	    width: 100%;
+	    //border: solid 1px red;
+	    overflow: hidden;
+			justify-content: flex-start;
+			h2{
+				font-size: 1.5rem;
+				font-size: 1.6rem;
+		    font-weight: 500;
+		    letter-spacing: 0;
+				text-align: left;
+				margin-bottom: 5px;
+
+				span{
+					color: #5f6667 !important;
+				}
+			}
+	  }
+		.jumbo-copy{
+			margin: 0px;
+			text-align: left;
+			width: 100%;
+			h2{
+				font-size: 1.9rem;
+				line-height: 2.1rem;
+				font-weight: 600;
+				letter-spacing: normal;
+				margin-bottom: 15px;
+				margin-right: 9%;
+				text-align: left;
+			}
+		}
+	  .jumbo-content{
+			margin: 0 45px;
+	  }
+	  .recent-stories-wrapper{
+			width: 100%;
+			height: 250px;
+			padding: 0px;
+			margin: 0px;
+			justify-content: flex-start;
+	    .recent-stories-viewport{
+				width: 396px;
+				max-width: 396px;
+	    }
+	  }
+		.recent-story{
+			width: 190px;
+			.proposal-item {
+				.card-proposal-unsplash {
+	    		height: 100px;
+				}
+			}
+		}
+	}
+
+
+	/* SECTION 2: CONTRIBUTE */
+	#contribute-section{
+		margin-bottom: 50px;
+		//display:none;
+	}
+	#contribute-section-content{
+		background-image: url(img/landing/crowdpol_landing_3_768_bg.jpg);
+		background-repeat: no-repeat;
+		background-position: center 145px;
+		text-align: left;
+		.jumbo-header{
+			margin: 0 60px;
+
+			text-align: left;
+			h2{
+				text-align: left;
+				margin-right: 10%;
+			}
+			p{
+				margin-bottom: 49px;
+			}
+		}
+		.jumbo-content{
+			margin: 0 55px;
+			margin-top: 564px;
+			text-align: left;
+			h3.h2{
+				text-align: left;
+				font-size: 1.9rem
+			}
+		}
+	}
+	#network-section{
+		margin-bottom: 95px;
+		//display: none;
+	}
+	/* SECTION 3: NETWORK */
+	#network-section-content{
+		background-image: url(img/landing/crowdpol_landing_2_768_bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center 127px;
+		.jumbo-header{
+			margin-bottom: 458px;
+			text-align: right;
+			margin-right: 20px;
+			h2.h1{
+				text-align: right;
+			}
+			p{
+				margin-bottom: 55px;
+			}
+		}
+		.jumbo-content{
+			text-align: left;
+			align-items: normal;
+			margin: 0px;
+			margin-left: 60px;
+			h3.h2, p{
+				text-align: left;
+
+			}
+			h3{
+				margin-bottom: 18px;
+				margin-left: 0px;
+				margin-top: 0px;
+				margin-right: 0px;
+				font-size: 1.9rem;
+				line-height: 2.15rem;
+			}
+			p{
+				margin: 0;
+				margin-bottom: 5px;
+				margin-right: 60px;
+				line-height: 1.74rem;
+			}
+			a.learn-more{
+				padding: 0px;
+			}
+		}
+	}
+
+	/* SECTION 4: RESULT */
+	#results-section{
+		display: flex;
+		flex-direction: row;
+		align-content: space-between;
+		margin-bottom: 68px;
+		#isometric-man-column{
+			display: block;
+			margin-left: 60px;
+			max-height: 400px;
+			width: 45%;
+			background-position: center 0;
+	    background-size: contain;
+			-moz-transform: scaleX(-1);
+	    -o-transform: scaleX(-1);
+	    -webkit-transform: scaleX(-1);
+	    transform: scaleX(-1);
+	    filter: FlipH;
+	    -ms-filter: "FlipH";
+		}
+	}
+
+	#results-section-content{
+		width: 100%;
+		margin-right: 45px;
+		.jumbo-header{
+			text-align: right;
+			margin: 0px;
+			margin-bottom: 55px;
+			h1, h2.h1{
+				text-align: right;
+			}
+			p{
+				font-size: 1.15rem;
+				margin-top: 0px;
+				margin-bottom: 58px;
+			}
+		}
+		.jumbo-content{
+			.isometric-man{
+				display: none;
+			}
+			margin-left: 40px;
+			text-align: left;
+			align-items: normal;
+			h2, h3.h2 {
+				text-align: left;
+			}
+			.landing-page-list{
+				margin: 0px;
+			}
+		}
+	}
+
+	/* SECTION 5: SIGNUP */
+	#signup-section{
+		margin-bottom: 75px;
+	}
+	#signup-section-content{
+
+		.jumbo-header{
+			margin: 0 100px;
+		}
+		.jumbo-content{
+			margin: 0 115px;
+		}
+	}
+
+
+	/* SECTION 6: SUPPORT */
+	#support-section{
+		display: flex;
+		flex-direction: row;
+		align-content: space-between;
+
+		#isometric-heart-column{
+			width: 27%;
+			margin-left:115px;
+		}
+	}
+	#support-section-content{
+		margin-left: 50px;
+		margin-right: 100px;
+		text-align: left;
+		.jumbo-header{
+			padding-top: 10px;
+			margin: 0px;
+			h2, h3.h2{
+				text-align: left;
+				font-size: 1.8rem;
+			}
+		}
+		.jumbo-content{
+			width: 100%;
+			margin: 0px;
+			text-align: left;
+			align-items: normal;
+			div{
+				width: 100%;
+				ul.landing-page-list{
+					margin: 0px;
+					li{
+						line-height: 1.4rem;
+					}
+				}
+				a.learn-more {
+					padding: 0px;
+				}
+			}
+		}
+	}
+	#return-section{
+		margin-bottom: 55px;
+	}
+	#return-section-content{
+		margin-top: 75px;
+		.arrow_up{
+
+		}
+	}
+	footer{
+		margin-left: 70px;
+		div.logo-bar-footer {
+			.footer-logo{
+				height: 60px;
+			}
+		}
+		#info-footer{
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			div{
+				min-width: 25%;
+			}
+			#copyright,#tools-for-change{
+				margin-bottom: 0px;
+			}
+			.language-select{
+				display: flex;
+				align-content: flex-start;
+				i.material-icons{
+					top: -4px !important;
+				}
+			}
+		}
+		.footer-column{
+			min-width: 25%;
+		}
+	}
+}
+//1024
+@media only screen and (min-width: $laptop){
+  div.landing-page-content, footer{
+    border: solid $test-border-width red;
+  }
+	.hide-480, .hide-768, .hide-1200{
+		display: inline-block;
+	}
+	.hide-1024{
+		display: none !important;
+	}
+
+	h1, h2.h1{
+		font-weight: 600;
+	}
+	/* SECTION 1: IMAGINE */
+	#imagine-section{
+		margin-bottom: 90px;
+	}
+	#imagine-section-content{
+		background-image: url(img/landing/crowdpol_landing_1_1200_bg.jpg);
+		background-position: center top;
+		padding-top: 111px;
+		.jumbo-header{
+			margin: 0 70px;
+
+			p{
+				font-size: 1.2rem;
+				margin-top: 37px;
+				margin-bottom: 41px;
+				margin-left: 0px;
+			}
+			h1{
+				max-width: 800px;
+				margin-left: 0px;
+				margin-right: 30%
+			}
+			.landing-button{
+				margin-left: 0px;
+			}
+	    #landing-phone{
+				display:none;
+	    }
+	  }
+	  .jumbo-content{
+			width: 1145px;
+			margin: 0px auto;
+			margin-top: 110px;
+			flex-direction: row;
+	  }
+	  .recent-stories{
+			width: 50%;
+	  }
+	  .jumbo-copy{
+			width: 45%;
+			margin-top: 100px;
+	  }
+	  .recent-stories-wrapper{
+	    .recent-stories-viewport{
+	    }
+	  }
+		ul.landing-page-list{
+			li{
+				line-height: 1.1rem;
+			}
+		}
+	}
+
+	/* SECTION 2: CONTRIBUTE */
+	#contribute-section{
+		margin-bottom: 112px;
+	}
+	#contribute-section-content{
+		background-image: url(img/landing/crowdpol_landing_3_1200_bg.jpg);
+		background-position: center 155px;
+		.jumbo-header{
+			p{
+				font-size: 1.2rem;
+			}
+		}
+		.jumbo-content{
+			margin-top: 490px;
+			margin-left: 36%;
+		}
+		#red-button-graphic{
+
+		}
+	}
+
+	/* SECTION 3: NETWORK */
+	#network-section{
+		margin-bottom: 152px;
+	}
+	#network-section-content{
+		background-image: url(img/landing/crowdpol_landing_2_1200_bg.jpg);
+		background-position: center 155px;
+		padding-right: 50px;
+		.jumbo-header{
+			margin-left: 12%;
+			h1.h2{
+				line-height: 3.5rem;
+			}
+			p{
+				font-size: 1.2rem;
+			}
+		}
+		.jumbo-content{
+			margin-left: 26%;
+			margin-top: 40px;
+			p{
+				line-height: 1.6rem;
+				margin-bottom: 15px;
+			}
+		}
+	}
+
+	/* SECTION 4: RESULTS */
+	#results-section{
+		margin-bottom: 85px;
+		#isometric-man-column{
+			display: none;
+		}
+	}
+	#results-section-content{
+		position: relative;
+		.jumbo-header{
+			position: absolute;
+			right: 25px;
+			top: 0;
+			width: 50%;
+			p{
+				margin-bottom: 45px;
+			}
+		}
+		.jumbo-content{
+			position: relative;
+			float: left;
+			width: 69%;
+			margin-left: 23%;
+			h3.h2{
+				margin-right: 35%;
+				margin-bottom: 20px;
+    		font-size: 1.9rem;
+    		line-height: 1.9rem;
+			}
+			ul.landing-page-list{
+				li{
+					line-height: 1.2rem;
+					margin-bottom: 5px;
+				}
+			}
+			.isometric-man{
+				display: block;
+				margin-top: 0px;
+				width: 28%;
+				height: 435px;
+				margin-bottom: 50px;
+				-moz-transform: scaleX(-1);
+		    -o-transform: scaleX(-1);
+		    -webkit-transform: scaleX(-1);
+		    transform: scaleX(-1);
+		    filter: FlipH;
+		    -ms-filter: "FlipH";
+			}
+		}
+
+
+	}
+	/* SECTION 5: SIGNUP */
+	#signup-section{
+
+	}
+	#signup-section-content{
+		.jumbo-header{
+			margin: 0 95px;
+		}
+		.jumbo-content{
+			margin: 0 247px;
+			margin-top: 33px
+		}
+	}
+
+	/* SECTION 5: RESULT */
+
+	/* SECTION 6: SUPPORT */
+	#support-section{
+
+	}
+	#support-section-content{
+		#isometric-heart-column{
+			width: 22%;
+			margin-left: 220px;
+		}
+	}
+
+	footer{
+		.section-content {
+			align-items:stretch;
+		}
+		margin-left: 70px;
+		a{
+			font-size: 0.8rem;
+		}
+		div.logo-bar-footer {
+			.footer-logo{
+				height: 60px;
+			}
+		}
+		#info-footer{
+			width: 100%;
+			display: block;
+			min-width: 215px;
+			width: 20%;
+			p{
+				font-size: 0.8rem;
+				color: $landing-header !important;
+			}
+			#all-rights{
+				margin-bottom: 0;
+				line-height: 0.5rem;
+				margin-top: 8px;
+			}
+			#copyright{
+				margin-bottom: 28px;
+				font-size: 0.8rem;
+			}
+			#crowdpol-ecosystem{
+				margin-bottom: 0px;
+				line-height: 0.8rem;
+			}
+			#tools-for-change{
+				margin-bottom: 62px;
+			}
+			.language-select{
+				display: flex;
+				align-content: flex-start;
+				i.material-icons{
+					top: -4px !important;
+				}
+			}
+		}
+		.footer-column{
+			min-width: 160px;
+			width: 15%;
+		}
+	}
+
+}
+//1200
+@media only screen and (min-width: $desktop){
+  div.landing-page-content, footer{
+    border: solid $test-border-width blue;
+  }
+	.jumbo-header, .jumbo-content{
+		//border: solid 1px red;
+		//margin: 0 5%;
+		width: 1145px;
+	}
+	.hide-1200{
+		display:none;
+	}
+	ul.landing-page-list li{
+		margin-bottom: 5px;
+		font-size: 1.05rem;
+	}
+	#imagine-section{
+		margin-bottom: 132px;
+	}
+	#imagine-section-content{
+		.jumbo-header{
+			margin-top: 48px;
+			//margin-right: 10%;
+			h1{
+				max-width: 600px;
+				line-height: 3.7rem;
+			}
+			p{
+				margin-bottom: 53px;
+			}
+			.langing-button{
+				padding: 14px 32px;
+			}
+		}
+		.jumbo-copy{
+			width: 625px;
+			margin-top: 35px;
+			h2{
+				font-size: 1.7rem;
+    		line-height: 1.7rem;
+			}
+		}
+		.recent-stories{
+			margin-top: 0px;
+			min-width: 500px;
+			width: 500px;
+			h2{
+				text-align: left;
+    		font-size: 1.4rem;
+			}
+		}
+		.jumbo-content{
+			max-width: 1145px;
+			width: 100%;
+			margin: 0px;
+			margin-top: 110px;
+		}
+	}
+	#contribute-section{
+		margin-bottom: 145px;
+	}
+	#contribute-section-content{
+		.jumbo-content{
+			margin-top: 620px;
+			max-width: 574px;
+			margin-left: 48%
+		}
+	}
+	#network-section{
+		margin-bottom: 180px;
+	}
+	#network-section-content{
+		.jumbo-header{
+			width: 720px;
+			position: relative;
+			right: 0px;
+			margin-left: 40%;
+		}
+		.jumbo-content{
+			width: 640px;
+			margin-right: 20%;
+		}
+	}
+	#results-section{
+		margin-bottom: 174px;
+	}
+	#results-section-content{
+		position: relative;
+		.jumbo-header, .jumbo-content{
+			min-width: 1073px;
+			max-width: 1145px;
+			margin: 0 auto;
+		}
+		.jumbo-header{
+			position: relative;
+
+			height: 477px;
+			background-image: url(img/landing/crowdpol_new_presence.jpg);
+		  background-repeat: no-repeat;
+			background-position: 0 0;
+			background-size: 50%;
+			right: 0px;
+
+			h2{
+				margin-left: 60%;
+			}
+
+		}
+		.jumbo-content{
+			width: 1073px;
+			padding-top: 15px;
+			h3.h2{
+				margin-right: 24%;
+			}
+			.isometric-man{
+				display: none;
+			}
+		}
+
+	}
+	#signup-section{
+		margin-bottom: 100px;
+	}
+	#signup-section-content{
+		.jumbo-header{
+			h2.h1{
+				margin: 0 10%;
+			}
+		}
+		.jumbo-content{
+			padding-top: 25px;
+			padding: 0 22%;
+		}
+	}
+	#support-section{
+		margin-bottom: 0px;
+		#isometric-heart-column{
+			width: 208px;
+			margin-left: 33%;
+		}
+	}
+	#support-section-content{
+		.jumbo-header, .jumbo-content{
+			width: 300px;
+		}
+
+	}
+}
+//<1200
+@media only screen and (min-width: $big){
+  div.landing-page-content, footer{
+    border: solid $test-border-width pink;
+  }
 }

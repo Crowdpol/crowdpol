@@ -27,46 +27,70 @@
         <!-- CURRENTLY NOT ENABLED: MOVIE INTRO PENDING
         <div class="movie-overlay"></div>
         -->
-        <div class="section-content world-map" id="imagine-section-content">
+        <div class="section-content" id="imagine-section-content">
           <div class="jumbo-header">
             <h1>Imagine changing the world from your phone</h1>
             <p>Initiate and support global change with a click!</p>
             <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
-            <div id="landing-phone" class="isometric-phone"></div>
+            <!--
+            <div class="phone-wrapper">
+            <div id="landing-phone" class="isometric-phone">
+
+            </div>
+            <svg width="100vw" height="500px">
+              <circle cx="50" cy="50" r="20"
+              stroke="green" stroke-width="3" fill="transparent" />
+              <circle cx="50" cy="50" r="8"
+              stroke="green" stroke-width="1" fill="green" />
+              <line x1="50" y1="50" x2="200" y2="200" style="stroke:#ccc;stroke-width:2" stroke-dasharray="5,5" />
+              <g fill="none" stroke="#ccc" stroke-width="3">
+                <path stroke-dasharray="5,5" d="M50 50 l215 250"  />
+
+              </g>
+            Sorry, your browser does not support inline SVG.
+            </svg>
+
+            </div>
+            -->
           </div>
           <div class="jumbo-content">
             <div class="recent-stories">
-              <h2>Recent stories<span class="hide-480">:</span></h2>
+              <h2>Recent stories</h2>
 
               <div class="recent-stories-wrapper">
+
                 <div class="recent-stories-left recent-stories-arrow">
                   <i class="material-icons">keyboard_arrow_left</i>
                 </div>
                 <div class="recent-stories-viewport">
-                  <!--
                   <div class="recent-stories-scroller">
-
                     {{#each proposal in previewProposals}}
                       <div class="recent-story">
                         <a href="/proposals/view/{{proposal.id}}" class="">
-                      		<li class="proposal-item" data-id="{{proposal.id}}">
+                      		<div class="proposal-item" data-id="{{proposal.id}}">
                       			<div class="card-proposal-unsplash" style="background-image: {{proposal.coverURL}}; background-position: center;"></div>
-                      			<div class="card-main-wrap">
-                      				<div class="card-title">
-                      					<h6>{{proposal.title}}</h6>
-                      				</div>
-                      			</div>
-                      			<div class="card-secondary-wrap">
-                      				<p class="proposal-abstract">{{proposal.abstract}}</p>
-                      			</div>
-                      		</li>
+                            <div class="card-title">
+                              <h6>{{proposal.title}}</h6>
+                            </div>
+                            <div class="card-status">
+                              <div class="vote-percent-wrapper">
+                                <div class="vote-percent">
+                                  <div class="yes-percent" style="width: {{proposal.yes}}%;"></div>
+                                  <div class="abstain-percent" style="width: {{proposal.abstain}}%;"></div>
+                                  <div class="no-percent" style="width: {{proposal.no}}%;"></div>
+                                </div>
+                              </div>
+                              <div class="vote-stats">
+                                <div class="vote-count">{{proposal.votecount}} voted</div>
+                                <div class="view-count">{{proposal.viewcount}} viewed</div>
+                              </div>
+                            </div>
+                      		</div>
                       	</a>
                       </div>
                     {{/each}}
 
-
                   </div>
-                  -->
                 </div>
                 <div class="recent-stories-left recent-stories-arrow">
                   <i class="material-icons">keyboard_arrow_right</i>
@@ -75,9 +99,9 @@
 
             </div>
             <div class="jumbo-copy">
-              <h2>When you have the world in your hands, it’s easier to <span class="green">navigate</span> its needs.</h2>
+              <h2>When you have the world in your hands, it’s easier to <span class="green">navigate</span> it's needs.</h2>
               <ul class="landing-page-list">
-                <li>Get an <span class="heavy">overview</span> of the trending proposals, polls, petitions and fundraisers in the local and global areas that you select.</li>
+                <li>Get an <span class="heavy">overview</span> of the trending proposals, polls, petitions and fundraisers.</li>
                 <li>Write your own <span class="heavy">proposals</span> and put them in the spotlight through our network.</li>
                 <li>Become a <span class="heavy">delegate</span> and raise awareness about your causes</li>
                 <li>Allocate funds and support projects through the <span class="heavy">altruistic</span> wallet</li>
@@ -91,13 +115,14 @@
 
       <!-- CONTRIBUTE SECTION -->
       <section id="contribute-section" class="landing-page-section">
-        <div class="section-content world-map" id="contribute-section-content">
+        <div class="section-content" id="contribute-section-content">
           <div class="jumbo-header">
             <h2 class="h1">A global village of changemakers</h2>
             <p>Collective competence comes through sharing ideas.</p>
             <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
           </div>
           <div class="jumbo-content">
+            <!--
             <div id="red-button-graphic">
               <div class="speechbubble">c02 emission tax?</div>
               <div class="isometric-man"></div>
@@ -112,8 +137,9 @@
 
               <div class="crowdpol_red_button"></div>
             </div>
-            <h3 class="h2">Create <span class="red">proposals</span> &amp; connect with like-minded individuals around the globe</h3>
-            <p>Collective competence is the result of sharing information, resources and advice. The red button will help you:</p>
+            -->
+            <h3 class="h2">Create <span class="red">proposals</span> &amp; connect with other changemakers around the globe</h3>
+            <p class="hide-480 hide-768">Collective competence is the result of sharing information, resources and advice. The red button will help you:</p>
             <ul class="landing-page-list">
               <li><span class="heavy">Initiate</span> powerful change processes that can effect local, national and global decisionmaking.</li>
               <li><span class="heavy">Support</span> important causes aligned with your values.</li>
@@ -127,7 +153,7 @@
 
       <!-- NETWORK SECTION -->
       <section id="network-section" class="landing-page-section">
-        <div class="section-content polygon-landscape" id="network-section-content">
+        <div class="section-content" id="network-section-content">
           <div class="jumbo-header">
             <h2 class="h1">What problems do you want to solve?</h2>
             <p>Find your space in the political sphere</p>
@@ -135,19 +161,22 @@
           </div>
 
           <div class="jumbo-content">
+            <!--
             <div class="isometric_sun_facing_right"></div>
             <div class="isometric-man"></div>
             <div class="isometric_globe hide-480"></div>
+            -->
             <h3 class="h2">Set your <span class="orange">compass</span> to discover global landscapes of competing values & interests.</h3>
             <p>To be able to navigate intelligently through the vast amounts of political causes generated by our users, we have developed a personalised filtering-system that we call <strong>the Compass.</strong> When you register you will get a presence that receives a feed with a propsals tailored to your areas, interests and values.</p>
             <a href="/not-found" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
-            <div class="isometric_globe"></div>
+            <div class="isometric_globe hide-768 hide-1024"></div>
           </div>
         </div>
       </section>
 
       <!-- RESULTS SECTION -->
       <section id="results-section" class="landing-page-section">
+        <div class="isometric-man" id="isometric-man-column"></div>
         <div class="section-content" id="results-section-content">
           <div class="jumbo-header">
             <h2 class="h1">Increase your presence</h2>
@@ -179,8 +208,14 @@
             <form>
               <input type="text" name="signup-email" placeholder="Email Address" class="landing-input"/>
               <input type="password" name="signup-password" placeholder="Password"  class="landing-input"/>
-              <button class="landing-button">Get Started<i class="material-icons">keyboard_arrow_right</i></button>
-              <input type="checkbox" name="signup-newsletter" class="landing-input"/>
+              <a class="landing-button signup-button" href="/signup">
+                Get Started<i class="material-icons">keyboard_arrow_right</i>
+              </a>
+              <label class="checkbox-container">
+                Sign up to our newsletter
+                <input type="checkbox" name="signup-newsletter" id="signup-newsletter">
+                <span class="checkmark"></span>
+              </label>
               <small>Clicking Get Started accepts <a href="/aup">terms of use</a></small>
             </form>
           </div>
@@ -189,19 +224,21 @@
 
       <!-- SUPPORT SECTION -->
       <section id="support-section" class="landing-page-section">
+        <div class="isometric_heart hide-480" id="isometric-heart-column"></div>
         <div class="section-content" id="support-section-content">
           <div class="jumbo-header">
-            <h3>Support Crowdpol</h3>
+            <h3 class="h2">Support Crowdpol</h3>
           </div>
           <div class="jumbo-content">
-            <div class="isometric_heart"></div>
-            <div class="">
+            <div class="isometric_heart hide-768 hide-1024"></div>
+            <div >
               <ul class="landing-page-list">
                 <li><span class="heavy">Fund</span> the project.</li>
                 <li><span class="heavy">Create</span> a presence.</li>
                 <li><span class="heavy">Spread</span> the word.</li>
                 <li><span class="heavy">Testpilot</span> the platform.</li>
               </ul>
+              <a href="/not-found" class="learn-more">Learn more&nbsp;<i class="material-icons">keyboard_arrow_right</i></a>
             </div>
           </div>
         </div>
@@ -209,7 +246,7 @@
 
       <section id="return-section" class="landing-page-section">
         <div class="section-content" id="return-section-content">
-          <a href="#imagine-section" data-anchor="#imagine-section" class="arrow_up"></a>
+          <a href="#imagine-section" data-anchor="#imagine-section" class="arrow-up"></a>
         </div>
       </section>
     </div>
@@ -223,11 +260,14 @@
 
         <div class="footer-content">
           <div id="info-footer">
-
-            <p>All Rights Reserved</p>
-            <span id="copyright">© crowdpol.com</span>
-            <p class="no-margin-bottom">Crowdpol Ecosystem</p>
-            <p>Tools for changemakers</p>
+            <div>
+            <p id="all-rights">All Rights Reserved</p>
+            <p id="copyright">© crowdpol.com</p>
+            </div>
+            <div>
+            <p id="crowdpol-ecosystem">Crowdpol Ecosystem</p>
+            <p id="tools-for-change">Tools for changemakers</p>
+            </div>
             <div class="language-select">
               <i class="material-icons">language</i><span class="language-selector">English</span>
             </div>
@@ -238,12 +278,9 @@
               <li class="footer-li-link"><a href="/product">Product</a></li>
               <li class="footer-li-link"><a href="/pricing">Pricing</a></li>
               <li class="footer-li-link"><a href="/enterprise">Enterprice</a></li>
-              <li class="footer-li-link"><a href="/partners">Partners</a></li>
               <li class="footer-li-link"><a href="/partner-search">Find a partner</a></li>
-              <li class="footer-li-link"><a href="/templates">Templates</a></li>
               <li class="footer-li-link"><a href="/integrations">Integrations</a></li>
               <li class="footer-li-link"><a href="/developers">Developers</a></li>
-              <li class="footer-li-link"><a href="/students">Students</a></li>
             </ul>
           </div>
 
@@ -254,14 +291,12 @@
               <li class="footer-li-link"><a href="/contact">Contact us</a></li>
               <li class="footer-li-link"><a href="/contact">Careers</a></li>
               <li class="footer-li-link"><a href="/media">In the news</a></li>
-              <li class="footer-li-link"><a href="/press-kit">Press kit</a></li>
               <li class="footer-li-link"><a href="/blog">Blog</a></li>
             </ul>
           </div>
           <div class="footer-column">
             <h3>Press</h3>
             <ul class="footer-ul">
-              <li class="footer-li-link"><a href="/clients">Client projects</a></li>
               <li class="footer-li-link"><a href="/creative">Creative agencies</a></li>
               <li class="footer-li-link"><a href="/product">Product management</a></li>
               <li class="footer-li-link"><a href="/agile">Agile projects</a></li>
@@ -276,14 +311,15 @@
               <li class="footer-li-link"><a href="/guides">Guides</a></li>
               <li class="footer-li-link"><a href="/services">Professional services</a></li>
               <li class="footer-li-link"><a href="/support">Support</a></li>
+              <li class="footer-li-link"><a href="/blog">Blog</a></li>
             </ul>
-            <h3>Legal</h3>
-            <ul class="footer-ul">
+            <h3 class="hide-480 hide-768">Legal</h3>
+            <ul class="footer-ul hide-480 hide-768">
               <li class="footer-li-link"><a href="/terms">Terms of service</a></li>
               <li class="footer-li-link"><a href="/privacy">Privacy policy</a></li>
               <li class="footer-li-link"><a href="/security">Security</a></li>
             </ul>
-            <div class="social-bar-footer">
+            <div class="social-bar-footer hide-480 hide-768">
               <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social twitter"><img src="/img/landing/twitter.svg"></a>
               <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social linkedin"><img src="/img/landing/linkedin.svg"></a>
               <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social facebook"><img src="/img/landing/facebook.svg"></a>
@@ -291,6 +327,22 @@
               <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social youtube"><img src="/img/landing/youtube.svg"></a>
               <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social soundcloud"><img src="/img/landing/soundcloud_icon.svg"></a>
             </div>
+          </div>
+          <div class="footer-column hide-780">
+            <h3>Legal</h3>
+            <ul class="footer-ul">
+              <li class="footer-li-link"><a href="/terms">Terms of service</a></li>
+              <li class="footer-li-link"><a href="/privacy">Privacy policy</a></li>
+              <li class="footer-li-link"><a href="/security">Security</a></li>
+            </ul>
+          </div>
+          <div class="social-bar-footer">
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social twitter"><img src="/img/landing/twitter.svg"></a>
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social linkedin"><img src="/img/landing/linkedin.svg"></a>
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social facebook"><img src="/img/landing/facebook.svg"></a>
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social instagram"><img src="/img/landing/instagram.svg"></a>
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social youtube"><img src="/img/landing/youtube.svg"></a>
+            <a target="_blank noreferrer" rel="noopener" href="https:" class="footer-social soundcloud"><img src="/img/landing/soundcloud_icon.svg"></a>
           </div>
         </div>
 
