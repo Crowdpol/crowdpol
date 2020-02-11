@@ -994,6 +994,9 @@ footer{
 	/* SECTION 4: RESULTS */
 	#results-section{
 		margin-bottom: 98px;
+		#isometric-man-column{
+			display: none;
+		}
 	}
 	#results-section-content{
 		.jumbo-header{
@@ -1019,6 +1022,7 @@ footer{
 		.landing-page-list{
 			margin: 0 58px;
 		}
+
 	}
 
 	/* SECTION 5: SIGNUP */
@@ -1432,20 +1436,22 @@ footer{
 		flex-direction: row;
 		align-content: space-between;
 		margin-bottom: 68px;
+		#isometric-man-column{
+			display: block;
+			margin-left: 60px;
+			max-height: 400px;
+			width: 45%;
+			background-position: center 0;
+	    background-size: contain;
+			-moz-transform: scaleX(-1);
+	    -o-transform: scaleX(-1);
+	    -webkit-transform: scaleX(-1);
+	    transform: scaleX(-1);
+	    filter: FlipH;
+	    -ms-filter: "FlipH";
+		}
 	}
-	#isometric-man-column{
-		margin-left: 60px;
 
-		width: 45%;
-		background-position: center 0;
-    background-size: 87%;
-		-moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
-	}
 	#results-section-content{
 		width: 100%;
 		margin-right: 45px;
@@ -1463,6 +1469,9 @@ footer{
 			}
 		}
 		.jumbo-content{
+			.isometric-man{
+				display: none;
+			}
 			margin-left: 40px;
 			text-align: left;
 			align-items: normal;
@@ -1690,6 +1699,9 @@ footer{
 	/* SECTION 4: RESULTS */
 	#results-section{
 		margin-bottom: 85px;
+		#isometric-man-column{
+			display: none;
+		}
 	}
 	#results-section-content{
 		position: relative;
@@ -1719,19 +1731,22 @@ footer{
 					margin-bottom: 5px;
 				}
 			}
+			.isometric-man{
+				display: block;
+				margin-top: 0px;
+				width: 28%;
+				height: 435px;
+				margin-bottom: 50px;
+				-moz-transform: scaleX(-1);
+		    -o-transform: scaleX(-1);
+		    -webkit-transform: scaleX(-1);
+		    transform: scaleX(-1);
+		    filter: FlipH;
+		    -ms-filter: "FlipH";
+			}
 		}
-		.isometric-man{
-			margin-top: 0px;
-			width: 28%;
-			height: 435px;
-			margin-bottom: 50px;
-			-moz-transform: scaleX(-1);
-	    -o-transform: scaleX(-1);
-	    -webkit-transform: scaleX(-1);
-	    transform: scaleX(-1);
-	    filter: FlipH;
-	    -ms-filter: "FlipH";
-		}
+
+
 	}
 	/* SECTION 5: SIGNUP */
 	#signup-section{
@@ -1914,7 +1929,7 @@ footer{
 			background-image: url(img/landing/crowdpol_new_presence.jpg);
 		  background-repeat: no-repeat;
 			background-position: 0 0;
-			background-size: contain;
+			background-size: 50%;
 			right: 0px;
 
 			h2{
@@ -1928,7 +1943,9 @@ footer{
 			h3.h2{
 				margin-right: 24%;
 			}
-
+			.isometric-man{
+				display: none;
+			}
 		}
 
 	}

@@ -4,13 +4,19 @@ import './global.html'
 
 Template.Global.onCreated(function(){
   self = this;
+  if(!Session.get("globalTemplate")){
+    console.log("globalTemplate is null, setting to Vote_Content")
+    Session.set("globalTemplate","Navigator_Vote_Content");
+  }else{
+    console.log("globalTemplate is set to :" + Session.get("globalTemplate"));
+  }
 });
 
 Template.Global.onRendered(function(){
 
   //Note: because the content is dynamic, better to use global event handlers instead of template level.
   //      These events are used throught the global layout
-  Session.set("globalTemplate","");
+  //Session.set("globalTemplate","");
   let firstActiveTemplateLinkText = $(".global-sidebar-menu > a.active > div.global-template-link-text").text().trim();
   //$(".global-menubar-title").text(firstActiveTemplateLinkText);
   console.log(firstActiveTemplateLinkText);
@@ -60,6 +66,7 @@ Template.Global.onRendered(function(){
     let currentTab = $(selectedTab).data("id");
     enableTabContent(currentTab);
   });
+
 
 });
 
