@@ -306,6 +306,322 @@
 	{{/if}}
 </template>
 
+<template name="NewViewProposal">
+	{{> SignInModal}}
+	{{>FlagModal}}
+	{{> RemoveInviteModal proposalId=_id}}
+	<div class="global-wrapper" id="proposal-view">
+    <!-- Your content goes here -->
+      <div class="global-cover" data-id="proposal-view">
+				<div id="proposal-view-cover">
+					{{> backButton text="generic.back-to-proposals" url=backUrl hasHeader=false}}
+				</div>
+
+      </div>
+      <div class="global-menu" data-id="proposal-view">
+        <button class="mdl-button mdl-js-button mdl-button--icon" id="cover-toggle">
+          <i class="material-icons cover-toggle-icon">keyboard_arrow_up</i>
+          <i class="material-icons cover-toggle-icon" style='display:none;'>keyboard_arrow_down</i>
+        </button>
+				<div class="global-columns global-two-columns">
+			    <div class="global-left-column">
+			    </div>
+			    <div class="global-center-column">
+						<div class="navigator-breadcrumbs">
+			        {{>CommunityBreadcrumb}}
+			      </div>
+			      <div class="community-menu">
+			        <div id="proposal-authors">
+								<!-- Author Information -->
+								<div class="principle-author">
+								{{#if isAdminProposalView}}
+									{{>UserCard userId=authorId style="flat"}}
+								{{else}}
+									{{#if anonymous}}
+										{{>UserCard userId="" style="flat"}}
+									{{else}}
+										{{>UserCard userId=authorId style="flat"}}
+									{{/if}}
+								{{/if}}
+								</div>
+								{{#unless anonymous}}
+									<div class="collab-authors" id="collab-chips">
+										<div class="collab-author invited">
+											<img class="mdl-chip__contact" src="/img/profile-pic.png">
+											<span class="mdl-chip__text">Test User</span>
+											<button type="button" class="mdl-chip__action tag-chip-delete" data-id="1}">
+												<i class="material-icons tag-chip-delete" data-id="1">cancel</i>
+											</button>
+										</div>
+										<div class="collab-author">
+											<img class="mdl-chip__contact" src="/img/profile-pic.png">
+											<span class="mdl-chip__text">Test User</span>
+										</div>
+									</div>
+								{{/unless}}
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+      </div>
+      <div class="global-body" data-id="proposal-view">
+			  <div class="global-columns global-three-columns">
+			    <div class="global-left-column">
+						<div id="proposal-view-info">
+									<div class="proposal-info-section">
+										<div class="info-section-header">
+											Influence
+										</div>
+										<div class="info-section-content">
+											<div id="influence-map"></div>
+										</div>
+									</div>
+									<!-- Tags -->
+									<div id="proposal-tags-wrapper" class="proposal-info-section">
+										<div class="info-section-header">
+											Tags
+										</div>
+										<div class="info-section-content">
+											{{#each tags}}
+												<a href="{{this.url}}" class="crowdpol-tag">#{{this.keyword}}</a>
+											{{/each}}
+										</div>
+
+									</div>
+								{{#unless isEditable }}
+									<div class="proposal-info-section">
+										<div class="info-section-header">
+											Enagage
+										</div>
+										<div class="info-section-content proposal-social-controls">
+											<div class="mdl-tooltip" data-mdl-for="sign-proposal">
+												{{_ "pages.proposals.view.tooltips.sign"}}
+											</div>
+											<div class="mdl-tooltip" data-mdl-for="copy-proposal-link">
+												{{_ "pages.proposals.view.tooltips.share"}}
+											</div>
+											<div>
+												{{>FlagButton contentId=_id contentType="proposal" authorId=author._id}}
+											</div>
+											<div>
+												<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+													<i class="material-icons">share</i>
+												</button>
+											</div>
+											<div class="signature-button">
+												<button id="sign-proposal" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect {{#if isSigned}}mdl-button--colored{{/if}}">
+													<i class="material-icons">{{#if isSigned}}favorite{{else}}favorite_border{{/if}}</i>
+												</button>
+											</div>
+											<div class="signature-count">
+												{{ signatureCount }}
+											</div>
+										</div>
+									</div>
+								{{/unless}}
+								{{#if isEditable }}
+									<div id="proposal-sidemenu-bar" class="proposal-info-section">
+										<div class="info-section-header">
+											Author Menu
+										</div>
+										<div class="info-section-content">
+											<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="edit-proposal">
+												{{_ "pages.proposals.view.editProposal"}}
+											</button>
+											{{#if isSubmittable }}
+											<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect" id="submit-proposal">
+												{{_ "pages.proposals.view.submitProposal"}}
+											</button>
+											{{/if}}
+											{{#if statusApproved status}}
+												<button class="secondary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="publish-proposal">
+													{{_ "pages.proposals.view.publishProposal"}}
+												</button>
+											{{/if}}
+										</div>
+									</div>
+								{{/if}}
+						</div>
+					</div>
+			    <div class="global-center-column" id="proposal-view-content">
+						{{#if Template.subscriptionsReady}}
+							<div class="proposal-view-container">
+								{{#if isVisible }}
+
+
+									<!-- Tabs for translations -->
+									<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+										<div class="button-tabs mdl-tabs__tab-bar">
+											{{#each languages}}
+											<a href="#{{this}}-panel" class="mdl-tabs__tab {{activeClass this}}">{{this}}</a>
+											{{/each}}
+										</div>
+										{{#each languages}}
+											<div class="mdl-tabs__panel {{activeClass this}}" id="{{this}}-panel">
+												{{> ProposalContent language=this proposalId=_id}}
+											</div>
+										{{/each}}
+									</div>
+
+
+
+									{{#if showEditable}}
+										<!-- Edit and Submit Buttons -->
+										<div class="proposal-wrap proposal-actions">
+											{{#if isSubmittable }}
+											<button class="primary-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="submit-proposal">
+												{{_ "pages.proposals.view.submitProposal"}}
+											</button>
+											{{/if}}
+										</div>
+									{{/if}}
+
+									<!-- Voting Buttons -->
+									<div class="proposal-wrap proposal-vote">
+										<hr>
+										{{#if isVotable}}
+											<div class="mdl-card mdl-cell mdl-cell--12-col vote-details">
+												<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+													<div>
+														<h5>{{_ "pages.proposals.view.voteHeading"}}</h5>
+													</div>
+													<div class="section-spacer"></div>
+
+													<div class="signature-count">
+														{{ startDate }}&nbsp;-&nbsp;{{ endDate }}&nbsp;
+													</div>
+													<div class="signature-count"><i class="material-icons">date_range</i></div>
+												</div>
+											</div>
+											<div class="voting-content">
+												{{#if isVotingAsDelegate}}
+													<div class="delegate-vote-buttons">
+														{{> delegateVoteButtons proposalId=_id endDate=endDate}}
+													</div>
+												{{else}}
+													<p class="proposal-info">{{_"pages.proposals.view.voteInstructions"}}</p>
+													{{> voteButtons proposalId=_id}}
+													{{> delegateVoteList proposalId=_id}}
+												{{/if}}
+											</div>
+										{{else}}
+											<center>
+												<h5>
+													<small>{{_ "pages.proposals.view.inactive-vote-message" startDate=startDate endDate=endDate }}</small>
+												</h5>
+											</center>
+										{{/if}}
+										<hr>
+									</div>
+									<!-- Check if proposal is live -->
+									{{#if isLive}}
+										<!-- Show Commenting -->
+										{{#if showComments}}
+											<div class="proposal-wrap">
+												<div class="">
+													<div class="comments">
+														{{#if isInvited }}
+															{{> CommentForm}}
+														{{/if}}
+														{{#if showAdminComments}}
+															{{#each adminComments status}}
+																	<div class="proposal-admin-comment">
+																		<div class="admin-comments-header">
+																			<div class="comment-title">
+																				<img src="{{getAvatar authorId}}" class="comment__avatar">
+																				<span class="comment-author">{{authorName authorId}}</span>
+																				<span class="comment-date">{{argumentDate lastModified}}</span>
+																				<button type="button" class="mdl-chip__action tag-chip-delete close-comment" data-id="{{_id}}">
+																					<i class="material-icons tag-chip-delete close-comment" data-id="{{_id}}">cancel</i>
+																				</button>
+																			</div>
+																		</div>
+																		<div class="comment-message">
+																			{{this.message}}
+																		</div>
+																	</div>
+															{{/each}}
+															{{#each invitationDeclinedComments status}}
+																	<div class="proposal-invite-comment">
+																		<div class="invite-comments-header">
+																			<div class="comment-title">
+																				<img src="{{getAvatar authorId}}" class="comment__avatar">
+																				<span class="comment-author">{{authorName authorId}}</span>
+																				<span class="comment-date">{{argumentDate lastModified}}</span>
+																				<button type="button" class="mdl-chip__action tag-chip-delete close-comment" data-id="{{_id}}">
+																					<i class="material-icons tag-chip-delete close-comment" data-id="{{_id}}">cancel</i>
+																				</button>
+																			</div>
+																		</div>
+																		<div class="comment-message">
+																			{{this.message}}
+																		</div>
+																	</div>
+															{{/each}}
+														{{else}}
+																<!--<p>you are not the owner</p>-->
+														{{/if}}
+														{{#each comments}}
+															{{> Comment}}
+														{{/each}}
+													</div>
+												</div>
+											</div>
+										{{/if}}
+									{{else}} <!-- not live -->
+										<!-- Proposal Timeline -->
+										<h6>Proposal Timeline</h6>
+										{{#if isInvited }}
+											{{#unless isAdminProposalView}}
+												{{> CommentForm}}
+											{{/unless}}
+										{{/if}}
+										{{#each eventLogs}}
+											<div class="proposal-event-log event-log-{{this.type}}">
+												{{>UserCard style="date-time" userId=this.triggerUserId date=this.createdAt}}
+												<div class="event-log-message">
+													{{#if this.commentId}}
+														{{eventLogType this.type}} "{{{urlifyMessage eventLogCommment.message}}}"
+													{{else}}
+														{{eventLogStatus this.type}}
+													{{/if}}
+												</div>
+											</div>
+										{{/each}}
+									{{/if}}
+								{{else}} <!-- not visible -->
+									<h3>{{_ "pages.proposals.view.proposalUnvailable"}}</h3>
+								{{/if}}
+							</div>
+
+						<!-- Sign and Share buttons
+						<div class="proposal-view-menu">
+							<div class="proposal-view-menu-buttons">
+								<button class="mdl-button mdl-button-icon mdl-js-button mdl-js-ripple-effect" data-clipboard-text="{{getProposalLink}}" id="copy-proposal-link">
+									<i class="material-icons">share</i>
+								</button>
+							</div>
+						</div>
+						-->
+						{{else}}
+							{{> loader}}
+						{{/if}}
+			    </div>
+			    <div class="global-right-column" id="proposal-view-changemakers">
+						<h5>Changemakers that support this</h5>
+						<p>There are currently no change makers following this proposal</p>
+					</div>
+			  </div>
+      </div>
+      <div class="global-footer" data-id="proposal-view">
+				Proposal Footer
+			  <div class="global-footer-links">
+			    <!--{{>Proposal_Sidebar_Links}}-->
+			    Put links in here if need be
+			  </div>
+      </div>
+  </div>
+</template>
 <!--=========== Proposal Content =========-->
 
 <template name="ProposalContent">

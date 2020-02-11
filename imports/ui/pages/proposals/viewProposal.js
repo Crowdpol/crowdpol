@@ -8,7 +8,7 @@ import { setCoverState } from '../../components/cover/cover.js'
 import { urlify,calcReadingTime } from '../../../utils/functions';
 import RavenClient from 'raven-js';
 
-Template.ViewProposal.onCreated(function(language){
+Template.NewViewProposal.onCreated(function(language){
   var self = this;
   var dict = new ReactiveDict();
   this.templateDictionary = dict;
@@ -42,9 +42,14 @@ Template.ViewProposal.onCreated(function(language){
         dict.set( 'status', proposal.status );
         dict.set( 'signatures', proposal.signatures || []);
         dict.set( 'tags', proposal.tags || [] );
+        //new cover stuff
+        dict.set('coverURL',proposal.coverURL);
+        dict.set('coverPosition',proposal.coverPosition);
+        //consider deleting the below
         dict.set('hasCover',proposal.hasCover);
         dict.set('eventLogs',proposal.eventLog || []);
         Session.set('hasCover',proposal.hasCover);
+
         if(proposal.hasCover){
           Session.set('coverPosition',proposal.coverPosition);
           Session.set('coverURL',proposal.coverURL);
@@ -60,7 +65,7 @@ Template.ViewProposal.onCreated(function(language){
   });
 });
 
-Template.ViewProposal.onRendered(function(language){
+Template.NewViewProposal.onRendered(function(language){
   var self = this;
   var clipboard = new Clipboard('#copy-proposal-link');
 
@@ -85,26 +90,26 @@ Template.ViewProposal.onRendered(function(language){
   });
 
   this.autorun(function() {
-    /*
+
     let hasCover = Template.instance().templateDictionary.get('hasCover');
     if(typeof hasCover != 'undefined'){
   		if(hasCover){
-        $('#cover-image').css("background-image",Template.instance().templateDictionary.get('coverURL'));
-        $('#cover-image').css("background-position",Template.instance().templateDictionary.get('coverPosition'));
-        $('#cover-image').addClass("disable-edit");
+        $('#proposal-view-cover').css("background-image",Template.instance().templateDictionary.get('coverURL'));
+        //$('#proposal-view-cover').css("background-position",Template.instance().templateDictionary.get('coverPosition'));
+        //$('#proposal-view-cover').addClass("disable-edit");
       }else{
-        $('#cover-image').hide();
+        //$('#proposal-view-cover').hide();
+        console.log("do default crowdpol cover")
       }
     }else{
       console.log("hasCover undefined");
     }
-    */
 
   });
 
 });
 
-Template.ViewProposal.events({
+Template.NewViewProposal.events({
   'click .minilogo, click .proposal-author' (event,template){
     Session.set('drawerId',Template.instance().templateDictionary.get( 'authorId' ));
     if($('.mdl-layout__drawer-right').hasClass('active')){
@@ -215,9 +220,9 @@ Template.ViewProposal.events({
 	},
 });
 
-Template.ViewProposal.helpers({
+Template.NewViewProposal.helpers({
   anonymous: function(){
-    return Template.instance().templateDictionary.get('anonymous');
+    return true;//Template.instance().templateDictionary.get('anonymous');
   },
   authorId: function(){
     return Template.instance().templateDictionary.get('authorId');
