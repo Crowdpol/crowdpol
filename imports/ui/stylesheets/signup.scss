@@ -1,0 +1,49 @@
+@import 'variables.scss';
+@import 'breakpoint.scss';
+
+.wizard-progressbar{
+  width: solid 1px black;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  .progressbar-section{
+    flex: 1;
+    border: solid 1px red;
+    .section-circle{
+      border: solid 1px green;
+
+    }
+    .section-line{
+      border: solid 1px orange;
+    }
+  }
+}
+#cont{
+  width: 50vw;
+  height: 50vh;
+  margin: 0 auto;
+  border: solid 1px blue;
+}
+
+.section-svg circle {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+  stroke: #666;
+  stroke-width: 1em;
+}
+.section-svg .circle-bar {
+  stroke: #FF9F1E;
+}
+.progress-circle-wrapper {
+  display: block;
+  //height: 100%;
+  width: 100%;
+  margin: 2em auto;
+  //box-shadow: 0 0 1em black;
+  //border-radius: 100%;
+  position: relative;
+}
+.section-circle{
+
+}

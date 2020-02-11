@@ -141,7 +141,8 @@ publicRoutes.route('/signup', {
       console.log("rendering holding");
         BlazeLayout.render('Holding');
     }else{
-      BlazeLayout.render('App_body', { main: 'RegistrationWizard' });
+      console.log("rendering registration");
+      BlazeLayout.render('App_body', { main: 'SignupWizard' });
     }
   },
 });

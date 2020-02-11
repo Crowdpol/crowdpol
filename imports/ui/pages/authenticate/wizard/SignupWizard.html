@@ -1,0 +1,484 @@
+<template name="SignupWizard">
+  <!--{{>WizardProgressbar}}-->
+  <div class="reg-wizard-container">
+    <!--
+      https://codepen.io/geedmo/pen/InFfd
+      https://codepen.io/jo-asakura/pen/stFHi
+    -->
+    <hr>
+    <section id="section-1" class="wizard-section"><!-- Basic Info: 5 steps -->
+      <div class="section-intro" data-section="1" data-step="1">
+        <div class="section-intro-header">
+          <h3>Let's get you set up!</h3>
+        </div>
+        <div class="section-intro-content">
+          <div class="section-intro-content-left">
+            <ol>
+              <li class="step-complete">
+                <div class="step-header">Add your personal details</div>
+                <div class="step-info">Get familiar with the Crowdpol Ecosystem.</div>
+              </li>
+              <li>
+                <div class="step-header">Set up your interests</div>
+                <div class="step-info">Which functions of society do you want to affect?</div>
+              </li>
+              <li>
+                <div class="step-header">Define your values</div>
+                <div class="step-info">What do you want to have more of in the world?</div>
+              </li>
+              <li>
+                <div class="step-header">Add your location</div>
+                <div class="step-info">This will be the starting point for your navigator.</div>
+              </li>
+            </ol>
+          </div>
+          <div class="section-intro-content-right">
+            <img src="img/reg/isometric_sun_facing_left.svg" class="iso-sun">
+          </div>
+        </div>
+        <div class="section-intro-button-wrapper">
+          <button class="intro-button crowdpol-button" data-section="1">Continue</button>
+        </div>
+      </div>
+      <hr>
+      <div class="section-step" data-section="1" data-step="2">
+        <div class="section-step-header">
+          <div class="step-heading">Choose your username</div>
+          <div class="step-info">This name will appear as  your @handle</div>
+          <div class="step-content">
+            <input type="text" id="username" name="username" placeholder="username" value="{{profile.username}}">
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button">
+              Continue
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="section-step" data-section="1" data-step="3">
+        <div class="section-step-header">
+          <div class="step-heading">What's your first name?</div>
+          <div class="step-info">Legal first (given) name</div>
+          <div class="step-content">
+            <input type="text" id="firstname" name="firstname" placeholder="Your_Name"  value="{{profile.firstName}}">
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button">
+              Continue
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="section-step"  data-section="1" data-step="4">
+        <div class="section-step-header">
+          <div class="step-heading">What's your last name?</div>
+          <div class="step-info">Legal last name (surname)</div>
+          <div class="step-content">
+            <input type="text" id="lastname" name="lastname" placeholder="Your surname"  value="{{profile.lastName}}">
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button">
+              Continue
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="section-step"  data-section="1" data-step="5">
+        <div class="section-step-header">
+          <div class="step-heading">What's your date of birth?</div>
+          <div class="step-info">MM / DD / YYYY</div>
+          <div class="step-content">
+            <input type="text" id="profile-dob" name="profile-dob" placeholder="01/01/2001" value="{{profile.birthday}}">
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button">
+              Continue
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </section>
+    <section id="section-2" class="wizard-section"><!-- Interests: 10 steps -->
+      <div class="section-intro"  data-section="2" data-step="1">
+        <div class="section-intro-header">
+          <h3>Next Step</h3>
+        </div>
+        <div class="section-intro-content">
+          <div class="section-intro-content-left">
+            <ol>
+              <li class="step-complete">
+                <div class="step-header">Add your personal details</div>
+                <div class="step-info">Get familiar with the Crowdpol Ecosystem.</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Set up your interests</div>
+                <div class="step-info">Which functions of society do you want to affect?</div>
+              </li>
+              <li>
+                <div class="step-header">Define your values</div>
+                <div class="step-info">What do you want to have more of in the world?</div>
+              </li>
+              <li>
+                <div class="step-header">Add your location</div>
+                <div class="step-info">This will be the starting point for your navigator.</div>
+              </li>
+            </ol>
+          </div>
+          <div class="section-intro-content-right">
+
+          </div>
+          <div class="section-intro-button-wrapper">
+            <button class="intro-button crowdpol-button" data-section="1">Continue</button>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="section-step sunburst-step"  data-section="2" data-step="2">
+        <div class="section-step-header">
+          <div class="step-heading">How are you interested in Culture?</div>
+          <div class="step-info">This scale will determine the amount of proposals, polls, petitions, and fundraisers related to cultural issues that will apprear in your feed. Adjust the slider to your prefered value.</div>
+          <div class="step-content">
+            <div class="step-content-left">
+              <div class="content-row">
+                <div class="sunburst-range-label">Education & Culture</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="education"><div id="education-count"  class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Health & Social Issues</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="health"><div id="health-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Environment</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="environment"><div id="environment-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Infrastructure & Technolog</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="infrastructure"><div id="infrastructure-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Law & Order</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="law"><div id="law-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Economy & Finance</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="economy"><div id="economy-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Geopolitics & International Affairs</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="geopolitics"><div id="geopolitics-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Work & Enterprise</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="enterprise"><div id="enterprise-count" class="sunburst-range-value">10</div>
+              </div>
+
+            </div>
+            <div class="step-content-right">
+              {{>Sunburst}}
+            </div>
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button">
+              Continue
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </section>
+    <section id="section-3" class="wizard-section"><!-- Values: 6 steps -->
+      <div class="section-intro"  data-section="3" data-step="2">
+        <div class="section-intro-header">
+          <h3>Next Step</h3>
+        </div>
+        <div class="section-intro-content">
+          <div class="section-intro-content-left">
+            <ol>
+              <li class="step-complete">
+                <div class="step-header">Add your personal details</div>
+                <div class="step-info">Get familiar with the Crowdpol Ecosystem.</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Set up your interests</div>
+                <div class="step-info">Which functions of society do you want to affect?</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Define your values</div>
+                <div class="step-info">What do you want to have more of in the world?</div>
+              </li>
+              <li>
+                <div class="step-header">Add your location</div>
+                <div class="step-info">This will be the starting point for your navigator.</div>
+              </li>
+            </ol>
+          </div>
+          <div class="section-intro-content-right">
+            <img src="img/reg/isometric_heart.svg" class="iso-heart">
+          </div>
+        </div>
+      </div>
+      <hr>
+    </section>
+    <section id="section-4" class="wizard-section"><!-- Community: 2 steps -->
+      <div class="section-intro">
+        <div class="section-intro-header">
+          <h3>Next Step</h3>
+        </div>
+        <div class="section-intro-content">
+          <div class="section-intro-content-left">
+            <ol>
+              <li class="step-complete">
+                <div class="step-header">Add your personal details</div>
+                <div class="step-info">Get familiar with the Crowdpol Ecosystem.</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Set up your interests</div>
+                <div class="step-info">Which functions of society do you want to affect?</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Define your values</div>
+                <div class="step-info">What do you want to have more of in the world?</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Add your location</div>
+                <div class="step-info">This will be the starting point for your navigator.</div>
+              </li>
+            </ol>
+          </div>
+          <div class="section-intro-content-right">
+            <img src="img/reg/isometric_globe.svg" class="iso-world">
+          </div>
+        </div>
+        <div class="section-intro-button-wrapper">
+          <button class="intro-button crowdpol-button" data-section="3">Continue</button>
+        </div>
+      </div>
+      <hr>
+      <div class="section-step">
+        <div class="section-intro-header">
+          <h3>Add Your Your Location</h3>
+        </div>
+        <div class="section-intro-content" id="reg-wizard-map">
+            {{> CommunityMap}}
+        </div>
+      </div>
+      <hr>
+    </section>
+    <section id="section-5" class="wizard-section"><!-- Summary: 1 step -->
+      <div class="section-intro">
+        <div class="section-intro-header">
+          <h3>Congratulations</h3>
+        </div>
+        <div class="section-intro-content">
+          <div class="section-intro-content-left">
+            <ol>
+              <li class="step-complete">
+                <div class="step-header">Add your personal details</div>
+                <div class="step-info">Get familiar with the Crowdpol Ecosystem.</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Set up your interests</div>
+                <div class="step-info">Which functions of society do you want to affect?</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Define your values</div>
+                <div class="step-info">What do you want to have more of in the world?</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Add your location</div>
+                <div class="step-info">This will be the starting point for your navigator.</div>
+              </li>
+            </ol>
+          </div>
+          <div class="section-intro-content-right">
+            place image here
+          </div>
+        </div>
+        <div class="section-intro-button-wrapper">
+          <button class="intro-button crowdpol-button" data-section="1">Complete</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+<template name="Sunburst">
+  Sunburst
+  <div id="sunburst">
+    <svg width="350" height="350"></svg>
+  </div>
+</template>
+
+<template name="WizardProgressbar">
+  <div id="cont" data-pct="100" class="progress-circle-wrapper section-circle">
+    <svg id="svg"  viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" class="section-svg">
+      <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+      <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0" class="circle-bar"></circle>
+      <line x1="50" y1="50" x2="50" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
+    </svg>
+    <svg version="1.0" id="Lager_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    	 viewBox="0 0 100 100" style="enable-background:new 0 0 494.1 417.3;" xml:space="preserve">
+      <path class="st2" d="M459.5,195.3c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"></path>
+      <path class="st3" d="M485.1,247.7c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"></path>
+    </svg>
+  </div>
+
+  <label for="percent">Type a percent!</label>
+  <input id="percent" name="percent">
+  <div class="wizard-progressbar">
+    {{#each section in sections}}
+      <div class="progressbar-section" id="{{section.id}}">
+          {{section.steps}}
+          <div id="{{section.id}}-circle" data-pct="100" class="progress-circle-wrapper section-circle" total-steps="{{section.steps}}">
+            <svg id="{{section.id}}-svg"  viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" class="section-svg">
+              <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+              <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0" class="circle-bar"></circle>
+              {{#unless lastSection @index}}
+              <line x1="50" y1="50" x2="50" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
+              {{/unless}}
+            </svg>
+          </div>
+
+          <div class="section-line"></div>
+
+      </div>
+    {{/each}}
+  </div>
+  <svg version="1.0" id="Lager_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+  	 viewBox="0 0 494.1 417.3" style="enable-background:new 0 0 494.1 417.3;" xml:space="preserve">
+  <style type="text/css">
+  	.st0{fill:#85BC31;}
+  	.st1{fill:#FFFFFF;}
+  	.st2{fill:none;stroke:#FFFFFF;stroke-width:7.0632;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+  	.st3{fill:none;stroke:#FFFFFF;stroke-width:6.756;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+  	.st4{fill:none;stroke:#87BD31;stroke-width:7.0632;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+  </style>
+  <rect x="192.8" y="123.7" class="st0" width="107.3" height="8.7"/>
+  <rect x="43" y="123.7" class="st0" width="107.3" height="8.7"/>
+  <rect x="342.6" y="123.7" class="st0" width="109.4" height="8.7"/>
+  <rect x="192.8" y="178.1" class="st0" width="107.3" height="8.7"/>
+  <rect x="43" y="178.1" class="st0" width="107.3" height="8.7"/>
+  <rect x="342.6" y="178.1" class="st0" width="109.5" height="8.7"/>
+  <rect x="192.8" y="69.2" class="st0" width="107.3" height="8.7"/>
+  <rect x="43" y="69.2" class="st0" width="107.3" height="8.7"/>
+  <rect x="342.6" y="69.2" class="st0" width="108.3" height="8.7"/>
+  <rect x="192.8" y="17.4" class="st0" width="107.3" height="8.7"/>
+  <rect x="43" y="17.4" class="st0" width="107.3" height="8.7"/>
+  <rect x="342.6" y="17.4" class="st0" width="108.3" height="8.7"/>
+  <rect x="191.9" y="336.7" class="st0" width="109.4" height="8.7"/>
+  <rect x="191.9" y="391.2" class="st0" width="109.5" height="8.7"/>
+  <rect x="191.9" y="282.3" class="st0" width="108.3" height="8.7"/>
+  <rect x="191.9" y="230.5" class="st0" width="108.3" height="8.7"/>
+  <rect x="192.8" y="336.8" class="st0" width="107.3" height="8.7"/>
+  <rect x="43" y="336.8" class="st0" width="107.3" height="8.7"/>
+  <rect x="342.6" y="336.8" class="st1" width="109.4" height="8.7"/>
+  <rect x="192.8" y="391.2" class="st0" width="107.3" height="8.7"/>
+  <rect x="43" y="391.2" class="st0" width="107.3" height="8.7"/>
+  <rect x="342.6" y="391.2" class="st1" width="109.5" height="8.7"/>
+  <rect x="192.8" y="282.4" class="st0" width="107.3" height="8.7"/>
+  <rect x="43" y="282.4" class="st0" width="107.3" height="8.7"/>
+  <rect x="342.6" y="282.4" class="st1" width="108.3" height="8.7"/>
+  <rect x="192.8" y="230.5" class="st0" width="107.3" height="8.7"/>
+  <rect x="43" y="230.5" class="st0" width="107.3" height="8.7"/>
+  <rect x="342.6" y="230.5" class="st1" width="108.3" height="8.7"/>
+  <path class="st2" d="M485.3,195.3c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st2" d="M459.5,195.3c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st3" d="M485,140.9c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st3" d="M459.2,140.9c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st3" d="M459.2,86.5c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M485,86.5c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M334.4,140.9c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M308.7,140.9c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M184.4,140.9c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M158.6,140.9c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M34.6,140.9c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M8.9,140.9c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M472.2,146.2c-4.7,0-9.3-1.8-12.9-5.3c-7.1-7.1-7.1-18.7,0-25.8c3.3-3.3,7.5-5.1,11.8-5.3c0.4,0,0.8,0,1.2,0"/>
+  <path class="st4" d="M334.4,195.3c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M308.7,195.3c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M184.4,195.3c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M158.6,195.3c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M34.6,195.3c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M8.9,195.3c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M459.5,195.3c-7.1-7.1-7.1-18.7,0-25.8"/>
+  <path class="st4" d="M334.4,86.5c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M308.7,86.5c7.1,7.1,18.7,7.1,25.8,0s7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M184.4,86.5c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M158.6,86.5c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M34.6,86.5c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M8.9,86.5c7.1,7.1,18.7,7.1,25.8,0s7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M334.4,34.6c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M308.7,34.6c7.1,7.1,18.7,7.1,25.8,0s7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M485.1,34.6c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M459.3,34.6c7.1,7.1,18.7,7.1,25.8,0s7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M334.4,299.5c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M321.6,359.3c-4.7,0-9.3-1.8-12.9-5.3c-7.1-7.1-7.1-18.7,0-25.8c3.3-3.3,7.5-5.1,11.8-5.3c0.4,0,0.8,0,1.2,0"/>
+  <path class="st4" d="M308.9,408.4c-7.1-7.1-7.1-18.7,0-25.8"/>
+  <path class="st4" d="M308.7,247.7c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M184.4,34.6c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M158.6,34.6c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M34.6,34.6c-7.1,7.1-18.7,7.1-25.8,0S1.8,16,8.9,8.9s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M8.9,34.6c7.1,7.1,18.7,7.1,25.8,0s7.1-18.7,0-25.8S16,1.8,8.9,8.9"/>
+  <rect x="445.8" y="178.1" class="st0" width="7.9" height="8.7"/>
+  <path class="st3" d="M485.3,408.4c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st3" d="M459.5,408.4c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st3" d="M485,354c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st3" d="M459.2,354c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st3" d="M459.2,299.6c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st3" d="M485,299.6c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st3" d="M308.7,354c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M184.4,354c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M158.6,354c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M34.6,354c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M8.9,354c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st3" d="M472.2,359.4c-4.7,0-9.3-1.8-12.9-5.3c-7.1-7.1-7.1-18.7,0-25.8c3.3-3.3,7.5-5.1,11.8-5.3c0.4,0,0.8,0,1.2,0"/>
+  <path class="st4" d="M334.4,408.4c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st3" d="M308.7,408.4c7.1,7.1,18.7,7.1,25.8,0s7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M184.4,408.4c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M158.6,408.4c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M34.6,408.4c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M8.9,408.4c7.1,7.1,18.7,7.1,25.8,0s7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st3" d="M459.5,408.4c-7.1-7.1-7.1-18.7,0-25.8"/>
+  <path class="st3" d="M308.7,299.6c7.1,7.1,18.7,7.1,25.8,0s7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M184.4,299.6c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M158.6,299.6c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M34.6,299.6c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M8.9,299.6c7.1,7.1,18.7,7.1,25.8,0s7.1-18.7,0-25.8s-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M334.4,247.7c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M308.7,247.7c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st3" d="M485.1,247.7c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st3" d="M459.3,247.7c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M184.4,247.7c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M158.6,247.7c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M34.6,247.7c-7.1,7.1-18.7,7.1-25.8,0c-7.1-7.1-7.1-18.7,0-25.8c7.1-7.1,18.7-7.1,25.8,0"/>
+  <path class="st4" d="M8.9,247.7c7.1,7.1,18.7,7.1,25.8,0c7.1-7.1,7.1-18.7,0-25.8c-7.1-7.1-18.7-7.1-25.8,0"/>
+  <path class="st4" d="M334.4,299.6c-7.1,7.1-18.7,7.1-25.8,0s-7.1-18.7,0-25.8s18.7-7.1,25.8,0"/>
+  <path class="st4" d="M321.6,359.3c-4.7,0-9.3-1.8-12.9-5.3c-7.1-7.1-7.1-18.7,0-25.8c3.3-3.3,7.5-5.1,11.8-5.3c0.4,0,0.8,0,1.2,0"/>
+  <path class="st4" d="M308.7,408.7c-7.1-7.1-7.1-18.7,0-25.8"/>
+  </svg>
+</template>
+
+<!--
+
+TO DO HERE:
+
+[-] give every svg a unique id
+[-] make svg responsive
+[-] create function to update each svg
+[-] create function to update each line
+
+https://codepen.io/JMChristensen/pen/Ablch?editors=1010
+https://codepen.io/JMChristensen/pen/Ablch
+http://thenewcode.com/744/Make-SVG-Responsive
+https://stackoverflow.com/questions/25940741/making-svg-responsive
+-->

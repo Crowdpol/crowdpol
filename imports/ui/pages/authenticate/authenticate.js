@@ -2,6 +2,7 @@ import './authenticate.html';
 import './signup/signup.js';
 import './login/login.js';
 import './wizard/wizard.js';
+import './wizard/SignupWizard.js';
 //import './wizard/regWizard.js';
 import "../../components/termsModal/termsModal.js"
 import RavenClient from 'raven-js';

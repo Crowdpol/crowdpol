@@ -39,7 +39,7 @@
     text-indent: 0;
     text-decoration: none;
     color: #000; /* Fallback for older browsers */
-    color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0) !important;
   }
 }
 

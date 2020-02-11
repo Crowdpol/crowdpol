@@ -1,4 +1,5 @@
 import './landing.html';
+import RavenClient from 'raven-js'
 //import './landing_files/app.js" type="text/javascript"></script>
 //import './landing.scss';
 Template.Landing.onRendered(function() {
@@ -18,6 +19,74 @@ Template.Landing.events({
     $('.recent-stories-scroller').animate({
           right: '200px'
       });
+  },
+  'click .signup-button': function(event, template){
+    event.preventDefault();
+		var communityId = LocalStore.get('communityId');
+		var email = template.find('[name="signup-email"]').value;
+    let user = {
+      email: email,
+      password: template.find('[name="signup-password"]').value,
+      profile: {communityIds: ['global'], termsAccepted: true}
+    };
+    //check if the user email already has an account
+    if(checkUserExists(email,communityId)){
+      //console.log("checked user exists, redirecting to /dash");
+      //FlowRouter.go('/dash');
+    }else{
+      Accounts.createUser(user, (error) => {
+        if (error) {
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          /* Check if redirect route saved */
+          var redirect = LocalStore.get('signUpRedirectURL');
+          LocalStore.set('signUpRedirectURL', '');
+          if (redirect){
+            window.location.href = redirect;
+          } else {
+            var user = Meteor.user();
+            var userRoles = user.roles;
+            //console.log(userRoles);
+            if (user && userRoles) {
+              if(userRoles.indexOf("delegate") > -1){
+                LocalStore.set('isDelegate',true);
+              }else{
+                LocalStore.set('isDelegate',false);
+              }
+              if(userRoles.indexOf("individual") > -1){
+                LocalStore.set('currentUserRole','individual');
+              }
+              if(userRoles.indexOf("organisation") > -1){
+                LocalStore.set('currentUserRole','organisation');
+              }
+              if(userRoles.indexOf("party") > -1){
+                LocalStore.set('currentUserRole','party');
+              }
+              if(userRoles.indexOf("delegate") > -1){
+                LocalStore.set('isDelegate',true);
+                LocalStore.set('otherRole','delegate');
+              }else{
+                LocalStore.set('isDelegate',false);
+                LocalStore.set('otherRole','');
+              }
+            }
+            //console.log(LocalStore.get('currentUserRole'));
+            //console.log(LocalStore.get('isDelegate'));
+            //console.log("user created, redirecting to /dash");
+            FlowRouter.go('/signup');
+          }
+
+            /*Meteor.call('sendVerificationLink', (error, response) => {
+              if (error){
+                Bert.alert(error.reason, 'danger');
+              } else {
+                Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
+              }
+            });*/
+        }
+      });
+    }
   }
 });
 
@@ -92,3 +161,18 @@ Template.Landing.helpers({
     return testProposals;
   }
 });
+
+function checkUserExists(email,communityId){
+	Meteor.call('checkIfUserExists',email,communityId, (error, response) => {
+		if (error){
+			//user email not found, create a new account
+			Bert.alert(error.reason, 'danger');
+			return false;
+		} else {
+			//user email found, adding community to user profile
+			//Bert.alert("found email", 'success');
+			return true;
+		}
+	});
+	return false;
+}

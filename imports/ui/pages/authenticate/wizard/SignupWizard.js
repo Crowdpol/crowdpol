@@ -4,12 +4,12 @@ import { showProfileImageModal,hideProfileImageModal,getSelectedImage } from '..
 import { map,loadMap,addLayer } from '../../../components/maps/leaflet.js'
 import { setCoverState } from '../../../components/cover/cover.js'
 import RavenClient from 'raven-js';
-import './regWizard.html';
+import './SignupWizard.html';
 let steps = [];
 //let map;
 let canvas;
-Template.RegistrationWizard.onCreated(function(){
-  console.log("RegistrationWizard created");
+
+Template.SignupWizard.onCreated(function(){
   self = this;
   //Reactive Variables
   self.currentStep = new ReactiveVar(1);
@@ -23,24 +23,42 @@ Template.RegistrationWizard.onCreated(function(){
   Session.set('breadcrumbs',['GLOBAL']);
 });
 //149, 197, 96 // #95c560red
+Template.SignupWizard.onRendered(function(){
+  var picker = new Pikaday({
+    field: document.getElementById('profile-dob'),
+    firstDay: 1,
+    minDate: new Date(1900, 0, 1),
+    maxDate: new Date(),
+    yearRange: [1900, 2020],
+    showTime: false,
+    autoClose: true,
+    format: 'DD-MMM-YYYY',
+    disableDayFn: function(date) {
+      return moment().isBefore(moment(date), 'day');
+    }
+  });
+  picker.setDate(new Date());
+});
 Template.Sunburst.onRendered(function(){
   //let sections = ["culture","finance","defence","education","enterprise","environment","foreign-affairs","social-affairs","infrastructure","justice"];
-  console.log("RegistrationWizard rendered");
+  console.log("Sunburst rendered");
   var tempArc;
   var arcId = "";
   var startAngle = 0;
   var width = (2*Math.PI)/8;
   var endAngle = width;
   var segementCount = 1;
-    let colors = ["#F5E829","#C7D310","#6AB435","#40B8EB","#3F79BD","#30509D","#E94F1D","#F3901D"];
-    let sections = ["education","health","environment","infrastructure","law","economy","geopolitics","enterprise"];
-    canvas = d3.select("#sunburst")
-      .append("svg")
-      .attr("width", 350)
-      .attr("height", 350)
+  let colors = ["#F5E829","#C7D310","#6AB435","#40B8EB","#3F79BD","#30509D","#E94F1D","#F3901D"];
+  let sections = ["education","health","environment","infrastructure","law","economy","geopolitics","enterprise"];
+
+  canvas = d3.select("#sunburst svg")
+    //.append("svg")
+    //.attr("width", 350)
+    //.attr("height", 350)
+
     var curves = canvas.append("g")
       .attr("transform", "translate(175,175)");
-
+    console.log(canvas);
     curves.selectAll("path")
       .data(sections)
       .enter().append("path")
@@ -75,10 +93,10 @@ Template.Sunburst.onRendered(function(){
 
     }
     let selectors = document.getElementsByClassName("sunburst-range");//document.querySelector('.sunburst-range');
-    console.log(selectors);
-    console.log(selectors.length);
+    //console.log(selectors);
+    //console.log(selectors.length);
     for(var i = 0; i < selectors.length; i += 1){
-      console.log(selectors[i]);
+      //console.log(selectors[i]);
       selectors[i].addEventListener('input', function (e) {
         let segment = e.currentTarget.dataset.segment;
         let rangeVal = e.target.value;
@@ -92,7 +110,7 @@ Template.Sunburst.onRendered(function(){
         }).style("opacity", 1.0);
         selector = "#"+segment+"-count";
         $(selector).html(e.target.value);
-        console.log(selector);
+        //console.log(selector);
       });
     }
     /*
@@ -115,7 +133,7 @@ Template.Sunburst.onRendered(function(){
     });
 });
 
-Template.RegistrationWizard.helpers({
+Template.SignupWizard.helpers({
 	profile: function(){
     let user = Meteor.user();
     return user.profile;
@@ -148,60 +166,67 @@ Template.RegistrationWizard.helpers({
   },
 });
 
+Template.WizardProgressbar.onRendered(function(){
+  $('#percent').on('change', function(){
+    var val = parseInt($(this).val());
+    var $circle = $('.section-svg .circle-bar');
 
+    if (isNaN(val)) {
+     val = 100;
+    }
+    else{
+      var r = $circle.attr('r');
+      var c = Math.PI*(r*2);
 
+      if (val < 0) { val = 0;}
+      if (val > 100) { val = 100;}
 
-function showError(error) {
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      console.log("User denied the request for Geolocation.");
-      break;
-    case error.POSITION_UNAVAILABLE:
-      console.log("Location information is unavailable.");
-      break;
-    case error.TIMEOUT:
-      console.log("The request to get user location timed out.");
-      break;
-    case error.UNKNOWN_ERROR:
-      console.log("An unknown error occurred.");
-      break;
-  }
-}
+      var pct = ((100-val)/100)*c;
 
-function progressSetStep(stepNum){
-  let nextStepSelector = '*[data-section="'+stepNum+'"]';
-  $(".wizard-section").hide();
-  $(nextStepSelector).show();
-  currentStep = stepNum;
-  $( "li.step" ).each(function() {
-    $( this ).removeClass("is-active")
+      $circle.css({ strokeDashoffset: pct});
+
+      $('#cont').attr('data-pct',val);
+    }
   });
-  let stepSelector = '.step[data-step="'+stepNum+'"]';
-  $(stepSelector).addClass("is-active");
-  if(stepNum==4){
-    $("#leaflet-map").show("fast", function() {
-      map.invalidateSize();
-      map.setView([37.000,-120.652], 1);
-    });
-  }else{
-    $("#leaflet-map").hide();
+});
+
+Template.WizardProgressbar.helpers({
+  sections: function(){
+    return [
+      {
+        "id":"progress-section-1",
+        "name":"info",
+        "title":"Basic Info",
+        "steps":6
+      },
+      {
+        "id":"progress-section-2",
+        "name":"interests",
+        "title":"Interests",
+        "steps":10
+      },
+      {
+        "id":"progress-section-3",
+        "name":"values",
+        "title":"Values",
+        "steps":6
+      },
+      {
+        "id":"progress-section-4",
+        "name":"community",
+        "title":"Community Search",
+        "steps":2
+      },
+      {
+        "id":"progress-section-5",
+        "name":"summary",
+        "title":"Summary",
+        "steps":1
+      },
+    ];
+  },
+  lastSection: function(index){
+    console.log(this);
+    console.log(index);
   }
-}
-
-function showPosition(position) {
-  let coords = [ position.coords.latitude,position.coords.longitude];
-  //console.log("showPosition() :" +coords);
-  //var marker = L.marker(coords).addTo(map);
-  //map.panTo(new L.LatLng(position.coords.latitude,position.coords.longitude));
-  $("#profile-location").val(position.coords.latitude + ", " + position.coords.longitude);
-  var marker1 = L.marker(coords, {
-    title: "marker_1"
-  }).addTo(map)
-  map.panTo(new L.LatLng(position.coords.latitude, position.coords.longitude));
-  //map.setView(coords,5);
-  //map.panTo(coords);
-}
-
-function roundHalf(num) {
-  return Math.round(num*2)/2;
-}
+});
