@@ -135,7 +135,7 @@ publicRoutes.route('/login', {
 });
 
 publicRoutes.route('/signup', {
-  name: 'App.login',
+  name: 'App.signup',
   action() {
     if(!Session.get("bulletproof")){
       console.log("rendering holding");
