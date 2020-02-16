@@ -9,6 +9,7 @@ let steps = [];
 //let map;
 let canvas;
 Template.RegistrationWizard.onCreated(function(){
+  console.log("RegistrationWizard");
   self = this;
   //Reactive Variables
   self.currentStep = new ReactiveVar(1);
@@ -146,9 +147,6 @@ Template.RegistrationWizard.helpers({
     return tagsArray;
   },
 });
-
-
-
 
 function showError(error) {
   switch(error.code) {
