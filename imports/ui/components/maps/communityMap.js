@@ -46,6 +46,7 @@ function loadGeoJSON(){
   }).addTo(map);
 
   var mapsData = buildGeoJSON(currentRoot);
+  console.log(mapsData);
   mapLayer = new L.geoJSON(mapsData,{
     style: mapStyle,
     onEachFeature: mapOnEachFeature
@@ -61,6 +62,7 @@ function loadGeoJSON(){
   });
   */
   if(mapsData!==null){
+    console.log(mapsData);
     addLayer(mapLayer);
   }else{
     Bert.alert("No community maps have been loaded","danger");

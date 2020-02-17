@@ -119,6 +119,26 @@ export const getCommunity = () => {
   return false;
 }
 
+export const getCurrentCommunity = (communityId) => {
+  //console.log("getCurrentCommunity() called");
+  if(!communityId){
+    //console.log("getCurrentCommunity(): communityId not set, use LocalStore.get('communityId'): " + LocalStore.get('communityId'));
+    communityId = LocalStore.get('communityId');
+  }
+
+  if(communityId){
+    let community = Communities.findOne({"_id":communityId});
+    console.log(community);
+    if(community){
+      //console.log(community);
+      return community;
+    }else{
+      console.log("no community found");
+    }
+  }
+  return false;
+}
+
 export const getSubdomain = () => {
   //check for crowdpol:
   var hostname = window.location.host;
