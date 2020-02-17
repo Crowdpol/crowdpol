@@ -29,6 +29,21 @@ export const getCommunityBySubomdain = (subdomain) => {
   return false;
 }
 
+export const getCommunityById = (communityId) => {
+  if(!communityId){
+    console.log("getCommunityById: communityId not set.");
+    communityId = getCommunity();
+  }
+  let community = Communities.findOne({"_id":communityId});
+  //console.log(community);
+  if(community){
+    //console.log(community);
+    return Communities.findOne({"_id":communityId});
+  }else{
+    console.log("getCommunityById(): no community found");
+  }
+}
+
 export const setDefaultLanguage = (lang) => {
   if(!lang){
     lang = 'en';
@@ -115,6 +130,8 @@ export const getCommunity = () => {
   let id = LocalStore.get('communityId');
   if(id){
     return id;
+  }else{
+    console.log("getCommunity(): could not determine community id.");
   }
   return false;
 }
@@ -123,18 +140,22 @@ export const getCurrentCommunity = (communityId) => {
   //console.log("getCurrentCommunity() called");
   if(!communityId){
     //console.log("getCurrentCommunity(): communityId not set, use LocalStore.get('communityId'): " + LocalStore.get('communityId'));
-    communityId = LocalStore.get('communityId');
+    communityId = getCommunity();
   }
 
   if(communityId){
-    let community = Communities.findOne({"_id":communityId});
-    console.log(community);
-    if(community){
-      //console.log(community);
-      return community;
-    }else{
-      console.log("no community found");
-    }
+    return getCommunityById(communityId);
+  }
+  return false;
+}
+
+export const getChildCommunities = (communityId) => {
+  if(!communityId){
+    console.log("getChildCommunities: communityId not set.");
+    communityId = getCommunity();
+  }
+  if(communityId){
+    return Communities.find({"parentCommunity":communityId});
   }
   return false;
 }

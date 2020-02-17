@@ -156,7 +156,7 @@ Community = new SimpleSchema({
         type: String,
         optional: true
     },
-    iso3166key:{
+    key:{
         type: String,
         optional: true
     },

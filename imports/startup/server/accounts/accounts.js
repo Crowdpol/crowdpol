@@ -303,7 +303,7 @@ Accounts.onCreateUser((options, user) => {
   */
   console.clear();
   console.log("starting to normalise");
-  let existingUser = Meteor.user();
+
 	let email;
 	let firstName;
 	let lastName;
@@ -341,10 +341,7 @@ Accounts.onCreateUser((options, user) => {
     verified = false;
   }
 
-	if (!existingUser){
-    console.log("could not find Meteor.user(), checking by Meteor.users.findOne({'emails.address': email })");
-    existingUser = Meteor.users.findOne({"emails.address": email });
-  }
+  let existingUser = Meteor.users.findOne({"emails.address": email });
 	if (existingUser) {
     console.log("found existingUser");
 			existingUser.services = existingUser.services || {};

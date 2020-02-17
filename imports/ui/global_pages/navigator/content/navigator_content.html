@@ -6,7 +6,7 @@
       </div>
       <div class="community-overview-content">
         <div class="content-row">
-          <div class="content-trending content-card">
+          <div class="content-trending content-card content-card-full">
             <div class="content-card-heading">
               <h5>Trending Issues</h5>
             </div>
@@ -19,20 +19,7 @@
           </div>
         </div>
         <div class="content-row">
-          <div class="content-communities">
-            <div class="content-card-heading">
-              <h5>List of Sub Communities</h5>
-            </div>
-            <div class="content-card-body">
-
-            </div>
-            <div class="content-card-footer">
-
-            </div>
-          </div>
-        </div>
-        <div class="content-row">
-          <div class="content-engage">
+          <div class="content-engage content-card">
             <div class="content-card-heading">
               <h5>Active Proposals</h5>
             </div>
@@ -43,7 +30,7 @@
 
             </div>
           </div>
-          <div class="content-members">
+          <div class="content-members content-card">
             <div class="content-card-heading">
               <h5>Current Members</h5>
             </div>
@@ -54,7 +41,7 @@
 
             </div>
           </div>
-          <div class="content-groups">
+          <div class="content-groups content-card">
             <div class="content-card-heading">
               <h5>Groups</h5>
             </div>
@@ -65,7 +52,7 @@
 
             </div>
           </div>
-          <div class="content-delegates">
+          <div class="content-delegates content-card">
             <div class="content-card-heading">
               <h5>Delegates</h5>
             </div>
@@ -215,5 +202,24 @@
     <div class="content-tab-panel" id="groups-create">
       {{> CreateGroup}}
     </div>
+  </div>
+</template>
+
+<template name="Navigator_Sub_Communities">
+  <div class="subcommunities-right-sidebar">
+    {{#if subCommunitiesCount}}
+
+      <h5>Sub Communities</h5>
+      {{#each community in subCommunities}}
+        <div class="right-sidebar-item">
+          <div class="community-map-preview"></div>
+          <div class="community-details">
+            {{community.name}}
+          </div>
+
+        </div>
+      {{/each}}
+
+    {{/if}}
   </div>
 </template>
