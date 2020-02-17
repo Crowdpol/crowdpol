@@ -201,7 +201,7 @@ function mapOnEachFeature(feature, layer){
     },
     mouseout: function(e) {
       resetStyle(layer);
-      info.update();
+      //info.update();
 
     }
   });
