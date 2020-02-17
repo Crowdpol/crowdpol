@@ -54,14 +54,14 @@ function loadGeoJSON(){
       console.log("loading maps....");
       //mapInstance.fireEvent('dataloading', event);
   });
-
+  /*
   mapLayer.on('load', function (event) {
     console.log("loading maps...");
       //mapInstance.fireEvent('dataload', event);
   });
-
+  */
   if(mapsData!==null){
-    //addLayer(mapLayer);
+    addLayer(mapLayer);
   }else{
     Bert.alert("No community maps have been loaded","danger");
   }
