@@ -223,3 +223,57 @@
     {{/if}}
   </div>
 </template>
+
+<template name="Navigator_Compass">
+  <div class="navigator-compass">
+    <div class="everything-toggle">Everything</div>
+    <div class="compass-link">
+      <div class="compass-link-image"></div>
+    </div>
+    <div class="compass-toggles">
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored education" data-id="education">
+        <i class="fas fa-book"></i>
+        <span class="compass-value-text">Education</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored health" data-id="health">
+        <i class="fas fa-band-aid"></i>
+        <span class="compass-value-text">Health</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored environment" data-id="environment">
+        <i class="fas fa-leaf"></i>
+        <span class="compass-value-text">Environment</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored infrastructure" data-id="infrastructure">
+        <i class="fas fa-cog"></i>
+        <span class="compass-value-text">Infrastructure</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored law" data-id="law">
+        <i class="fas fa-balance-scale"></i>
+        <span class="compass-value-text">Law</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored economy" data-id="economy">
+        <i class="fas fa-coins"></i>
+        <span class="compass-value-text">Economy</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored geopolitics" data-id="geopolitics">
+        <i class="fas fa-globe-africa"></i>
+        <span class="compass-value-text">Geopolitics</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored enterprise" data-id="enterprise">
+        <i class="fas fa-tools"></i>
+        <span class="compass-value-text">Enterprise</span>
+      </button>
+    </div>
+    <div class="tag-link">
+      <button class="add-value-tags mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+        <i class="material-icons">add-circle</i>
+      </button>
+    </div>
+    <div class="value-toggles tags-wrap">
+
+      <a class="tag taggle-tag tag-chip">tag
+        <button type="button" class="mdl-chip__action tag-chip-delete"><i class="material-icons tag-chip-delete">cancel</i></button>
+      </a>
+    </div>
+  </div>
+</template>
