@@ -1,18 +1,18 @@
 <template name="Landing">
   <body id="scroll-point-top" class="crowdpol-body state--scrolled-up">
-    <header class="header">
+    <header class="header landing-header">
       <a href="http://www.crowdpol.com/" class="crowdpol-logo">Crowdpol</a>
-      <input class="menu-btn" type="checkbox" id="menu-btn" />
-      <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-      <ul class="menu">
-        <li><a href="#imagine-section" class="menu-scroll-link active" data-anchor="#imagine-section">Imagine</a></li>
-        <li><a href="#contribute-section" class="menu-scroll-link" data-anchor="#contribute-section">Contribute</a></li>
-        <li><a href="#network-section" class="menu-scroll-link" data-anchor="#network-section">Network</a></li>
-        <li><a href="#results-section" class="menu-scroll-link" data-anchor="#results-section">Results</a></li>
-        <li><a class="header-divider"></a></li>
-        <li><a href="/login">Login</a></li>
-        <li>
-          <a href="#get-started-anchor" class="header-button landing-button" data-anchor="#get-started-anchor">
+      <input class="header-menu-btn" type="checkbox" id="header-menu-btn" />
+      <label class="header-menu-icon" for="header-menu-btn"><span class="navicon"></span></label>
+      <ul class="header-menu">
+        <li class="header-menu-li landing-menu-li"><a href="#imagine-section" class="header-menu-link menu-scroll-link active" data-anchor="#imagine-section">Imagine</a></li>
+        <li class="header-menu-li landing-menu-li"><a href="#contribute-section" class="header-menu-link menu-scroll-link" data-anchor="#contribute-section">Contribute</a></li>
+        <li class="header-menu-li landing-menu-li"><a href="#network-section" class="header-menu-link menu-scroll-link" data-anchor="#network-section">Network</a></li>
+        <li class="header-menu-li landing-menu-li"><a href="#results-section" class="header-menu-link menu-scroll-link" data-anchor="#results-section">Results</a></li>
+        <li class="header-menu-li landing-menu-li"><a class="header-divider landing-header-divider"></a></li>
+        <li class="header-menu-li landing-menu-li"><a class="header-menu-link" href="/login">Login</a></li>
+        <li class="header-menu-li landing-menu-li">
+          <a href="#get-started-anchor" class="header-menu-link header-button landing-button" data-anchor="#get-started-anchor">
             Get Started<i class="material-icons">keyboard_arrow_right</i>
           </a>
         </li>
@@ -176,7 +176,7 @@
 
       <!-- RESULTS SECTION -->
       <section id="results-section" class="landing-page-section">
-        <div class="isometric-man hide-480" id="isometric-man-column"></div>
+        <div class="isometric-man" id="isometric-man-column"></div>
         <div class="section-content" id="results-section-content">
           <div class="jumbo-header">
             <h2 class="h1">Increase your presence</h2>
@@ -184,7 +184,7 @@
             <a class="landing-button" href="/login">Get Started<i class="material-icons">keyboard_arrow_right</i></a>
           </div>
           <div class="jumbo-content">
-            <div class="isometric-man hide-768"></div>
+            <div class="isometric-man"></div>
             <h3 class="h2">Get an overview of your <span class="turquoise">presence</span> in the world</h3>
             <ul class="landing-page-list">
               <li><span class="heavy">Overview</span> your proposals, debates, petitions and fundraisers.</li>

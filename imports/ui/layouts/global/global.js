@@ -4,16 +4,22 @@ import './global.html'
 
 Template.Global.onCreated(function(){
   self = this;
+  Session.set("globalTemplate","Navigator_Content");
+  if(!Session.get("globalTemplate")){
+    console.log("setting to Navigator_Content");
+    Session.set("globalTemplate","Navigator_Content");
+  }
 });
 
 Template.Global.onRendered(function(){
 
   //Note: because the content is dynamic, better to use global event handlers instead of template level.
   //      These events are used throught the global layout
-  Session.set("globalTemplate","");
+
   let firstActiveTemplateLinkText = $(".global-sidebar-menu > a.active > div.global-template-link-text").text().trim();
   //$(".global-menubar-title").text(firstActiveTemplateLinkText);
-  console.log(firstActiveTemplateLinkText);
+  //console.log(firstActiveTemplateLinkText);
+  //console.log("setting to firstActiveTemplateLinkText: " + firstActiveTemplateLinkText);
   Session.set("menuBarTitle",firstActiveTemplateLinkText);
 
 
@@ -30,6 +36,7 @@ Template.Global.onRendered(function(){
     //get current template from menu data attribute
     let globalTemplate = $(event.currentTarget).data("template");
     //assign template name to session for use in other templates
+    //console.log("setting globalTemplate: " + globalTemplate);
     Session.set("globalTemplate",globalTemplate);
 
     //disable current active menu bar tabs
@@ -60,6 +67,7 @@ Template.Global.onRendered(function(){
     let currentTab = $(selectedTab).data("id");
     enableTabContent(currentTab);
   });
+
 
 });
 

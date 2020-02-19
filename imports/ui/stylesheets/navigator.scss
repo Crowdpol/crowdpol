@@ -33,6 +33,69 @@ https://stackoverflow.com/questions/15715574/can-i-calculate-and-use-element-hei
   }
 }
 */
+.navigator-map-compass{
+  width: 100%;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  height: 100px;
+  border: solid 2px red;
+  &.active{
+    display: block;
+  }
+}
+
+/* NAVIGATOR CONTENT */
+.content-row{
+  display: flex;
+  flex-direction: row wrap;
+  align-content: space-between;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+.content-card{
+  min-width: 25%;
+  box-shadow: 0 1px 5px rgba($black, 0.2);
+  div{
+    padding: 10px;
+  }
+  .content-card-heading{
+    background-color: $light-grey-xlight;
+    border-bottom: 1px solid $light-grey-mid;
+    h5{
+      font-size: 0.8rem;
+    }
+  }
+  .content-card-body{
+    background: $white;
+  }
+  .content-card-footer{
+    background-color: $light-grey-xlight;
+    border-top: 1px solid $light-grey-mid;
+  }
+
+}
+.content-card-full{
+  width: 100%;
+}
+.community-overview{
+
+}
+.subcommunities-right-sidebar{
+  .right-sidebar-item{
+    border: solid 5px $white;
+    background: #F9F9F9;
+    margin-bottom: 10px;
+    padding: 5px;
+    .community-map-preview{
+      width: 100%;
+      height: 100px;
+      background: grey;
+    }
+  }
+}
 
 //default map settings
 .navigator-map-container{
@@ -121,29 +184,56 @@ https://stackoverflow.com/questions/15715574/can-i-calculate-and-use-element-hei
       border: solid 1px $dark-grey-light;
     }
   }
+  .compass-toggles{
+    max-height: 35px;
+    overflow-x: scroll;
+  }
   .compass-link{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    &.selected{
+      border-radius: 25px;
+      background: rgb(255,255,255);
+      background: radial-gradient(circle, rgba(255,255,255,1) 40%, rgba(255,224,42,1) 66%, rgba(255,255,255,0) 89%);
+    }
+  }
+  .compass-link-image{
     width: 30px;
     height: 30px;
     margin-right: 10px;
     background-image: url("/img/reg/isometric_sun_facing_right.svg");
     background-position: cover;
     background-repeat: no-repeat;
-    //background-size: cover;
     background-size: 100%;
   }
-  .compass-toggles{
-    .compass-value{
+  .compass-value-text{
+    display: none;
+    font-size: 0.8rem;
+    color: $white !important;
+    padding-left: 5px;
+    font-weight: 700;
+  }
+  .compass-value{
       border: solid 1px;
-      margin-right: 15px;
+      margin-right: 5px;
       height: 30px;
       width: 30px;
-      opacity: 0.45;
+      opacity: 0.75;
+      font-size: 0.9rem;
+      transition: width 2s;
       &.selected{
         opacity: 1;
         background: transparent;
+        border-radius: 25px;
+        width: auto;
+        line-height: 0rem;
+        .compass-value-text{
+          display: inline-block;
+        }
       }
-    }
   }
+
   .add-value-tags{
     border: solid 1px;
     background-color: $green;
@@ -160,27 +250,65 @@ https://stackoverflow.com/questions/15715574/can-i-calculate-and-use-element-hei
 .mdl-button.mdl-button--colored{
   &.education{
     color: $education;
+    &.selected{
+      background-color: $education;
+      color: $white;
+    }
   }
   &.health{
     color: $health;
+    &.selected{
+      background-color: $health;
+      color: $white;
+    }
   }
   &.environment{
-    color: $environment
+    color: $environment;
+    &.selected{
+      background-color: $environment;
+      color: $white;
+    }
   }
   &.infrastructure{
-    color: $infrastructure
+    color: $infrastructure;
+    &.selected{
+      background-color: $infrastructure;
+      color: $white;
+    }
   }
   &.law{
-    color: $law
+    color: $law;
+    &.selected{
+      background-color: $law;
+      color: $white;
+    }
   }
   &.economy{
     color: $economy;
+    &.selected{
+      background-color: $economy;
+      color: $white;
+    }
   }
   &.geopolitics{
-    color: $geopolitics
+    color: $geopolitics;
+    &.selected{
+      background-color: $geopolitics;
+      color: $white;
+    }
   }
   &.enterprise{
     color: $enterprise;
+    &.selected{
+      background-color: $enterprise;
+      color: $white;
+    }
+  }
+  &.selected{
+
+    .fas{
+      margin: auto 0px;
+    }
   }
 }
 
