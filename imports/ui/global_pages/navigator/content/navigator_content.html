@@ -1,9 +1,78 @@
 <template name="Navigator_Content">
+  <div id="community-overview" class="tabcontent active">
+    <div class="community-overview">
+      <div class="community-overview-header">
+        <h4>{{community.name}}</h4>
+      </div>
+      <div class="community-overview-content">
+        <div class="content-row">
+          <div class="content-trending content-card content-card-full">
+            <div class="content-card-heading">
+              <h5>Trending Issues</h5>
+            </div>
+            <div class="content-card-body">
 
+            </div>
+            <div class="content-card-footer">
+
+            </div>
+          </div>
+        </div>
+        <div class="content-row">
+          <div class="content-engage content-card">
+            <div class="content-card-heading">
+              <h5>Active Proposals</h5>
+            </div>
+            <div class="content-card-body">
+
+            </div>
+            <div class="content-card-footer">
+
+            </div>
+          </div>
+          <div class="content-members content-card">
+            <div class="content-card-heading">
+              <h5>Current Members</h5>
+            </div>
+            <div class="content-card-body">
+
+            </div>
+            <div class="content-card-footer">
+
+            </div>
+          </div>
+          <div class="content-groups content-card">
+            <div class="content-card-heading">
+              <h5>Groups</h5>
+            </div>
+            <div class="content-card-body">
+
+            </div>
+            <div class="content-card-footer">
+
+            </div>
+          </div>
+          <div class="content-delegates content-card">
+            <div class="content-card-heading">
+              <h5>Delegates</h5>
+            </div>
+            <div class="content-card-body">
+
+            </div>
+            <div class="content-card-footer">
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 </template>
 
 <template name="Navigator_Vote_Content">
-  <div id="community-votes" class="tabcontent active">
+  <div id="community-votes" class="tabcontent">
     <div class="content-tab-panel" id="proposal-polls">
       <br>
       <p><strong>Polls</strong> - Coming soon in version 2</p>
@@ -132,6 +201,79 @@
     </div>
     <div class="content-tab-panel" id="groups-create">
       {{> CreateGroup}}
+    </div>
+  </div>
+</template>
+
+<template name="Navigator_Sub_Communities">
+  <div class="subcommunities-right-sidebar">
+    {{#if subCommunitiesCount}}
+
+      <h5>Sub Communities</h5>
+      {{#each community in subCommunities}}
+        <div class="right-sidebar-item">
+          <div class="community-map-preview"></div>
+          <div class="community-details">
+            {{community.name}}
+          </div>
+
+        </div>
+      {{/each}}
+
+    {{/if}}
+  </div>
+</template>
+
+<template name="Navigator_Compass">
+  <div class="navigator-compass">
+    <div class="everything-toggle">Everything</div>
+    <div class="compass-link">
+      <div class="compass-link-image"></div>
+    </div>
+    <div class="compass-toggles">
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored education" data-id="education">
+        <i class="fas fa-book"></i>
+        <span class="compass-value-text">Education</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored health" data-id="health">
+        <i class="fas fa-band-aid"></i>
+        <span class="compass-value-text">Health</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored environment" data-id="environment">
+        <i class="fas fa-leaf"></i>
+        <span class="compass-value-text">Environment</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored infrastructure" data-id="infrastructure">
+        <i class="fas fa-cog"></i>
+        <span class="compass-value-text">Infrastructure</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored law" data-id="law">
+        <i class="fas fa-balance-scale"></i>
+        <span class="compass-value-text">Law</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored economy" data-id="economy">
+        <i class="fas fa-coins"></i>
+        <span class="compass-value-text">Economy</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored geopolitics" data-id="geopolitics">
+        <i class="fas fa-globe-africa"></i>
+        <span class="compass-value-text">Geopolitics</span>
+      </button>
+      <button class="compass-value mdl-button mdl-js-button mdl-button--icon mdl-button--colored enterprise" data-id="enterprise">
+        <i class="fas fa-tools"></i>
+        <span class="compass-value-text">Enterprise</span>
+      </button>
+    </div>
+    <div class="tag-link">
+      <button class="add-value-tags mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+        <i class="material-icons">add-circle</i>
+      </button>
+    </div>
+    <div class="value-toggles tags-wrap">
+
+      <a class="tag taggle-tag tag-chip">tag
+        <button type="button" class="mdl-chip__action tag-chip-delete"><i class="material-icons tag-chip-delete">cancel</i></button>
+      </a>
     </div>
   </div>
 </template>

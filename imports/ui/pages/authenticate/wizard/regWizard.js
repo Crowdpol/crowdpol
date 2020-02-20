@@ -9,6 +9,7 @@ let steps = [];
 //let map;
 let canvas;
 Template.RegistrationWizard.onCreated(function(){
+  console.log("RegistrationWizard");
   self = this;
   //Reactive Variables
   self.currentStep = new ReactiveVar(1);
@@ -22,9 +23,118 @@ Template.RegistrationWizard.onCreated(function(){
   Session.set('breadcrumbs',['GLOBAL']);
 });
 //149, 197, 96 // #95c560red
+Template.RegistrationWizard.onRendered(function(){
+  var colors = { green: '#4DC87F', lightGreen: '#D9F0E3' };
+  var width = 960, height = 100, offset = 48;
+
+  width += offset * 2;
+  height += offset * 2;
+  var dimensions = '' + 0 + ' ' + 0 + ' ' + width + ' ' + height;
+
+  var svg = d3.select('.signup-progress-wrapper').append('svg')
+      .attr('id', 'scene', true)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', dimensions)
+      .classed('svg-content', true);
+
+  var steps = ['0', '1', '2', '3', '4', '5'];
+  stepWidth = (width - offset * 2) / (steps.length - 1),
+  currentStep = '0';
+
+  var progressBar = svg.append('g')
+                .attr('transform', 'translate(' + offset + ',' + offset + ')')
+                .style('pointer-events', 'none');
+
+  var progressBackground = progressBar.append('rect')
+      .attr('fill', colors.lightGreen)
+      .attr('height', 8)
+      .attr('width', width - offset * 2)
+      .attr('rx', 4)
+      .attr('ry', 4);
+
+  var progress = progressBar.append('rect')
+      .attr('fill', colors.green)
+      .attr('height', 8)
+      .attr('width', 0)
+      .attr('rx', 4)
+      .attr('ry', 4);
+
+  progress.transition()
+      .duration(1000)
+      .attr('width', function(){
+          var index = steps.indexOf(currentStep);
+          return (index + 1) * stepWidth;
+      });
+
+  progressBar.selectAll('circle')
+  .data(steps)
+  .enter()
+  .append('circle')
+  .attr('id', function(d, i){ return 'step_' + i; })
+  .attr('cx', function(d, i){ return i * stepWidth; })
+  .attr('cy', 4)
+  .attr('r', 20)
+  .attr('fill', '#FFFFFF')
+  .attr('stroke', colors.lightGreen)
+  .attr('stroke-width', 6)
+
+  progressBar.selectAll('text')
+  .data(steps)
+  .enter()
+  .append('text')
+  .attr('id', function(d, i){ return 'label_' + i; })
+  .attr('dx', function(d, i){ return i * stepWidth; })
+  .attr('dy', 10)
+  .attr('text-anchor', 'middle')
+  .text(function(d, i) { return i + 1; })
+
+  updateProgressBar("0");
+
+  //self-running demo
+  setInterval(function() { updateProgressBar(Math.floor(Math.random() * (steps.length - 1)).toString()); } , 2500)
+
+  function setupProgressBar(data_){
+
+  var output = [];
+  for(var i = 0; i < data_.length; i++){ output.push(data_[i].id.toString()); }
+  return output;
+
+  }
+
+  function updateProgressBar(step_){
+
+      progress.transition()
+          .duration(1000)
+          .attr('fill', colors.green)
+          .attr('width', function(){
+              var index = steps.indexOf(step_);
+              return (index) * stepWidth;
+          });
+
+      for(var i = 0; i < steps.length; i++){
+
+          if(i <= steps.indexOf(step_)) {
+
+              d3.select('#step_' + i).attr('fill', colors.green).attr('stroke', colors.green);
+              d3.select('#label_' + i).attr('fill', '#FFFFFF');
+
+
+          } else {
+
+              d3.select('#step_' + i).attr('fill', '#FFFFFF').attr('stroke', colors.lightGreen);
+              d3.select('#label_' + i).attr('fill', '#000000');
+
+          }
+
+      }
+
+  }
+});
+
 Template.Sunburst.onRendered(function(){
   //let sections = ["culture","finance","defence","education","enterprise","environment","foreign-affairs","social-affairs","infrastructure","justice"];
 
+  $(function(){
   var tempArc;
   var arcId = "";
   var startAngle = 0;
@@ -33,13 +143,15 @@ Template.Sunburst.onRendered(function(){
   var segementCount = 1;
     let colors = ["#F5E829","#C7D310","#6AB435","#40B8EB","#3F79BD","#30509D","#E94F1D","#F3901D"];
     let sections = ["education","health","environment","infrastructure","law","economy","geopolitics","enterprise"];
-    canvas = d3.select("#sunburst")
-      .append("svg")
+
+    canvas = d3.selectAll("svg")
       .attr("width", 350)
       .attr("height", 350)
+
     var curves = canvas.append("g")
       .attr("transform", "translate(175,175)");
 
+    console.log(canvas);
     curves.selectAll("path")
       .data(sections)
       .enter().append("path")
@@ -74,15 +186,15 @@ Template.Sunburst.onRendered(function(){
 
     }
     let selectors = document.getElementsByClassName("sunburst-range");//document.querySelector('.sunburst-range');
-    console.log(selectors);
-    console.log(selectors.length);
+    //console.log(selectors);
+    //console.log(selectors.length);
     for(var i = 0; i < selectors.length; i += 1){
-      console.log(selectors[i]);
+      //console.log(selectors[i]);
       selectors[i].addEventListener('input', function (e) {
         let segment = e.currentTarget.dataset.segment;
         let rangeVal = e.target.value;
         let selector = "path." + segment;
-        console.log(selector);
+        //console.log(selector);
         d3.selectAll(selector).style("opacity", 0.25);
         d3.selectAll(selector).filter(function(d) {
           let val = $(this).data('id');
@@ -91,7 +203,7 @@ Template.Sunburst.onRendered(function(){
         }).style("opacity", 1.0);
         selector = "#"+segment+"-count";
         $(selector).html(e.target.value);
-        console.log(selector);
+        //console.log(selector);
       });
     }
     /*
@@ -112,6 +224,7 @@ Template.Sunburst.onRendered(function(){
       $(this).css('background-image',
           '-moz-linear-gradient(left center, #50c22e 0%, #50c22e ' + percent + '%, #ccc ' + percent + '%, #ccc 100%)');
     });
+  });
 });
 
 Template.RegistrationWizard.helpers({
@@ -147,9 +260,29 @@ Template.RegistrationWizard.helpers({
   },
 });
 
-
-
-
+Template.RegistrationWizard.events({
+  'click .next-step': function(event,template){
+    console.log("next step");
+    let currentStep = $(event.currentTarget).parents('.section-step');
+    console.log(currentStep);
+    currentStep.toggleClass("active");
+    console.log(currentStep.next());
+    currentStep.next().toggleClass("active");
+  },
+  'click .next-section': function(event,template){
+    console.log("next section");
+    console.log($(event.currentTarget).closest(".section-wrapper"));
+    let currentSection = $(event.currentTarget).parents('.section-wrapper');
+    console.log(currentSection);
+    currentSection.toggleClass("active");
+    console.log(currentSection.next());
+    currentSection.next().toggleClass("active");
+  },
+  'click .signup-complete': function(event,template){
+    console.log("go to nav");
+    FlowRouter.go("/navigator");
+  },
+});
 function showError(error) {
   switch(error.code) {
     case error.PERMISSION_DENIED:

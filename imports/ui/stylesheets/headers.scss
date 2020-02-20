@@ -2,6 +2,25 @@
 @import 'breakpoint.scss';
 
 
+/* UNIVERSAL HEADER */
+.crowdpol-logo {
+  display: block;
+  float: left;
+  font-size: 2em;
+
+  text-decoration: none;
+  background-image: url(img/landing/crowdpol_ecosystem_logo_tools.svg);//crowdpol_ecosystem_logo.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: #000; /* Fallback for older browsers */
+  color: rgba(0, 0, 0, 0);
+  width: 400px;
+  height: 60px;
+}
+
+/* LANDING HEADER */
+
+
 /* DAVID'S NEW HEADER */
 .new-app-header{
   height: 74px;
@@ -90,7 +109,7 @@
 
 
 .header-divider{
-  border-left: solid 1px #ccc;
+  border-right: solid 1px #909090;
   width: 20px;
   height: 20px;
 }
@@ -158,10 +177,16 @@
   }
 }
 #profile-dropdown{
+
   .dropbtn{
+    .profile-avatar{
+      border: solid 1px black;
+      margin-top: 10px;
+    }
     .fa-angle-down{
       position: relative;
-      top: 5px;
+      top: -7px;
+      left: 5px;
     }
   }
 }

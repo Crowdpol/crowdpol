@@ -5,7 +5,8 @@ Template.Navigator_Body.onRendered(function(){});
 Template.Navigator_Body.events({});
 Template.Navigator_Body.helpers({
   globalContent: function(){
-    console.log("calling globalContent: " + Session.get("globalTemplate"));
+    //console.log("calling globalContent: " + Session.get("globalTemplate"));
+    //console.log(window.localStorage);
     return Session.get("globalTemplate");
   }
 });

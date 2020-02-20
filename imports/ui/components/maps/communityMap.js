@@ -46,6 +46,7 @@ function loadGeoJSON(){
   }).addTo(map);
 
   var mapsData = buildGeoJSON(currentRoot);
+  console.log(mapsData);
   mapLayer = new L.geoJSON(mapsData,{
     style: mapStyle,
     onEachFeature: mapOnEachFeature
@@ -54,14 +55,15 @@ function loadGeoJSON(){
       console.log("loading maps....");
       //mapInstance.fireEvent('dataloading', event);
   });
-
+  /*
   mapLayer.on('load', function (event) {
     console.log("loading maps...");
       //mapInstance.fireEvent('dataload', event);
   });
-
+  */
   if(mapsData!==null){
-    //addLayer(mapLayer);
+    console.log(mapsData);
+    addLayer(mapLayer);
   }else{
     Bert.alert("No community maps have been loaded","danger");
   }
@@ -201,7 +203,7 @@ function mapOnEachFeature(feature, layer){
     },
     mouseout: function(e) {
       resetStyle(layer);
-      info.update();
+      //info.update();
 
     }
   });

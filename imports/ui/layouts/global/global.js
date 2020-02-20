@@ -4,8 +4,10 @@ import './global.html'
 
 Template.Global.onCreated(function(){
   self = this;
+  Session.set("globalTemplate","Navigator_Content");
   if(!Session.get("globalTemplate")){
-    Session.set("globalTemplate","Navigator_Vote_Content");
+    console.log("setting to Navigator_Content");
+    Session.set("globalTemplate","Navigator_Content");
   }
 });
 
@@ -17,6 +19,7 @@ Template.Global.onRendered(function(){
   let firstActiveTemplateLinkText = $(".global-sidebar-menu > a.active > div.global-template-link-text").text().trim();
   //$(".global-menubar-title").text(firstActiveTemplateLinkText);
   //console.log(firstActiveTemplateLinkText);
+  //console.log("setting to firstActiveTemplateLinkText: " + firstActiveTemplateLinkText);
   Session.set("menuBarTitle",firstActiveTemplateLinkText);
 
 
@@ -33,6 +36,7 @@ Template.Global.onRendered(function(){
     //get current template from menu data attribute
     let globalTemplate = $(event.currentTarget).data("template");
     //assign template name to session for use in other templates
+    //console.log("setting globalTemplate: " + globalTemplate);
     Session.set("globalTemplate",globalTemplate);
 
     //disable current active menu bar tabs
