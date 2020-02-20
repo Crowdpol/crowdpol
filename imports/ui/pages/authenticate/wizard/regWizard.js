@@ -280,6 +280,7 @@ Template.RegistrationWizard.events({
   },
   'click .signup-complete': function(event,template){
     console.log("go to nav");
+    FlowRouter.go("/navigator");
   },
 });
 function showError(error) {
