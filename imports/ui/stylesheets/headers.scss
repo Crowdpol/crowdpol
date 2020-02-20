@@ -177,10 +177,16 @@
   }
 }
 #profile-dropdown{
+
   .dropbtn{
+    .profile-avatar{
+      border: solid 1px black;
+      margin-top: 10px;
+    }
     .fa-angle-down{
       position: relative;
-      top: 5px;
+      top: -7px;
+      left: 5px;
     }
   }
 }
