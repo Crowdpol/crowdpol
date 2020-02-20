@@ -1,7 +1,326 @@
-<template name="RegistrationWizard">  
-  {{>Sunburst}}
+<template name="RegistrationWizard">
+  <div class="reg-wizard-container">
+    <hr>
+      <div class="signup-progress-wrapper"></div>
+    <hr>
+
+    <div class="section-wrapper active" data-section="details">
+      <div class="section-intro section-step active">
+        <div class="section-intro-header">
+          <h3>Let's get you set up!</h3>
+        </div>
+        <div class="section-intro-content">
+          <div class="section-intro-content-left">
+            <ol>
+              <li class="step-complete">
+                <div class="step-header">Add your personal details</div>
+                <div class="step-info">Get familiar with the Crowdpol Ecosystem.</div>
+              </li>
+              <li>
+                <div class="step-header">Set up your interests</div>
+                <div class="step-info">Which functions of society do you want to affect?</div>
+              </li>
+              <li>
+                <div class="step-header">Define your values</div>
+                <div class="step-info">What do you want to have more of in the world?</div>
+              </li>
+              <li>
+                <div class="step-header">Add your location</div>
+                <div class="step-info">This will be the starting point for your navigator.</div>
+              </li>
+            </ol>
+          </div>
+          <div class="section-intro-content-right">
+            <img src="img/reg/isometric_sun_facing_left.svg" class="iso-sun">
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button next-step">
+              Continue
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="section-step">
+        <div class="section-step-header">
+          <div class="step-heading">Choose your username</div>
+          <div class="step-info">This name will appear as  your @handle</div>
+          <div class="step-content">
+            <input type="text" id="username" name="username" placeholder="Your name..">
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button next-section">
+              Continue
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored next-step">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="section-step">
+        <div class="section-step-header">
+          <div class="step-heading">What's your first name?</div>
+          <div class="step-info">Legal first (given) name</div>
+          <div class="step-content">
+            <input type="text" id="firstname" name="firstname" placeholder="@Your_Name">
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button">
+              Continue
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored next-step">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="section-step">
+        <div class="section-step-header">
+          <div class="step-heading">What's your last name?</div>
+          <div class="step-info">Legal last name (surname)</div>
+          <div class="step-content">
+            <input type="text" id="lastname" name="lastname" placeholder="Your surname">
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button next-section">
+              Continue
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored next-step">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="section-step">
+        <div class="section-step-header">
+          <div class="step-heading">What's your date of birth?</div>
+          <div class="step-info">MM / DD / YYYY</div>
+          <div class="step-content">
+            <input type="text" id="dob" name="dob" placeholder="01/01/2001">
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button next-section">
+              Continue
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored next-section">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-wrapper" data-section="interests">
+      <div class="section-intro section-step active">
+        <div class="section-intro-header">
+          <h3>Next Step</h3>
+        </div>
+        <div class="section-intro-content">
+          <div class="section-intro-content-left">
+            <ol>
+              <li class="step-complete">
+                <div class="step-header">Add your personal details</div>
+                <div class="step-info">Get familiar with the Crowdpol Ecosystem.</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Set up your interests</div>
+                <div class="step-info">Which functions of society do you want to affect?</div>
+              </li>
+              <li>
+                <div class="step-header">Define your values</div>
+                <div class="step-info">What do you want to have more of in the world?</div>
+              </li>
+              <li>
+                <div class="step-header">Add your location</div>
+                <div class="step-info">This will be the starting point for your navigator.</div>
+              </li>
+            </ol>
+          </div>
+          <div class="section-intro-content-right">
+
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button next-step">
+              Continue
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="section-step sunburst-step">
+        <div class="section-step-header">
+          <div class="step-heading">How are you interested in Culture?</div>
+          <div class="step-info">This scale will determine the amount of proposals, polls, petitions, and fundraisers related to cultural issues that will apprear in your feed. Adjust the slider to your prefered value.</div>
+          <div class="step-content">
+            <div class="step-content-left">
+              <div class="content-row">
+                <div class="sunburst-range-label">Education & Culture</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="education"><div id="education-count"  class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Health & Social Issues</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="health"><div id="health-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Environment</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="environment"><div id="environment-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Infrastructure & Technolog</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="infrastructure"><div id="infrastructure-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Law & Order</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="law"><div id="law-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Economy & Finance</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="economy"><div id="economy-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Geopolitics & International Affairs</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="geopolitics"><div id="geopolitics-count" class="sunburst-range-value">10</div>
+              </div>
+              <div class="content-row">
+                <div class="sunburst-range-label">Work & Enterprise</div><input type="range" min="0" max="10" value="0" class="sunburst-range" data-segment="enterprise"><div id="enterprise-count" class="sunburst-range-value">10</div>
+              </div>
+
+            </div>
+            <div class="step-content-right">
+              {{>Sunburst}}
+            </div>
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button next-section">
+              Continue
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored next-section">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-wrapper" data-section="values">
+      <div class="section-intro section-step active">
+        <div class="section-intro-header">
+          <h3>Next Step</h3>
+        </div>
+        <div class="section-intro-content">
+          <div class="section-intro-content-left">
+            <ol>
+              <li class="step-complete">
+                <div class="step-header">Add your personal details</div>
+                <div class="step-info">Get familiar with the Crowdpol Ecosystem.</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Set up your interests</div>
+                <div class="step-info">Which functions of society do you want to affect?</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Define your values</div>
+                <div class="step-info">What do you want to have more of in the world?</div>
+              </li>
+              <li>
+                <div class="step-header">Add your location</div>
+                <div class="step-info">This will be the starting point for your navigator.</div>
+              </li>
+            </ol>
+          </div>
+          <div class="section-intro-content-right">
+            <img src="img/reg/isometric_heart.svg" class="iso-heart">
+          </div>
+        </div>
+        <div class="step-buttons">
+          <button class="mdl-button mdl-js-button next-section">
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="section-wrapper" data-section="location">
+      <div class="section-intro section-step active">
+        <div class="section-intro-header">
+          <h3>Next Step</h3>
+        </div>
+        <div class="section-intro-content">
+          <div class="section-intro-content-left">
+            <ol>
+              <li class="step-complete">
+                <div class="step-header">Add your personal details</div>
+                <div class="step-info">Get familiar with the Crowdpol Ecosystem.</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Set up your interests</div>
+                <div class="step-info">Which functions of society do you want to affect?</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Define your values</div>
+                <div class="step-info">What do you want to have more of in the world?</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Add your location</div>
+                <div class="step-info">This will be the starting point for your navigator.</div>
+              </li>
+            </ol>
+          </div>
+          <div class="section-intro-content-right">
+            <img src="img/reg/isometric_globe.svg" class="iso-world">
+          </div>
+          <div class="step-buttons">
+            <button class="mdl-button mdl-js-button next-step">
+              Continue
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="section-step">
+        <div class="section-intro-header">
+          <h3>Add Your Your Location</h3>
+        </div>
+        <div class="section-intro-content" id="reg-wizard-map">
+            {{> CommunityMap}}
+        </div>
+        <div class="step-buttons">
+          <button class="mdl-button mdl-js-button next-section">
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="section-wrapper" data-section="complete">
+      <div class="section-intro section-step active">
+        <div class="section-intro-header">
+          <h3>Congratulations</h3>
+        </div>
+        <div class="section-intro-content">
+          <div class="section-intro-content-left">
+            <ol>
+              <li class="step-complete">
+                <div class="step-header">Add your personal details</div>
+                <div class="step-info">Get familiar with the Crowdpol Ecosystem.</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Set up your interests</div>
+                <div class="step-info">Which functions of society do you want to affect?</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Define your values</div>
+                <div class="step-info">What do you want to have more of in the world?</div>
+              </li>
+              <li class="step-complete">
+                <div class="step-header">Add your location</div>
+                <div class="step-info">This will be the starting point for your navigator.</div>
+              </li>
+            </ol>
+          </div>
+          <div class="section-intro-content-right">
+            place image here
+          </div>
+        </div>
+        <div class="step-buttons">
+          <button class="mdl-button mdl-js-button signup-complete">
+            Finish
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <template name="Sunburst">
-  <div id="sunburst"></div>
+  <div id="sunburst">
+    <svg id="sunburst-svg"></svg>
+  </div>
 </template>

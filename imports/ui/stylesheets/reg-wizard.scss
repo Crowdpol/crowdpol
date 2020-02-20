@@ -1,6 +1,45 @@
 @import 'variables.scss';
 @import 'breakpoint.scss';
 
+.test{
+  width: 100px;
+  height: 100px;
+}
+#sunburst{
+  //border: solid 1px red;
+  width: 400px;
+  height: 400px;
+  #sunburst-svg{
+    //border: solid 1px blue;
+    width: 300px;
+    height: 300px;
+  }
+}
+.scene{
+  border: solid 1px red;
+  margin-top: 65px;
+}
+.signup-progress-wrapper{
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  //border: solid 1px grey;
+}
+.section-wrapper{
+  //border: solid 1px grey;
+  display: none;
+  &.active{
+    display: block;
+  }
+}
+.section-step{
+  //border: solid 1px green;
+  display: none;
+  &.active{
+    //border: solid 1px black;
+    display: block;
+  }
+}
 div.reg-wizard-container{
   div.section-intro{
     width: 80%;

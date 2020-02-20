@@ -66,7 +66,7 @@ body{
 	display: none;
 	&:hover {
 		background-color: #f4f4f4;
-		border: solid 1px purple;
+		//border: solid 1px purple;
 	}
 	&:checked {
 		~ {
@@ -1833,6 +1833,14 @@ footer{
 		//align-items: center;
 		display: inline-flex;
 		border-bottom: none;
+	}
+	.header-menu-link{
+		padding: 16px 0px;
+		&:hover{
+			background-color: $white;
+			color: #6d7272;
+
+		}
 	}
 	/*-----*/
 
