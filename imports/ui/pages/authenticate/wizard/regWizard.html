@@ -2,6 +2,7 @@
   <div class="reg-wizard-container">
     <hr>
       <div class="signup-progress-wrapper"></div>
+      <!-- https://codepen.io/dabrorius/pen/dWmOgB -->
     <hr>
 
     <div class="section-wrapper active" data-section="details">
@@ -33,11 +34,11 @@
           <div class="section-intro-content-right">
             <img src="img/reg/isometric_sun_facing_left.svg" class="iso-sun">
           </div>
-          <div class="step-buttons">
-            <button class="mdl-button mdl-js-button next-step">
-              Continue
-            </button>
-          </div>
+        </div>
+        <div class="step-buttons">
+          <button class="mdl-button mdl-js-button next-step">
+            Continue
+          </button>
         </div>
       </div>
       <div class="section-step">
@@ -48,6 +49,9 @@
             <input type="text" id="username" name="username" placeholder="Your name..">
           </div>
           <div class="step-buttons">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored prev-step">
+              <i class="material-icons">arrow_backward</i>
+            </button>
             <button class="mdl-button mdl-js-button next-section">
               Continue
             </button>
@@ -65,6 +69,9 @@
             <input type="text" id="firstname" name="firstname" placeholder="@Your_Name">
           </div>
           <div class="step-buttons">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored prev-step">
+              <i class="material-icons">arrow_backward</i>
+            </button>
             <button class="mdl-button mdl-js-button">
               Continue
             </button>
@@ -82,6 +89,9 @@
             <input type="text" id="lastname" name="lastname" placeholder="Your surname">
           </div>
           <div class="step-buttons">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored prev-step">
+              <i class="material-icons">arrow_backward</i>
+            </button>
             <button class="mdl-button mdl-js-button next-section">
               Continue
             </button>
@@ -99,6 +109,9 @@
             <input type="text" id="dob" name="dob" placeholder="01/01/2001">
           </div>
           <div class="step-buttons">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored prev-step">
+              <i class="material-icons">arrow_backward</i>
+            </button>
             <button class="mdl-button mdl-js-button next-section">
               Continue
             </button>
@@ -138,11 +151,15 @@
           <div class="section-intro-content-right">
 
           </div>
-          <div class="step-buttons">
-            <button class="mdl-button mdl-js-button next-step">
-              Continue
-            </button>
-          </div>
+
+        </div>
+        <div class="step-buttons">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored prev-section">
+            <i class="material-icons">arrow_backward</i>
+          </button>
+          <button class="mdl-button mdl-js-button next-step">
+            Continue
+          </button>
         </div>
       </div>
       <div class="section-step sunburst-step">
@@ -181,14 +198,18 @@
               {{>Sunburst}}
             </div>
           </div>
-          <div class="step-buttons">
-            <button class="mdl-button mdl-js-button next-section">
-              Continue
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored next-section">
-              <i class="material-icons">arrow_forward</i>
-            </button>
-          </div>
+
+        </div>
+        <div class="step-buttons">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored prev-step">
+            <i class="material-icons">arrow_backward</i>
+          </button>
+          <button class="mdl-button mdl-js-button next-section">
+            Continue
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored next-section">
+            <i class="material-icons">arrow_forward</i>
+          </button>
         </div>
       </div>
     </div>
@@ -223,6 +244,9 @@
           </div>
         </div>
         <div class="step-buttons">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored prev-section">
+            <i class="material-icons">arrow_backward</i>
+          </button>
           <button class="mdl-button mdl-js-button next-section">
             Continue
           </button>
@@ -258,11 +282,15 @@
           <div class="section-intro-content-right">
             <img src="img/reg/isometric_globe.svg" class="iso-world">
           </div>
-          <div class="step-buttons">
-            <button class="mdl-button mdl-js-button next-step">
-              Continue
-            </button>
-          </div>
+
+        </div>
+        <div class="step-buttons">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored prev-section">
+            <i class="material-icons">arrow_backward</i>
+          </button>
+          <button class="mdl-button mdl-js-button next-step">
+            Continue
+          </button>
         </div>
       </div>
       <div class="section-step">
@@ -273,6 +301,9 @@
             {{> CommunityMap}}
         </div>
         <div class="step-buttons">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored prev-step">
+            <i class="material-icons">arrow_backward</i>
+          </button>
           <button class="mdl-button mdl-js-button next-section">
             Continue
           </button>
@@ -306,10 +337,13 @@
             </ol>
           </div>
           <div class="section-intro-content-right">
-            place image here
+            <div class="presence-preview"></div>
           </div>
         </div>
         <div class="step-buttons">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored prev-section">
+            <i class="material-icons">arrow_backward</i>
+          </button>
           <button class="mdl-button mdl-js-button signup-complete">
             Finish
           </button>

@@ -7,9 +7,15 @@ import RavenClient from 'raven-js';
 import './regWizard.html';
 let steps = [];
 //let map;
+let thisSection = 0;
+let thisStep = 0;
+var progress;
+var colors = { green: '#4DC87F', lightGreen: '#D9F0E3' };
 let canvas;
+let stepWidth = 0;
+
 Template.RegistrationWizard.onCreated(function(){
-  console.log("RegistrationWizard");
+  //console.log("RegistrationWizard");
   self = this;
   //Reactive Variables
   self.currentStep = new ReactiveVar(1);
@@ -24,7 +30,7 @@ Template.RegistrationWizard.onCreated(function(){
 });
 //149, 197, 96 // #95c560red
 Template.RegistrationWizard.onRendered(function(){
-  var colors = { green: '#4DC87F', lightGreen: '#D9F0E3' };
+
   var width = 960, height = 100, offset = 48;
 
   width += offset * 2;
@@ -37,10 +43,10 @@ Template.RegistrationWizard.onRendered(function(){
       .attr('viewBox', dimensions)
       .classed('svg-content', true);
 
-  var steps = ['0', '1', '2', '3', '4', '5'];
+  var steps = ['0', '1', '2', '3', '4'];
   stepWidth = (width - offset * 2) / (steps.length - 1),
   currentStep = '0';
-
+  console.log("stepWidth: " + stepWidth);
   var progressBar = svg.append('g')
                 .attr('transform', 'translate(' + offset + ',' + offset + ')')
                 .style('pointer-events', 'none');
@@ -52,7 +58,7 @@ Template.RegistrationWizard.onRendered(function(){
       .attr('rx', 4)
       .attr('ry', 4);
 
-  var progress = progressBar.append('rect')
+  progress = progressBar.append('rect')
       .attr('fill', colors.green)
       .attr('height', 8)
       .attr('width', 0)
@@ -63,21 +69,23 @@ Template.RegistrationWizard.onRendered(function(){
       .duration(1000)
       .attr('width', function(){
           var index = steps.indexOf(currentStep);
+          console.log("stepWidth: " +stepWidth);
           return (index + 1) * stepWidth;
       });
 
   progressBar.selectAll('circle')
-  .data(steps)
-  .enter()
-  .append('circle')
-  .attr('id', function(d, i){ return 'step_' + i; })
-  .attr('cx', function(d, i){ return i * stepWidth; })
-  .attr('cy', 4)
-  .attr('r', 20)
-  .attr('fill', '#FFFFFF')
-  .attr('stroke', colors.lightGreen)
-  .attr('stroke-width', 6)
+    .data(steps)
+    .enter()
+    .append('circle')
+    .attr('id', function(d, i){ return 'step_' + i; })
+    .attr('cx', function(d, i){ return i * stepWidth; })
+    .attr('cy', 4)
+    .attr('r', 20)
+    .attr('fill', '#FFFFFF')
+    .attr('stroke', colors.lightGreen)
+    .attr('stroke-width', 6)
 
+  /*
   progressBar.selectAll('text')
   .data(steps)
   .enter()
@@ -87,48 +95,24 @@ Template.RegistrationWizard.onRendered(function(){
   .attr('dy', 10)
   .attr('text-anchor', 'middle')
   .text(function(d, i) { return i + 1; })
+  */
 
   updateProgressBar("0");
 
   //self-running demo
-  setInterval(function() { updateProgressBar(Math.floor(Math.random() * (steps.length - 1)).toString()); } , 2500)
+  //setInterval(function() { updateProgressBar(Math.floor(Math.random() * (steps.length - 1)).toString()); } , 2500)
 
   function setupProgressBar(data_){
-
-  var output = [];
-  for(var i = 0; i < data_.length; i++){ output.push(data_[i].id.toString()); }
-  return output;
-
+    console.log("setupProgressBar()");
+    console.log(data_)
+    var output = [];
+    for(var i = 0; i < data_.length; i++){
+       output.push(data_[i].id.toString());
+     }
+    return output;
   }
 
-  function updateProgressBar(step_){
 
-      progress.transition()
-          .duration(1000)
-          .attr('fill', colors.green)
-          .attr('width', function(){
-              var index = steps.indexOf(step_);
-              return (index) * stepWidth;
-          });
-
-      for(var i = 0; i < steps.length; i++){
-
-          if(i <= steps.indexOf(step_)) {
-
-              d3.select('#step_' + i).attr('fill', colors.green).attr('stroke', colors.green);
-              d3.select('#label_' + i).attr('fill', '#FFFFFF');
-
-
-          } else {
-
-              d3.select('#step_' + i).attr('fill', '#FFFFFF').attr('stroke', colors.lightGreen);
-              d3.select('#label_' + i).attr('fill', '#000000');
-
-          }
-
-      }
-
-  }
 });
 
 Template.Sunburst.onRendered(function(){
@@ -151,7 +135,7 @@ Template.Sunburst.onRendered(function(){
     var curves = canvas.append("g")
       .attr("transform", "translate(175,175)");
 
-    console.log(canvas);
+    //console.log(canvas);
     curves.selectAll("path")
       .data(sections)
       .enter().append("path")
@@ -268,6 +252,16 @@ Template.RegistrationWizard.events({
     currentStep.toggleClass("active");
     console.log(currentStep.next());
     currentStep.next().toggleClass("active");
+    thisStep = thisStep + 1;
+  },
+  'click .prev-step': function(event,template){
+    console.log("previous step");
+    let currentStep = $(event.currentTarget).parents('.section-step');
+    console.log(currentStep);
+    currentStep.toggleClass("active");
+    console.log(currentStep.prev());
+    currentStep.prev().toggleClass("active");
+    thisStep = thisStep - 1;
   },
   'click .next-section': function(event,template){
     console.log("next section");
@@ -277,6 +271,19 @@ Template.RegistrationWizard.events({
     currentSection.toggleClass("active");
     console.log(currentSection.next());
     currentSection.next().toggleClass("active");
+    thisSection = thisSection + 1;
+    updateProgressBar(thisSection);
+  },
+  'click .prev-section': function(event,template){
+    console.log("prev section");
+    console.log($(event.currentTarget).closest(".section-wrapper"));
+    let currentSection = $(event.currentTarget).parents('.section-wrapper');
+    console.log(currentSection);
+    currentSection.toggleClass("active");
+    console.log(currentSection.prev());
+    currentSection.prev().toggleClass("active");
+    thisSection = thisSection - 1;
+    updateProgressBar(thisSection);
   },
   'click .signup-complete': function(event,template){
     console.log("go to nav");
@@ -336,4 +343,33 @@ function showPosition(position) {
 
 function roundHalf(num) {
   return Math.round(num*2)/2;
+}
+
+function updateProgressBar(step_){
+  console.log("updateProgressBar()");
+    progress.transition()
+        .duration(1000)
+        .attr('fill', colors.green)
+        .attr('width', function(){
+            var index = steps.indexOf(step_);
+            console.log("index: " +  index); 
+            console.log("stepWidth: " + stepWidth);
+            let newWidth = (index) * stepWidth;
+            if(newWidth > 0){
+              console.log("newWidth greater than 0");
+              return (index) * stepWidth;
+            }
+            console.log("newWidth is negative");
+            return 0;
+        });
+
+  for(var i = 0; i < steps.length; i++){
+    if(i <= steps.indexOf(step_)) {
+      d3.select('#step_' + i).attr('fill', colors.green).attr('stroke', colors.green);
+      d3.select('#label_' + i).attr('fill', '#FFFFFF');
+    } else {
+      d3.select('#step_' + i).attr('fill', '#FFFFFF').attr('stroke', colors.lightGreen);
+      d3.select('#label_' + i).attr('fill', '#000000');
+    }
+  }
 }
