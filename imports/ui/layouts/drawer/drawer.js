@@ -158,6 +158,9 @@ Template.RightDrawer.helpers({
 			return false;
 		}
 	},
+  delegateVotesCount: function() {
+		return DelegateVotes.find({delegateId: Session.get('drawerId')}).count();
+	},
 	delegateVotes: function() {
 		return DelegateVotes.find({delegateId: Session.get('drawerId')}, {sort: {date_created: -1}, limit: 10})
 	},
