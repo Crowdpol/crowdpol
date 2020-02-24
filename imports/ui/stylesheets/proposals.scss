@@ -28,27 +28,8 @@
   }
 }
 #proposal-view-info{
-  background-color: $orange;
-  padding: 0.8rem;
-  .proposal-info-section{
-    margin-bottom: 1.6rem;
-    .info-section-header{
 
-      font-size: 1rem;
-      font-weight: 600px;
-      color: $white;
-      border-bottom: solid 1px $white;
-    }
-    .info-section-content{
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      padding-top: 10px;
-      color: $white;
-      font-size: 0.8rem;
-      font-weight: normal;
-    }
-  }
+  
   #proposal-tags-wrapper{
     .crowdpol-tag{
       color: $white;

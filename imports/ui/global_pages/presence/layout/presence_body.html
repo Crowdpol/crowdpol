@@ -1,0 +1,127 @@
+<template name="Presence_Body">
+  <div class="global-columns global-three-columns">
+    <div class="global-left-column global-sidebar-menu left-sidebar presence-left-sidebar">
+      <div class="info-section">
+        <div class="info-section-header">
+          {{profileUsername}}
+        </div>
+        <div class="info-section-content column presence-support">
+          Followers: {{followersCount}}<br>
+          Following: {{followingCount}}<br>
+          {{#if currentUser}}
+            {{#if alreadyFollowing}}
+              <button class="sidebar-button active" id="unfollow-me">{{_ "feed.unfollow"}}</button>
+            {{else}}
+              <button class="sidebar-button" id="follow-me">{{_ "feed.follow"}}</button>
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+      <div class="info-section">
+        <div class="info-section-header">
+          Social
+        </div>
+        <div class="info-section-content row">
+          <div class="sidebar-social row">
+            <div class="social-link">
+              <i class="fab fa-twitter"></i>
+            </div>
+            <div class="social-link">
+              <i class="fab fa-linkedin-in"></i>
+            </div>
+            <div class="social-link">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="social-link">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="social-link">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="social-link">
+              <i class="fab fa-soundcloud"></i>
+            </div>
+            <div class="social-link">
+              <i class="fa fa-home fa-fw"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="info-section">
+        <div class="info-section-header">
+          Values
+        </div>
+        <div class="info-section-content">
+          {{#each value in values}}
+            <div class="tags-wrap presence-tags-wrap" >
+              <a class="tag taggle-tag tag-chip" id="{{value._id}}" data-id="{{value._id}}">{{value.keyword}}
+      					<button type="button" class="mdl-chip__action tag-chip-delete" data-id="{{value._id}}"><i class="material-icons tag-chip-delete" data-id="{{value._id}}">cancel</i></button>
+      				</a>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="info-section">
+        <div class="info-section-header">
+          Interests
+        </div>
+        <div class="info-section-content">
+          {{#each interest in interests}}
+            <div class="row">
+              <div class="interest">{{interest.type}}</div>
+              <div class="interest-amount"> <!-- Slider with Starting Value -->
+                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="{{interest.amount}}">
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="info-section">
+        <div class="info-section-header">
+          Infuence
+        </div>
+        <div class="info-section-content">
+          <!--<div id="feed-map-fake"></div>-->
+        </div>
+      </div>
+    </div>
+    <div class="global-center-column">
+      <div class="global-content-loader" style="display: none;">
+        {{> loader}}
+      </div>
+      <div class="global-content-dynamic">
+        {{> Template.dynamic template=globalContent}}
+      </div>
+    </div>
+    <div class="global-right-column right-sidebar" id="presence-right-sidebar">
+      <div class="presence-following">
+        <div class="right-column-heading">
+          <h5>Change Makers I Follow</h5>
+        </div>
+        <div class="right-column-list">
+          {{#if followingCount}}
+            {{#each follow in following}}
+              {{>UserCard userId=follow._id style="hex"}}
+            {{/each}}
+          {{else}}
+            <center>Not following anyone</center>
+          {{/if}}
+        </div>
+      </div>
+      <div class="presence-followers">
+        <div class="right-column-heading">
+          <h5>Change Makers Following Me</h5>
+        </div>
+        <div class="right-column-list">
+          {{#if followersCount}}
+            {{#each follower in followers}}
+              {{>UserCard userId=follower._id style="hex"}}
+            {{/each}}
+          {{else}}
+            <center>No followers</center>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

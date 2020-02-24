@@ -42,6 +42,12 @@ Template.UserCard.helpers({
     }
     return false;
   },
+  isHex: function(style){
+    if(style=='hex'){
+      return true;
+    }
+    return false;
+  },
   isDateTime: function(style){
     if(style=='date-time'){
       return true;
