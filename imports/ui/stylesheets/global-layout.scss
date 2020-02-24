@@ -35,6 +35,7 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
   //border: solid 1px black;
   height: $cover-height;
   overflow: hidden;
+  background-color: #f1cdb4;
 }
 .global-menu{
   //border: solid 1px black;
@@ -187,6 +188,7 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
 }
 //RIGHT SIDEBAR
 .global-right-column.right-sidebar{
+  overflow-y: scroll;
     padding: 0.8rem;
     h5{
       color: $white;
@@ -272,7 +274,6 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
 //DYNAMIC MENU
 .global-content-dynamic{
   .content-tab{
-    border: solid 1px red;
     min-height: 50px;
     //display:none;
     &.active{

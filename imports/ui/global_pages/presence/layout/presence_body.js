@@ -1,19 +1,26 @@
 import { smallworldGeoJSON } from '/lib/world.js'
 //import {map,loadMap,addLayer} from '../../components/maps/leaflet.js'
 //import '../../components/profileHeader/profileHeader.js';
-import { getUserProfilePhoto, getUserfullname, getUsername, getUserTags, getUserInterests } from '../../../../utils/users';
+import { getUserProfilePhoto, getUserHasCover, getUserCover, getUserfullname, getUsername, getUserTags, getUserInterests } from '../../../../utils/users';
 import { Tags } from '../../../../api/tags/Tags.js'
 import { Posts } from '../../../../api/posts/Posts.js'
 import { Likes } from '../../../../api/likes/Likes.js'
+
 import RavenClient from 'raven-js';
 import snarkdown from 'snarkdown';
 import "./presence_body.html";
-
+const defaultURL = 'https://images.unsplash.com/photo-1454166155302-ef4863c27e70?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2';
 
 Template.Presence_Body.onCreated(function(){
   Session.set("globalTemplate","Presence_Content");
   var self = this;
   let ownerId = getOwnerId();
+  if(getUserHasCover(ownerId)){
+    Session.set('coverURL',getUserCover(ownerId));
+  }else{
+    Session.set('coverURL',defaultURL);
+  }
+
   self.autorun(function(){
     var communityId = LocalStore.get('communityId');
     self.subscribe('users.profile');

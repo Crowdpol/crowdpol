@@ -381,14 +381,26 @@ loggedInRoutes.route('/group/:handle?', {
 loggedInRoutes.route('/feed', {
   name: 'App.feed',
   action() {
-    BlazeLayout.render('App_body', { main: 'UserFeed' });
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "presence",
+      cover: "Presence_Cover",
+      menu: "Presence_Menubar",
+      body: "Presence_Body",
+      footer: "Presence_Footer"
+    }});
   },
 });
 
 loggedInRoutes.route('/feed/:id', {
   name: 'App.feed',
   action() {
-    BlazeLayout.render('App_body', { main: 'UserFeed' });
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "presence",
+      cover: "Presence_Cover",
+      menu: "Presence_Menubar",
+      body: "Presence_Body",
+      footer: "Presence_Footer"
+    }});
   },
 });
 /*
@@ -562,7 +574,7 @@ loggedInRoutes.route('/proposals/edit/:id?', {
 loggedInRoutes.route('/proposals/view/:id?', {
   name: 'App.proposal.view',
   action() {
-    BlazeLayout.render('App_body', {main: 'ViewProposal'});
+    BlazeLayout.render('App_body', {main: 'NewViewProposal'});
   }
 });
 
