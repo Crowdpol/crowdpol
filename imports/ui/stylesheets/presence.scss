@@ -1,0 +1,105 @@
+@import 'variables.scss';
+
+//-------------------------- COVER ----------------------------------------------
+.presence-profile-image{
+  position: absolute;
+  top: 75px;
+  left: 20px;
+  svg{
+    //width:30%;
+    width: 205px;
+    height: 235px;
+    margin:0 auto;
+  }
+  #hex{
+    stroke-width:5;
+    stroke: $white;
+    fill-opacity:1;
+    transition:fill-opacity .8s;
+  }
+  #hex:hover{
+    fill-opacity:0.8;
+  }
+  #text{
+    stroke-width:0.5;
+    stroke:teal;
+    fill-opacity:0;
+    fill:teal;
+    transition:fill-opacity .8s;
+  }
+  #hex:hover + #text{
+    fill-opacity:1;
+  }
+}
+
+//------------------------------MENUBAR-----------------------------------------
+.navigator-breadcrumbs{
+
+}
+.presence-menu-bar{
+
+  display: flex;
+  flex-direction: row;
+  .presence-menu-username{
+
+    h4{
+      margin: 0px;
+    }
+  }
+  .presence-menu{
+
+  }
+}
+.presence-delegate-button{
+  margin-right: 10px;
+  border: solid 1px #c1c0bd;
+  border-radius: 25px;
+  color: #b2b1b1;
+  height: 20px;
+  text-transform: uppercase;
+  font-size: 0.625rem;
+  line-height: 0.938rem;
+  padding: 2px 4px;
+}
+//----------------------------LEFT SIDEBAR---------------------------------------
+
+.presence-left-sidebar{}
+
+.presence-support{
+  font-size: 0.9rem;
+  font-weight: 600;
+  .sidebar-button{
+    margin-top: 10px;
+  }
+}
+.sidebar-social{
+  .social-link{
+    margin-right: 10px;
+    cursor:pointer;
+  }
+}
+.presence-tags-wrap{
+  .tag-chip{
+    padding: 5px 5px;
+    background-color: white;
+    color: darken($orange,10%);
+    font-size: 0.8rem;
+    line-height: 0.8rem;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-right: 5px;
+    .mdl-chip__action{
+      padding: 0px;
+      line-height: 1rem;
+      width: 15px;
+      height: 15px;
+      color: darken($orange,10%);
+      .material-icons{
+        font-size: 15px;
+      }
+    }
+  }
+}
+//----------------------------RIGHT SIDEBAR---------------------------------------
+
+.presence-right-sidebar{}

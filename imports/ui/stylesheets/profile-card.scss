@@ -64,7 +64,40 @@
     }
   }
 }
+.profile-card-hex{
+  height: 95px;
+  width: 100%;
 
+  .view-user{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+  }
+  .hex-svg{
+    width: 75px;
+    #hex{
+        stroke-width:5;
+        stroke: $white;
+    }
+  }
+  .profile-card-hex-details{
+    line-height: 0rem;
+    margin-top:15px;
+    height: 65px;
+    span{
+      color: $white !important;
+      line-height: 1rem;
+
+      &.fullname{
+        font-size: 0.9rem;
+      }
+      &.followers-count{
+        font-size: 0.6rem;
+      }
+    }
+
+  }
+}
 .profile-card{
   min-height: 0;
   .profile-card-header{
