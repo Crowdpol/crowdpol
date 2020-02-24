@@ -117,7 +117,7 @@ Template.RegistrationWizard.onRendered(function(){
 
 Template.Sunburst.onRendered(function(){
   //let sections = ["culture","finance","defence","education","enterprise","environment","foreign-affairs","social-affairs","infrastructure","justice"];
-
+  /*
   $(function(){
   var tempArc;
   var arcId = "";
@@ -190,12 +190,9 @@ Template.Sunburst.onRendered(function(){
         //console.log(selector);
       });
     }
-    /*
-    i.addEventListener('input', function (e) {
 
+    //i.addEventListener('input', function (e) {  }, false);
 
-    }, false);
-    */
     $("input[type=range]").mousemove(function (e) {
       var val = ($(this).val() - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
       var percent = val * 100;
@@ -209,6 +206,7 @@ Template.Sunburst.onRendered(function(){
           '-moz-linear-gradient(left center, #50c22e 0%, #50c22e ' + percent + '%, #ccc ' + percent + '%, #ccc 100%)');
     });
   });
+  */
 });
 
 Template.RegistrationWizard.helpers({
@@ -352,7 +350,7 @@ function updateProgressBar(step_){
         .attr('fill', colors.green)
         .attr('width', function(){
             var index = steps.indexOf(step_);
-            console.log("index: " +  index); 
+            console.log("index: " +  index);
             console.log("stepWidth: " + stepWidth);
             let newWidth = (index) * stepWidth;
             if(newWidth > 0){

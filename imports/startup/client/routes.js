@@ -111,13 +111,6 @@ publicRoutes.route('/reset-password/:token?', {
   }
 });
 
-publicRoutes.route('/test/landing', {
-  name: 'App.test-landing',
-  action() {
-    BlazeLayout.render('TestLanding');
-  },
-});
-
 publicRoutes.route('/login', {
   name: 'App.login',
   action() {
@@ -212,6 +205,7 @@ publicRoutes.route('/unsplash', {
 publicRoutes.route('/test', {
   name: 'App.test',
   action() {
+    console.log("render test");
     BlazeLayout.render('App_body', { main: 'Test' });
   },
 });
@@ -312,25 +306,35 @@ loggedInRoutes.route('/navigator', {
     }});
   },
 });
+loggedInRoutes.route('/presence', {
+  name: 'App.presence',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "presence",
+      cover: "Presence_Cover",
+      menu: "Presence_Menubar",
+      body: "Presence_Body",
+      footer: "Presence_Footer"
+    }});
+  },
+});
+loggedInRoutes.route('/presence/:id', {
+  name: 'App.presence_id',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "presence",
+      cover: "Presence_Cover",
+      menu: "Presence_Menubar",
+      body: "Presence_Body",
+      footer: "Presence_Footer"
+    }});
+  },
+});
 
 loggedInRoutes.route('/newproposal/:id', {
   name: 'App.newproposal',
   action() {
     BlazeLayout.render('App_body', { main: 'NewViewProposal'});
-  },
-});
-
-loggedInRoutes.route('/presence', {
-  name: 'App.presence',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Presence' });
-  },
-});
-
-loggedInRoutes.route('/presence:id', {
-  name: 'App.presence',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Presence' });
   },
 });
 
@@ -387,7 +391,7 @@ loggedInRoutes.route('/feed/:id', {
     BlazeLayout.render('App_body', { main: 'UserFeed' });
   },
 });
-
+/*
 loggedInRoutes.route('/presence', {
   name: 'App.presence',
   action() {
@@ -405,7 +409,7 @@ loggedInRoutes.route('/presence/:id', {
     BlazeLayout.render('App_body', { main: 'UserPresence' });
   },
 });
-
+*/
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
