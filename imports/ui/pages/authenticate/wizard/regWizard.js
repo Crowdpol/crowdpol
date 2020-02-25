@@ -30,6 +30,70 @@ Template.RegistrationWizard.onCreated(function(){
 });
 //149, 197, 96 // #95c560red
 Template.RegistrationWizard.onRendered(function(){
+  //load datepicker
+  //showProfileUrl();
+
+  var picker = new Pikaday({
+    field: document.getElementById('dob'),
+    firstDay: 1,
+    minDate: new Date(1900, 0, 1),
+    maxDate: new Date(),
+    yearRange: [1900, 2020],
+    showTime: false,
+    autoClose: true,
+    format: 'DD-MMM-YYYY',
+    disableDayFn: function(date) {
+      return moment().isBefore(moment(date), 'day');
+    }
+  });
+  picker.setDate(new Date());
+
+  //form validation
+  $( "#signup-form" ).validate({
+		rules: {
+			'username': {
+				required: true,
+        minlength: 6,
+        maxlength: 64
+			},
+			'firstname': {
+				required: true,
+				minlength: 1
+			},
+			'lastname': {
+				required: true,
+				minlength: 1
+			}
+      /*,
+			'dob': {
+				required: true,
+				minlength: 1
+			}*/
+		},
+		messages: {
+      'username': {
+				required: 'Please enter a username.',
+        minlength: 'Your username must be at least 6 char long.',
+        maxlength: 'Your surname must be at most 64 char long.'
+
+			},
+			'firstname': {
+				required: 'Please enter your email address.',
+        minlength: 'Your firstname must be at least 1 char long.'
+			},
+			'surname': {
+				required: 'Please enter your surname.',
+				minlength: 'Your surname must be at least 1 char long.'
+			},
+      /*
+      'dob': {
+				required: 'Please enter your date of birth.',
+				minlength: 'Your date of birth must be at least 1 char long.'
+			},*/
+		}
+	});
+
+  //progress bar
 
   var width = 960, height = 100, offset = 48;
 
@@ -228,23 +292,31 @@ Template.RegistrationWizard.helpers({
     return Template.instance().currentStep.get();
   },
   selectedTags: ()=> {
+    console.log("selected tags called");
+    let tagsArray = [];
+    if(Meteor.user()){
+      let userProfile = Meteor.user().profile;
+      if(typeof userProfile == 'undefined'){
+        return [];
+      }
+      let tagsArray = userProfile.tags;
+      if(typeof tagsArray == 'undefined'){
+        tagsArray = [];
+        //selectedTags = Tags.find({_id: {$in: tagsArray}});
+        //Session.set("selectedTags",selectedTags);
+        //return selectedTags;
+      }
+    }
 
-    let userProfile = Meteor.user().profile;
-    if(typeof userProfile == 'undefined'){
-      return [];
-    }
-    let tagsArray = userProfile.tags;
-    if(typeof tagsArray == 'undefined'){
-      tagsArray = [];
-      //selectedTags = Tags.find({_id: {$in: tagsArray}});
-      //Session.set("selectedTags",selectedTags);
-      //return selectedTags;
-    }
     return tagsArray;
   },
 });
 
 Template.RegistrationWizard.events({
+  'keyup #username': function(event, template){
+		console.log("check username");
+	},
+
   'click .next-step': function(event,template){
     console.log("next step");
     let currentStep = $(event.currentTarget).parents('.section-step');
@@ -352,7 +424,7 @@ function updateProgressBar(step_){
         .attr('fill', colors.green)
         .attr('width', function(){
             var index = steps.indexOf(step_);
-            console.log("index: " +  index); 
+            console.log("index: " +  index);
             console.log("stepWidth: " + stepWidth);
             let newWidth = (index) * stepWidth;
             if(newWidth > 0){
