@@ -24,6 +24,79 @@
     display: block;
   }
 }
+.section-step{
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: none;
+  .step-container{
+    //border: solid 1px green;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  .step-back-container{
+    //background-color: #ccc;
+    max-width: 50px;
+    display: flex;
+  }
+  .step-content-container{
+    //margin-left: 50px;
+    //border: solid 1px blue;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .section-step-header{
+    .step-heading{
+      font-family: futura-pt, sans-serif;
+      font-weight: 700;
+      font-style: normal;
+      color: #54575a;
+      letter-spacing: -1px;
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      margin-bottom: 10px;
+    }
+    .step-info{
+      color: #6d7272;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+  }
+  .step-content{
+    display: flex;
+    flex-direction: row;
+    .step-content-left{
+      display: flex;
+    }
+    .step-content-right{
+      margin-left: 20px;
+      padding-left:25px;
+    }
+  }
+  .step-buttons{
+    width: 123px;
+    //border: solid 1px red;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    //flex-direction: row;
+    .mdl-button{
+      text-transform: none;
+    }
+    .mdl-button--colored{
+      background-color: $landing-green;
+      color: $white;
+    }
+  }
+
+  &.active{
+    //border: solid 1px black;
+    display: block;
+  }
+}
+
 
 .section-intro{
   width: 80%;
@@ -186,78 +259,6 @@
 
 
 
-.section-step{
-  width: 80%;
-  max-width: 800px;
-  margin: 0 auto;
-  display: none;
-  .step-container{
-    //border: solid 1px green;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-  }
-  .step-back-container{
-    //background-color: #ccc;
-    max-width: 50px;
-    display: flex;
-  }
-  .step-content-container{
-    //margin-left: 50px;
-    //border: solid 1px blue;
-    width: 80%;
-    margin: 0 auto;
-  }
-  .section-step-header{
-    .step-heading{
-      font-family: futura-pt, sans-serif;
-      font-weight: 700;
-      font-style: normal;
-      color: #54575a;
-      letter-spacing: -1px;
-      font-size: 1.6rem;
-      line-height: 2.4rem;
-      margin-bottom: 10px;
-    }
-    .step-info{
-      color: #6d7272;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-  }
-  .step-content{
-    display: flex;
-    flex-direction: row;
-    .step-content-left{
-      display: flex;
-    }
-    .step-content-right{
-      margin-left: 20px;
-      padding-left:25px;
-    }
-  }
-  .step-buttons{
-    width: 123px;
-    //border: solid 1px red;
-    margin: 0 auto;
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-around;
-    //flex-direction: row;
-    .mdl-button{
-      text-transform: none;
-    }
-    .mdl-button--colored{
-      background-color: $landing-green;
-      color: $white;
-    }
-  }
-
-  &.active{
-    //border: solid 1px black;
-    display: block;
-  }
-}
 
 .sunburst-step{
     .step-content-left{
@@ -340,6 +341,18 @@ div#reg-wizard-map{
     }
   }
 }
+#signup-map{
+  display: flex;
+  flex-direction: column;
+  .signup-map-container{
+    display: flex;
+    flex-direction: row;
+  }
+  .signup-breadcrumbs{
+    width: 100%;
+  }
+}
+
 /*------- RANGE INPUT -------*/
 
 

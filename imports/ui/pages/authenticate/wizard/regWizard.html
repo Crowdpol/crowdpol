@@ -348,7 +348,7 @@
 
         </div>
         <div class="step-buttons">
-          <button class="mdl-button mdl-js-button next-step">
+          <button class="mdl-button mdl-js-button next-step show-map">
             Continue
           </button>
         </div>
@@ -367,7 +367,14 @@
               <div class="step-info"></div>
             </div>
             <div class="step-content" id="signup-map">
-              {{> CommunityMap}}
+              <div class="signup-map-container">
+                {{> CommunityMap}}
+              </div>
+              <div class="signup-breadcrumbs">
+                {{>CommunityBreadcrumb}}
+              </div>
+
+
             </div>
           </div>
 

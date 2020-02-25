@@ -181,7 +181,7 @@ Template.RegistrationWizard.onRendered(function(){
 
 Template.Sunburst.onRendered(function(){
   //let sections = ["culture","finance","defence","education","enterprise","environment","foreign-affairs","social-affairs","infrastructure","justice"];
-  /*
+
   $(function(){
   var tempArc;
   var arcId = "";
@@ -192,7 +192,7 @@ Template.Sunburst.onRendered(function(){
     let colors = ["#F5E829","#C7D310","#6AB435","#40B8EB","#3F79BD","#30509D","#E94F1D","#F3901D"];
     let sections = ["education","health","environment","infrastructure","law","economy","geopolitics","enterprise"];
 
-    canvas = d3.selectAll("svg")
+    canvas = d3.selectAll("#sunburst-svg")
       .attr("width", 350)
       .attr("height", 350)
 
@@ -270,7 +270,7 @@ Template.Sunburst.onRendered(function(){
           '-moz-linear-gradient(left center, #50c22e 0%, #50c22e ' + percent + '%, #ccc ' + percent + '%, #ccc 100%)');
     });
   });
-  */
+
 });
 
 Template.RegistrationWizard.helpers({
@@ -323,6 +323,12 @@ Template.RegistrationWizard.events({
     console.log(currentStep.next());
     currentStep.next().toggleClass("active");
     thisStep = thisStep + 1;
+    if($(event.currentTarget).hasClass("show-map")){
+      console.log("has show map class");
+      map.invalidateSize();
+    }else{
+      console.log("has not show map class");
+    }
   },
   'click .prev-step': function(event,template){
     console.log("previous step");
@@ -359,6 +365,10 @@ Template.RegistrationWizard.events({
     console.log("go to nav");
     FlowRouter.go("/navigator");
   },
+  'click .show-map': function(event,template){
+    console.log(map);
+    map.invalidateSize();
+  }
 });
 function showError(error) {
   switch(error.code) {
