@@ -54,6 +54,7 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
   top: 100px;
   padding-bottom: $footer-height;
   height: calc(#{$viewport-height} - #{$menu-height});//percentOf($available-height,60); //calc(#{$global-wrapper-height} - #{$menu-height});//
+  overflow-y: scroll;
   .global-body-tabs-panel{
     border: solid 1px grey;
     display: none;
