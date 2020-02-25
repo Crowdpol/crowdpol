@@ -39,6 +39,7 @@
 }
 
 .right-drawer-header {
+  background-color: $orange;
   padding: ($space / 2) $space;
   text-align: center;
 
@@ -46,9 +47,11 @@
     width: $space * 4;
     height: $space * 4;
   }
-
+  h4 {
+    color: $white !important;
+  }
   h6 {
-    color: $light-grey-dark;
+    color: $white;//$light-grey-dark;
     margin-bottom: $space / 2;
   }
 }

@@ -26,7 +26,7 @@
 						<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only change-role" data-role="delegate">{{_ "layout.header.nav_use_delegate"}}</a>
 					{{/if}}
 				{{/if}}
-				<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/feed">{{_ "layout.drawer.nav_feed"}}</a>
+				<a class="side-nav-link mdl-navigation__link  mdl-layout--small-screen-only" href="/presence">{{_ "layout.drawer.nav_feed"}}</a>
 				<a class="side-nav-link mdl-navigation__link" href="/profile">{{_ "layout.drawer.nav_profile"}}
 					{{#if currentUser.isPublic}}
 						<span class="mdl-chip" id="public-profile-chip">
@@ -58,7 +58,7 @@
 <template name="RightDrawer">
 	<div class="right-drawer mdl-layout__drawer-right">
 		<div class="right-drawer-header mdl-shadow--2dp">
-			<a href="/feed/{{user._id}}" id="right-drawer-profile-link"><img src="{{user.profile.photo}}" class="profile-picture mdl-list__item-avatar"></a>
+			<a href="/presence/{{user._id}}" id="right-drawer-profile-link"><img src="{{user.profile.photo}}" class="profile-picture mdl-list__item-avatar"></a>
 			<h4>{{user.profile.firstName}} {{user.profile.lastName}}</h4>
 			<h6>{{user.profile.type}}</h6>
 		</div>
@@ -80,7 +80,7 @@
 			{{/if}}
 			<br>
 			<!-- Recent Votes -->
-			{{#if delegateVotes}}
+			{{#if delegateVotesCount}}
 			<br/>
 			<h6>{{_ "layout.drawer.recent-votes"}}</h6>
 

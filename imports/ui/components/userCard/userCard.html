@@ -63,6 +63,19 @@
         </a>
       </div>
     {{/if}}
+    {{#if isHex style}}
+      <div class="profile-card-hex">
+        <a href="/feed/{{userId}}" class="view-user">
+          <div class="hex-svg">
+            {{>Hexagram currentUserId=userId}}
+          </div>
+          <div class="profile-card-hex-details">
+            <span class="fullname">{{userFullname userId}}</span><br>
+            <span class="followers-count">{{alreadyFollowing userId}} FOLLOWERS</span>
+          </div>
+        </a>
+      </div>
+    {{/if}}
   {{else}}
     <div class="profile-card-flat">
       <a href="/feed/{{userId}}" class="profile-image-link"><img src="/img/default-user-image.png" class="profile-image mdl-list__item-avatar"/></a>
