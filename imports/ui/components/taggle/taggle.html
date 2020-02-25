@@ -1,4 +1,16 @@
 <template name="NewTaggle">
+	<div class="input-wrap" id="tag-input-wrap">
+		<input class="taggle-input" type="text" name="add-tag" id="add-tag">
+		<ul for="add-tag"  class="dropdown" id="matchedTagsList" style="display:block;">
+			{{#each matchedTags}}
+				<li class="dropdown-item" data-keyword={{this}}>
+					<span class="primary-content" data-keyword={{this}}>
+						{{this}}
+					</span>
+				</li>
+			{{/each}}
+		</ul>
+	</div>
 	<div class="tags-wrap add-tags-wrap" >
 		<!-- THESE CAN BE REMOVED WHEN CLIKED ON THEM -->
 		{{#if showTags}}
@@ -11,8 +23,8 @@
 		{{/if}}
 
 	</div>
-
-	<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="tag-input-wrap">
+	<!-- MATERIAL DESIGN STYLEd taggle
+	<div class="input-wrap mdl-textfield mdl-js-textfield mdl-textfield- -floating-label getmdl-select getmdl-select__fix-height" id="tag-input-wrap">
 		<input class="mdl-textfield__input" type="text" name="add-tag" id="add-tag">
 		<label for="add-tag" class="mdl-textfield__label">Add some tags</label>
 		<ul for="add-tag"  class="dropdown" id="matchedTagsList" style="display:none;">
@@ -25,5 +37,7 @@
 			{{/each}}
 		</ul>
 	</div>
+	-->
+
 	<!-- END TAGS SHOULD BE MOVED TO ITS OWN COMPONENT -->
 </template>

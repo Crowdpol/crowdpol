@@ -147,6 +147,7 @@
   .dropdown-content {
     display: none;
     position: absolute;
+    //right: 0;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -181,7 +182,7 @@
   .dropbtn{
     .profile-avatar{
       border: solid 2px $white;
-      margin-top: 10px;
+      margin-top: 2px;
     }
     .fa-angle-down{
       position: relative;
@@ -255,8 +256,62 @@
 }
 
 .responsive-menu{
-  border: solid 1px red;
   position: absolute;
   right: 0;
   top: 75px;
+  padding: 15px;
+  a{
+    img,i{
+      display: none;
+    }
+  }
+}
+
+@media only screen and (min-width: $tiny){
+  #main-menu{
+    display: none;
+  }
+  #responsive-menu{
+    display: block;
+  }
+}
+@media only screen and (min-width: $mobile){
+  #main-menu{
+    display: none;
+  }
+  #responsive-menu{
+    display: block;
+  }
+}
+@media only screen and (min-width: $tablet){
+  #main-menu{
+    display: none;
+  }
+  #responsive-menu{
+    display: block;
+  }
+}
+@media only screen and (min-width: $laptop){
+  #main-menu{
+    display: block;
+  }
+  #responsive-menu{
+    display: none;
+  }
+}
+@media only screen and (min-width: $desktop){
+  #main-menu{
+    display: block;
+  }
+  #responsive-menu{
+    display: none;
+  }
+}
+@media only screen and (min-width: $big){
+  #main-menu{
+    display: block;
+  }
+  #responsive-menu{
+    display: none;
+  }
 }

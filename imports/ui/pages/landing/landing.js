@@ -18,11 +18,17 @@ Template.Landing.events({
     $('.recent-stories-scroller').animate({
           right: '200px'
       });
+  },
+  'click .get-started': function(event,template){
+    event.preventDefault();
+    console.log("should scroll to signup section");
+    scrollTo("#signup-section");
   }
 });
 
 
 function scrollTo(elementId){
+  console.log($(elementId));
   $('html, body').animate({
     scrollTop: $(elementId).offset().top
   }, 800);

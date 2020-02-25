@@ -26,7 +26,7 @@ Template.CommunityMap.onCreated(function(){
 Template.CommunityMap.onRendered(function(){
   loadMap();
   //addInfoControl();
-  addCommunityControl();
+  //addCommunityControl();
 });
 
 Template.CommunityMap.events({
@@ -166,7 +166,7 @@ function mapOnEachFeature(feature, layer){
   layer.on({
     click: function(e) {
       //load community info onto map
-      communityInfo.update(e.target.feature.properties);
+      //communityInfo.update(e.target.feature.properties);
       //reset previous selected layer styles
       if (selection) {
         selection.setStyle(mapStyle());
@@ -317,7 +317,7 @@ function resetStyle(layer){
 
 function hoverStyle(e) {
   //console.log(e.target.feature.properties)
-	info.update(e.target.feature.properties);
+	//info.update(e.target.feature.properties);
   var layer = e.target;
 
   layer.setStyle({
