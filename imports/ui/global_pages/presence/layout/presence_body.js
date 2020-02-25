@@ -70,6 +70,10 @@ Template.Presence_Body.helpers({
   profileUsername: function(userId) {
   	return "@" + getUsername(getOwnerId());
   },
+  alreadyFollowing: function(){
+    console.log("already following");
+    return Meteor.users.find({_id: Meteor.userId(), "profile.following":getOwnerId()}).count()
+  },
   followingCount: function(){
     let followers;
     let user = Meteor.users.findOne({"_id":getOwnerId()});
