@@ -17,6 +17,7 @@ export const getUsername = (id) => {
 export const getUserfullname = (id) => {
   let user = returnUser(id);
   let fullname;
+  //console.log(user);
   if(user){
     profile = returnProfile(user);
     if(profile){
@@ -79,7 +80,7 @@ export const getUserInterests = (id) => {
   if(user){
     profile = returnProfile(user);
     if(profile){
-      console.log(profile);
+      //console.log(profile);
       return returnProfileKey(profile,'interests');
     }
   }
@@ -90,7 +91,7 @@ export const getUserLocation = (id) => {
   if(user){
     profile = returnProfile(user);
     if(profile){
-      console.log(profile);
+      //console.log(profile);
       return returnProfileKey(profile,'interests');
     }
   }
@@ -123,9 +124,10 @@ export const getUserIdByUsername = (username) => {
 //returns user by id, or current user
 function returnUser(id){
   let user;
-
+  //console.log("returnUser(id): " + id);
   if (id !== undefined) {
     user = Meteor.users.findOne({"_id":id});
+    //console.log(Meteor.users.find({"_id":id}).count());
   }/*
   else{
     //Bert.alert("current user","caution");

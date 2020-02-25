@@ -35,6 +35,7 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
   //border: solid 1px black;
   height: $cover-height;
   overflow: hidden;
+  background-color: #f1cdb4;
 }
 .global-menu{
   //border: solid 1px black;
@@ -139,9 +140,56 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
     }
   }
 }
+.sidebar-button{
+  border: solid 2px $white;
+  border-radius: 25px;
+  padding: 5px;
+  color: $white;
+  background-color: $orange;
+  font-weight: 600;
+  font-size: 0.8rem;
+  &.active{
+    color: darken($orange,10%);
+    background-color: $white;
+  }
+}
+.community-map{
+  background-color: #ccc;
+  width: 100%;
+  height: 300px;
+}
+//LEFT SIDEBAR
+.left-sidebar{
+  background-color: $orange;
+  padding: 0.8rem;
+  .info-section{
+    margin-bottom: 10px;
+    .info-section-header{
 
+      font-size: 1rem;
+      font-weight: 600;
+      color: $white;
+      border-bottom: solid 1px $white;
+    }
+    .info-section-content{
+      display: flex;
+      flex-wrap: wrap;
+      padding-top: 10px;
+      color: $white;
+      font-size: 0.8rem;
+      font-weight: normal;
+      &.row{
+        flex-direction: row;
+      }
+      &.column{
+        flex-direction: column;
+      }
+    }
+  }
+}
 //RIGHT SIDEBAR
 .global-right-column.right-sidebar{
+  overflow-y: scroll;
     padding: 0.8rem;
     h5{
       color: $white;
@@ -192,7 +240,7 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
 //TABS MENU
 .global-menu-tabs{
   margin-top: auto;
-
+  padding-top: 20px;
   display: none;
   .global-menu-tab{
     font-size: $base-font-size;
@@ -200,12 +248,26 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
     color: #ccc;
     display: inline-block;
     padding: 0 5px;
-
+    border-bottom: solid 5px transparent;
+    padding-bottom: 5px;
+    .link-title{
+      font-size: $base-font-size;
+      font-weight: 600;
+      line-height: 1.2rem;
+    }
+    .link-desc{
+      color: #ccc;
+      font-size: $xsmall-font-size;
+      text-transform: uppercase;
+      line-height: 1rem;
+    }
     &:hover{
       color: grey;
+      border-bottom: solid 5px grey;
     }
     &.active{
       color: black;
+      border-bottom: solid 5px $orange;
     }
   }
 }
@@ -213,7 +275,6 @@ $global-wrapper-height: calc(calc(100vh + #{$cover-height}) - #{$header-height})
 //DYNAMIC MENU
 .global-content-dynamic{
   .content-tab{
-    border: solid 1px red;
     min-height: 50px;
     //display:none;
     &.active{

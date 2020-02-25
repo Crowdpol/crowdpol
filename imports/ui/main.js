@@ -53,12 +53,10 @@ import './pages/notifications/notifications.js';
 import './pages/group/group.js';
 import './pages/compass/compass.js';
 import './pages/tags/interests.js';
-import './pages/presence/presence.js';
-
 import './pages/group/groupList.js';
 import './pages/not-found/not-found.js';
 import './stylesheets/stylesheets.js';
-
+import './pages/test/test.js';
 /*
 
  TODO: CONSIDER CLEANING OR REMOVING
@@ -67,7 +65,7 @@ import './pages/home/home.js';
 import './pages/ideas/ideas.js';
 import './pages/faq/faq.js';
 import './pages/feed/userFeed.js';
-import './pages/test/test.js';
+
 import './v2/main.js';
 //import './pages/dash/dash.js';
 */

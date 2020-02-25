@@ -366,9 +366,9 @@
       </div>
       <div class="global-body" data-id="proposal-view">
 			  <div class="global-columns global-three-columns">
-			    <div class="global-left-column">
+			    <div class="global-left-column left-sidebar">
 						<div id="proposal-view-info">
-							<div class="proposal-info-section">
+							<div class="info-section">
 								<div class="info-section-header">
 									Stats
 								</div>
@@ -388,32 +388,31 @@
 								</div>
 
 							</div>
-									<div class="proposal-info-section">
-										<div class="info-section-header">
-											Influence
-										</div>
-										<div class="info-section-content">
-											<div id="influence-map"></div>
-										</div>
-										<div class="info-section-content" id="proposal-info-support">
-											<button class="support-button">Support</button>
-										</div>
-									</div>
+							<div class="info-section">
+								<div class="info-section-header">
+									Influence
+								</div>
+								<div class="info-section-content">
+									<div id="influence-map"></div>
+								</div>
+								<div class="info-section-content" id="proposal-info-support">
+									<button class="support-button">Support</button>
+								</div>
+							</div>
 
-									<!-- Tags -->
-									<div id="proposal-tags-wrapper" class="proposal-info-section">
-										<div class="info-section-header">
-											Tags
-										</div>
-										<div class="info-section-content">
-											{{#each tags}}
-												<a href="{{this.url}}" class="crowdpol-tag">#{{this.keyword}}</a>
-											{{/each}}
-										</div>
-
-									</div>
+							<!-- Tags -->
+							<div id="proposal-tags-wrapper" class="info-section">
+								<div class="info-section-header">
+									Tags
+								</div>
+								<div class="info-section-content">
+									{{#each tags}}
+										<a href="{{this.url}}" class="crowdpol-tag">#{{this.keyword}}</a>
+									{{/each}}
+								</div>
+							</div>
 								{{#unless isEditable }}
-									<div class="proposal-info-section">
+									<div class="info-section">
 										<div class="info-section-header">
 											Enagage
 										</div>
@@ -444,7 +443,7 @@
 									</div>
 								{{/unless}}
 								{{#if isEditable }}
-									<div id="proposal-sidemenu-bar" class="proposal-info-section">
+									<div id="proposal-sidemenu-bar" class="info-section">
 										<div class="info-section-header">
 											Author Menu
 										</div>
