@@ -163,7 +163,15 @@ https://stackoverflow.com/questions/15715574/can-i-calculate-and-use-element-hei
   float: right;
   border: solid 1px red;
 }
-
+.navigator-tabs-container{
+  .global-menu-tabs{
+    //border: solid 1px red;
+    padding-top: 0px;
+    .global-menu-tab{
+      padding-bottom: 0px;
+    }
+  }
+}
 .navigator-compass{
   display: flex;
   .everything-toggle{
@@ -240,7 +248,7 @@ https://stackoverflow.com/questions/15715574/can-i-calculate-and-use-element-hei
     color: $white;
   }
   .value-toggles{
-
+    display: none;
     .tag-chip{
       background-color: $landing-green;
       color: $white;
