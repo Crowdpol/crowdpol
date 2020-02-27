@@ -29,7 +29,7 @@
 }
 #proposal-view-info{
 
-  
+
   #proposal-tags-wrapper{
     .crowdpol-tag{
       color: $white;
@@ -328,6 +328,24 @@
 .proposal-body-wrap {
   p {
     font-family: $body-font;
+    font-size: 1rem;
+    line-height: 1.8rem;
+  }
+  h1{
+    font-size: 2rem;
+    line-height: 2.8rem;
+  }
+  h2{
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+  h4{
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  h5, h6{
+    font-size: 1rem;
+    line-height: 2rem;
   }
   p:hover{
     background-color: $light-grey-light;

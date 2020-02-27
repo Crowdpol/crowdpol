@@ -15,7 +15,7 @@ Tracker.autorun(function() {
 
 Meteor.startup(function () {
   // Client startup method.
-  
+
   var subdomain = window.location.host.split('.')[0]
   var rootUrl = 'https://' + subdomain + Meteor.settings.public.domain;
   process.env.ROOT_URL = rootUrl;
@@ -74,7 +74,7 @@ function loadCommunityInfo() {
   }
   if(subdomain){
     //set title to commuinty name
-    document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
+    //document.title = subdomain.charAt(0).toUpperCase() + subdomain.slice(1);
     //console.log("subomdain after case: " + subdomain);
     LocalStore.set('subdomain', subdomain);
     // set LocalStorage info
