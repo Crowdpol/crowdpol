@@ -1,6 +1,7 @@
 import "./navigator/main.js"
 import "./proposal/main.js"
 import "./presence/main.js"
+import "./profile/main.js"
 /*
 import "./proposal/main.js"
 import "./profile/main.js"

@@ -1,53 +1,7 @@
 <template name="Test">
   <h1>Test</h1>
-  <div class="test-box">
-    <div class="hex-box-1 hex-box">
-      <h5>Hexagon 1</h5>
-      http://jsfiddle.net/kizu/bhGn4/
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-          <div class="hexagon-in2"></div>
-        </div>
-      </div>
-    </div>
-    <hr>
-    <div class="hex-box hex-box-2">
-      <h5>Hexagon 2</h5>
-      http://jsfiddle.net/EZqCz/
-      <div class="hex">
-          <div class="hex inner">
 
-          </div>
-      </div>
-    </div>
-
-    <hr>
-    <div class="hex-box hex-box-3">
-      <h5>Hex Approaches combined</h5>
-      <div class="hex">
-        <div class="hexagon hexagon2">
-          <div class="hexagon-in1">
-            <div class="hexagon-in2"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <hr>
-    <div class="hex-box hex-box-4">
-      <h5>SVG alternative</h5>
-      https://stackoverflow.com/questions/7433454/html-css-hexagon-with-image-inside
-      <br>
-      <svg viewbox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="img" patternUnits="userSpaceOnUse" width="100" height="100">
-            <image xlink:href="/img/default-user-image.png" x="-25" width="150" height="100" />
-          </pattern>
-        </defs>
-        <polygon id="hex" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img)"/>
-        <text id="text" font-size="20" x="50" y="50" text-anchor="middle">Camera Icon</text>
-      </svg>
-    </div>
-
-  </div>
+  Test image URL
+  <input type="text" name="url" id="url"/>
+  <button id="checkURL">Check URL</button>
 </template>

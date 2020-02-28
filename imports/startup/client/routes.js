@@ -358,12 +358,26 @@ publicRoutes.route('/compass', {
   },
 });
 
-loggedInRoutes.route('/profile', {
-  name: 'App.profile',
+loggedInRoutes.route('/profileold', {
+  name: 'App.profileold',
   action() {
     BlazeLayout.render('App_body', { main: 'ProfileSettings' });
   },
 });
+
+loggedInRoutes.route('/profile', {
+  name: 'App.profile',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "profile",
+      cover: "Profile_Cover",
+      menu: "Profile_Menubar",
+      body: "Profile_Body",
+      footer: "Profile_Footer"
+    }});
+  },
+});
+
 
 loggedInRoutes.route('/navigator', {
   name: 'App.navigator',

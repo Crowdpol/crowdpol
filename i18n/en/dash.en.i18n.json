@@ -38,7 +38,11 @@
     "feed": "Feed",
     "delegates": "Delegates",
     "members": "Members",
-    "groups": "Groups"
+    "groups": "Groups",
+    "account": "Account",
+    "notifications": "Notifications",
+    "security": "Security",
+    "privacy": "Privacy"
   },
   "header-title": {
     "vote": "Vote",

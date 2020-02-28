@@ -44,6 +44,11 @@ export const getUserProfilePhoto = (id) => {
     if(profile){
       let photoURL = returnProfileKey(profile,'photo');
       return photoURL;
+      imageExists(photoURL, function(exists) {
+        if(exists){
+          return photoURL;
+        }
+      });
     }
   }
   return "/img/default-user-image.png";
@@ -68,7 +73,12 @@ export const getUserCover = (id) => {
   if(user){
     profile = returnProfile(user);
     if(profile){
-      return returnProfileKey(profile,'coverURL');
+      let coverURL =  returnProfileKey(profile,'coverURL');
+      imageExists(imageUrl, function(exists) {
+        if(exists){
+          return coverURL;
+        }
+      });
     }
   }
   return false;
@@ -173,4 +183,10 @@ function returnProfileKey(profile,key){
 function profileComplete(){
   let user = Meteor.user();
   let complete = false;
+}
+function imageExists(url, callback) {
+  var img = new Image();
+  img.onload = function() { callback(true); };
+  img.onerror = function() { callback(false); };
+  img.src = url;
 }

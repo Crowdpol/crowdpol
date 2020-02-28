@@ -216,6 +216,7 @@ Template.NewViewProposal.events({
   },
   'click #back-button' (event, template) {
 		event.preventDefault();
+    console.log("viewProposals.js back button clicked");
     window.history.back();
 	},
 });

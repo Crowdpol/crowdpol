@@ -1,4 +1,64 @@
 @import 'variables.scss';
+
+//NEW SHIT
+.profile-menu-bar{
+  display: flex;
+  flex-direction: row;
+}
+
+.badge-ribbon {
+      position: relative;
+      background: red;
+      height: 100px;
+      width: 100px;
+      border-radius: 50px;
+}
+.badge-ribbon:before,
+.badge-ribbon:after {
+      content: '';
+      position: absolute;
+      border-bottom: 70px solid red;
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+      top: 70px;
+      left: -10px;
+      transform: rotate(-140deg);
+}
+.badge-ribbon:after {
+      left: auto;
+      right: -10px;
+      transform: rotate(140deg);
+}
+
+.hexagon {
+	width: 100px;
+	height: 55px;
+	background: red;
+	position: relative;
+}
+.hexagon:before {
+	content: "";
+	position: absolute;
+	top: -25px;
+	left: 0;
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-bottom: 25px solid red;
+}
+.hexagon:after {
+	content: "";
+	position: absolute;
+	bottom: -25px;
+	left: 0;
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 25px solid red;
+}
+//OLD SHIT
 .profile-tab{
   padding-top: 20px;
   padding-bottom: 100px;

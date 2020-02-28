@@ -8,7 +8,9 @@
         <div class="info-section-content column presence-support">
           Followers: {{followersCount}}<br>
           Following: {{followingCount}}<br>
-          {{#if currentUser}}
+          {{#if myProfile}}
+            <button class="sidebar-button" id="edit-profile">{{_ "generic.edit"}}</button>
+          {{else}}
             {{#if alreadyFollowing}}
               <button class="sidebar-button active" id="unfollow-me">{{_ "feed.unfollow"}}</button>
             {{else}}

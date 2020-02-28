@@ -8,11 +8,11 @@ import { Likes } from '../../../../api/likes/Likes.js'
 
 import RavenClient from 'raven-js';
 import snarkdown from 'snarkdown';
-import "./presence_body.html";
+import "./profile_body.html";
 const defaultURL = 'https://images.unsplash.com/photo-1454166155302-ef4863c27e70?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2';
 
-Template.Presence_Body.onCreated(function(){
-  Session.set("globalTemplate","Presence_Content");
+Template.Profile_Body.onCreated(function(){
+  Session.set("globalTemplate","Profile_Content");
   var self = this;
   let ownerId = getOwnerId();
   if(getUserHasCover(ownerId)){
@@ -29,8 +29,8 @@ Template.Presence_Body.onCreated(function(){
     self.subscribe('tags.community', communityId);
   });
 });
-Template.Presence_Body.onRendered(function(){});
-Template.Presence_Body.events({
+Template.Profile_Body.onRendered(function(){});
+Template.Profile_Body.events({
   'click #follow-me': function(event,template){
     followId = getOwnerId();
     if(followId!=Meteor.userId()){
@@ -60,7 +60,7 @@ Template.Presence_Body.events({
     }
   },
 });
-Template.Presence_Body.helpers({
+Template.Profile_Body.helpers({
   globalContent: function(){
     return Session.get("globalTemplate");
   },
