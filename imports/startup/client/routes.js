@@ -216,7 +216,7 @@ publicRoutes.route('/leaflet', {
     BlazeLayout.render('App_body', { main: 'Leaflet' });
   },
 });
-
+/*
 //USER SEARCH
 FlowRouter.route('/search/users', {
   name: 'App.search.users',
@@ -224,7 +224,7 @@ FlowRouter.route('/search/users', {
     BlazeLayout.render('App_body', { main: 'UserSearch' });
   },
 });
-
+*/
 
 //STATISTICS
 FlowRouter.route('/stats', {
@@ -335,6 +335,32 @@ loggedInRoutes.route('/newproposal/:id', {
   name: 'App.newproposal',
   action() {
     BlazeLayout.render('App_body', { main: 'NewViewProposal'});
+  },
+});
+
+loggedInRoutes.route('/search', {
+  name: 'App.search',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "search",
+      cover: "Search_Cover",
+      menu: "Search_Menubar",
+      body: "Search_Body",
+      footer: "Search_Footer"
+    }});
+  },
+});
+
+loggedInRoutes.route('/search/:id', {
+  name: 'App.search_id',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "search",
+      cover: "Search_Cover",
+      menu: "Search_Menubar",
+      body: "Search_Body",
+      footer: "Search_Footer"
+    }});
   },
 });
 

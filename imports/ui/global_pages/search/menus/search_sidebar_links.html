@@ -1,0 +1,52 @@
+<template name="Search_Sidebar_Links">
+  <a class="global-template-link active" data-template="Search_Overview_Content">
+    <div class="global-template-link-icon">
+      <i class="material-icons">home</i>
+    </div>
+    <div class="global-template-link-text">
+      {{_ "sidebar-tab.overview"}}
+      <small></small>
+    </div>
+  </a>
+  <a class="global-template-link" data-template="Search_Communities_Content">
+    <div class="global-template-link-icon">
+      <i class="material-icons">how_to_vote</i>
+    </div>
+    <div class="global-template-link-text">
+      {{_ "sidebar-tab.communities"}}
+      <small>{{currentCommunityProposalCount}}</small>
+    </div>
+  </a>
+  <a class="global-template-link" data-template="Search_Proposals_Content">
+    <div class="global-template-link-icon">
+      <i class="material-icons">dynamic_feed</i>
+    </div>
+    <div class="global-template-link-text">
+      {{_ "sidebar-tab.proposals"}}
+    </div>
+  </a>
+  <a class="global-template-link" data-template="Search_Groups_Content">
+    <div class="global-template-link-icon">
+      <i class="material-icons">playlist_add_check</i>
+    </div>
+    <div class="global-template-link-text">
+      {{_ "sidebar-tab.groups"}} <small>{{currentCommunityGroupCount}}</small>
+    </div>
+  </a>
+  <a class="global-template-link" data-template="Search_Users_Content">
+    <div class="global-template-link-icon">
+      <i class="material-icons">people</i>
+    </div>
+    <div class="global-template-link-text">
+      {{_ "sidebar-tab.users"}} <small>{{currentCommunityMemberCount}}</small>
+    </div>
+  </a>
+  <a class="global-template-link" data-template="Search_Tags_Content">
+    <div class="global-template-link-icon">
+      <i class="material-icons">group</i>
+    </div>
+    <div class="global-template-link-text">
+      {{_ "sidebar-tab.tags"}} <small>{{currentCommunityGroupCount}}</small>
+    </div>
+  </a>
+</template>

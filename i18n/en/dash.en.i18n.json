@@ -34,7 +34,7 @@
   "sidebar-tab": {
     "overview": "Overview",
     "vote": "Vote",
-    "proposals": "My Proposals",
+    "my-proposals": "My Proposals",
     "feed": "Feed",
     "delegates": "Delegates",
     "members": "Members",
@@ -42,7 +42,11 @@
     "account": "Account",
     "notifications": "Notifications",
     "security": "Security",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "proposal": "Proposals",
+    "communities":"Communities",
+    "tags":"Tags",
+    "users":"Users"
   },
   "header-title": {
     "vote": "Vote",
