@@ -237,8 +237,10 @@ Template.EditProposal.events({
 			//event.preventDefault();
 		//}
 		event.preventDefault();
+		console.log("editProposals.js back button clicked");
 		if(!saveChanges(event, template, 'App.proposals')){
-			FlowRouter.go('/dash/proposals');
+			//FlowRouter.go('/dash/proposals');
+			window.history.back();
 		};
 		//FlowRouter.go('/proposals');
 		//Session.set('proposalTab','my-proposals-tab');

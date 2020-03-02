@@ -7,7 +7,7 @@ Template.UserProposalList.onCreated(function () {
   var self = this;
   self.searchQuery = new ReactiveVar();
   self.stage = new ReactiveVar(this.data.stage);
-  Session.set('back','/proposals');
+  Session.set('back','/navigator');
   var communityId = LocalStore.get('communityId');
   self.autorun(function(){
     self.subscribe('proposals.currentUser', self.searchQuery.get(), communityId);

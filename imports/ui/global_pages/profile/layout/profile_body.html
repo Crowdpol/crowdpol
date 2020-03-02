@@ -1,0 +1,18 @@
+<template name="Profile_Body">
+  <div class="global-columns global-three-columns">
+    <div class="global-left-column global-sidebar-menu">
+      {{>Profile_Sidebar_Links}}
+    </div>
+    <div class="global-center-column">
+      <div class="global-content-loader" style="display: none;">
+        {{> loader}}
+      </div>
+      <div class="global-content-dynamic">
+        {{> Template.dynamic template=globalContent}}
+      </div>
+    </div>
+    <div class="global-right-column right-sidebar" id="profile-right-sidebar">
+
+    </div>
+  </div>
+</template>
