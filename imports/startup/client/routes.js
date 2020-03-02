@@ -5,25 +5,30 @@ import { setCommunityToRoot } from '../../utils/community.js';
 // Import needed templates
 import '../../ui/main.js';
 
+
+/*----------------------------------------------------------------------------*/
+/*                       FlowRouter Basics
+/*----------------------------------------------------------------------------*/
 // Global onEnter trigger to save communityInfo in LocalStore
 //FlowRouter.triggers.enter([loadCommunityInfo]);
-var publicRoutes = FlowRouter.group({name: 'public'});
 
-// Public Routes (no need to log in):
-
-// the App_notFound template is used for unknown routes and missing lists
-/*
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('App_body', {main: 'App_notFound'});
   }
 };
-*/
+
 Accounts.onLogout(function() {
   console.log("routes: set community to root");
   //setCommunityToRoot();
-	BlazeLayout.render('App_body', { main: 'Home' });
+	BlazeLayout.render('App_body', { main: 'Landing' });
 });
+
+/*----------------------------------------------------------------------------*/
+/*                       Public Pages (Not signed in)
+/*----------------------------------------------------------------------------*/
+
+var publicRoutes = FlowRouter.group({name: 'public'});
 
 publicRoutes.route('/', {
   name: 'App.home',
@@ -44,37 +49,45 @@ publicRoutes.route('/', {
   }
 });
 
-publicRoutes.route('/landing', {
-  name: 'App.home',
+/*----------------------- Authentication -------------------------------------*/
+
+publicRoutes.route('/login', {
+  name: 'App.login',
   action() {
     if(!Session.get("bulletproof")){
       console.log("rendering holding");
         BlazeLayout.render('Holding');
     }else{
-        BlazeLayout.render('Landing');
+      if (!Meteor.user()){
+        BlazeLayout.render('App_body', { main: 'Authenticate' });
+      }else{
+        FlowRouter.go('/navigator');
+      }
     }
-  }
-});
-
-publicRoutes.notFound = {
-  action() {
-    BlazeLayout.render('App_body', { main: 'App_notFound' });
-  },
-};
-
-publicRoutes.route('/not-found', {
-  name: 'App.not-found',
-  action() {
-    BlazeLayout.render('App_body', { main: 'App_notFound' });
   },
 });
 
-
-publicRoutes.route('/style', {
-  name: 'App.style',
+publicRoutes.route('/logout', {
+  name: 'App.logout',
   action() {
-    BlazeLayout.render('App_body', { main: 'Style' });
-  }
+    if (!Meteor.user()){
+      BlazeLayout.render('App_body', { main: 'Logout' });
+    }else{
+      FlowRouter.go('/landing');
+    }
+  },
+});
+
+publicRoutes.route('/signup', {
+  name: 'App.signup',
+  action() {
+    if(!Session.get("bulletproof")){
+      console.log("rendering holding");
+        BlazeLayout.render('Holding');
+    }else{
+      BlazeLayout.render('App_body', { main: 'RegistrationWizard' });
+    }
+  },
 });
 
 // Email Verification
@@ -111,31 +124,42 @@ publicRoutes.route('/reset-password/:token?', {
   }
 });
 
-publicRoutes.route('/login', {
-  name: 'App.login',
+/*-------------------------- Not Found ---------------------------------------*/
+
+// Static Pages
+publicRoutes.notFound = {
   action() {
-    if(!Session.get("bulletproof")){
-      console.log("rendering holding");
-        BlazeLayout.render('Holding');
-    }else{
-      if (!Meteor.user()){
-        BlazeLayout.render('App_body', { main: 'Authenticate' });
-      }else{
-        FlowRouter.go('/navigator');
-      }
-    }
+    BlazeLayout.render('App_body', { main: 'App_notFound' });
+  },
+};
+
+
+// the App_notFound template is used for unknown routes and missing lists
+publicRoutes.route('/not-found', {
+  name: 'App.not-found',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_notFound' });
   },
 });
 
-publicRoutes.route('/signup', {
-  name: 'App.signup',
+/*-------------------------- Public Pages ------------------------------------*/
+
+publicRoutes.route('/landing', {
+  name: 'App.home',
   action() {
     if(!Session.get("bulletproof")){
       console.log("rendering holding");
         BlazeLayout.render('Holding');
     }else{
-      BlazeLayout.render('App_body', { main: 'RegistrationWizard' });
+        BlazeLayout.render('Landing');
     }
+  }
+});
+
+publicRoutes.route('/faq', {
+  name: 'App.faq',
+  action() {
+    BlazeLayout.render('App_body', { main: 'FAQ' });
   },
 });
 
@@ -143,13 +167,6 @@ publicRoutes.route('/contact', {
   name: 'App.contact',
   action() {
     BlazeLayout.render('App_body', { main: 'contact' });
-  },
-});
-
-publicRoutes.route('/notifications', {
-  name: 'App.notifications',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Notifications' });
   },
 });
 
@@ -167,13 +184,6 @@ publicRoutes.route('/terms', {
   },
 });
 
-publicRoutes.route('/amchart', {
-  name: 'App.amchart',
-  action() {
-    BlazeLayout.render('App_body', { main: 'AmChart' });
-  },
-});
-
 publicRoutes.route('/about', {
   name: 'App.about',
   action() {
@@ -181,17 +191,20 @@ publicRoutes.route('/about', {
   },
 });
 
-publicRoutes.route('/faq', {
-  name: 'App.faq',
+/*-------------------------- Developer Pages ---------------------------------*/
+// Test Pages - i.e. not completed or used for dev...
+
+publicRoutes.route('/style', {
+  name: 'App.style',
   action() {
-    BlazeLayout.render('App_body', { main: 'FAQ' });
-  },
+    BlazeLayout.render('App_body', { main: 'Style' });
+  }
 });
 
-publicRoutes.route('/settings', {
-  name: 'App.account-settings',
+publicRoutes.route('/amchart', {
+  name: 'App.amchart',
   action() {
-    BlazeLayout.render('App_body', { main: 'AccountSettings' });
+    BlazeLayout.render('App_body', { main: 'AmChart' });
   },
 });
 
@@ -216,15 +229,6 @@ publicRoutes.route('/leaflet', {
     BlazeLayout.render('App_body', { main: 'Leaflet' });
   },
 });
-/*
-//USER SEARCH
-FlowRouter.route('/search/users', {
-  name: 'App.search.users',
-  action() {
-    BlazeLayout.render('App_body', { main: 'UserSearch' });
-  },
-});
-*/
 
 //STATISTICS
 FlowRouter.route('/stats', {
@@ -245,6 +249,7 @@ statsRoutes.route('/proposals', {
     BlazeLayout.render('App_body', {main: 'ProposalStats'});
   }
 });
+
 statsRoutes.route('/proposals/:id', {
   name: 'App.stats.proposals.view',
   action() {
@@ -252,6 +257,21 @@ statsRoutes.route('/proposals/:id', {
 
   },
 });
+
+/*-------------------------- Developer Pages ---------------------------------*/
+/*
+//USER SEARCH
+FlowRouter.route('/search/users', {
+  name: 'App.search.users',
+  action() {
+    BlazeLayout.render('App_body', { main: 'UserSearch' });
+  },
+});
+*/
+
+/*----------------------------------------------------------------------------*/
+/*                       Public Pages (Not signed in)
+/*----------------------------------------------------------------------------*/
 
 // Routes for logged-in users only:
 
@@ -281,7 +301,10 @@ var loggedInRoutes = FlowRouter.group({
     }
   }]
 });
-// GLOBAL LAYOUTS
+
+/*----------------------Global Layout Pages ---------------------------------*/
+
+//this is the new layout stripped of any content
 loggedInRoutes.route('/global', {
   name: 'App.global',
   action() {
@@ -294,6 +317,8 @@ loggedInRoutes.route('/global', {
     }});
   },
 });
+
+//the main dashboard from which users navigate
 loggedInRoutes.route('/navigator', {
   name: 'App.navigator',
   action() {
@@ -306,38 +331,8 @@ loggedInRoutes.route('/navigator', {
     }});
   },
 });
-loggedInRoutes.route('/presence', {
-  name: 'App.presence',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Global', content: {
-      class: "presence",
-      cover: "Presence_Cover",
-      menu: "Presence_Menubar",
-      body: "Presence_Body",
-      footer: "Presence_Footer"
-    }});
-  },
-});
-loggedInRoutes.route('/presence/:id', {
-  name: 'App.presence_id',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Global', content: {
-      class: "presence",
-      cover: "Presence_Cover",
-      menu: "Presence_Menubar",
-      body: "Presence_Body",
-      footer: "Presence_Footer"
-    }});
-  },
-});
 
-loggedInRoutes.route('/newproposal/:id', {
-  name: 'App.newproposal',
-  action() {
-    BlazeLayout.render('App_body', { main: 'NewViewProposal'});
-  },
-});
-
+//based on the navigator, displays user search results
 loggedInRoutes.route('/search', {
   name: 'App.search',
   action() {
@@ -350,7 +345,6 @@ loggedInRoutes.route('/search', {
     }});
   },
 });
-
 loggedInRoutes.route('/search/:id', {
   name: 'App.search_id',
   action() {
@@ -364,30 +358,38 @@ loggedInRoutes.route('/search/:id', {
   },
 });
 
-loggedInRoutes.route('/wizard', {
-  name: 'App.wizard',
+//proposal related
+loggedInRoutes.route('/newproposal/:id', {
+  name: 'App.newproposal',
   action() {
-    BlazeLayout.render('App_body', { main: 'Wizard' });
-  },
-});
-loggedInRoutes.route('/wizard/step/:id', {
-name: 'App.wizard',
-action() {
-  BlazeLayout.render('App_body', { main: 'Wizard' });
-},
-});
-
-publicRoutes.route('/compass', {
-  name: 'App.compass',
-  action() {
-    BlazeLayout.render('App_body', { main: 'Compass' });
+    BlazeLayout.render('App_body', { main: 'NewViewProposal'});
   },
 });
 
-loggedInRoutes.route('/profileold', {
-  name: 'App.profileold',
+//user accounted related
+loggedInRoutes.route('/presence', {
+  name: 'App.presence',
   action() {
-    BlazeLayout.render('App_body', { main: 'ProfileSettings' });
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "presence",
+      cover: "Presence_Cover",
+      menu: "Presence_Menubar",
+      body: "Presence_Body",
+      footer: "Presence_Footer"
+    }});
+  },
+});
+
+loggedInRoutes.route('/presence/:id', {
+  name: 'App.presence_id',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "presence",
+      cover: "Presence_Cover",
+      menu: "Presence_Menubar",
+      body: "Presence_Body",
+      footer: "Presence_Footer"
+    }});
   },
 });
 
@@ -404,13 +406,46 @@ loggedInRoutes.route('/profile', {
   },
 });
 
+//group related
+//TO DO: Add Group Global Presence
 
-loggedInRoutes.route('/navigator', {
-  name: 'App.navigator',
+
+
+/*------------------User Account Related Pages -------------------------------*/
+
+//Registration Wizard
+loggedInRoutes.route('/wizard', {
+  name: 'App.wizard',
   action() {
-    BlazeLayout.render('App_body', { main: 'Navigator' });
+    BlazeLayout.render('App_body', { main: 'Wizard' });
   },
 });
+loggedInRoutes.route('/wizard/step/:id', {
+name: 'App.wizard',
+action() {
+  BlazeLayout.render('App_body', { main: 'Wizard' });
+},
+});
+
+
+
+/*---------- Old Pages (Consider Deleting, or applying Global Layout) --------*/
+/*
+//User Compass
+publicRoutes.route('/compass', {
+  name: 'App.compass',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Compass' });
+  },
+});
+//User Profile
+loggedInRoutes.route('/profileold', {
+  name: 'App.profileold',
+  action() {
+    BlazeLayout.render('App_body', { main: 'ProfileSettings' });
+  },
+});
+
 loggedInRoutes.route('/group/:handle?', {
   name: 'App.group',
   action() {
@@ -443,7 +478,7 @@ loggedInRoutes.route('/feed/:id', {
     }});
   },
 });
-/*
+
 loggedInRoutes.route('/presence', {
   name: 'App.presence',
   action() {
@@ -461,7 +496,12 @@ loggedInRoutes.route('/presence/:id', {
     BlazeLayout.render('App_body', { main: 'UserPresence' });
   },
 });
-*/
+
+
+
+
+
+
 loggedInRoutes.route('/dash', {
   name: 'App.dash',
   action() {
@@ -618,9 +658,6 @@ loggedInRoutes.route('/proposals/view/:id?', {
   }
 });
 
-// Users without an account can see individual proposals
-
-
 loggedInRoutes.route('/delegate', {
   name: 'App.delegate',
   action() {
@@ -628,8 +665,24 @@ loggedInRoutes.route('/delegate', {
   },
 });
 
+loggedInRoutes.route('/notifications', {
+  name: 'App.notifications',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Notifications' });
+  },
+});
 
-// Admin Routes:
+loggedInRoutes.route('/settings', {
+  name: 'App.account-settings',
+  action() {
+    BlazeLayout.render('App_body', { main: 'AccountSettings' });
+  },
+});
+*/
+
+/*----------------------------------------------------------------------------*/
+/*                       Admin Pages
+/*----------------------------------------------------------------------------*/
 
 var adminRoutes = FlowRouter.group({
   prefix: '/admin',

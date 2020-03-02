@@ -1,10 +1,12 @@
 import "./navigator_content.html";
 import {getCurrentCommunity,getChildCommunities} from '../../../../utils/community.js';
+
 Template.Navigator_Content.onCreated(function(){});
 Template.Navigator_Content.onRendered(function(){});
 Template.Navigator_Content.events({});
 Template.Navigator_Content.helpers({
   community: function(){
+    console.log("getCurrentCommunity(): " + getCurrentCommunity());
     return getCurrentCommunity();
   }
 });
