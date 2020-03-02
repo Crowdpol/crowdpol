@@ -1,0 +1,26 @@
+<template name="Profile_Menubar">
+  <div class="global-columns global-two-columns">
+    <div class="global-left-column">
+      <div class="community-map"></div>
+      <div class="presence-profile-image">
+        {{>Hexagram currentUserId}}
+      </div>
+    </div>
+    <div class="global-center-column">
+      <div class="navigator-breadcrumbs">
+        {{>CommunityBreadcrumb}}<span class="community-breadcrumb">/{{profileUsername}}</span>
+      </div>
+      <div class="profile-menu-bar">
+        <div class="profile-menu-username">
+          <h4 class="global-menubar-title">{{profileName}}</h4>
+        </div>
+        <div class="profile-menu">
+          {{>Profile_Menubar_Tabs}}
+        </div>
+      </div>
+    </div>
+    <div class="global-right-column">
+      Right
+    </div>
+  </div>
+</template>

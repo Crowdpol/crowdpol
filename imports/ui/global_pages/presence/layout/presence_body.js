@@ -125,6 +125,12 @@ Template.Presence_Body.helpers({
   currentUserId: function(){
     return Meteor.userId();
   },
+  myProfile: function(){
+    if(getOwnerId() === Meteor.userId){
+      return false;
+    }
+    return true;
+  },
 });
 
 function getOwnerId(){

@@ -14,7 +14,7 @@ Template.ProposalsList.onCreated(function () {
   // Indicate active tab
   Session.set("draftProposals",true);
   Session.set("submittedProposals",false);
-  Session.set('back','/proposals');
+  Session.set('back','/navigator');
   var propTab = Session.get("proposalTab");
   if(propTab == null||propTab ==''){
     Session.set('proposalTab','draft-proposals-tab');
@@ -52,7 +52,7 @@ Template.ProposalsList.helpers({
   closedProposals: function() {
     return Proposals.find({endDate:{"$lte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: -1}});
   },
-  
+
   openProposals: function() {
     return Proposals.find({$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ],endDate:{"$gte": new Date()}, stage: "live"}, {transform: transformProposal, sort: {endDate: -1}});
   },
@@ -60,7 +60,7 @@ Template.ProposalsList.helpers({
     return Proposals.find({$or: [{authorId: Meteor.userId()}, {invited: Meteor.userId()} ]}, {transform: transformProposal, sort: {createdAt: -1}});
   },
   */
-  
+
   approvedSelected: function(){
     return Template.instance().approvedProposals.get();
   },
@@ -111,7 +111,7 @@ Template.ProposalsList.events({
     Session.set("draftProposals",false);
     Session.set("submittedProposals",true);
   },
-  'click .mdl-tabs__tab': function(event,template){ 
+  'click .mdl-tabs__tab': function(event,template){
     if(event.currentTarget.id!='create-proposal-tab'){
       Session.set("proposalTab",event.currentTarget.id);
     }
@@ -198,16 +198,15 @@ Template.ProposalsList.events({
         intro: "Click proposal summary to view full proposal.",
         position: 'bottom'
       }
-      
+
     ];
     walkThrough(steps);
   }
 });
 
-function transformProposal(proposal) { 
+function transformProposal(proposal) {
   proposal.endDate = moment(proposal.endDate).format('MMMM Do YYYY');
   proposal.startDate = moment(proposal.startDate).format('MMMM Do YYYY');
   proposal.lastModified = moment(proposal.lastModified).fromNow();
   return proposal;
 };
-
