@@ -74,7 +74,7 @@ export const getUserCover = (id) => {
     profile = returnProfile(user);
     if(profile){
       let coverURL =  returnProfileKey(profile,'coverURL');
-      imageExists(imageUrl, function(exists) {
+      imageExists(coverURL, function(exists) {
         if(exists){
           return coverURL;
         }
