@@ -1,5 +1,5 @@
-import './menus/menus.js'
-import './content/content.js'
+//import './menus/menus.js'
+//import './content/content.js'
 import './global.html'
 
 Template.Global.onCreated(function(){
@@ -12,21 +12,20 @@ Template.Global.onCreated(function(){
 });
 
 Template.Global.onRendered(function(){
-
+  console.log("GLobal rendered");
   //Note: because the content is dynamic, better to use global event handlers instead of template level.
   //      These events are used throught the global layout
 
   let firstActiveTemplateLinkText = $(".global-sidebar-menu > a.active > div.global-template-link-text").text().trim();
   //$(".global-menubar-title").text(firstActiveTemplateLinkText);
-  //console.log(firstActiveTemplateLinkText);
-  //console.log("setting to firstActiveTemplateLinkText: " + firstActiveTemplateLinkText);
+  console.log("setting to firstActiveTemplateLinkText: " + firstActiveTemplateLinkText);
   Session.set("menuBarTitle",firstActiveTemplateLinkText);
 
 
 
   //Global Event Handler for Sidebar and Footer links
   $( ".global-template-link" ).click(function() {
-
+    console.log($(this));
     //remove active from all neighbouring menu items
     $(event.currentTarget).parent().children().each(function(i,obj){
       $(this).removeClass('active');
