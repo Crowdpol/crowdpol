@@ -1,4 +1,5 @@
 <template name="Navigator_Content">
+  {{#if Template.subscriptionsReady}}
   <div id="community-overview" class="tabcontent active">
     <div class="community-overview">
       <div class="community-overview-header">
@@ -69,6 +70,9 @@
     </div>
 
   </div>
+  {{else}}
+    loading...
+  {{/if}}
 </template>
 
 <template name="Navigator_Vote_Content">
@@ -119,7 +123,7 @@
     <div class="content-tab-panel" id="community-activity">
       <br>
       <p><strong>Activity</strong> - Coming soon in version 2</p>
-      <div class="mdl-spinner mdl-js-spinner is-active"></div>
+      
         <p>
           This will list all recent activities within the community, including:
           <ul>

@@ -1,7 +1,7 @@
 import { Communities } from '../api/communities/Communities.js'
 import { _ } from 'meteor/underscore';
 
-if (Meteor.isServer) {
+if (Meteor.isClient) {
 
   export const communitySettings = (id) => {
     if(!id){
@@ -33,7 +33,7 @@ if (Meteor.isServer) {
 
   export const getCommunityById = (communityId) => {
     if(!communityId){
-      console.log("getCommunityById: communityId not set.");
+      //console.log("getCommunityById: communityId not set.");
       communityId = getCommunity();
     }
     let community = Communities.findOne({"_id":communityId});
@@ -42,8 +42,9 @@ if (Meteor.isServer) {
       //console.log(community);
       return Communities.findOne({"_id":communityId});
     }else{
-      console.log("getCommunityById(): no community found");
+      //console.log("getCommunityById(): no community found");
     }
+    return false;
   }
 
   export const setDefaultLanguage = (lang) => {
@@ -153,7 +154,7 @@ if (Meteor.isServer) {
 
   export const getChildCommunities = (communityId) => {
     if(!communityId){
-      console.log("getChildCommunities: communityId not set.");
+      //console.log("getChildCommunities: communityId not set.");
       communityId = getCommunity();
     }
     if(communityId){
