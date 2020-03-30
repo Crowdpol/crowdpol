@@ -2,6 +2,7 @@ import './communityBreadcrumb.html';
 import { loadCommunityMap } from '../../../ui/components/maps/communityMap.js'
 import { setCommunity } from '../../../utils/community';
 import { Communities } from '../../../api/communities/Communities.js'
+import { map } from '../../components/maps/leaflet.js'
 
 Template.CommunityBreadcrumb.onCreated(function(){
   self = this;
@@ -34,6 +35,8 @@ Template.CommunityBreadcrumb.events({
       //console.log("setting community to: " + id);
       setCommunity(id);
       loadCommunityMap(id);
+      map.setView([0, 0], 0);
+      //map.invalidateSize();
       /*
       tabcontent = document.getElementsByClassName("community-tab");
       for (i = 0; i < tabcontent.length; i++) {

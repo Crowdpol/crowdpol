@@ -34,7 +34,7 @@ Template.RegistrationWizard.onRendered(function(){
   //showProfileUrl();
 
   var picker = new Pikaday({
-    field: document.getElementById('dob'),
+    field: document.getElementById('profile-dob'),
     firstDay: 1,
     minDate: new Date(1900, 0, 1),
     maxDate: new Date(),
@@ -363,7 +363,150 @@ Template.RegistrationWizard.events({
   },
   'click .signup-complete': function(event,template){
     console.log("go to nav");
+    event.preventDefault();
+    var profile = {};
+    profile.username = $('#profile-username').val();
+    profile.firstName = $('#profile-firstname').val();
+    profile.lastName = $('#profile-lastname').val();
+    profile.birthday = $('#profile-dob').val();
+    profile.photo = $('#profile-image').val();//getProfilePic();//'https://upload.wikimedia.org/wikipedia/commons/b/b4/Brett_king_futurist_speaker_author.jpg';//$('#profile-image').val();
+    profile.tagline = $('#profile-tagline').val();
+    profile.bio = "";//$('#profile-bio').val();
+    profile.tags = getTags();
+    profile.motto  = "";//$('#profile-motto').val();
+    //profile.skills = {};//$('#profile-skills').val();
+    //profile.twitter = $('#profile-twitter').val();
+    //profile.google  = $('#profile-google').val();
+    //profile.facebook  = $('#profile-facebook').val();
+    //profile.linkedin  = $('#profile-linkedin').val();
+    //profile.youtube = $('#profile-youtube').val();
+    //profile.website = $('#profile-website').val();
+    profile.location = "";//$('#profile-location').val();
+    profile.social = [
+      {
+        "type": "twitter",
+        "url": $('#profile-twitter').val(),
+        "validated": false,
+        "visible": $('#twitter-switch').is(":checked"),
+      },
+      {
+        "type": "google",
+        "url": $('#profile-google').val(),
+        "validated": false,
+        "visible": $('#google-switch').is(":checked"),
+      },
+      {
+        "type": "facebook",
+        "url": $('#profile-facebook').val(),
+        "validated": false,
+        "visible": $('#facebook-switch').is(":checked"),
+      },
+      {
+        "type": "linkedin",
+        "url": $('#profile-linkedin').val(),
+        "validated": false,
+        "visible": $('#linkedin-switch').is(":checked"),
+      },
+      {
+        "type": "instagram",
+        "url": $('#profile-instagram').val(),
+        "validated": false,
+        "visible": $('#instagram-switch').is(":checked"),
+      },
+      {
+        "type": "youtube",
+        "url": $('#profile-youtube').val(),
+        "validated": false,
+        "visible": $('#youtube-switch').is(":checked"),
+      },
+      {
+        "type": "website",
+        "url": $('#profile-website').val(),
+        "validated": false,
+        "visible": $('#youtube-website').is(":checked"),
+      }
+    ];
+    profile.skillsDescription = $("#profile-skills-description").val();
+    profile.skills = [
+      {
+        type:"legal",
+        description:"",
+        selected:$('#checkbox-legal').is(":checked")
+      },
+      {
+        type:"business",
+        description:"",
+        selected:$('#checkbox-business').is(":checked")
+      },
+      {
+        type:"finance",
+        description:"",
+        selected:$('#checkbox-finance').is(":checked")
+      },
+      {
+        type:"marketing",
+        description:"",
+        selected:$('#checkbox-marketing').is(":checked")
+      },
+      {
+        type:"environment",
+        description:"",
+        selected:$('#checkbox-environment').is(":checked")
+      },
+      {
+        type:"political",
+        description:"",
+        selected:$('#checkbox-political').is(":checked")
+      },
+      {
+        type:"management",
+        description:"",
+        selected:$('#checkbox-management').is(":checked")
+      },
+      {
+        type:"administration",
+        description:"",
+        selected:$('#checkbox-admin').is(":checked")
+      },
+      {
+        type:"design",
+        description:"",
+        selected:$('#checkbox-design').is(":checked")
+      },
+      {
+        type:"programming",
+        description:"",
+        selected:$('#checkbox-programming').is(":checked")
+      }
+    ];
+    /*
+    interests = [];
+    interestCount = $('.compass-button.selected').length;
+    interestValue = roundHalf(100/interestCount);
+    $( ".compass-button" ).each(function( index ) {
+      console.log( index + ": " + $( this ).attr("data-id") );
+      interest = {
+        "type": $( this ).attr("data-id"),
+        "amount":interestValue
+      }
+      interests.push(interest);
+    });
+    profile.interests = interests;
+    */
+    console.log(profile);
+    /*
+    Meteor.call('updateProfile', profile, function(error) {
+      if (error) {
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
+        FlowRouter.go('/dash');
+      }
+    });
+
     FlowRouter.go("/navigator");
+    */
   },
   'click .show-map': function(event,template){
     console.log(map);
