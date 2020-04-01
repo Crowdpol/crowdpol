@@ -61,6 +61,7 @@ publicRoutes.route('/login', {
       if (!Meteor.user()){
         BlazeLayout.render('App_body', { main: 'Authenticate' });
       }else{
+        console.log("going to navigator");
         FlowRouter.go('/navigator');
       }
     }

@@ -498,7 +498,13 @@ Meteor.methods({
       // Throw an error if the user being updated isn't signed in
       throw new Error("invalid userId to update user")
     }
-  }
+  },
+  sendVerificationLink() {
+		let userId = Meteor.userId();
+		if (userId) {
+			return Accounts.sendVerificationEmail(userId);
+		}
+	}
 });
 
 function profileIsComplete(user){
