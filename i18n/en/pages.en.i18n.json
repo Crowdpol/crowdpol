@@ -182,9 +182,9 @@
 					"link": "Edit"
 				},
 				"interests": {
-					"heading": "My Interests",
-					"text": "Current interests",
-					"no-interests": "You have not selected any interests yet",
+					"heading": "My Values",
+					"text": "Current values",
+					"no-interests": "You have not selected any values yet",
 					"link": "Select"
 				},
 				"vote": {

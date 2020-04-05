@@ -1,3 +1,4 @@
+import { getTags } from '../../../components/taggle/taggle.js'
 import { getUserProfilePhoto, getUserfullname, getUsername, getUserTags, getUserInterests } from '../../../../utils/users';
 import { Posts } from '../../../../api/posts/Posts.js';
 import { Likes } from '../../../../api/likes/Likes.js';
@@ -65,17 +66,35 @@ Template.Profile_Content.events({
     //console.log("make comment");
   }
 });
-Template.Profile_Content.helpers({
-  userFeed: function(){
-    let ownerId = getOwnerId();
-    let posts = Posts.find({"feedId":ownerId}, {sort: {createdAt: -1}});
-  	return posts;
+*/
+Template.Profile_Account_Content.helpers({
+  roles: function(){
+    let user = Meteor.user();
+    return user.roles;
   },
   profilePic: function(userId) {
   	return getUserProfilePhoto(userId);
   },
+  selectedTags: ()=> {
+    let tagsArray = [];
+    if(Meteor.user()){
+      let userProfile = Meteor.user().profile;
+      if(typeof userProfile == 'undefined'){
+        return [];
+      }
+      let tagsArray = userProfile.tags;
+      if(typeof tagsArray == 'undefined'){
+        tagsArray = [];
+        //selectedTags = Tags.find({_id: {$in: tagsArray}});
+        //Session.set("selectedTags",selectedTags);
+        //return selectedTags;
+      }
+    }
+
+    return tagsArray;
+  },
 });
-*/
+
 
 function getOwnerId(){
   let userId = FlowRouter.getParam("id");
