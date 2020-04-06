@@ -1,0 +1,29 @@
+<template name="AdminDashboard_TabLinks">
+  <a class="global-menu-tab active" data-id="admin_dash_overiew">Overview<!--{{_ "menu-tab.template.tab1"}}--></a>
+  <a class="global-menu-tab" data-id="admin_dash_caution">Caution<!--{{_ "menu-tab.template.tab1"}}--></a>
+</template>
+
+<template name="AdminDashboard_TabContent">
+  <div id="admin_dashboard" class="content-tab">
+    <div class="content-tab-panel active" id="admin_dash_overview">
+      <div class="dashboard-wrap  mdl-grid">
+        {{> AdminDashUsers}}
+        {{> AdminDashTags}}
+        {{> AdminDashApprovals}}
+        {{> AdminDashProposals}}
+        {{> AdminDashVoting}}
+        {{> AdminDashStats}}
+        {{#if currentUserIsSuperAdmin}}
+            {{> AdminDashCommunities}}
+        {{/if}}
+      </div>
+    </div>
+    <div class="content-tab-panel" id="admin_dash_caution">
+      <div class="dashboard__item dashboard__item--full">
+    		<div class="card">
+    			<img src="https://imgs.xkcd.com/comics/voting_software.png" alt="" />
+    		</div>
+    	</div>
+    </div>
+  </div>
+</template>

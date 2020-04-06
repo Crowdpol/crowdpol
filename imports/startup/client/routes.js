@@ -683,9 +683,21 @@ loggedInRoutes.route('/settings', {
 /*----------------------------------------------------------------------------*/
 /*                       Admin Pages
 /*----------------------------------------------------------------------------*/
+loggedInRoutes.route('/admin', {
+  name: 'App.admin',
+  action() {
+    BlazeLayout.render('App_body', { main: 'Global', content: {
+      class: "admin",
+      cover: "Admin_Cover",
+      menu: "Admin_Menubar",
+      body: "Admin_Body",
+      footer: "Admin_Footer"
+    }});
+  },
+});
 
 var adminRoutes = FlowRouter.group({
-  prefix: '/admin',
+  prefix: '/superadmin',
   name: 'admin',
   triggersEnter: [function(context, redirect) {
     if (!Roles.userIsInRole(Meteor.user(), ['admin','superadmin','community-admin'])){
@@ -749,3 +761,4 @@ adminRoutes.route('/communities', {
     BlazeLayout.render('App_body', {main: 'AdminCommunities'});
   }
 });
+/**/

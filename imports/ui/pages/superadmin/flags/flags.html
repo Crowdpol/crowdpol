@@ -1,0 +1,228 @@
+<template name="AdminFlags">
+  {{> AdminFlagContentModal}}
+  {{#if currentUserIsAdmin}}
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+      <h2 class="mdl-card__title-text">{{_"admin.flags.heading"}}</h2>
+			{{#if Template.subscriptionsReady}}
+				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+					<div class="mdl-tabs__tab-bar">
+							<a href="#reported-content" class="mdl-tabs__tab is-active">Reported Content (flagCount)</a>
+							<a href="#reported-users" class="mdl-tabs__tab">Reported Users (flagCount)</a>
+					</div>
+					<div class="mdl-tabs__panel is-active" id="reported-content">
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+    					<thead>
+    						<tr>
+                  <th>{{_"admin.flags.last_reported"}}</th>
+    							<th>{{_"admin.flags.owner"}}</th>
+    							<th>{{_"admin.flags.type"}}</th>
+                  <th>{{_"admin.flags.flagCount"}}</th>
+    							<th>{{_"admin.flags.view"}}</th>
+    						</tr>
+    					</thead>
+    					<tbody>
+                {{#each flag in pendingFlags}}
+                  <tr>
+                    <th>{{flagDate}}</th>
+                    <th>{{>UserCard userId=flag.creatorId style="text"}}</th>
+                    <th>
+                      {{flag.contentType}}
+                    </th>
+                    <th>
+                      flagCount
+                    </th>
+                    <th>
+                      <button class="mdl-button mdl-js-button mdl-button--icon preview-flag" data-flag-id="{{flag._id}}">
+                	      <i class="material-icons preview-flag" data-flag-id="{{flag._id}}">visibility</i>
+                	    </button>
+                    </th>
+                  </tr>
+                {{else}}
+                  <tr>
+                    <td colspan="5" align="center">Nope</td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+					<div class="mdl-tabs__panel" id="reported-users">
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+    					<thead>
+    						<tr>
+                  <th>{{_"admin.flags.last-reported"}}</th>
+    							<th>{{_"admin.flags.user"}}</th>
+                  <th>{{_"admin.flags.flagCount"}}</th>
+                  <th>{{_"admin.flags.cardCount"}}</th>
+    							<th>{{_"admin.flags.status"}}</th>
+    							<th>{{_"admin.flags.view"}}</th>
+    						</tr>
+    					</thead>
+    					<tbody>
+                {{#each flag in resolvedFlags}}
+                  <tr>
+                    <th>{{flagDate}}</th>
+                    <th>{{>UserCard userId=flag.creatorId style="text"}}</th>
+                    <th>{{>UserCard userId=flag.flaggerId style="text"}}</th>
+                    <th>
+                      {{flag.contentType}}
+                    </th>
+                    <th>
+                      <button class="mdl-button mdl-js-button mdl-button--icon preview-flag" data-flag-id="{{flag._id}}">
+                	      <i class="material-icons preview-flag" data-flag-id="{{flag._id}}">visibility</i>
+                	    </button>
+                    </th>
+                  </tr>
+                {{else}}
+                  <tr>
+                    <td colspan="5" align="center">Nope</td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+          <div class="mdl-tabs__panel" id="reported-all">
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+    					<thead>
+    						<tr>
+                  <th>{{_"admin.flags.created"}}</th>
+    							<th>{{_"admin.flags.reporter"}}</th>
+    							<th>{{_"admin.flags.owner"}}</th>
+    							<th>{{_"admin.flags.type"}}</th>
+                  <th>{{_"admin.flags.status"}}</th>
+    							<th>{{_"admin.flags.view"}}</th>
+    						</tr>
+    					</thead>
+    					<tbody>
+                {{#each flag in allFlags}}
+                  <tr>
+                    <th>{{flagDate}}</th>
+                    <th>{{>UserCard userId=flag.creatorId style="text"}}</th>
+                    <th>{{>UserCard userId=flag.flaggerId style="text"}}</th>
+                    <th>
+                      {{flag.contentType}}
+                    </th>
+                    <th>
+                      {{flag.status}}
+                    </th>
+                    <th>
+                      <button class="mdl-button mdl-js-button mdl-button--icon preview-flag" data-flag-id="{{flag._id}}">
+                	      <i class="material-icons preview-flag" data-flag-id="{{flag._id}}">visibility</i>
+                	    </button>
+                    </th>
+                  </tr>
+                {{else}}
+                  <tr>
+                    <td colspan="6" align="center">Nope</td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+  {{/if}}
+</template>
+
+<template name="AdminFlagContentModal">
+  <div class="flag-content-modal">
+    <div class="flag-content-modal-containter">
+      <div class="content-column flag-content-modal-column">
+        {{#if isProposal flag.contentType}}
+          {{> ViewProposal proposalId=flag.contentId}}
+        {{/if}}
+        {{#if isComment flag.contentType}}
+         {{>UserCard userId=comment.authorId style="flat"}}
+         {{comment.message }}
+        {{/if}}
+      </div>
+      <div class="flag-column flag-content-modal-column">
+        <div class="flag-list">
+          <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+              <thead>
+                <tr>
+                  <th>{{_"admin.flags.created"}}</th>
+                  <th>{{_"admin.flags.reporter"}}</th>
+                  <th>{{_"admin.flags.category"}}</th>
+                  <th>{{_"admin.flags.status"}}</th>
+                  <th>{{_"admin.flags.outcome"}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each oldFlag in oldFlagsContent flag.contentId}}
+                  <tr class="flag-row {{isFirst @index oldFlag._id}}" data-row-flag-id="{{oldFlag._id}}">
+                    <th>{{flagDate oldFlag.createdAt}}</th>
+                    <th>{{>UserCard userId=oldFlag.flaggerId style="text"}}</th>
+                    <th>
+                      {{oldFlag.category}}
+                    </th>
+                    <th>
+                      {{oldFlag.status}}
+                    </th>
+                    <th>
+                      {{oldFlag.outcome}}
+                    </th>
+                  </tr>
+                {{else}}
+                  <tr>
+                    <td colspan="6" align="center">Nope</td>
+                  </tr>
+                {{/each}}
+              </tbody>
+          </table>
+        </div>
+        <div class="flag-details flag-content-modal-column card">
+          <div class="flag-reason">Reason: &nbsp;<span id="flag-reported-reason">{{flagDetails.category}}</span></div>
+          <div class="flag-explanation">
+            Reporter Description:<br/>
+            <small id="flag-reported-other">{{flagDetails.other}}</small>
+          </div>
+        </div>
+        <div class="admin-flag-response card">
+          <div class="admin-flag-response-column">
+            <div class="flag-actions">
+              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="select-all">
+                <input type="checkbox" id="select-all" class="mdl-switch__input">
+                <span class="mdl-switch__label">Select All</span>
+              </label>
+              <br>
+              <br>
+              <label class="mdl-radio mdl-radio-flag mdl-js-radio mdl-js-ripple-effect" for="no-action-1">
+                <input type="radio" id="no-action-1" class="mdl-radio__button" name="content-action" value="none" checked>
+                <span class="mdl-radio__label">Take No Action</span>
+              </label>
+              <br>
+              <label class="mdl-radio mdl-radio-flag mdl-js-radio mdl-js-ripple-effect" for="disable">
+                <input type="radio" id="disable" class="mdl-radio__button" name="content-action" value="disable">
+                <span class="mdl-radio__label">Disable Content</span>
+              </label>
+              <br>
+              <label class="mdl-radio mdl-radio-flag mdl-js-radio mdl-js-ripple-effect" for="remove">
+                <input type="radio" id="remove" class="mdl-radio__button" name="content-action" value="remove">
+                <span class="mdl-radio__label">Remove Content</span>
+              </label>
+            </div>
+            <div class="admin-flag-response-box">
+              <center>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <textarea class="mdl-textfield__input" type="text" rows= "5" id="flag-response-justification" ></textarea>
+                  <label class="mdl-textfield__label" for="flag-reason">{{_ "components.flag-modal.flag-justification"}}</label>
+                </div>
+                <br>
+              </center>
+            </div>
+          </div>
+          <div class="flag-submit-box">
+            <center>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="flag-report-button">
+                {{_ "components.flag-modal.resolve-button"}}
+              </button>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

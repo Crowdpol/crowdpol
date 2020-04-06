@@ -1,0 +1,16 @@
+<template name="Admin_Body">
+  <div class="global-columns global-two-columns admin-global">
+    <div class="global-left-column global-sidebar-menu">
+      {{>Admin_Sidebar_Links}}
+    </div>
+    <div class="global-center-column">
+      <div class="global-content-loader" style="display: none;">
+        {{> loader}}
+      </div>
+      <div class="global-content-dynamic">
+        {{> Template.dynamic template=globalContent}}
+      </div>
+    </div>
+    <div class="global-right-column">Right</div>
+  </div>
+</template>

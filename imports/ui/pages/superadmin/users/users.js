@@ -2,7 +2,7 @@ import './users.html';
 import RavenClient from 'raven-js';
 import { Communities } from '../../../../api/communities/Communities.js'
 
-Template.AdminUsers_TabContent.onCreated(function() {
+Template.SuperAdminUsers.onCreated(function() {
   var self = this;
   communityId = LocalStore.get('communityId');
   self.autorun(function() {
@@ -12,7 +12,7 @@ Template.AdminUsers_TabContent.onCreated(function() {
 });
 
 
-Template.AdminUsers_TabContent.helpers({
+Template.SuperAdminUsers.helpers({
   users: ()=> {
     return Meteor.users.find({});
   },
@@ -38,26 +38,10 @@ Template.AdminUsers_TabContent.helpers({
 	  	checkbox.check();
 	  	return community.settings.enforceWhitelist;
 	  }
-    return null;
 	 }
 });
 
-
-Template.AdminUser_Table.helpers({
-  userByRoleCount: (role)=> {
-    let count = Meteor.users.find({"roles":role}).count();
-    if(count > 0){
-      return true;
-    }
-    return false;
-  },
-  userByRole: (role)=> {
-    console.log("role: " + role);
-    return Meteor.users.find({"roles":role});
-  },
-});
-
-Template.AdminUsers_TabContent.events({
+Template.SuperAdminUsers.events({
   'click .delete-user' (event,template){
     var userId = event.target.dataset.id;
     if(typeof userId!=='undefined'){

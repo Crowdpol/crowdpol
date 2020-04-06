@@ -2,10 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { Proposals } from '../../api/proposals/Proposals.js'
 import { Maps } from '../../api/maps/Maps.js'
+import { createTestCommunities } from '../../utils/test-data/test-communities.js'
 import { Communities } from '../../api/communities/Communities.js'
 
 Meteor.startup(() => {
-
+  createTestCommunities();
   let globalCommunity = {
       name: 'Crowdpol Global',
       key: 'Global',

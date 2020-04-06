@@ -8,7 +8,7 @@ import './stats/stats.js';
 import './flags/flags.js';
 import './dash.html';
 import './communities/communities.js'
-import './settings/settings.js'
+import './settings/_settings.js'
 import './maps/maps.js'
 
 Template.registerHelper('currentUserHasAdmin', function(){

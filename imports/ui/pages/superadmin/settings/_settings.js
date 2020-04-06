@@ -1,12 +1,12 @@
-import './settings.html';
-//import './about.js';
+import './_settings.html';
+import './about.js';
 import { Communities } from '../../../../api/communities/Communities.js'
-//import { getAboutText } from './about.js'
+import { getAboutText } from './about.js'
 import { setCoverState } from '../../../components/cover/cover.js'
 import RavenClient from 'raven-js';
 
 
-Template.AdminSettings_TabContent.onCreated(function(){
+Template.AdminSettings.onCreated(function(){
   self = this;
   var communityId = LocalStore.get('communityId');
 
@@ -20,7 +20,7 @@ Template.AdminSettings_TabContent.onCreated(function(){
   });
 });
 
-Template.AdminSettings_TabContent.onRendered(function(){
+Template.AdminSettings.onRendered(function(){
 
   Session.set("coverUrl",'url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjUxNTY3fQ&w=1500&dpi=2")');
   Session.set( 'hasCover',false);
@@ -30,7 +30,7 @@ Template.AdminSettings_TabContent.onRendered(function(){
 
 });
 
-Template.AdminSettings_TabContent.helpers({
+Template.AdminSettings.helpers({
   isSelectedCommunity: function(id){
     let communityId = Template.instance().dict.get('communityId');
     if(communityId==id){
@@ -98,7 +98,7 @@ Template.AdminSettings_TabContent.helpers({
   }
 });
 
-Template.AdminSettings_TabContent.events({
+Template.AdminSettings.events({
   'change #selectedCommunity' (event, template){
     let dict = Template.instance().dict;
     let communityId = $("#selectedCommunity").val();
@@ -221,7 +221,7 @@ Template.AdminSettings_TabContent.events({
 				homepageBannerText: template.find("#homepageBannerText").value,
 				homepageIntroText: template.find("#homepageIntroText").value,
 				//aboutText: template.find("#aboutText").value,
-        aboutText: "",//getAboutText(),
+        aboutText: getAboutText(),
 				defaultLanguage: template.find("#defaultLanguage").value,
 				languages: Template.instance().dict.get('languages'),
 				languageSelector: template.find("#languageSelector").checked,

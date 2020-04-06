@@ -1,0 +1,44 @@
+<template name="AdminData_TabLinks">
+  <a class="global-menu-tab active" data-id="admin_data_status">Satus<!--{{_ "menu-tab.template.tab1"}}--></a>
+  <a class="global-menu-tab" data-id="admin_data_test">Test Data<!--{{_ "menu-tab.template.tab1"}}--></a>
+</template>
+
+<template name="AdminData_TabContent">
+  <div id="admin_data" class="content-tab">
+    <div class="content-tab-panel active" id="admin_data_status">
+      Data Status
+    </div>
+    <div class="content-tab-panel" id="admin_data_test">
+      Test Data
+      <table class="mdl-data-table mdl-js-data-table mdl-data-table">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Table</th>
+            <th>Num Records</th>
+            <th>Generate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Test Communities</td>
+            <td class="mdl-data-table__cell--non-numeric">0</td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <button id="generate-communities" class="mdl-button mdl-js-button mdl-button--icon delete-button" >
+                  <i class="material-icons">play_arrow</i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Test Users</td>
+            <td class="mdl-data-table__cell--non-numeric">0</td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <button id="generate-users" class="mdl-button mdl-js-button mdl-button--icon delete-button" >
+                  <i class="material-icons">play_arrow</i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>

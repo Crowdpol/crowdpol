@@ -33,7 +33,8 @@ import './pages/settings/profileSettings.js';
 import './pages/settings/accountSettings.js';
 
 import './pages/contact/contact.js';
-import './pages/admin/dash.js';
+import './pages/admin/main.js';
+import './pages/superadmin/dash.js';
 import './pages/profile/profile.js';
 import './pages/tags/tags.js';
 import './pages/about/about.js';

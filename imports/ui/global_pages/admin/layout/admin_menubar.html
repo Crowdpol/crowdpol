@@ -1,0 +1,17 @@
+<template name="Admin_Menubar">
+  <div class="global-columns global-two-columns admin-global">
+    <div class="global-left-column">
+      Admin
+    </div>
+    <div class="global-center-column">
+      <div class="navigator-breadcrumbs">
+        Current Community: {{>CommunityBreadcrumb}}
+      </div>
+      <h6 class="global-menubar-title">{{menuBarTitle}}</h6>
+      {{>Admin_Menubar_Tabs}}
+    </div>
+    <div class="global-right-column">
+      <div class='admin-label'>Right</div>
+    </div>
+  </div>
+</template>

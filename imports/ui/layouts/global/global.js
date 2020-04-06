@@ -15,7 +15,7 @@ Template.Global.onRendered(function(){
   console.log("GLobal rendered");
   //Note: because the content is dynamic, better to use global event handlers instead of template level.
   //      These events are used throught the global layout
-
+  console.log($(".global-sidebar-menu").children());
   let firstActiveTemplateLinkText = $(".global-sidebar-menu > a.active > div.global-template-link-text").text().trim();
   //$(".global-menubar-title").text(firstActiveTemplateLinkText);
   console.log("setting to firstActiveTemplateLinkText: " + firstActiveTemplateLinkText);

@@ -1,0 +1,21 @@
+<template name="AdminGroups_TabLinks">
+  <a class="global-menu-tab active" data-id="admin_groups_all">All<!--{{_ "menu-tab.template.tab1"}}--></a>
+  <a class="global-menu-tab" data-id="admin_groups_requests">Requests<!--{{_ "menu-tab.template.tab1"}}--></a>
+  <a class="global-menu-tab" data-id="admin_groups_add">Add<!--{{_ "menu-tab.template.tab1"}}--></a>
+</template>
+
+<template name="AdminGroups_TabContent">
+  <div id="admin_data" class="content-tab">
+    <div class="content-tab-panel active" id="admin_groups_all">
+      Groups All
+      <!--{{>GroupList}}-->
+    </div>
+    <div class="content-tab-panel" id="admin_groups_requests">
+      Group Requests
+    </div>
+    <div class="content-tab-panel" id="admin_groups_add">
+      Add Group
+      {{>GroupForm}}
+    </div>
+  </div>
+</template>

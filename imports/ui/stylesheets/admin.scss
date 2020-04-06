@@ -1,5 +1,17 @@
 @import 'variables.scss';
 
+/* NEW ADMIN DASH */
+.admin-global{
+  .global-sidebar-menu .global-template-link.active {
+    background-color: #5f6667;
+  }
+  .global-menu-tabs{
+    padding-top: 0px;
+  }
+}
+
+/* OLD ADMIN DASH */
+
 /* Create new Community form */
 
 img.image-preview{

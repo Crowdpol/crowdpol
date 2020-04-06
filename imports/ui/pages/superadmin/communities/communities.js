@@ -1,34 +1,22 @@
 import './communities.html';
-import {getCurrentCommunity,getChildCommunities} from '../../../../utils/community.js';
-import RavenClient from 'raven-js';
 import { Communities } from '../../../../api/communities/Communities.js'
+import RavenClient from 'raven-js';
 
-Template.AdminCommunities_TabContent.helpers({
-  subCommunitiesCount: function(){
-    return getChildCommunities().count();
-  },
-  subCommunities: function(){
-    return getChildCommunities();
-  },
-  getParent: function(parentId){
-    console.log("parent_id: " + parentID);
-    return "parent_name";
-  },
-  userCount: function(){
-    return 0;
-  },
-  delegateCount: function(){
-    return 0;
-  },
-  proposalCount: function(){
-    return 0;
-  },
-  subCommunityCount: function(){
-    return 0;
-  },
-  groupCount: function(){
-    return 0;
-  },
+Template.AdminCommunities.onCreated(function() {
+  var self = this;
+  Session.set('showCommunityForm', false);
+  self.community = new ReactiveVar([]);
+  self.community.set(null);
+  self.nameSearch = new ReactiveVar('');
+  Session.set("searchString",'');
+  self.autorun(function() {
+    self.subscribe('communities.all');
+    self.subscribe('adminSearch',Session.get("searchString"));
+  });
+
+});
+
+Template.AdminCommunities.helpers({
   communitySelected: function(){
     let community = Template.instance().community.get();
     if(community){
@@ -148,21 +136,7 @@ Template.AdminCommunities_TabContent.helpers({
   }
 });
 
-Template.AdminCommunities_TabContent.onCreated(function() {
-  var self = this;
-  Session.set('showCommunityForm', false);
-  self.community = new ReactiveVar([]);
-  self.community.set(null);
-  self.nameSearch = new ReactiveVar('');
-  Session.set("searchString",'');
-  self.autorun(function() {
-    self.subscribe('communities.all');
-    self.subscribe('adminSearch',Session.get("searchString"));
-  });
-
-});
-
-Template.AdminCommunities_TabContent.events({
+Template.AdminCommunities.events({
   'click .community-row': function(event,template){
     let id = event.currentTarget.dataset.id;
     let community = Communities.findOne({"_id":id});
