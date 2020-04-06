@@ -1,9 +1,8 @@
 <template name="Notifications">
-	{{>UnderConstruction}}
-  <!--
+	<!--{{>UnderConstruction}}-->
+
 	{{#if Template.subscriptionsReady}}
-		<div class="container narrow-container static-content-wrap">
-			<h3>{{_ "notifications.heading"}}</h3>
+			<h4>{{_ "notifications.heading"}}</h4>
 
 			<div class="" id="notifications-menu">
 				{{#if notificationCount}}
@@ -59,16 +58,11 @@
 						</ul>
 					{{/if}}
 				{{else}}
-					<li class="mdl-list__item mdl-list__item- -three-line">
-						<span class="mdl-list__item-primary-content">
-							<span class="mdl-list__item-text-body notification-item-text">
-								{{_ "layout.header.no_notifications"}}
-							</span>
-						</span>
-					</li>
+					<p>
+						{{_ "layout.header.no_notifications"}}
+					</p>
 				{{/if}}
 			</div>
-		</div>
 	{{/if}}
-	-->
+
 </template>

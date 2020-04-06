@@ -58,6 +58,71 @@
 	border-right: 50px solid transparent;
 	border-top: 25px solid red;
 }
+.profile-table{
+
+  .mdl-data-table__cell--non-numeric.mdl-data-table__cell--non-numeric {
+      width: 90%;
+  }
+}
+.interest-content{
+  display: flex;
+  flex-direction: row;
+  .interest-content-left{
+    display: flex;
+    padding-top: 65px;
+    min-width: 450px;
+    display: flex;
+    flex-direction: column;
+    .content-row{
+      display: flex;
+      flex-direction: row;
+      max-height: 20px;
+      margin-bottom: 10px;
+      .sunburst-range-label{
+        font-weight: 600;
+        color: #6d7272;
+        font-size: 14px;
+        width: 225px;
+      }
+      .sunburst-range{
+        width: 150px;
+        margin-top: 7px;
+      }
+      .sunburst-range-value{
+        font-weight: 600;
+        color: #6d7272;
+        padding-left: 18px;
+        font-size: 14px;
+        width: 50px;
+      }
+    }
+  }
+}
+.content-tab-panel{
+
+  h4{
+    font-size: 1.1rem;
+  }
+  h5{
+    font-size: 1rem;
+  }
+  p{
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+  }
+  ul{
+    list-style-type: disc;
+    margin-left:20px;
+    li{
+      font-size: 0.8rem;
+    }
+  }
+}
+.privacy-policy{
+  .privacy-policy-section{
+    margin-bottom: 20px;
+  }
+}
 //OLD SHIT
 .profile-tab{
   padding-top: 20px;
@@ -181,4 +246,17 @@ div#profile-delegate-status{
     font-size: 16px;
     margin-top: 10px;
   }
+}
+
+.new-input{
+  /* omg so much cleaner */
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 500;
 }

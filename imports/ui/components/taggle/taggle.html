@@ -1,6 +1,6 @@
 <template name="NewTaggle">
 	<div class="input-wrap" id="tag-input-wrap">
-		<input class="taggle-input" type="text" name="add-tag" id="add-tag">
+		<input class="taggle-input new-input" type="text" name="add-tag" id="add-tag">
 		<ul for="add-tag"  class="dropdown" id="matchedTagsList" style="display:block;">
 			{{#each matchedTags}}
 				<li class="dropdown-item" data-keyword={{this}}>

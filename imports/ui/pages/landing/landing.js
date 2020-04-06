@@ -1,6 +1,9 @@
+import {validateEmail,validatePassword} from '../../../utils/functions.js';
 import './landing.html';
 //import './landing_files/app.js" type="text/javascript"></script>
 //import './landing.scss';
+import RavenClient from 'raven-js';
+
 Template.Landing.onRendered(function() {
   $(window).on('resize', function(){
     $("#viewport-size").text($(window).height() + "x" + $(window).width());
@@ -10,7 +13,6 @@ Template.Landing.onRendered(function() {
 Template.Landing.events({
   'click .menu-scroll-link, click .header-button': function(event, template){
     event.preventDefault();
-    console.log($(this).hasClass( "active" ));
     let anchorId = event.currentTarget.dataset.anchor;
     scrollTo(anchorId);
   },
@@ -21,14 +23,68 @@ Template.Landing.events({
   },
   'click .get-started': function(event,template){
     event.preventDefault();
-    console.log("should scroll to signup section");
     scrollTo("#signup-section");
+  },
+  'click .signup-button': function(event,template){
+    event.preventDefault();
+    let email = $('#signup-email').val();
+    let password = $("#signup-password").val();
+
+    if(!validateEmail(email)){
+      Bert.alert("Invalid email address","danger");
+      return;
+    }
+    if(!validatePassword(password)){
+      Bert.alert("Invalid password","danger");
+      return;
+    }
+		var communityId = LocalStore.get('communityId');
+    var newsletter = false;
+
+    if ($('#signup-newsletter').is(":checked")){
+      newsletter = true;
+    }
+    let user = {
+      email: email,
+      password: password,
+      profile: {communityIds: [communityId], termsAccepted: true,newsletter: newsletter}
+    };
+    //check if the user email already has an account
+    if(checkUserExists(email,communityId)){
+      Bert.alert("Email already in use on account. Perhaps try resetting your password.");
+    }else{
+      Accounts.createUser(user, (error) => {
+        if (error) {
+          RavenClient.captureException(error);
+          Bert.alert(error.reason, 'danger');
+        } else {
+          /* Check if redirect route saved */
+          var redirect = LocalStore.get('signUpRedirectURL');
+          LocalStore.set('signUpRedirectURL', '');
+          if (redirect){
+            window.location.href = redirect;
+          } else {
+            var user = Meteor.user();
+            var userRoles = user.roles;
+
+            FlowRouter.go('/signup');
+          }
+
+            Meteor.call('sendVerificationLink', (error, response) => {
+              if (error){
+                Bert.alert(error.reason, 'danger');
+              } else {
+                Bert.alert(TAPi18n.__('generic.alerts.welcome'), 'success');
+              }
+            });
+        }
+      });
+    }
   }
 });
 
 
 function scrollTo(elementId){
-  console.log($(elementId));
   $('html, body').animate({
     scrollTop: $(elementId).offset().top
   }, 800);
@@ -98,3 +154,18 @@ Template.Landing.helpers({
     return testProposals;
   }
 });
+
+function checkUserExists(email,communityId){
+	Meteor.call('checkIfUserExists',email,communityId, (error, response) => {
+		if (error){
+			//user email not found, create a new account
+			Bert.alert(error.reason, 'danger');
+			return false;
+		} else {
+			//user email found, adding community to user profile
+			//Bert.alert("found email", 'success');
+			return true;
+		}
+	});
+	return false;
+}

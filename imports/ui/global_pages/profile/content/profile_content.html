@@ -1,54 +1,527 @@
 <template name="Profile_Account_Content">
     <div id="profile_account" class="content-tab active">
-      Account
-      <div class="content-tab-panel active" id="profile_account_awards">
-        Awards you have won:
-        <div class="badge-ribbon"></div>
-      </div>
-      <div class="content-tab-panel" id="profile_account_details">
+      <div class="content-tab-panel active" id="profile_account_details">
+        <h5>{{_ "pages.profile.heading"}}</h5>
+        {{>ProfileForm}}
       </div>
       <div class="content-tab-panel" id="profile_account_interests">
+        <div class="interest-content">
+          <div class="interest-content-left">
+            <div class="content-row">
+              <div class="sunburst-range-label">Education & Culture</div><input type="range" min="0" max="10" value="{{educationValue}}" class="sunburst-range" data-segment="education"><div id="education-count"  class="sunburst-range-value">10</div>
+            </div>
+            <div class="content-row">
+              <div class="sunburst-range-label">Health & Social Issues</div><input type="range" min="0" max="10" value="{{healthValue}}" class="sunburst-range" data-segment="health"><div id="health-count" class="sunburst-range-value">10</div>
+            </div>
+            <div class="content-row">
+              <div class="sunburst-range-label">Environment</div><input type="range" min="0" max="10" value="{{environmentValue}}" class="sunburst-range" data-segment="environment"><div id="environment-count" class="sunburst-range-value">10</div>
+            </div>
+            <div class="content-row">
+              <div class="sunburst-range-label">Infrastructure & Technolog</div><input type="range" min="{{infrastructureValue}}" max="10" value="0" class="sunburst-range" data-segment="infrastructure"><div id="infrastructure-count" class="sunburst-range-value">10</div>
+            </div>
+            <div class="content-row">
+              <div class="sunburst-range-label">Law & Order</div><input type="range" min="0" max="10" value="{{lawValue}}" class="sunburst-range" data-segment="law"><div id="law-count" class="sunburst-range-value">10</div>
+            </div>
+            <div class="content-row">
+              <div class="sunburst-range-label">Economy & Finance</div><input type="range" min="0" max="10" value="{{economyValue}}" class="sunburst-range" data-segment="economy"><div id="economy-count" class="sunburst-range-value">10</div>
+            </div>
+            <div class="content-row">
+              <div class="sunburst-range-label">Geopolitics & International Affairs</div><input type="range" min="0" value="{{geopoliticsValue}}" max="10" class="sunburst-range" data-segment="geopolitics"><div id="geopolitics-count" class="sunburst-range-value">10</div>
+            </div>
+            <div class="content-row">
+              <div class="sunburst-range-label">Work & Enterprise</div><input type="range" min="0" max="10" value="{{enterpriseValue}}" class="sunburst-range" data-segment="enterprise"><div id="enterprise-count" class="sunburst-range-value">10</div>
+            </div>
+
+          </div>
+          <div class="step-content-right">
+            {{>Sunburst}}
+          </div>
+        </div>
       </div>
       <div class="content-tab-panel" id="profile_account_values">
-
+        <div class="signup-taggle">
+        {{>Interests}}
+        </div>
       </div>
       <div class="content-tab-panel" id="profile_account_skills">
+        <p>What skills can you contribute</p>
+        <h5>Background and skills</h5>
+        <p>Select labels below that best describe what you would like to contribute with on Crowdpol. The system will use this data to match you with other users for collaborative efforts on proposals and projects.</p>
+        <h5>Select skills</h5>
+        <p>You can add or remove skills at any time.</p>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--6-col">
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-legal">
+              <input type="checkbox" id="checkbox-legal" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Legal</span>
+            </label>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-business">
+              <input type="checkbox" id="checkbox-business" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Business</span>
+            </label>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-finance">
+              <input type="checkbox" id="checkbox-finance" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Finance</span>
+            </label>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-marketing">
+              <input type="checkbox" id="checkbox-marketing" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Marketing</span>
+            </label>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-environment">
+              <input type="checkbox" id="checkbox-environment" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Environment</span>
+            </label>
+          </div>
+          <div class="mdl-cell mdl-cell--6-col">
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-political">
+              <input type="checkbox" id="checkbox-political" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Political</span>
+            </label>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-management">
+              <input type="checkbox" id="checkbox-management" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Management</span>
+            </label>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-admin">
+              <input type="checkbox" id="checkbox-admin" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Administration</span>
+            </label>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-design">
+              <input type="checkbox" id="checkbox-design" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Design</span>
+            </label>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-programming">
+              <input type="checkbox" id="checkbox-programming" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Programming</span>
+            </label>
+          </div>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <textarea class="mdl-textfield__input" type="text" rows= "3" id="profile-skills-description" name="profile-skills-description"></textarea>
+          <label class="mdl-textfield__label" for="profile-skills-description">Write a few words about your experience in this area (max 520 letters)</label>
+        </div>
+        <!-- {{>SkillDescription}} -->
+
+
       </div>
       <div class="content-tab-panel" id="profile_account_roles">
+        {{#if roles}}
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Role</th>
+              <th class="mdl-data-table__cell--non-numeric">Available Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each role in roles}}
+              <tr>
+                <td class="mdl-data-table__cell--non-numeric">{{role}}</td>
+                <td class="mdl-data-table__cell--non-numeric">N/A</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{else}}
+          Something went wrong.
+        {{/if}}
+      </div>
+      <div class="content-tab-panel" id="profile_account_awards">
+        Awards you have won:
+        <div class="badge-ribbon"></div>
       </div>
     </div>
 </template>
 
 <template name="Profile_Notification_Content">
     <div id="profile_notifications" class="content-tab">
-      Notifications
       <div class="content-tab-panel active" id="profile_notifications_all">
+        {{>Notifications}}
       </div>
       <div class="content-tab-panel" id="profile_notifications_settings">
+        <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Presence Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">People to post on wall</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Someone followes you</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Allow people to see activity</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Proposal Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Someone adds argument on a proposal you wrote/co-authored</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Someone comments on a proposal you wrote/co-authored</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Individual votes on a proposal you wrote/co-authored</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Delegate votes on a proposal you wrote/co-authored</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Someone shares a proposal you wrote/co-authored</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Someone flags an issues on a proposal you wrote/co-authored</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Flag Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">someone flags an argument on a proposal you wrote/co-authored</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">someone flags comments on a proposal you wrote/co-authored</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">someone flags a post on your presence</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">someone flags a comment on a post on your presence</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">somone flags your presence</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">someone flags the content of a proposal you wrote or co-authored</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">someone flags a group you are a member of</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Collaboration Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">someone invites you collaborate</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">collaborator updates a proposal you are co-authoring</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">collaborator comments on proposal you are co-authoring</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">collaborator submits a proposal you are co-authoring</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">collaborator publishes a proposal you are co-authoring</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Groups Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">updates to the settings of a group you belong to</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">updates to the membership of a group you belong to</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">updates to feed of a group you belong to</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">a group you belong to is closed/suspended</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Delegate Followers Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">delegate you follow votes on a issue</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">delegate you follow comments on an issue</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">delegate you follow has a change in delegate status</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">delegate you follow updates their presence</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Delegate Updates Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">someone selects you as delegate</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">someone follows you</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
       </div>
     </div>
 </template>
 
 <template name="Profile_Security_Content">
   <div id="profile_security" class="content-tab">
-    Security
     <div class="content-tab-panel active" id="profile_security_password">
-      Change Password
+      {{>ResetPassword}}
+    </div>
+    <div class="content-tab-panel" id="profile_security_activity">
+      <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Recent Signin Activity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Track IP</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Track Mac Address</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Track Last Login</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Personal Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Encrypt my personal data</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Download personal data</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="content-tab-panel" id="profile_security_settings">
-      Settings
+      <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Personal Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Encrypt my personal data</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Download personal data</td>
+          </tr>
+        </tbody>
+      </table>
+      Personal Data:
+      <ul>
+        <li>Encrypt Personal Data</li>
+        <li>Download Personal Data</li>
+      </ul>
+      Location Tracking:
+      <ul>
+        <li></li>
+        <li>Track IP Address</li>
+        <li>Track MAC Address</li>
+        <li>Track location</li>
+      </ul>
+      Close and delete account:
+      <ul>
+        <li>Download Personal data</li>
+        <li>Delete personal data & close account</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <template name="Profile_Privacy_Content">
   <div id="profile_privacy" class="content-tab">
-    Privacy
     <div class="content-tab-panel active" id="profile_privacy_all">
+      <div class="privacy-policy">
+        <b>DEVELOPERS NOTE: This is based of a template, needs to be updated by Sytropi Board and Sharp Cookie Legal Team.</b>
+        <section class="privacy-policy-section">
+          <h4>GDPR Privacy Policy of Crowdpol</h4>
+          <p>Last updated: Jan 01, 2019</p>
+        </section>
+        <section class="privacy-policy-section">
+          <h5>Definitions</h5>
+          <ul>
+            <li>
+              <h6>Syntropi</h6>
+              <p><a href="http://syntropi.se/" target="_blank">Syntropi</a> means Syntropi NGO, Hammarby quay 10D, 120 30, Stockholm, Sweden. (info@syntropi.se).</p>
+            </li>
+            <li>
+              <h6>GDPR</h6>
+              <p>General Data Protection Regulation Act.</p>
+            </li>
+            <li>
+              <h6>Data Controller</h6>
+              <p>Data Controller means the natural or legal person who (either alone or jointly or in common with other persons) determines the purposes for which and the manner in which any personal information are, or are to be, processed.</p>
+            </li>
+            <li>
+              <h6>Data Processor</h6>
+              <p>Data Processor means any natural or legal person who processes the data on behalf of the Data Controller.</p>
+            </li>
+            <li>
+              <h6>Data Subject</h6>
+              <p>Data Subject is any living individual who is using our Service and is the subject of Personal Data.</p>
+            </li>
+          </ul>
+        </section>
+        <section class="privacy-policy-section">
+          <h5>1. Principles for processing personal data</h5>
 
+          <p>Our principles for processing personal data are:</p>
+          <ul>
+            <li>
+              <p><b>Fairness and lawfulness.</b> When we process personal data, the individual rights of the Data Subjects must be protected. All personal data must be collected and processed in a legal and fair manner.</p>
+            </li>
+            <li><b>Restricted to a specific purpose.</b> The personal data of Data Subject must be processed only for specific purposes.</li>
+            <li><b>Transparency.</b> The Data Subject must be informed of how his/her data is being collected, processed and used.</li>
+            <li></li>
+          </ul>
+        </section>
+        <section class="privacy-policy-section">
+          <h5>2. What personal data we collect and process</h5>
+          <p>Syntropi collects several different types of personal data for various purposes. Personal Data may include, but is not limited to:</p>
+          <ul>
+            <li>Email address</li>
+            <li>First name and last name</li>
+            <li>Phone number</li>
+            <li>Address, State, Province, ZIP/Postal code, City</li>
+          </ul>
+        </section>
+        <section class="privacy-policy-section">
+          <h5>3. How we use the personal data</h5>
+
+          <p>Syntropi uses the collected personal data for various purposes:</p>
+          <ul>
+            <li>To provide you with services</li>
+            <li>To notify you about changes to our services and/or products</li>
+            <li>To provide customer support</li>
+            <li>To gather analysis or valuable information so that we can improve our services</li>
+            <li>To detect, prevent and address technical issues</li>
+          </ul>
+        </section>
+        <section class="privacy-policy-section">
+          <h5>4. Legal basis for collecting and processing personal data</h5>
+
+          <p>Syntropi legal basis for collecting and using the personal data described in this Data Protection Policy depends on the personal data we collect and the specific context in which we collect the information:</p>
+          <ul>
+            <li>Syntropi needs to perform a contract with you</li>
+            <li>You have given Syntropi permission to do so</li>
+            <li>Processing your personal data is in Syntropi legitimate interests</li>
+            <li>Syntropi needs to comply with the law</li>
+          </ul>
+        </section>
+        <section class="privacy-policy-section">
+          <h5>5. Retention of personal data</h5>
+
+          <p>Syntropi will retain your personal information only for as long as is necessary for the purposes set out in this Data Protection Policy.</p>
+
+          <p>Syntropi will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies.</p>
+        </section>
+        <section class="privacy-policy-section">
+          <h5>6. Data protection rights</h5>
+
+          <p>If you are a resident of the European Economic Area (EEA), you have certain data protection rights. If you wish to be informed what personal data we hold about you and if you want it to be removed from our systems, please contact us.</p>
+
+          <p>In certain circumstances, you have the following data protection rights:</p>
+          <ul>
+            <li>The right to access, update or to delete the information we have on you</li>
+            <li>The right of rectification</li>
+            <li>The right to object</li>
+            <li>The right of restriction</li>
+            <li>The right to data portability</li>
+            <li>The right to withdraw consent</li>
+          </ul>
+        </section>
+      </div>
     </div>
     <div class="content-tab-panel" id="profile_privacy_settings">
-
+      <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Presence Activity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Allow people to post on wall</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Allow followers</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Allow people to see activity</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <table class="profile-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Delegate Activity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Allow people to post on wall</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Allow people to see activity</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>

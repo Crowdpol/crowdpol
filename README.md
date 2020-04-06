@@ -21,7 +21,7 @@ On Linux & MacOS, load a terminal and type:
 ```sh $ curl https://install.meteor.com/ | sh```
 
 This will setup [Meteor](http://github.com/meteor/meteor) (including [Node](https://github.com/nodejs/node) and [Mongo](https://github.com/mongodb/mongo) if necessary).
-    
+
 > _Note:_ Windows users must [download installer](https://www.meteor.com/install).
 
 ---
@@ -31,15 +31,15 @@ This will setup [Meteor](http://github.com/meteor/meteor) (including [Node](http
 
 0. **Clone Repository**
 
-    ```sh $ git clone https://commondemocracyadmin@bitbucket.org/commondemocracy/beta.git
+    ```sh $ git clone https://crowdpol@bitbucket.org/crowdpol/crowdpol.git
     ```
-    
+
 
 0. **Install Dependencies**
 
 	Go to appdirectory:
-	
-	```$ cd beta```
+
+	```$ cd crowdpol```
 
     If you have npm installed, type:
 
@@ -55,9 +55,9 @@ This will setup [Meteor](http://github.com/meteor/meteor) (including [Node](http
 0. **Modifiy App settings**
 
 	The app has default settings you can configure before running.
-	
+
 	Set-up oAuth login credentials, (contact Brett if you need):
-	
+
 	```"private": {
     "oAuth": {
       "facebook": {
@@ -77,20 +77,27 @@ This will setup [Meteor](http://github.com/meteor/meteor) (including [Node](http
         "secret": ""
       }
     },```
-	
-	Setup default admin user details:
-	
-	```"defaultUsers": [
-      {
-          "username": "superadmin",
-          "password": "superadmin"
-          "first_name": "Brett",
-          "last_name":"Jackman",
-          "email":"brett@socialsystems.io",
-          "roles":["superadmin","admin","normal"]
-      }```
 
-	
+	Setup default admin user details:
+
+	```"admins": [
+    {
+        "username": "your_username",
+        "email":"your@emailaddress.com",
+        "roles":["superadmin", "admin","individual"],
+        "isPublic": true,
+        "profile": {
+          "username": "your_username",
+          "firstName": "Your_Firstname",
+          "lastName": "Your_Lastname",
+          "organization": "Social Systems Labs",
+          "bio": "Systems administrator",
+          "photo": "/img/default-user-image.png"
+        }
+    }
+  ],```
+
+
 0. **Run App**
 
     While in repository directory type:
@@ -99,9 +106,9 @@ This will setup [Meteor](http://github.com/meteor/meteor) (including [Node](http
     $ meteor npm run start
     ```
 	This will load custom settings for development testing on localhost.
-	For 
-    
-    Load browser and go to [http://crowdpol.localhost:3000/](http://crowdpol.localhost:3000/) 
+	For
+
+    Load browser and go to [http://crowdpol.localhost:3000/](http://crowdpol.localhost:3000/)
      :boom:
 
 
@@ -117,25 +124,25 @@ Here is an outline of the MVP features:
 
 
 0.  **[-]  Registration: **
- 	* [-] Email registration
+ 	* [x] Email registration
  	* [x] FB registration (disabled)
  	* [x] Google registration (disabled)
- 	* [-] Twitter registration
+ 	* [x] Twitter registration
  	* [x] Dummy user generation
  	* [x] Admin Panel: User management
  	* [x] Roles & Permissions
  	* [x] User Profiles
- 	
+
 1.	**[-] Admin Panel CRUD **
- 	* [x] User 
+ 	* [x] User
   	* [x] Delegates
   	* [x] Candidates
-  	* [-] Organisations/Parties
+  	* [x] Organisations/Parties
   	* [x] Proposals
-  	* [-] Votes
+  	* [x] Votes
   	* [-] Reported Content (Proposals/Comments/Users)
   	* [-] Issues
-  	
+
 2. **[-] Proposal writing: **
  	* [x] Basic
  	* [-] Category Tags
@@ -150,26 +157,25 @@ Here is an outline of the MVP features:
     * [-] Admin Panel: Delegate management
     	* [-] Political Party Management
     	* [-] 0rganisation Management
- 
+
 4. ** [-] Endorse. ** //postponed for later date
     * [-] Nominate Candidates
     * [-] Select Candidates
     * ...still to be updated
-    
+
 5. ** [-] Styling**
     * [x] Material design layout [Materialize]()
     * [x] Mobile & desktop responsive UX.
-    * [-] [Webflow](https://www.webflow.com) anyone...?
-    
+
 6. ** [-] Dev-ops**
 	* [x] MailGun set-up
 	* [x] Slack Intergation on BitBucket
 	* [x] Subdomains for Collectives
 	* [x] CI Integration
 	* [x] Bug Catch Integration
-  
 
- 
+
+
 ###Future Roadmap
 
 
@@ -224,23 +230,23 @@ Speak to Brett for oAuth settings.
 ## Contributing
 
 (Still to be done)
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us. 
+Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
 
 ---
 ## Versioning
 (Still to be done)
 None as yet. Open to suggestions.
-Thinking about [SemVer](http://semver.org/) for versioning. 
+Thinking about [SemVer](http://semver.org/) for versioning.
 
 ---
 ## Documentation
 (Still to be done)
-[Sphinx](http://www.sphinx-doc.org/en/stable/) me thinks? 
+[Sphinx](http://www.sphinx-doc.org/en/stable/) me thinks?
 
 ---
 ## Authors
-* **Tim Olsen** - *Man with the plan* 
-* **Brett Jackman** - *Code Monkey* 
+* **Tim Olsen** - *Man with the plan*
+* **Brett Jackman** - *Code Monkey*
 * **Trudie Spanenberg - *Code Ninja*
 
 ---
@@ -253,4 +259,3 @@ None so far
 
 * Hat tip to Democracy Earth for getting us started
 * add your name here after your first commit... ;)
-

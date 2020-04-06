@@ -1,10 +1,13 @@
 import { getTags } from '../../../components/taggle/taggle.js'
+//import { checkUsernameExists } from '../../../../utils/users.js'
 import { getProfilePic,showProfileUrl } from '../../../components/profileHeader/profileImage.js'
 import { showProfileImageModal,hideProfileImageModal,getSelectedImage } from '../../../components/profileHeader/profileImageModal.js'
 import { map,loadMap,addLayer } from '../../../components/maps/leaflet.js'
 import { setCoverState } from '../../../components/cover/cover.js'
 import RavenClient from 'raven-js';
+import rug from 'random-username-generator';
 import './regWizard.html';
+
 let steps = [];
 //let map;
 let thisSection = 0;
@@ -13,6 +16,7 @@ var progress;
 var colors = { green: '#4DC87F', lightGreen: '#D9F0E3' };
 let canvas;
 let stepWidth = 0;
+let profile = {};
 
 Template.RegistrationWizard.onCreated(function(){
   //console.log("RegistrationWizard");
@@ -27,6 +31,9 @@ Template.RegistrationWizard.onCreated(function(){
   Session.set('selectedCommunity','Global');
   Session.set('selectedMap','GLOBAL');
   Session.set('breadcrumbs',['GLOBAL']);
+  self.autorun(function(){
+    self.subscribe('users.profile');
+  });
 });
 //149, 197, 96 // #95c560red
 Template.RegistrationWizard.onRendered(function(){
@@ -34,7 +41,7 @@ Template.RegistrationWizard.onRendered(function(){
   //showProfileUrl();
 
   var picker = new Pikaday({
-    field: document.getElementById('dob'),
+    field: document.getElementById('profile-dob'),
     firstDay: 1,
     minDate: new Date(1900, 0, 1),
     maxDate: new Date(),
@@ -47,6 +54,10 @@ Template.RegistrationWizard.onRendered(function(){
     }
   });
   picker.setDate(new Date());
+  if(Meteor.userId()){
+    profile = Meteor.users.find({"_id":Meteor.userId()}).profile;
+    console.log(profile);
+  }
 
   //form validation
   $( "#signup-form" ).validate({
@@ -161,7 +172,7 @@ Template.RegistrationWizard.onRendered(function(){
   .text(function(d, i) { return i + 1; })
   */
 
-  updateProgressBar("0");
+  //updateProgressBar("0");
 
   //self-running demo
   //setInterval(function() { updateProgressBar(Math.floor(Math.random() * (steps.length - 1)).toString()); } , 2500)
@@ -285,12 +296,71 @@ Template.RegistrationWizard.helpers({
   userId: function(){
     return Meteor.userId();
   },
-
+  username: function(){
+    if(Meteor.user()){
+      let profile = Meteor.user().profile;
+      if("username" in profile){
+          // The property exists
+          console.log("has username");
+          return profile.username;
+      }
+    }
+    return generateUsername();
+  },
+  firstName: function(){
+    if(Meteor.user()){
+      let profile = Meteor.user().profile;
+      console.log(profile.firstname)
+      if("firstName" in profile){
+          // The property exists
+          console.log("has firstname");
+          return profile.firstName;
+      }
+    }
+    return null;
+  },
+  lastName: function(){
+    if(Meteor.user()){
+      let profile = Meteor.user().profile;
+      if("lastName" in profile){
+          // The property exists
+          console.log("has lastname");
+          return profile.lastName;
+      }
+    }
+    return null;
+  },
+  educationValue: function(){
+    return 0;
+  },
+  healthValue: function(){
+    return 5;
+  },
+  environmentValue: function(){
+    return 0;
+  },
+  environmentValue: function(){
+    return 2;
+  },
+  infrastructureValue: function(){
+    return 3;
+  },
+  lawValue: function(){
+    return 0;
+  },
+  economyValue: function(){
+    return 7;
+  },
+  geopoliticsValue: function(){
+    return 0;
+  },
+  enterpriseValue: function(){
+    return 0;
+  },
   currentStep: function () {
     return Template.instance().currentStep.get();
   },
   selectedTags: ()=> {
-    console.log("selected tags called");
     let tagsArray = [];
     if(Meteor.user()){
       let userProfile = Meteor.user().profile;
@@ -311,10 +381,24 @@ Template.RegistrationWizard.helpers({
 });
 
 Template.RegistrationWizard.events({
-  'keyup #username': function(event, template){
-		console.log("check username");
+  'keyup #profile-username': function(event, template){
+    let validUsername = false;
+		let username = event.currentTarget.value;
+    username = username.trim();
+    //check if input is valid
+    if(username.length > 4){
+      validUsername = true;
+    }
+    //check if inputed value exists in other user account
+    if(checkUsernameExists(username)){
+      validUsername = false;
+    }
+    if(validUsername){
+      $("#username-error").html('<i class="material-icons green-icon">check_circle</i>');
+    }else{
+      $("#username-error").html('<i class="material-icons red-icon">block</i>');
+    }
 	},
-
   'click .next-step': function(event,template){
     console.log("next step");
     let currentStep = $(event.currentTarget).parents('.section-step');
@@ -348,7 +432,8 @@ Template.RegistrationWizard.events({
     console.log(currentSection.next());
     currentSection.next().toggleClass("active");
     thisSection = thisSection + 1;
-    updateProgressBar(thisSection);
+    //updateProgressBar(thisSection);
+    console.log(Meteor.userId());
   },
   'click .prev-section': function(event,template){
     console.log("prev section");
@@ -359,15 +444,159 @@ Template.RegistrationWizard.events({
     console.log(currentSection.prev());
     currentSection.prev().toggleClass("active");
     thisSection = thisSection - 1;
-    updateProgressBar(thisSection);
+    //updateProgressBar(thisSection);
   },
   'click .signup-complete': function(event,template){
-    console.log("go to nav");
-    FlowRouter.go("/navigator");
+
+    event.preventDefault();
+    var profile = {};
+    profile.username = $('#profile-username').val();
+    profile.firstName = $('#profile-firstname').val();
+    profile.lastName = $('#profile-lastname').val();
+    profile.birthday = $('#profile-dob').val();
+    profile.photo = $('#profile-image').val();//getProfilePic();//'https://upload.wikimedia.org/wikipedia/commons/b/b4/Brett_king_futurist_speaker_author.jpg';//$('#profile-image').val();
+    profile.tagline = $('#profile-tagline').val();
+    profile.bio = "";//$('#profile-bio').val();
+    profile.tags = getTags();
+    profile.motto  = "";//$('#profile-motto').val();
+    //profile.skills = {};//$('#profile-skills').val();
+    //profile.twitter = $('#profile-twitter').val();
+    //profile.google  = $('#profile-google').val();
+    //profile.facebook  = $('#profile-facebook').val();
+    //profile.linkedin  = $('#profile-linkedin').val();
+    //profile.youtube = $('#profile-youtube').val();
+    //profile.website = $('#profile-website').val();
+    profile.location = "";//$('#profile-location').val();
+    profile.social = [
+      {
+        "type": "twitter",
+        "url": $('#profile-twitter').val(),
+        "validated": false,
+        "visible": $('#twitter-switch').is(":checked"),
+      },
+      {
+        "type": "google",
+        "url": $('#profile-google').val(),
+        "validated": false,
+        "visible": $('#google-switch').is(":checked"),
+      },
+      {
+        "type": "facebook",
+        "url": $('#profile-facebook').val(),
+        "validated": false,
+        "visible": $('#facebook-switch').is(":checked"),
+      },
+      {
+        "type": "linkedin",
+        "url": $('#profile-linkedin').val(),
+        "validated": false,
+        "visible": $('#linkedin-switch').is(":checked"),
+      },
+      {
+        "type": "instagram",
+        "url": $('#profile-instagram').val(),
+        "validated": false,
+        "visible": $('#instagram-switch').is(":checked"),
+      },
+      {
+        "type": "youtube",
+        "url": $('#profile-youtube').val(),
+        "validated": false,
+        "visible": $('#youtube-switch').is(":checked"),
+      },
+      {
+        "type": "website",
+        "url": $('#profile-website').val(),
+        "validated": false,
+        "visible": $('#youtube-website').is(":checked"),
+      }
+    ];
+    profile.skillsDescription = $("#profile-skills-description").val();
+    profile.skills = [
+      {
+        type:"legal",
+        description:"",
+        selected:$('#checkbox-legal').is(":checked")
+      },
+      {
+        type:"business",
+        description:"",
+        selected:$('#checkbox-business').is(":checked")
+      },
+      {
+        type:"finance",
+        description:"",
+        selected:$('#checkbox-finance').is(":checked")
+      },
+      {
+        type:"marketing",
+        description:"",
+        selected:$('#checkbox-marketing').is(":checked")
+      },
+      {
+        type:"environment",
+        description:"",
+        selected:$('#checkbox-environment').is(":checked")
+      },
+      {
+        type:"political",
+        description:"",
+        selected:$('#checkbox-political').is(":checked")
+      },
+      {
+        type:"management",
+        description:"",
+        selected:$('#checkbox-management').is(":checked")
+      },
+      {
+        type:"administration",
+        description:"",
+        selected:$('#checkbox-admin').is(":checked")
+      },
+      {
+        type:"design",
+        description:"",
+        selected:$('#checkbox-design').is(":checked")
+      },
+      {
+        type:"programming",
+        description:"",
+        selected:$('#checkbox-programming').is(":checked")
+      }
+    ];
+
+    let selectors = document.getElementsByClassName("sunburst-range");//document.querySelector('.sunburst-range');
+    interests = [];
+    for(var i = 0; i < selectors.length; i += 1){
+      interest = {
+        "type": selectors[i].getAttribute('data-segment'),
+        "amount":selectors[i].value
+      }
+    }
+    profile.interests = interests;
+    //console.log(profile);
+
+    Meteor.call('updateProfile', profile, function(error) {
+      if (error) {
+        RavenClient.captureException(error);
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert(TAPi18n.__('pages.profile.alerts.profile-updated'), 'success');
+        FlowRouter.go('/navigator');
+      }
+    });
+
+    //FlowRouter.go("/navigator");
+
   },
   'click .show-map': function(event,template){
-    console.log(map);
+    //console.log(map);
     map.invalidateSize();
+  },
+  'click #refresh-username': function(event,template){
+    let newUsername = generateUsername();
+    //console.log(newUsername);
+    $("#profile-username").val(newUsername);
   }
 });
 function showError(error) {
@@ -452,4 +681,15 @@ function updateProgressBar(step_){
       d3.select('#label_' + i).attr('fill', '#000000');
     }
   }
+}
+
+function checkUsernameExists(username){
+  let exists = Meteor.users.find({"_id":{$ne: Meteor.userId()},"profile.username": username}).count();
+  console.log("exists: " + exists);
+  return exists==0 ? false : true;
+}
+
+function generateUsername(){
+  let str = rug.generate();
+  return str.toLowerCase();
 }

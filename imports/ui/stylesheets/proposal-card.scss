@@ -2,6 +2,11 @@
 @import 'breakpoint.scss';
 //$base-font-size
 //$small-font-size
+.proposal-box{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 .community-proposal-card-list{
   display: -webkit-flex; /* Safari */
   -webkit-flex-wrap: wrap; /* Safari 6.1+ */

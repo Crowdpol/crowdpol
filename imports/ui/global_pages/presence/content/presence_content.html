@@ -1,20 +1,79 @@
 <template name="Presence_Content">
     <div id="presence_content" class="content-tab active">
-      <div class="content-tab-panel" id="presence_overview">
-        Overview
+      <div class="content-tab-panel active" id="presence_overview">
+        <div class="presence-overview-content">
+          {{#if presenceVision}}
+            <div class="content-row">
+              <div class="content-trending content-card content-card-full">
+                <div class="content-card-heading">
+                  <h5>My Vision</h5>
+                </div>
+                <div class="content-card-body">
+                  {{presenceVision}}
+                </div>
+                <div class="content-card-footer">
 
-        My Vision
+                </div>
+              </div>
+            </div>
+          {{/if}}
+          {{#if proposalOverview}}
+            <div class="content-row">
+              <div class="content-trending content-card content-card-full">
+                <div class="content-card-heading">
+                  <h5>Proposals</h5>
+                </div>
+                <div class="content-card-body proposal-box">
+                  {{#each proposal in proposalOverview}}
+                    {{>ProposalCardTest style="vote" proposal=proposal}}
+                  {{/each}}
+                </div>
+                <div class="content-card-footer">
 
-        Proposal Count
+                </div>
+              </div>
+            </div>
+          {{/if}}
+          <div class="content-row">
+            <div class="content-trending content-card">
+              <div class="content-card-heading">
+                <h5>Followers</h5>
+              </div>
+              <div class="content-card-body">
 
-        Followers
+              </div>
+              <div class="content-card-footer">
 
-        Following
+              </div>
+            </div>
+            <div class="content-trending content-card content-card-full">
+              <div class="content-card-heading">
+                <h5>Groups</h5>
+              </div>
+              <div class="content-card-body">
 
+              </div>
+              <div class="content-card-footer">
+
+              </div>
+            </div>
+            <div class="content-trending content-card">
+              <div class="content-card-heading">
+                <h5>Awards</h5>
+              </div>
+              <div class="content-card-body">
+
+              </div>
+              <div class="content-card-footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="content-tab-panel  active" id="presence_proposals">
+      <div class="content-tab-panel" id="presence_proposals">
         Proposals
-        {{>UserProposalList stage="live"}}
+        {{>UserProposalList stage="draft"}}
       </div>
       <div class="content-tab-panel" id="presence_activity">
         <ul class="user-home-list">
