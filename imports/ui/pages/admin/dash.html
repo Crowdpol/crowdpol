@@ -1,10 +1,16 @@
 <template name="AdminDash">
+	<div class="navigator-map-container">
+		{{> CommunityMap}}
+	</div>
 	<div class="admin">
 		{{#if currentUserHasAdmin}}
+
 			{{>AdminDashHeader}}
 		  <main class="admin__main">
+
 		    <div class="dashboard">
-					{{currentTemplate}}
+					<!--{{currentTemplate}}-->
+
 					{{>Template.dynamic template=currentTemplate}}
 				</div>
 		  </main>
@@ -16,6 +22,22 @@
 </template>
 <template name="Overview">
 	{{#if currentUserHasAdmin}}
+	<div class="dashboard__item dashboard__item--full">
+		<div class="card">
+			<h3> {{_ "admin.dash.heading"}} </h3>
+			<div class="dashboard-wrap  mdl-grid">
+				{{> AdminDashUsers}}
+				{{> AdminDashTags}}
+				{{> AdminDashApprovals}}
+				{{> AdminDashProposals}}
+				{{> AdminDashVoting}}
+				{{> AdminDashStats}}
+				{{#if currentUserIsSuperAdmin}}
+						{{> AdminDashCommunities}}
+				{{/if}}
+			</div>
+		</div>
+	</div>
 	<div class="dashboard__item dashboard__item--full">
 		<div class="card">
 			<img src="https://imgs.xkcd.com/comics/voting_software.png" alt="" />
@@ -45,9 +67,12 @@
 
 <template name="AdminDashHeader">
 	<header class="admin__header">
-		<a href="#" class="logo">
+		<a href="/admin/dash" class="logo">
 			<strong>Admin Dash</strong>
 		</a>
+		<div class="navigator-breadcrumbs">
+			{{>CommunityBreadcrumb}}
+		</div>
 	</header>
 	<nav class="admin__nav">
 		<ul class="menu">

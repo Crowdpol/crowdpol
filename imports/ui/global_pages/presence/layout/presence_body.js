@@ -131,6 +131,16 @@ Template.Presence_Body.helpers({
     }
     return true;
   },
+  interests: function(){
+    let interests = null;
+    let user = Meteor.users.findOne({"_id":getOwnerId()});
+    if(typeof user != 'undefined'){
+      interests = user.profile.interests;
+    }else{
+      interests = Meteor.user().profile.interests;
+    }
+    return interests;
+  }
 });
 
 function getOwnerId(){

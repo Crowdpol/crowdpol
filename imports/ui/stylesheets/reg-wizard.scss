@@ -15,6 +15,23 @@
   }
 }
 
+#username-error{
+  position: absolute;
+  top: 120px;
+  right: 10px;
+  .red-icon{
+    color: red;
+  }
+  .green-icon{
+    color: green;
+  }
+}
+
+#refresh-username{
+  position: absolute;
+  right: 65px;
+  top: 116px;
+}
 
 .section-wrapper{
   margin-top: 40px;
@@ -329,6 +346,8 @@ div.reg-wizard-container{
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
+      font-size: 14px;
+      font-weight: 500;
   }
 
 }
