@@ -1,10 +1,10 @@
-# Crowdpol Beta
+# Crowdpol
 
-Beta version for Crowdpol app.
+Alpha version for Crowdpol app.
 
 Crowdpol is an platform for facilitating the democracy of the commons.
 
-> _IMPORTANT: Crowdpol is **still under development**, no official releases have been made yet.[ Beta Demo](http://www.crowdpol.org)._
+> _IMPORTANT: Crowdpol is **still under development**, no official releases have been made yet.[ Beta Demo](http://www.crowdpol.com)._
 
 ## Getting Started
 
@@ -14,7 +14,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 Basic knowledge of JS, HTML and CSS. If you are not familiar with Node.js or Meteor applications, I recommend doing the following [tutorial](https://www.meteor.com/tutorials). Should take about 30min to get a basic understanding of the framework.
 
-###Install Framework
+**Install Meteor JS on your machine** 
+
+For latest instructions visit  [Meteor JS website](https://www.meteor.com/install)
 
 On Linux & MacOS, load a terminal and type:
 
@@ -22,88 +24,80 @@ On Linux & MacOS, load a terminal and type:
 
 This will setup [Meteor](http://github.com/meteor/meteor) (including [Node](https://github.com/nodejs/node) and [Mongo](https://github.com/mongodb/mongo) if necessary).
 
-> _Note:_ Windows users must [download installer](https://www.meteor.com/install).
-
+> _Note:_ On Windows machines: first install [Chocolatey](https://chocolatey.org/install), then run this command using an Administrator command prompt:
+```choco install meteor```
 ---
 
 ### Local setup
 
 
-0. **Clone Repository**
+ **Install Dependencies**
+	Navigate to app directory:
 
-    ```sh $ git clone https://crowdpol@bitbucket.org/crowdpol/crowdpol.git
-    ```
+```sh $ cd crowdpol```
 
 
-0. **Install Dependencies**
+**[YARN](https://yarnpkg.com/) (Recomended)**
+	The command below gets you set up locally, see yarn docs for [global install](https://yarnpkg.com/getting-started/install#global-install) 
+		
+	```meteor npm install -g yarn ```
+		
+sets up dependencies
 
-	Go to appdirectory:
+	```yarn```
 
-	```$ cd crowdpol```
+Start Application at http://global.localhost:3000
 
-    If you have npm installed, type:
+		```yarn start``` 
+
+**NPM (may be buggy)**
+
+	
+If you have npm installed, type:
 
     ```sh
     $ npm install
     ```
 
-    If you only have meteor, type:
+If you only have meteor, type:
 
     ```sh
     $ meteor npm install
     ```
+    
 0. **Modifiy App settings**
 
 	The app has default settings you can configure before running.
 
-	Set-up oAuth login credentials, (contact Brett if you need):
-
-	```"private": {
-    "oAuth": {
-      "facebook": {
-        "appId": "",
-        "secret": ""
-      },
-      "github": {
-        "clientId": "",
-        "secret": ""
-      },
-      "google": {
-        "clientId": "",
-        "secret": ""
-      },
-      "twitter": {
-        "consumerKey": "",
-        "secret": ""
-      }
-    },```
-
 	Setup default admin user details:
 
-	```"admins": [
-    {
-        "username": "your_username",
-        "email":"your@emailaddress.com",
-        "roles":["superadmin", "admin","individual"],
-        "isPublic": true,
-        "profile": {
-          "username": "your_username",
-          "firstName": "Your_Firstname",
-          "lastName": "Your_Lastname",
-          "organization": "Social Systems Labs",
-          "bio": "Systems administrator",
-          "photo": "/img/default-user-image.png"
-        }
-    }
-  ],```
-
+	 
+```sh
+    "admins": [
+    	    {
+    	        "username": "your_username",
+    	        "email":"your@emailaddress.com",
+    	        "roles":["superadmin", "admin","individual"],
+    	        "isPublic": true,
+    	        "profile": {
+    	          "username": "your_username",
+    	          "firstName": "Your_Firstname",
+    	          "lastName": "Your_Lastname",
+    	          "organization": "Organisation_Name",
+    	          "bio": "Systems administrator",
+    	          "photo": "/img/default-user-image.png"
+    	        }
+    	    }
+    	]
+```
+	
 
 0. **Run App**
 
     While in repository directory type:
 
     ```sh
-    $ meteor npm run start
+    $ yarn start
     ```
 	This will load custom settings for development testing on localhost.
 	For
@@ -111,101 +105,37 @@ This will setup [Meteor](http://github.com/meteor/meteor) (including [Node](http
     Load browser and go to [http://crowdpol.localhost:3000/](http://crowdpol.localhost:3000/)
      :boom:
 
+---
+## Tests
+
+To run tests on port 8000:
+
+```yarn test```
+
+For more details see [Test ](https://github.com/Crowdpol/crowdpol/wiki/Testing) section of Wiki
+
+---
 
 ### Live Demo
-
-* Beta Site: [crowdpol.com](http://www.crowdpol.com).
-
----
-
-##Features Roadmap
-
-Here is an outline of the MVP features:
-
-
-0.  **[-]  Registration: **
- 	* [x] Email registration
- 	* [x] FB registration (disabled)
- 	* [x] Google registration (disabled)
- 	* [x] Twitter registration
- 	* [x] Dummy user generation
- 	* [x] Admin Panel: User management
- 	* [x] Roles & Permissions
- 	* [x] User Profiles
-
-1.	**[-] Admin Panel CRUD **
- 	* [x] User
-  	* [x] Delegates
-  	* [x] Candidates
-  	* [x] Organisations/Parties
-  	* [x] Proposals
-  	* [x] Votes
-  	* [-] Reported Content (Proposals/Comments/Users)
-  	* [-] Issues
-
-2. **[-] Proposal writing: **
- 	* [x] Basic
- 	* [-] Category Tags
- 	* [x] Comments
- 	* [x] Simple vote (yes/no)
- 	* [-] Mulitiple vote options (custom)
- 	* [x] Admin Panel: Proposal management
-
-3. ** [x] Delegation. **
-    * [x] Choose Delegates (People/Parties/Organisations)
-    * [x] Rank Delegates (People/Parties/Organisations)
-    * [-] Admin Panel: Delegate management
-    	* [-] Political Party Management
-    	* [-] 0rganisation Management
-
-4. ** [-] Endorse. ** //postponed for later date
-    * [-] Nominate Candidates
-    * [-] Select Candidates
-    * ...still to be updated
-
-5. ** [-] Styling**
-    * [x] Material design layout [Materialize]()
-    * [x] Mobile & desktop responsive UX.
-
-6. ** [-] Dev-ops**
-	* [x] MailGun set-up
-	* [x] Slack Intergation on BitBucket
-	* [x] Subdomains for Collectives
-	* [x] CI Integration
-	* [x] Bug Catch Integration
-
-
-
-###Future Roadmap
-
-
-0.  [-] Decentralized identity key management.
-1.  [-] Blockchain inegration with [Ethereum](https://www.ethereum.org/dao)
-2.  [-] Mobile App. [Ionic](https://ionicframework.com)
-3.  [-] Native desktop client. [Electron](https://github.com/electron/electron)
-4.  [-] Migrate to Apollo & GraphQL. [Vulcan](http://docs.vulcanjs.org/index.html)
-5.  [-] Devops & Tracking:
-	* [Climate](https://codeclimate.com)
-	* [CII validation](https://bestpractices.coreinfrastructure.org)
-	* ...
-
-###Nice-To-Haves Roadmap
-
-0. [-] Live chat.
-1. [-] Custom styling for cliets using SAAS.
-2. [-] API integration for external sites.
-
----
+* Staging Server [staging.crowpdol.com](https://staging.crowdpol.com)
+* Production Server: [crowdpol.com](https://www.crowdpol.com).
+> _NB:_ Production Server is still in alpha mode, there are no official GDPR or similar policies, T&C's in place. The developers are NOT responsible for the hosting of user data, that responsibility lies with 
+Syntropi NGO: 
+Syntropy  
+Hammarby quay 10D,  
+120 30  
+Stockholm
+[info@syntropi.se](mailto:info@syntropi.se)
 
 ## Specifications
 
-Built on [Meteor](https://www.meteor.com/) version 1.5.2
+Built on [Meteor](https://www.meteor.com/) version 1.6
 
 * Rapid cross platform deployment (web + desktop + mobile).
 * Simple code structure.
 * Fast and reliable stack (node + mongo).
 
-Check our documentation for technical reference.
+Check the [documentation](https://docs.meteor.com/v1.6/) for technical reference.
 
 **Supported Browsers:**
 
@@ -215,15 +145,11 @@ Check our documentation for technical reference.
 
 ---
 
-##Running the tests
-(Still to be done)
-
----
 ## Deployment
 
 You will need to configure variables in ```/config/production/settings/json```
 
-Speak to Brett for oAuth settings.
+For more details see [Deployment ](https://github.com/Crowdpol/crowdpol/wiki/Testing) section of Wiki
 
 ---
 
@@ -241,21 +167,26 @@ Thinking about [SemVer](http://semver.org/) for versioning.
 ---
 ## Documentation
 (Still to be done)
-[Sphinx](http://www.sphinx-doc.org/en/stable/) me thinks?
+Suggestions: 
+[Docusaurus](https://docusaurus.io/)
+[Sphinx](http://www.sphinx-doc.org/en/stable/)
 
----
-## Authors
-* **Tim Olsen** - *Man with the plan*
-* **Brett Jackman** - *Code Monkey*
-* **Trudie Spanenberg - *Code Ninja*
 
 ---
 ## License
+This code is managed by Swedish NGO [Syntropi](http://syntropi.se/) 
 
-None so far
+Syntropy  
+Hammarby quay 10D,  
+120 30  
+Stockholm
+
+[info@syntropi.se](mailto:info@syntropi.se)
+
+Apache License Version 2.0
 
 ---
 ## Acknowledgments
 
-* Hat tip to Democracy Earth for getting us started
-* add your name here after your first commit... ;)
+* Hat tip to [Democracy Earth](https://github.com/DemocracyEarth) for getting us started
+
