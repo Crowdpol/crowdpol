@@ -32,83 +32,76 @@ This will setup [Meteor](http://github.com/meteor/meteor) (including [Node](http
  **Install Dependencies**
 	Navigate to app directory:
 
-```sh $ cd crowdpol```
+`$ cd crowdpol`
 
+	
+`This is code`
 
 **[YARN](https://yarnpkg.com/) (Recomended)**
 	The command below gets you set up locally, see yarn docs for [global install](https://yarnpkg.com/getting-started/install#global-install) 
 		
-	```meteor npm install -g yarn ```
+`meteor npm install -g yarn `
 		
 sets up dependencies
 
-	```yarn```
+`yarn`
 
 Start Application at http://global.localhost:3000
 
-		```yarn start``` 
+`yarn start` 
 
 **NPM (may be buggy)**
 
 	
 If you have npm installed, type:
 
-    ```sh
-    $ npm install
-    ```
+`$ npm install`
 
 If you only have meteor, type:
 
-    ```sh
-    $ meteor npm install
-    ```
+`$ meteor npm install`
     
 0. **Modifiy App settings**
 
-	The app has default settings you can configure before running.
+The app has default settings you can configure before running.
 
-	Setup default admin user details:
+Setup default admin user details:
 
-	 
-```sh
-    "admins": [
-    	    {
-    	        "username": "your_username",
-    	        "email":"your@emailaddress.com",
-    	        "roles":["superadmin", "admin","individual"],
-    	        "isPublic": true,
-    	        "profile": {
-    	          "username": "your_username",
-    	          "firstName": "Your_Firstname",
-    	          "lastName": "Your_Lastname",
-    	          "organization": "Organisation_Name",
-    	          "bio": "Systems administrator",
-    	          "photo": "/img/default-user-image.png"
-    	        }
-    	    }
-    	]
-```
+`
+"admins": [
+  {
+    "username": "your_username",
+    "roles":["superadmin", "admin","individual"],
+    "isPublic": true,
+	"profile": {
+	  "username": "your_username",
+    	  "firstName": "Your_Firstname",
+    	  "lastName": "Your_Lastname",
+    	  "organization": "Organisation_Name",
+    	  "bio": "Systems administrator",
+    	  "photo": "/img/default-user-image.png"
+	}
+    }
+]
+`
 	
 
 0. **Run App**
 
-    While in repository directory type:
+While in repository directory type:
 
-    ```sh
-    $ yarn start
-    ```
-	This will load custom settings for development testing on localhost.
-	For
+`$ yarn start`
+	
+This will load custom settings for development testing on localhost. [http://crowdpol.localhost:3000/](http://crowdpol.localhost:3000/)
 
-    Load browser and go to [http://crowdpol.localhost:3000/](http://crowdpol.localhost:3000/)
-     :boom:
+:boom:
 
 ---
 ## Tests
 
 To run tests on port 8000:
 
-```yarn test```
+`yarn test`
 
 For more details see [Test ](https://github.com/Crowdpol/crowdpol/wiki/Testing) section of Wiki
 
