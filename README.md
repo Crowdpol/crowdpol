@@ -1,7 +1,5 @@
 # Crowdpol
 
-Alpha version for Crowdpol app.
-
 Crowdpol is an platform for facilitating the democracy of the commons.
 
 > _IMPORTANT: Crowdpol is **still under development**, no official releases have been made yet.[ Beta Demo](http://www.crowdpol.com)._
