@@ -24,7 +24,7 @@
     "random-username-generator": "^1.0.4",
     "raven": "^2.6.4",
     "raven-js": "^3.27.2",
-    "simpl-schema": "^0.3.2",
+    "simpl-schema": "^1.10.2",
     "snarkdown": "^1.2.2",
     "taggle": "^1.12.0",
     "unsplash-js": "^5.0.0",
